@@ -1,0 +1,27 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { withBase } from '../lib/site';
+---
+
+<SiteLayout title="페이지를 찾을 수 없음" section="404">
+  <div class="page-shell not-found">
+    <p class="page-kicker">ERROR · 404</p>
+    <h1 class="page-title">페이지를<br />찾을 수 없습니다.</h1>
+    <p class="lead">주소를 확인하거나 전체 강의 목차에서 다시 이동해 주세요.</p>
+    <a href={withBase('/curriculum/')}>전체 목차로 이동 <span aria-hidden="true">→</span></a>
+  </div>
+</SiteLayout>
+
+<style>
+  .not-found { min-height: 70vh; }
+  .not-found a {
+    display: inline-flex;
+    gap: 3rem;
+    margin-top: 3rem;
+    padding: 0.8rem 1rem;
+    color: #fff;
+    background: var(--ink);
+    font-weight: 700;
+    text-decoration: none;
+  }
+</style>

@@ -1,0 +1,186 @@
+---
+import { getCollection } from 'astro:content';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import StatusBadge from '../components/StatusBadge.astro';
+import { withBase } from '../lib/site';
+
+const lessons = (await getCollection('lessons')).sort((a, b) => a.data.day - b.data.day);
+---
+
+<SiteLayout title="전체 강의 목차" section="CURRICULUM">
+  <div class="page-shell curriculum-page">
+    <header class="page-intro">
+      <p class="page-kicker">CURRICULUM · 14 LESSONS</p>
+      <h1 class="page-title">전체 강의<br />목차</h1>
+      <p class="lead">14개 강의의 이동 구조를 먼저 제공합니다. 차시별 실제 제목, 일정, 수업시간은 검토 후 반영됩니다.</p>
+    </header>
+
+    <section class="course-summary" aria-label="과정 요약">
+      <p><span>COURSE</span><strong>AI 건축디자인 바이블</strong></p>
+      <p><span>SCHEDULE</span><strong>2026년 8월</strong></p>
+      <p><span>TOTAL</span><strong>48 HOURS</strong></p>
+      <p><span>STATUS</span><strong>콘텐츠 검토 전</strong></p>
+    </section>
+
+    <ol class="curriculum-list">
+      {lessons.map((lesson) => (
+        <li>
+          <a href={withBase(`/lessons/${lesson.id}/`)}>
+            <span class="number">{String(lesson.data.day).padStart(2, '0')}</span>
+            <div>
+              <p>LESSON {String(lesson.data.day).padStart(2, '0')}</p>
+              <h2>{lesson.data.title}</h2>
+            </div>
+            <div class="schedule">
+              <span>{lesson.data.date}</span>
+              <span>{lesson.data.duration}</span>
+            </div>
+            <StatusBadge status={lesson.data.reviewStatus} />
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </div>
+</SiteLayout>
+
+<style>
+  .page-intro {
+    margin-bottom: 5rem;
+  }
+
+  .course-summary {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 0.7fr 1fr;
+    margin-bottom: 4rem;
+    border-top: 2px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .course-summary p {
+    display: grid;
+    min-height: 7rem;
+    align-content: space-between;
+    margin: 0;
+    padding: 1rem;
+    border-right: 1px solid var(--line-dark);
+  }
+
+  .course-summary p:last-child {
+    border-right: 0;
+  }
+
+  .course-summary span,
+  .schedule span {
+    color: var(--muted);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+  }
+
+  .course-summary strong {
+    font-family: var(--serif);
+    font-size: 1rem;
+  }
+
+  .curriculum-list {
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--line-dark);
+    list-style: none;
+  }
+
+  .curriculum-list li {
+    border-bottom: 1px solid var(--line-dark);
+  }
+
+  .curriculum-list a {
+    display: grid;
+    grid-template-columns: 5rem minmax(16rem, 1fr) 11rem auto 2rem;
+    gap: 1.2rem;
+    align-items: center;
+    min-height: 8.5rem;
+    padding: 1rem 0.7rem;
+    text-decoration: none;
+  }
+
+  .curriculum-list a:hover {
+    padding-inline: 1.4rem;
+    background: var(--surface);
+  }
+
+  .number {
+    color: var(--accent);
+    font-family: var(--serif);
+    font-size: 2.8rem;
+    line-height: 1;
+  }
+
+  .curriculum-list h2 {
+    margin: 0.2rem 0 0;
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .curriculum-list div > p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.63rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+  }
+
+  .schedule {
+    display: grid;
+  }
+
+  .arrow {
+    font-size: 1.4rem;
+  }
+
+  @media (max-width: 950px) {
+    .course-summary {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .course-summary p:nth-child(2) {
+      border-right: 0;
+    }
+
+    .course-summary p:nth-child(-n + 2) {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .curriculum-list a {
+      grid-template-columns: 4rem 1fr auto;
+    }
+
+    .schedule,
+    .curriculum-list :global(.status-badge) {
+      display: none;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .course-summary {
+      grid-template-columns: 1fr;
+    }
+
+    .course-summary p {
+      min-height: 5.5rem;
+      border-right: 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .curriculum-list a {
+      grid-template-columns: 3rem 1fr 1.2rem;
+      gap: 0.7rem;
+      min-height: 7rem;
+    }
+
+    .number {
+      font-size: 2rem;
+    }
+  }
+</style>

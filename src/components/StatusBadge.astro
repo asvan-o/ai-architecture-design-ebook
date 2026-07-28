@@ -1,0 +1,29 @@
+---
+interface Props {
+  status:
+    | '공식 자료 확인'
+    | '출처 확인'
+    | '해석'
+    | '디자인 제안'
+    | 'AI 생성'
+    | '검증 필요'
+    | '전문가 검토 필요'
+    | '업데이트 가능성 높음';
+}
+
+const { status } = Astro.props;
+const tone: Record<Props['status'], string> = {
+  '공식 자료 확인': 'verified',
+  '출처 확인': 'source',
+  '해석': 'interpretation',
+  '디자인 제안': 'design',
+  'AI 생성': 'ai',
+  '검증 필요': 'check',
+  '전문가 검토 필요': 'expert',
+  '업데이트 가능성 높음': 'changing',
+};
+---
+
+<span class:list={['status-badge', `status-badge--${tone[status]}`]}>
+  <span aria-hidden="true"></span>{status}
+</span>

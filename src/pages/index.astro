@@ -1,0 +1,380 @@
+---
+import { getCollection } from 'astro:content';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import StatusBadge from '../components/StatusBadge.astro';
+import { withBase } from '../lib/site';
+
+const lessons = (await getCollection('lessons')).sort((a, b) => a.data.day - b.data.day);
+---
+
+<SiteLayout title="홈" section="HOME">
+  <div class="home">
+    <section class="hero" aria-labelledby="home-title">
+      <div class="hero-copy">
+        <p class="page-kicker">2026 AUGUST · 48H COURSE READER</p>
+        <h1 class="display-title" id="home-title">AI 건축<br />디자인 바이블</h1>
+        <p class="lead">
+          수업과 실습, 복습을 하나의 흐름으로 연결하는 학생용 웹 전자서적입니다.
+          현재는 콘텐츠 검토를 기다리는 UI 기본 골격입니다.
+        </p>
+        <div class="hero-actions">
+          <a class="primary-action" href={withBase('/curriculum/')}>전체 목차 보기 <span aria-hidden="true">→</span></a>
+          <a class="text-action" href={withBase('/guide/')}>이용 안내</a>
+        </div>
+      </div>
+      <div class="hero-index" aria-label="과정 개요">
+        <div class="hero-index__top">
+          <span>AI × ARCH</span>
+          <span>STUDENT EDITION / 01</span>
+        </div>
+        <strong aria-hidden="true">48</strong>
+        <div class="hero-index__meta">
+          <p><span>총 학습시간</span><b>48 HOURS</b></p>
+          <p><span>강의 구성</span><b>14 LESSONS</b></p>
+          <p><span>제공 형태</span><b>STATIC WEB BOOK</b></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="orientation" aria-labelledby="orientation-title">
+      <div class="section-heading">
+        <span>01</span>
+        <h2 id="orientation-title">수업의 흐름을<br />잃지 않도록</h2>
+      </div>
+      <div class="orientation-grid">
+        <article>
+          <span>READ</span>
+          <h3>핵심 내용 읽기</h3>
+          <p>검토된 강의 문서가 추가되면 차시별 구조에 맞춰 읽을 수 있습니다.</p>
+        </article>
+        <article>
+          <span>PRACTICE</span>
+          <h3>실습 단계 확인</h3>
+          <p>단계별 실습, 프롬프트 예시, 실습 파일 영역을 한 화면에서 확인합니다.</p>
+        </article>
+        <article>
+          <span>REVIEW</span>
+          <h3>내 진도 기록</h3>
+          <p>체크리스트와 개인 메모는 현재 사용 중인 기기에만 저장됩니다.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="lesson-preview" aria-labelledby="lesson-preview-title">
+      <div class="preview-head">
+        <div class="section-heading">
+          <span>02</span>
+          <h2 id="lesson-preview-title">14개 차시</h2>
+        </div>
+        <p>모든 제목과 일정은 콘텐츠 검토 후 확정됩니다.</p>
+      </div>
+      <ol>
+        {lessons.slice(0, 5).map((lesson) => (
+          <li>
+            <a href={withBase(`/lessons/${lesson.id}/`)}>
+              <span class="lesson-number">{String(lesson.data.day).padStart(2, '0')}</span>
+              <span>
+                <small>LESSON {String(lesson.data.day).padStart(2, '0')}</small>
+                <strong>{lesson.data.title}</strong>
+              </span>
+              <StatusBadge status={lesson.data.reviewStatus} />
+              <span class="lesson-arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+      <a class="all-link" href={withBase('/curriculum/')}>14개 전체 차시 보기 <span aria-hidden="true">→</span></a>
+    </section>
+
+    <section class="notice" aria-labelledby="notice-title">
+      <p class="page-kicker">CONTENT POLICY</p>
+      <div>
+        <h2 id="notice-title">내용보다 먼저,<br />검토 기준을 세웁니다.</h2>
+        <p>
+          실제 강의 내용과 전문 정보는 승인된 Markdown 문서만 사용합니다.
+          출처가 없거나 검토되지 않은 정보는 콘텐츠로 제공하지 않습니다.
+        </p>
+      </div>
+      <StatusBadge status="검증 필요" />
+    </section>
+  </div>
+</SiteLayout>
+
+<style>
+  .hero {
+    display: grid;
+    min-height: calc(100vh - 4rem);
+    grid-template-columns: minmax(0, 1.3fr) minmax(18rem, 0.7fr);
+    border-bottom: 1px solid var(--line-dark);
+  }
+
+  .hero-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(3.5rem, 8vw, 8rem) clamp(1.5rem, 6vw, 6rem);
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+    margin-top: 2.6rem;
+  }
+
+  .primary-action {
+    display: inline-flex;
+    gap: 2.8rem;
+    align-items: center;
+    padding: 0.9rem 1.1rem;
+    color: #fff;
+    background: var(--ink);
+    font-size: 0.88rem;
+    font-weight: 750;
+    text-decoration: none;
+  }
+
+  .primary-action:hover {
+    background: var(--accent);
+  }
+
+  .text-action {
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+
+  .hero-index {
+    position: relative;
+    display: flex;
+    min-height: 38rem;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    padding: 2rem;
+    color: #f2efe8;
+    background: var(--ink);
+  }
+
+  .hero-index::after {
+    content: "";
+    position: absolute;
+    inset: 20% -35% auto auto;
+    width: 90%;
+    aspect-ratio: 1;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    transform: rotate(34deg);
+  }
+
+  .hero-index__top {
+    display: flex;
+    justify-content: space-between;
+    color: #b4bbb7;
+    font-size: 0.63rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+  }
+
+  .hero-index > strong {
+    position: relative;
+    z-index: 1;
+    align-self: center;
+    font-family: var(--serif);
+    font-size: clamp(10rem, 20vw, 17rem);
+    font-weight: 400;
+    letter-spacing: -0.11em;
+    line-height: 0.75;
+  }
+
+  .hero-index__meta {
+    position: relative;
+    z-index: 1;
+    display: grid;
+  }
+
+  .hero-index__meta p {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0.65rem 0;
+    border-top: 1px solid #555e59;
+    font-size: 0.7rem;
+  }
+
+  .hero-index__meta span {
+    color: #aeb5b1;
+  }
+
+  .orientation,
+  .lesson-preview {
+    padding: clamp(4rem, 9vw, 8rem) clamp(1.5rem, 6vw, 6rem);
+    border-bottom: 1px solid var(--line-dark);
+  }
+
+  .orientation-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 4rem;
+    border-top: 1px solid var(--line-dark);
+    border-bottom: 1px solid var(--line-dark);
+  }
+
+  .orientation-grid article {
+    min-height: 18rem;
+    padding: 2rem;
+    border-right: 1px solid var(--line-dark);
+  }
+
+  .orientation-grid article:last-child {
+    border-right: 0;
+  }
+
+  .orientation-grid article > span {
+    color: var(--accent);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+  }
+
+  .orientation-grid h3 {
+    margin: 4rem 0 0.6rem;
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .orientation-grid p,
+  .preview-head > p {
+    color: var(--muted);
+    font-size: 0.88rem;
+  }
+
+  .preview-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .lesson-preview ol {
+    margin: 2rem 0 0;
+    padding: 0;
+    border-top: 1px solid var(--line-dark);
+    list-style: none;
+  }
+
+  .lesson-preview li {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .lesson-preview li a {
+    display: grid;
+    grid-template-columns: 4rem 1fr auto 2rem;
+    gap: 1.2rem;
+    align-items: center;
+    padding: 1.25rem 0;
+    text-decoration: none;
+  }
+
+  .lesson-preview li a:hover {
+    padding-inline: 1rem;
+    background: var(--surface);
+  }
+
+  .lesson-number {
+    color: var(--accent);
+    font-family: var(--serif);
+    font-size: 2.2rem;
+  }
+
+  .lesson-preview li small {
+    display: block;
+    color: var(--muted);
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+  }
+
+  .lesson-preview li strong {
+    font-size: 1rem;
+  }
+
+  .lesson-arrow {
+    font-size: 1.3rem;
+  }
+
+  .all-link {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 2px solid var(--ink);
+    font-weight: 750;
+    text-decoration: none;
+  }
+
+  .notice {
+    display: grid;
+    grid-template-columns: 10rem 1fr auto;
+    gap: 3rem;
+    align-items: start;
+    padding: clamp(4rem, 9vw, 8rem) clamp(1.5rem, 6vw, 6rem);
+    background: var(--paper-deep);
+  }
+
+  .notice h2 {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3.6rem);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 1.25;
+  }
+
+  .notice div p {
+    max-width: 38rem;
+    color: var(--muted);
+  }
+
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-index {
+      min-height: 32rem;
+    }
+  }
+
+  @media (max-width: 650px) {
+    .orientation-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .orientation-grid article {
+      min-height: auto;
+      border-right: 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .orientation-grid h3 {
+      margin-top: 2rem;
+    }
+
+    .preview-head {
+      display: block;
+    }
+
+    .lesson-preview li a {
+      grid-template-columns: 3rem 1fr 1.5rem;
+    }
+
+    .lesson-preview :global(.status-badge) {
+      display: none;
+    }
+
+    .notice {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+</style>

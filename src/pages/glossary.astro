@@ -1,0 +1,78 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import StatusBadge from '../components/StatusBadge.astro';
+---
+
+<SiteLayout title="용어 사전" section="GLOSSARY">
+  <div class="page-shell reference-page">
+    <header class="page-intro">
+      <p class="page-kicker">GLOSSARY · VERIFIED TERMS</p>
+      <h1 class="page-title">용어<br />사전</h1>
+      <p class="lead">강의에서 사용하는 용어를 같은 기준으로 확인하기 위한 공간입니다. 현재 실제 정의는 비어 있습니다.</p>
+    </header>
+
+    <nav class="letter-index" aria-label="용어 초성 색인">
+      {['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ', 'A–Z'].map((letter) => (
+        <a href="#terms">{letter}</a>
+      ))}
+    </nav>
+
+    <section id="terms" class="reference-section" aria-labelledby="terms-title">
+      <div class="section-heading">
+        <span>01</span>
+        <h2 id="terms-title">검토 대기 용어</h2>
+      </div>
+      <div class="term-list">
+        {[1, 2, 3, 4, 5, 6].map((item) => (
+          <article>
+            <span>{String(item).padStart(2, '0')}</span>
+            <div>
+              <h3>용어명 검토 예정</h3>
+              <p>승인된 용어 정의와 관련 차시 링크가 이 위치에 표시됩니다.</p>
+            </div>
+            <StatusBadge status="검증 필요" />
+          </article>
+        ))}
+      </div>
+    </section>
+  </div>
+</SiteLayout>
+
+<style>
+  .page-intro { margin-bottom: 4rem; }
+  .letter-index {
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
+    margin-bottom: 6rem;
+    border: 1px solid var(--line-dark);
+  }
+  .letter-index a {
+    display: grid;
+    min-height: 3.5rem;
+    place-items: center;
+    border-right: 1px solid var(--line);
+    font-size: 0.82rem;
+    font-weight: 750;
+    text-decoration: none;
+  }
+  .letter-index a:last-child { border-right: 0; }
+  .letter-index a:hover { color: #fff; background: var(--ink); }
+  .term-list { border-top: 1px solid var(--line-dark); }
+  .term-list article {
+    display: grid;
+    grid-template-columns: 3rem 1fr auto;
+    gap: 1.4rem;
+    align-items: start;
+    padding: 1.6rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .term-list article > span { color: var(--accent); font-size: 0.72rem; font-weight: 800; }
+  .term-list h3 { margin: 0; font-family: var(--serif); font-size: 1.35rem; }
+  .term-list p { margin: 0.35rem 0 0; color: var(--muted); font-size: 0.88rem; }
+  @media (max-width: 720px) {
+    .letter-index { grid-template-columns: repeat(5, 1fr); }
+    .letter-index a { border-bottom: 1px solid var(--line); }
+    .term-list article { grid-template-columns: 2rem 1fr; }
+    .term-list :global(.status-badge) { grid-column: 2; justify-self: start; }
+  }
+</style>

@@ -1,0 +1,112 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import StatusLegend from '../components/StatusLegend.astro';
+import { withBase } from '../lib/site';
+---
+
+<SiteLayout title="전자서적 이용 안내" section="USER GUIDE">
+  <div class="page-shell guide-page">
+    <header class="page-intro">
+      <p class="page-kicker">USER GUIDE · HOW TO READ</p>
+      <h1 class="page-title">전자서적<br />이용 안내</h1>
+      <p class="lead">PC, 태블릿, 모바일에서 강의를 읽고 학습 상태를 관리하는 기본 사용법입니다.</p>
+    </header>
+
+    <section class="guide-section" aria-labelledby="navigation-title">
+      <div class="section-heading">
+        <span>01</span>
+        <h2 id="navigation-title">찾고 이동하기</h2>
+      </div>
+      <div class="guide-grid">
+        <article><span>01</span><h3>왼쪽 목차</h3><p>PC에서는 전체 메뉴와 14개 차시가 항상 왼쪽에 표시됩니다.</p></article>
+        <article><span>02</span><h3>모바일 목차</h3><p>작은 화면에서는 상단의 ‘목차’ 버튼으로 메뉴를 엽니다.</p></article>
+        <article><span>03</span><h3>페이지 검색</h3><p>검색 버튼 또는 Ctrl/Cmd + K로 페이지 색인을 검색합니다.</p></article>
+        <article><span>04</span><h3>이전·다음 이동</h3><p>강의 하단에서 순서대로 이전 또는 다음 차시로 이동합니다.</p></article>
+      </div>
+    </section>
+
+    <section class="guide-section" aria-labelledby="progress-title">
+      <div class="section-heading">
+        <span>02</span>
+        <h2 id="progress-title">내 학습 기록</h2>
+      </div>
+      <div class="storage-note">
+        <strong>LOCAL STORAGE</strong>
+        <div>
+          <h3>체크와 메모는 이 기기에 저장됩니다.</h3>
+          <p>브라우저 데이터 삭제, 시크릿 모드, 다른 기기 사용 시 저장 상태가 이어지지 않습니다. 서버로 전송되는 기능은 현재 없습니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="guide-section" aria-labelledby="status-title">
+      <div class="section-heading">
+        <span>03</span>
+        <h2 id="status-title">사실성 상태 읽기</h2>
+      </div>
+      <p class="status-copy">배지는 콘텐츠의 성격과 검토 상태를 표시합니다. 실제 상태는 승인된 자료가 추가된 뒤 적용합니다.</p>
+      <StatusLegend />
+    </section>
+
+    <section class="guide-cta">
+      <span>READY?</span>
+      <div>
+        <h2>목차에서 시작하세요.</h2>
+        <p>현재 모든 강의는 ‘내용 검토 예정’ 상태입니다.</p>
+      </div>
+      <a href={withBase('/curriculum/')}>전체 목차 <span aria-hidden="true">→</span></a>
+    </section>
+  </div>
+</SiteLayout>
+
+<style>
+  .page-intro { margin-bottom: 7rem; }
+  .guide-section { margin-top: 7rem; }
+  .guide-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border-top: 1px solid var(--line-dark);
+    border-left: 1px solid var(--line-dark);
+  }
+  .guide-grid article {
+    min-height: 13rem;
+    padding: 1.5rem;
+    border-right: 1px solid var(--line-dark);
+    border-bottom: 1px solid var(--line-dark);
+  }
+  .guide-grid article > span { color: var(--accent); font-size: 0.7rem; font-weight: 800; }
+  .guide-grid h3 { margin: 2.5rem 0 0.5rem; font-family: var(--serif); font-size: 1.35rem; }
+  .guide-grid p, .storage-note p, .status-copy { margin: 0; color: var(--muted); font-size: 0.9rem; }
+  .storage-note {
+    display: grid;
+    grid-template-columns: 12rem 1fr;
+    gap: 2rem;
+    padding: 2.5rem;
+    color: #fff;
+    background: var(--ink);
+  }
+  .storage-note > strong { color: #aab3ae; font-size: 0.7rem; letter-spacing: 0.14em; }
+  .storage-note h3 { margin: 0 0 0.7rem; font-family: var(--serif); font-size: 1.7rem; }
+  .storage-note p { color: #bdc4c0; }
+  .status-copy { margin-bottom: 1.5rem; }
+  .guide-cta {
+    display: grid;
+    grid-template-columns: 8rem 1fr auto;
+    gap: 2rem;
+    align-items: center;
+    margin-top: 8rem;
+    padding: 2rem 0;
+    border-top: 2px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+  .guide-cta > span { color: var(--accent); font-size: 0.7rem; font-weight: 800; letter-spacing: 0.15em; }
+  .guide-cta h2 { margin: 0; font-family: var(--serif); font-size: 2rem; }
+  .guide-cta p { margin: 0.2rem 0 0; color: var(--muted); }
+  .guide-cta a { display: flex; gap: 2.5rem; padding: 0.7rem 0.9rem; color: #fff; background: var(--ink); text-decoration: none; }
+  @media (max-width: 650px) {
+    .guide-grid { grid-template-columns: 1fr; }
+    .storage-note, .guide-cta { grid-template-columns: 1fr; }
+    .guide-cta { align-items: start; }
+    .guide-cta a { justify-content: space-between; }
+  }
+</style>
