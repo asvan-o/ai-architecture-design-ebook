@@ -1,7 +1,11 @@
 ---
+import { getCollection, render } from 'astro:content';
 import SiteLayout from '../layouts/SiteLayout.astro';
-import PromptCopy from '../components/PromptCopy';
-import StatusBadge from '../components/StatusBadge.astro';
+import '../styles/reference-content.css';
+
+const entry = (await getCollection('prompts'))[0];
+if (!entry) throw new Error('prompts 컬렉션 콘텐츠가 없습니다.');
+const { Content } = await render(entry);
 ---
 
 <SiteLayout title="프롬프트 라이브러리" section="PROMPT LIBRARY">
@@ -11,67 +15,6 @@ import StatusBadge from '../components/StatusBadge.astro';
       <h1 class="page-title">프롬프트<br />라이브러리</h1>
       <p class="lead">승인된 프롬프트를 목적과 도구별로 찾고 복사하는 구조입니다. 현재 문구는 기능 확인용 placeholder입니다.</p>
     </header>
-
-    <div class="filter-bar" aria-label="프롬프트 필터 placeholder">
-      <span>FILTER</span>
-      <button type="button" aria-pressed="true">전체</button>
-      <button type="button">용도 검토 예정</button>
-      <button type="button">도구 검토 예정</button>
-    </div>
-
-    <section class="prompt-grid" aria-label="프롬프트 예시">
-      {[1, 2, 3].map((item) => (
-        <article>
-          <header>
-            <span>{String(item).padStart(2, '0')}</span>
-            <StatusBadge status="검증 필요" />
-          </header>
-          <h2>프롬프트 제목 검토 예정</h2>
-          <p>목적, 입력값, 기대 결과에 대한 승인된 설명이 표시됩니다.</p>
-          <PromptCopy client:idle />
-        </article>
-      ))}
-    </section>
+    <Content />
   </div>
 </SiteLayout>
-
-<style>
-  .page-intro { margin-bottom: 4rem; }
-  .filter-bar {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    align-items: center;
-    margin-bottom: 3rem;
-    padding: 0.8rem;
-    border-top: 1px solid var(--line-dark);
-    border-bottom: 1px solid var(--line-dark);
-  }
-  .filter-bar > span { margin-right: 1rem; color: var(--muted); font-size: 0.66rem; font-weight: 800; letter-spacing: 0.12em; }
-  .filter-bar button {
-    padding: 0.4rem 0.75rem;
-    border: 1px solid var(--line-dark);
-    color: var(--ink);
-    background: transparent;
-    cursor: pointer;
-    font-size: 0.75rem;
-  }
-  .filter-bar button[aria-pressed="true"] { color: #fff; background: var(--ink); }
-  .prompt-grid { display: grid; gap: 2rem; }
-  .prompt-grid article {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 0 3rem;
-    padding: 2rem 0;
-    border-top: 1px solid var(--line-dark);
-  }
-  .prompt-grid header { display: flex; grid-column: 1 / -1; justify-content: space-between; margin-bottom: 2rem; }
-  .prompt-grid header > span { color: var(--accent); font-family: var(--serif); font-size: 2.4rem; }
-  .prompt-grid h2 { margin: 0; font-family: var(--serif); font-size: 1.75rem; }
-  .prompt-grid article > p { margin: 0.5rem 0 0; color: var(--muted); }
-  .prompt-grid :global(.prompt-example) { grid-column: 2; grid-row: 2 / span 2; }
-  @media (max-width: 760px) {
-    .prompt-grid article { grid-template-columns: 1fr; gap: 1rem; }
-    .prompt-grid :global(.prompt-example) { grid-column: 1; grid-row: auto; }
-  }
-</style>

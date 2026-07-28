@@ -1,0 +1,22 @@
+---
+import LessonSection from './LessonSection.astro';
+
+interface Props {
+  question?: string;
+  choices?: string[];
+}
+
+const {
+  question = '검토된 확인 문제가 이 위치에 표시됩니다.',
+  choices = ['선택지 검토 예정', '선택지 검토 예정', '선택지 검토 예정'],
+} = Astro.props;
+---
+
+<LessonSection id="section-12" number="12" title="확인 문제" class="quiz-section">
+  <fieldset disabled>
+    <legend>{question}</legend>
+    {choices.map((choice) => (
+      <label><input type="radio" name="placeholder-quiz" /> {choice}</label>
+    ))}
+  </fieldset>
+</LessonSection>

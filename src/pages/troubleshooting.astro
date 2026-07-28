@@ -1,6 +1,11 @@
 ---
+import { getCollection, render } from 'astro:content';
 import SiteLayout from '../layouts/SiteLayout.astro';
-import StatusBadge from '../components/StatusBadge.astro';
+import '../styles/reference-content.css';
+
+const entry = (await getCollection('troubleshooting'))[0];
+if (!entry) throw new Error('troubleshooting 컬렉션 콘텐츠가 없습니다.');
+const { Content } = await render(entry);
 ---
 
 <SiteLayout title="오류 해결 가이드" section="TROUBLESHOOTING">
@@ -10,60 +15,6 @@ import StatusBadge from '../components/StatusBadge.astro';
       <h1 class="page-title">오류 해결<br />가이드</h1>
       <p class="lead">증상, 가능한 원인, 확인 순서, 해결 방법을 일관된 형식으로 제공하기 위한 기본 구조입니다.</p>
     </header>
-
-    <section class="diagnosis" aria-labelledby="diagnosis-title">
-      <div class="section-heading">
-        <span>01</span>
-        <h2 id="diagnosis-title">증상으로 찾기</h2>
-      </div>
-      <div class="issue-list">
-        {[1, 2, 3, 4].map((item) => (
-          <details>
-            <summary>
-              <span>ISSUE {String(item).padStart(2, '0')}</span>
-              <strong>오류 항목 검토 예정</strong>
-              <StatusBadge status="검증 필요" />
-            </summary>
-            <div>
-              <p><b>가능한 원인</b> 승인된 원인 정보가 이 위치에 표시됩니다.</p>
-              <p><b>확인 순서</b> 검토된 점검 단계가 이 위치에 표시됩니다.</p>
-              <p><b>해결 방법</b> 출처와 함께 승인된 해결 방법이 표시됩니다.</p>
-            </div>
-          </details>
-        ))}
-      </div>
-    </section>
+    <Content />
   </div>
 </SiteLayout>
-
-<style>
-  .page-intro { margin-bottom: 6rem; }
-  .issue-list { border-top: 1px solid var(--line-dark); }
-  details { border-bottom: 1px solid var(--line-dark); }
-  summary {
-    display: grid;
-    grid-template-columns: 7rem 1fr auto;
-    gap: 1rem;
-    align-items: center;
-    padding: 1.5rem 0.5rem;
-    cursor: pointer;
-    list-style: none;
-  }
-  summary::-webkit-details-marker { display: none; }
-  summary::after { content: "+"; grid-column: 4; font-size: 1.6rem; }
-  details[open] summary::after { content: "−"; }
-  summary > span { color: var(--accent); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.12em; }
-  summary strong { font-family: var(--serif); font-size: 1.25rem; }
-  details > div { padding: 0 1rem 2rem 8.5rem; color: var(--muted); }
-  details > div p { margin: 0.4rem 0; }
-  details > div b { display: inline-block; min-width: 7rem; color: var(--ink); }
-  @media (max-width: 700px) {
-    summary { grid-template-columns: 1fr auto; }
-    summary > span { grid-column: 1; }
-    summary strong { grid-column: 1; }
-    summary :global(.status-badge) { grid-column: 1; justify-self: start; }
-    summary::after { grid-column: 2; grid-row: 1 / 4; }
-    details > div { padding-left: 1rem; }
-    details > div b { display: block; }
-  }
-</style>

@@ -1,0 +1,35 @@
+---
+import CaseStudyBlock from './CaseStudyBlock.astro';
+import CourseToolsBlock from './CourseToolsBlock.astro';
+import DemoBlock from './DemoBlock.astro';
+import DownloadBlock from './DownloadBlock.astro';
+import FactCheckBlock from './FactCheckBlock.astro';
+import LearningGoals from './LearningGoals.astro';
+import OutputBlock from './OutputBlock.astro';
+import PracticeSteps from './PracticeSteps.astro';
+import PromptBlock from './PromptBlock.astro';
+import QuizBlock from './QuizBlock.astro';
+import TermList from './TermList.astro';
+import TheoryBlock from './TheoryBlock.astro';
+import WarningBlock from './WarningBlock.astro';
+
+interface Props {
+  lessonId: string;
+}
+
+const { lessonId } = Astro.props;
+---
+
+<LearningGoals />
+<TermList />
+<OutputBlock />
+<TheoryBlock />
+<DemoBlock />
+<PracticeSteps />
+<PromptBlock />
+<CaseStudyBlock />
+<FactCheckBlock />
+<WarningBlock />
+<CourseToolsBlock lessonId={lessonId} />
+<QuizBlock />
+<DownloadBlock />

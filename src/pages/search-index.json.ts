@@ -16,7 +16,11 @@ export const GET: APIRoute = async () => {
     title: lesson.data.title,
     href: withBase(`/lessons/${lesson.id}/`),
     type: `LESSON ${String(lesson.data.day).padStart(2, '0')}`,
-    summary: `${lesson.data.date} · ${lesson.data.duration}`,
+    summary: `${
+      lesson.data.date === 'pending' ? '일정 확인 예정' : lesson.data.date
+    } · ${
+      lesson.data.durationMinutes === null ? '수업시간 확인 예정' : `${lesson.data.durationMinutes}분`
+    }`,
   }));
 
   return new Response(JSON.stringify([...pages, ...lessonItems]), {

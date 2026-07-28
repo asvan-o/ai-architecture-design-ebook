@@ -1,0 +1,19 @@
+---
+import CourseTools from '../CourseTools';
+
+interface Props {
+  lessonId: string;
+  items?: Array<{ id: string; label: string }>;
+}
+
+const {
+  lessonId,
+  items = [
+    { id: 'goals-reviewed', label: '학습 목표 확인' },
+    { id: 'practice-complete', label: '단계별 실습 완료' },
+    { id: 'quiz-reviewed', label: '확인 문제 점검' },
+  ],
+} = Astro.props;
+---
+
+<CourseTools client:load lessonId={lessonId} items={items} />

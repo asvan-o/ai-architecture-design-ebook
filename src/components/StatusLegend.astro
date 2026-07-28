@@ -2,17 +2,17 @@
 import StatusBadge from './StatusBadge.astro';
 
 const statuses = [
-  '공식 자료 확인',
-  '출처 확인',
-  '해석',
-  '디자인 제안',
-  'AI 생성',
-  '검증 필요',
-  '전문가 검토 필요',
-  '업데이트 가능성 높음',
+  { kind: 'verificationStatus', value: 'official-source-checked' },
+  { kind: 'verificationStatus', value: 'source-checked' },
+  { kind: 'contentType', value: 'interpretation' },
+  { kind: 'contentType', value: 'design-proposal' },
+  { kind: 'authorship', value: 'ai-generated' },
+  { kind: 'verificationStatus', value: 'pending' },
+  { kind: 'professionalReviewStatus', value: 'required' },
+  { kind: 'freshness', value: 'update-sensitive' },
 ] as const;
 ---
 
 <div class="status-legend" aria-label="사실성 상태 배지">
-  {statuses.map((status) => <StatusBadge status={status} />)}
+  {statuses.map((status) => <StatusBadge kind={status.kind} value={status.value} />)}
 </div>

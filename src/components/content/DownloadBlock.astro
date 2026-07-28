@@ -1,0 +1,26 @@
+---
+import LessonSection from './LessonSection.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  href?: string;
+}
+
+const {
+  title = '실습 파일 검토 예정',
+  description = '승인된 파일명, 형식, 용량이 표시됩니다.',
+  href,
+} = Astro.props;
+---
+
+<LessonSection id="section-13" number="13" title="실습 파일" class="download-section">
+  <div class="download-placeholder">
+    <span>FILE · PENDING</span>
+    <div>
+      <strong>{title}</strong>
+      <p>{description}</p>
+    </div>
+    {href ? <a href={href} download>다운로드</a> : <button type="button" disabled>준비 중</button>}
+  </div>
+</LessonSection>

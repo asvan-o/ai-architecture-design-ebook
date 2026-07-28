@@ -1,0 +1,50 @@
+AI 건축디자인 바이블 의존성 보고서
+기록일: 2026-07-28
+
+dependencies
+
+- @astrojs/mdx 7.0.4
+  목적: Astro에서 MDX 콘텐츠 컴파일과 렌더링
+- @astrojs/react 6.0.1
+  목적: 필요한 React island 통합
+- astro 7.1.4
+  목적: 정적 라우팅, Content Collections, 빌드
+- react 19.2.8
+  목적: 검색, 복사, localStorage, 이미지 상호작용
+- react-dom 19.2.8
+  목적: React island 브라우저 렌더링
+
+devDependencies
+
+- @astrojs/check 0.9.10
+  목적: astro check 진단
+- @types/node 26.1.2
+  목적: 설정과 Node 검증 스크립트 타입
+- @types/react 19.2.17
+  목적: React 컴포넌트 개발 타입
+- @types/react-dom 19.2.3
+  목적: React DOM 통합 개발 타입
+- typescript 6.0.3
+  목적: TypeScript 타입 검사
+
+사용하지 않을 가능성이 있는 패키지
+
+- 현재 최상위 패키지는 모두 코드, 빌드 설정, 검사 스크립트 또는 peer type에 사용됨.
+- 새 UI 프레임워크나 스크린샷 전용 패키지를 추가하지 않음.
+- @types/react와 @types/react-dom은 런타임 의존성이 아니므로 devDependencies로 이동함.
+
+npm ls --depth=0 결과
+
+ai-architecture-design-bible@0.0.1
++-- @astrojs/check@0.9.10
++-- @astrojs/mdx@7.0.4
++-- @astrojs/react@6.0.1
++-- @types/node@26.1.2
++-- @types/react-dom@19.2.3
++-- @types/react@19.2.17
++-- astro@7.1.4
++-- react-dom@19.2.8
++-- react@19.2.8
+`-- typescript@6.0.3
+
+결과: 종료 코드 0, missing/invalid 없음.

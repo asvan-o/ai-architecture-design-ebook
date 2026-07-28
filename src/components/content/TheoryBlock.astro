@@ -1,0 +1,29 @@
+---
+import LessonSection from './LessonSection.astro';
+
+interface Props {
+  coreIdea?: string;
+  paragraphs?: string[];
+}
+
+const {
+  coreIdea = '검토된 핵심 문장을 이 위치에 강조 표시합니다.',
+  paragraphs = [
+    '승인된 이론 설명과 출처가 이 위치에 표시됩니다.',
+    '문단, 목록, 표, 이미지 등 MDX 콘텐츠를 사용할 수 있는 본문 영역입니다.',
+  ],
+} = Astro.props;
+---
+
+<LessonSection id="section-04" number="04" title="핵심 이론" class="theory-section">
+  <div class="theory-layout">
+    <div class="pull-quote">
+      <span>CORE IDEA</span>
+      <p>{coreIdea}</p>
+    </div>
+    <div>
+      <span class="placeholder-label">CONTENT PLACEHOLDER</span>
+      {paragraphs.map((paragraph) => <p class="placeholder">{paragraph}</p>)}
+    </div>
+  </div>
+</LessonSection>

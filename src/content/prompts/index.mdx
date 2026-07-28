@@ -1,10 +1,38 @@
 ---
 title: "프롬프트 라이브러리 · 내용 검토 예정"
-lastVerified: "검토 전"
-reviewStatus: "검증 필요"
+lastVerified: null
+draft: true
+contentType: "pending"
+authorship: "pending"
+verificationStatus: "pending"
+freshness: "pending"
+riskLevel: "pending"
+professionalReviewStatus: "pending"
 sources: []
-highRiskContent: false
-requiresProfessionalReview: false
 ---
 
-{/* 승인된 프롬프트 문서 삽입 예정 */}
+import PromptEntry from '../../components/content/PromptEntry.astro';
+import PromptFilters from '../../components/content/PromptFilters.astro';
+
+<PromptFilters />
+
+<section className="prompt-grid" aria-label="프롬프트 예시">
+  <PromptEntry
+    index="01"
+    title="프롬프트 제목 검토 예정"
+    description="목적, 입력값, 기대 결과에 대한 승인된 설명이 표시됩니다."
+    text="[검토된 프롬프트가 이 영역에 제공될 예정입니다.]"
+  />
+  <PromptEntry
+    index="02"
+    title="프롬프트 제목 검토 예정"
+    description="목적, 입력값, 기대 결과에 대한 승인된 설명이 표시됩니다."
+    text="[검토된 프롬프트가 이 영역에 제공될 예정입니다.]"
+  />
+  <PromptEntry
+    index="03"
+    title="프롬프트 제목 검토 예정"
+    description="목적, 입력값, 기대 결과에 대한 승인된 설명이 표시됩니다."
+    text="[검토된 프롬프트가 이 영역에 제공될 예정입니다.]"
+  />
+</section>

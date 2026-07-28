@@ -1,0 +1,40 @@
+---
+import ImageCompare from '../ImageCompare';
+import LessonSection from './LessonSection.astro';
+
+interface Props {
+  beforeSrc?: string;
+  beforeAlt?: string;
+  afterSrc?: string;
+  afterAlt?: string;
+}
+
+const {
+  beforeSrc,
+  beforeAlt = '검토 전 이미지가 들어갈 자리',
+  afterSrc,
+  afterAlt = '검토 후 이미지가 들어갈 자리',
+} = Astro.props;
+---
+
+<LessonSection id="section-08" number="08" title="성공 사례와 실패 사례" class="cases-section">
+  <ImageCompare
+    client:visible
+    beforeSrc={beforeSrc}
+    beforeAlt={beforeAlt}
+    afterSrc={afterSrc}
+    afterAlt={afterAlt}
+  />
+  <div class="case-notes">
+    <article>
+      <span>SUCCESS</span>
+      <h3>성공 기준 검토 예정</h3>
+      <p>승인된 판단 기준과 관찰 항목이 표시됩니다.</p>
+    </article>
+    <article>
+      <span>FAILURE</span>
+      <h3>실패 기준 검토 예정</h3>
+      <p>승인된 오류 징후와 개선 방향이 표시됩니다.</p>
+    </article>
+  </div>
+</LessonSection>

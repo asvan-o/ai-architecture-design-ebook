@@ -5,6 +5,9 @@ import StatusBadge from '../components/StatusBadge.astro';
 import { withBase } from '../lib/site';
 
 const lessons = (await getCollection('lessons')).sort((a, b) => a.data.day - b.data.day);
+const dateLabel = (date: string) => date === 'pending' ? '일정 확인 예정' : date;
+const durationLabel = (durationMinutes: number | null) =>
+  durationMinutes === null ? '수업시간 확인 예정' : `${durationMinutes}분`;
 ---
 
 <SiteLayout title="전체 강의 목차" section="CURRICULUM">
@@ -32,10 +35,10 @@ const lessons = (await getCollection('lessons')).sort((a, b) => a.data.day - b.d
               <h2>{lesson.data.title}</h2>
             </div>
             <div class="schedule">
-              <span>{lesson.data.date}</span>
-              <span>{lesson.data.duration}</span>
+              <span>{dateLabel(lesson.data.date)}</span>
+              <span>{durationLabel(lesson.data.durationMinutes)}</span>
             </div>
-            <StatusBadge status={lesson.data.reviewStatus} />
+            <StatusBadge kind="verificationStatus" value={lesson.data.verificationStatus} />
             <span class="arrow" aria-hidden="true">→</span>
           </a>
         </li>

@@ -1,0 +1,53 @@
+---
+import StatusBadge from '../StatusBadge.astro';
+import LessonSection from './LessonSection.astro';
+
+interface Props {
+  verificationStatus?: string;
+  freshness?: string;
+  riskLevel?: string;
+  professionalReviewStatus?: string;
+  sourceCount?: number;
+}
+
+const {
+  verificationStatus = 'pending',
+  freshness = 'pending',
+  riskLevel = 'pending',
+  professionalReviewStatus = 'pending',
+  sourceCount = 0,
+} = Astro.props;
+
+const riskLabel = riskLevel === 'pending'
+  ? '검토 대기'
+  : riskLevel === 'high'
+    ? '고위험'
+    : '낮음';
+const professionalLabel = professionalReviewStatus === 'pending'
+  ? '검토 대기'
+  : professionalReviewStatus === 'required'
+    ? '필요'
+    : professionalReviewStatus === 'completed'
+      ? '완료'
+      : '불필요';
+---
+
+<LessonSection id="section-09" number="09" title="사실 검증" class="fact-section">
+  <div class="fact-panel">
+    <div>
+      <div class="fact-badges">
+        <StatusBadge kind="verificationStatus" value={verificationStatus} />
+        <StatusBadge kind="freshness" value={freshness} />
+        <StatusBadge kind="riskLevel" value={riskLevel} />
+        <StatusBadge kind="professionalReviewStatus" value={professionalReviewStatus} />
+      </div>
+      <h3>콘텐츠 검토 대기</h3>
+      <p>실제 사실 주장과 출처가 제공되기 전까지 이 영역은 placeholder로 유지됩니다.</p>
+    </div>
+    <dl>
+      <div><dt>출처</dt><dd>{sourceCount > 0 ? `${sourceCount}개` : '등록 전'}</dd></div>
+      <div><dt>위험도</dt><dd>{riskLabel}</dd></div>
+      <div><dt>전문가 검토</dt><dd>{professionalLabel}</dd></div>
+    </dl>
+  </div>
+</LessonSection>

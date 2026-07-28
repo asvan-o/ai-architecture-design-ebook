@@ -77,7 +77,7 @@ const lessons = (await getCollection('lessons')).sort((a, b) => a.data.day - b.d
                 <small>LESSON {String(lesson.data.day).padStart(2, '0')}</small>
                 <strong>{lesson.data.title}</strong>
               </span>
-              <StatusBadge status={lesson.data.reviewStatus} />
+              <StatusBadge kind="verificationStatus" value={lesson.data.verificationStatus} />
               <span class="lesson-arrow" aria-hidden="true">↗</span>
             </a>
           </li>
@@ -95,7 +95,7 @@ const lessons = (await getCollection('lessons')).sort((a, b) => a.data.day - b.d
           출처가 없거나 검토되지 않은 정보는 콘텐츠로 제공하지 않습니다.
         </p>
       </div>
-      <StatusBadge status="검증 필요" />
+      <StatusBadge kind="verificationStatus" value="pending" />
     </section>
   </div>
 </SiteLayout>

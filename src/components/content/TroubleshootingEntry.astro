@@ -1,0 +1,26 @@
+---
+import StatusBadge from '../StatusBadge.astro';
+
+interface Props {
+  index: string;
+  title: string;
+  cause: string;
+  steps: string;
+  resolution: string;
+}
+
+const { index, title, cause, steps, resolution } = Astro.props;
+---
+
+<details>
+  <summary>
+    <span>ISSUE {index}</span>
+    <strong>{title}</strong>
+    <StatusBadge kind="verificationStatus" value="pending" />
+  </summary>
+  <div>
+    <p><b>가능한 원인</b> {cause}</p>
+    <p><b>확인 순서</b> {steps}</p>
+    <p><b>해결 방법</b> {resolution}</p>
+  </div>
+</details>

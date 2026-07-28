@@ -1,0 +1,26 @@
+---
+import StatusBadge from '../StatusBadge.astro';
+
+interface Props {
+  date?: string;
+  category: string;
+  title: string;
+  description: string;
+  placeholder?: boolean;
+}
+
+const { date, category, title, description, placeholder = true } = Astro.props;
+---
+
+<li class:list={{ 'placeholder-update': placeholder }}>
+  {date ? <time datetime={date}>{date.replaceAll('-', '.')}</time> : <time>—</time>}
+  <div>
+    <span>{category}</span>
+    <h3>{title}</h3>
+    <p>{description}</p>
+  </div>
+  <StatusBadge
+    kind={placeholder ? 'verificationStatus' : 'contentType'}
+    value={placeholder ? 'pending' : 'design-proposal'}
+  />
+</li>

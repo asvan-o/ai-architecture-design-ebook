@@ -1,0 +1,26 @@
+---
+import LessonSection from './LessonSection.astro';
+
+interface Props {
+  goals?: string[];
+}
+
+const {
+  goals = [
+    '검토된 학습 목표가 이 위치에 표시됩니다.',
+    '검토된 학습 목표가 이 위치에 표시됩니다.',
+    '검토된 학습 목표가 이 위치에 표시됩니다.',
+  ],
+} = Astro.props;
+---
+
+<LessonSection id="section-01" number="01" title="학습 목표">
+  <div class="objective-grid">
+    {goals.map((goal, index) => (
+      <div>
+        <span>{String(index + 1).padStart(2, '0')}</span>
+        <p>{goal}</p>
+      </div>
+    ))}
+  </div>
+</LessonSection>

@@ -1,0 +1,21 @@
+---
+import LessonSection from './LessonSection.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = '검토된 시연 영상 또는 이미지 예정',
+  description = '재생 자료, 단계 표시, 보충 설명을 배치할 수 있는 영역입니다.',
+} = Astro.props;
+---
+
+<LessonSection id="section-05" number="05" title="강사 시연" class="demo-section">
+  <div class="demo-placeholder">
+    <span>VIDEO / DEMO PLACEHOLDER</span>
+    <strong>{title}</strong>
+    <p>{description}</p>
+  </div>
+</LessonSection>

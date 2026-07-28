@@ -2,82 +2,109 @@
 
 ## 1. 기본 원칙
 
-실제 콘텐츠는 UI 코드와 분리하여 `src/content/` 아래 MDX 파일로 관리합니다. 승인되지 않은 전문정보, 사실, 출처는 작성하지 않습니다. 아직 자료가 없으면 짧은 placeholder 또는 빈 본문을 유지합니다.
+실제 콘텐츠는 `src/content/`의 MDX로 관리하며 UI 코드와 분리합니다. 승인되지 않은 전문정보, 사실, 출처는 작성하지 않습니다. 자료가 없는 필드는 `pending` 또는 `null`로 명시하고 위험이 없다고 추정하지 않습니다.
 
-## 2. 컬렉션
+## 2. 컬렉션과 렌더링
 
-| 컬렉션 | 폴더 | 용도 |
+| 컬렉션 | 폴더 | 페이지 |
 | --- | --- | --- |
-| `lessons` | `src/content/lessons/` | 14개 강의 본문 |
-| `glossary` | `src/content/glossary/` | 용어 정의 |
-| `prompts` | `src/content/prompts/` | 승인된 프롬프트 |
-| `troubleshooting` | `src/content/troubleshooting/` | 오류 해결 항목 |
-| `updates` | `src/content/updates/` | 업데이트와 정정 기록 |
+| `lessons` | `src/content/lessons/` | `/lessons/[id]/` |
+| `glossary` | `src/content/glossary/` | `/glossary/` |
+| `prompts` | `src/content/prompts/` | `/prompts/` |
+| `troubleshooting` | `src/content/troubleshooting/` | `/troubleshooting/` |
+| `updates` | `src/content/updates/` | `/updates/` |
 
-## 3. 공통 frontmatter
+각 페이지는 Astro 7 Content Collections의 `render(entry)`가 반환한 `<Content />`를 출력합니다.
+
+## 3. 강의 frontmatter 예시
 
 ```yaml
 ---
 title: "제1차시 · 내용 검토 예정"
 day: 1
-date: "일정 확인 예정"
-duration: "수업시간 확인 예정"
-lastVerified: "검토 전"
-reviewStatus: "검증 필요"
+date: "pending"
+durationMinutes: null
+lastVerified: null
+draft: true
+contentType: "pending"
+authorship: "pending"
+verificationStatus: "pending"
+freshness: "pending"
+riskLevel: "pending"
+professionalReviewStatus: "pending"
 sources: []
-highRiskContent: false
-requiresProfessionalReview: false
 ---
 ```
 
-| 필드 | 타입 | 설명 |
+| 필드 | 타입 | 의미 |
 | --- | --- | --- |
-| `title` | string | 페이지 제목 |
-| `day` | number | 차시 번호. 강의에서는 1–14 필수, 다른 컬렉션에서는 선택 |
-| `date` | string | 수업일 또는 문서 기준일 |
-| `duration` | string | 수업시간 |
-| `lastVerified` | string | 마지막 사실 검증일 또는 검토 상태 |
-| `reviewStatus` | enum | 사실성 상태 배지 |
-| `sources` | string[] | 승인된 출처 식별자 또는 URL. 현재는 빈 배열 |
-| `highRiskContent` | boolean | 고위험 전문정보 포함 여부 |
-| `requiresProfessionalReview` | boolean | 전문가 검토 필요 여부 |
+| `title` | non-empty string | 페이지 제목 |
+| `day` | integer 1–14 | 차시 번호 |
+| `date` | `YYYY-MM-DD` 또는 `pending` | 수업일 |
+| `durationMinutes` | positive integer 또는 `null` | 수업시간(분) |
+| `lastVerified` | `YYYY-MM-DD` 또는 `null` | 마지막 검증일 |
+| `draft` | boolean | 검토 전 초안 여부 |
+| `contentType` | enum | 콘텐츠의 의미 유형 |
+| `authorship` | enum | 작성 방식 |
+| `verificationStatus` | enum | 사실 검증 상태 |
+| `freshness` | enum | 최신성 민감도 |
+| `riskLevel` | enum | 위험도 |
+| `professionalReviewStatus` | enum | 전문가 검토 상태 |
+| `sources` | source object[] | 승인된 구조화 출처 |
+| `sections` | `{ id, label }[]` optional | MDX 구성에 맞춘 로컬 목차 |
 
-스키마는 `src/content.config.ts`에서 검증합니다.
+`highRiskContent`와 `requiresProfessionalReview` boolean은 사용하지 않습니다. 누락 시 자동 `false`가 되어 미검토 상태를 안전하다고 오해하게 만들 수 있기 때문입니다.
 
-## 4. reviewStatus 값
+## 4. 상태 값
 
-- `공식 자료 확인`
-- `출처 확인`
-- `해석`
-- `디자인 제안`
-- `AI 생성`
-- `검증 필요`
-- `전문가 검토 필요`
-- `업데이트 가능성 높음`
+```text
+contentType:
+  pending | factual | interpretation | design-proposal | instruction
 
-## 5. 강의 문서의 권장 섹션
+authorship:
+  pending | human | ai-assisted | ai-generated
 
-승인된 문서가 제공되면 아래 순서를 기본으로 사용합니다.
+verificationStatus:
+  pending | source-checked | official-source-checked | expert-reviewed
 
-1. 학습 목표
-2. 필수 용어
-3. 오늘 완성할 결과물
-4. 핵심 이론
-5. 강사 시연
-6. 단계별 실습
-7. 프롬프트 예시
-8. 성공 사례와 실패 사례
-9. 사실 검증
-10. 주의사항
-11. 완료 체크리스트
-12. 확인 문제
-13. 실습 파일
+freshness:
+  pending | stable | update-sensitive
 
-현재 강의 MDX 파일은 frontmatter와 “승인된 강의 본문 삽입 예정” 주석만 포함합니다. 화면의 섹션 placeholder는 UI 골격 확인을 위한 것으로 전문 내용이 아닙니다.
+riskLevel:
+  pending | low | high
 
-## 6. 출처 규칙
+professionalReviewStatus:
+  pending | required | not-required | completed
+```
 
-- 출처를 추정하거나 URL을 만들어내지 않습니다.
-- 실제 주장과 연결되는 승인된 출처만 기록합니다.
-- 날짜에 민감한 정보는 `lastVerified`와 `업데이트 가능성 높음` 상태를 함께 검토합니다.
-- 안전, 법규, 구조, 계약 등 고위험 내용은 `highRiskContent`와 `requiresProfessionalReview`를 명시적으로 검토합니다.
+서로 다른 의미를 한 필드에 섞지 않으며 한 콘텐츠에 여러 배지를 동시에 표시합니다. `riskLevel: pending`은 “검토 대기”로 표시합니다. `professionalReviewStatus`가 `required` 또는 `completed`일 때만 해당 확정 배지를 표시합니다.
+
+## 5. 구조화 출처
+
+```yaml
+sources:
+  - id: "source-id"
+    title: "승인된 출처 제목"
+    publisher: "발행기관"
+    url: "https://example.com"       # optional
+    accessedAt: "2026-07-28"         # optional
+    sourceType: "official"
+    note: "승인된 메모"               # optional
+```
+
+`sourceType`은 `official`, `documentation`, `standard`, `research`, `reference`, `other` 중 하나입니다. 실제 출처는 승인된 자료를 받은 뒤에만 추가합니다.
+
+## 6. MDX 섹션 조합
+
+`src/components/content/`에는 학습 목표, 용어, 결과물, 이론, 시연, 실습, 프롬프트, 사례, 사실 검증, 주의사항, 체크리스트, 확인 문제, 파일 블록이 분리되어 있습니다.
+
+현재 placeholder 파일은 전체 골격을 확인하기 위해 `LessonPlaceholder.astro`를 사용합니다. 승인된 문서가 들어오면 해당 MDX에서 필요한 개별 컴포넌트만 import하여 조합할 수 있으며, 스키마는 13개 섹션을 모두 요구하지 않습니다.
+
+## 7. 검증
+
+```bash
+npm run typecheck
+npm run validate:content
+```
+
+`typecheck`는 Zod 스키마와 MDX 타입을 검사합니다. `validate:content`는 강의 파일이 정확히 14개인지, ID 01–14와 day 1–14가 일치하는지, 중복·누락과 필수 metadata가 없는지 검사하고 실패 시 종료 코드 1을 반환합니다.

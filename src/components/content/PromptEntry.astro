@@ -1,0 +1,23 @@
+---
+import PromptCopy from '../PromptCopy';
+import StatusBadge from '../StatusBadge.astro';
+
+interface Props {
+  index: string;
+  title: string;
+  description: string;
+  text: string;
+}
+
+const { index, title, description, text } = Astro.props;
+---
+
+<article>
+  <header>
+    <span>{index}</span>
+    <StatusBadge kind="verificationStatus" value="pending" />
+  </header>
+  <h2>{title}</h2>
+  <p>{description}</p>
+  <PromptCopy client:idle text={text} />
+</article>

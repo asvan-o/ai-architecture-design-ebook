@@ -1,0 +1,23 @@
+---
+import ImageZoom from '../ImageZoom';
+import LessonSection from './LessonSection.astro';
+
+interface Props {
+  description?: string;
+  imageSrc?: string;
+  imageAlt?: string;
+  imageCaption?: string;
+}
+
+const {
+  description = '완성 결과물의 기준과 예시 설명이 이 위치에 표시됩니다.',
+  imageSrc,
+  imageAlt = '검토된 결과물 이미지가 들어갈 자리',
+  imageCaption,
+} = Astro.props;
+---
+
+<LessonSection id="section-03" number="03" title="오늘 완성할 결과물" class="output-section">
+  <p class="placeholder">{description}</p>
+  <ImageZoom client:visible src={imageSrc} alt={imageAlt} caption={imageCaption} />
+</LessonSection>

@@ -1,0 +1,35 @@
+---
+import LessonSection from './LessonSection.astro';
+
+type PracticeStep = {
+  id: string;
+  title: string;
+  description: string;
+};
+
+interface Props {
+  steps?: PracticeStep[];
+}
+
+const {
+  steps = [1, 2, 3, 4].map((number) => ({
+    id: `step-${number}`,
+    title: '실습 단계 검토 예정',
+    description: '승인된 작업 순서와 확인 기준이 표시됩니다.',
+  })),
+} = Astro.props;
+---
+
+<LessonSection id="section-06" number="06" title="단계별 실습" class="practice-section">
+  <ol class="practice-list">
+    {steps.map((step, index) => (
+      <li data-step-id={step.id}>
+        <span>STEP {String(index + 1).padStart(2, '0')}</span>
+        <div>
+          <h3>{step.title}</h3>
+          <p>{step.description}</p>
+        </div>
+      </li>
+    ))}
+  </ol>
+</LessonSection>

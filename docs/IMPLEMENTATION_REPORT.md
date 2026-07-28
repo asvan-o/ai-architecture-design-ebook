@@ -1,166 +1,182 @@
-# AI 건축디자인 바이블 구현 검수 보고서
+# AI 건축디자인 바이블 구현 및 독립 검수 보고서
 
-- 검수일: 2026-07-28
-- 검수 범위: 학생용 웹 전자서적 개발환경과 UI 골격
-- 검수 원칙: 실제 강의 본문이나 전문지식을 추가하지 않고 구조, 동작, 접근성, 반응형 레이아웃만 확인
-- 최종 상태: 정적 빌드와 타입 검사를 통과했으며, 확인된 UI 문제를 수정함
+- 최신화일: 2026-07-28
+- 범위: 승인된 콘텐츠 삽입 전 MDX 렌더링·메타데이터·검증 기반 수정
+- 콘텐츠 원칙: 실제 강의 전문내용, 건축정보, 프롬프트, 출처를 새로 작성하지 않음
 
-## 검수 결과 요약
+## 1. 발견된 원인
 
-| 검수 항목 | 결과 | 확인 내용 |
-| --- | --- | --- |
-| 페이지와 내비게이션 | 통과 | 홈, 6개 기본 정보 화면, 14개 강의 화면, 검색 인덱스 등 22개 경로가 모두 HTTP 200 응답 |
-| 반응형 레이아웃 | 통과 | 데스크톱 1440×900, 태블릿 834×1112, 모바일 390×844에서 총 63회 화면 검사, 가로 넘침 및 뷰포트 이탈 0건 |
-| UI와 콘텐츠 분리 | 통과 | 페이지와 컴포넌트는 콘텐츠 컬렉션 API로 데이터를 읽으며 개별 MDX 파일을 직접 import하지 않음 |
-| 14개 강의 스키마 | 통과 | 14개 파일이 동일한 frontmatter 키와 순서를 사용하며 본문은 placeholder 주석만 포함 |
-| frontmatter 타입 검증 | 통과 | `day`를 문자열로 둔 임시 오류 파일에서 `InvalidContentEntryDataError` 발생을 확인하고 파일 제거 후 재검사 통과 |
-| localStorage | 통과 | 체크박스와 개인 메모의 새로고침 후 유지, 차시별 저장 키 분리, 테스트 데이터 정리를 확인 |
-| 키보드 접근성 | 통과 | 본문 바로가기, 시맨틱 요소, 명확한 포커스 표시, 네이티브 dialog의 Escape 닫기와 포커스 복귀 확인 |
-| 임의 강의 내용 | 통과 | 전문정보, 사실 주장, 출처를 생성하지 않았으며 모든 강의 내용은 검토 대기 placeholder 상태 |
-| lint·typecheck·build | 통과 | 오류, 경고, 힌트 없이 정적 빌드 완료 |
+1. `src/pages/lessons/[id].astro`가 lesson frontmatter만 읽고 MDX 본문을 `render()`하지 않았다.
+2. 강의의 13개 섹션이 페이지 파일에 직접 작성되어 MDX를 바꿔도 화면 본문이 바뀌지 않았다.
+3. 용어 사전, 프롬프트, 오류 해결, 업데이트 페이지도 Content Collection 대신 페이지 내부 placeholder 배열을 표시했다.
+4. `reviewStatus` 하나에 콘텐츠 유형, 작성 방식, 검증, 최신성, 전문가 검토 의미가 섞여 있었다.
+5. `highRiskContent`와 `requiresProfessionalReview`가 기본 `false`여서 미검토 콘텐츠를 안전하거나 검토 불필요한 것으로 오해할 수 있었다.
+6. 프롬프트·이미지·체크리스트 값이 React 컴포넌트 내부에 고정되어 MDX에서 전달할 수 없었다.
+7. 이전 `review-bundle.zip`에는 보고서의 제외 설명과 달리 `dist/` 항목 40개가 들어 있었다. ZIP에는 없던 `CLAUDE.md`도 `FILE_TREE.txt`에 잘못 표시되었다.
 
-## 실행한 검사와 결과
+## 2. 수정 범위
 
-### 개발 서버
+### 콘텐츠 렌더링
 
-```powershell
-npm exec astro dev status
+- `src/pages/lessons/[id].astro`에서 Astro 7 `render(lesson)`과 `<Content />` 사용
+- `src/components/content/`에 13개 강의 섹션 블록과 공통 `LessonSection.astro` 분리
+- 14개 lesson MDX가 짧은 검토 대기 조합을 실제로 렌더링
+- 스키마는 모든 차시에 동일 섹션 구성을 강제하지 않음
+- optional `sections` frontmatter로 MDX 구성에 맞는 로컬 목차 지원
+- glossary, prompts, troubleshooting, updates 페이지도 각각의 MDX를 `render()`하여 출력
+- 페이지 내부 반복 placeholder를 각 컬렉션 MDX로 이동
+
+### 상호작용
+
+- `PromptCopy`: `text`, optional `label`
+- `ImageZoom`: optional `src`, required `alt`, optional `caption`, 이미지 없는 모드
+- `ImageCompare`: 전후 src·alt, optional labels, 이미지 없는 모드
+- `CourseTools`: `lessonId`와 `{ id, label }[]`; item id 기준 저장
+- localStorage namespace를 `ai-arch-bible:v2:lesson:<lesson-id>`로 분리
+- 손상된 저장값과 저장소 접근 실패를 안전하게 무시
+
+### 사실성 metadata
+
+- 콘텐츠 유형, 작성 방식, 검증, 최신성, 위험도, 전문가 검토를 별도 필드로 분리
+- 모든 미결정 값은 `pending`, 검증일은 `null`
+- 위험도 pending은 “검토 대기”로 표시
+- 전문가 검토 배지는 실제 상태에 따라 표시
+- 한 콘텐츠에 여러 상태 배지를 동시에 표시
+- `sources`를 구조화된 객체 배열로 변경
+- `date`: `YYYY-MM-DD` 또는 `pending`
+- `durationMinutes`: 양의 정수 또는 `null`
+- `lastVerified`: `YYYY-MM-DD` 또는 `null`
+- 빈 `title` 금지, `draft` 지원
+
+## 3. 새 콘텐츠 렌더링 흐름
+
+```text
+src/content/**/*.mdx
+  → src/content.config.ts의 Zod 검증
+  → getCollection()
+  → Astro 7 render(entry)
+  → <Content />
+  → src/components/content/*와 필요한 React island
 ```
 
-결과: `http://localhost:4321`에서 백그라운드 개발 서버가 실행 중임을 확인했다.
+MDX 본문을 바꾸면 페이지 UI 코드를 수정하지 않아도 빌드 결과에 반영된다. 현재 lesson 파일은 `LessonPlaceholder.astro`로 전체 골격을 확인하지만, 승인된 문서는 개별 섹션 컴포넌트를 필요한 만큼만 조합할 수 있다.
 
-### lint
+## 4. frontmatter 스키마
 
-```powershell
+필수 공통 상태:
+
+- `draft`
+- `contentType`
+- `authorship`
+- `verificationStatus`
+- `freshness`
+- `riskLevel`
+- `professionalReviewStatus`
+- `sources`
+- `lastVerified`
+
+lesson 필수값:
+
+- `title`
+- `day`
+- `date`
+- `durationMinutes`
+
+구조화 출처의 최소 필드는 `id`, `title`, `publisher`, `sourceType`이며 `url`, `accessedAt`, `note`는 선택이다. 현재 sources는 모두 빈 배열이다.
+
+## 5. validate:content
+
+`scripts/validate-content.mjs`는 다음을 검사하고 실패 시 종료 코드 1을 반환한다.
+
+- lesson MDX가 정확히 14개인지
+- 파일 ID 01–14가 모두 존재하는지
+- day 1–14가 한 번씩 존재하는지
+- 파일 ID와 day가 일치하는지
+- 중복 day와 누락 day가 없는지
+- 필수 metadata key가 모두 존재하는지
+- title, date, durationMinutes, lastVerified의 placeholder 형식이 유효한지
+
+## 6. UI·접근성·배포 설정
+
+- 모바일 목차에 `overflow-y: auto`, `overscroll-behavior: contain`
+- 작은 강조 텍스트 색상 대비 개선
+- 프롬프트 필터를 “준비 중” disabled 상태로 변경
+- 용어 초성 색인을 링크가 아닌 정적 disabled 표시로 변경
+- 포커스 표시, skip link, dialog 포커스 복원 유지
+- `@types/react`, `@types/react-dom`을 devDependencies로 이동
+- `astro.config.mjs`에 `site: process.env.SITE_URL`
+- workflow에 `SITE_URL`, `BASE_PATH`
+- workflow 배포 전에 lint, typecheck, validate:content, build 실행
+
+## 7. 실제 검증
+
+2026-07-28 최종 결과:
+
+| 명령 | 결과 |
+| --- | --- |
+| `npm run lint` | 성공, 45 files, 오류 0, 경고 0, 힌트 0 |
+| `npm run typecheck` | 성공, 45 files, 오류 0, 경고 0, 힌트 0 |
+| `npm run validate:content` | 성공, 14개·ID/day·metadata 무결성 통과 |
+| `npm run build` | 성공, HTML 22개와 `search-index.json` 1개 생성 |
+| `npm ls --depth=0` | 성공, missing/invalid 없음 |
+
+`01.mdx`에 “MDX 렌더링 연결 검증용 임시 문장”을 넣고 `/lessons/01/` HTTP 응답에서 확인한 뒤 삭제했다. 최종 파일과 화면에는 이 문장이 남아 있지 않다.
+
+다음 collection 연결도 HTTP 200과 고유 MDX marker로 확인했다.
+
+- lesson 01
+- glossary
+- prompts
+- troubleshooting
+- updates
+
+브라우저에서 체크박스와 메모를 변경한 뒤 새로고침하여 유지되는 것을 확인했다. 검수용 값은 다시 해제·삭제했다.
+
+## 8. 반응형 검수
+
+다음 파일을 현재 구현으로 다시 캡처했다.
+
+- `desktop-home-1440.png`
+- `desktop-course-1440.png`
+- `desktop-lesson-1440.png`
+- `tablet-lesson-768.png`
+- `mobile-home-390.png`
+- `mobile-lesson-390.png`
+- `mobile-navigation-390.png`
+- `glossary-1440.png`
+
+데스크톱 1440, 태블릿 768, 모바일 390에서 레이아웃과 모바일 목차 세로 스크롤을 확인했다.
+
+## 9. 실제 강의 내용을 작성했는지
+
+작성하지 않았다. 추가된 텍스트는 UI 구조와 기능을 확인하는 “검토 예정”, “placeholder”, “준비 중” 문구뿐이다. 실제 건축 전문정보, 강의 설명, 프롬프트, 용어 정의, 오류 해결 지식, 사실 주장, 출처는 만들지 않았다.
+
+## 10. 남아 있는 placeholder
+
+- 14개 실제 강의 본문과 제목·일정·수업시간
+- 용어 정의, 실제 프롬프트, 오류 해결 지식, 정정 데이터
+- 학습 목표, 이론, 시연, 실습, 사례, 문제, 실습 파일
+- 실제 이미지·영상·전후 비교·다운로드
+- 승인된 sources와 검증일·위험도·전문가 검토 결과
+- 프롬프트 필터와 용어 초성 색인 기능
+- 확인 문제 채점, 본문 전체 검색, 계정 동기화
+
+## 11. 로컬 실행
+
+```bash
+npm ci
+npm run dev
+```
+
+검수:
+
+```bash
 npm run lint
-```
-
-결과:
-
-```text
-Result (22 files):
-- 0 errors
-- 0 warnings
-- 0 hints
-```
-
-### typecheck
-
-```powershell
 npm run typecheck
-```
-
-결과:
-
-```text
-Result (22 files):
-- 0 errors
-- 0 warnings
-- 0 hints
-```
-
-### 정적 빌드
-
-```powershell
+npm run validate:content
 npm run build
 ```
 
-결과:
+## 12. 새 검수 패키지
 
-```text
-output: "static"
-mode: "static"
-22 page(s) built
-Complete!
-```
-
-### 전체 경로 응답 검사
-
-```powershell
-$routes = @(
-  '/',
-  '/curriculum/',
-  '/glossary/',
-  '/prompts/',
-  '/troubleshooting/',
-  '/updates/',
-  '/guide/',
-  '/search-index.json'
-) + (1..14 | ForEach-Object { '/lessons/{0:D2}/' -f $_ })
-
-$routes | ForEach-Object {
-  Invoke-WebRequest -Uri ("http://localhost:4321" + $_) -UseBasicParsing
-}
-```
-
-결과: 22개 경로 모두 HTTP 200, 실패 0건.
-
-### 브라우저 반응형 검사
-
-브라우저 자동 검수로 21개 HTML 페이지를 데스크톱, 태블릿, 모바일에서 각각 확인했다.
-
-| 뷰포트 | 크기 | 결과 |
-| --- | --- | --- |
-| 데스크톱 | 1440×900 | 21개 화면 통과 |
-| 태블릿 | 834×1112 | 21개 화면 통과 |
-| 모바일 | 390×844 | 21개 화면 통과 |
-
-총 63회 검사에서 가로 스크롤, 뷰포트 밖 요소, 중복 또는 누락된 `h1`, 잘못 노출된 데스크톱·모바일 내비게이션이 발견되지 않았다. 브라우저 콘솔의 오류와 경고도 0건이었다.
-
-### localStorage 검사
-
-1. 제1차시 완료 체크박스를 선택하고 개인 메모를 저장했다.
-2. 페이지를 새로고침해 두 상태가 유지되는지 확인했다.
-3. 제2차시로 이동해 제1차시 데이터가 노출되지 않는지 확인했다.
-4. 검수용 데이터를 삭제하고 빈 상태로 복원했다.
-
-결과: 체크 상태와 메모가 차시별 키로 저장되고 새로고침 후 복원되며, 차시 간 데이터가 섞이지 않았다. 저장소 접근이 차단되거나 JSON 읽기에 실패할 때 UI가 중단되지 않도록 예외 처리되어 있다.
-
-### frontmatter 오류 주입 검사
-
-검수용 임시 강의 파일에 `day: "invalid"`를 지정하고 `npm run typecheck`를 실행했다.
-
-결과: 숫자를 요구하는 스키마에서 문자열이 거부되어 `InvalidContentEntryDataError`가 발생했다. 임시 파일을 제거한 뒤 `npm run typecheck`를 다시 실행해 오류 0건을 확인했다.
-
-## 수정 전 문제와 수정 내용
-
-| 수정 전 문제 | 수정 내용 | 관련 파일 |
-| --- | --- | --- |
-| 검색 패널이 일반 `div` 기반이라 Escape 처리, 포커스 가두기, 닫은 뒤 호출 버튼으로의 포커스 복귀가 일관되지 않음 | 네이티브 `<dialog>`로 변경하고 열 때 검색 입력에 포커스, 닫을 때 검색 버튼으로 포커스가 돌아가도록 수정 | `src/components/SearchPanel.tsx`, `src/styles/global.css` |
-| 이미지 확대 보기가 일반 오버레이여서 키보드 모달 동작이 부족함 | 네이티브 `<dialog>`로 변경하고 닫기 버튼 포커스, Escape 닫기, 원래 이미지 버튼으로 포커스 복귀를 구현 | `src/components/ImageZoom.tsx`, `src/styles/global.css` |
-| 모바일 강의 목차에서 현재 차시에 `aria-current="page"`가 표시되지 않음 | 현재 강의 링크에도 `aria-current="page"`를 적용 | `src/layouts/SiteLayout.astro` |
-| 모바일 목차가 Escape나 배경 클릭으로 닫힐 때 `aria-expanded`와 포커스가 항상 복원되지 않음 | dialog의 `close` 이벤트에서 상태와 포커스를 한 경로로 복원하도록 정리 | `src/layouts/SiteLayout.astro` |
-| 강의 내부 목차는 11~13번인데 본문 일부가 12~14번으로 표시되어 번호가 불일치함 | 완료 체크리스트, 확인 문제, 실습 파일을 11, 12, 13으로 통일 | `src/components/CourseTools.tsx`, `src/pages/lessons/[id].astro` |
-
-## 구현되지 않았거나 placeholder인 기능
-
-- 실제 14개 강의 본문과 전문지식
-- 실제 일정, 수업시간, 학습 목표, 용어, 이론, 시연, 실습, 확인 문제
-- 검증된 출처, 사실 검증 결과, 전문가 검토 결과
-- 실제 프롬프트 본문과 분류·필터 데이터
-- 실제 용어 사전 항목, 오류 해결 항목, 업데이트 및 정정 내역
-- 실제 이미지, 영상, 전후 비교 이미지, 실습 다운로드 파일
-- 확인 문제의 정답 판정과 채점
-- 승인된 MDX 본문을 강의 섹션에 연결하는 콘텐츠 작성 단계
-- 본문 전체를 대상으로 하는 고급 검색 인덱싱과 검색어 강조
-- 계정 기반 진도·메모 동기화. 현재 데이터는 해당 브라우저의 `localStorage`에만 저장됨
-
-위 항목은 이번 개발환경 및 UI 골격 구축 범위에서 의도적으로 구현하지 않았다.
-
-## 스크린샷
-
-| 화면 | 뷰포트 | 파일 |
-| --- | --- | --- |
-| 데스크톱 홈 | 1440×900 | [desktop-home.png](review-screenshots/desktop-home.png) |
-| 데스크톱 강의 페이지 | 1440×900 | [desktop-lesson.png](review-screenshots/desktop-lesson.png) |
-| 태블릿 강의 페이지 | 834×1112 | [tablet-lesson.png](review-screenshots/tablet-lesson.png) |
-| 모바일 홈 | 390×844 | [mobile-home.png](review-screenshots/mobile-home.png) |
-| 모바일 강의 페이지 | 390×844 | [mobile-lesson.png](review-screenshots/mobile-lesson.png) |
-| 모바일 목차 메뉴 | 390×844 | [mobile-menu.png](review-screenshots/mobile-menu.png) |
-
-## 다음 검수 시 확인할 항목
-
-- 승인된 Markdown/MDX 콘텐츠가 제공된 뒤 실제 본문 렌더링과 출처 메타데이터 검수
-- 실제 이미지와 영상의 대체 텍스트, 용량, 비율, 확대 보기 품질 검수
-- 실제 실습 파일 다운로드 링크와 파일 무결성 검수
-- GitHub Pages 저장소명이 확정된 뒤 `BASE_PATH`를 적용한 배포 URL 검수
+새 `review-bundle.zip`은 소스, 설정, 검수 문서, 최신 스크린샷만 포함한다. `node_modules`, `.git`, `dist`, `.astro`, 환경변수, 캐시, 이전 ZIP, `CLAUDE.md`는 제외한다. 정확한 구성은 `docs/FILE_TREE.txt`를 기준으로 한다.

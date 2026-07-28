@@ -1,0 +1,19 @@
+---
+interface Props {
+  id: string;
+  number: string;
+  title: string;
+  class?: string;
+}
+
+const { id, number, title, class: className } = Astro.props;
+const headingId = `${id}-title`;
+---
+
+<section class:list={['lesson-section', className]} id={id} aria-labelledby={headingId}>
+  <div class="section-heading">
+    <span>{number}</span>
+    <h2 id={headingId}>{title}</h2>
+  </div>
+  <slot />
+</section>

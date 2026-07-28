@@ -1,0 +1,118 @@
+AI 건축디자인 바이블 review-bundle.zip 파일 트리
+기록일: 2026-07-28
+
+포함 기준:
+- 실행·타입·빌드 검토에 필요한 소스와 설정
+- 승인 대기 MDX 전체
+- 검수 문서와 현재 화면 스크린샷 8개
+- public의 소형 placeholder 파일
+
+제외 기준:
+- node_modules/, .git/, dist/, .astro/
+- .env* 및 인증·비밀정보
+- 캐시, 임시 파일, 이전 review-bundle.zip
+- CLAUDE.md
+- 이전 규격의 중복 스크린샷
+
+review-bundle/
+|-- .github/
+|   `-- workflows/
+|       `-- deploy.yml
+|-- .vscode/
+|   |-- extensions.json
+|   `-- launch.json
+|-- docs/
+|   |-- review-screenshots/
+|   |   |-- desktop-course-1440.png
+|   |   |-- desktop-home-1440.png
+|   |   |-- desktop-lesson-1440.png
+|   |   |-- glossary-1440.png
+|   |   |-- mobile-home-390.png
+|   |   |-- mobile-lesson-390.png
+|   |   |-- mobile-navigation-390.png
+|   |   `-- tablet-lesson-768.png
+|   |-- BUILD_LOG.txt
+|   |-- CONTENT_SCHEMA.md
+|   |-- DEPENDENCY_REPORT.txt
+|   |-- DESIGN_SYSTEM.md
+|   |-- DEVELOPMENT_GUIDE.md
+|   |-- FILE_TREE.txt
+|   |-- IMPLEMENTATION_REPORT.md
+|   `-- REVIEW_CHECKLIST.md
+|-- public/
+|   |-- downloads/
+|   |   `-- .gitkeep
+|   |-- images/
+|   |   `-- .gitkeep
+|   |-- videos/
+|   |   `-- .gitkeep
+|   |-- favicon.ico
+|   `-- favicon.svg
+|-- scripts/
+|   `-- validate-content.mjs
+|-- source/
+|   `-- .gitkeep
+|-- src/
+|   |-- components/
+|   |   |-- content/
+|   |   |   |-- CaseStudyBlock.astro
+|   |   |   |-- CourseToolsBlock.astro
+|   |   |   |-- DemoBlock.astro
+|   |   |   |-- DownloadBlock.astro
+|   |   |   |-- FactCheckBlock.astro
+|   |   |   |-- GlossaryEntry.astro
+|   |   |   |-- GlossaryIndex.astro
+|   |   |   |-- LearningGoals.astro
+|   |   |   |-- LessonPlaceholder.astro
+|   |   |   |-- LessonSection.astro
+|   |   |   |-- OutputBlock.astro
+|   |   |   |-- PracticeSteps.astro
+|   |   |   |-- PromptBlock.astro
+|   |   |   |-- PromptEntry.astro
+|   |   |   |-- PromptFilters.astro
+|   |   |   |-- QuizBlock.astro
+|   |   |   |-- TermList.astro
+|   |   |   |-- TheoryBlock.astro
+|   |   |   |-- TroubleshootingEntry.astro
+|   |   |   |-- UpdateEntry.astro
+|   |   |   `-- WarningBlock.astro
+|   |   |-- CourseTools.tsx
+|   |   |-- ImageCompare.tsx
+|   |   |-- ImageZoom.tsx
+|   |   |-- PromptCopy.tsx
+|   |   |-- SearchPanel.tsx
+|   |   |-- StatusBadge.astro
+|   |   `-- StatusLegend.astro
+|   |-- content/
+|   |   |-- glossary/index.mdx
+|   |   |-- lessons/01.mdx ... 14.mdx
+|   |   |-- prompts/index.mdx
+|   |   |-- troubleshooting/index.mdx
+|   |   `-- updates/index.mdx
+|   |-- layouts/SiteLayout.astro
+|   |-- lib/
+|   |   |-- content-status.ts
+|   |   `-- site.ts
+|   |-- pages/
+|   |   |-- lessons/[id].astro
+|   |   |-- 404.astro
+|   |   |-- curriculum.astro
+|   |   |-- glossary.astro
+|   |   |-- guide.astro
+|   |   |-- index.astro
+|   |   |-- prompts.astro
+|   |   |-- search-index.json.ts
+|   |   |-- troubleshooting.astro
+|   |   `-- updates.astro
+|   |-- styles/
+|   |   |-- global.css
+|   |   |-- lesson-content.css
+|   |   `-- reference-content.css
+|   `-- content.config.ts
+|-- .gitignore
+|-- AGENTS.md
+|-- README.md
+|-- astro.config.mjs
+|-- package-lock.json
+|-- package.json
+`-- tsconfig.json

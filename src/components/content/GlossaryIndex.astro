@@ -1,0 +1,7 @@
+---
+const letters = ['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ', 'A–Z'];
+---
+
+<div class="letter-index" aria-label="용어 초성 색인 준비 중">
+  {letters.map((letter) => <span aria-disabled="true">{letter}</span>)}
+</div>

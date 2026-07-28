@@ -1,0 +1,35 @@
+---
+import StatusBadge from '../StatusBadge.astro';
+import LessonSection from './LessonSection.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  professionalReviewStatus?: string;
+}
+
+const {
+  title = '주의 문구 검토 예정',
+  description = '안전, 저작권, 도구 제한 등 승인된 주의사항이 이 위치에 표시됩니다.',
+  professionalReviewStatus = 'pending',
+} = Astro.props;
+---
+
+<LessonSection id="section-10" number="10" title="주의사항" class="warning-section">
+  <div class="warning-box">
+    <span aria-hidden="true">!</span>
+    <div>
+      <h3>{title}</h3>
+      <p>{description}</p>
+    </div>
+    {professionalReviewStatus === 'required' ? (
+      <StatusBadge kind="professionalReviewStatus" value="required" />
+    ) : professionalReviewStatus === 'completed' ? (
+      <StatusBadge kind="professionalReviewStatus" value="completed" />
+    ) : professionalReviewStatus === 'not-required' ? (
+      <StatusBadge kind="professionalReviewStatus" value="not-required" />
+    ) : (
+      <StatusBadge kind="professionalReviewStatus" value="pending" />
+    )}
+  </div>
+</LessonSection>

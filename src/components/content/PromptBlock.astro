@@ -1,0 +1,21 @@
+---
+import PromptCopy from '../PromptCopy';
+import LessonSection from './LessonSection.astro';
+
+interface Props {
+  text?: string;
+  label?: string;
+  description?: string;
+}
+
+const {
+  text = '[검토된 프롬프트가 이 영역에 제공될 예정입니다.]',
+  label,
+  description = '복사 기능 확인을 위한 placeholder입니다. 실제 프롬프트는 검토 후 제공합니다.',
+} = Astro.props;
+---
+
+<LessonSection id="section-07" number="07" title="프롬프트 예시">
+  <p class="placeholder section-copy">{description}</p>
+  <PromptCopy client:idle text={text} label={label} />
+</LessonSection>

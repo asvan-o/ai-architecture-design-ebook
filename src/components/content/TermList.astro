@@ -1,0 +1,15 @@
+---
+import LessonSection from './LessonSection.astro';
+
+interface Props {
+  terms?: string[];
+}
+
+const { terms = ['용어 검토 예정', '용어 검토 예정', '용어 검토 예정'] } = Astro.props;
+---
+
+<LessonSection id="section-02" number="02" title="필수 용어">
+  <div class="term-chips">
+    {terms.map((term) => <span>{term}</span>)}
+  </div>
+</LessonSection>

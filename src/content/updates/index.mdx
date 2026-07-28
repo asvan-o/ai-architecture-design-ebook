@@ -1,10 +1,26 @@
 ---
 title: "업데이트 및 정정 내역 · 내용 검토 예정"
-lastVerified: "검토 전"
-reviewStatus: "검증 필요"
+lastVerified: null
+draft: true
+contentType: "pending"
+authorship: "pending"
+verificationStatus: "pending"
+freshness: "pending"
+riskLevel: "pending"
+professionalReviewStatus: "pending"
 sources: []
-highRiskContent: false
-requiresProfessionalReview: false
 ---
 
-{/* 승인된 업데이트 문서 삽입 예정 */}
+import UpdateEntry from '../../components/content/UpdateEntry.astro';
+
+<section className="update-log" aria-labelledby="update-title">
+  <div className="section-heading">
+    <span>01</span>
+    <h2 id="update-title">변경 기록</h2>
+  </div>
+  <ol>
+    <UpdateEntry date="2026-07-28" category="UI SYSTEM" title="전자서적 기본 골격 생성" description="콘텐츠를 포함하지 않은 개발환경과 페이지 구조를 생성했습니다." placeholder={false} />
+    <UpdateEntry category="CONTENT" title="업데이트 내역 검토 예정" description="승인된 변경 기록이 이 위치에 추가됩니다." />
+    <UpdateEntry category="CONTENT" title="업데이트 내역 검토 예정" description="승인된 변경 기록이 이 위치에 추가됩니다." />
+  </ol>
+</section>

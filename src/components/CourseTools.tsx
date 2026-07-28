@@ -1,9 +1,22 @@
 import { useEffect, useId, useState } from 'react';
 
-const checklistItems = ['학습 목표 확인', '단계별 실습 완료', '확인 문제 점검'];
+export type ChecklistItem = {
+  id: string;
+  label: string;
+};
 
-export default function CourseTools({ lessonId }: { lessonId: string }) {
-  const storagePrefix = `ai-arch-bible:${lessonId}`;
+type CourseToolsProps = {
+  lessonId: string;
+  items: ChecklistItem[];
+};
+
+const isCheckState = (value: unknown): value is Record<string, boolean> =>
+  Boolean(value)
+  && typeof value === 'object'
+  && Object.values(value as Record<string, unknown>).every((item) => typeof item === 'boolean');
+
+export default function CourseTools({ lessonId, items }: CourseToolsProps) {
+  const storagePrefix = `ai-arch-bible:v2:lesson:${lessonId}`;
   const [checks, setChecks] = useState<Record<string, boolean>>({});
   const [note, setNote] = useState('');
   const [saved, setSaved] = useState(false);
@@ -13,15 +26,18 @@ export default function CourseTools({ lessonId }: { lessonId: string }) {
     try {
       const storedChecks = localStorage.getItem(`${storagePrefix}:checks`);
       const storedNote = localStorage.getItem(`${storagePrefix}:note`);
-      if (storedChecks) setChecks(JSON.parse(storedChecks) as Record<string, boolean>);
+      if (storedChecks) {
+        const parsed: unknown = JSON.parse(storedChecks);
+        if (isCheckState(parsed)) setChecks(parsed);
+      }
       if (storedNote) setNote(storedNote);
     } catch {
-      // 브라우저 저장소가 차단되어도 학습 페이지 자체는 계속 사용할 수 있다.
+      // 저장소가 차단되거나 값이 손상된 경우 현재 세션의 초기 상태를 사용한다.
     }
   }, [storagePrefix]);
 
-  const toggleCheck = (item: string) => {
-    const next = { ...checks, [item]: !checks[item] };
+  const toggleCheck = (itemId: string) => {
+    const next = { ...checks, [itemId]: !checks[itemId] };
     setChecks(next);
     try {
       localStorage.setItem(`${storagePrefix}:checks`, JSON.stringify(next));
@@ -41,7 +57,7 @@ export default function CourseTools({ lessonId }: { lessonId: string }) {
   };
 
   return (
-    <section className="course-tools" aria-labelledby={headingId}>
+    <section className="course-tools lesson-section" id="section-11" aria-labelledby={headingId}>
       <div className="course-tools__checklist">
         <div className="tool-heading">
           <span>11</span>
@@ -50,13 +66,17 @@ export default function CourseTools({ lessonId }: { lessonId: string }) {
             <h2 id={headingId}>완료 체크리스트</h2>
           </div>
         </div>
-        <p className="placeholder">이 항목은 기능 확인을 위한 예시이며 실제 완료 기준은 추후 검토됩니다.</p>
+        <p className="placeholder">체크 항목은 검토된 학습 기준으로 교체할 수 있습니다.</p>
         <div className="check-grid">
-          {checklistItems.map((item, index) => (
-            <label key={item}>
-              <input type="checkbox" checked={Boolean(checks[item])} onChange={() => toggleCheck(item)} />
+          {items.map((item, index) => (
+            <label key={item.id}>
+              <input
+                type="checkbox"
+                checked={Boolean(checks[item.id])}
+                onChange={() => toggleCheck(item.id)}
+              />
               <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-              <strong>{item}</strong>
+              <strong>{item.label}</strong>
             </label>
           ))}
         </div>

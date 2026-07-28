@@ -1,0 +1,56 @@
+AI 건축디자인 바이블 검수 실행 기록
+실행일: 2026-07-28
+작업 폴더: C:\Users\deric\Desktop\architecture-design-course
+
+1. npm run lint
+- 실제 명령: astro check
+- 결과: 성공, 종료 코드 0
+- 진단: 45 files, errors 0, warnings 0, hints 0
+
+2. npm run typecheck
+- 실제 명령: astro check
+- 결과: 성공, 종료 코드 0
+- 진단: 45 files, errors 0, warnings 0, hints 0
+- 참고: lint와 typecheck는 package.json에서 의도적으로 동일한 Astro 진단 명령을 제공함
+
+3. npm run validate:content
+- 실제 명령: node scripts/validate-content.mjs
+- 결과: 성공, 종료 코드 0
+- 강의 파일 14개
+- ID 01–14 누락·중복 없음
+- day 1–14 누락·중복 없음
+- ID/day 일치
+- 필수 metadata 존재
+
+4. npm run build
+- 실제 명령: astro build
+- 결과: 성공, 종료 코드 0
+- output: static
+- HTML 문서: 22개
+- JSON endpoint: search-index.json 1개
+- Astro 요약: 22 page(s) built
+
+5. npm ls --depth=0
+- 결과: 성공, 종료 코드 0
+- missing 또는 invalid 최상위 패키지 없음
+
+6. MDX 연결 검증
+- 01.mdx에 임시 문장 1줄 추가
+- /lessons/01/ HTTP 200 응답에서 임시 문장 확인
+- 임시 문장 삭제 후 응답에서 제거 확인
+- glossary, prompts, troubleshooting, updates도 HTTP 200과 각 MDX marker 확인
+
+7. 브라우저 상태 검증
+- lesson 01 체크박스 선택 후 새로고침: 선택 유지
+- 개인 메모 저장 후 새로고침: 입력 유지
+- 검수 후 체크와 메모를 빈 상태로 복원
+- 데스크톱 1440, 태블릿 768, 모바일 390 캡처 생성
+- 모바일 목차 open 상태와 세로 overflow 확인
+
+8. 민감정보 검사
+- .env* 파일: 없음
+- API key, secret, password, token, private key, 인증정보, 이메일, 전화번호 패턴 검색
+- workflow의 권한명 id-token과 이 검수 문서의 검색어 설명만 일치
+- 실제 비밀값, 인증정보, 개인 연락처 발견 없음
+
+최종 필수 네 명령은 2026-07-28 21:05 KST에 연속 실행했고 모두 종료 코드 0이었다.
