@@ -1,12 +1,14 @@
 ---
+import type { AssetTool } from '../../lib/asset-manifest';
+
 interface Props {
   id: string;
   title: string;
   type: string;
   purpose: string;
-  recommendedTool: 'codex' | 'nano-banana' | 'veo' | 'gpt-and-codex' | 'user-upload';
-  status?: string;
-  publicUse?: boolean;
+  recommendedTool: AssetTool;
+  status: string;
+  publicUse: boolean;
   alt: string;
 }
 
@@ -16,8 +18,8 @@ const {
   type,
   purpose,
   recommendedTool,
-  status = '제작 전',
-  publicUse = false,
+  status,
+  publicUse,
   alt,
 } = Astro.props;
 
@@ -27,6 +29,14 @@ const toolLabels: Record<Props['recommendedTool'], string> = {
   veo: 'Veo 제작',
   'gpt-and-codex': 'GPT + Codex 제작',
   'user-upload': '사용자 업로드',
+};
+
+const statusLabels: Record<string, string> = {
+  'not-created': '제작 전',
+  'awaiting-rights-review': '권리 검토 대기',
+  'reference-only-unverified': '외부 참고 · 미검증',
+  'actual-environment-validation-required': '실제 환경 검증 필요',
+  ready: '공개 준비 완료',
 };
 ---
 
@@ -39,7 +49,7 @@ const toolLabels: Record<Props['recommendedTool'], string> = {
   <div class="lesson-asset__body">
     <header>
       <span>{id}</span>
-      <span>{status}</span>
+      <span>{statusLabels[status] ?? status}</span>
     </header>
     <h3>{title}</h3>
     <p>{purpose}</p>

@@ -209,6 +209,9 @@
   line-height: 1.2;
 }
 .outline-category--fact { color: #315f4c; }
+.outline-category--structure,
+.outline-category--goal,
+.outline-category--deliverable { color: #4f5b57; }
 .outline-category--assumption { color: #705f2b; }
 .outline-category--proposal { color: #315b66; }
 .outline-category--judgment { color: #66527b; }

@@ -11,6 +11,8 @@ verificationStatus: "pending"
 freshness: "pending"
 riskLevel: "pending"
 professionalReviewStatus: "required"
+professionalReviewScope:
+  - "공간 구성·법규·구조·설비·시공 가능성 관련 경계 문구"
 sources: []
 sections:
   - { id: "section-01", label: "차시 소개" }
@@ -34,7 +36,7 @@ import LessonOutline from '../../components/content/LessonOutline.astro';
   lessonId="06"
   totalMinutes={180}
   intro={[
-    { category: '확인된 사실', text: '문의 메일, 미팅 메모, 참고 이미지를 분석해 질문 목록과 디자인 브리프 초안을 만드는 차시다.' },
+    { category: '확정된 수업 구성', text: '문의 메일, 미팅 메모, 참고 이미지를 분석해 질문 목록과 디자인 브리프 초안을 만드는 차시다.' },
     { category: '수강생 전문 판단', text: '공간계획의 정답을 가르치는 차시가 아니며 수강생이 자신의 전문성으로 AI 초안을 검토·수정한다.' },
   ]}
   questions={[
@@ -42,9 +44,9 @@ import LessonOutline from '../../components/content/LessonOutline.astro';
     { category: '수강생 판단', text: 'AI가 만든 브리프 초안 중 클라이언트에게 다시 질문해야 할 내용은 무엇인가?' },
   ]}
   goals={[
-    { category: '확인된 사실', text: '문의 메일, 미팅 메모, 참고 이미지의 정보를 항목별로 정리한다.' },
-    { category: '수강생 판단', text: '확정 조건, 희망 조건, 미확정 조건을 구분하고 추가 질문을 작성한다.' },
-    { category: '디자인 제안', text: '공간디자이너가 검토할 디자인 브리프 초안을 만든 뒤 AI 제안과 수정 내용을 비교한다.' },
+    { category: '학습 목표', text: '문의 메일, 미팅 메모, 참고 이미지의 정보를 항목별로 정리한다.' },
+    { category: '학습 목표', text: '확정 조건, 희망 조건, 미확정 조건을 구분하고 추가 질문을 작성한다.' },
+    { category: '학습 목표', text: '공간디자이너가 검토할 디자인 브리프 초안을 만든 뒤 AI 제안과 수정 내용을 비교한다.' },
   ]}
   concepts={[
     { category: '교육용 가정', text: '브리프 항목은 교육용 가상 양식이며 모든 실무 프로젝트의 필수 형식으로 단정하지 않는다.' },
@@ -70,10 +72,10 @@ import LessonOutline from '../../components/content/LessonOutline.astro';
     { id: 'brief-revision', title: '브리프 초안 검토·수정', minutes: 35, description: 'AI 제안과 수강생 수정 내용을 비교하며 브리프 초안을 정리한다.' },
   ]}
   deliverables={[
-    { category: '확인된 사실', text: '클라이언트 질문 목록.' },
-    { category: '확인된 사실', text: '디자인 브리프.' },
-    { category: '확인된 사실', text: '확정 및 미확정 조건표.' },
-    { category: '확인된 사실', text: 'AI 제안과 수강생 수정 비교.' },
+    { category: '수업 산출물', text: '클라이언트 질문 목록.' },
+    { category: '수업 산출물', text: '디자인 브리프.' },
+    { category: '수업 산출물', text: '확정 및 미확정 조건표.' },
+    { category: '수업 산출물', text: 'AI 제안과 수강생 수정 비교.' },
   ]}
   judgments={[
     { category: '수강생 판단', text: '클라이언트가 확정하지 않은 조건을 브리프가 확정한 것처럼 쓰지 않았는가?' },
@@ -85,11 +87,7 @@ import LessonOutline from '../../components/content/LessonOutline.astro';
     { category: '수강생 판단', text: '서로 충돌하는 요청을 하나로 합치면서 의미를 잃지 않았는지 확인한다.' },
     { category: '추가 검증 필요', text: '질문이 이미 제공된 정보와 중복되거나 답을 유도하지 않는지 확인한다.' },
   ]}
-  assets={[
-    { id: 'l06-brief-pack', title: '가상 의뢰 자료와 브리프 양식', type: 'document', purpose: '문의·메모 분석, 조건 분류, 질문, 브리프 작성에 사용하는 문서 묶음.', recommendedTool: 'gpt-and-codex', alt: '가상 의뢰 자료와 디자인 브리프 문서 플레이스홀더' },
-    { id: 'l06-reference-set', title: '가상 클라이언트 참고 이미지 세트', type: 'image', purpose: '이미지 인상과 명시 조건을 구분하는 실습용 자료.', recommendedTool: 'user-upload', alt: '가상 클라이언트 참고 이미지 세트 플레이스홀더' },
-    { id: 'l06-demo', title: '디자인 브리프 변환 강사 시연', type: 'video', purpose: '조건 분류와 AI 초안 수정 과정을 보여 주는 화면 녹화.', recommendedTool: 'user-upload', alt: '디자인 브리프 변환 강사 시연 영상 플레이스홀더' },
-  ]}
+  assetIds={['l06-brief-pack', 'l06-reference-set', 'l06-demo']}
   verification={[
     { category: '추가 검증 필요', text: '가상 의뢰서가 실제 개인정보나 식별 가능한 프로젝트 정보를 포함하지 않는지 확인한다.' },
     { category: '강의 전 사실 검증', text: '브리프 양식과 검토 질문을 건축·인테리어·공간디자인 실무자가 강의 전에 검토한다.' },

@@ -1,10 +1,10 @@
 ---
-import { getCollection } from 'astro:content';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import StatusBadge from '../components/StatusBadge.astro';
+import { getVisibleLessons } from '../lib/lessons';
 import { withBase } from '../lib/site';
 
-const lessons = (await getCollection('lessons')).sort((a, b) => a.data.day - b.data.day);
+const lessons = await getVisibleLessons();
 const dateLabel = (date: string) => date === 'pending' ? '일정 확인 예정' : date;
 const durationLabel = (durationMinutes: number | null) =>
   durationMinutes === null ? '수업시간 확인 예정' : `${durationMinutes}분`;
@@ -44,6 +44,9 @@ const durationLabel = (durationMinutes: number | null) =>
         </li>
       ))}
     </ol>
+    {lessons.length === 0 && (
+      <p class="empty-lessons">현재 공개된 차시가 없습니다. 검토가 완료된 차시부터 순차적으로 제공됩니다.</p>
+    )}
   </div>
 </SiteLayout>
 
@@ -95,6 +98,13 @@ const durationLabel = (durationMinutes: number | null) =>
 
   .curriculum-list li {
     border-bottom: 1px solid var(--line-dark);
+  }
+
+  .empty-lessons {
+    margin: 0;
+    padding: 3rem 1rem;
+    border-bottom: 1px solid var(--line-dark);
+    color: var(--muted);
   }
 
   .curriculum-list a {

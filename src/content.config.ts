@@ -27,6 +27,8 @@ const sectionSchema = z.object({
   label: z.string().trim().min(1),
 });
 
+const professionalReviewScopeSchema = z.array(z.string().trim().min(1));
+
 const sharedSchema = z.object({
   title: z.string().trim().min(1),
   draft: z.boolean(),
@@ -47,6 +49,7 @@ const sharedSchema = z.object({
   freshness: z.enum(['pending', 'stable', 'update-sensitive']),
   riskLevel: z.enum(['pending', 'low', 'high']),
   professionalReviewStatus: z.enum(['pending', 'required', 'not-required', 'completed']),
+  professionalReviewScope: professionalReviewScopeSchema.optional(),
   sources: z.array(sourceSchema),
   lastVerified: z.union([isoDate, z.null()]),
   day: z.number().int().positive().optional(),
@@ -61,6 +64,7 @@ const lessons = defineCollection({
     day: z.number().int().min(1).max(14),
     date: pendingDate,
     durationMinutes: z.number().int().positive().nullable(),
+    professionalReviewScope: professionalReviewScopeSchema,
   }),
 });
 

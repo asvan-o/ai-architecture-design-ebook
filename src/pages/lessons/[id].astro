@@ -1,8 +1,9 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { getCollection, render } from 'astro:content';
+import { render } from 'astro:content';
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import StatusBadge from '../../components/StatusBadge.astro';
+import { getVisibleLessons } from '../../lib/lessons';
 import { pageSections, withBase } from '../../lib/site';
 import '../../styles/lesson-content.css';
 
@@ -14,7 +15,7 @@ interface Props {
 }
 
 export async function getStaticPaths() {
-  const lessons = (await getCollection('lessons')).sort((a, b) => a.data.day - b.data.day);
+  const lessons = await getVisibleLessons();
   return lessons.map((lesson, index) => ({
     params: { id: lesson.id },
     props: {
@@ -33,6 +34,7 @@ const durationLabel = lesson.data.durationMinutes === null
   ? '수업시간 확인 예정'
   : `${lesson.data.durationMinutes}분`;
 const verifiedLabel = lesson.data.lastVerified ?? '검토 전';
+const professionalReviewScope = lesson.data.professionalReviewScope ?? [];
 const localSections = lesson.data.sections ?? pageSections.map((label, index) => ({
   id: `section-${String(index + 1).padStart(2, '0')}`,
   label,
@@ -60,12 +62,25 @@ const localSections = lesson.data.sections ?? pageSections.map((label, index) =>
             <StatusBadge kind="verificationStatus" value={lesson.data.verificationStatus} />
             <StatusBadge kind="freshness" value={lesson.data.freshness} />
             <StatusBadge kind="riskLevel" value={lesson.data.riskLevel} />
-            <StatusBadge
-              kind="professionalReviewStatus"
-              value={lesson.data.professionalReviewStatus}
-            />
+            {(lesson.data.professionalReviewStatus === 'required' ||
+              lesson.data.professionalReviewStatus === 'completed') && (
+              <StatusBadge
+                kind="professionalReviewStatus"
+                value={lesson.data.professionalReviewStatus}
+              />
+            )}
           </dd>
         </div>
+        {professionalReviewScope.length > 0 && (
+          <div class="lesson-meta__review-scope">
+            <dt>PRO REVIEW SCOPE</dt>
+            <dd>
+              <ul>
+                {professionalReviewScope.map((scope) => <li>{scope}</li>)}
+              </ul>
+            </dd>
+          </div>
+        )}
       </dl>
     </header>
 
@@ -163,6 +178,10 @@ const localSections = lesson.data.sections ?? pageSections.map((label, index) =>
   .lesson-meta dd { margin: 0; font-size: 0.84rem; font-weight: 700; }
   .lesson-meta__statuses dd { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.8rem; }
   .lesson-meta__statuses :global(.status-badge) { font-size: 0.65rem; }
+  .lesson-meta__review-scope { grid-column: 1 / -1; }
+  .lesson-meta__review-scope dd { margin-top: 0.7rem; }
+  .lesson-meta__review-scope ul { margin: 0; padding-left: 1.1rem; }
+  .lesson-meta__review-scope li { color: var(--muted); font-size: 0.76rem; }
   .lesson-local-nav {
     display: grid;
     grid-template-columns: 10rem 1fr;

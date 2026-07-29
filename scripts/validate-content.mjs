@@ -34,6 +34,7 @@ const requiredFields = [
   'freshness',
   'riskLevel',
   'professionalReviewStatus',
+  'professionalReviewScope',
   'sources',
 ];
 
@@ -56,6 +57,17 @@ const getScalar = (frontmatter, field) => {
 };
 
 const unquote = (value = '') => value.replace(/^(['"])(.*)\1$/, '$2');
+
+const getList = (frontmatter, field) => {
+  const inline = getScalar(frontmatter, field);
+  if (inline === '[]') return [];
+  const block = frontmatter.match(
+    new RegExp(`^${field}:\\s*\\r?\\n((?:\\s{2}-\\s*.+(?:\\r?\\n|$))*)`, 'm'),
+  )?.[1] ?? '';
+  return [...block.matchAll(/^\s{2}-\s*["']?(.+?)["']?\s*$/gm)]
+    .map((match) => match[1].replace(/["']$/, '').trim())
+    .filter(Boolean);
+};
 
 const files = (await readdir(lessonsDirectory))
   .filter((fileName) => fileName.endsWith('.mdx'))
@@ -124,6 +136,22 @@ for (const fileName of files) {
     errors.push(`${fileName}: lastVerified는 YYYY-MM-DD 또는 null이어야 합니다.`);
   }
 
+  const professionalReviewStatus = unquote(getScalar(frontmatter, 'professionalReviewStatus'));
+  const professionalReviewScope = getList(frontmatter, 'professionalReviewScope');
+  if (
+    (professionalReviewStatus === 'required' || professionalReviewStatus === 'completed') &&
+    professionalReviewScope.length === 0
+  ) {
+    errors.push(`${fileName}: 전문 검토 상태에는 professionalReviewScope가 필요합니다.`);
+  }
+  if (
+    professionalReviewStatus !== 'required' &&
+    professionalReviewStatus !== 'completed' &&
+    professionalReviewScope.length > 0
+  ) {
+    errors.push(`${fileName}: 전문 검토 범위는 required 또는 completed 상태에서만 작성합니다.`);
+  }
+
   if (!source.includes('<LessonOutline')) {
     errors.push(`${fileName}: LessonOutline 골격이 없습니다.`);
   }
@@ -131,6 +159,21 @@ for (const fileName of files) {
     errors.push(
       `${fileName}: 포괄적인 '전문가 판단 필요' 대신 구체적인 판단·검증 분류를 사용해야 합니다.`,
     );
+  }
+
+  const structuralCategoryChecks = [
+    { property: 'goals', nextProperty: 'concepts', expected: '학습 목표' },
+    { property: 'deliverables', nextProperty: 'judgments', expected: '수업 산출물' },
+  ];
+  for (const { property, nextProperty, expected } of structuralCategoryChecks) {
+    const block = source.match(
+      new RegExp(`  ${property}=\\{\\[([\\s\\S]*?)\\]\\}\\s*\\n  ${nextProperty}=`),
+    )?.[1] ?? '';
+    const categories = [...block.matchAll(/category:\s*'([^']+)'/g)]
+      .map((match) => match[1]);
+    if (categories.length === 0 || categories.some((category) => category !== expected)) {
+      errors.push(`${fileName}: ${property} 항목은 '${expected}' 교육 구조 분류를 사용해야 합니다.`);
+    }
   }
 
   for (let section = 1; section <= 13; section += 1) {
@@ -153,10 +196,10 @@ for (const fileName of files) {
     errors.push(`${fileName}: 실습시간 ${practiceMinutes}분이 전체의 절반보다 적습니다.`);
   }
 
-  const assetBlock = source.match(/assets=\{\[([\s\S]*?)\]\}\s*verification=/)?.[1] ?? '';
-  const assetIds = [...assetBlock.matchAll(/id:\s*'([^']+)'/g)].map((match) => match[1]);
+  const assetBlock = source.match(/assetIds=\{\[([\s\S]*?)\]\}/)?.[1] ?? '';
+  const assetIds = [...assetBlock.matchAll(/'([^']+)'/g)].map((match) => match[1]);
   if (assetIds.length === 0) {
-    errors.push(`${fileName}: LessonAsset 항목이 없습니다.`);
+    errors.push(`${fileName}: assetIds 항목이 없습니다.`);
   }
   lessonAssetIds.set(fileName, assetIds);
 }
@@ -189,13 +232,6 @@ for (const [fileName, assetIds] of lessonAssetIds) {
     }
   }
 }
-const referencedAssetIds = new Set([...lessonAssetIds.values()].flat());
-for (const id of manifestAssetIds) {
-  if (!referencedAssetIds.has(id)) {
-    errors.push(`asset-manifest ${id}: 연결된 차시의 LessonAsset 목록에 없습니다.`);
-  }
-}
-
 const requiredAssetFields = [
   'lesson',
   'priority',
@@ -221,6 +257,7 @@ const assetFieldEnums = {
 const manifestBlocks = manifest
   .split(/\r?\n(?=  - id:\s*")/)
   .filter((block) => block.trimStart().startsWith('- id:'));
+const referencedAssetIds = new Set([...lessonAssetIds.values()].flat());
 for (const block of manifestBlocks) {
   const id = block.match(/^\s+- id:\s*"([^"]+)"/)?.[1] ?? 'unknown';
   for (const field of requiredAssetFields) {
@@ -228,10 +265,6 @@ for (const block of manifestBlocks) {
       errors.push(`asset-manifest ${id}: 필수 필드 '${field}'가 없습니다.`);
     }
   }
-  if (!/^\s{4}public_use:\s*false\s*$/m.test(block)) {
-    errors.push(`asset-manifest ${id}: 공개 사용 확인 전 public_use는 false여야 합니다.`);
-  }
-
   const lesson = Number(block.match(/^\s{4}lesson:\s*(\d+)\s*$/m)?.[1]);
   const lessonFromId = Number(id.match(/^l(\d{2})-/)?.[1]);
   if (lesson !== lessonFromId) {
@@ -256,10 +289,53 @@ for (const block of manifestBlocks) {
       `asset-manifest ${id}: reference-only 우선순위와 external-reference 출처 유형은 함께 사용해야 합니다.`,
     );
   }
-}
 
-if (manifestAssetIds.length !== 48) {
-  errors.push(`asset-manifest 자산 수: 예상 48개, 실제 ${manifestAssetIds.length}개`);
+  const status = block.match(/^\s{4}status:\s*"([^"]+)"\s*$/m)?.[1];
+  const publicUseValue = block.match(/^\s{4}public_use:\s*(true|false)\s*$/m)?.[1];
+  const publicUse = publicUseValue === 'true';
+  if (!publicUseValue) {
+    errors.push(`asset-manifest ${id}: public_use는 true 또는 false여야 합니다.`);
+  }
+  if (publicUse && status !== 'ready') {
+    errors.push(`asset-manifest ${id}: public_use true는 status ready에서만 허용됩니다.`);
+  }
+  if (publicUse && enumValues.source_type === 'external-reference') {
+    errors.push(`asset-manifest ${id}: 외부 참고 자산은 public_use false를 유지해야 합니다.`);
+  }
+  if (publicUse) {
+    const sourceNote = block.match(/^\s{4}source_note:\s*"([^"]+)"\s*$/m)?.[1];
+    const rightsStatus = block.match(/^\s{4}rights_status:\s*"([^"]+)"\s*$/m)?.[1];
+    const verifiedAt = block.match(/^\s{4}verified_at:\s*"([^"]+)"\s*$/m)?.[1];
+    const verificationNote = block.match(/^\s{4}verification_note:\s*"([^"]+)"\s*$/m)?.[1];
+    if (!sourceNote) {
+      errors.push(`asset-manifest ${id}: 공개 자산에는 source_note가 필요합니다.`);
+    }
+    if (rightsStatus !== 'cleared') {
+      errors.push(`asset-manifest ${id}: 공개 자산의 rights_status는 cleared여야 합니다.`);
+    }
+    if (!verifiedAt || !/^\d{4}-\d{2}-\d{2}$/.test(verifiedAt)) {
+      errors.push(`asset-manifest ${id}: 공개 자산에는 YYYY-MM-DD verified_at이 필요합니다.`);
+    }
+    if (!verificationNote) {
+      errors.push(`asset-manifest ${id}: 공개 자산에는 verification_note가 필요합니다.`);
+    }
+  }
+
+  const referencedBy = [...lessonAssetIds.entries()]
+    .filter(([, ids]) => ids.includes(id))
+    .map(([fileName]) => fileName);
+  if (enumValues.priority === 'reference-only' && referencedBy.length > 0) {
+    errors.push(`asset-manifest ${id}: reference-only 자산은 학생용 MDX에 연결할 수 없습니다.`);
+  }
+  if (enumValues.priority !== 'reference-only' && !referencedAssetIds.has(id)) {
+    errors.push(`asset-manifest ${id}: 학생용 차시의 assetIds에 연결되지 않았습니다.`);
+  }
+  if (
+    enumValues.priority !== 'reference-only' &&
+    (referencedBy.length !== 1 || referencedBy[0] !== `${String(lesson).padStart(2, '0')}.mdx`)
+  ) {
+    errors.push(`asset-manifest ${id}: 자산은 해당 차시 MDX 한 곳에만 연결해야 합니다.`);
+  }
 }
 
 if (errors.length > 0) {
@@ -275,5 +351,5 @@ console.log('- day: 1–14 누락·중복 없음');
 console.log('- ID/day 일치');
 console.log('- 승인된 제목·수업시간 일치');
 console.log('- 13개 골격 섹션과 실습시간 50% 이상');
-console.log(`- 자산 manifest: ${manifestAssetIds.length}개, 필수 필드·연결 ID 확인`);
+console.log(`- 자산 manifest: ${manifestAssetIds.length}개, 필수 필드·연결 ID·공개 조건 확인`);
 console.log(`- 필수 metadata: ${requiredFields.join(', ')}`);

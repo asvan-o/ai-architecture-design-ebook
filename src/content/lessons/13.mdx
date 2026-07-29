@@ -11,6 +11,7 @@ verificationStatus: "pending"
 freshness: "update-sensitive"
 riskLevel: "pending"
 professionalReviewStatus: "pending"
+professionalReviewScope: []
 sources: []
 sections:
   - { id: "section-01", label: "차시 소개" }
@@ -34,7 +35,7 @@ import LessonOutline from '../../components/content/LessonOutline.astro';
   lessonId="13"
   totalMinutes={180}
   intro={[
-    { category: '확인된 사실', text: '파일명, 프롬프트 기록, 출처, 필수 결과물 누락을 반복 점검하고 제출 패키지와 상태 보고서를 만드는 차시다.' },
+    { category: '확정된 수업 구성', text: '파일명, 프롬프트 기록, 출처, 필수 결과물 누락을 반복 점검하고 제출 패키지와 상태 보고서를 만드는 차시다.' },
     { category: '추가 검증 필요', text: 'AGY의 실제 명령어와 지원 기능은 확정하지 않으며 복잡한 MCP 구축이나 별도 프로그램 개발을 포함하지 않는다.' },
   ]}
   questions={[
@@ -42,9 +43,9 @@ import LessonOutline from '../../components/content/LessonOutline.astro';
     { category: '수강생 판단', text: '자동 점검 결과에서 실제 오류, 허용할 예외, 추가 확인을 어떻게 구분할 것인가?' },
   ]}
   goals={[
-    { category: '디자인 제안', text: '파일명 규칙, 프롬프트, 출처, 필수 결과물의 점검 순서를 설계한다.' },
-    { category: '확인된 사실', text: '누락 파일 보고서와 프로젝트 상태 보고서를 만든다.' },
-    { category: '수강생 판단', text: '점검 결과를 검토하고 최종 제출 폴더 패키지를 정리한다.' },
+    { category: '학습 목표', text: '파일명 규칙, 프롬프트, 출처, 필수 결과물의 점검 순서를 설계한다.' },
+    { category: '학습 목표', text: '누락 파일 보고서와 프로젝트 상태 보고서를 만든다.' },
+    { category: '학습 목표', text: '점검 결과를 검토하고 최종 제출 폴더 패키지를 정리한다.' },
   ]}
   concepts={[
     { category: '교육용 가정', text: '검사 항목과 상태 보고 형식은 가상 프로젝트용 초안이며 실제 조직의 품질관리 체계를 대신하지 않는다.' },
@@ -70,10 +71,10 @@ import LessonOutline from '../../components/content/LessonOutline.astro';
     { id: 'submission-package', title: '최종 제출 패키지 정리', minutes: 25, description: '원본 보존 상태에서 제출본 구조와 누락 여부를 확인한다.' },
   ]}
   deliverables={[
-    { category: '확인된 사실', text: '프로젝트 검사 프로세스.' },
-    { category: '확인된 사실', text: '누락 파일 보고서.' },
-    { category: '확인된 사실', text: '프로젝트 상태 보고서.' },
-    { category: '확인된 사실', text: '최종 제출 패키지.' },
+    { category: '수업 산출물', text: '프로젝트 검사 프로세스.' },
+    { category: '수업 산출물', text: '누락 파일 보고서.' },
+    { category: '수업 산출물', text: '프로젝트 상태 보고서.' },
+    { category: '수업 산출물', text: '최종 제출 패키지.' },
   ]}
   judgments={[
     { category: '수강생 판단', text: '점검 결과의 오류 후보를 원본과 직접 확인했는가?' },
@@ -85,11 +86,7 @@ import LessonOutline from '../../components/content/LessonOutline.astro';
     { category: '수강생 판단', text: '프롬프트·출처·결과물 누락을 완료 상태로 잘못 표시하지 않았는지 확인한다.' },
     { category: '추가 검증 필요', text: '검증되지 않은 AGY 명령어, 권한, 자동화 결과를 사실처럼 포함하지 않았는지 확인한다.' },
   ]}
-  assets={[
-    { id: 'l13-audit-pack', title: '검사 프로세스·누락·상태 보고 양식', type: 'document', purpose: '반복 점검과 제출 상태를 기록하는 문서 묶음.', recommendedTool: 'gpt-and-codex', alt: '프로젝트 검사와 상태 보고 문서 플레이스홀더' },
-    { id: 'l13-sample-package', title: '누락이 포함된 가상 프로젝트 패키지', type: 'document', purpose: '파일명·프롬프트·출처·결과물 누락을 찾는 교육용 파일 목록.', recommendedTool: 'codex', alt: '누락이 포함된 가상 프로젝트 패키지 플레이스홀더' },
-    { id: 'l13-agy-demo', title: 'AGY 반복 점검 강사 시연', type: 'video', purpose: '검증된 실제 환경에서만 제작할 점검 과정 녹화.', recommendedTool: 'user-upload', status: '실제 환경 검증 후 제작', alt: 'AGY 반복 점검 강사 시연 영상 플레이스홀더' },
-  ]}
+  assetIds={['l13-audit-pack', 'l13-sample-package', 'l13-agy-demo']}
   verification={[
     { category: '추가 검증 필요', text: 'AGY의 실제 명령어, 지원 기능, 권한 범위, 오류 처리 방식을 검증한다.' },
     { category: '추가 출처 확인', text: '가상 프로젝트 패키지가 개인정보·기밀·외부 권리 자료를 포함하지 않는지 확인한다.' },

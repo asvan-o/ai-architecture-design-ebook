@@ -1,10 +1,10 @@
 ---
-import { getCollection } from 'astro:content';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import StatusBadge from '../components/StatusBadge.astro';
+import { getVisibleLessons } from '../lib/lessons';
 import { withBase } from '../lib/site';
 
-const lessons = (await getCollection('lessons')).sort((a, b) => a.data.day - b.data.day);
+const lessons = await getVisibleLessons();
 ---
 
 <SiteLayout title="홈" section="HOME">
@@ -83,6 +83,9 @@ const lessons = (await getCollection('lessons')).sort((a, b) => a.data.day - b.d
           </li>
         ))}
       </ol>
+      {lessons.length === 0 && (
+        <p class="empty-lessons">현재 공개된 차시는 없습니다. 검토가 완료된 차시부터 순차적으로 제공됩니다.</p>
+      )}
       <a class="all-link" href={withBase('/curriculum/')}>14개 전체 차시 보기 <span aria-hidden="true">→</span></a>
     </section>
 
@@ -260,6 +263,14 @@ const lessons = (await getCollection('lessons')).sort((a, b) => a.data.day - b.d
     padding: 0;
     border-top: 1px solid var(--line-dark);
     list-style: none;
+  }
+
+  .empty-lessons {
+    margin: 2rem 0 0;
+    padding: 2rem 0;
+    border-top: 1px solid var(--line-dark);
+    border-bottom: 1px solid var(--line-dark);
+    color: var(--muted);
   }
 
   .lesson-preview li {

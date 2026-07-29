@@ -32,6 +32,7 @@ verificationStatus: "pending"
 freshness: "pending"
 riskLevel: "pending"
 professionalReviewStatus: "pending"
+professionalReviewScope: []
 sources: []
 ---
 ```
@@ -50,6 +51,7 @@ sources: []
 | `freshness` | enum | 최신성 민감도 |
 | `riskLevel` | enum | 위험도 |
 | `professionalReviewStatus` | enum | 전문가 검토 상태 |
+| `professionalReviewScope` | non-empty string[] | 전문 검토가 필요한 구체적 범위 |
 | `sources` | source object[] | 승인된 구조화 출처 |
 | `sections` | `{ id, label }[]` optional | MDX 구성에 맞춘 로컬 목차 |
 
@@ -79,6 +81,10 @@ professionalReviewStatus:
 
 서로 다른 의미를 한 필드에 섞지 않으며 한 콘텐츠에 여러 배지를 동시에 표시합니다. `riskLevel: pending`은 “검토 대기”로 표시합니다. `professionalReviewStatus`가 `required` 또는 `completed`일 때만 해당 확정 배지를 표시합니다.
 
+`required` 또는 `completed`에는 비어 있지 않은 `professionalReviewScope`가 필요합니다. 이 목록은 차시 전체가 외부 승인을 받아야 한다는 뜻이 아니라 법규, 구조, 소방, 접근성, 자재 성능, 시공 가능성 등 검토할 문구나 판단의 범위를 지정합니다.
+
+`draft: true`인 lesson은 개발 서버에서만 표시합니다. 운영 빌드에서는 개별 라우트, 홈·커리큘럼 목록, 사이드바·모바일 목차, 검색 인덱스에서 제외합니다.
+
 ## 5. 구조화 출처
 
 ```yaml
@@ -100,7 +106,7 @@ sources:
 
 14개 lesson MDX는 승인된 커리큘럼을 기준으로 `LessonOutline.astro`를 사용해 검토용 골격을 표시합니다. 공통 골격은 차시 소개, 핵심 질문, 학습 목표, 핵심 개념, 가상 문제, 제공 자료, 시연, 실습, 결과물, 판단 항목, 오류 체크, 필요 자산, 검증 필요 항목으로 구성됩니다. 스키마는 이 13개 섹션을 모든 향후 콘텐츠에 강제하지 않습니다.
 
-제작되지 않은 시각·영상·문서 자료는 `LessonAsset.astro` 플레이스홀더로만 표시합니다. 실제 자산의 제작 방법과 권리 상태는 `data/asset-manifest.yaml`에서 관리하며, `public_use: false`인 파일은 `public/`에 복사하지 않습니다.
+제작되지 않은 시각·영상·문서 자료는 `LessonAsset.astro` 플레이스홀더로만 표시합니다. MDX에는 `assetIds`만 두고 제목, 유형, 목적, 제작 도구, 상태, 공개 사용 여부와 대체 텍스트는 `data/asset-manifest.yaml`에서 불러옵니다.
 
 자산 감사 필드는 다음 enum을 사용합니다.
 
@@ -113,7 +119,17 @@ sources:
 
 `reference-only` 자산은 반드시 `external-reference`로 분류하며 삭제·공개 복사·학생 배포하지 않습니다. 제작 우선순위와 중복 제안은 `docs/CURRICULUM_REVIEW.md`에서 검토하고 사용자 승인 후 반영합니다.
 
+`public_use`는 다음 조건으로 검증합니다.
+
+- `not-created`, `awaiting-rights-review`, `reference-only-unverified`, `actual-environment-validation-required` 등 미제작·미검증 상태는 `false`
+- `source_type: "external-reference"`인 외부 참고 자산은 `false`
+- `true`는 `status: "ready"`에서만 허용
+- `true`인 자산은 비어 있지 않은 `source_note`, `rights_status: "cleared"`, `YYYY-MM-DD` 형식의 `verified_at`, 검증 내용을 담은 `verification_note`가 필요
+- `ready`라도 공개 승인이 보류됐다면 `public_use: false`를 유지할 수 있음
+
 콘텐츠 판단 표시는 포괄적인 “전문가 검토 필요” 하나로 처리하지 않습니다. 수강생의 공간디자인 판단은 `수강생 전문 판단`, 도구 기능·교육 예시 확인은 `강의 전 사실 검증`, 출처·라이선스·배포 범위는 `추가 출처 확인`, 법규·구조·소방·접근성·시공 등은 `법규·구조·소방 등 해당 전문가 판단`으로 구분합니다.
+
+학습 목표와 제출 결과물은 외부 사실이 아니므로 `학습 목표`, `수업 산출물` 교육 구조 분류를 사용합니다. 차시 소개의 확정된 일정·구성은 `확정된 수업 구성`으로 표시합니다. 사실·가정·제안·검증 배지는 핵심 개념, 도구 기능, 전문 정보, 오류 확인처럼 사실성 구분이 필요한 영역에 우선 사용합니다.
 
 ## 7. 검증
 
@@ -122,4 +138,4 @@ npm run typecheck
 npm run validate:content
 ```
 
-`typecheck`는 Zod 스키마와 MDX 타입을 검사합니다. `validate:content`는 강의 파일이 정확히 14개인지, ID 01–14와 day 1–14가 일치하는지, 중복·누락과 필수 metadata가 없는지 검사합니다. 또한 자산이 정확히 48개인지, 네 개 감사 필드가 허용 enum을 따르는지, `reference-only`와 `external-reference`가 일치하는지 검사하고 실패 시 종료 코드 1을 반환합니다.
+`typecheck`는 Zod 스키마와 MDX 타입을 검사합니다. `validate:content`는 강의 파일이 정확히 14개인지, ID 01–14와 day 1–14가 일치하는지, 중복·누락과 필수 metadata가 없는지 검사합니다. 자산 수는 고정하지 않으며 현재 매니페스트에 존재하는 자산의 필수 필드, enum, 공개 조건, 차시 연결을 검사합니다. `reference-only` 자산은 학생용 MDX에 연결되지 않아야 합니다.

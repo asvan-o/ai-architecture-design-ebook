@@ -1,9 +1,9 @@
 import type { APIRoute } from 'astro';
-import { getCollection } from 'astro:content';
 import { mainNav, withBase } from '../lib/site';
+import { getVisibleLessons } from '../lib/lessons';
 
 export const GET: APIRoute = async () => {
-  const lessons = (await getCollection('lessons')).sort((a, b) => a.data.day - b.data.day);
+  const lessons = await getVisibleLessons();
 
   const pages = mainNav.map((item) => ({
     title: item.label,

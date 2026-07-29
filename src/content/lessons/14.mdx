@@ -11,6 +11,8 @@ verificationStatus: "pending"
 freshness: "pending"
 riskLevel: "pending"
 professionalReviewStatus: "required"
+professionalReviewScope:
+  - "콘셉트 제안과 법규 적합·구조 안전·시공 가능성 주장의 경계"
 sources: []
 sections:
   - { id: "section-01", label: "차시 소개" }
@@ -34,7 +36,7 @@ import LessonOutline from '../../components/content/LessonOutline.astro';
   lessonId="14"
   totalMinutes={360}
   intro={[
-    { category: '확인된 사실', text: '1~13차시 결과물을 선별·보완·정리해 AI 공간디자인 콘셉트 패키지와 포트폴리오 페이지를 완성하는 6시간 차시다.' },
+    { category: '확정된 수업 구성', text: '1~13차시 결과물을 선별·보완·정리해 AI 공간디자인 콘셉트 패키지와 포트폴리오 페이지를 완성하는 6시간 차시다.' },
     { category: '수강생 판단', text: 'AI가 수행한 작업과 수강생이 판단·수정·검증한 작업을 결과물에서 구분한다.' },
   ]}
   questions={[
@@ -42,9 +44,9 @@ import LessonOutline from '../../components/content/LessonOutline.astro';
     { category: '수강생 판단', text: '최종 발표 전 추가 생성보다 검토와 수정이 더 필요한 부분은 무엇인가?' },
   ]}
   goals={[
-    { category: '확인된 사실', text: '1~13차시 결과물을 최종 제출 목적에 맞게 선별한다.' },
-    { category: '디자인 제안', text: '누락된 이미지와 영상을 보완하고 기획·무드·공간 이미지·수정 과정을 포트폴리오 페이지로 구성한다.' },
-    { category: '수강생 판단', text: '발표와 피드백을 거쳐 최종 수정하고 AI 작업·수정·검증 기록을 함께 제출한다.' },
+    { category: '학습 목표', text: '1~13차시 결과물을 최종 제출 목적에 맞게 선별한다.' },
+    { category: '학습 목표', text: '누락된 이미지와 영상을 보완하고 기획·무드·공간 이미지·수정 과정을 포트폴리오 페이지로 구성한다.' },
+    { category: '학습 목표', text: '발표와 피드백을 거쳐 최종 수정하고 AI 작업·수정·검증 기록을 함께 제출한다.' },
   ]}
   concepts={[
     { category: '교육용 가정', text: '최종 패키지는 콘셉트 전달과 작업 과정 설명을 위한 교육 결과물이며 설계·시공 도서가 아니다.' },
@@ -55,7 +57,7 @@ import LessonOutline from '../../components/content/LessonOutline.astro';
     { category: '교육용 가정', text: '가상의 최종 발표를 앞두고 여러 버전의 문서, 이미지, 영상이 남아 있다. 수강생은 누락과 불일치를 점검하고 한 프로젝트로 전달 가능한 콘셉트 패키지를 만든다.' },
   ]}
   materials={[
-    { category: '확인된 사실', text: '수강생이 1~13차시에서 만든 결과물과 작업·검증 기록.' },
+    { category: '확정된 수업 구성', text: '수강생이 1~13차시에서 만든 결과물과 작업·검증 기록.' },
     { category: '디자인 제안', text: '최종 포트폴리오 페이지 템플릿, 결과물 인덱스, 발표·피드백·최종 점검 양식.' },
     { category: '추가 출처 확인', text: '누락 이미지·영상 제작 슬롯은 자산 권리와 도구 환경 확인 후 사용한다.' },
   ]}
@@ -72,11 +74,11 @@ import LessonOutline from '../../components/content/LessonOutline.astro';
     { id: 'final-revision', title: '최종 수정과 제출 점검', minutes: 20, description: '누락, 일관성, 출처, 생성 기록, 파일 구조를 다시 확인한다.' },
   ]}
   deliverables={[
-    { category: '확인된 사실', text: '프로젝트 의뢰서와 디자인 브리프, 확정 및 미확정 조건표.' },
-    { category: '확인된 사실', text: '무드보드와 디자인 키워드, 공간 콘셉트 이미지.' },
-    { category: '확인된 사실', text: '재료·조명·가구 대안, 클라이언트 수정 전후 이미지, 이미지 일관성 검사표.' },
-    { category: '확인된 사실', text: '15~30초 공간 콘셉트 영상과 AI 작업·수정·검증 기록.' },
-    { category: '확인된 사실', text: '정리된 프로젝트 폴더와 최종 포트폴리오 페이지.' },
+    { category: '수업 산출물', text: '프로젝트 의뢰서와 디자인 브리프, 확정 및 미확정 조건표.' },
+    { category: '수업 산출물', text: '무드보드와 디자인 키워드, 공간 콘셉트 이미지.' },
+    { category: '수업 산출물', text: '재료·조명·가구 대안, 클라이언트 수정 전후 이미지, 이미지 일관성 검사표.' },
+    { category: '수업 산출물', text: '15~30초 공간 콘셉트 영상과 AI 작업·수정·검증 기록.' },
+    { category: '수업 산출물', text: '정리된 프로젝트 폴더와 최종 포트폴리오 페이지.' },
   ]}
   judgments={[
     { category: '수강생 판단', text: '결과물이 가상 의뢰와 디자인 방향을 일관되게 전달하는가?' },
@@ -88,12 +90,7 @@ import LessonOutline from '../../components/content/LessonOutline.astro';
     { category: '수강생 판단', text: '이미지와 영상 사이의 불일치, 공간 왜곡, 의도하지 않은 변경을 확인한다.' },
     { category: '추가 출처 확인', text: '권리 미확인 외부 자료나 미추적 영상이 공개 제출 폴더에 포함되지 않았는지 확인한다.' },
   ]}
-  assets={[
-    { id: 'l14-final-pack', title: '최종 패키지·포트폴리오·점검 양식', type: 'document', purpose: '결과물 선별, 편집, 발표, 제출 점검에 사용하는 문서 묶음.', recommendedTool: 'gpt-and-codex', alt: '최종 콘셉트 패키지와 포트폴리오 문서 플레이스홀더' },
-    { id: 'l14-image-gaps', title: '누락 보완용 공간 이미지 세트', type: 'image', purpose: '최종 패키지에 필요한 경우에만 제작할 추가 이미지 슬롯.', recommendedTool: 'nano-banana', alt: '누락 보완용 공간 이미지 세트 플레이스홀더' },
-    { id: 'l14-video-gap', title: '최종 공간 콘셉트 영상', type: 'video', purpose: '검토된 대표 이미지와 장면표로 보완할 영상 슬롯.', recommendedTool: 'veo', alt: '최종 공간 콘셉트 영상 플레이스홀더' },
-    { id: 'l14-presentation', title: '최종 발표와 피드백 기록', type: 'video', purpose: '수강생 발표와 피드백을 기록하는 선택 자산.', recommendedTool: 'user-upload', alt: '최종 발표와 피드백 기록 영상 플레이스홀더' },
-  ]}
+  assetIds={['l14-final-pack', 'l14-image-gaps', 'l14-video-gap', 'l14-presentation']}
   verification={[
     { category: '추가 출처 확인', text: '모든 이미지·영상·문서의 출처, 제작 방식, 공개 사용 가능 여부를 확인한다.' },
     { category: '추가 검증 필요', text: 'AI 도구와 AGY의 실제 사용 기록이 강의 환경에서 재현 가능한지 확인한다.' },

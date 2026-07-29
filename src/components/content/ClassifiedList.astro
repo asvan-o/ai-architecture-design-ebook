@@ -1,6 +1,9 @@
 ---
 type ContentCategory =
   | '확인된 사실'
+  | '확정된 수업 구성'
+  | '학습 목표'
+  | '수업 산출물'
   | '교육용 가정'
   | '디자인 제안'
   | '수강생 판단'
@@ -23,6 +26,9 @@ const { items, checks = false } = Astro.props;
 const categoryClass = (category: ContentCategory) =>
   `outline-category--${category
     .replaceAll(' ', '-')
+    .replace('확정된-수업-구성', 'structure')
+    .replace('학습-목표', 'goal')
+    .replace('수업-산출물', 'deliverable')
     .replace('확인된-사실', 'fact')
     .replace('교육용-가정', 'assumption')
     .replace('디자인-제안', 'proposal')
