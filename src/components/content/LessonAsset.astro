@@ -1,0 +1,51 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  type: string;
+  purpose: string;
+  recommendedTool: 'codex' | 'nano-banana' | 'veo' | 'gpt-and-codex' | 'user-upload';
+  status?: string;
+  publicUse?: boolean;
+  alt: string;
+}
+
+const {
+  id,
+  title,
+  type,
+  purpose,
+  recommendedTool,
+  status = '제작 전',
+  publicUse = false,
+  alt,
+} = Astro.props;
+
+const toolLabels: Record<Props['recommendedTool'], string> = {
+  codex: 'Codex 제작',
+  'nano-banana': 'Nano Banana 제작',
+  veo: 'Veo 제작',
+  'gpt-and-codex': 'GPT + Codex 제작',
+  'user-upload': '사용자 업로드',
+};
+---
+
+<article class="lesson-asset" data-asset-id={id} aria-label={`${title} 자산 플레이스홀더`}>
+  <div class="lesson-asset__visual" role="img" aria-label={alt}>
+    <span>LESSON ASSET</span>
+    <strong>{type.toUpperCase()}</strong>
+    <small>실제 파일 미삽입</small>
+  </div>
+  <div class="lesson-asset__body">
+    <header>
+      <span>{id}</span>
+      <span>{status}</span>
+    </header>
+    <h3>{title}</h3>
+    <p>{purpose}</p>
+    <dl>
+      <div><dt>권장 제작</dt><dd>{toolLabels[recommendedTool]}</dd></div>
+      <div><dt>공개 사용</dt><dd>{publicUse ? '확인됨' : '미확인 · public 복사 금지'}</dd></div>
+    </dl>
+  </div>
+</article>

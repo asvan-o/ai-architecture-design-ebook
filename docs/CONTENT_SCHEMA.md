@@ -98,7 +98,22 @@ sources:
 
 `src/components/content/`에는 학습 목표, 용어, 결과물, 이론, 시연, 실습, 프롬프트, 사례, 사실 검증, 주의사항, 체크리스트, 확인 문제, 파일 블록이 분리되어 있습니다.
 
-현재 placeholder 파일은 전체 골격을 확인하기 위해 `LessonPlaceholder.astro`를 사용합니다. 승인된 문서가 들어오면 해당 MDX에서 필요한 개별 컴포넌트만 import하여 조합할 수 있으며, 스키마는 13개 섹션을 모두 요구하지 않습니다.
+14개 lesson MDX는 승인된 커리큘럼을 기준으로 `LessonOutline.astro`를 사용해 검토용 골격을 표시합니다. 공통 골격은 차시 소개, 핵심 질문, 학습 목표, 핵심 개념, 가상 문제, 제공 자료, 시연, 실습, 결과물, 판단 항목, 오류 체크, 필요 자산, 검증 필요 항목으로 구성됩니다. 스키마는 이 13개 섹션을 모든 향후 콘텐츠에 강제하지 않습니다.
+
+제작되지 않은 시각·영상·문서 자료는 `LessonAsset.astro` 플레이스홀더로만 표시합니다. 실제 자산의 제작 방법과 권리 상태는 `data/asset-manifest.yaml`에서 관리하며, `public_use: false`인 파일은 `public/`에 복사하지 않습니다.
+
+자산 감사 필드는 다음 enum을 사용합니다.
+
+| 필드 | 허용값 | 의미 |
+| --- | --- | --- |
+| `priority` | `required`, `optional`, `reference-only` | 실습 필수, 보조 선택, 권리 확인 전 참고 전용 |
+| `source_type` | `original`, `external-reference`, `template` | 자체 제작물, 외부 참고물, 빈 양식 |
+| `production_owner` | `codex`, `instructor`, `nano-banana`, `veo` | 제작 또는 선별 책임 주체 |
+| `lesson_usage` | `demonstration`, `practice-input`, `result-sample`, `checklist` | 수업에서의 사용 역할 |
+
+`reference-only` 자산은 반드시 `external-reference`로 분류하며 삭제·공개 복사·학생 배포하지 않습니다. 제작 우선순위와 중복 제안은 `docs/CURRICULUM_REVIEW.md`에서 검토하고 사용자 승인 후 반영합니다.
+
+콘텐츠 판단 표시는 포괄적인 “전문가 검토 필요” 하나로 처리하지 않습니다. 수강생의 공간디자인 판단은 `수강생 전문 판단`, 도구 기능·교육 예시 확인은 `강의 전 사실 검증`, 출처·라이선스·배포 범위는 `추가 출처 확인`, 법규·구조·소방·접근성·시공 등은 `법규·구조·소방 등 해당 전문가 판단`으로 구분합니다.
 
 ## 7. 검증
 
@@ -107,4 +122,4 @@ npm run typecheck
 npm run validate:content
 ```
 
-`typecheck`는 Zod 스키마와 MDX 타입을 검사합니다. `validate:content`는 강의 파일이 정확히 14개인지, ID 01–14와 day 1–14가 일치하는지, 중복·누락과 필수 metadata가 없는지 검사하고 실패 시 종료 코드 1을 반환합니다.
+`typecheck`는 Zod 스키마와 MDX 타입을 검사합니다. `validate:content`는 강의 파일이 정확히 14개인지, ID 01–14와 day 1–14가 일치하는지, 중복·누락과 필수 metadata가 없는지 검사합니다. 또한 자산이 정확히 48개인지, 네 개 감사 필드가 허용 enum을 따르는지, `reference-only`와 `external-reference`가 일치하는지 검사하고 실패 시 종료 코드 1을 반환합니다.

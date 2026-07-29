@@ -53,7 +53,9 @@ src/components/content/* + 필요한 React island
 - `src/components/`: 브라우저 상태가 필요한 React islands와 공통 배지
 - `src/content.config.ts`: frontmatter 타입 검증
 - `scripts/validate-content.mjs`: 파일 집합과 차시 번호 검증
-- `source/`: 과거 참고자료
+- `source/`: 과거 참고자료. 단, `approved-curriculum.md`는 사용자가 승인한
+  14차시 제목·시간·범위의 기준 문서
+- `data/asset-manifest.yaml`: 차시별 제작 예정 자산, 권장 제작 도구, 공개 사용·검증 상태
 
 ## 6. React props와 브라우저 저장소
 
