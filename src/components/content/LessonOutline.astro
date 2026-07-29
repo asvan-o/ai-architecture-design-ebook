@@ -1,0 +1,186 @@
+---
+import LessonSection from './LessonSection.astro';
+import LessonAsset from './LessonAsset.astro';
+import ClassifiedList from './ClassifiedList.astro';
+import { getStudentLessonAssets } from '../../lib/asset-manifest';
+
+type ContentCategory =
+  | '확인된 사실'
+  | '확정된 수업 구성'
+  | '학습 목표'
+  | '수업 산출물'
+  | '교육용 가정'
+  | '디자인 제안'
+  | '수강생 판단'
+  | '수강생 전문 판단'
+  | '추가 검증 필요'
+  | '강의 전 사실 검증'
+  | '추가 출처 확인'
+  | '법규·구조·소방 등 해당 전문가 판단';
+
+type OutlineItem = {
+  category: ContentCategory;
+  text: string;
+};
+
+type TimeItem = {
+  label: string;
+  minutes: number;
+  mode: 'guide' | 'demo' | 'practice' | 'review';
+};
+
+type PracticeItem = {
+  id: string;
+  title: string;
+  minutes: number;
+  description: string;
+};
+
+interface Props {
+  lessonId: string;
+  totalMinutes: number;
+  openingMessage?: {
+    title: string;
+    body: string;
+  };
+  intro: OutlineItem[];
+  questions: OutlineItem[];
+  goals: OutlineItem[];
+  concepts: OutlineItem[];
+  scenario: OutlineItem[];
+  materials: OutlineItem[];
+  demo: OutlineItem[];
+  practice: PracticeItem[];
+  deliverables: OutlineItem[];
+  judgments: OutlineItem[];
+  errorChecks: OutlineItem[];
+  assetIds: string[];
+  verification: OutlineItem[];
+  timePlan: TimeItem[];
+}
+
+const {
+  lessonId,
+  totalMinutes,
+  openingMessage,
+  intro,
+  questions,
+  goals,
+  concepts,
+  scenario,
+  materials,
+  demo,
+  practice,
+  deliverables,
+  judgments,
+  errorChecks,
+  assetIds,
+  verification,
+  timePlan,
+} = Astro.props;
+
+const assets = getStudentLessonAssets(assetIds, Number(lessonId));
+const allocatedMinutes = timePlan.reduce((sum, item) => sum + item.minutes, 0);
+const practiceMinutes = timePlan
+  .filter((item) => item.mode === 'practice')
+  .reduce((sum, item) => sum + item.minutes, 0);
+const practicePercent = Math.round((practiceMinutes / totalMinutes) * 100);
+---
+
+<LessonSection id="section-01" number="01" title="차시 소개" class="outline-section">
+  {openingMessage && (
+    <aside class="lesson-opening-message">
+      <span>COURSE PRINCIPLE</span>
+      <h2>{openingMessage.title}</h2>
+      <p>{openingMessage.body}</p>
+    </aside>
+  )}
+  <ClassifiedList items={intro} />
+  <div class="time-plan">
+    <header>
+      <div>
+        <span>TIME PLAN · REVIEW REQUESTED</span>
+        <strong>{totalMinutes}분 중 수강생 실습 {practiceMinutes}분 · {practicePercent}%</strong>
+      </div>
+      <span class:list={['practice-ratio', { 'practice-ratio--valid': practiceMinutes >= totalMinutes / 2 }]}>
+        실습 절반 이상
+      </span>
+    </header>
+    <ol>
+      {timePlan.map((item) => (
+        <li>
+          <span>{item.label}</span>
+          <strong>{item.minutes}분</strong>
+        </li>
+      ))}
+    </ol>
+    {allocatedMinutes !== totalMinutes && (
+      <p class="time-plan__warning">시간 배분 합계 검토 필요: {allocatedMinutes}분</p>
+    )}
+  </div>
+</LessonSection>
+
+<LessonSection id="section-02" number="02" title="직관적인 핵심 질문" class="outline-section">
+  <ClassifiedList items={questions} />
+</LessonSection>
+
+<LessonSection id="section-03" number="03" title="학습 목표" class="outline-section">
+  <ClassifiedList items={goals} />
+</LessonSection>
+
+<LessonSection id="section-04" number="04" title="핵심 개념" class="outline-section">
+  <ClassifiedList items={concepts} />
+</LessonSection>
+
+<LessonSection id="section-05" number="05" title="실무형 가상 문제" class="outline-section">
+  <ClassifiedList items={scenario} />
+</LessonSection>
+
+<LessonSection id="section-06" number="06" title="제공 자료" class="outline-section">
+  <ClassifiedList items={materials} />
+</LessonSection>
+
+<LessonSection id="section-07" number="07" title="강사 시연" class="outline-section">
+  <ClassifiedList items={demo} />
+</LessonSection>
+
+<LessonSection id="section-08" number="08" title="수강생 실습" class="outline-section">
+  <ol class="practice-list">
+    {practice.map((step, index) => (
+      <li data-step-id={step.id}>
+        <span>STEP {String(index + 1).padStart(2, '0')} · {step.minutes}분</span>
+        <div>
+          <h3>{step.title}</h3>
+          <p>{step.description}</p>
+        </div>
+      </li>
+    ))}
+  </ol>
+</LessonSection>
+
+<LessonSection id="section-09" number="09" title="제출 결과물" class="outline-section">
+  <ClassifiedList items={deliverables} />
+</LessonSection>
+
+<LessonSection id="section-10" number="10" title="수강생이 판단할 항목" class="outline-section">
+  <ClassifiedList items={judgments} />
+</LessonSection>
+
+<LessonSection id="section-11" number="11" title="AI 오류 확인 체크리스트" class="outline-section">
+  <ClassifiedList items={errorChecks} checks />
+</LessonSection>
+
+<LessonSection id="section-12" number="12" title="필요한 이미지·영상·문서" class="outline-section">
+  <p class="asset-policy">
+    아래는 실제 이미지나 영상을 대신하지 않는 자산 슬롯입니다. 파일은 제작·권리·검증 상태가
+    확인되기 전까지 <code>public/</code>에 넣지 않습니다.
+  </p>
+  <div class="lesson-assets">
+    {assets.map((asset) => <LessonAsset {...asset} />)}
+  </div>
+</LessonSection>
+
+<LessonSection id="section-13" number="13" title="확인 또는 검증이 필요한 내용" class="outline-section">
+  <ClassifiedList items={verification} />
+  <p class="review-state">LESSON {lessonId} · 상세 원고 작성 전 검토 요청 상태</p>
+</LessonSection>

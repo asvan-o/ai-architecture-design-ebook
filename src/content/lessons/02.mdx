@@ -1,19 +1,100 @@
 ---
-title: "제2차시 · 내용 검토 예정"
+title: "제2차시 · 한 줄 공간 요청을 첫 콘셉트 이미지로 만들기"
 day: 2
 date: "pending"
-durationMinutes: null
+durationMinutes: 180
 lastVerified: null
 draft: true
-contentType: "pending"
-authorship: "pending"
+contentType: "instruction"
+authorship: "ai-assisted"
 verificationStatus: "pending"
 freshness: "pending"
 riskLevel: "pending"
 professionalReviewStatus: "pending"
+professionalReviewScope: []
 sources: []
+sections:
+  - { id: "section-01", label: "차시 소개" }
+  - { id: "section-02", label: "핵심 질문" }
+  - { id: "section-03", label: "학습 목표" }
+  - { id: "section-04", label: "핵심 개념" }
+  - { id: "section-05", label: "가상 문제" }
+  - { id: "section-06", label: "제공 자료" }
+  - { id: "section-07", label: "강사 시연" }
+  - { id: "section-08", label: "수강생 실습" }
+  - { id: "section-09", label: "제출 결과물" }
+  - { id: "section-10", label: "판단 항목" }
+  - { id: "section-11", label: "오류 체크" }
+  - { id: "section-12", label: "필요 자산" }
+  - { id: "section-13", label: "검증 필요" }
 ---
 
-import LessonPlaceholder from '../../components/content/LessonPlaceholder.astro';
+import LessonOutline from '../../components/content/LessonOutline.astro';
 
-<LessonPlaceholder lessonId="02" />
+<LessonOutline
+  lessonId="02"
+  totalMinutes={180}
+  intro={[
+    { category: '확정된 수업 구성', text: '한 줄 공간 요청을 구조화하고 첫 콘셉트 이미지와 생성 기록을 만드는 차시다.' },
+    { category: '디자인 제안', text: '생성 이미지는 설계 정답이나 시공 가능 결과가 아니라 초기 대화를 위한 콘셉트 제안으로 다룬다.' },
+  ]}
+  questions={[
+    { category: '교육용 가정', text: '짧은 요청에서 이미지 생성 전에 반드시 분리해야 할 조건은 무엇인가?' },
+    { category: '수강생 판단', text: '여러 생성 결과 중 요청을 더 명확히 보여 주는 이미지는 무엇이며 그 이유는 무엇인가?' },
+  ]}
+  goals={[
+    { category: '학습 목표', text: '요청을 목적, 사용자, 공간, 분위기, 시점 항목으로 구조화한다.' },
+    { category: '학습 목표', text: '구조화한 요청을 바탕으로 공간 콘셉트 이미지 후보를 만든다.' },
+    { category: '학습 목표', text: '생성 결과를 비교하고 초기 오류와 미확정 요소를 표시한다.' },
+  ]}
+  concepts={[
+    { category: '교육용 가정', text: '요청 구조화 항목은 학습을 위한 작업 틀이며 모든 프로젝트의 정답 형식이 아니다.' },
+    { category: '디자인 제안', text: '한 번의 생성 결과보다 여러 후보를 비교하고 기록하는 흐름을 사용한다.' },
+    { category: '추가 검증 필요', text: 'Gemini와 Nano Banana의 실제 입력 형식과 지원 기능은 환경 확인 후 작성한다.' },
+  ]}
+  scenario={[
+    { category: '교육용 가정', text: '가상의 소규모 공간 의뢰가 한 문장으로 들어왔다. 수강생은 누락된 조건을 표시하고 첫 대화용 콘셉트 이미지 3~4장을 준비한다.' },
+  ]}
+  materials={[
+    { category: '교육용 가정', text: '개인정보가 없는 한 줄 공간 요청문과 미확정 조건 카드.' },
+    { category: '디자인 제안', text: '요청 구조화표, 이미지 비교표, 생성 기록표의 빈 양식.' },
+    { category: '추가 출처 확인', text: '이미지 생성 화면과 예시 파일은 제작·공개 사용 확인 후 제공한다.' },
+  ]}
+  demo={[
+    { category: '디자인 제안', text: '강사는 요청을 구조화하고 한 차례 이미지 후보를 생성한 뒤 비교 항목을 기록하는 흐름을 시연한다.' },
+    { category: '추가 검증 필요', text: '실제 프롬프트 문장과 도구 조작 단계는 상세 교안 검토 후 작성한다.' },
+  ]}
+  practice={[
+    { id: 'request-structure', title: '한 줄 요청 구조화', minutes: 25, description: '목적, 사용자, 공간, 분위기, 시점과 미확정 조건을 구분한다.' },
+    { id: 'concept-generation', title: '콘셉트 이미지 후보 생성', minutes: 40, description: '검토된 입력 형식이 제공된 뒤 이미지 후보 3~4장을 생성한다.' },
+    { id: 'result-comparison', title: '생성 결과 비교', minutes: 20, description: '요청 반영, 공간 왜곡, 불필요한 추가 요소를 비교표에 기록한다.' },
+    { id: 'generation-log', title: '초기 요청과 생성 기록 정리', minutes: 15, description: '사용 입력, 선택 결과, 제외 이유, 추가 질문을 남긴다.' },
+  ]}
+  deliverables={[
+    { category: '수업 산출물', text: '공간 콘셉트 이미지 3~4장.' },
+    { category: '수업 산출물', text: '초기 요청문과 생성 기록.' },
+  ]}
+  judgments={[
+    { category: '수강생 판단', text: '요청의 핵심 목적과 사용자가 이미지에서 읽히는가?' },
+    { category: '수강생 판단', text: '미확정 조건을 AI가 임의로 확정한 부분은 없는가?' },
+    { category: '디자인 제안', text: '다음 대화를 시작하기에 적합한 후보와 제외할 후보를 구분했는가?' },
+  ]}
+  errorChecks={[
+    { category: '추가 검증 필요', text: '공간 용도, 사용자 수, 재료, 크기, 위치를 원문 없이 추가하지 않았는지 확인한다.' },
+    { category: '수강생 판단', text: '구조가 불가능해 보이거나 공간 관계가 모호한 부분을 표시했는지 확인한다.' },
+    { category: '추가 검증 필요', text: '생성 기록에 입력과 결과의 대응 관계가 빠지지 않았는지 확인한다.' },
+  ]}
+  assetIds={['l02-doc-pack', 'l02-concept-set', 'l02-demo']}
+  verification={[
+    { category: '추가 검증 필요', text: 'Gemini와 Nano Banana의 입력 제한, 출력 형식, 저장 방식은 실제 환경에서 확인한다.' },
+    { category: '추가 출처 확인', text: '실습용 이미지와 화면 캡처의 공개 사용 가능 여부를 확인한다.' },
+    { category: '수강생 전문 판단', text: '생성 결과의 공간 타당성은 수강생 전문 판단 영역임을 상세 교안에서 명확히 한다.' },
+  ]}
+  timePlan={[
+    { label: '차시 안내', minutes: 20, mode: 'guide' },
+    { label: '핵심 개념', minutes: 25, mode: 'guide' },
+    { label: '강사 시연', minutes: 25, mode: 'demo' },
+    { label: '수강생 실습', minutes: 100, mode: 'practice' },
+    { label: '검토·정리', minutes: 10, mode: 'review' },
+  ]}
+/>

@@ -43,7 +43,7 @@ export const statusCatalog: Record<StatusKind, Record<string, StatusMeta>> = {
   },
   professionalReviewStatus: {
     pending: { label: '전문가 검토 · 검토 대기', tone: 'check' },
-    required: { label: '전문가 검토 필요', tone: 'expert' },
+    required: { label: '일부 항목 · 전문 검토 필요', tone: 'expert' },
     'not-required': { label: '전문가 검토 불필요', tone: 'source' },
     completed: { label: '전문가 검토 완료', tone: 'verified' },
   },

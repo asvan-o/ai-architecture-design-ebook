@@ -1,19 +1,101 @@
 ---
-title: "제3차시 · 내용 검토 예정"
+title: "제3차시 · 레퍼런스와 무드보드에서 디자인 방향 찾기"
 day: 3
 date: "pending"
-durationMinutes: null
+durationMinutes: 180
 lastVerified: null
 draft: true
-contentType: "pending"
-authorship: "pending"
+contentType: "instruction"
+authorship: "ai-assisted"
 verificationStatus: "pending"
 freshness: "pending"
 riskLevel: "pending"
 professionalReviewStatus: "pending"
+professionalReviewScope: []
 sources: []
+sections:
+  - { id: "section-01", label: "차시 소개" }
+  - { id: "section-02", label: "핵심 질문" }
+  - { id: "section-03", label: "학습 목표" }
+  - { id: "section-04", label: "핵심 개념" }
+  - { id: "section-05", label: "가상 문제" }
+  - { id: "section-06", label: "제공 자료" }
+  - { id: "section-07", label: "강사 시연" }
+  - { id: "section-08", label: "수강생 실습" }
+  - { id: "section-09", label: "제출 결과물" }
+  - { id: "section-10", label: "판단 항목" }
+  - { id: "section-11", label: "오류 체크" }
+  - { id: "section-12", label: "필요 자산" }
+  - { id: "section-13", label: "검증 필요" }
 ---
 
-import LessonPlaceholder from '../../components/content/LessonPlaceholder.astro';
+import LessonOutline from '../../components/content/LessonOutline.astro';
 
-<LessonPlaceholder lessonId="03" />
+<LessonOutline
+  lessonId="03"
+  totalMinutes={180}
+  intro={[
+    { category: '확정된 수업 구성', text: '레퍼런스를 분석해 무드보드, 디자인 키워드표, 레퍼런스 분석표를 만드는 차시다.' },
+    { category: '추가 출처 확인', text: '외부 레퍼런스는 공개 사용 권한이 확인되기 전까지 강의실 분석용으로만 다룬다.' },
+  ]}
+  questions={[
+    { category: '교육용 가정', text: '좋아 보이는 이미지를 복제하지 않고 디자인 요소로 분해하려면 무엇을 관찰해야 하는가?' },
+    { category: '수강생 판단', text: '여러 레퍼런스의 공통 특징 중 이번 가상 의뢰에 적용할 것과 제외할 것은 무엇인가?' },
+  ]}
+  goals={[
+    { category: '학습 목표', text: '레퍼런스를 형태, 재료, 색, 빛, 분위기 항목으로 분해한다.' },
+    { category: '학습 목표', text: '여러 이미지의 공통 특징과 차이를 찾아 디자인 방향 후보를 정리한다.' },
+    { category: '학습 목표', text: '무드보드와 디자인 키워드표를 제작한다.' },
+  ]}
+  concepts={[
+    { category: '교육용 가정', text: '형태·재료·색·빛·분위기는 레퍼런스 분석을 위한 교육용 분류 틀이다.' },
+    { category: '디자인 제안', text: '레퍼런스의 전체 이미지를 복제하지 않고 관찰한 디자인 요소를 새로운 방향으로 재구성한다.' },
+    { category: '추가 출처 확인', text: '저작권, 라이선스, 출처 표기 방식은 자료별 확인 후 상세 안내한다.' },
+  ]}
+  scenario={[
+    { category: '교육용 가정', text: '가상의 클라이언트가 출처와 사용 권한이 아직 확인되지 않은 참고 이미지 묶음을 전달했다. 수강생은 원본을 공개 결과물에 복사하지 않고 분석표와 무드보드 초안을 만든다.' },
+  ]}
+  materials={[
+    { category: '추가 검증 필요', text: '강의실 분석용 레퍼런스 이미지 묶음. 공개 교재 포함 여부는 별도 확인한다.' },
+    { category: '디자인 제안', text: '레퍼런스 분석표, 디자인 키워드표, 빈 무드보드 템플릿.' },
+    { category: '추가 검증 필요', text: '미추적 무드보드 참고 영상은 사용 권한 확인 전 링크나 파일로 배포하지 않는다.' },
+  ]}
+  demo={[
+    { category: '디자인 제안', text: '강사는 레퍼런스 일부를 관찰 항목으로 분해하고 공통 특징을 키워드로 옮기는 흐름을 시연한다.' },
+    { category: '수강생 판단', text: '이미지를 그대로 따라 하는 표현과 분석한 요소를 선택적으로 사용하는 표현의 차이를 토의한다.' },
+  ]}
+  practice={[
+    { id: 'reference-breakdown', title: '레퍼런스 요소 분해', minutes: 30, description: '형태, 재료, 색, 빛, 분위기를 이미지별로 기록한다.' },
+    { id: 'common-patterns', title: '공통 특징과 차이 찾기', minutes: 20, description: '반복되는 요소와 충돌하는 요소를 구분한다.' },
+    { id: 'keyword-table', title: '디자인 키워드표 작성', minutes: 20, description: '적용 후보, 제외 후보, 추가 확인 항목으로 정리한다.' },
+    { id: 'moodboard-draft', title: '무드보드 초안 제작', minutes: 30, description: '권리 미확인 원본을 공개 배포하지 않는 검토용 보드로 구성한다.' },
+  ]}
+  deliverables={[
+    { category: '수업 산출물', text: '무드보드.' },
+    { category: '수업 산출물', text: '디자인 키워드표.' },
+    { category: '수업 산출물', text: '레퍼런스 분석표.' },
+  ]}
+  judgments={[
+    { category: '수강생 판단', text: '선택한 키워드가 가상 의뢰와 연결되는가?' },
+    { category: '수강생 판단', text: '레퍼런스의 특징을 분석했는지, 특정 결과를 그대로 복제하려 했는지 구분했는가?' },
+    { category: '법규·구조·소방 등 해당 전문가 판단', text: '재료·구조·시공 성능에 대한 판단을 이미지 인상만으로 확정하지 않았는가?' },
+  ]}
+  errorChecks={[
+    { category: '추가 검증 필요', text: 'AI가 이미지에 보이지 않는 재료명, 브랜드, 성능을 임의로 단정하지 않았는지 확인한다.' },
+    { category: '수강생 판단', text: '서로 충돌하는 키워드가 한 방향에 무분별하게 섞이지 않았는지 확인한다.' },
+    { category: '추가 출처 확인', text: '모든 외부 이미지의 출처와 공개 사용 상태가 아직 미확인임을 표시했는지 확인한다.' },
+  ]}
+  assetIds={['l03-doc-pack', 'l03-reference-set', 'l03-demo']}
+  verification={[
+    { category: '추가 출처 확인', text: '레퍼런스 이미지와 영상의 출처, 라이선스, 수업·배포 사용 범위를 확인한다.' },
+    { category: '추가 검증 필요', text: '무드보드 제작 도구와 파일 형식을 실제 수업 환경에 맞춰 확정한다.' },
+    { category: '법규·구조·소방 등 해당 전문가 판단', text: '재료, 조명, 구조에 대한 전문적 해석은 검토된 설명과 함께 작성한다.' },
+  ]}
+  timePlan={[
+    { label: '차시 안내', minutes: 20, mode: 'guide' },
+    { label: '핵심 개념', minutes: 25, mode: 'guide' },
+    { label: '강사 시연', minutes: 25, mode: 'demo' },
+    { label: '수강생 실습', minutes: 100, mode: 'practice' },
+    { label: '검토·정리', minutes: 10, mode: 'review' },
+  ]}
+/>

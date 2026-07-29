@@ -1,8 +1,9 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { getCollection, render } from 'astro:content';
+import { render } from 'astro:content';
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import StatusBadge from '../../components/StatusBadge.astro';
+import { getVisibleLessons } from '../../lib/lessons';
 import { pageSections, withBase } from '../../lib/site';
 import '../../styles/lesson-content.css';
 
@@ -14,7 +15,7 @@ interface Props {
 }
 
 export async function getStaticPaths() {
-  const lessons = (await getCollection('lessons')).sort((a, b) => a.data.day - b.data.day);
+  const lessons = await getVisibleLessons();
   return lessons.map((lesson, index) => ({
     params: { id: lesson.id },
     props: {
@@ -33,6 +34,7 @@ const durationLabel = lesson.data.durationMinutes === null
   ? '수업시간 확인 예정'
   : `${lesson.data.durationMinutes}분`;
 const verifiedLabel = lesson.data.lastVerified ?? '검토 전';
+const professionalReviewScope = lesson.data.professionalReviewScope ?? [];
 const localSections = lesson.data.sections ?? pageSections.map((label, index) => ({
   id: `section-${String(index + 1).padStart(2, '0')}`,
   label,
@@ -44,9 +46,9 @@ const localSections = lesson.data.sections ?? pageSections.map((label, index) =>
     <header class="lesson-hero">
       <div class="lesson-hero__number" aria-hidden="true">{dayLabel}</div>
       <div class="lesson-hero__copy">
-        <p class="page-kicker">LESSON {dayLabel} · CONTENT REVIEW PENDING</p>
+        <p class="page-kicker">LESSON {dayLabel} · OUTLINE REVIEW REQUESTED</p>
         <h1>{lesson.data.title}</h1>
-        <p>아래 본문은 승인된 MDX 문서를 표시하는 영역입니다. 현재는 구조 확인용 placeholder만 포함합니다.</p>
+        <p>승인된 14차시 커리큘럼을 기준으로 작성한 교육 콘텐츠 골격입니다. 상세 원고와 실제 자산은 아직 포함하지 않습니다.</p>
       </div>
       <dl class="lesson-meta">
         <div><dt>DATE</dt><dd>{dateLabel}</dd></div>
@@ -60,17 +62,33 @@ const localSections = lesson.data.sections ?? pageSections.map((label, index) =>
             <StatusBadge kind="verificationStatus" value={lesson.data.verificationStatus} />
             <StatusBadge kind="freshness" value={lesson.data.freshness} />
             <StatusBadge kind="riskLevel" value={lesson.data.riskLevel} />
-            <StatusBadge
-              kind="professionalReviewStatus"
-              value={lesson.data.professionalReviewStatus}
-            />
+            {(lesson.data.professionalReviewStatus === 'required' ||
+              lesson.data.professionalReviewStatus === 'completed') && (
+              <StatusBadge
+                kind="professionalReviewStatus"
+                value={lesson.data.professionalReviewStatus}
+              />
+            )}
           </dd>
         </div>
+        {professionalReviewScope.length > 0 && (
+          <div class="lesson-meta__review-scope">
+            <dt>PRO REVIEW SCOPE</dt>
+            <dd>
+              <ul>
+                {professionalReviewScope.map((scope) => <li>{scope}</li>)}
+              </ul>
+            </dd>
+          </div>
+        )}
       </dl>
     </header>
 
-    <nav class="lesson-local-nav" aria-label="이 차시의 섹션">
-      <span>ON THIS PAGE</span>
+    <nav class="lesson-local-nav" aria-label="이 차시의 섹션" tabindex="0">
+      <div class="lesson-local-nav__heading">
+        <span>ON THIS PAGE</span>
+        <span class="lesson-local-nav__hint">옆으로 넘겨 전체 보기 →</span>
+      </div>
       <ol>
         {localSections.map((section, index) => (
           <li>
@@ -135,6 +153,8 @@ const localSections = lesson.data.sections ?? pageSections.map((label, index) =>
     font-weight: 600;
     letter-spacing: -0.06em;
     line-height: 1.08;
+    text-wrap: balance;
+    word-break: keep-all;
   }
   .lesson-hero__copy > p:last-child {
     max-width: 35rem;
@@ -163,6 +183,10 @@ const localSections = lesson.data.sections ?? pageSections.map((label, index) =>
   .lesson-meta dd { margin: 0; font-size: 0.84rem; font-weight: 700; }
   .lesson-meta__statuses dd { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.8rem; }
   .lesson-meta__statuses :global(.status-badge) { font-size: 0.65rem; }
+  .lesson-meta__review-scope { grid-column: 1 / -1; }
+  .lesson-meta__review-scope dd { margin-top: 0.7rem; }
+  .lesson-meta__review-scope ul { margin: 0; padding-left: 1.1rem; }
+  .lesson-meta__review-scope li { color: var(--muted); font-size: 0.76rem; }
   .lesson-local-nav {
     display: grid;
     grid-template-columns: 10rem 1fr;
@@ -171,13 +195,14 @@ const localSections = lesson.data.sections ?? pageSections.map((label, index) =>
     border-bottom: 1px solid var(--line-dark);
     background: var(--paper-deep);
   }
-  .lesson-local-nav > span {
+  .lesson-local-nav__heading > span:first-child {
     padding-top: 0.4rem;
     color: var(--accent-dark);
     font-size: 0.72rem;
     font-weight: 800;
     letter-spacing: 0.14em;
   }
+  .lesson-local-nav__hint { display: none; }
   .lesson-local-nav ol {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -234,11 +259,32 @@ const localSections = lesson.data.sections ?? pageSections.map((label, index) =>
     .lesson-meta { grid-template-columns: 1fr 1fr; }
     .lesson-meta__statuses { grid-column: 1 / -1; }
     .lesson-local-nav { display: block; overflow-x: auto; padding: 1rem 1.5rem; }
-    .lesson-local-nav > span { display: block; margin-bottom: 0.7rem; }
+    .lesson-local-nav__heading {
+      display: flex;
+      width: calc(100vw - 3rem);
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.7rem;
+    }
+    .lesson-local-nav__heading > span:first-child { padding-top: 0; }
+    .lesson-local-nav__hint {
+      display: inline;
+      color: var(--accent-dark);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
     .lesson-local-nav ol { display: flex; width: max-content; }
     .lesson-local-nav a { min-width: 10rem; }
     .lesson-pagination { grid-template-columns: 1fr; }
     .lesson-pagination a:first-child { border-right: 0; border-bottom: 1px solid var(--line-dark); }
+    .pagination-empty {
+      min-height: 4.5rem;
+      padding-block: 1.25rem;
+    }
+    .pagination-empty:not(.pagination-empty--next) { border-bottom: 1px solid var(--line-dark); }
     .lesson-pagination .next,
     .pagination-empty--next { text-align: left; }
   }

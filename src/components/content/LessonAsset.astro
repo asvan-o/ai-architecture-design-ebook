@@ -1,0 +1,61 @@
+---
+import type { AssetTool } from '../../lib/asset-manifest';
+
+interface Props {
+  id: string;
+  title: string;
+  type: string;
+  purpose: string;
+  recommendedTool: AssetTool;
+  status: string;
+  publicUse: boolean;
+  alt: string;
+}
+
+const {
+  id,
+  title,
+  type,
+  purpose,
+  recommendedTool,
+  status,
+  publicUse,
+  alt,
+} = Astro.props;
+
+const toolLabels: Record<Props['recommendedTool'], string> = {
+  codex: 'Codex 제작',
+  'nano-banana': 'Nano Banana 제작',
+  veo: 'Veo 제작',
+  'gpt-and-codex': 'GPT + Codex 제작',
+  'user-upload': '사용자 업로드',
+};
+
+const statusLabels: Record<string, string> = {
+  'not-created': '제작 전',
+  'awaiting-rights-review': '권리 검토 대기',
+  'reference-only-unverified': '외부 참고 · 미검증',
+  'actual-environment-validation-required': '실제 환경 검증 필요',
+  ready: '공개 준비 완료',
+};
+---
+
+<article class="lesson-asset" data-asset-id={id} aria-label={`${title} 자산 플레이스홀더`}>
+  <div class="lesson-asset__visual" role="img" aria-label={alt}>
+    <span>LESSON ASSET</span>
+    <strong>{type.toUpperCase()}</strong>
+    <small>실제 파일 미삽입</small>
+  </div>
+  <div class="lesson-asset__body">
+    <header>
+      <span>{id}</span>
+      <span>{statusLabels[status] ?? status}</span>
+    </header>
+    <h3>{title}</h3>
+    <p>{purpose}</p>
+    <dl>
+      <div><dt>권장 제작</dt><dd>{toolLabels[recommendedTool]}</dd></div>
+      <div><dt>공개 사용</dt><dd>{publicUse ? '확인됨' : '미확인 · public 복사 금지'}</dd></div>
+    </dl>
+  </div>
+</article>

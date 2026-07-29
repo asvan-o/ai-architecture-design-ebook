@@ -44,6 +44,8 @@ src/components/content/* + 필요한 React island
 
 강의 본문을 바꾸기 위해 `src/pages/lessons/[id].astro`를 수정할 필요가 없습니다. MDX에서 필요한 콘텐츠 컴포넌트를 조합합니다. 로컬 목차 구성이 기본 13개와 다르면 frontmatter의 optional `sections` 배열을 MDX 구조와 맞춰 지정합니다.
 
+`draft: true`인 차시는 개발 서버에서만 검토할 수 있습니다. 운영 `npm run build`에서는 개별 차시 라우트, 홈 미리보기, 커리큘럼, 데스크톱·모바일 목차, 검색 인덱스에 포함되지 않습니다. 공개 전환은 승인 후 해당 차시의 `draft`를 `false`로 변경합니다.
+
 ## 5. 책임 분리
 
 - `src/content/`: 승인된 MDX와 placeholder 데이터
@@ -53,7 +55,11 @@ src/components/content/* + 필요한 React island
 - `src/components/`: 브라우저 상태가 필요한 React islands와 공통 배지
 - `src/content.config.ts`: frontmatter 타입 검증
 - `scripts/validate-content.mjs`: 파일 집합과 차시 번호 검증
-- `source/`: 과거 참고자료
+- `source/`: 과거 참고자료. 단, `approved-curriculum.md`는 사용자가 승인한
+  14차시 제목·시간·범위의 기준 문서
+- `data/asset-manifest.yaml`: 차시별 제작 예정 자산, 권장 제작 도구, 공개 사용·검증 상태
+
+MDX의 `LessonOutline`에는 `assetIds`만 작성합니다. 제목, 유형, 목적, 제작 도구, 상태, 공개 사용 여부와 대체 텍스트는 `data/asset-manifest.yaml`을 단일 기준으로 사용합니다. `reference-only` 자산은 학생용 `assetIds`에 넣지 않습니다.
 
 ## 6. React props와 브라우저 저장소
 
