@@ -84,8 +84,11 @@ const localSections = lesson.data.sections ?? pageSections.map((label, index) =>
       </dl>
     </header>
 
-    <nav class="lesson-local-nav" aria-label="이 차시의 섹션">
-      <span>ON THIS PAGE</span>
+    <nav class="lesson-local-nav" aria-label="이 차시의 섹션" tabindex="0">
+      <div class="lesson-local-nav__heading">
+        <span>ON THIS PAGE</span>
+        <span class="lesson-local-nav__hint">옆으로 넘겨 전체 보기 →</span>
+      </div>
       <ol>
         {localSections.map((section, index) => (
           <li>
@@ -150,6 +153,8 @@ const localSections = lesson.data.sections ?? pageSections.map((label, index) =>
     font-weight: 600;
     letter-spacing: -0.06em;
     line-height: 1.08;
+    text-wrap: balance;
+    word-break: keep-all;
   }
   .lesson-hero__copy > p:last-child {
     max-width: 35rem;
@@ -190,13 +195,14 @@ const localSections = lesson.data.sections ?? pageSections.map((label, index) =>
     border-bottom: 1px solid var(--line-dark);
     background: var(--paper-deep);
   }
-  .lesson-local-nav > span {
+  .lesson-local-nav__heading > span:first-child {
     padding-top: 0.4rem;
     color: var(--accent-dark);
     font-size: 0.72rem;
     font-weight: 800;
     letter-spacing: 0.14em;
   }
+  .lesson-local-nav__hint { display: none; }
   .lesson-local-nav ol {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -253,11 +259,32 @@ const localSections = lesson.data.sections ?? pageSections.map((label, index) =>
     .lesson-meta { grid-template-columns: 1fr 1fr; }
     .lesson-meta__statuses { grid-column: 1 / -1; }
     .lesson-local-nav { display: block; overflow-x: auto; padding: 1rem 1.5rem; }
-    .lesson-local-nav > span { display: block; margin-bottom: 0.7rem; }
+    .lesson-local-nav__heading {
+      display: flex;
+      width: calc(100vw - 3rem);
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.7rem;
+    }
+    .lesson-local-nav__heading > span:first-child { padding-top: 0; }
+    .lesson-local-nav__hint {
+      display: inline;
+      color: var(--accent-dark);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
     .lesson-local-nav ol { display: flex; width: max-content; }
     .lesson-local-nav a { min-width: 10rem; }
     .lesson-pagination { grid-template-columns: 1fr; }
     .lesson-pagination a:first-child { border-right: 0; border-bottom: 1px solid var(--line-dark); }
+    .pagination-empty {
+      min-height: 4.5rem;
+      padding-block: 1.25rem;
+    }
+    .pagination-empty:not(.pagination-empty--next) { border-bottom: 1px solid var(--line-dark); }
     .lesson-pagination .next,
     .pagination-empty--next { text-align: left; }
   }
