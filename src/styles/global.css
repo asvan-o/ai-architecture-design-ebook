@@ -1,3 +1,6 @@
+@import "@fontsource-variable/noto-sans-kr/wght.css";
+@import "@fontsource-variable/noto-serif-kr/wght.css";
+
 :root {
   --paper: #f4f1ea;
   --paper-deep: #e9e5dc;
@@ -10,8 +13,8 @@
   --accent-dark: #792914;
   --blue: #315b66;
   --sidebar: 19rem;
-  --sans: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", "Segoe UI", sans-serif;
-  --serif: "Noto Serif KR", "Nanum Myeongjo", Georgia, serif;
+  --sans: "Noto Sans KR Variable", "Noto Sans KR", "Apple SD Gothic Neo", "Segoe UI", sans-serif;
+  --serif: "Noto Serif KR Variable", "Noto Serif KR", "Nanum Myeongjo", Georgia, serif;
 }
 
 *,

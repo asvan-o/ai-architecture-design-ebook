@@ -7,12 +7,7 @@
   margin: 0;
   color: #171b19;
   background: #fff;
-  font-family:
-    "Noto Sans CJK KR",
-    "Noto Sans KR",
-    "Malgun Gothic",
-    "Apple SD Gothic Neo",
-    sans-serif;
+  font-family: var(--sans);
   font-size: 10.5pt;
   line-height: 1.6;
   word-break: keep-all;
@@ -67,11 +62,7 @@
 .print-lesson__title {
   max-width: 19ch;
   margin: 0;
-  font-family:
-    "Noto Serif CJK KR",
-    "Noto Serif KR",
-    "Batang",
-    serif;
+  font-family: var(--serif);
   font-size: 28pt;
   font-weight: 700;
   letter-spacing: -0.045em;
@@ -109,10 +100,28 @@
   break-inside: auto;
 }
 
+.print-document .lesson-section:has(> .lesson-check-list),
+.print-document .lesson-section:has(> .lesson-question-list),
+.print-document .lesson-section:has(> .lesson-output-grid),
+.print-document .lesson-section:has(> .lesson-prompt),
+.print-document .outline-section,
+.print-document .print-lesson__content > .lesson-section:last-child {
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+
 .print-document .section-heading,
 .print-document h2,
 .print-document h3 {
-  break-after: avoid;
+  break-after: avoid-page;
+  page-break-after: avoid;
+}
+
+.print-document .section-heading + *,
+.print-document h2 + *,
+.print-document h3 + * {
+  break-before: avoid-page;
+  page-break-before: avoid;
 }
 
 .print-document p,
@@ -141,13 +150,41 @@
 .print-document .lesson-callout,
 .print-document .lesson-practice-block,
 .print-document .lesson-share,
+.print-document .time-plan,
 .print-document .warning-box,
 .print-document .fact-panel,
 .print-document .case-notes,
 .print-document .download-placeholder,
 .print-document .outline-list li,
 .print-document .practice-list li {
-  break-inside: avoid;
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+
+.print-document .lesson-check-list,
+.print-document .lesson-question-list,
+.print-document .classified-list,
+.print-document .outline-list,
+.print-document .practice-list,
+.print-document .lesson-prose > ul,
+.print-document .lesson-prose > ol {
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+
+.print-document .lesson-prose > p:has(+ ul),
+.print-document .lesson-prose > p:has(+ ol) {
+  break-after: avoid-page;
+  page-break-after: avoid;
+}
+
+.print-document .lesson-check-list li,
+.print-document .lesson-question-list li,
+.print-document .classified-list li,
+.print-document .outline-list li,
+.print-document .practice-list li {
+  break-inside: avoid-page;
+  page-break-inside: avoid;
 }
 
 .print-document .lesson-summary-grid,
@@ -172,6 +209,8 @@
   min-width: 0;
   table-layout: fixed;
   font-size: 8.2pt;
+  break-inside: avoid-page;
+  page-break-inside: avoid;
 }
 
 .print-document .lesson-table thead {
@@ -179,7 +218,8 @@
 }
 
 .print-document .lesson-table tr {
-  break-inside: avoid;
+  break-inside: avoid-page;
+  page-break-inside: avoid;
 }
 
 .print-document .lesson-table th,
