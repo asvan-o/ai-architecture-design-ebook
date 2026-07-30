@@ -2,7 +2,11 @@
 import LessonSection from './LessonSection.astro';
 import LessonAsset from './LessonAsset.astro';
 import ClassifiedList from './ClassifiedList.astro';
+import IterativeImageSample from './IterativeImageSample.astro';
+import EmptySpacePracticeKit from './EmptySpacePracticeKit.astro';
+import LessonTopic from './LessonTopic.astro';
 import { getStudentLessonAssets } from '../../lib/asset-manifest';
+import type { ImageMetadata } from 'astro';
 
 type ContentCategory =
   | '확인된 사실'
@@ -36,9 +40,43 @@ type PracticeItem = {
   description: string;
 };
 
+type IterationSample = {
+  bridge: string;
+  principle: string;
+  originalPrompt: string;
+  originalImage: ImageMetadata;
+  originalAlt: string;
+  originalCaption: string;
+  designerJudgment: string;
+  revisionPrompt: string;
+  revisedImage: ImageMetadata;
+  revisedAlt: string;
+  revisedCaption: string;
+  comparison: string;
+  learningPoint: string;
+  caution: string;
+};
+
+type PracticeKit = {
+  prompts: {
+    id: string;
+    title: string;
+    content: string;
+  }[];
+  images: {
+    src: ImageMetadata;
+    alt: string;
+    caption: string;
+  }[];
+};
+
 interface Props {
   lessonId: string;
   totalMinutes: number;
+  topic?: {
+    number: string;
+    title: string;
+  };
   openingMessage?: {
     title: string;
     body: string;
@@ -50,11 +88,17 @@ interface Props {
   scenario: OutlineItem[];
   materials: OutlineItem[];
   demo: OutlineItem[];
+  demoTitle?: string;
+  iterationSample?: IterationSample;
+  practiceKit?: PracticeKit;
   practice: PracticeItem[];
+  practiceGuidance?: OutlineItem[];
   deliverables: OutlineItem[];
   judgments: OutlineItem[];
   errorChecks: OutlineItem[];
   assetIds: string[];
+  showOnlyReadyAssets?: boolean;
+  assetNotes?: OutlineItem[];
   verification: OutlineItem[];
   timePlan: TimeItem[];
 }
@@ -62,6 +106,7 @@ interface Props {
 const {
   lessonId,
   totalMinutes,
+  topic,
   openingMessage,
   intro,
   questions,
@@ -70,16 +115,25 @@ const {
   scenario,
   materials,
   demo,
+  demoTitle = '강사 시연',
+  iterationSample,
+  practiceKit,
   practice,
+  practiceGuidance,
   deliverables,
   judgments,
   errorChecks,
   assetIds,
+  showOnlyReadyAssets = false,
+  assetNotes,
   verification,
   timePlan,
 } = Astro.props;
 
 const assets = getStudentLessonAssets(assetIds, Number(lessonId));
+const displayedAssets = showOnlyReadyAssets
+  ? assets.filter((asset) => asset.status === 'ready' && asset.publicUse)
+  : assets;
 const allocatedMinutes = timePlan.reduce((sum, item) => sum + item.minutes, 0);
 const practiceMinutes = timePlan
   .filter((item) => item.mode === 'practice')
@@ -88,6 +142,7 @@ const practicePercent = Math.round((practiceMinutes / totalMinutes) * 100);
 ---
 
 <LessonSection id="section-01" number="01" title="차시 소개" class="outline-section">
+  {topic && <LessonTopic {...topic} />}
   {openingMessage && (
     <aside class="lesson-opening-message">
       <span>COURSE PRINCIPLE</span>
@@ -138,13 +193,17 @@ const practicePercent = Math.round((practiceMinutes / totalMinutes) * 100);
 
 <LessonSection id="section-06" number="06" title="제공 자료" class="outline-section">
   <ClassifiedList items={materials} />
+  {practiceKit && <EmptySpacePracticeKit {...practiceKit} />}
 </LessonSection>
 
-<LessonSection id="section-07" number="07" title="강사 시연" class="outline-section">
-  <ClassifiedList items={demo} />
+<LessonSection id="section-07" number="07" title={demoTitle} class="outline-section">
+  {iterationSample
+    ? <IterativeImageSample {...iterationSample} />
+    : <ClassifiedList items={demo} />}
 </LessonSection>
 
 <LessonSection id="section-08" number="08" title="수강생 실습" class="outline-section">
+  {practiceGuidance && <ClassifiedList items={practiceGuidance} />}
   <ol class="practice-list">
     {practice.map((step, index) => (
       <li data-step-id={step.id}>
@@ -171,13 +230,19 @@ const practicePercent = Math.round((practiceMinutes / totalMinutes) * 100);
 </LessonSection>
 
 <LessonSection id="section-12" number="12" title="필요한 이미지·영상·문서" class="outline-section">
-  <p class="asset-policy">
-    아래는 실제 이미지나 영상을 대신하지 않는 자산 슬롯입니다. 파일은 제작·권리·검증 상태가
-    확인되기 전까지 <code>public/</code>에 넣지 않습니다.
-  </p>
-  <div class="lesson-assets">
-    {assets.map((asset) => <LessonAsset {...asset} />)}
-  </div>
+  {assetNotes ? (
+    <ClassifiedList items={assetNotes} />
+  ) : (
+    <>
+      <p class="asset-policy">
+        아래는 실제 이미지나 영상을 대신하지 않는 자산 슬롯입니다. 파일은 제작·권리·검증 상태가
+        확인되기 전까지 <code>public/</code>에 넣지 않습니다.
+      </p>
+      <div class="lesson-assets">
+        {displayedAssets.map((asset) => <LessonAsset {...asset} />)}
+      </div>
+    </>
+  )}
 </LessonSection>
 
 <LessonSection id="section-13" number="13" title="확인 또는 검증이 필요한 내용" class="outline-section">

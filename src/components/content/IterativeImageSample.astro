@@ -1,0 +1,336 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+export interface Props {
+  bridge: string;
+  principle: string;
+  originalPrompt: string;
+  originalImage: ImageMetadata;
+  originalAlt: string;
+  originalCaption: string;
+  designerJudgment: string;
+  revisionPrompt: string;
+  revisedImage: ImageMetadata;
+  revisedAlt: string;
+  revisedCaption: string;
+  comparison: string;
+  learningPoint: string;
+  caution: string;
+}
+
+const {
+  bridge,
+  principle,
+  originalPrompt,
+  originalImage,
+  originalAlt,
+  originalCaption,
+  designerJudgment,
+  revisionPrompt,
+  revisedImage,
+  revisedAlt,
+  revisedCaption,
+  comparison,
+  learningPoint,
+  caution,
+} = Astro.props;
+---
+
+<div class="iteration-sample">
+  <p class="iteration-sample__bridge">{bridge}</p>
+
+  <aside class="iteration-sample__principle">
+    <span>LESSON 02 PRINCIPLE</span>
+    <strong>{principle}</strong>
+  </aside>
+
+  <article class="iteration-sample__step" aria-labelledby="flower-sample-step-01">
+    <header>
+      <span>01</span>
+      <h3 id="flower-sample-step-01">한 줄 요청문</h3>
+    </header>
+    <pre class="iteration-sample__prompt"><code>{originalPrompt.trim()}</code></pre>
+  </article>
+
+  <figure class="iteration-sample__figure">
+    <Image
+      src={originalImage}
+      alt={originalAlt}
+      loading="eager"
+      decoding="async"
+    />
+    <figcaption>
+      <span>02 · 최초 생성 이미지</span>
+      <p>{originalCaption}</p>
+    </figcaption>
+  </figure>
+
+  <article
+    class="iteration-sample__note iteration-sample__note--judgment"
+    aria-labelledby="flower-sample-step-03"
+  >
+    <span>03 · DESIGNER DECIDES</span>
+    <h3 id="flower-sample-step-03">디자이너의 판단</h3>
+    <p>{designerJudgment}</p>
+  </article>
+
+  <article class="iteration-sample__step" aria-labelledby="flower-sample-step-04">
+    <header>
+      <span>04</span>
+      <h3 id="flower-sample-step-04">수정 요청문</h3>
+    </header>
+    <pre class="iteration-sample__prompt iteration-sample__prompt--revision"><code>{revisionPrompt.trim()}</code></pre>
+  </article>
+
+  <figure class="iteration-sample__figure">
+    <Image
+      src={revisedImage}
+      alt={revisedAlt}
+      loading="eager"
+      decoding="async"
+    />
+    <figcaption>
+      <span>05 · 수정된 이미지</span>
+      <p>{revisedCaption}</p>
+    </figcaption>
+  </figure>
+
+  <article
+    class="iteration-sample__note iteration-sample__note--comparison"
+    aria-labelledby="flower-sample-step-06"
+  >
+    <span>06 · BEFORE / AFTER</span>
+    <h3 id="flower-sample-step-06">최초 결과와 수정 결과 비교</h3>
+    <p>{comparison}</p>
+  </article>
+
+  <aside class="iteration-sample__caution">
+    <strong>해석 범위</strong>
+    <p>{caution}</p>
+  </aside>
+
+  <article
+    class="iteration-sample__note iteration-sample__note--learning"
+    aria-labelledby="flower-sample-step-07"
+  >
+    <span>07 · LEARNING POINT</span>
+    <h3 id="flower-sample-step-07">제2차시 학습 포인트</h3>
+    <p>{learningPoint}</p>
+  </article>
+</div>
+
+<style>
+  .iteration-sample {
+    display: grid;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    min-width: 0;
+  }
+
+  .iteration-sample__bridge {
+    max-width: 52rem;
+    margin: 0;
+    color: var(--muted);
+    font-size: 1.05rem;
+  }
+
+  .iteration-sample__principle,
+  .iteration-sample__note,
+  .iteration-sample__caution {
+    border-left: 4px solid var(--accent);
+    background: #f7f3ec;
+  }
+
+  .iteration-sample__principle {
+    display: grid;
+    gap: 0.55rem;
+    padding: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  .iteration-sample__principle span,
+  .iteration-sample__note > span {
+    color: var(--accent-dark);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+  }
+
+  .iteration-sample__principle strong {
+    max-width: 42rem;
+    font-family: var(--serif);
+    font-size: clamp(1.35rem, 3vw, 2rem);
+    line-height: 1.35;
+  }
+
+  .iteration-sample__step {
+    display: grid;
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  .iteration-sample__step > header {
+    display: grid;
+    grid-template-columns: 2.25rem minmax(0, 1fr);
+    gap: 0.8rem;
+    align-items: baseline;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--line-dark);
+  }
+
+  .iteration-sample__step > header span {
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+  }
+
+  .iteration-sample__step h3,
+  .iteration-sample__note h3 {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: clamp(1.25rem, 2.6vw, 1.75rem);
+    line-height: 1.35;
+  }
+
+  .iteration-sample__prompt {
+    box-sizing: border-box;
+    max-width: 100%;
+    margin: 0;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    overflow: visible;
+    border: 1px solid #26312d;
+    color: #f3f1eb;
+    background: #26312d;
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    word-break: keep-all;
+  }
+
+  .iteration-sample__prompt code {
+    color: inherit;
+    background: transparent;
+    font: inherit;
+    white-space: inherit;
+  }
+
+  .iteration-sample__figure {
+    min-width: 0;
+    margin: 0;
+    border: 1px solid var(--line-dark);
+    background: #fff;
+  }
+
+  .iteration-sample__figure :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .iteration-sample__figure figcaption {
+    display: grid;
+    gap: 0.65rem;
+    padding: clamp(1rem, 3vw, 1.6rem);
+    border-top: 1px solid var(--line);
+  }
+
+  .iteration-sample__figure figcaption span {
+    color: var(--accent-dark);
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+  }
+
+  .iteration-sample__figure figcaption p,
+  .iteration-sample__note p,
+  .iteration-sample__caution p {
+    margin: 0;
+    line-height: 1.75;
+  }
+
+  .iteration-sample__note {
+    display: grid;
+    gap: 0.75rem;
+    padding: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  .iteration-sample__note--comparison {
+    border-left-color: var(--blue);
+    background: #edf2f1;
+  }
+
+  .iteration-sample__note--learning {
+    color: #f6f4ed;
+    border-left-color: var(--accent);
+    background: var(--ink);
+  }
+
+  .iteration-sample__note--learning > span {
+    color: #e6ad91;
+  }
+
+  .iteration-sample__caution {
+    display: grid;
+    gap: 0.5rem;
+    padding: 1.2rem 1.35rem;
+    color: #5d2519;
+    background: #f6e9e5;
+  }
+
+  .iteration-sample__caution strong {
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 44rem) {
+    .iteration-sample {
+      gap: 1.5rem;
+    }
+
+    .iteration-sample__prompt {
+      padding: 1rem;
+      font-size: 0.9rem;
+      line-height: 1.65;
+      word-break: normal;
+    }
+  }
+
+  @media print {
+    .iteration-sample {
+      gap: 6mm;
+    }
+
+    .iteration-sample__bridge,
+    .iteration-sample__principle,
+    .iteration-sample__step,
+    .iteration-sample__figure,
+    .iteration-sample__note,
+    .iteration-sample__caution {
+      break-inside: avoid-page;
+      page-break-inside: avoid;
+    }
+
+    .iteration-sample__figure :global(img) {
+      max-height: 112mm;
+      object-fit: contain;
+    }
+
+    .iteration-sample__figure figcaption,
+    .iteration-sample__principle,
+    .iteration-sample__note {
+      padding: 5mm;
+    }
+
+    .iteration-sample__prompt {
+      padding: 5mm;
+      font-size: 8.5pt;
+      line-height: 1.55;
+    }
+
+    .iteration-sample__caution {
+      padding: 4mm 5mm;
+    }
+  }
+</style>

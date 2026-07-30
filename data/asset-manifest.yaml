@@ -94,15 +94,18 @@ assets:
     source_type: "original"
     production_owner: "nano-banana"
     lesson_usage: "result-sample"
-    title: "첫 공간 콘셉트 이미지 세트"
+    title: "플라워 카페 수정 전후 실습 샘플"
     type: "image"
-    purpose: "비교 실습에 사용할 3~4개 공간 이미지"
-    required_files: ["공간 콘셉트 이미지 3~4장", "이미지별 생성 기록"]
+    purpose: "한 줄 요청의 첫 결과를 검토하고 수정 요청으로 발전시키는 실제 수업 샘플"
+    required_files: ["01-original-prompt.txt", "02-original-result.png", "03-revision-prompt.txt", "04-revised-result.png"]
     recommended_tool: "nano-banana"
-    status: "not-created"
-    public_use: false
-    alt: "비교 실습용 첫 공간 콘셉트 이미지 세트"
-    verification_note: "공간 오류, 생성 기록, 공개 사용 조건 확인"
+    status: "ready"
+    public_use: true
+    alt: "한 줄 요청으로 생성한 플라워 카페 이미지와 수정 요청을 반영한 두 번째 이미지"
+    source_note: "사용자가 제공한 Nano Banana 생성 결과와 요청문"
+    rights_status: "cleared"
+    verified_at: "2026-07-30"
+    verification_note: "사용자가 제2차시 학생용 본문과 PDF 반영을 명시적으로 요청함"
 
   - id: "l02-demo"
     lesson: 2
@@ -119,6 +122,166 @@ assets:
     public_use: false
     alt: "한 줄 요청을 구조화하고 이미지 후보를 비교하는 강사 시연"
     verification_note: "실제 프롬프트와 도구 화면은 상세 교안 승인 후 촬영"
+
+  - id: "l02-empty-prompt-01"
+    lesson: 2
+    priority: "required"
+    source_type: "original"
+    production_owner: "instructor"
+    lesson_usage: "practice-input"
+    title: "빈 공간 이미지 제작 프롬프트 01"
+    type: "document"
+    purpose: "수업용 빈 공간 이미지가 만들어진 과정을 보여 주는 강사 제작 예시"
+    required_files: ["prompt-01.txt"]
+    file_path: "src/assets/lessons/02/empty-space-sample/01-generation-prompts/prompt-01.txt"
+    recommended_tool: "user-upload"
+    status: "ready"
+    public_use: true
+    alt: "따뜻한 베이지 벽면과 우드 바닥의 빈 소형 상업공간을 만드는 교육용 프롬프트"
+    source_note: "사용자가 직접 생성해 제공한 제2차시 교육용 샘플"
+    rights_status: "cleared"
+    verified_at: "2026-07-30"
+    verification_note: "교육용 빈 공간 생성 예시이며 실제 설계도면·면적·구조 정보가 아님"
+
+  - id: "l02-empty-prompt-02"
+    lesson: 2
+    priority: "required"
+    source_type: "original"
+    production_owner: "instructor"
+    lesson_usage: "practice-input"
+    title: "빈 공간 이미지 제작 프롬프트 02"
+    type: "document"
+    purpose: "수업용 빈 공간 이미지가 만들어진 과정을 보여 주는 강사 제작 예시"
+    required_files: ["prompt-02.txt"]
+    file_path: "src/assets/lessons/02/empty-space-sample/01-generation-prompts/prompt-02.txt"
+    recommended_tool: "user-upload"
+    status: "ready"
+    public_use: true
+    alt: "밝은 중성 톤의 리모델링 전 빈 상업공간을 만드는 교육용 프롬프트"
+    source_note: "사용자가 직접 생성해 제공한 제2차시 교육용 샘플"
+    rights_status: "cleared"
+    verified_at: "2026-07-30"
+    verification_note: "교육용 빈 공간 생성 예시이며 실제 설계도면·면적·구조 정보가 아님"
+
+  - id: "l02-empty-prompt-03"
+    lesson: 2
+    priority: "required"
+    source_type: "original"
+    production_owner: "instructor"
+    lesson_usage: "practice-input"
+    title: "빈 공간 이미지 제작 프롬프트 03"
+    type: "document"
+    purpose: "수업용 빈 공간 이미지가 만들어진 과정을 보여 주는 강사 제작 예시"
+    required_files: ["prompt-03.txt"]
+    file_path: "src/assets/lessons/02/empty-space-sample/01-generation-prompts/prompt-03.txt"
+    recommended_tool: "user-upload"
+    status: "ready"
+    public_use: true
+    alt: "작고 아늑한 소형 상업공간의 빈 실내를 만드는 교육용 프롬프트"
+    source_note: "사용자가 직접 생성해 제공한 제2차시 교육용 샘플"
+    rights_status: "cleared"
+    verified_at: "2026-07-30"
+    verification_note: "교육용 빈 공간 생성 예시이며 실제 설계도면·면적·구조 정보가 아님"
+
+  - id: "l02-empty-base-01"
+    lesson: 2
+    priority: "required"
+    source_type: "original"
+    production_owner: "instructor"
+    lesson_usage: "practice-input"
+    title: "빈 공간 실습 이미지 01"
+    type: "image"
+    purpose: "수강생이 공간 용도와 인테리어 구성을 제안할 때 선택하는 교육용 입력 이미지"
+    required_files: ["base-01.jpeg"]
+    file_path: "src/assets/lessons/02/empty-space-sample/02-base-images/base-01.jpeg"
+    recommended_tool: "user-upload"
+    status: "ready"
+    public_use: true
+    alt: "일부 마감과 선반이 남아 있고 가구와 사람이 없는 소형 상업공간 교육용 이미지"
+    source_note: "사용자가 직접 생성해 제공한 제2차시 교육용 샘플"
+    rights_status: "cleared"
+    verified_at: "2026-07-30"
+    verification_note: "교육용 빈 공간 생성 예시이며 실제 설계도면·면적·구조 정보가 아님"
+
+  - id: "l02-empty-base-02"
+    lesson: 2
+    priority: "required"
+    source_type: "original"
+    production_owner: "instructor"
+    lesson_usage: "practice-input"
+    title: "빈 공간 실습 이미지 02"
+    type: "image"
+    purpose: "수강생이 공간 용도와 인테리어 구성을 제안할 때 선택하는 교육용 입력 이미지"
+    required_files: ["base-02.jpeg"]
+    file_path: "src/assets/lessons/02/empty-space-sample/02-base-images/base-02.jpeg"
+    recommended_tool: "user-upload"
+    status: "ready"
+    public_use: true
+    alt: "마감 전 상태로 보이며 가구와 사람이 없는 빈 상업공간 교육용 이미지"
+    source_note: "사용자가 직접 생성해 제공한 제2차시 교육용 샘플"
+    rights_status: "cleared"
+    verified_at: "2026-07-30"
+    verification_note: "교육용 빈 공간 생성 예시이며 실제 설계도면·면적·구조 정보가 아님"
+
+  - id: "l02-empty-base-03"
+    lesson: 2
+    priority: "required"
+    source_type: "original"
+    production_owner: "instructor"
+    lesson_usage: "practice-input"
+    title: "빈 공간 실습 이미지 03"
+    type: "image"
+    purpose: "수강생이 공간 용도와 인테리어 구성을 제안할 때 선택하는 교육용 입력 이미지"
+    required_files: ["base-03.jpeg"]
+    file_path: "src/assets/lessons/02/empty-space-sample/02-base-images/base-03.jpeg"
+    recommended_tool: "user-upload"
+    status: "ready"
+    public_use: true
+    alt: "길고 단순한 직사각형 형태로 보이는 빈 상업공간 교육용 이미지"
+    source_note: "사용자가 직접 생성해 제공한 제2차시 교육용 샘플"
+    rights_status: "cleared"
+    verified_at: "2026-07-30"
+    verification_note: "교육용 빈 공간 생성 예시이며 실제 설계도면·면적·구조 정보가 아님"
+
+  - id: "l02-empty-base-04"
+    lesson: 2
+    priority: "required"
+    source_type: "original"
+    production_owner: "instructor"
+    lesson_usage: "practice-input"
+    title: "빈 공간 실습 이미지 04"
+    type: "image"
+    purpose: "수강생이 공간 용도와 인테리어 구성을 제안할 때 선택하는 교육용 입력 이미지"
+    required_files: ["base-04.jpeg"]
+    file_path: "src/assets/lessons/02/empty-space-sample/02-base-images/base-04.jpeg"
+    recommended_tool: "user-upload"
+    status: "ready"
+    public_use: true
+    alt: "코너 창이 보이고 가구와 사람이 없는 소형 상업공간 교육용 이미지"
+    source_note: "사용자가 직접 생성해 제공한 제2차시 교육용 샘플"
+    rights_status: "cleared"
+    verified_at: "2026-07-30"
+    verification_note: "교육용 빈 공간 생성 예시이며 실제 설계도면·면적·구조 정보가 아님"
+
+  - id: "l02-empty-base-05"
+    lesson: 2
+    priority: "required"
+    source_type: "original"
+    production_owner: "instructor"
+    lesson_usage: "practice-input"
+    title: "빈 공간 실습 이미지 05"
+    type: "image"
+    purpose: "수강생이 공간 용도와 인테리어 구성을 제안할 때 선택하는 교육용 입력 이미지"
+    required_files: ["base-05.jpeg"]
+    file_path: "src/assets/lessons/02/empty-space-sample/02-base-images/base-05.jpeg"
+    recommended_tool: "user-upload"
+    status: "ready"
+    public_use: true
+    alt: "전면창과 출입문이 보이고 가구와 사람이 없는 소형 매장 교육용 이미지"
+    source_note: "사용자가 직접 생성해 제공한 제2차시 교육용 샘플"
+    rights_status: "cleared"
+    verified_at: "2026-07-30"
+    verification_note: "교육용 빈 공간 생성 예시이며 실제 설계도면·면적·구조 정보가 아님"
 
   - id: "l03-doc-pack"
     lesson: 3

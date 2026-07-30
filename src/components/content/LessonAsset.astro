@@ -38,13 +38,19 @@ const statusLabels: Record<string, string> = {
   'actual-environment-validation-required': '실제 환경 검증 필요',
   ready: '공개 준비 완료',
 };
+
+const isReady = status === 'ready' && publicUse;
 ---
 
-<article class="lesson-asset" data-asset-id={id} aria-label={`${title} 자산 플레이스홀더`}>
+<article
+  class="lesson-asset"
+  data-asset-id={id}
+  aria-label={`${title} ${isReady ? '자산 정보' : '자산 플레이스홀더'}`}
+>
   <div class="lesson-asset__visual" role="img" aria-label={alt}>
     <span>LESSON ASSET</span>
     <strong>{type.toUpperCase()}</strong>
-    <small>실제 파일 미삽입</small>
+    <small>{isReady ? '본문 반영 완료' : '실제 파일 미삽입'}</small>
   </div>
   <div class="lesson-asset__body">
     <header>

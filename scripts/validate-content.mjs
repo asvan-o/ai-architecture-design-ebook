@@ -1,4 +1,4 @@
-import { readdir, readFile } from 'node:fs/promises';
+import { access, readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
 
@@ -7,7 +7,7 @@ const assetManifestPath = path.resolve('data/asset-manifest.yaml');
 const requiredIds = Array.from({ length: 14 }, (_, index) => String(index + 1).padStart(2, '0'));
 const approvedLessons = [
   { title: '제1차시 · AI가 할 일과 디자이너가 판단할 일', durationMinutes: 180 },
-  { title: '제2차시 · 한 줄 공간 요청을 첫 콘셉트 이미지로 만들기', durationMinutes: 180 },
+  { title: '제2차시 · 첫 공간 콘셉트 생성과 빈 공간 인테리어 배치', durationMinutes: 180 },
   { title: '제3차시 · 레퍼런스와 무드보드에서 디자인 방향 찾기', durationMinutes: 180 },
   { title: '제4차시 · 무드보드에서 공간 콘셉트 보드까지', durationMinutes: 360 },
   { title: '제5차시 · AI로 실무 문서와 반복 정리 업무 줄이기', durationMinutes: 180 },
@@ -369,6 +369,22 @@ for (const block of manifestBlocks) {
     }
     if (!verificationNote) {
       errors.push(`asset-manifest ${id}: 공개 자산에는 verification_note가 필요합니다.`);
+    }
+  }
+
+  const filePath = block.match(/^\s{4}file_path:\s*"([^"]+)"\s*$/m)?.[1];
+  if (filePath) {
+    const allowedAssetRoot = path.resolve('src/assets');
+    const resolvedFilePath = path.resolve(filePath);
+    const relativeToAssetRoot = path.relative(allowedAssetRoot, resolvedFilePath);
+    if (relativeToAssetRoot.startsWith('..') || path.isAbsolute(relativeToAssetRoot)) {
+      errors.push(`asset-manifest ${id}: file_path는 src/assets 내부 파일이어야 합니다.`);
+    } else {
+      try {
+        await access(resolvedFilePath);
+      } catch {
+        errors.push(`asset-manifest ${id}: file_path 파일을 찾을 수 없습니다: ${filePath}`);
+      }
     }
   }
 

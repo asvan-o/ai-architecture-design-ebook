@@ -1,5 +1,5 @@
 ---
-title: "제2차시 · 한 줄 공간 요청을 첫 콘셉트 이미지로 만들기"
+title: "제2차시 · 첫 공간 콘셉트 생성과 빈 공간 인테리어 배치"
 day: 2
 date: "pending"
 durationMinutes: 180
@@ -30,71 +30,171 @@ sections:
 ---
 
 import LessonOutline from '../../components/content/LessonOutline.astro';
+import originalPrompt from '../../assets/lessons/02/flower-cafe-sample/01-original-prompt.txt?raw';
+import originalResult from '../../assets/lessons/02/flower-cafe-sample/02-original-result.png';
+import revisionPrompt from '../../assets/lessons/02/flower-cafe-sample/03-revision-prompt.txt?raw';
+import revisedResult from '../../assets/lessons/02/flower-cafe-sample/04-revised-result.png';
+import emptyPrompt01 from '../../assets/lessons/02/empty-space-sample/01-generation-prompts/prompt-01.txt?raw';
+import emptyPrompt02 from '../../assets/lessons/02/empty-space-sample/01-generation-prompts/prompt-02.txt?raw';
+import emptyPrompt03 from '../../assets/lessons/02/empty-space-sample/01-generation-prompts/prompt-03.txt?raw';
+import emptyBase01 from '../../assets/lessons/02/empty-space-sample/02-base-images/base-01.jpeg';
+import emptyBase02 from '../../assets/lessons/02/empty-space-sample/02-base-images/base-02.jpeg';
+import emptyBase03 from '../../assets/lessons/02/empty-space-sample/02-base-images/base-03.jpeg';
+import emptyBase04 from '../../assets/lessons/02/empty-space-sample/02-base-images/base-04.jpeg';
+import emptyBase05 from '../../assets/lessons/02/empty-space-sample/02-base-images/base-05.jpeg';
 
 <LessonOutline
   lessonId="02"
   totalMinutes={180}
+  topic={{
+    number: '1',
+    title: '생성형 AI 리터러시 기초 및 건축 디자인 시각화 실습',
+  }}
+  openingMessage={{
+    title: 'AI가 생성한 첫 이미지는 완성안이 아니라 디자이너가 판단하고 수정하는 첫 제안이다.',
+    body: '제1차시에서 배운 AI 결과 검토 원칙을 이미지 생성과 수정 실습에 적용합니다.',
+  }}
   intro={[
-    { category: '확정된 수업 구성', text: '한 줄 공간 요청을 구조화하고 첫 콘셉트 이미지와 생성 기록을 만드는 차시다.' },
-    { category: '디자인 제안', text: '생성 이미지는 설계 정답이나 시공 가능 결과가 아니라 초기 대화를 위한 콘셉트 제안으로 다룬다.' },
+    { category: '확정된 수업 구성', text: '제1차시에서 배운 “AI는 제안하고 디자이너는 판단한다”는 원칙을 이미지 생성과 수정 실습에 적용하는 차시다.' },
+    { category: '확정된 수업 구성', text: '3시간 동안 플라워 카페 강사 시연을 살펴보고, 빈 공간 이미지 하나를 선택해 첫 결과와 수정 결과를 만든다.' },
+    { category: '수업 산출물', text: '선택한 빈 공간 이미지, 첫 요청문과 결과, 수정 요청문과 결과, 개선점과 확인되지 않은 조건 한 문장을 제출한다.' },
   ]}
   questions={[
-    { category: '교육용 가정', text: '짧은 요청에서 이미지 생성 전에 반드시 분리해야 할 조건은 무엇인가?' },
-    { category: '수강생 판단', text: '여러 생성 결과 중 요청을 더 명확히 보여 주는 이미지는 무엇이며 그 이유는 무엇인가?' },
+    { category: '수강생 판단', text: '첫 이미지에서 무엇을 유지할 것인가?' },
+    { category: '수강생 판단', text: '무엇을 수정하거나 제외할 것인가?' },
+    { category: '수강생 판단', text: 'AI가 변경하면 안 되는 공간 요소는 무엇인가?' },
+    { category: '수강생 판단', text: '생성 이미지를 실제 설계안으로 볼 수 없는 이유는 무엇인가?' },
   ]}
   goals={[
-    { category: '학습 목표', text: '요청을 목적, 사용자, 공간, 분위기, 시점 항목으로 구조화한다.' },
-    { category: '학습 목표', text: '구조화한 요청을 바탕으로 공간 콘셉트 이미지 후보를 만든다.' },
-    { category: '학습 목표', text: '생성 결과를 비교하고 초기 오류와 미확정 요소를 표시한다.' },
+    { category: '학습 목표', text: '이미지 생성 AI의 기본 원리와 한계를 이해한다.' },
+    { category: '학습 목표', text: '안전하게 사용할 수 있는 자료를 구분한다.' },
+    { category: '학습 목표', text: '첫 생성 결과를 디자이너 관점에서 판단한다.' },
+    { category: '학습 목표', text: '판단 내용을 자연어 수정 요청문으로 작성한다.' },
+    { category: '학습 목표', text: '빈 공간 이미지에 자신의 인테리어 구성을 제안한다.' },
+    { category: '학습 목표', text: '수정 전후 결과를 비교한다.' },
   ]}
   concepts={[
-    { category: '교육용 가정', text: '요청 구조화 항목은 학습을 위한 작업 틀이며 모든 프로젝트의 정답 형식이 아니다.' },
-    { category: '디자인 제안', text: '한 번의 생성 결과보다 여러 후보를 비교하고 기록하는 흐름을 사용한다.' },
-    { category: '추가 검증 필요', text: 'Gemini와 Nano Banana의 실제 입력 형식과 지원 기능은 환경 확인 후 작성한다.' },
+    { category: '강의 전 사실 검증', text: '이미지 생성 AI는 입력 조건을 바탕으로 이미지를 합성하며, 확산 모델은 이 과정을 이해하기 위한 대표 개념으로만 다룬다.' },
+    { category: '추가 출처 확인', text: '특정 Google 모델의 비공개 내부 구조는 공개된 공식 자료 없이 단정하지 않는다.' },
+    { category: '수강생 판단', text: '짧은 요청에는 공간 조건이 충분히 담기지 않아 AI가 사람, 상호, 가구와 분위기를 임의로 해석할 수 있다.' },
+    { category: '수강생 판단', text: '같은 요청을 사용해도 결과가 달라질 수 있으므로 첫 결과를 그대로 정답으로 취급하지 않는다.' },
+    { category: '추가 검증 필요', text: '생성 이미지는 실제 공간 측정 자료나 설계도면이 아니며, 보이지 않는 치수·구조·동선 조건을 확인해 주지 않는다.' },
   ]}
   scenario={[
-    { category: '교육용 가정', text: '가상의 소규모 공간 의뢰가 한 문장으로 들어왔다. 수강생은 누락된 조건을 표시하고 첫 대화용 콘셉트 이미지 3~4장을 준비한다.' },
+    { category: '교육용 가정', text: '“오래된 작은 꽃집을 밝고 편안한 플라워 카페로 만들어줘.”라는 한 줄 요청으로 만든 첫 결과를 검토하고 수정한다.' },
+    { category: '수강생 판단', text: '한 줄 요청만으로는 사용자, 면적, 동선, 유지해야 할 요소와 제외할 요소가 충분히 정해지지 않으므로 생성 뒤 디자이너의 판단이 필요하다.' },
   ]}
   materials={[
-    { category: '교육용 가정', text: '개인정보가 없는 한 줄 공간 요청문과 미확정 조건 카드.' },
-    { category: '디자인 제안', text: '요청 구조화표, 이미지 비교표, 생성 기록표의 빈 양식.' },
-    { category: '추가 출처 확인', text: '이미지 생성 화면과 예시 파일은 제작·공개 사용 확인 후 제공한다.' },
+    { category: '확정된 수업 구성', text: '플라워 카페 한 줄 요청문, 최초 생성 이미지, 수정 요청문과 수정 결과를 강사 시연 자료로 사용한다.' },
+    { category: '확정된 수업 구성', text: '빈 공간 이미지 제작 과정을 확인할 프롬프트 3개와 수강생이 선택할 빈 공간 이미지 5개를 사용한다.' },
+    { category: '교육용 가정', text: '제공 자료는 고객명, 주소, 연락처나 회사 기밀이 없는 교육용 샘플이며 실제 프로젝트 자료가 아니다.' },
+    { category: '추가 검증 필요', text: '고객 개인정보, 외부 업로드가 금지된 회사 자료, 사용 권한이 확인되지 않은 사진은 입력 자료로 사용하지 않는다.' },
+    { category: '디자인 제안', text: '특정 건축가나 작품을 그대로 복제하도록 요청하기보다 형태, 재료, 빛, 색과 분위기처럼 관찰 가능한 특성으로 표현한다.' },
+    { category: '추가 검증 필요', text: '이 안내는 교육용 안전 사용 원칙이며, 실제 프로젝트의 권리·보안 판단이나 법률 자문을 대신하지 않는다.' },
   ]}
-  demo={[
-    { category: '디자인 제안', text: '강사는 요청을 구조화하고 한 차례 이미지 후보를 생성한 뒤 비교 항목을 기록하는 흐름을 시연한다.' },
-    { category: '추가 검증 필요', text: '실제 프롬프트 문장과 도구 조작 단계는 상세 교안 검토 후 작성한다.' },
+  practiceKit={{
+    prompts: [
+      { id: 'empty-space-prompt-01', title: '따뜻한 베이지 벽면과 우드 바닥', content: emptyPrompt01 },
+      { id: 'empty-space-prompt-02', title: '밝은 중성 톤의 리모델링 전 공간', content: emptyPrompt02 },
+      { id: 'empty-space-prompt-03', title: '작고 아늑한 소형 상업공간', content: emptyPrompt03 },
+    ],
+    images: [
+      { src: emptyBase01, alt: '일부 마감과 선반이 남아 있고 가구와 사람이 없는 소형 상업공간 교육용 이미지', caption: '일부 마감과 선반이 남아 있는 소형 상업공간' },
+      { src: emptyBase02, alt: '마감 전 상태로 보이며 가구와 사람이 없는 빈 상업공간 교육용 이미지', caption: '마감 전 상태의 빈 상업공간' },
+      { src: emptyBase03, alt: '길고 단순한 직사각형 형태로 보이는 빈 상업공간 교육용 이미지', caption: '길고 단순한 직사각형 상업공간' },
+      { src: emptyBase04, alt: '코너 창이 보이고 가구와 사람이 없는 소형 상업공간 교육용 이미지', caption: '코너 창이 있는 소형 상업공간' },
+      { src: emptyBase05, alt: '전면창과 출입문이 보이고 가구와 사람이 없는 소형 매장 교육용 이미지', caption: '전면창과 출입문이 보이는 소형 매장' },
+    ],
+  }}
+  demo={[]}
+  demoTitle="플라워 카페 강사 시연"
+  iterationSample={{
+    bridge: '제1차시에서 확인한 “AI는 제안하고 디자이너는 판단한다”는 원칙을 이미지 생성 과정에 적용합니다.',
+    principle: 'AI가 생성한 첫 이미지는 완성안이 아니라 디자이너가 판단하고 수정하는 첫 제안입니다.',
+    originalPrompt,
+    originalImage: originalResult,
+    originalAlt: '사람과 창문 상호, 큰 카페 설비가 포함된 밝은 플라워 카페 초기 콘셉트 이미지',
+    originalCaption: '짧은 한 줄 요청만으로 생성한 초기 콘셉트 이미지이다. 분위기는 좋지만, 사람이 포함되고 상호가 생성되며 카페 기능이 과하게 강조되는 등 디자이너가 의도하지 않은 요소도 함께 나타난다.',
+    designerJudgment: '디자이너는 첫 결과를 보고 무엇을 유지하고 무엇을 수정할지 결정한다. 이 단계에서 중요한 것은 이미지가 예뻐 보이느냐보다, 디자인 의도와 실제 조건에 맞는 방향으로 조정할 수 있느냐이다.',
+    revisionPrompt,
+    revisedImage: revisedResult,
+    revisedAlt: '사람과 창문 상호가 제거되고 꽃 진열이 강조된 플라워 카페 수정 결과 이미지',
+    revisedCaption: '수정 요청을 반영한 두 번째 결과이다. 사람과 상호가 제거되고 꽃 판매 공간의 정체성이 더 선명해졌다. 그러나 실제 면적, 구조, 동선은 확인된 것이 아니므로 개념 시각화 수준으로 해석해야 한다.',
+    comparison: '최초 결과는 감성적인 플라워 카페 분위기를 잘 제시했지만, 사람이 포함되고 상호가 생성되며 카페 기능이 과하게 강조되었다. 수정 요청문을 적용한 뒤에는 사람과 상호가 제거되고 꽃집의 정체성이 더 분명해졌으며, 소형 매장의 분위기도 더 안정적으로 유지되었다.',
+    learningPoint: '첫 생성 이미지는 완성안이 아니라 출발점이다. 디자이너는 결과를 검토하고, 수정 요청을 통해 이미지를 더 적절한 방향으로 발전시킨다.',
+    caution: '두 이미지는 교육용 개념 시각화이며 실제 설계 확정안이 아니다. 실제 면적, 구조, 동선, 창호 위치, 법규 및 시공성은 이미지 하나만으로 단정하지 않는다.',
+  }}
+  practiceGuidance={[
+    { category: '확정된 수업 구성', text: '강사는 인테리어 정답 프롬프트나 완성 결과를 제시하지 않는다. 수강생은 자신이 정한 공간 용도와 사용자를 기준으로 요청문과 판단을 만든다.' },
   ]}
   practice={[
-    { id: 'request-structure', title: '한 줄 요청 구조화', minutes: 25, description: '목적, 사용자, 공간, 분위기, 시점과 미확정 조건을 구분한다.' },
-    { id: 'concept-generation', title: '콘셉트 이미지 후보 생성', minutes: 40, description: '검토된 입력 형식이 제공된 뒤 이미지 후보 3~4장을 생성한다.' },
-    { id: 'result-comparison', title: '생성 결과 비교', minutes: 20, description: '요청 반영, 공간 왜곡, 불필요한 추가 요소를 비교표에 기록한다.' },
-    { id: 'generation-log', title: '초기 요청과 생성 기록 정리', minutes: 15, description: '사용 입력, 선택 결과, 제외 이유, 추가 질문을 남긴다.' },
+    { id: 'select-base-image', title: '빈 공간 이미지 선택', minutes: 5, description: '제공된 빈 공간 이미지 다섯 장을 살펴보고 실습에 사용할 한 장을 선택한다.' },
+    { id: 'define-space-purpose', title: '공간 용도 결정', minutes: 5, description: '선택한 빈 공간에 제안할 소형 상업공간의 용도를 한 문장으로 정한다.' },
+    { id: 'define-primary-user', title: '주요 사용자 결정', minutes: 5, description: '이 공간을 주로 사용할 사람과 머무는 상황을 간단히 정한다.' },
+    { id: 'define-furniture-and-functions', title: '필요한 가구와 기능 결정', minutes: 10, description: '공간 용도와 사용자에게 필요한 가구, 작업 영역과 기능을 우선순위에 따라 정한다.' },
+    { id: 'define-atmosphere', title: '원하는 분위기 결정', minutes: 5, description: '형태, 재료, 빛, 색과 분위기처럼 관찰 가능한 특성으로 원하는 방향을 정리한다.' },
+    { id: 'write-first-prompt', title: '첫 인테리어 요청문 작성', minutes: 10, description: '공간 용도, 사용자, 기능과 분위기를 자연어 요청문으로 작성하고 유지해야 할 공간 요소를 덧붙인다.' },
+    { id: 'generate-first-result', title: '나노바나나에서 첫 결과 생성', minutes: 15, description: '선택한 빈 공간 이미지와 첫 요청문을 사용해 첫 인테리어 결과를 생성한다.' },
+    { id: 'review-first-result', title: '유지·수정·제외 요소 판단', minutes: 10, description: '첫 결과에서 유지할 요소, 수정할 요소, 제외할 요소와 실제 자료 확인이 필요한 요소를 찾는다.' },
+    { id: 'write-revision-prompt', title: '수정 요청문 작성', minutes: 10, description: '판단 내용을 바탕으로 유지 조건과 변경 범위를 분명히 적은 수정 요청문을 작성한다.' },
+    { id: 'generate-second-result', title: '두 번째 결과 생성', minutes: 15, description: '수정 요청문을 적용해 두 번째 결과를 만들고 요청하지 않은 공간 변화가 생겼는지 확인한다.' },
+    { id: 'compare-results', title: '수정 전후 비교', minutes: 5, description: '두 결과에서 개선된 점과 여전히 확인되지 않은 실제 조건을 한 문장으로 정리한다.' },
   ]}
   deliverables={[
-    { category: '수업 산출물', text: '공간 콘셉트 이미지 3~4장.' },
-    { category: '수업 산출물', text: '초기 요청문과 생성 기록.' },
+    { category: '수업 산출물', text: '선택한 빈 공간 이미지.' },
+    { category: '수업 산출물', text: '수강생이 작성한 첫 요청문.' },
+    { category: '수업 산출물', text: '첫 인테리어 생성 결과.' },
+    { category: '수업 산출물', text: '수정 요청문.' },
+    { category: '수업 산출물', text: '수정된 결과.' },
+    { category: '수업 산출물', text: '무엇이 개선됐고 무엇이 여전히 확인되지 않았는지 한 문장.' },
   ]}
   judgments={[
-    { category: '수강생 판단', text: '요청의 핵심 목적과 사용자가 이미지에서 읽히는가?' },
-    { category: '수강생 판단', text: '미확정 조건을 AI가 임의로 확정한 부분은 없는가?' },
-    { category: '디자인 제안', text: '다음 대화를 시작하기에 적합한 후보와 제외할 후보를 구분했는가?' },
+    { category: '수강생 판단', text: '유지할 요소를 정한다.' },
+    { category: '수강생 판단', text: '수정할 요소를 정한다.' },
+    { category: '수강생 판단', text: '제외할 요소를 정한다.' },
+    { category: '수강생 판단', text: '실제 자료 확인이 필요한 요소를 구분한다. 이 네 항목은 필수 표가 아니라 수정 요청문을 만들기 위한 사고 기준이다.' },
   ]}
   errorChecks={[
-    { category: '추가 검증 필요', text: '공간 용도, 사용자 수, 재료, 크기, 위치를 원문 없이 추가하지 않았는지 확인한다.' },
-    { category: '수강생 판단', text: '구조가 불가능해 보이거나 공간 관계가 모호한 부분을 표시했는지 확인한다.' },
-    { category: '추가 검증 필요', text: '생성 기록에 입력과 결과의 대응 관계가 빠지지 않았는지 확인한다.' },
+    { category: '수강생 판단', text: '벽 위치가 바뀌지 않았는가?' },
+    { category: '수강생 판단', text: '창문과 출입문이 이동하거나 추가되지 않았는가?' },
+    { category: '수강생 판단', text: '카메라 시점이 과도하게 달라지지 않았는가?' },
+    { category: '수강생 판단', text: '공간이 실제보다 넓게 확장되지 않았는가?' },
+    { category: '수강생 판단', text: '요청하지 않은 가구나 장식이 추가되지 않았는가?' },
+    { category: '수강생 판단', text: '유지 요청한 요소가 사라지지 않았는가?' },
   ]}
-  assetIds={['l02-doc-pack', 'l02-concept-set', 'l02-demo']}
+  assetIds={[
+    'l02-doc-pack',
+    'l02-concept-set',
+    'l02-demo',
+    'l02-empty-prompt-01',
+    'l02-empty-prompt-02',
+    'l02-empty-prompt-03',
+    'l02-empty-base-01',
+    'l02-empty-base-02',
+    'l02-empty-base-03',
+    'l02-empty-base-04',
+    'l02-empty-base-05',
+  ]}
+  showOnlyReadyAssets
+  assetNotes={[
+    { category: '확정된 수업 구성', text: '플라워 카페 강사 시연 자료와 빈 공간 제작 프롬프트 3개는 앞선 본문 영역에서 확인한다.' },
+    { category: '확정된 수업 구성', text: '수강생 실습에는 본문에 제시된 빈 공간 이미지 5개 중 선택한 한 장을 사용한다.' },
+  ]}
   verification={[
-    { category: '추가 검증 필요', text: 'Gemini와 Nano Banana의 입력 제한, 출력 형식, 저장 방식은 실제 환경에서 확인한다.' },
-    { category: '추가 출처 확인', text: '실습용 이미지와 화면 캡처의 공개 사용 가능 여부를 확인한다.' },
-    { category: '수강생 전문 판단', text: '생성 결과의 공간 타당성은 수강생 전문 판단 영역임을 상세 교안에서 명확히 한다.' },
+    { category: '추가 검증 필요', text: '생성 결과는 개념 시각화이며 실제 설계 확정안이 아니다.' },
+    { category: '법규·구조·소방 등 해당 전문가 판단', text: '실제 면적, 구조, 동선, 법규, 설비와 시공성은 생성 이미지로 확정할 수 없다.' },
+    { category: '추가 출처 확인', text: '실제 프로젝트에서는 원본 도면과 현장 자료를 별도로 확인해야 한다.' },
   ]}
   timePlan={[
-    { label: '차시 안내', minutes: 20, mode: 'guide' },
-    { label: '핵심 개념', minutes: 25, mode: 'guide' },
-    { label: '강사 시연', minutes: 25, mode: 'demo' },
-    { label: '수강생 실습', minutes: 100, mode: 'practice' },
-    { label: '검토·정리', minutes: 10, mode: 'review' },
+    { label: '1차시 연결과 차시 안내', minutes: 10, mode: 'guide' },
+    { label: '이미지 생성 AI의 원리와 한계', minutes: 20, mode: 'guide' },
+    { label: '안전한 자료 사용과 저작권', minutes: 15, mode: 'guide' },
+    { label: '플라워 카페 강사 시연', minutes: 25, mode: 'demo' },
+    { label: '휴식', minutes: 10, mode: 'guide' },
+    { label: '빈 공간 실습 안내와 공간 설정', minutes: 15, mode: 'practice' },
+    { label: '첫 인테리어 생성 실습', minutes: 35, mode: 'practice' },
+    { label: '수정 요청과 두 번째 생성', minutes: 35, mode: 'practice' },
+    { label: '결과 비교와 공유', minutes: 10, mode: 'practice' },
+    { label: '정리', minutes: 5, mode: 'review' },
   ]}
 />
