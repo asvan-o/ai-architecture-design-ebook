@@ -50,12 +50,8 @@ const presentationBaseUrl = withBase('/presentation/lessons/');
     <header class="presentation-header">
       <div>
         <span>LESSON {lessonId}</span>
+        {topic && <p>주제 {topic.number} · {topic.title}</p>}
         <h1>{lesson.data.title}</h1>
-        <p>
-          {topic
-            ? `주제 ${topic.number} · ${topic.title}`
-            : '상위 주제 · 승인 정보 확인 예정'}
-        </p>
       </div>
       <div class="presentation-current" aria-live="polite">
         <span data-current-number>SECTION 01</span>

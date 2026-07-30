@@ -71,12 +71,8 @@ const presentationUrl = withBase(`/presentation/lessons/${lesson.id}/`);
     <header class="console-header">
       <div>
         <span>INSTRUCTOR CONSOLE · LOCAL ONLY</span>
+        {topic && <p>주제 {topic.number} · {topic.title}</p>}
         <h1>{lesson.data.title}</h1>
-        <p>
-          {topic
-            ? `주제 ${topic.number} · ${topic.title}`
-            : '상위 주제 · 승인 정보 확인 예정'}
-        </p>
       </div>
       <div class="connection-card" aria-live="polite">
         <span>프로젝터 연결</span>

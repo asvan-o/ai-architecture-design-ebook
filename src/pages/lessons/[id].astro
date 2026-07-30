@@ -5,6 +5,7 @@ import SiteLayout from '../../layouts/SiteLayout.astro';
 import PdfDownloadPanel from '../../components/PdfDownloadPanel.astro';
 import StatusBadge from '../../components/StatusBadge.astro';
 import { getVisibleLessons } from '../../lib/lessons';
+import { getLessonTopicSummary } from '../../lib/lesson-topics';
 import { pageSections, withBase } from '../../lib/site';
 import '../../styles/lesson-content.css';
 
@@ -30,6 +31,7 @@ export async function getStaticPaths() {
 const { lesson, previous, next } = Astro.props;
 const { Content } = await render(lesson);
 const dayLabel = String(lesson.data.day).padStart(2, '0');
+const topic = getLessonTopicSummary(dayLabel);
 const dateLabel = lesson.data.date === 'pending' ? '일정 확인 예정' : lesson.data.date;
 const durationLabel = lesson.data.durationMinutes === null
   ? '수업시간 확인 예정'
@@ -51,6 +53,12 @@ const localSections = lesson.data.sections ?? pageSections.map((label, index) =>
         <div class="lesson-hero__number" aria-hidden="true">{dayLabel}</div>
       )}
       <div class="lesson-hero__copy">
+        {topic && (
+          <div class="lesson-topic-context">
+            <span>주제 {topic.number}</span>
+            <strong>{topic.title}</strong>
+          </div>
+        )}
         <p class="page-kicker">
           LESSON {dayLabel}{!isDetailedLesson && ' · OUTLINE REVIEW REQUESTED'}
         </p>
@@ -173,6 +181,27 @@ const localSections = lesson.data.sections ?? pageSections.map((label, index) =>
     flex-direction: column;
     justify-content: center;
     padding: clamp(2rem, 5vw, 5rem);
+  }
+  .lesson-topic-context {
+    display: grid;
+    gap: 0.35rem;
+    max-width: 48rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--line-dark);
+  }
+  .lesson-topic-context span {
+    color: var(--accent-dark);
+    font-size: 0.7rem;
+    font-weight: 850;
+    letter-spacing: 0.1em;
+  }
+  .lesson-topic-context strong {
+    font-family: var(--serif);
+    font-size: clamp(1rem, 1.45vw, 1.35rem);
+    line-height: 1.4;
+    text-wrap: balance;
+    word-break: keep-all;
   }
   .lesson-hero__copy h1 {
     width: 100%;

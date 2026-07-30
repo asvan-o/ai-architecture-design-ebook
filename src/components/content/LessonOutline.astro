@@ -4,7 +4,6 @@ import LessonAsset from './LessonAsset.astro';
 import ClassifiedList from './ClassifiedList.astro';
 import IterativeImageSample from './IterativeImageSample.astro';
 import EmptySpacePracticeKit from './EmptySpacePracticeKit.astro';
-import LessonTopic from './LessonTopic.astro';
 import { getStudentLessonAssets } from '../../lib/asset-manifest';
 import type { ImageMetadata } from 'astro';
 
@@ -83,9 +82,11 @@ interface Props {
   };
   intro: OutlineItem[];
   questions: OutlineItem[];
+  questionsTitle?: string;
   goals: OutlineItem[];
   concepts: OutlineItem[];
   scenario: OutlineItem[];
+  scenarioTitle?: string;
   materials: OutlineItem[];
   demo: OutlineItem[];
   demoTitle?: string;
@@ -97,6 +98,7 @@ interface Props {
   judgments: OutlineItem[];
   errorChecks: OutlineItem[];
   assetIds: string[];
+  assetsTitle?: string;
   showOnlyReadyAssets?: boolean;
   assetNotes?: OutlineItem[];
   verification: OutlineItem[];
@@ -106,13 +108,14 @@ interface Props {
 const {
   lessonId,
   totalMinutes,
-  topic,
   openingMessage,
   intro,
   questions,
+  questionsTitle = '직관적인 핵심 질문',
   goals,
   concepts,
   scenario,
+  scenarioTitle = '실무형 가상 문제',
   materials,
   demo,
   demoTitle = '강사 시연',
@@ -124,6 +127,7 @@ const {
   judgments,
   errorChecks,
   assetIds,
+  assetsTitle = '필요한 이미지·영상·문서',
   showOnlyReadyAssets = false,
   assetNotes,
   verification,
@@ -143,7 +147,6 @@ const isPresentation = Astro.url.pathname.includes('/presentation/');
 ---
 
 <LessonSection id="section-01" number="01" title="차시 소개" class="outline-section">
-  {topic && <LessonTopic {...topic} />}
   {openingMessage && (
     <aside class="lesson-opening-message">
       <span>COURSE PRINCIPLE</span>
@@ -176,7 +179,7 @@ const isPresentation = Astro.url.pathname.includes('/presentation/');
   </div>
 </LessonSection>
 
-<LessonSection id="section-02" number="02" title="직관적인 핵심 질문" class="outline-section">
+<LessonSection id="section-02" number="02" title={questionsTitle} class="outline-section">
   <ClassifiedList items={questions} />
 </LessonSection>
 
@@ -188,7 +191,7 @@ const isPresentation = Astro.url.pathname.includes('/presentation/');
   <ClassifiedList items={concepts} />
 </LessonSection>
 
-<LessonSection id="section-05" number="05" title="실무형 가상 문제" class="outline-section">
+<LessonSection id="section-05" number="05" title={scenarioTitle} class="outline-section">
   <ClassifiedList items={scenario} />
 </LessonSection>
 
@@ -230,7 +233,7 @@ const isPresentation = Astro.url.pathname.includes('/presentation/');
   <ClassifiedList items={errorChecks} checks />
 </LessonSection>
 
-<LessonSection id="section-12" number="12" title="필요한 이미지·영상·문서" class="outline-section">
+<LessonSection id="section-12" number="12" title={assetsTitle} class="outline-section">
   {assetNotes ? (
     <ClassifiedList items={assetNotes} />
   ) : !isPresentation ? (

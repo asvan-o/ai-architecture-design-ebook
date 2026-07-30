@@ -4,11 +4,12 @@ import process from 'node:process';
 
 const lessonsDirectory = path.resolve('src/content/lessons');
 const assetManifestPath = path.resolve('data/asset-manifest.yaml');
+const lessonTopicsPath = path.resolve('src/lib/lesson-topics.ts');
 const requiredIds = Array.from({ length: 14 }, (_, index) => String(index + 1).padStart(2, '0'));
 const approvedLessons = [
   { title: '제1차시 · AI가 할 일과 디자이너가 판단할 일', durationMinutes: 180 },
   { title: '제2차시 · 첫 공간 콘셉트 생성과 빈 공간 인테리어 배치', durationMinutes: 180 },
-  { title: '제3차시 · 레퍼런스와 무드보드에서 디자인 방향 찾기', durationMinutes: 180 },
+  { title: '제3차시 · 실무 의뢰와 RFP를 디자인 브리프로 바꾸기', durationMinutes: 180 },
   { title: '제4차시 · 무드보드에서 공간 콘셉트 보드까지', durationMinutes: 360 },
   { title: '제5차시 · AI로 실무 문서와 반복 정리 업무 줄이기', durationMinutes: 180 },
   { title: '제6차시 · 클라이언트 의뢰를 디자인 브리프로 변환하기', durationMinutes: 180 },
@@ -20,6 +21,43 @@ const approvedLessons = [
   { title: '제12차시 · AGY로 프로젝트 자료 구조 만들기', durationMinutes: 180 },
   { title: '제13차시 · AGY 기반 반복 점검과 제출 패키지 만들기', durationMinutes: 180 },
   { title: '제14차시 · AI 공간디자인 콘셉트 패키지 완성', durationMinutes: 360 },
+];
+const approvedTopics = [
+  {
+    number: '1',
+    title: '생성형 AI 리터러시 기초 및 건축 디자인 시각화 실습',
+    lessonIds: ['01', '02'],
+  },
+  {
+    number: '2',
+    title: '실무 시나리오 기반 맞춤형 제안 이미지 생성 및 워크플로우 자동화',
+    lessonIds: ['03', '04'],
+  },
+  {
+    number: '3',
+    title: '초기 기획을 위한 래피드 컨셉 도출 및 인페인팅 실무',
+    lessonIds: ['05', '06'],
+  },
+  {
+    number: '4',
+    title: '메인-서브 통합 워크플로우 및 2D 역추출 브릿지(Bridge) 실습',
+    lessonIds: ['07', '08', '09'],
+  },
+  {
+    number: '5',
+    title: '실무 데이터셋 전처리 및 2D 도면 기반 3D 시각화 기초',
+    lessonIds: ['10', '11'],
+  },
+  {
+    number: '6',
+    title: 'AI 생성 결과물 다차원 실무 검증 및 제안서 고도화',
+    lessonIds: ['12', '13'],
+  },
+  {
+    number: '7',
+    title: '실무 검증형 설계 제안서 롤플레잉 최종 발표 및 수료',
+    lessonIds: ['14'],
+  },
 ];
 const requiredFields = [
   'title',
@@ -95,6 +133,71 @@ for (const id of requiredIds) {
 }
 for (const id of actualIds) {
   if (!requiredIds.includes(id)) errors.push(`허용되지 않은 강의 ID: ${id}`);
+}
+
+let lessonTopicsSource = '';
+try {
+  lessonTopicsSource = await readFile(lessonTopicsPath, 'utf8');
+} catch {
+  errors.push('src/lib/lesson-topics.ts를 읽을 수 없습니다.');
+}
+
+const parsedTopics = [
+  ...lessonTopicsSource.matchAll(
+    /\{\s*number:\s*'(\d+)'\s*,\s*title:\s*'([^']+)'\s*,\s*lessonIds:\s*\[([^\]]*)\]\s*,\s*lessonCount:\s*(\d+)\s*,?\s*\}/g,
+  ),
+].map((match) => ({
+  number: match[1],
+  title: match[2],
+  lessonIds: [...match[3].matchAll(/'(\d{2})'/g)].map((lessonMatch) => lessonMatch[1]),
+  lessonCount: Number(match[4]),
+}));
+
+if (parsedTopics.length !== 7) {
+  errors.push(`상위 주제 수: 예상 7개, 실제 ${parsedTopics.length}개`);
+}
+
+for (const approvedTopic of approvedTopics) {
+  const matches = parsedTopics.filter((topic) => topic.number === approvedTopic.number);
+  if (matches.length === 0) {
+    errors.push(`누락된 상위 주제 번호: ${approvedTopic.number}`);
+    continue;
+  }
+  if (matches.length > 1) {
+    errors.push(`중복된 상위 주제 번호: ${approvedTopic.number}`);
+    continue;
+  }
+
+  const [actualTopic] = matches;
+  if (actualTopic.title !== approvedTopic.title) {
+    errors.push(`주제 ${approvedTopic.number}: 승인된 주제명과 일치하지 않습니다.`);
+  }
+  if (actualTopic.lessonIds.join(',') !== approvedTopic.lessonIds.join(',')) {
+    errors.push(
+      `주제 ${approvedTopic.number}: 승인된 차시 연결 ${approvedTopic.lessonIds.join(', ')}와 일치하지 않습니다.`,
+    );
+  }
+  if (actualTopic.lessonCount !== actualTopic.lessonIds.length) {
+    errors.push(
+      `주제 ${approvedTopic.number}: lessonCount ${actualTopic.lessonCount}와 실제 연결 수 ${actualTopic.lessonIds.length}가 다릅니다.`,
+    );
+  }
+}
+
+const connectedLessonIds = parsedTopics.flatMap((topic) => topic.lessonIds);
+for (const id of requiredIds) {
+  const occurrences = connectedLessonIds.filter((lessonId) => lessonId === id).length;
+  if (occurrences === 0) {
+    errors.push(`상위 주제를 찾을 수 없는 차시: ${id}`);
+  }
+  if (occurrences > 1) {
+    errors.push(`여러 상위 주제에 중복 연결된 차시: ${id}`);
+  }
+}
+for (const id of connectedLessonIds) {
+  if (!requiredIds.includes(id)) {
+    errors.push(`상위 주제에 허용되지 않은 차시 ID가 연결됐습니다: ${id}`);
+  }
 }
 
 for (const fileName of files) {
@@ -193,6 +296,28 @@ for (const fileName of files) {
     }
   } else if (!source.includes('<LessonOutline')) {
     errors.push(`${fileName}: LessonOutline 골격이 없습니다.`);
+  }
+  if (id === '03') {
+    const requiredLessonThreeStructures = [
+      { marker: '강의용 가상 사례', label: '가상 프로젝트 고지' },
+      { marker: '가상 RFP 전문', label: '가상 RFP 전문' },
+      { marker: 'questionsTitle="핵심 질문"', label: '핵심 질문 섹션 제목' },
+      { marker: 'scenarioTitle="가상 RFP"', label: '가상 RFP 섹션 제목' },
+      { marker: '문서에 없는 내용을 사실처럼 추가하지 마세요', label: 'Gemini 분석 요청' },
+      { marker: '실제 응답을 가장한 예시 답변을 넣지 않고', label: '실제 Gemini 응답 비생성 원칙' },
+      { marker: 'assetNotes={[', label: '학생용 내부 자산 카드 차단 구조' },
+      { marker: 'assetsTitle="필요 자산"', label: '필요 자산 섹션 제목' },
+    ];
+    for (const { marker, label } of requiredLessonThreeStructures) {
+      if (!source.includes(marker)) {
+        errors.push(`${fileName}: 제3차시 상세 본문에 ${label} 구성이 없습니다.`);
+      }
+    }
+    for (const disallowedTool of ['나노바나나', 'Nano Banana', 'Veo']) {
+      if (source.includes(disallowedTool)) {
+        errors.push(`${fileName}: 제3차시 본문에서 사용하지 않는 도구 '${disallowedTool}'를 제거해야 합니다.`);
+      }
+    }
   }
   if (source.includes("category: '전문가 판단 필요'")) {
     errors.push(
@@ -417,7 +542,8 @@ console.log('- ID: 01–14 누락·중복 없음');
 console.log('- day: 1–14 누락·중복 없음');
 console.log('- ID/day 일치');
 console.log('- 승인된 제목·수업시간 일치');
-console.log('- 제1차시 상세 16개 섹션, 제2–14차시 골격 13개 섹션');
+console.log('- 승인된 상위 주제 7개·차시 연결 14개 일치');
+console.log('- 제1차시 16개 섹션, 제2–14차시 13개 섹션');
 console.log('- 모든 차시 실습시간 50% 이상');
 console.log(`- 자산 manifest: ${manifestAssetIds.length}개, 필수 필드·연결 ID·공개 조건 확인`);
 console.log(`- 필수 metadata: ${requiredFields.join(', ')}`);

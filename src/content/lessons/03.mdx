@@ -1,5 +1,5 @@
 ---
-title: "제3차시 · 레퍼런스와 무드보드에서 디자인 방향 찾기"
+title: "제3차시 · 실무 의뢰와 RFP를 디자인 브리프로 바꾸기"
 day: 3
 date: "pending"
 durationMinutes: 180
@@ -10,15 +10,16 @@ authorship: "ai-assisted"
 verificationStatus: "pending"
 freshness: "pending"
 riskLevel: "pending"
-professionalReviewStatus: "pending"
-professionalReviewScope: []
+professionalReviewStatus: "required"
+professionalReviewScope:
+  - "실제 프로젝트에서 법규·구조·소방·설비·시공성에 해당하는 판단"
 sources: []
 sections:
   - { id: "section-01", label: "차시 소개" }
   - { id: "section-02", label: "핵심 질문" }
   - { id: "section-03", label: "학습 목표" }
   - { id: "section-04", label: "핵심 개념" }
-  - { id: "section-05", label: "가상 문제" }
+  - { id: "section-05", label: "가상 RFP" }
   - { id: "section-06", label: "제공 자료" }
   - { id: "section-07", label: "강사 시연" }
   - { id: "section-08", label: "수강생 실습" }
@@ -34,68 +35,115 @@ import LessonOutline from '../../components/content/LessonOutline.astro';
 <LessonOutline
   lessonId="03"
   totalMinutes={180}
+  topic={{
+    number: '2',
+    title: '실무 시나리오 기반 맞춤형 제안 이미지 생성 및 워크플로우 자동화',
+  }}
+  openingMessage={{
+    title: '이미지를 만들기 전에, 의뢰 문서에 적힌 조건과 아직 확인되지 않은 조건을 먼저 나눈다.',
+    body: '제2차시에서 경험한 이미지 생성과 수정 과정을 더 복잡한 실무 의뢰 분석으로 확장합니다.',
+  }}
   intro={[
-    { category: '확정된 수업 구성', text: '레퍼런스를 분석해 무드보드, 디자인 키워드표, 레퍼런스 분석표를 만드는 차시다.' },
-    { category: '추가 출처 확인', text: '외부 레퍼런스는 공개 사용 권한이 확인되기 전까지 강의실 분석용으로만 다룬다.' },
+    { category: '확정된 수업 구성', text: '제2차시의 이미지 생성 경험을 바탕으로, 이번에는 실무 의뢰와 가상 제안요청서(Request for Proposal, RFP)를 읽고 다음 차시에서 사용할 디자인 브리프를 만든다.' },
+    { category: '확정된 수업 구성', text: '이 차시는 이미지 생성 차시가 아니다. Gemini를 사용해 문서의 조건과 빈 정보를 구분하고, 원문과 AI 분석 결과를 대조하는 데 집중한다.' },
+    { category: '수업 산출물', text: '추가 확인 질문 목록, 디자인 브리프, 다음 차시용 이미지 생성 요청 초안을 완성한다.' },
   ]}
   questions={[
-    { category: '교육용 가정', text: '좋아 보이는 이미지를 복제하지 않고 디자인 요소로 분해하려면 무엇을 관찰해야 하는가?' },
-    { category: '수강생 판단', text: '여러 레퍼런스의 공통 특징 중 이번 가상 의뢰에 적용할 것과 제외할 것은 무엇인가?' },
+    { category: '수강생 판단', text: '클라이언트가 문서에서 확정한 조건은 무엇인가?' },
+    { category: '수강생 판단', text: '문서에 없는 조건은 무엇인가?' },
+    { category: '수강생 판단', text: 'AI가 임의로 결정하면 안 되는 항목은 무엇인가?' },
+    { category: '수강생 판단', text: '이미지 생성 전에 무엇을 질문해야 하는가?' },
   ]}
+  questionsTitle="핵심 질문"
   goals={[
-    { category: '학습 목표', text: '레퍼런스를 형태, 재료, 색, 빛, 분위기 항목으로 분해한다.' },
-    { category: '학습 목표', text: '여러 이미지의 공통 특징과 차이를 찾아 디자인 방향 후보를 정리한다.' },
-    { category: '학습 목표', text: '무드보드와 디자인 키워드표를 제작한다.' },
+    { category: '학습 목표', text: '제안요청서(Request for Proposal, RFP)의 목적과 주요 내용을 파악한다.' },
+    { category: '학습 목표', text: '확정 조건과 미확정 조건을 구분한다.' },
+    { category: '학습 목표', text: '클라이언트에게 추가로 확인할 질문을 작성한다.' },
+    { category: '학습 목표', text: '의뢰 내용을 디자인 브리프(Design Brief)로 전환한다.' },
+    { category: '학습 목표', text: '다음 차시에서 사용할 이미지 생성 요청 초안을 작성한다.' },
   ]}
   concepts={[
-    { category: '교육용 가정', text: '형태·재료·색·빛·분위기는 레퍼런스 분석을 위한 교육용 분류 틀이다.' },
-    { category: '디자인 제안', text: '레퍼런스의 전체 이미지를 복제하지 않고 관찰한 디자인 요소를 새로운 방향으로 재구성한다.' },
-    { category: '추가 출처 확인', text: '저작권, 라이선스, 출처 표기 방식은 자료별 확인 후 상세 안내한다.' },
+    { category: '강의 전 사실 검증', text: '제안요청서(Request for Proposal, RFP)는 제안에 필요한 목적, 요구사항과 조건을 전달하는 문서다. 실제 형식과 법적 효력은 발주 방식과 계약 절차에 따라 달라질 수 있다.' },
+    { category: '강의 전 사실 검증', text: '디자인 브리프(Design Brief)는 프로젝트 목적, 사용자, 범위와 주요 조건을 디자인 작업에 활용할 수 있도록 정리한 문서다.' },
+    { category: '수강생 판단', text: '요구사항(Requirement)은 문서에서 요청한 필수 내용이고, 제약조건(Constraint)은 선택과 실행 범위를 제한하는 조건이다.' },
+    { category: '수강생 판단', text: '미확정 조건(Unknown)은 원문만으로 확인할 수 없는 정보이며, 가정(Assumption)은 진행을 위해 임시로 둔 전제다. 가정은 확정 사실처럼 쓰지 않는다.' },
+    { category: '디자인 제안', text: '디자인 제안(Design Proposal)은 요구사항과 제약조건을 바탕으로 디자이너가 제시하는 선택안이며, 클라이언트가 확정한 요구사항과 구분한다.' },
+    { category: '확정된 수업 구성', text: '이번 수업에서는 범용 프롬프트 공식이 아니라 교육용 요청문 구조 프레임을 사용한다: 프로젝트 목적, 대상 사용자, 공간 범위, 필수 요구사항, 유지·변경 조건, 미확정 조건, 원하는 결과 형식.' },
   ]}
   scenario={[
-    { category: '교육용 가정', text: '가상의 클라이언트가 출처와 사용 권한이 아직 확인되지 않은 참고 이미지 묶음을 전달했다. 수강생은 원본을 공개 결과물에 복사하지 않고 분석표와 무드보드 초안을 만든다.' },
+    { category: '교육용 가정', text: '다음 프로젝트와 RFP는 실제 회사나 발주처의 문서가 아닌 강의용 가상 사례다. 프로젝트명은 “지역 생활브랜드 소형 쇼룸 겸 상담 라운지 리뉴얼”이다.' },
+    { category: '교육용 가정', text: '가상 RFP 전문 — 지역 생활브랜드는 약 50㎡ 규모의 소형 쇼룸을 계획한다. 상품 전시와 2~4인 상담 기능을 함께 운영하며, 기존 전면 출입구는 유지한다. 밝고 정돈된 브랜드 이미지를 원하고 이동 가능한 전시 가구를 선호한다. 외부 입구에는 작은 플랜터를 제안할 수 있으며, 다음 회의에서 2~3개 방향을 검토하고자 한다.' },
+    { category: '교육용 가정', text: '포함 공종 — 실내건축은 상품 전시, 상담 좌석, 수납, 조명과 재료 방향을 다룬다. 금속창호는 전면 파사드, 출입문, 쇼윈도 프레임을 다룬다. 조경은 입구 플랜터와 소규모 외부 대기 영역을 다룬다.' },
+    { category: '추가 검증 필요', text: '이 문서에는 정확한 실측 평면, 기존 구조와 기둥 위치, 정확한 창호 치수, 전기·조명·소방·설비 조건이 제공되지 않았다.' },
+    { category: '추가 검증 필요', text: '예산, 공사 일정, 브랜드 색상 규정, 상품 크기와 수량, 법규와 시공 조건도 제공되지 않았다. 이 정보는 AI나 수강생이 임의로 확정하지 않고 추가 질문으로 남긴다.' },
   ]}
+  scenarioTitle="가상 RFP"
   materials={[
-    { category: '추가 검증 필요', text: '강의실 분석용 레퍼런스 이미지 묶음. 공개 교재 포함 여부는 별도 확인한다.' },
-    { category: '디자인 제안', text: '레퍼런스 분석표, 디자인 키워드표, 빈 무드보드 템플릿.' },
-    { category: '추가 검증 필요', text: '미추적 무드보드 참고 영상은 사용 권한 확인 전 링크나 파일로 배포하지 않는다.' },
+    { category: '확정된 수업 구성', text: '본문의 강의용 가상 RFP를 원문 자료로 사용한다.' },
+    { category: '확정된 수업 구성', text: '문서에 직접 적힌 조건, 확인되지 않은 조건, 추가 질문을 나누는 강의용 조건 분류 예시를 사용한다.' },
+    { category: '확정된 수업 구성', text: '본문에 직접 작성할 수 있는 빈 디자인 브리프 작성 영역과 다음 차시용 요청 초안 안내를 사용한다.' },
+    { category: '교육용 가정', text: '제공 자료는 실제 회사 자료가 아니며 고객명, 주소, 연락처, 계약 조건이나 회사 기밀을 포함하지 않는다.' },
   ]}
   demo={[
-    { category: '디자인 제안', text: '강사는 레퍼런스 일부를 관찰 항목으로 분해하고 공통 특징을 키워드로 옮기는 흐름을 시연한다.' },
-    { category: '수강생 판단', text: '이미지를 그대로 따라 하는 표현과 분석한 요소를 선택적으로 사용하는 표현의 차이를 토의한다.' },
+    { category: '확정된 수업 구성', text: '첫 요청: “다음 가상 RFP를 분석해 확정된 조건, 확인되지 않은 조건, 클라이언트에게 추가로 물어볼 질문을 구분해 주세요. 문서에 없는 내용을 사실처럼 추가하지 마세요.”' },
+    { category: '수강생 판단', text: '강사는 Gemini 분석 결과를 그대로 정답으로 채택하지 않고, 각 항목이 가상 RFP의 어느 문장에서 나왔는지 원문과 대조한다.' },
+    { category: '수강생 판단', text: '분석 기준은 확정 조건, 확인되지 않은 조건, 추가 질문의 세 묶음이다. 결과에 새 면적·예산·일정·구조 조건이 생기면 원문에 없는 추가로 표시한다.' },
+    { category: '추가 검증 필요', text: '실제 Gemini 응답 원문은 아직 확보되지 않았다. 교보재에는 실제 응답을 가장한 예시 답변을 넣지 않고, 강사가 확인할 분석 기준과 예상 구조만 제공한다.' },
+  ]}
+  practiceGuidance={[
+    { category: '확정된 수업 구성', text: '복잡한 별도 양식을 여러 개 만들지 않는다. 각 단계의 결과는 교보재 본문에 직접 기록하거나 수강생이 사용하는 개인 메모 도구에 작성한다.' },
+    { category: '수강생 판단', text: 'Gemini가 제안한 분류보다 원문 RFP가 우선이다. 근거 문장을 찾을 수 없는 항목은 확정 조건으로 옮기지 않는다.' },
   ]}
   practice={[
-    { id: 'reference-breakdown', title: '레퍼런스 요소 분해', minutes: 30, description: '형태, 재료, 색, 빛, 분위기를 이미지별로 기록한다.' },
-    { id: 'common-patterns', title: '공통 특징과 차이 찾기', minutes: 20, description: '반복되는 요소와 충돌하는 요소를 구분한다.' },
-    { id: 'keyword-table', title: '디자인 키워드표 작성', minutes: 20, description: '적용 후보, 제외 후보, 추가 확인 항목으로 정리한다.' },
-    { id: 'moodboard-draft', title: '무드보드 초안 제작', minutes: 30, description: '권리 미확인 원본을 공개 배포하지 않는 검토용 보드로 구성한다.' },
+    { id: 'read-virtual-rfp', title: '가상 RFP 읽기', minutes: 10, description: '프로젝트 목적, 공간 범위, 공종과 다음 회의의 목표를 찾는다.' },
+    { id: 'mark-confirmed-conditions', title: '확정 조건 표시', minutes: 10, description: '원문에 직접 적힌 면적, 운영 기능, 유지 조건과 선호 사항을 표시한다.' },
+    { id: 'mark-unknowns', title: '확인되지 않은 조건 표시', minutes: 10, description: '실측, 구조, 창호, 설비, 예산, 일정, 브랜드와 상품 정보처럼 제공되지 않은 조건을 분리한다.' },
+    { id: 'write-questions', title: '추가 질문 작성', minutes: 10, description: '이미지 생성이나 공간 제안 전에 클라이언트와 담당자에게 확인할 질문을 작성한다.' },
+    { id: 'request-gemini-analysis', title: 'Gemini에 분석 요청', minutes: 15, description: '가상 RFP와 강사 시연의 첫 요청을 입력하고 결과를 세 묶음으로 확인한다.' },
+    { id: 'compare-with-source', title: 'Gemini 결과와 원문 대조', minutes: 15, description: '각 항목의 원문 근거를 찾고, 근거가 없거나 의미가 바뀐 항목을 표시한다.' },
+    { id: 'write-design-brief', title: '디자인 브리프 작성', minutes: 15, description: '목적, 대상 사용자, 공간 범위, 필수 요구사항, 유지·변경 조건과 미확정 조건을 정리한다.' },
+    { id: 'draft-image-request', title: '다음 차시용 이미지 생성 요청 초안', minutes: 10, description: '확정 조건과 디자인 제안을 구분하고, 미확정 조건을 임의로 채우지 않은 요청 초안을 작성한다.' },
   ]}
   deliverables={[
-    { category: '수업 산출물', text: '무드보드.' },
-    { category: '수업 산출물', text: '디자인 키워드표.' },
-    { category: '수업 산출물', text: '레퍼런스 분석표.' },
+    { category: '수업 산출물', text: '클라이언트와 담당자에게 보낼 추가 확인 질문 목록.' },
+    { category: '수업 산출물', text: '가상 RFP를 근거로 작성한 디자인 브리프.' },
+    { category: '수업 산출물', text: '다음 차시에서 검토하고 사용할 이미지 생성 요청 초안.' },
   ]}
   judgments={[
-    { category: '수강생 판단', text: '선택한 키워드가 가상 의뢰와 연결되는가?' },
-    { category: '수강생 판단', text: '레퍼런스의 특징을 분석했는지, 특정 결과를 그대로 복제하려 했는지 구분했는가?' },
-    { category: '법규·구조·소방 등 해당 전문가 판단', text: '재료·구조·시공 성능에 대한 판단을 이미지 인상만으로 확정하지 않았는가?' },
+    { category: '수강생 판단', text: '이 항목은 문서에 직접 적힌 내용인가?' },
+    { category: '수강생 판단', text: '원문을 바꾸지 않는 합리적인 해석인가?' },
+    { category: '수강생 판단', text: 'AI가 만든 가정인가?' },
+    { category: '수강생 판단', text: '디자이너가 선택해 제안하는 내용인가?' },
+    { category: '법규·구조·소방 등 해당 전문가 판단', text: '법규·구조·소방·설비·시공 조건처럼 해당 전문가의 확인이 필요한가?' },
   ]}
   errorChecks={[
-    { category: '추가 검증 필요', text: 'AI가 이미지에 보이지 않는 재료명, 브랜드, 성능을 임의로 단정하지 않았는지 확인한다.' },
-    { category: '수강생 판단', text: '서로 충돌하는 키워드가 한 방향에 무분별하게 섞이지 않았는지 확인한다.' },
-    { category: '추가 출처 확인', text: '모든 외부 이미지의 출처와 공개 사용 상태가 아직 미확인임을 표시했는지 확인한다.' },
+    { category: '추가 검증 필요', text: 'RFP에 없는 면적·예산·일정을 추가하지 않았는가?' },
+    { category: '추가 검증 필요', text: '창호·기둥·설비 위치를 임의로 확정하지 않았는가?' },
+    { category: '수강생 판단', text: '실내건축·금속창호·조경의 책임 범위를 혼동하지 않았는가?' },
+    { category: '수강생 판단', text: '디자인 제안을 클라이언트가 확정한 요구사항처럼 표현하지 않았는가?' },
+    { category: '추가 검증 필요', text: 'Gemini 분석에서 원문 근거를 찾을 수 없는 내용을 확정 조건으로 옮기지 않았는가?' },
   ]}
   assetIds={['l03-doc-pack', 'l03-reference-set', 'l03-demo']}
+  assetsTitle="필요 자산"
+  assetNotes={[
+    { category: '확정된 수업 구성', text: '가상 RFP 전문과 작성 안내는 이 페이지 본문에서 제공한다. 학생 화면에 내부 자산 관리 카드는 표시하지 않는다.' },
+    { category: '확정된 수업 구성', text: '수강생은 본문 또는 개인 메모 도구에 조건 분류, 추가 질문, 디자인 브리프와 다음 차시 요청 초안을 작성한다.' },
+  ]}
   verification={[
-    { category: '추가 출처 확인', text: '레퍼런스 이미지와 영상의 출처, 라이선스, 수업·배포 사용 범위를 확인한다.' },
-    { category: '추가 검증 필요', text: '무드보드 제작 도구와 파일 형식을 실제 수업 환경에 맞춰 확정한다.' },
-    { category: '법규·구조·소방 등 해당 전문가 판단', text: '재료, 조명, 구조에 대한 전문적 해석은 검토된 설명과 함께 작성한다.' },
+    { category: '강의 전 사실 검증', text: '실제 프로젝트에서는 원본 의뢰 문서, 계약 문서와 담당자의 확인을 기준으로 조건을 확정한다.' },
+    { category: '법규·구조·소방 등 해당 전문가 판단', text: '법규·구조·소방·설비·시공성에 관한 판단은 해당 분야 전문가의 확인이 필요하다.' },
+    { category: '추가 검증 필요', text: 'AI가 작성한 디자인 브리프는 발주 확정 문서나 계약 문서가 아니며 원문 대조와 담당자 승인이 필요하다.' },
   ]}
   timePlan={[
-    { label: '차시 안내', minutes: 20, mode: 'guide' },
-    { label: '핵심 개념', minutes: 25, mode: 'guide' },
-    { label: '강사 시연', minutes: 25, mode: 'demo' },
-    { label: '수강생 실습', minutes: 100, mode: 'practice' },
-    { label: '검토·정리', minutes: 10, mode: 'review' },
+    { label: '제2차시 연결과 차시 안내', minutes: 10, mode: 'guide' },
+    { label: 'RFP와 디자인 브리프 개념', minutes: 20, mode: 'guide' },
+    { label: '가상 RFP 읽기', minutes: 20, mode: 'practice' },
+    { label: '조건과 미확정 정보 분류 시연', minutes: 20, mode: 'demo' },
+    { label: '휴식', minutes: 10, mode: 'guide' },
+    { label: 'Gemini 분석 시연', minutes: 20, mode: 'demo' },
+    { label: '수강생 RFP 분석 실습', minutes: 35, mode: 'practice' },
+    { label: '디자인 브리프 작성', minutes: 30, mode: 'practice' },
+    { label: '이미지 요청 초안과 공유', minutes: 10, mode: 'practice' },
+    { label: '정리', minutes: 5, mode: 'review' },
   ]}
 />

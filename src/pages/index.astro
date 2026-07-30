@@ -2,9 +2,23 @@
 import SiteLayout from '../layouts/SiteLayout.astro';
 import StatusBadge from '../components/StatusBadge.astro';
 import { getVisibleLessons } from '../lib/lessons';
+import { getLessonTopics } from '../lib/lesson-topics';
 import { withBase } from '../lib/site';
 
 const lessons = await getVisibleLessons();
+const lessonsById = new Map(lessons.map((lesson) => [lesson.id, lesson]));
+const topicCards = getLessonTopics().map((topic) => {
+  const firstLesson = lessonsById.get(topic.lessonIds[0]);
+  const firstDay = Number(topic.lessonIds[0]);
+  const lastDay = Number(topic.lessonIds.at(-1));
+  return {
+    topic,
+    firstLesson,
+    lessonRange: firstDay === lastDay
+      ? `제${firstDay}차시`
+      : `제${firstDay}–${lastDay}차시`,
+  };
+});
 ---
 
 <SiteLayout title="홈" section="HOME">
@@ -64,20 +78,20 @@ const lessons = await getVisibleLessons();
       <div class="preview-head">
         <div class="section-heading">
           <span>02</span>
-          <h2 id="lesson-preview-title">14개 차시</h2>
+          <h2 id="lesson-preview-title">7개 주제 · 14개 차시</h2>
         </div>
-        <p>차시 제목과 수업시간은 승인됐으며 상세 교안과 실제 자산은 검토 전입니다.</p>
+        <p>상위 주제를 먼저 확인하고, 각 주제 안에서 연결되는 차시를 순서대로 학습합니다.</p>
       </div>
-      <ol>
-        {lessons.slice(0, 5).map((lesson) => (
+      <ol class="topic-preview">
+        {topicCards.map(({ topic, firstLesson, lessonRange }) => (
           <li>
-            <a href={withBase(`/lessons/${lesson.id}/`)}>
-              <span class="lesson-number">{String(lesson.data.day).padStart(2, '0')}</span>
-              <span>
-                <small>LESSON {String(lesson.data.day).padStart(2, '0')}</small>
-                <strong>{lesson.data.title}</strong>
+            <a href={withBase(firstLesson ? `/lessons/${firstLesson.id}/` : '/curriculum/')}>
+              <span class="topic-number">{topic.number}</span>
+              <span class="topic-preview__copy">
+                <small>주제 {topic.number} · {lessonRange} · {topic.lessonCount}개 차시</small>
+                <strong>{topic.title}</strong>
+                {firstLesson && <span>시작 차시: {firstLesson.data.title}</span>}
               </span>
-              <StatusBadge kind="verificationStatus" value={lesson.data.verificationStatus} />
               <span class="lesson-arrow" aria-hidden="true">↗</span>
             </a>
           </li>
@@ -86,7 +100,7 @@ const lessons = await getVisibleLessons();
       {lessons.length === 0 && (
         <p class="empty-lessons">현재 공개된 차시는 없습니다. 검토가 완료된 차시부터 순차적으로 제공됩니다.</p>
       )}
-      <a class="all-link" href={withBase('/curriculum/')}>14개 전체 차시 보기 <span aria-hidden="true">→</span></a>
+      <a class="all-link" href={withBase('/curriculum/')}>7개 주제와 14개 차시 전체 보기 <span aria-hidden="true">→</span></a>
     </section>
 
     <section class="notice" aria-labelledby="notice-title">
@@ -258,7 +272,7 @@ const lessons = await getVisibleLessons();
     gap: 2rem;
   }
 
-  .lesson-preview ol {
+  .topic-preview {
     margin: 2rem 0 0;
     padding: 0;
     border-top: 1px solid var(--line-dark);
@@ -277,9 +291,9 @@ const lessons = await getVisibleLessons();
     border-bottom: 1px solid var(--line);
   }
 
-  .lesson-preview li a {
+  .topic-preview li a {
     display: grid;
-    grid-template-columns: 4rem 1fr auto 2rem;
+    grid-template-columns: 4rem minmax(0, 1fr) 2rem;
     gap: 1.2rem;
     align-items: center;
     padding: 1.25rem 0;
@@ -291,13 +305,13 @@ const lessons = await getVisibleLessons();
     background: var(--surface);
   }
 
-  .lesson-number {
+  .topic-number {
     color: var(--accent);
     font-family: var(--serif);
     font-size: 2.2rem;
   }
 
-  .lesson-preview li small {
+  .topic-preview li small {
     display: block;
     color: var(--muted);
     font-size: 0.62rem;
@@ -305,8 +319,22 @@ const lessons = await getVisibleLessons();
     letter-spacing: 0.13em;
   }
 
-  .lesson-preview li strong {
-    font-size: 1rem;
+  .topic-preview li strong {
+    display: block;
+    max-width: 42ch;
+    margin-top: 0.25rem;
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    line-height: 1.35;
+    text-wrap: balance;
+    word-break: keep-all;
+  }
+
+  .topic-preview__copy > span {
+    display: block;
+    margin-top: 0.45rem;
+    color: var(--muted);
+    font-size: 0.78rem;
   }
 
   .lesson-arrow {
@@ -375,12 +403,12 @@ const lessons = await getVisibleLessons();
       display: block;
     }
 
-    .lesson-preview li a {
+    .topic-preview li a {
       grid-template-columns: 3rem 1fr 1.5rem;
     }
 
-    .lesson-preview :global(.status-badge) {
-      display: none;
+    .topic-preview li strong {
+      font-size: 1.05rem;
     }
 
     .notice {

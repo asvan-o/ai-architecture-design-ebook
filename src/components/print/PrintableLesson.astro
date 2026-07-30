@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { getLessonTopicSummary } from '../../lib/lesson-topics';
 
 interface Props {
   lesson: CollectionEntry<'lessons'>;
@@ -8,6 +9,7 @@ interface Props {
 
 const { lesson, first = false } = Astro.props;
 const dayLabel = String(lesson.data.day).padStart(2, '0');
+const topic = getLessonTopicSummary(dayLabel);
 const dateLabel = lesson.data.date === 'pending'
   ? '일정 확인 예정'
   : lesson.data.date.replaceAll('-', '.');
@@ -21,6 +23,12 @@ const durationLabel = lesson.data.durationMinutes === null
   data-print-lesson-id={lesson.id}
 >
   <header class="print-lesson__cover">
+    {topic && (
+      <div class="print-lesson__topic">
+        <span>주제 {topic.number}</span>
+        <strong>{topic.title}</strong>
+      </div>
+    )}
     <p>LESSON {dayLabel}</p>
     <h1 class="print-lesson__title">{lesson.data.title}</h1>
     <dl>

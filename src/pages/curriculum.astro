@@ -1,11 +1,19 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
 import PdfDownloadPanel from '../components/PdfDownloadPanel.astro';
-import StatusBadge from '../components/StatusBadge.astro';
 import { getVisibleLessons } from '../lib/lessons';
+import { getLessonTopics } from '../lib/lesson-topics';
 import { withBase } from '../lib/site';
 
 const lessons = await getVisibleLessons();
+const lessonsById = new Map(lessons.map((lesson) => [lesson.id, lesson]));
+const topicGroups = getLessonTopics().map((topic) => ({
+  topic,
+  lessons: topic.lessonIds.flatMap((lessonId) => {
+    const lesson = lessonsById.get(lessonId);
+    return lesson ? [lesson] : [];
+  }),
+}));
 const dateLabel = (date: string) => date === 'pending' ? '일정 확인 예정' : date;
 const durationLabel = (durationMinutes: number | null) =>
   durationMinutes === null ? '수업시간 확인 예정' : `${durationMinutes}분`;
@@ -14,16 +22,19 @@ const durationLabel = (durationMinutes: number | null) =>
 <SiteLayout title="전체 강의 목차" section="CURRICULUM">
   <div class="page-shell curriculum-page">
     <header class="page-intro">
-      <p class="page-kicker">CURRICULUM · 14 LESSONS</p>
+      <p class="page-kicker">CURRICULUM · 7 TOPICS · 14 LESSONS</p>
       <h1 class="page-title">전체 강의<br />목차</h1>
-      <p class="lead">승인된 14개 차시의 제목과 수업시간을 제공합니다. 현재 각 차시의 교육 콘텐츠 골격과 자산 제작 목록은 검토 요청 상태입니다.</p>
+      <p class="lead">
+        총 48시간의 과정을 7개 상위 주제와 14개 하위 차시의 흐름으로 확인합니다.
+        각 차시는 해당 주제 안에서 순서대로 이어집니다.
+      </p>
     </header>
 
     <section class="course-summary" aria-label="과정 요약">
       <p><span>COURSE</span><strong>AI 건축디자인 바이블</strong></p>
       <p><span>SCHEDULE</span><strong>2026년 8월</strong></p>
+      <p><span>STRUCTURE</span><strong>7 TOPICS · 14 LESSONS</strong></p>
       <p><span>TOTAL</span><strong>48 HOURS</strong></p>
-      <p><span>STATUS</span><strong>골격 검토 요청</strong></p>
     </section>
 
     <PdfDownloadPanel
@@ -35,25 +46,35 @@ const durationLabel = (durationMinutes: number | null) =>
       }]}
     />
 
-    <ol class="curriculum-list">
-      {lessons.map((lesson) => (
-        <li>
-          <a href={withBase(`/lessons/${lesson.id}/`)}>
-            <span class="number">{String(lesson.data.day).padStart(2, '0')}</span>
-            <div>
-              <p>LESSON {String(lesson.data.day).padStart(2, '0')}</p>
-              <h2>{lesson.data.title}</h2>
-            </div>
-            <div class="schedule">
-              <span>{dateLabel(lesson.data.date)}</span>
-              <span>{durationLabel(lesson.data.durationMinutes)}</span>
-            </div>
-            <StatusBadge kind="verificationStatus" value={lesson.data.verificationStatus} />
-            <span class="arrow" aria-hidden="true">→</span>
-          </a>
-        </li>
+    <div class="topic-groups">
+      {topicGroups.map(({ topic, lessons: topicLessons }) => (
+        <section class="topic-group" aria-labelledby={`topic-${topic.number}-title`}>
+          <header class="topic-group__header">
+            <p>주제 {topic.number}</p>
+            <h2 id={`topic-${topic.number}-title`}>{topic.title}</h2>
+            <span>{topic.lessonCount}개 차시</span>
+          </header>
+          <ol class="curriculum-list">
+            {topicLessons.map((lesson) => (
+              <li>
+                <a href={withBase(`/lessons/${lesson.id}/`)}>
+                  <span class="number">{String(lesson.data.day).padStart(2, '0')}</span>
+                  <div>
+                    <p>LESSON {String(lesson.data.day).padStart(2, '0')}</p>
+                    <h3>{lesson.data.title}</h3>
+                  </div>
+                  <div class="schedule">
+                    <span>{dateLabel(lesson.data.date)}</span>
+                    <span>{durationLabel(lesson.data.durationMinutes)}</span>
+                  </div>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </section>
       ))}
-    </ol>
+    </div>
     {lessons.length === 0 && (
       <p class="empty-lessons">현재 공개된 차시가 없습니다. 검토가 완료된 차시부터 순차적으로 제공됩니다.</p>
     )}
@@ -67,7 +88,7 @@ const durationLabel = (durationMinutes: number | null) =>
 
   .course-summary {
     display: grid;
-    grid-template-columns: 1.4fr 1fr 0.7fr 1fr;
+    grid-template-columns: 1.4fr 1fr 1fr 0.7fr;
     margin-bottom: 4rem;
     border-top: 2px solid var(--ink);
     border-bottom: 1px solid var(--ink);
@@ -99,10 +120,52 @@ const durationLabel = (durationMinutes: number | null) =>
     font-size: 1rem;
   }
 
+  .topic-groups {
+    display: grid;
+    gap: 4rem;
+  }
+
+  .topic-group {
+    border-top: 2px solid var(--ink);
+  }
+
+  .topic-group__header {
+    display: grid;
+    grid-template-columns: 7rem minmax(0, 1fr) auto;
+    gap: 1.5rem;
+    align-items: start;
+    padding: 1.5rem 0.7rem 1.8rem;
+    border-bottom: 1px solid var(--line-dark);
+  }
+
+  .topic-group__header p,
+  .topic-group__header span {
+    margin: 0;
+    color: var(--accent-dark);
+    font-size: 0.72rem;
+    font-weight: 850;
+    letter-spacing: 0.1em;
+  }
+
+  .topic-group__header h2 {
+    max-width: 32ch;
+    margin: 0;
+    font-family: var(--serif);
+    font-size: clamp(1.5rem, 2.4vw, 2.35rem);
+    font-weight: 650;
+    line-height: 1.3;
+    text-wrap: balance;
+    word-break: keep-all;
+  }
+
+  .topic-group__header span {
+    color: var(--muted);
+    letter-spacing: 0;
+  }
+
   .curriculum-list {
     margin: 0;
     padding: 0;
-    border-top: 1px solid var(--line-dark);
     list-style: none;
   }
 
@@ -119,7 +182,7 @@ const durationLabel = (durationMinutes: number | null) =>
 
   .curriculum-list a {
     display: grid;
-    grid-template-columns: 5rem minmax(16rem, 1fr) 11rem auto 2rem;
+    grid-template-columns: 5rem minmax(16rem, 1fr) 11rem 2rem;
     gap: 1.2rem;
     align-items: center;
     min-height: 8.5rem;
@@ -139,7 +202,7 @@ const durationLabel = (durationMinutes: number | null) =>
     line-height: 1;
   }
 
-  .curriculum-list h2 {
+  .curriculum-list h3 {
     margin: 0.2rem 0 0;
     font-family: var(--serif);
     font-size: 1.25rem;
@@ -179,9 +242,16 @@ const durationLabel = (durationMinutes: number | null) =>
       grid-template-columns: 4rem 1fr auto;
     }
 
-    .schedule,
-    .curriculum-list :global(.status-badge) {
+    .schedule {
       display: none;
+    }
+
+    .topic-group__header {
+      grid-template-columns: 5rem 1fr;
+    }
+
+    .topic-group__header span {
+      grid-column: 2;
     }
   }
 
@@ -204,6 +274,20 @@ const durationLabel = (durationMinutes: number | null) =>
 
     .number {
       font-size: 2rem;
+    }
+
+    .topic-groups {
+      gap: 3rem;
+    }
+
+    .topic-group__header {
+      display: block;
+      padding: 1.2rem 0.2rem 1.4rem;
+    }
+
+    .topic-group__header h2 {
+      margin: 0.4rem 0 0.7rem;
+      font-size: 1.45rem;
     }
   }
 </style>

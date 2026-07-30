@@ -1,6 +1,7 @@
 ---
 import { mainNav, siteTitle, withBase } from '../lib/site';
 import { getVisibleLessons } from '../lib/lessons';
+import { getLessonTopics } from '../lib/lesson-topics';
 import SearchPanel from '../components/SearchPanel';
 import '../styles/global.css';
 
@@ -18,7 +19,16 @@ const {
   hideSidebar = false,
 } = Astro.props;
 const lessons = await getVisibleLessons();
+const lessonsById = new Map(lessons.map((lesson) => [lesson.id, lesson]));
+const topicGroups = getLessonTopics().map((topic) => ({
+  topic,
+  lessons: topic.lessonIds.flatMap((lessonId) => {
+    const lesson = lessonsById.get(lessonId);
+    return lesson ? [lesson] : [];
+  }),
+}));
 const currentPath = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ''), '') || '/';
+const currentLessonId = currentPath.match(/\/lessons\/(\d{2})/)?.[1];
 const isCurrent = (href: string) =>
   href === '/' ? currentPath === '/' : currentPath.startsWith(href.replace(/\/$/, ''));
 ---
@@ -64,16 +74,26 @@ const isCurrent = (href: string) =>
         ))}
       </nav>
       <div class="sidebar-lessons">
-        <p class="nav-label">LESSONS · 14</p>
-        <nav aria-label="강의 차시">
-          {lessons.map((lesson) => (
-            <a
-              href={withBase(`/lessons/${lesson.id}/`)}
-              aria-current={currentPath.includes(`/lessons/${lesson.id}`) ? 'page' : undefined}
-            >
-              <span>{String(lesson.data.day).padStart(2, '0')}</span>
-              <span>{lesson.data.title.replace(/^제\d+차시\s*·?\s*/, '')}</span>
-            </a>
+        <p class="nav-label">TOPICS · 7 / LESSONS · 14</p>
+        <nav aria-label="주제별 강의 차시">
+          {topicGroups.map(({ topic, lessons: topicLessons }) => (
+            <section class:list={['sidebar-topic', { 'is-current-topic': topic.lessonIds.includes(currentLessonId ?? '') }]}>
+              <p class="sidebar-topic__heading">
+                <span>주제 {topic.number}</span>
+                <strong>{topic.title}</strong>
+              </p>
+              <div class="sidebar-topic__lessons">
+                {topicLessons.map((lesson) => (
+                  <a
+                    href={withBase(`/lessons/${lesson.id}/`)}
+                    aria-current={currentPath.includes(`/lessons/${lesson.id}`) ? 'page' : undefined}
+                  >
+                    <span>{String(lesson.data.day).padStart(2, '0')}</span>
+                    <span>{lesson.data.title.replace(/^제\d+차시\s*·?\s*/, '')}</span>
+                  </a>
+                ))}
+              </div>
+            </section>
           ))}
         </nav>
       </div>
@@ -95,15 +115,26 @@ const isCurrent = (href: string) =>
           </a>
         ))}
       </nav>
-      <p class="nav-label">강의 차시</p>
-      <nav class="mobile-lessons" aria-label="모바일 강의 차시">
-        {lessons.map((lesson) => (
-          <a
-            href={withBase(`/lessons/${lesson.id}/`)}
-            aria-current={currentPath.includes(`/lessons/${lesson.id}`) ? 'page' : undefined}
-          >
-            <span>{String(lesson.data.day).padStart(2, '0')}</span>{lesson.data.title}
-          </a>
+      <p class="nav-label">주제 7개 · 차시 14개</p>
+      <nav class="mobile-lessons" aria-label="모바일 주제별 강의 차시">
+        {topicGroups.map(({ topic, lessons: topicLessons }) => (
+          <section class:list={['mobile-topic', { 'is-current-topic': topic.lessonIds.includes(currentLessonId ?? '') }]}>
+            <p class="mobile-topic__heading">
+              <span>주제 {topic.number}</span>
+              <strong>{topic.title}</strong>
+            </p>
+            <div>
+              {topicLessons.map((lesson) => (
+                <a
+                  href={withBase(`/lessons/${lesson.id}/`)}
+                  aria-current={currentPath.includes(`/lessons/${lesson.id}`) ? 'page' : undefined}
+                >
+                  <span>{String(lesson.data.day).padStart(2, '0')}</span>
+                  <span>{lesson.data.title.replace(/^제\d+차시\s*·?\s*/, '')}</span>
+                </a>
+              ))}
+            </div>
+          </section>
         ))}
       </nav>
     </dialog>

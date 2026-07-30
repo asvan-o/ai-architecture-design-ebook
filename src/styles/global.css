@@ -205,6 +205,49 @@ textarea,
   display: grid;
 }
 
+.sidebar-topic {
+  border-top: 1px solid var(--line);
+}
+
+.sidebar-topic:first-child {
+  border-top: 0;
+}
+
+.sidebar-topic__heading {
+  display: grid;
+  gap: 0.2rem;
+  margin: 0;
+  padding: 0.72rem 1.4rem 0.42rem;
+}
+
+.sidebar-topic__heading span {
+  color: var(--accent-dark);
+  font-size: 0.62rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+}
+
+.sidebar-topic__heading strong {
+  color: #5b625e;
+  font-size: 0.7rem;
+  line-height: 1.35;
+  word-break: keep-all;
+}
+
+.sidebar-topic.is-current-topic {
+  background: rgba(255, 255, 255, 0.42);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.sidebar-topic.is-current-topic .sidebar-topic__heading strong {
+  color: var(--ink);
+}
+
+.sidebar-topic__lessons {
+  display: grid;
+  padding-bottom: 0.45rem;
+}
+
 .sidebar-lessons a {
   display: grid;
   grid-template-columns: 2rem 1fr;
@@ -1098,6 +1141,45 @@ textarea,
 
   .mobile-menu .mobile-lessons a {
     grid-template-columns: 2rem 1fr;
+  }
+
+  .mobile-topic {
+    border-top: 1px solid var(--line-dark);
+  }
+
+  .mobile-topic:first-child {
+    border-top: 0;
+  }
+
+  .mobile-topic.is-current-topic {
+    background: var(--paper-deep);
+    box-shadow: inset 4px 0 0 var(--accent);
+  }
+
+  .mobile-topic__heading {
+    display: grid;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 1rem 1.4rem 0.55rem;
+  }
+
+  .mobile-topic__heading span {
+    color: var(--accent-dark);
+    font-size: 0.66rem;
+    font-weight: 850;
+    letter-spacing: 0.08em;
+  }
+
+  .mobile-topic__heading strong {
+    font-family: var(--serif);
+    font-size: 0.94rem;
+    line-height: 1.4;
+    word-break: keep-all;
+  }
+
+  .mobile-topic > div {
+    display: grid;
+    padding-bottom: 0.65rem;
   }
 
   .utility-bar {

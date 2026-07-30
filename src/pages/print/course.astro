@@ -3,8 +3,17 @@ import { render } from 'astro:content';
 import PrintableLesson from '../../components/print/PrintableLesson.astro';
 import PrintLayout from '../../layouts/PrintLayout.astro';
 import { getVisibleLessons } from '../../lib/lessons';
+import { getLessonTopics } from '../../lib/lesson-topics';
 
 const lessons = await getVisibleLessons();
+const lessonsById = new Map(lessons.map((lesson) => [lesson.id, lesson]));
+const topicGroups = getLessonTopics().map((topic) => ({
+  topic,
+  lessons: topic.lessonIds.flatMap((lessonId) => {
+    const lesson = lessonsById.get(lessonId);
+    return lesson ? [lesson] : [];
+  }),
+}));
 const renderedLessons = await Promise.all(
   lessons.map(async (lesson) => ({
     lesson,
@@ -14,6 +23,31 @@ const renderedLessons = await Promise.all(
 ---
 
 <PrintLayout title="전체 교안 · 인쇄용">
+  <section class="print-course-toc" aria-labelledby="print-course-toc-title">
+    <header>
+      <p>AI ARCHITECTURE DESIGN BIBLE</p>
+      <h1 id="print-course-toc-title">7개 주제 · 14개 차시</h1>
+      <span>총 48시간 학생용 교안</span>
+    </header>
+    <ol>
+      {topicGroups.map(({ topic, lessons: topicLessons }) => (
+        <li>
+          <div>
+            <span>주제 {topic.number}</span>
+            <strong>{topic.title}</strong>
+          </div>
+          <ul>
+            {topicLessons.map((lesson) => (
+              <li>
+                <span>제{lesson.data.day}차시</span>
+                <strong>{lesson.data.title.replace(/^제\d+차시\s*·?\s*/, '')}</strong>
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </ol>
+  </section>
   {renderedLessons.map(({ lesson, Content }, index) => (
     <PrintableLesson lesson={lesson} first={index === 0}>
       <Content />
