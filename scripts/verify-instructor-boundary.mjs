@@ -70,14 +70,42 @@ const textFiles = files
 const yamlFiles = files.filter((filePath) => /\.ya?ml$/i.test(filePath));
 const combinedSource = (await Promise.all(textFiles.map((filePath) => readFile(filePath, 'utf8'))))
   .join('\n');
+const clientScriptSource = (
+  await Promise.all(
+    textFiles
+      .filter((filePath) => /\.(?:js|mjs|map)$/i.test(filePath))
+      .map((filePath) => readFile(filePath, 'utf8')),
+  )
+).join('\n');
 const normalizedOutput = normalizeText(combinedSource);
+const normalizedClientScripts = normalizeText(clientScriptSource);
 const privateBodies = existsSync(privateNotePath)
   ? parsePrivateBodies(await readFile(privateNotePath, 'utf8'))
   : [];
 
 const errors = [];
+const instructorConsolePath = path.join(outputPath, 'instructor-console');
+const presentationPath = path.join(outputPath, 'presentation');
+const presenterOnlyMarkers = [
+  'ai-architecture-presenter',
+  'data-presenter-console',
+  'INSTRUCTOR CONSOLE · LOCAL ONLY',
+  '프로젝터 화면 열기',
+  '현재 섹션에 등록된 강사 메모가 없습니다.',
+  '/instructor-console/lessons/',
+  '/presentation/lessons/',
+  'instructor-content/',
+];
 
 if (mode === 'student') {
+  if (existsSync(instructorConsolePath) || existsSync(presentationPath)) {
+    errors.push('학생용 결과물에 강사 콘솔 또는 로컬 프레젠테이션 route가 포함됐습니다.');
+  }
+  for (const marker of presenterOnlyMarkers) {
+    if (combinedSource.includes(marker)) {
+      errors.push(`학생용 결과물에 발표자 모드 전용 문자열이 포함됐습니다: ${marker}`);
+    }
+  }
   if (yamlFiles.length > 0) {
     errors.push('학생용 결과물에 YAML 파일이 포함됐습니다.');
   }
@@ -106,6 +134,9 @@ if (mode === 'student') {
     }
   }
 } else {
+  if (yamlFiles.length > 0) {
+    errors.push('강사용 정적 결과물에 원본 YAML 파일이 포함됐습니다.');
+  }
   const lessonOnePath = path.join(outputPath, 'lessons', '01', 'index.html');
   if (!existsSync(lessonOnePath)) {
     errors.push('강사용 결과물에 제1차시 페이지가 없습니다.');
@@ -138,10 +169,96 @@ if (mode === 'student') {
       errors.push(`강사용 결과물에 제${day}차시 페이지가 없습니다.`);
     }
   }
+  for (let day = 1; day <= 14; day += 1) {
+    const lessonId = String(day).padStart(2, '0');
+    const consolePath = path.join(
+      outputPath,
+      'instructor-console',
+      'lessons',
+      lessonId,
+      'index.html',
+    );
+    const localPresentationPath = path.join(
+      outputPath,
+      'presentation',
+      'lessons',
+      lessonId,
+      'index.html',
+    );
+    if (!existsSync(consolePath)) {
+      errors.push(`강사용 결과물에 제${day}차시 강사 콘솔이 없습니다.`);
+    }
+    if (!existsSync(localPresentationPath)) {
+      errors.push(`강사용 결과물에 제${day}차시 프레젠테이션 화면이 없습니다.`);
+    }
+  }
+
+  const lessonOneConsolePath = path.join(
+    outputPath,
+    'instructor-console',
+    'lessons',
+    '01',
+    'index.html',
+  );
+  const lessonOneConsoleSource = existsSync(lessonOneConsolePath)
+    ? await readFile(lessonOneConsolePath, 'utf8')
+    : '';
+  const lessonOneConsoleSlots =
+    lessonOneConsoleSource.match(/data-instructor-note-slot="[^"]+"/g) ?? [];
+  if (lessonOneConsoleSlots.length !== requiredSlots.length) {
+    errors.push(
+      `강사용 제1차시 콘솔의 메모 슬롯이 ${requiredSlots.length}개가 아닙니다: ${lessonOneConsoleSlots.length}개`,
+    );
+  }
+
+  const lessonTwoConsolePath = path.join(
+    outputPath,
+    'instructor-console',
+    'lessons',
+    '02',
+    'index.html',
+  );
+  const lessonTwoConsoleSource = existsSync(lessonTwoConsolePath)
+    ? await readFile(lessonTwoConsolePath, 'utf8')
+    : '';
+  if (!lessonTwoConsoleSource.includes('현재 섹션에 등록된 강사 메모가 없습니다.')) {
+    errors.push('강사용 제2차시 콘솔에 메모 없음 안내가 없습니다.');
+  }
+
+  if (existsSync(presentationPath)) {
+    const presentationFiles = (await collectFiles(presentationPath))
+      .filter((filePath) => filePath.endsWith('.html'));
+    const presentationSource = (
+      await Promise.all(presentationFiles.map((filePath) => readFile(filePath, 'utf8')))
+    ).join('\n');
+    if (
+      presentationSource.includes('data-instructor-note-slot') ||
+      presentationSource.includes('INSTRUCTOR ONLY · LOCAL BUILD') ||
+      presentationSource.includes('INSTRUCTOR_NOTE_SLOT')
+    ) {
+      errors.push('프레젠테이션 화면에 강사 메모 또는 메모 슬롯이 포함됐습니다.');
+    }
+    if (
+      presentationSource.includes('class="lesson-asset"') ||
+      presentationSource.includes('data-asset-id=')
+    ) {
+      errors.push('프레젠테이션 화면에 자산 관리 카드가 포함됐습니다.');
+    }
+    for (const body of privateBodies) {
+      if (normalizeText(presentationSource).includes(body)) {
+        errors.push('프레젠테이션 화면에 로컬 강사 메모 본문이 포함됐습니다.');
+        break;
+      }
+    }
+  }
   if (privateBodies.length > 0) {
     for (const body of privateBodies) {
       if (!normalizedOutput.includes(body)) {
         errors.push('강사용 결과물에 로컬 강사 메모 본문 일부가 누락됐습니다.');
+        break;
+      }
+      if (normalizedClientScripts.includes(body)) {
+        errors.push('강사용 client JavaScript에 로컬 강사 메모 본문이 포함됐습니다.');
         break;
       }
     }
@@ -168,5 +285,7 @@ if (mode === 'student') {
 } else {
   console.log(`- 제1차시 강사 메모 슬롯 ${requiredSlots.length}개 표시`);
   console.log('- 제2–14차시 정적 페이지 존재');
+  console.log('- 제1–14차시 강사 콘솔·프레젠테이션 route 존재');
+  console.log('- 프레젠테이션 화면에 강사 메모·자산 관리 카드 없음');
 }
 console.log('- 실제 강사 메모 파일 Git 제외 확인');

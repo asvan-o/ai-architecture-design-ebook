@@ -9,8 +9,11 @@ interface Props {
 
 const { lessonId, assetIds } = Astro.props;
 const assets = getStudentLessonAssets(assetIds, Number(lessonId));
+const isPresentation = Astro.url.pathname.includes('/presentation/');
 ---
 
-<div class="lesson-assets">
-  {assets.map((asset) => <LessonAsset {...asset} />)}
-</div>
+{!isPresentation && (
+  <div class="lesson-assets">
+    {assets.map((asset) => <LessonAsset {...asset} />)}
+  </div>
+)}

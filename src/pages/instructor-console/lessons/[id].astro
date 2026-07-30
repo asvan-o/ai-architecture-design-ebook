@@ -1,0 +1,595 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import InstructorNoteSlot from '../../../components/instructor/InstructorNoteSlot.astro';
+import { getInstructorNoteSlots } from '../../../lib/instructor-notes';
+import { getVisibleLessons } from '../../../lib/lessons';
+import { getLessonTopicSummary } from '../../../lib/lesson-topics';
+import { withBase } from '../../../lib/site';
+import '../../../styles/global.css';
+
+type Lesson = CollectionEntry<'lessons'>;
+
+interface Props {
+  lesson: Lesson;
+  previous?: Lesson;
+  next?: Lesson;
+  lessons: Lesson[];
+}
+
+export async function getStaticPaths() {
+  if (import.meta.env.MODE !== 'instructor') return [];
+
+  const lessons = await getVisibleLessons();
+  return lessons.map((lesson, index) => ({
+    params: { id: lesson.id },
+    props: {
+      lesson,
+      previous: lessons[index - 1],
+      next: lessons[index + 1],
+      lessons,
+    },
+  }));
+}
+
+const { lesson, previous, next, lessons } = Astro.props;
+const sections = lesson.data.sections ?? [];
+const lessonId = String(lesson.data.day).padStart(2, '0');
+const topic = getLessonTopicSummary(lessonId);
+const previousSections = previous?.data.sections ?? [];
+const nextSections = next?.data.sections ?? [];
+const previousUrl = previous
+  ? withBase(`/instructor-console/lessons/${previous.id}/`)
+  : '';
+const nextUrl = next
+  ? withBase(`/instructor-console/lessons/${next.id}/`)
+  : '';
+const presentationUrl = withBase(`/presentation/lessons/${lesson.id}/`);
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>강사용 콘솔 · {lesson.data.title}</title>
+  </head>
+  <body
+    class="presenter-console"
+    data-presenter-console
+    data-lesson-id={lessonId}
+    data-presentation-url={presentationUrl}
+    data-previous-lesson-url={previousUrl}
+    data-previous-lesson-id={previous?.id ?? ''}
+    data-previous-section-id={previousSections.at(-1)?.id ?? ''}
+    data-next-lesson-url={nextUrl}
+    data-next-lesson-id={next?.id ?? ''}
+    data-next-section-id={nextSections[0]?.id ?? ''}
+  >
+    <a class="skip-link" href="#console-main">강사 메모로 이동</a>
+
+    <header class="console-header">
+      <div>
+        <span>INSTRUCTOR CONSOLE · LOCAL ONLY</span>
+        <h1>{lesson.data.title}</h1>
+        <p>
+          {topic
+            ? `주제 ${topic.number} · ${topic.title}`
+            : '상위 주제 · 승인 정보 확인 예정'}
+        </p>
+      </div>
+      <div class="connection-card" aria-live="polite">
+        <span>프로젝터 연결</span>
+        <strong data-connection-status data-state="waiting">연결 대기</strong>
+      </div>
+    </header>
+
+    <div class="console-shell">
+      <aside class="console-sidebar" aria-label="차시와 섹션 이동">
+        <label for="console-lesson-select">차시 선택</label>
+        <select id="console-lesson-select" data-lesson-select>
+          {lessons.map((item) => (
+            <option
+              value={withBase(`/instructor-console/lessons/${item.id}/`)}
+              selected={item.id === lesson.id}
+            >
+              {String(item.data.day).padStart(2, '0')} · {item.data.title}
+            </option>
+          ))}
+        </select>
+
+        <div class="section-list-heading">
+          <span>전체 섹션</span>
+          <strong>{sections.length}개</strong>
+        </div>
+        <ol class="console-section-list">
+          {sections.map((section, index) => (
+            <li>
+              <button
+                type="button"
+                data-section-control={section.id}
+                aria-pressed={index === 0 ? 'true' : 'false'}
+              >
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                {section.label}
+              </button>
+            </li>
+          ))}
+        </ol>
+      </aside>
+
+      <main class="console-main" id="console-main">
+        <div class="current-section-heading">
+          <span data-current-number>SECTION 01</span>
+          <h2 data-current-title>{sections[0]?.label}</h2>
+          <p>
+            권장 수업시간 {lesson.data.durationMinutes ?? '확인 예정'}분 ·
+            현재 섹션의 로컬 강사 메모
+          </p>
+        </div>
+
+        <div class="console-notes" aria-live="polite">
+          {sections.map((section, index) => {
+            const noteSlots = getInstructorNoteSlots(lessonId, section.id);
+            return (
+              <section
+                class="console-note-panel"
+                data-note-panel={section.id}
+                hidden={index !== 0}
+                aria-label={`${section.label} 강사 메모`}
+              >
+                {noteSlots.length > 0 ? (
+                  noteSlots.map((note) => (
+                    <InstructorNoteSlot
+                      lessonId={lessonId}
+                      slot={note.slot}
+                      label={note.label}
+                    />
+                  ))
+                ) : (
+                  <p class="console-note-empty">
+                    현재 섹션에 등록된 강사 메모가 없습니다.
+                  </p>
+                )}
+              </section>
+            );
+          })}
+        </div>
+
+        <div class="console-actions" aria-label="발표 진행 제어">
+          <button type="button" data-action="previous">← 이전 섹션</button>
+          <button type="button" data-action="next">다음 섹션 →</button>
+          <button type="button" class="primary" data-action="open-projector">
+            프로젝터 화면 열기
+          </button>
+          <button type="button" data-action="resend">현재 위치 다시 전송</button>
+        </div>
+        <p class="projector-help">
+          열린 창을 Windows 확장 화면의 빔프로젝터로 옮긴 뒤 F11을 눌러 전체 화면으로
+          사용하세요. 브라우저 보안상 창 이동과 전체 화면은 자동 실행하지 않습니다.
+        </p>
+      </main>
+    </div>
+
+    <script is:inline>
+      (() => {
+        const root = document.querySelector('[data-presenter-console]');
+        if (!root) return;
+
+        const channelName = 'ai-architecture-presenter';
+        const storageKey = 'ai-architecture-presenter-state';
+        const lessonId = root.dataset.lessonId;
+        const controls = [...document.querySelectorAll('[data-section-control]')];
+        const panels = [...document.querySelectorAll('[data-note-panel]')];
+        const sectionIds = controls.map((control) => control.dataset.sectionControl);
+        const currentNumber = document.querySelector('[data-current-number]');
+        const currentTitle = document.querySelector('[data-current-title]');
+        const status = document.querySelector('[data-connection-status]');
+        const channel = 'BroadcastChannel' in window ? new BroadcastChannel(channelName) : null;
+        let activeSectionId = sectionIds[0];
+        let lastProjectorSeen = 0;
+        let hasConnected = false;
+
+        const readStoredState = () => {
+          try {
+            return JSON.parse(localStorage.getItem(storageKey) || 'null');
+          } catch {
+            return null;
+          }
+        };
+
+        const writeState = (targetLessonId, sectionId) => {
+          const state = { lessonId: targetLessonId, sectionId, updatedAt: Date.now() };
+          localStorage.setItem(storageKey, JSON.stringify(state));
+          return state;
+        };
+
+        const post = (type, state = {}) => {
+          channel?.postMessage({
+            type,
+            lessonId: state.lessonId || lessonId,
+            sectionId: state.sectionId || activeSectionId,
+            timestamp: Date.now(),
+          });
+        };
+
+        const setConnection = (state) => {
+          if (!status) return;
+          const labels = {
+            connected: '연결됨',
+            waiting: '연결 대기',
+            disconnected: '연결 안 됨',
+          };
+          status.dataset.state = state;
+          status.textContent = labels[state];
+        };
+
+        const activate = (sectionId, shouldBroadcast = true) => {
+          const index = sectionIds.indexOf(sectionId);
+          if (index < 0) return;
+          activeSectionId = sectionId;
+
+          controls.forEach((control, controlIndex) => {
+            const selected = controlIndex === index;
+            control.setAttribute('aria-pressed', String(selected));
+            if (selected) control.scrollIntoView({ block: 'nearest' });
+          });
+          panels.forEach((panel) => {
+            panel.hidden = panel.dataset.notePanel !== sectionId;
+          });
+          currentNumber.textContent = `SECTION ${String(index + 1).padStart(2, '0')}`;
+          currentTitle.textContent = controls[index].textContent.trim().replace(/^\d{2}/, '').trim();
+          history.replaceState(null, '', `#${sectionId}`);
+          writeState(lessonId, sectionId);
+          if (shouldBroadcast) post('sync-state');
+        };
+
+        const moveToLesson = (url, targetLessonId, sectionId) => {
+          if (!url || !targetLessonId || !sectionId) return;
+          const state = writeState(targetLessonId, sectionId);
+          post('sync-state', state);
+          window.location.assign(`${url}#${sectionId}`);
+        };
+
+        const move = (offset) => {
+          const index = sectionIds.indexOf(activeSectionId);
+          const nextIndex = index + offset;
+          if (nextIndex >= 0 && nextIndex < sectionIds.length) {
+            activate(sectionIds[nextIndex]);
+            return;
+          }
+          if (offset < 0) {
+            moveToLesson(
+              root.dataset.previousLessonUrl,
+              root.dataset.previousLessonId,
+              root.dataset.previousSectionId,
+            );
+          } else {
+            moveToLesson(
+              root.dataset.nextLessonUrl,
+              root.dataset.nextLessonId,
+              root.dataset.nextSectionId,
+            );
+          }
+        };
+
+        controls.forEach((control) => {
+          control.addEventListener('click', () => activate(control.dataset.sectionControl));
+        });
+
+        document.querySelector('[data-action="previous"]')?.addEventListener('click', () => move(-1));
+        document.querySelector('[data-action="next"]')?.addEventListener('click', () => move(1));
+        document.querySelector('[data-action="resend"]')?.addEventListener('click', () => {
+          post('sync-state');
+        });
+        document.querySelector('[data-action="open-projector"]')?.addEventListener('click', () => {
+          const projectorUrl = `${root.dataset.presentationUrl}#${activeSectionId}`;
+          window.open(projectorUrl, 'ai-architecture-projector');
+          setConnection('waiting');
+          window.setTimeout(() => post('sync-state'), 500);
+        });
+        document.querySelector('[data-lesson-select]')?.addEventListener('change', (event) => {
+          window.location.assign(event.currentTarget.value);
+        });
+
+        window.addEventListener('keydown', (event) => {
+          const target = event.target;
+          if (
+            target instanceof HTMLInputElement ||
+            target instanceof HTMLTextAreaElement ||
+            target instanceof HTMLSelectElement ||
+            target?.isContentEditable
+          ) return;
+
+          const actions = {
+            ArrowRight: () => move(1),
+            PageDown: () => move(1),
+            ArrowLeft: () => move(-1),
+            PageUp: () => move(-1),
+            Home: () => activate(sectionIds[0]),
+            End: () => activate(sectionIds.at(-1)),
+          };
+          const action = actions[event.key];
+          if (!action) return;
+          event.preventDefault();
+          action();
+        });
+
+        channel?.addEventListener('message', (event) => {
+          const message = event.data;
+          if (!message || typeof message !== 'object') return;
+          if (message.type === 'projector-ready' || message.type === 'pong') {
+            lastProjectorSeen = Date.now();
+            hasConnected = true;
+            setConnection('connected');
+            if (message.type === 'projector-ready') post('sync-state');
+          }
+          if (message.type === 'projector-closing') {
+            setConnection('disconnected');
+          }
+        });
+
+        const stored = readStoredState();
+        const hashSection = window.location.hash.slice(1);
+        const initialSection =
+          sectionIds.includes(hashSection)
+            ? hashSection
+            : stored?.lessonId === lessonId && sectionIds.includes(stored.sectionId)
+              ? stored.sectionId
+              : sectionIds[0];
+        activate(initialSection, false);
+        post('presenter-ready');
+
+        window.setInterval(() => {
+          post('ping');
+          if (Date.now() - lastProjectorSeen > 5500) {
+            setConnection(hasConnected ? 'disconnected' : 'waiting');
+          }
+        }, 2000);
+      })();
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  .presenter-console {
+    min-height: 100vh;
+    overflow: hidden;
+    background: #ece9e1;
+    color: var(--ink);
+  }
+
+  .console-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 12rem;
+    min-height: 7.5rem;
+    border-bottom: 1px solid var(--line-dark);
+    background: var(--surface);
+  }
+
+  .console-header > div:first-child {
+    display: grid;
+    align-content: center;
+    padding: 1.1rem 1.5rem;
+  }
+
+  .console-header span,
+  .section-list-heading span,
+  .current-section-heading > span {
+    color: var(--accent-dark);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+  }
+
+  .console-header h1 {
+    margin: 0.18rem 0 0;
+    font-family: var(--serif);
+    font-size: clamp(1.4rem, 2.3vw, 2rem);
+    line-height: 1.3;
+    text-wrap: balance;
+  }
+
+  .console-header p {
+    margin: 0.25rem 0 0;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+
+  .connection-card {
+    display: grid;
+    align-content: center;
+    gap: 0.35rem;
+    padding: 1.2rem;
+    border-left: 1px solid var(--line);
+  }
+
+  .connection-card strong {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .connection-card strong::before {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    background: #9b7d30;
+    content: "";
+  }
+
+  .connection-card strong[data-state="connected"]::before { background: #28724c; }
+  .connection-card strong[data-state="disconnected"]::before { background: #a33d24; }
+
+  .console-shell {
+    display: grid;
+    grid-template-columns: minmax(18rem, 23vw) minmax(0, 1fr);
+    height: calc(100vh - 7.5rem);
+  }
+
+  .console-sidebar {
+    overflow-y: auto;
+    padding: 1.2rem;
+    border-right: 1px solid var(--line-dark);
+    background: #dedbd2;
+  }
+
+  .console-sidebar label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.76rem;
+    font-weight: 800;
+  }
+
+  .console-sidebar select {
+    width: 100%;
+    padding: 0.7rem;
+    border: 1px solid var(--line-dark);
+    background: var(--surface);
+  }
+
+  .section-list-heading {
+    display: flex;
+    justify-content: space-between;
+    margin: 1.2rem 0 0.55rem;
+  }
+
+  .console-section-list {
+    display: grid;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .console-section-list button {
+    display: grid;
+    grid-template-columns: 2.1rem 1fr;
+    width: 100%;
+    padding: 0.55rem 0.65rem;
+    border: 1px solid transparent;
+    color: #3f4641;
+    background: transparent;
+    font-size: 0.8rem;
+    line-height: 1.35;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .console-section-list button span { color: var(--accent-dark); font-weight: 800; }
+  .console-section-list button:hover { border-color: var(--line-dark); }
+  .console-section-list button[aria-pressed="true"] {
+    border-color: var(--ink);
+    color: #fff;
+    background: var(--ink);
+  }
+  .console-section-list button[aria-pressed="true"] span { color: #ffb49f; }
+
+  .console-main {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto auto;
+    overflow: hidden;
+    padding: clamp(1.2rem, 2.4vw, 2.2rem);
+    background: var(--paper);
+  }
+
+  .current-section-heading {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--line-dark);
+  }
+
+  .current-section-heading h2 {
+    margin: 0.15rem 0;
+    font-family: var(--serif);
+    font-size: clamp(1.7rem, 3vw, 2.7rem);
+    line-height: 1.25;
+    text-wrap: balance;
+  }
+
+  .current-section-heading p { margin: 0; color: var(--muted); font-size: 0.8rem; }
+
+  .console-notes {
+    overflow-y: auto;
+    padding: 1.1rem 0;
+  }
+
+  .console-note-panel[hidden] { display: none; }
+
+  .console-note-empty {
+    display: grid;
+    min-height: 12rem;
+    place-items: center;
+    margin: 0;
+    border: 1px dashed var(--line-dark);
+    color: var(--muted);
+    background: rgba(255, 255, 255, 0.4);
+  }
+
+  .console-notes .instructor-note {
+    margin: 0 0 1rem;
+    padding: 1.1rem 1.2rem;
+    border: 1px solid #9b785e;
+    border-left: 0.35rem solid var(--accent);
+    background: #fff9ec;
+  }
+
+  .console-notes .instructor-note header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.2rem 1rem;
+  }
+
+  .console-notes .instructor-note header span {
+    grid-column: 1 / -1;
+    color: var(--accent-dark);
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+  }
+
+  .console-notes .instructor-note small {
+    padding: 0.1rem 0.45rem;
+    border: 1px solid #bca38c;
+    font-weight: 700;
+  }
+
+  .console-notes .instructor-note p { margin: 0.85rem 0 0; white-space: pre-line; }
+
+  .console-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line-dark);
+  }
+
+  .console-actions button {
+    min-height: 2.8rem;
+    padding: 0.55rem 0.9rem;
+    border: 1px solid var(--ink);
+    background: transparent;
+    font-weight: 750;
+    cursor: pointer;
+  }
+
+  .console-actions button:hover { color: #fff; background: var(--ink); }
+  .console-actions .primary { color: #fff; background: var(--accent-dark); }
+
+  .projector-help {
+    margin: 0.6rem 0 0;
+    color: var(--muted);
+    font-size: 0.72rem;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 800px) {
+    .presenter-console { overflow: auto; }
+    .console-header { grid-template-columns: 1fr; }
+    .connection-card { border-top: 1px solid var(--line); border-left: 0; }
+    .console-shell { display: block; height: auto; }
+    .console-sidebar { max-height: 40vh; border-right: 0; border-bottom: 1px solid var(--line-dark); }
+    .console-main { min-height: 60vh; overflow: visible; }
+    .console-notes { overflow: visible; }
+  }
+</style>

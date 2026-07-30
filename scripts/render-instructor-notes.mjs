@@ -98,11 +98,13 @@ let transformedSlots = 0;
 
 for (const htmlFile of htmlFiles) {
   const source = await readFile(htmlFile, 'utf8');
+  const relativeSegments = path.relative(outputPath, htmlFile).split(path.sep);
+  const isPresentationFile = relativeSegments[0] === 'presentation';
   const transformed = source.replace(
     templatePattern,
     (_template, slot, lessonId, label) => {
       transformedSlots += 1;
-      if (mode === 'student') return '';
+      if (mode === 'student' || isPresentationFile) return '';
 
       const notePath = path.join(privateNoteDirectory, `${lessonId}.yaml`);
       const notes = noteSources.has(notePath)

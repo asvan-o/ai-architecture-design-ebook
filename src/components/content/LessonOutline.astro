@@ -139,6 +139,7 @@ const practiceMinutes = timePlan
   .filter((item) => item.mode === 'practice')
   .reduce((sum, item) => sum + item.minutes, 0);
 const practicePercent = Math.round((practiceMinutes / totalMinutes) * 100);
+const isPresentation = Astro.url.pathname.includes('/presentation/');
 ---
 
 <LessonSection id="section-01" number="01" title="차시 소개" class="outline-section">
@@ -154,7 +155,7 @@ const practicePercent = Math.round((practiceMinutes / totalMinutes) * 100);
   <div class="time-plan">
     <header>
       <div>
-        <span>TIME PLAN · REVIEW REQUESTED</span>
+        <span>{isPresentation ? 'TIME PLAN' : 'TIME PLAN · REVIEW REQUESTED'}</span>
         <strong>{totalMinutes}분 중 수강생 실습 {practiceMinutes}분 · {practicePercent}%</strong>
       </div>
       <span class:list={['practice-ratio', { 'practice-ratio--valid': practiceMinutes >= totalMinutes / 2 }]}>
@@ -232,7 +233,7 @@ const practicePercent = Math.round((practiceMinutes / totalMinutes) * 100);
 <LessonSection id="section-12" number="12" title="필요한 이미지·영상·문서" class="outline-section">
   {assetNotes ? (
     <ClassifiedList items={assetNotes} />
-  ) : (
+  ) : !isPresentation ? (
     <>
       <p class="asset-policy">
         아래는 실제 이미지나 영상을 대신하지 않는 자산 슬롯입니다. 파일은 제작·권리·검증 상태가
@@ -242,10 +243,12 @@ const practicePercent = Math.round((practiceMinutes / totalMinutes) * 100);
         {displayedAssets.map((asset) => <LessonAsset {...asset} />)}
       </div>
     </>
-  )}
+  ) : null}
 </LessonSection>
 
 <LessonSection id="section-13" number="13" title="확인 또는 검증이 필요한 내용" class="outline-section">
   <ClassifiedList items={verification} />
-  <p class="review-state">LESSON {lessonId} · 상세 원고 작성 전 검토 요청 상태</p>
+  {!isPresentation && (
+    <p class="review-state">LESSON {lessonId} · 상세 원고 작성 전 검토 요청 상태</p>
+  )}
 </LessonSection>
