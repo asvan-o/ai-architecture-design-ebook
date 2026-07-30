@@ -1,0 +1,22 @@
+---
+import { render } from 'astro:content';
+import PrintableLesson from '../../components/print/PrintableLesson.astro';
+import PrintLayout from '../../layouts/PrintLayout.astro';
+import { getVisibleLessons } from '../../lib/lessons';
+
+const lessons = await getVisibleLessons();
+const renderedLessons = await Promise.all(
+  lessons.map(async (lesson) => ({
+    lesson,
+    Content: (await render(lesson)).Content,
+  })),
+);
+---
+
+<PrintLayout title="전체 교안 · 인쇄용">
+  {renderedLessons.map(({ lesson, Content }, index) => (
+    <PrintableLesson lesson={lesson} first={index === 0}>
+      <Content />
+    </PrintableLesson>
+  ))}
+</PrintLayout>

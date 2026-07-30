@@ -30,14 +30,24 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
+      - name: Cache Playwright Chromium
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
+      - name: Install PDF browser and Korean fonts
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk
+          npx playwright install --with-deps chromium
       - name: Lint
         run: npm run lint
       - name: Typecheck
         run: npm run typecheck
       - name: Validate content
         run: npm run validate:content
-      - name: Build
-        run: npm run build
+      - name: Build student site and PDFs
+        run: npm run build:student-with-pdf
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:

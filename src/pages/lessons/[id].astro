@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { render } from 'astro:content';
 import SiteLayout from '../../layouts/SiteLayout.astro';
+import PdfDownloadPanel from '../../components/PdfDownloadPanel.astro';
 import StatusBadge from '../../components/StatusBadge.astro';
 import { getVisibleLessons } from '../../lib/lessons';
 import { pageSections, withBase } from '../../lib/site';
@@ -101,6 +102,15 @@ const localSections = lesson.data.sections ?? pageSections.map((label, index) =>
         </dl>
       )}
     </header>
+
+    <PdfDownloadPanel
+      compact
+      items={[{
+        href: `/downloads/ai-architecture-design-lesson-${dayLabel}.pdf`,
+        label: 'PDF 다운로드',
+        meta: `제${lesson.data.day}차시 학생용 교안 · A4`,
+      }]}
+    />
 
     <nav class="lesson-local-nav" aria-label="이 차시의 섹션" tabindex="0">
       <div class="lesson-local-nav__heading">

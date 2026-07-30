@@ -1,0 +1,125 @@
+{
+  "version": 1,
+  "targets": [
+    {
+      "id": "lesson-01",
+      "kind": "lesson",
+      "route": "/print/lessons/01/",
+      "output": "ai-architecture-design-lesson-01.pdf",
+      "lessonIds": ["01"]
+    },
+    {
+      "id": "lesson-02",
+      "kind": "lesson",
+      "route": "/print/lessons/02/",
+      "output": "ai-architecture-design-lesson-02.pdf",
+      "lessonIds": ["02"]
+    },
+    {
+      "id": "lesson-03",
+      "kind": "lesson",
+      "route": "/print/lessons/03/",
+      "output": "ai-architecture-design-lesson-03.pdf",
+      "lessonIds": ["03"]
+    },
+    {
+      "id": "lesson-04",
+      "kind": "lesson",
+      "route": "/print/lessons/04/",
+      "output": "ai-architecture-design-lesson-04.pdf",
+      "lessonIds": ["04"]
+    },
+    {
+      "id": "lesson-05",
+      "kind": "lesson",
+      "route": "/print/lessons/05/",
+      "output": "ai-architecture-design-lesson-05.pdf",
+      "lessonIds": ["05"]
+    },
+    {
+      "id": "lesson-06",
+      "kind": "lesson",
+      "route": "/print/lessons/06/",
+      "output": "ai-architecture-design-lesson-06.pdf",
+      "lessonIds": ["06"]
+    },
+    {
+      "id": "lesson-07",
+      "kind": "lesson",
+      "route": "/print/lessons/07/",
+      "output": "ai-architecture-design-lesson-07.pdf",
+      "lessonIds": ["07"]
+    },
+    {
+      "id": "lesson-08",
+      "kind": "lesson",
+      "route": "/print/lessons/08/",
+      "output": "ai-architecture-design-lesson-08.pdf",
+      "lessonIds": ["08"]
+    },
+    {
+      "id": "lesson-09",
+      "kind": "lesson",
+      "route": "/print/lessons/09/",
+      "output": "ai-architecture-design-lesson-09.pdf",
+      "lessonIds": ["09"]
+    },
+    {
+      "id": "lesson-10",
+      "kind": "lesson",
+      "route": "/print/lessons/10/",
+      "output": "ai-architecture-design-lesson-10.pdf",
+      "lessonIds": ["10"]
+    },
+    {
+      "id": "lesson-11",
+      "kind": "lesson",
+      "route": "/print/lessons/11/",
+      "output": "ai-architecture-design-lesson-11.pdf",
+      "lessonIds": ["11"]
+    },
+    {
+      "id": "lesson-12",
+      "kind": "lesson",
+      "route": "/print/lessons/12/",
+      "output": "ai-architecture-design-lesson-12.pdf",
+      "lessonIds": ["12"]
+    },
+    {
+      "id": "lesson-13",
+      "kind": "lesson",
+      "route": "/print/lessons/13/",
+      "output": "ai-architecture-design-lesson-13.pdf",
+      "lessonIds": ["13"]
+    },
+    {
+      "id": "lesson-14",
+      "kind": "lesson",
+      "route": "/print/lessons/14/",
+      "output": "ai-architecture-design-lesson-14.pdf",
+      "lessonIds": ["14"]
+    },
+    {
+      "id": "course",
+      "kind": "course",
+      "route": "/print/course/",
+      "output": "ai-architecture-design-course.pdf",
+      "lessonIds": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14"
+      ]
+    }
+  ]
+}

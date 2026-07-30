@@ -1,0 +1,34 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  lesson: CollectionEntry<'lessons'>;
+  first?: boolean;
+}
+
+const { lesson, first = false } = Astro.props;
+const dayLabel = String(lesson.data.day).padStart(2, '0');
+const dateLabel = lesson.data.date === 'pending'
+  ? '일정 확인 예정'
+  : lesson.data.date.replaceAll('-', '.');
+const durationLabel = lesson.data.durationMinutes === null
+  ? '수업시간 확인 예정'
+  : `${lesson.data.durationMinutes}분`;
+---
+
+<article
+  class:list={['print-lesson', { 'print-lesson--first': first }]}
+  data-print-lesson-id={lesson.id}
+>
+  <header class="print-lesson__cover">
+    <p>LESSON {dayLabel}</p>
+    <h1 class="print-lesson__title">{lesson.data.title}</h1>
+    <dl>
+      <div><dt>날짜</dt><dd>{dateLabel}</dd></div>
+      <div><dt>수업시간</dt><dd>{durationLabel}</dd></div>
+    </dl>
+  </header>
+  <div class="print-lesson__content">
+    <slot />
+  </div>
+</article>

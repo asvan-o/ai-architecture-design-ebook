@@ -1,0 +1,30 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
+import PrintableLesson from '../../../components/print/PrintableLesson.astro';
+import PrintLayout from '../../../layouts/PrintLayout.astro';
+import { getVisibleLessons } from '../../../lib/lessons';
+
+type Lesson = CollectionEntry<'lessons'>;
+
+interface Props {
+  lesson: Lesson;
+}
+
+export async function getStaticPaths() {
+  const lessons = await getVisibleLessons();
+  return lessons.map((lesson) => ({
+    params: { id: lesson.id },
+    props: { lesson },
+  }));
+}
+
+const { lesson } = Astro.props;
+const { Content } = await render(lesson);
+---
+
+<PrintLayout title={`${lesson.data.title} · 인쇄용`}>
+  <PrintableLesson lesson={lesson} first>
+    <Content />
+  </PrintableLesson>
+</PrintLayout>

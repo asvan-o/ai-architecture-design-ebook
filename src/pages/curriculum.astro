@@ -1,5 +1,6 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
+import PdfDownloadPanel from '../components/PdfDownloadPanel.astro';
 import StatusBadge from '../components/StatusBadge.astro';
 import { getVisibleLessons } from '../lib/lessons';
 import { withBase } from '../lib/site';
@@ -24,6 +25,15 @@ const durationLabel = (durationMinutes: number | null) =>
       <p><span>TOTAL</span><strong>48 HOURS</strong></p>
       <p><span>STATUS</span><strong>골격 검토 요청</strong></p>
     </section>
+
+    <PdfDownloadPanel
+      eyebrow="COURSE PDF"
+      items={[{
+        href: '/downloads/ai-architecture-design-course.pdf',
+        label: '전체 교안 PDF 다운로드',
+        meta: '14차시 학생용 교안 · A4',
+      }]}
+    />
 
     <ol class="curriculum-list">
       {lessons.map((lesson) => (

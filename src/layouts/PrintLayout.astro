@@ -1,0 +1,28 @@
+---
+import { siteTitle } from '../lib/site';
+import '../styles/global.css';
+import '../styles/lesson-content.css';
+import '../styles/print.css';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title} | {siteTitle}</title>
+  </head>
+  <body class="print-document">
+    <main class="print-main">
+      <slot />
+    </main>
+  </body>
+</html>

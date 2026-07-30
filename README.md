@@ -28,6 +28,7 @@ npm run lint
 npm run typecheck
 npm run validate:content
 npm run build
+npm run build:pdf
 npm run preview
 ```
 
@@ -72,5 +73,16 @@ BASE_PATH=/<repository-name>
 ```
 
 `.github/workflows/deploy.yml`은 위 값을 자동 구성하고 lint, typecheck, 콘텐츠 무결성 검사, build가 모두 성공한 경우에만 배포합니다.
+
+PDF가 포함된 학생용 배포 결과는 다음 명령으로 생성합니다.
+
+```bash
+npm run build:student-with-pdf
+```
+
+이 명령은 학생용 사이트를 `dist/`에 빌드한 뒤 14개 차시 PDF와 전체 교안 PDF를
+`dist/downloads/`에 생성합니다. 일반 `npm run dev`, `npm run build`,
+`npm run build:student`에서는 아직 생성되지 않은 PDF 링크를 표시하지 않습니다.
+PDF 생성 대상과 향후 주제별 조합은 `data/pdf-exports.json`에서 관리합니다.
 
 사용자·조직 루트 저장소(`<owner>.github.io`)로 전환할 때는 `BASE_PATH=/`를 사용합니다. 커스텀 도메인에서는 `SITE_URL=https://<custom-domain>`과 `BASE_PATH=/`로 바꾸고 Pages의 custom domain 설정을 함께 적용합니다.

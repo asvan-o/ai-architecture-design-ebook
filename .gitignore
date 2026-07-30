@@ -2,6 +2,7 @@
 dist/
 dist-student/
 dist-instructor/
+tmp/
 # generated types
 .astro/
 
