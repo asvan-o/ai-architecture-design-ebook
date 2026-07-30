@@ -35,6 +35,7 @@ const durationLabel = lesson.data.durationMinutes === null
   : `${lesson.data.durationMinutes}분`;
 const verifiedLabel = lesson.data.lastVerified ?? '검토 전';
 const isDetailedLesson = lesson.data.day === 1;
+const publicDateLabel = isDetailedLesson ? dateLabel.replaceAll('-', '.') : dateLabel;
 const professionalReviewScope = lesson.data.professionalReviewScope ?? [];
 const localSections = lesson.data.sections ?? pageSections.map((label, index) => ({
   id: `section-${String(index + 1).padStart(2, '0')}`,
@@ -44,49 +45,61 @@ const localSections = lesson.data.sections ?? pageSections.map((label, index) =>
 
 <SiteLayout title={lesson.data.title} section={`LESSON ${dayLabel}`}>
   <article class="lesson-page">
-    <header class="lesson-hero">
-      <div class="lesson-hero__number" aria-hidden="true">{dayLabel}</div>
+    <header class:list={['lesson-hero', { 'lesson-hero--public': isDetailedLesson }]}>
+      {!isDetailedLesson && (
+        <div class="lesson-hero__number" aria-hidden="true">{dayLabel}</div>
+      )}
       <div class="lesson-hero__copy">
-        <p class="page-kicker">LESSON {dayLabel} · {isDetailedLesson ? 'CONTENT REVIEW REQUESTED' : 'OUTLINE REVIEW REQUESTED'}</p>
-        <h1>{lesson.data.title}</h1>
-        <p>
-          {isDetailedLesson
-            ? '승인된 제1차시 원고를 기준으로 구성한 검토용 상세 본문입니다. 실제 이미지·영상 자산은 포함하지 않습니다.'
-            : '승인된 14차시 커리큘럼을 기준으로 작성한 교육 콘텐츠 골격입니다. 상세 원고와 실제 자산은 아직 포함하지 않습니다.'}
+        <p class="page-kicker">
+          LESSON {dayLabel}{!isDetailedLesson && ' · OUTLINE REVIEW REQUESTED'}
         </p>
+        <h1>{lesson.data.title}</h1>
+        {!isDetailedLesson && (
+          <p>
+            승인된 14차시 커리큘럼을 기준으로 작성한 교육 콘텐츠 골격입니다.
+            상세 원고와 실제 자산은 아직 포함하지 않습니다.
+          </p>
+        )}
       </div>
-      <dl class="lesson-meta">
-        <div><dt>DATE</dt><dd>{dateLabel}</dd></div>
-        <div><dt>DURATION</dt><dd>{durationLabel}</dd></div>
-        <div><dt>LAST VERIFIED</dt><dd>{verifiedLabel}</dd></div>
-        <div class="lesson-meta__statuses">
-          <dt>CONTENT STATUS</dt>
-          <dd>
-            <StatusBadge kind="contentType" value={lesson.data.contentType} />
-            <StatusBadge kind="authorship" value={lesson.data.authorship} />
-            <StatusBadge kind="verificationStatus" value={lesson.data.verificationStatus} />
-            <StatusBadge kind="freshness" value={lesson.data.freshness} />
-            <StatusBadge kind="riskLevel" value={lesson.data.riskLevel} />
-            {(lesson.data.professionalReviewStatus === 'required' ||
-              lesson.data.professionalReviewStatus === 'completed') && (
-              <StatusBadge
-                kind="professionalReviewStatus"
-                value={lesson.data.professionalReviewStatus}
-              />
-            )}
-          </dd>
-        </div>
-        {professionalReviewScope.length > 0 && (
-          <div class="lesson-meta__review-scope">
-            <dt>PRO REVIEW SCOPE</dt>
+      {isDetailedLesson ? (
+        <dl class="lesson-meta lesson-meta--public">
+          <div><dt>날짜:</dt><dd>{publicDateLabel}</dd></div>
+          <div><dt>수업시간:</dt><dd>{durationLabel}</dd></div>
+        </dl>
+      ) : (
+        <dl class="lesson-meta">
+          <div><dt>DATE</dt><dd>{dateLabel}</dd></div>
+          <div><dt>DURATION</dt><dd>{durationLabel}</dd></div>
+          <div><dt>LAST VERIFIED</dt><dd>{verifiedLabel}</dd></div>
+          <div class="lesson-meta__statuses">
+            <dt>CONTENT STATUS</dt>
             <dd>
-              <ul>
-                {professionalReviewScope.map((scope) => <li>{scope}</li>)}
-              </ul>
+              <StatusBadge kind="contentType" value={lesson.data.contentType} />
+              <StatusBadge kind="authorship" value={lesson.data.authorship} />
+              <StatusBadge kind="verificationStatus" value={lesson.data.verificationStatus} />
+              <StatusBadge kind="freshness" value={lesson.data.freshness} />
+              <StatusBadge kind="riskLevel" value={lesson.data.riskLevel} />
+              {(lesson.data.professionalReviewStatus === 'required' ||
+                lesson.data.professionalReviewStatus === 'completed') && (
+                <StatusBadge
+                  kind="professionalReviewStatus"
+                  value={lesson.data.professionalReviewStatus}
+                />
+              )}
             </dd>
           </div>
-        )}
-      </dl>
+          {professionalReviewScope.length > 0 && (
+            <div class="lesson-meta__review-scope">
+              <dt>PRO REVIEW SCOPE</dt>
+              <dd>
+                <ul>
+                  {professionalReviewScope.map((scope) => <li>{scope}</li>)}
+                </ul>
+              </dd>
+            </div>
+          )}
+        </dl>
+      )}
     </header>
 
     <nav class="lesson-local-nav" aria-label="이 차시의 섹션" tabindex="0">
@@ -166,6 +179,11 @@ const localSections = lesson.data.sections ?? pageSections.map((label, index) =>
     margin-top: 1.5rem;
     color: var(--muted);
   }
+  .lesson-hero--public {
+    grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.34fr);
+    min-height: 24rem;
+  }
+  .lesson-hero--public .lesson-hero__copy h1 { max-width: 15ch; }
   .lesson-meta {
     display: grid;
     grid-template-rows: repeat(3, minmax(5rem, auto)) auto;
@@ -192,6 +210,9 @@ const localSections = lesson.data.sections ?? pageSections.map((label, index) =>
   .lesson-meta__review-scope dd { margin-top: 0.7rem; }
   .lesson-meta__review-scope ul { margin: 0; padding-left: 1.1rem; }
   .lesson-meta__review-scope li { color: var(--muted); font-size: 0.76rem; }
+  .lesson-meta--public { grid-template-rows: repeat(2, minmax(6rem, 1fr)); }
+  .lesson-meta--public dt { letter-spacing: 0; }
+  .lesson-meta--public dd { font-size: 1rem; }
   .lesson-local-nav {
     display: grid;
     grid-template-columns: 10rem 1fr;
@@ -253,8 +274,10 @@ const localSections = lesson.data.sections ?? pageSections.map((label, index) =>
   .pagination-empty { color: var(--muted); font-size: 0.85rem; }
   @media (max-width: 1080px) {
     .lesson-hero { grid-template-columns: 7rem 1fr; }
+    .lesson-hero.lesson-hero--public { grid-template-columns: 1fr; }
     .lesson-hero__number { font-size: 5rem; }
     .lesson-meta { grid-column: 1 / -1; grid-template-columns: repeat(3, 1fr) minmax(17rem, 1.5fr); border-top: 1px solid var(--line-dark); border-left: 0; }
+    .lesson-meta.lesson-meta--public { grid-template-columns: repeat(2, 1fr); }
     .lesson-meta > div { border-right: 1px solid var(--line); border-bottom: 0; }
   }
   @media (max-width: 760px) {

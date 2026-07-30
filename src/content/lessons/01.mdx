@@ -1,7 +1,7 @@
 ---
 title: "제1차시 · AI가 할 일과 디자이너가 판단할 일"
 day: 1
-date: "pending"
+date: "2026-08-05"
 durationMinutes: 180
 lastVerified: null
 draft: true
@@ -17,7 +17,7 @@ sections:
   - { id: "section-01", label: "차시 소개" }
   - { id: "section-02", label: "오늘의 핵심 질문" }
   - { id: "section-03", label: "학습 목표" }
-  - { id: "section-04", label: "생성형 AI의 기본 개념" }
+  - { id: "section-04", label: "생성형 AI(Generative AI)의 기본 개념" }
   - { id: "section-05", label: "AI와 디자이너의 역할" }
   - { id: "section-06", label: "안전한 사용을 위한 용어" }
   - { id: "section-07", label: "정보 분류 기준" }
@@ -34,13 +34,14 @@ sections:
 
 import LessonSection from '../../components/content/LessonSection.astro';
 import LessonTimePlan from '../../components/content/LessonTimePlan.astro';
-import LessonAssetList from '../../components/content/LessonAssetList.astro';
+
+export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
 
 <LessonSection id="section-01" number="01" title="차시 소개" class="lesson-one-section">
   <div class="lesson-opening-message">
     <span>LESSON PRINCIPLE</span>
     <h2>AI는 제안하고, 디자이너는 판단합니다.</h2>
-    <p>제1차시는 생성형 AI의 결과를 그대로 채택하지 않고, 원문과 대조해 분류하고 검토하는 기준을 세우는 시간입니다.</p>
+    <p>제1차시는 생성형 AI(Generative AI)의 결과를 그대로 채택하지 않고, 원문과 대조해 분류하고 검토하는 기준을 세우는 시간입니다.</p>
   </div>
 
   <div class="lesson-summary-grid">
@@ -61,14 +62,12 @@ import LessonAssetList from '../../components/content/LessonAssetList.astro';
   <LessonTimePlan
     totalMinutes={180}
     timePlan={[
-      { label: '도입', detail: '과정 소개와 최종 결과물', minutes: 10 },
-      { label: '이론', detail: '생성형 AI·LLM·멀티모달', minutes: 20 },
-      { label: '역할 구분', detail: 'AI와 디자이너의 역할', minutes: 20 },
-      { label: '안전한 사용', detail: '할루시네이션·그라운딩·HITL', minutes: 20 },
-      { label: '휴식', detail: '', minutes: 10 },
-      { label: '강사 시연', detail: '북카페 Gemini 실제 사례', minutes: 30, practiceRelated: true },
+      { label: '도입과 기본 개념', detail: '과정 소개, 생성형 AI(Generative AI)·대규모 언어 모델(Large Language Model, LLM)·멀티모달 AI(Multimodal AI)', minutes: 30 },
+      { label: '역할과 검증', detail: 'AI와 디자이너의 역할, 안전한 사용', minutes: 40 },
+      { label: '휴식', detail: '휴식', minutes: 10 },
+      { label: '강사 시연', detail: '북카페 Gemini 사례', minutes: 30, practiceRelated: true },
       { label: '수강생 실습', detail: '답변 분석과 요청문 개선', minutes: 60, practiceRelated: true },
-      { label: '공유·정리', detail: '결과 비교와 체크리스트', minutes: 10, practiceRelated: true },
+      { label: '공유와 정리', detail: '결과 비교와 체크리스트', minutes: 10, practiceRelated: true },
     ]}
   />
 
@@ -87,7 +86,7 @@ import LessonAssetList from '../../components/content/LessonAssetList.astro';
 
 <LessonSection id="section-03" number="03" title="학습 목표" class="lesson-one-section">
   <ul class="lesson-check-list">
-    <li>생성형 AI, LLM, 멀티모달의 기본 개념을 구분합니다.</li>
+    <li>생성형 AI(Generative AI), 대규모 언어 모델(Large Language Model, LLM), 멀티모달 AI(Multimodal AI)의 기본 개념을 구분합니다.</li>
     <li>AI가 잘하는 일과 디자이너가 판단해야 할 일을 구분합니다.</li>
     <li>AI 답변에서 사실·추론·가정·디자인 제안을 분류합니다.</li>
     <li>확인되지 않은 내용을 질문으로 되돌리는 요청문을 작성합니다.</li>
@@ -95,19 +94,19 @@ import LessonAssetList from '../../components/content/LessonAssetList.astro';
   </ul>
 </LessonSection>
 
-<LessonSection id="section-04" number="04" title="생성형 AI의 기본 개념" class="lesson-one-section">
+<LessonSection id="section-04" number="04" title="생성형 AI(Generative AI)의 기본 개념" class="lesson-one-section">
   <div class="lesson-prose">
-    <h3>생성형 AI</h3>
+    <h3>생성형 AI(Generative AI)</h3>
 
-    <p>생성형 AI는 사용자의 요청과 제공된 자료를 바탕으로 텍스트, 이미지, 영상 등 새로운 결과를 만드는 인공지능이다.</p>
+    <p>생성형 AI(Generative AI)는 사용자의 요청과 제공된 자료를 바탕으로 텍스트, 이미지, 영상 등 새로운 결과를 만드는 인공지능이다.</p>
 
-    <p>생성형 AI는 사실을 확인한 뒤 정답을 꺼내는 시스템이 아니다. 학습된 패턴과 현재 입력을 바탕으로 상황에 적절해 보이는 결과를 생성한다.</p>
+    <p>생성형 AI(Generative AI)는 사실을 확인한 뒤 정답을 꺼내는 시스템이 아니다. 학습된 패턴과 현재 입력을 바탕으로 상황에 적절해 보이는 결과를 생성한다.</p>
 
     <p>따라서 문장이 자연스럽고 구체적이라고 해서 실제 조건이나 사실과 일치한다고 판단해서는 안 된다.</p>
 
-    <h3>LLM</h3>
+    <h3>대규모 언어 모델(Large Language Model, LLM)</h3>
 
-    <p>LLM은 많은 텍스트를 학습해 문맥상 이어질 가능성이 높은 언어를 생성하는 대규모 언어 모델이다.</p>
+    <p>대규모 언어 모델(Large Language Model, LLM)은 많은 텍스트를 학습해 문맥상 이어질 가능성이 높은 언어를 생성하는 모델이다.</p>
 
     <p>활용 예:</p>
 
@@ -121,11 +120,11 @@ import LessonAssetList from '../../components/content/LessonAssetList.astro';
       <li>수정 요청 정리</li>
     </ul>
 
-    <p>LLM의 답변은 검증된 설계 결과나 사실 데이터 그 자체가 아니다.</p>
+    <p>대규모 언어 모델(Large Language Model, LLM)의 답변은 검증된 설계 결과나 사실 데이터 그 자체가 아니다.</p>
 
-    <h3>멀티모달</h3>
+    <h3>멀티모달 AI(Multimodal AI)</h3>
 
-    <p>멀티모달 AI는 텍스트뿐 아니라 이미지, PDF 등 여러 형식의 자료를 함께 다루는 AI다.</p>
+    <p>멀티모달 AI(Multimodal AI)는 텍스트뿐 아니라 이미지, PDF 등 여러 형식의 자료를 함께 다루는 AI다.</p>
 
     <p>이번 과정에서는 Gemini의 파일 업로드 기능을 사용할 수 있다. 다만 파일을 읽을 수 있다는 것과 모든 정보를 정확하게 해석한다는 것은 다르다. AI 답변은 반드시 원본과 대조한다.</p>
 
@@ -193,19 +192,19 @@ import LessonAssetList from '../../components/content/LessonAssetList.astro';
   <div class="lesson-term-grid">
     <article>
       <span>01</span>
-      <h3>할루시네이션</h3>
+      <h3>할루시네이션(Hallucination)</h3>
       <p>AI가 근거가 없거나 사실과 다른 내용을 그럴듯하게 생성하는 현상이다.</p>
       <p>공간디자인에서는 제공되지 않은 면적, 예산, 창문 위치, 기둥, 구조 조건 등을 실제 정보처럼 표현하는 형태로 나타날 수 있다.</p>
     </article>
     <article>
       <span>02</span>
-      <h3>그라운딩</h3>
+      <h3>그라운딩(Grounding)</h3>
       <p>AI의 답변을 사용자가 제공한 원문, 도면, 이미지, 문서, 확인된 자료에 연결하는 과정이다.</p>
-      <p>그라운딩은 AI가 절대 틀리지 않게 만드는 방법이 아니라, 답변의 근거를 확인하고 오류를 줄이기 위한 방법이다.</p>
+      <p>그라운딩(Grounding)은 AI가 절대 틀리지 않게 만드는 방법이 아니라, 답변의 근거를 확인하고 오류를 줄이기 위한 방법이다.</p>
     </article>
     <article>
       <span>03</span>
-      <h3>Human in the Loop</h3>
+      <h3>인간 개입형 검토(Human in the Loop, HITL)</h3>
       <p>AI가 만든 결과를 사람이 검토하고 수정·승인·보류·제외하는 구조다.</p>
       <p>AI는 제안하고, 최종 판단과 책임은 사람이 맡는다.</p>
     </article>
@@ -286,6 +285,11 @@ import LessonAssetList from '../../components/content/LessonAssetList.astro';
 
 <LessonSection id="section-10" number="10" title="Gemini 3.6 Flash 실제 응답" class="lesson-one-section">
   <p class="lesson-context-label">아래 원문은 문법이나 표현을 수정하지 않고 그대로 수록한다.</p>
+
+  <aside class="lesson-ai-proposal-notice">
+    <strong>AI가 생성한 콘셉트 제안</strong>
+    <p>아래 내용은 확정된 디자인 방향이 아니라 Gemini가 생성한 초기 제안이다.</p>
+  </aside>
 
   <details class="lesson-ai-response-disclosure">
     <summary>
@@ -433,6 +437,7 @@ import LessonAssetList from '../../components/content/LessonAssetList.astro';
         <tr><th>Gemini 답변</th><th>분류</th><th>판단 및 대응</th></tr>
       </thead>
       <tbody>
+        <tr><td>따로 또 같이</td><td>디자인 제안</td><td>AI가 만든 초기 콘셉트명이며 확정 사항이 아님</td></tr>
         <tr><td>도심 속 거실</td><td>디자인 제안</td><td>초기 콘셉트로 활용 가능</td></tr>
         <tr><td>짙은 우드·베이지·크림</td><td>디자인 제안</td><td>확정이 아닌 제안으로 표시</td></tr>
         <tr><td>창가 배치</td><td>확인되지 않은 가정</td><td>창호 위치 확인 후 검토</td></tr>
@@ -651,10 +656,6 @@ import LessonAssetList from '../../components/content/LessonAssetList.astro';
       <p>다음 섹션의 12개 확인 항목을 수강생 결과물에 반영한다.</p>
     </article>
   </div>
-
-  <h3>필요 자산</h3>
-  <p class="asset-policy">제1차시는 Gemini 화면 캡처를 사용하지 않는다. 입력문과 실제 응답은 본문의 텍스트로 제공하며, 외부 참고 자료는 학생 페이지에 노출하지 않는다.</p>
-  <LessonAssetList lessonId="01" assetIds={['l01-doc-pack', 'l01-tool-map', 'l01-demo']} />
 
   <span hidden data-instructor-note-template="l01-answer-key" data-instructor-lesson="01" data-instructor-label="결과물 검토 기준">INSTRUCTOR_NOTE_SLOT</span>
 </LessonSection>

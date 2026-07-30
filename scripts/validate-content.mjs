@@ -169,7 +169,7 @@ for (const fileName of files) {
     const requiredLessonOneStructures = [
       { marker: '<LessonSection', label: 'LessonSection' },
       { marker: '<LessonTimePlan', label: 'LessonTimePlan' },
-      { marker: '<LessonAssetList', label: 'LessonAssetList' },
+      { marker: 'export const lessonAssetIds', label: '자산 ID 선언' },
       { marker: 'data-instructor-note-template', label: '강사 메모 슬롯' },
     ];
     for (const { marker, label } of requiredLessonOneStructures) {
@@ -244,7 +244,10 @@ for (const fileName of files) {
     errors.push(`${fileName}: 실습시간 ${practiceMinutes}분이 전체의 절반보다 적습니다.`);
   }
 
-  const assetBlock = source.match(/assetIds=\{\[([\s\S]*?)\]\}/)?.[1] ?? '';
+  const assetBlock =
+    source.match(/assetIds=\{\[([\s\S]*?)\]\}/)?.[1] ??
+    source.match(/export const lessonAssetIds\s*=\s*\[([\s\S]*?)\];/)?.[1] ??
+    '';
   const assetIds = [...assetBlock.matchAll(/'([^']+)'/g)].map((match) => match[1]);
   if (assetIds.length === 0) {
     errors.push(`${fileName}: assetIds 항목이 없습니다.`);
