@@ -37,6 +37,18 @@ const requiredFields = [
   'professionalReviewScope',
   'sources',
 ];
+const lessonOneInstructorSlots = [
+  'l01-opening',
+  'l01-generative-ai',
+  'l01-ai-human-role',
+  'l01-before-gemini-demo',
+  'l01-after-gemini-response',
+  'l01-response-analysis',
+  'l01-fallback-response',
+  'l01-student-practice',
+  'l01-answer-key',
+  'l01-closing',
+];
 
 const errors = [];
 const dayToFiles = new Map();
@@ -87,6 +99,7 @@ for (const id of actualIds) {
 
 for (const fileName of files) {
   const id = path.basename(fileName, '.mdx');
+  const isDetailedLessonOne = id === '01';
   const source = await readFile(path.join(lessonsDirectory, fileName), 'utf8');
   const frontmatter = readFrontmatter(source, fileName);
 
@@ -152,7 +165,33 @@ for (const fileName of files) {
     errors.push(`${fileName}: 전문 검토 범위는 required 또는 completed 상태에서만 작성합니다.`);
   }
 
-  if (!source.includes('<LessonOutline')) {
+  if (isDetailedLessonOne) {
+    const requiredLessonOneStructures = [
+      { marker: '<LessonSection', label: 'LessonSection' },
+      { marker: '<LessonTimePlan', label: 'LessonTimePlan' },
+      { marker: '<LessonAssetList', label: 'LessonAssetList' },
+      { marker: 'data-instructor-note-template', label: '강사 메모 슬롯' },
+    ];
+    for (const { marker, label } of requiredLessonOneStructures) {
+      if (!source.includes(marker)) {
+        errors.push(`${fileName}: 제1차시 상세 본문에 ${label} 구성이 없습니다.`);
+      }
+    }
+    const actualInstructorSlots = [
+      ...source.matchAll(/data-instructor-note-template="([^"]+)"/g),
+    ].map((match) => match[1]);
+    for (const slot of lessonOneInstructorSlots) {
+      if (!actualInstructorSlots.includes(slot)) {
+        errors.push(`${fileName}: 강사 메모 슬롯 ${slot}이 없습니다.`);
+      }
+    }
+    const duplicateInstructorSlots = actualInstructorSlots.filter(
+      (slot, index) => actualInstructorSlots.indexOf(slot) !== index,
+    );
+    for (const slot of new Set(duplicateInstructorSlots)) {
+      errors.push(`${fileName}: 강사 메모 슬롯 ${slot}이 중복됐습니다.`);
+    }
+  } else if (!source.includes('<LessonOutline')) {
     errors.push(`${fileName}: LessonOutline 골격이 없습니다.`);
   }
   if (source.includes("category: '전문가 판단 필요'")) {
@@ -161,22 +200,25 @@ for (const fileName of files) {
     );
   }
 
-  const structuralCategoryChecks = [
-    { property: 'goals', nextProperty: 'concepts', expected: '학습 목표' },
-    { property: 'deliverables', nextProperty: 'judgments', expected: '수업 산출물' },
-  ];
-  for (const { property, nextProperty, expected } of structuralCategoryChecks) {
-    const block = source.match(
-      new RegExp(`  ${property}=\\{\\[([\\s\\S]*?)\\]\\}\\s*\\n  ${nextProperty}=`),
-    )?.[1] ?? '';
-    const categories = [...block.matchAll(/category:\s*'([^']+)'/g)]
-      .map((match) => match[1]);
-    if (categories.length === 0 || categories.some((category) => category !== expected)) {
-      errors.push(`${fileName}: ${property} 항목은 '${expected}' 교육 구조 분류를 사용해야 합니다.`);
+  if (!isDetailedLessonOne) {
+    const structuralCategoryChecks = [
+      { property: 'goals', nextProperty: 'concepts', expected: '학습 목표' },
+      { property: 'deliverables', nextProperty: 'judgments', expected: '수업 산출물' },
+    ];
+    for (const { property, nextProperty, expected } of structuralCategoryChecks) {
+      const block = source.match(
+        new RegExp(`  ${property}=\\{\\[([\\s\\S]*?)\\]\\}\\s*\\n  ${nextProperty}=`),
+      )?.[1] ?? '';
+      const categories = [...block.matchAll(/category:\s*'([^']+)'/g)]
+        .map((match) => match[1]);
+      if (categories.length === 0 || categories.some((category) => category !== expected)) {
+        errors.push(`${fileName}: ${property} 항목은 '${expected}' 교육 구조 분류를 사용해야 합니다.`);
+      }
     }
   }
 
-  for (let section = 1; section <= 13; section += 1) {
+  const expectedSectionCount = isDetailedLessonOne ? 16 : 13;
+  for (let section = 1; section <= expectedSectionCount; section += 1) {
     const sectionId = `section-${String(section).padStart(2, '0')}`;
     if (!frontmatter.includes(`id: "${sectionId}"`)) {
       errors.push(`${fileName}: 로컬 목차에 ${sectionId}가 없습니다.`);
@@ -186,7 +228,13 @@ for (const fileName of files) {
   const timePlan = source.match(/timePlan=\{\[([\s\S]*?)\]\}\s*\/>/)?.[1] ?? '';
   const allocatedMinutes = [...timePlan.matchAll(/minutes:\s*(\d+)/g)]
     .reduce((sum, match) => sum + Number(match[1]), 0);
-  const practiceMinutes = [...timePlan.matchAll(/minutes:\s*(\d+),\s*mode:\s*'practice'/g)]
+  const timePlanEntries = [...timePlan.matchAll(/\{[^{}]*minutes:\s*(\d+)[^{}]*\}/g)];
+  const practiceMinutes = timePlanEntries
+    .filter((match) => (
+      isDetailedLessonOne
+        ? /practiceRelated:\s*true/.test(match[0])
+        : /mode:\s*'practice'/.test(match[0])
+    ))
     .reduce((sum, match) => sum + Number(match[1]), 0);
 
   if (allocatedMinutes !== Number(duration)) {
@@ -350,6 +398,7 @@ console.log('- ID: 01–14 누락·중복 없음');
 console.log('- day: 1–14 누락·중복 없음');
 console.log('- ID/day 일치');
 console.log('- 승인된 제목·수업시간 일치');
-console.log('- 13개 골격 섹션과 실습시간 50% 이상');
+console.log('- 제1차시 상세 16개 섹션, 제2–14차시 골격 13개 섹션');
+console.log('- 모든 차시 실습시간 50% 이상');
 console.log(`- 자산 manifest: ${manifestAssetIds.length}개, 필수 필드·연결 ID·공개 조건 확인`);
 console.log(`- 필수 metadata: ${requiredFields.join(', ')}`);

@@ -1,0 +1,56 @@
+---
+interface TimePlanItem {
+  label: string;
+  detail: string;
+  minutes: number;
+  practiceRelated?: boolean;
+}
+
+interface Props {
+  totalMinutes: number;
+  timePlan: TimePlanItem[];
+}
+
+const { totalMinutes, timePlan } = Astro.props;
+const allocatedMinutes = timePlan.reduce((sum, item) => sum + item.minutes, 0);
+const practiceMinutes = timePlan
+  .filter((item) => item.practiceRelated)
+  .reduce((sum, item) => sum + item.minutes, 0);
+const practicePercent = Math.round((practiceMinutes / totalMinutes) * 100);
+---
+
+<div class="time-plan time-plan--detailed">
+  <header>
+    <div>
+      <span>TIME PLAN</span>
+      <strong>총 {totalMinutes}분 · 실습 관련 {practiceMinutes}분 · {practicePercent}%</strong>
+    </div>
+    <span class:list={['practice-ratio', { 'practice-ratio--valid': practiceMinutes >= totalMinutes / 2 }]}>
+      실습 절반 이상
+    </span>
+  </header>
+  <div class="table-scroll" tabindex="0" role="region" aria-label="제1차시 시간표">
+    <table class="lesson-table">
+      <thead>
+        <tr><th>구간</th><th>내용</th><th>시간</th></tr>
+      </thead>
+      <tbody>
+        {timePlan.map((item) => (
+          <tr>
+            <th scope="row">{item.label}</th>
+            <td>{item.detail}</td>
+            <td>{item.minutes}분</td>
+          </tr>
+        ))}
+        <tr>
+          <th scope="row">합계</th>
+          <td></td>
+          <td>{allocatedMinutes}분</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  {allocatedMinutes !== totalMinutes && (
+    <p class="time-plan__warning">시간 배분 합계 검토 필요: {allocatedMinutes}분</p>
+  )}
+</div>

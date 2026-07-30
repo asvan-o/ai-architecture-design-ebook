@@ -7,7 +7,11 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "dev:student": "node scripts/run-ebook-mode.mjs dev student",
+    "dev:instructor": "node scripts/run-ebook-mode.mjs dev instructor",
+    "build": "node scripts/run-ebook-mode.mjs build student dist",
+    "build:student": "node scripts/run-ebook-mode.mjs build student dist-student",
+    "build:instructor": "node scripts/run-ebook-mode.mjs build instructor dist-instructor",
     "lint": "astro check",
     "typecheck": "astro check",
     "validate:content": "node scripts/validate-content.mjs",

@@ -1,0 +1,16 @@
+---
+import LessonAsset from './LessonAsset.astro';
+import { getStudentLessonAssets } from '../../lib/asset-manifest';
+
+interface Props {
+  lessonId: string;
+  assetIds: string[];
+}
+
+const { lessonId, assetIds } = Astro.props;
+const assets = getStudentLessonAssets(assetIds, Number(lessonId));
+---
+
+<div class="lesson-assets">
+  {assets.map((asset) => <LessonAsset {...asset} />)}
+</div>

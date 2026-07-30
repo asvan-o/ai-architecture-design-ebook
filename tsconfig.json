@@ -5,7 +5,10 @@
     "**/*"
   ],
   "exclude": [
-    "dist"
+    "dist",
+    "dist-student",
+    "dist-instructor",
+    "instructor-content"
   ],
   "compilerOptions": {
     "jsx": "react-jsx",

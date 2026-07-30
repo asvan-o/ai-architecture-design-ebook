@@ -34,6 +34,7 @@ const durationLabel = lesson.data.durationMinutes === null
   ? '수업시간 확인 예정'
   : `${lesson.data.durationMinutes}분`;
 const verifiedLabel = lesson.data.lastVerified ?? '검토 전';
+const isDetailedLesson = lesson.data.day === 1;
 const professionalReviewScope = lesson.data.professionalReviewScope ?? [];
 const localSections = lesson.data.sections ?? pageSections.map((label, index) => ({
   id: `section-${String(index + 1).padStart(2, '0')}`,
@@ -46,9 +47,13 @@ const localSections = lesson.data.sections ?? pageSections.map((label, index) =>
     <header class="lesson-hero">
       <div class="lesson-hero__number" aria-hidden="true">{dayLabel}</div>
       <div class="lesson-hero__copy">
-        <p class="page-kicker">LESSON {dayLabel} · OUTLINE REVIEW REQUESTED</p>
+        <p class="page-kicker">LESSON {dayLabel} · {isDetailedLesson ? 'CONTENT REVIEW REQUESTED' : 'OUTLINE REVIEW REQUESTED'}</p>
         <h1>{lesson.data.title}</h1>
-        <p>승인된 14차시 커리큘럼을 기준으로 작성한 교육 콘텐츠 골격입니다. 상세 원고와 실제 자산은 아직 포함하지 않습니다.</p>
+        <p>
+          {isDetailedLesson
+            ? '승인된 제1차시 원고를 기준으로 구성한 검토용 상세 본문입니다. 실제 이미지·영상 자산은 포함하지 않습니다.'
+            : '승인된 14차시 커리큘럼을 기준으로 작성한 교육 콘텐츠 골격입니다. 상세 원고와 실제 자산은 아직 포함하지 않습니다.'}
+        </p>
       </div>
       <dl class="lesson-meta">
         <div><dt>DATE</dt><dd>{dateLabel}</dd></div>

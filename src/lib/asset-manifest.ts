@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import manifestSource from '../../data/asset-manifest.yaml?raw';
 
 export type AssetPriority = 'required' | 'optional' | 'reference-only';
 export type AssetTool =
@@ -20,11 +20,6 @@ export type LessonAssetRecord = {
   publicUse: boolean;
   alt: string;
 };
-
-const manifestSource = readFileSync(
-  new URL('../../data/asset-manifest.yaml', import.meta.url),
-  'utf8',
-);
 
 const assetBlocks = manifestSource
   .split(/\r?\n(?=  - id:\s*")/)

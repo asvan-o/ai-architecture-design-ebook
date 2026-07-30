@@ -1,0 +1,43 @@
+version: 1
+lesson: "01"
+notes:
+  - slot: "l01-opening"
+    type: "instructor-script"
+    body: |
+      예시 강사 메모를 이 줄에 작성합니다.
+  - slot: "l01-generative-ai"
+    type: "instructor-script"
+    body: |
+      예시 강사 메모를 이 줄에 작성합니다.
+  - slot: "l01-ai-human-role"
+    type: "question-cue"
+    body: |
+      예시 질문 큐를 이 줄에 작성합니다.
+  - slot: "l01-before-gemini-demo"
+    type: "question-cue"
+    body: |
+      예시 질문 큐를 이 줄에 작성합니다.
+  - slot: "l01-after-gemini-response"
+    type: "question-cue"
+    body: |
+      예시 질문 큐를 이 줄에 작성합니다.
+  - slot: "l01-response-analysis"
+    type: "verification"
+    body: |
+      예시 검증 메모를 이 줄에 작성합니다.
+  - slot: "l01-fallback-response"
+    type: "fallback"
+    body: |
+      예시 백업 메모를 이 줄에 작성합니다.
+  - slot: "l01-student-practice"
+    type: "timing"
+    body: |
+      예시 시간 운영 메모를 이 줄에 작성합니다.
+  - slot: "l01-answer-key"
+    type: "answer-key"
+    body: |
+      예시 해설 메모를 이 줄에 작성합니다.
+  - slot: "l01-closing"
+    type: "instructor-script"
+    body: |
+      예시 강사 메모를 이 줄에 작성합니다.

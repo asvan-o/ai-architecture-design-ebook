@@ -22,10 +22,14 @@ npm run dev
 | 명령 | 목적 |
 | --- | --- |
 | `npm run dev` | 개발 서버 |
+| `npm run dev:student` | 학생용 개발 서버를 백그라운드로 실행 |
+| `npm run dev:instructor` | 로컬 강사용 개발 서버를 백그라운드로 실행 |
 | `npm run lint` | `astro check` 실행 |
 | `npm run typecheck` | `astro check` 실행 |
 | `npm run validate:content` | 14개 강의 파일 무결성 검사 |
-| `npm run build` | 정적 사이트 생성 |
+| `npm run build` | 학생용 정적 사이트를 `dist/`에 생성 |
+| `npm run build:student` | 학생용 정적 사이트를 `dist-student/`에 생성 |
+| `npm run build:instructor` | 로컬 강사용 정적 사이트를 `dist-instructor/`에 생성 |
 | `npm run preview` | 빌드 결과 미리보기 |
 
 `lint`와 `typecheck`는 현재 같은 Astro 진단 명령입니다. 외부 자동화와 작업 완료 기준의 명령 이름을 유지하기 위해 둘 다 제공합니다.
@@ -44,7 +48,9 @@ src/components/content/* + 필요한 React island
 
 강의 본문을 바꾸기 위해 `src/pages/lessons/[id].astro`를 수정할 필요가 없습니다. MDX에서 필요한 콘텐츠 컴포넌트를 조합합니다. 로컬 목차 구성이 기본 13개와 다르면 frontmatter의 optional `sections` 배열을 MDX 구조와 맞춰 지정합니다.
 
-`draft: true`인 차시는 개발 서버에서만 검토할 수 있습니다. 운영 `npm run build`에서는 개별 차시 라우트, 홈 미리보기, 커리큘럼, 데스크톱·모바일 목차, 검색 인덱스에 포함되지 않습니다. 공개 전환은 승인 후 해당 차시의 `draft`를 `false`로 변경합니다.
+제1차시는 승인된 16개 상세 섹션을 사용합니다. 본문은 공통 MDX에 한 번만 작성하고, `InstructorNoteSlot`은 학생용 빌드에서 아무것도 출력하지 않습니다. 강사용 빌드만 Git에서 제외된 `instructor-content/lessons/01.yaml`을 읽습니다. 구성과 유출 방지 검사는 `docs/INSTRUCTOR_MODE_ARCHITECTURE.md`를 참조합니다.
+
+`draft`는 콘텐츠 검토 상태를 기록하는 메타데이터이며 정적 경로 생성 여부를 바꾸지 않습니다. 학생용·강사용 빌드는 모두 제1–14차시와 같은 공통 경로를 생성하며, 모드 차이는 로컬 강사 메모 포함 여부뿐입니다. 콘텐츠 공개 승인은 배포 대상 브랜치와 검토 절차로 관리합니다.
 
 ## 5. 책임 분리
 
@@ -55,6 +61,11 @@ src/components/content/* + 필요한 React island
 - `src/components/`: 브라우저 상태가 필요한 React islands와 공통 배지
 - `src/content.config.ts`: frontmatter 타입 검증
 - `scripts/validate-content.mjs`: 파일 집합과 차시 번호 검증
+- `scripts/run-ebook-mode.mjs`: 학생용·강사용 정적 빌드 모드 실행
+- `scripts/render-instructor-notes.mjs`: 정적 슬롯 제거 또는 로컬 강사 메모 주입
+- `scripts/verify-instructor-boundary.mjs`: 강사 메모 유출 및 슬롯 검사
+- `instructor-content.example/`: 공개 가능한 빈 강사 메모 스키마 예시
+- `instructor-content/`: 실제 로컬 강사 메모, Git 제외
 - `source/`: 과거 참고자료. 단, `approved-curriculum.md`는 사용자가 승인한
   14차시 제목·시간·범위의 기준 문서
 - `data/asset-manifest.yaml`: 차시별 제작 예정 자산, 권장 제작 도구, 공개 사용·검증 상태
@@ -99,4 +110,6 @@ npm run build
 6. `npm run lint`
 7. `npm run typecheck`
 8. `npm run validate:content`
-9. `npm run build`
+9. `npm run build:student`
+10. `npm run build:instructor`
+11. 학생용 결과물에 강사 메모가 없고 강사용 결과물에 슬롯이 표시되는지 확인

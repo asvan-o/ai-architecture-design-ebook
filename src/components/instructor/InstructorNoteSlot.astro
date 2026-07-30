@@ -1,0 +1,16 @@
+---
+interface Props {
+  lessonId: string;
+  slot: string;
+  label: string;
+}
+
+const { lessonId, slot, label } = Astro.props;
+---
+
+<span
+  hidden
+  data-instructor-note-template={slot}
+  data-instructor-lesson={lessonId}
+  data-instructor-label={label}
+>INSTRUCTOR_NOTE_SLOT</span>
