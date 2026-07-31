@@ -3,9 +3,14 @@ import { useState } from 'react';
 type PromptCopyProps = {
   text: string;
   label?: string;
+  buttonLabel?: string;
 };
 
-export default function PromptCopy({ text, label = 'PROMPT · PLACEHOLDER' }: PromptCopyProps) {
+export default function PromptCopy({
+  text,
+  label = 'PROMPT · PLACEHOLDER',
+  buttonLabel = '프롬프트 복사',
+}: PromptCopyProps) {
   const [copied, setCopied] = useState(false);
 
   const copy = async () => {
@@ -22,7 +27,7 @@ export default function PromptCopy({ text, label = 'PROMPT · PLACEHOLDER' }: Pr
     <div className="prompt-example">
       <div className="prompt-example__bar">
         <span>{label}</span>
-        <button type="button" onClick={copy}>{copied ? '복사됨' : '프롬프트 복사'}</button>
+        <button type="button" onClick={copy}>{copied ? '복사됨' : buttonLabel}</button>
       </div>
       <pre><code>{text}</code></pre>
       <p aria-live="polite" className="sr-only">{copied ? '프롬프트가 클립보드에 복사되었습니다.' : ''}</p>
