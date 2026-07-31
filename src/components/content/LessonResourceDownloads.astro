@@ -1,0 +1,35 @@
+---
+type DownloadItem = {
+  href: string;
+  downloadName: string;
+  label: string;
+  description: string;
+  meta: string;
+};
+
+interface Props {
+  items: DownloadItem[];
+  note?: string;
+}
+
+const { items, note } = Astro.props;
+---
+
+<div class="lesson-resource-downloads" aria-label="차시 실습 자료 다운로드">
+  <ul>
+    {items.map((item) => (
+      <li>
+        <a href={item.href} download={item.downloadName}>
+          <span class="lesson-resource-downloads__type">DOWNLOAD</span>
+          <span class="lesson-resource-downloads__copy">
+            <strong>{item.label}</strong>
+            <small>{item.description}</small>
+            <span>{item.meta}</span>
+          </span>
+          <span class="lesson-resource-downloads__arrow" aria-hidden="true">↓</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+  {note && <p>{note}</p>}
+</div>

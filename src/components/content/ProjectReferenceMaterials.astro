@@ -1,0 +1,96 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+type PriorityItem = {
+  title: string;
+  details: string[];
+};
+
+type MaterialItem = {
+  title: string;
+  description: string;
+};
+
+type ReferenceFigure = {
+  src: ImageMetadata;
+  alt: string;
+  title: string;
+  caption: string;
+};
+
+interface Props {
+  priorityItems: PriorityItem[];
+  materialItems: MaterialItem[];
+  notice: string;
+  figures: ReferenceFigure[];
+}
+
+const { priorityItems, materialItems, notice, figures } = Astro.props;
+---
+
+<div class="project-reference-materials">
+  <section
+    class="project-reference-materials__priority"
+    aria-labelledby="project-reference-priority-title"
+  >
+    <header>
+      <span>READING PRIORITY</span>
+      <h3 id="project-reference-priority-title">자료를 판단하는 우선순위</h3>
+    </header>
+    <ol>
+      {priorityItems.map((item) => (
+        <li>
+          <strong>{item.title}</strong>
+          <ul>
+            {item.details.map((detail) => <li>{detail}</li>)}
+          </ul>
+        </li>
+      ))}
+    </ol>
+    <p class="project-reference-materials__rule">
+      자료가 서로 다르게 보일 경우 RFP와 교육용 현황 평면도를 우선한다.
+    </p>
+  </section>
+
+  <aside class="project-reference-materials__notice" aria-label="교육용 현황 이미지 주의사항">
+    <strong>자료 사용 주의</strong>
+    <p>{notice}</p>
+  </aside>
+
+  <section
+    class="project-reference-materials__order"
+    aria-labelledby="project-reference-order-title"
+  >
+    <header>
+      <span>PROVIDED MATERIALS</span>
+      <h3 id="project-reference-order-title">제공 자료 순서</h3>
+    </header>
+    <ol>
+      {materialItems.map((item) => (
+        <li>
+          <strong>{item.title}</strong>
+          <span>{item.description}</span>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <div class="project-reference-materials__figures">
+    {figures.map((figure) => (
+      <figure>
+        <Image
+          src={figure.src}
+          alt={figure.alt}
+          widths={[480, 800, 1200, 1600]}
+          sizes="(max-width: 760px) 100vw, 900px"
+          loading="eager"
+        />
+        <figcaption>
+          <strong>{figure.title}</strong>
+          <span>{figure.caption}</span>
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+</div>

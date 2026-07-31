@@ -4,6 +4,9 @@ import LessonAsset from './LessonAsset.astro';
 import ClassifiedList from './ClassifiedList.astro';
 import IterativeImageSample from './IterativeImageSample.astro';
 import EmptySpacePracticeKit from './EmptySpacePracticeKit.astro';
+import LessonResourceDownloads from './LessonResourceDownloads.astro';
+import StructuredPracticeTemplates from './StructuredPracticeTemplates.astro';
+import ProjectReferenceMaterials from './ProjectReferenceMaterials.astro';
 import { getStudentLessonAssets } from '../../lib/asset-manifest';
 import type { ImageMetadata } from 'astro';
 
@@ -69,6 +72,49 @@ type PracticeKit = {
   }[];
 };
 
+type ResourceDownload = {
+  href: string;
+  downloadName: string;
+  label: string;
+  description: string;
+  meta: string;
+};
+
+type PracticeTemplate = {
+  title: string;
+  description: string;
+  columns: string[];
+  placeholders: string[];
+};
+
+type StructuredPractice = {
+  tables: PracticeTemplate[];
+  briefTitle: string;
+  briefDescription: string;
+  briefFields: string[];
+  evidenceCategories?: string[];
+  evidenceNote?: string;
+  closingNote?: string;
+};
+
+type ProjectReferences = {
+  priorityItems: {
+    title: string;
+    details: string[];
+  }[];
+  materialItems: {
+    title: string;
+    description: string;
+  }[];
+  notice: string;
+  figures: {
+    src: ImageMetadata;
+    alt: string;
+    title: string;
+    caption: string;
+  }[];
+};
+
 interface Props {
   lessonId: string;
   totalMinutes: number;
@@ -88,12 +134,14 @@ interface Props {
   scenario: OutlineItem[];
   scenarioTitle?: string;
   materials: OutlineItem[];
+  projectReferences?: ProjectReferences;
   demo: OutlineItem[];
   demoTitle?: string;
   iterationSample?: IterationSample;
   practiceKit?: PracticeKit;
   practice: PracticeItem[];
   practiceGuidance?: OutlineItem[];
+  structuredPractice?: StructuredPractice;
   deliverables: OutlineItem[];
   judgments: OutlineItem[];
   errorChecks: OutlineItem[];
@@ -101,6 +149,8 @@ interface Props {
   assetsTitle?: string;
   showOnlyReadyAssets?: boolean;
   assetNotes?: OutlineItem[];
+  resourceDownloads?: ResourceDownload[];
+  resourceDownloadNote?: string;
   verification: OutlineItem[];
   timePlan: TimeItem[];
 }
@@ -117,12 +167,14 @@ const {
   scenario,
   scenarioTitle = '실무형 가상 문제',
   materials,
+  projectReferences,
   demo,
   demoTitle = '강사 시연',
   iterationSample,
   practiceKit,
   practice,
   practiceGuidance,
+  structuredPractice,
   deliverables,
   judgments,
   errorChecks,
@@ -130,6 +182,8 @@ const {
   assetsTitle = '필요한 이미지·영상·문서',
   showOnlyReadyAssets = false,
   assetNotes,
+  resourceDownloads,
+  resourceDownloadNote,
   verification,
   timePlan,
 } = Astro.props;
@@ -197,6 +251,7 @@ const isPresentation = Astro.url.pathname.includes('/presentation/');
 
 <LessonSection id="section-06" number="06" title="제공 자료" class="outline-section">
   <ClassifiedList items={materials} />
+  {projectReferences && <ProjectReferenceMaterials {...projectReferences} />}
   {practiceKit && <EmptySpacePracticeKit {...practiceKit} />}
 </LessonSection>
 
@@ -208,6 +263,7 @@ const isPresentation = Astro.url.pathname.includes('/presentation/');
 
 <LessonSection id="section-08" number="08" title="수강생 실습" class="outline-section">
   {practiceGuidance && <ClassifiedList items={practiceGuidance} />}
+  {structuredPractice && <StructuredPracticeTemplates {...structuredPractice} />}
   <ol class="practice-list">
     {practice.map((step, index) => (
       <li data-step-id={step.id}>
@@ -247,6 +303,9 @@ const isPresentation = Astro.url.pathname.includes('/presentation/');
       </div>
     </>
   ) : null}
+  {resourceDownloads && (
+    <LessonResourceDownloads items={resourceDownloads} note={resourceDownloadNote} />
+  )}
 </LessonSection>
 
 <LessonSection id="section-13" number="13" title="확인 또는 검증이 필요한 내용" class="outline-section">

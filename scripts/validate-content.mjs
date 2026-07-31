@@ -299,14 +299,28 @@ for (const fileName of files) {
   }
   if (id === '03') {
     const requiredLessonThreeStructures = [
-      { marker: '강의용 가상 사례', label: '가상 프로젝트 고지' },
-      { marker: '가상 RFP 전문', label: '가상 RFP 전문' },
+      { marker: '지역혁신대학교 중앙도서관 1층 캠퍼스 라운지', label: '캠퍼스 라운지 가상 프로젝트' },
+      { marker: 'lesson-03-campus-lounge-rfp-v1.2.pdf', label: 'RFP PDF 다운로드' },
+      { marker: 'campus-lounge-existing-plan.png', label: '공통 프로젝트 현황 평면도' },
+      { marker: 'campus-lounge-existing-view-01.jpeg', label: '공통 프로젝트 현황 이미지' },
+      { marker: 'lesson-03-04-campus-lounge-existing-plan.png', label: '현황 평면도 다운로드 파일명' },
+      { marker: 'lesson-03-04-campus-lounge-existing-view-01.jpeg', label: '현황 이미지 다운로드 파일명' },
+      { marker: 'gemini-rfp-analysis-prompt-v1.2.txt', label: 'Gemini 분석 요청문 다운로드' },
       { marker: 'questionsTitle="핵심 질문"', label: '핵심 질문 섹션 제목' },
-      { marker: 'scenarioTitle="가상 RFP"', label: '가상 RFP 섹션 제목' },
-      { marker: '문서에 없는 내용을 사실처럼 추가하지 마세요', label: 'Gemini 분석 요청' },
-      { marker: '실제 응답을 가장한 예시 답변을 넣지 않고', label: '실제 Gemini 응답 비생성 원칙' },
+      { marker: 'scenarioTitle="교육용 가상 RFP 원문"', label: '교육용 가상 RFP 섹션 제목' },
+      { marker: '요구조건 매트릭스', label: '요구조건 매트릭스 실습' },
+      { marker: '발주기관 추가 질의', label: '발주기관 추가 질의 실습' },
+      { marker: '제4차시 대안 평가 기준', label: '제4차시 인계 기준' },
+      { marker: 'RFP에서 직접 확인되는 내용', label: 'RFP 근거 구분' },
+      { marker: '평면도에서 확인되는 내용', label: '평면도 근거 구분' },
+      { marker: '이미지에서 시각적으로 참고할 수 있는 내용', label: '현황 이미지 참고 구분' },
+      { marker: '현재 자료만으로 확인할 수 없는 내용', label: '미확정 내용 구분' },
+      { marker: '발주기관에 추가로 물어볼 내용', label: '발주기관 추가 질의 구분' },
+      { marker: '관련 전문가가 확인해야 하는 내용', label: '전문가 확인 구분' },
+      { marker: '실제 Gemini 응답 원문은 사용자가 제공하기 전까지', label: '실제 Gemini 응답 비생성 원칙' },
+      { marker: 'resourceDownloads={[', label: '공개 실습 자료 다운로드 구조' },
       { marker: 'assetNotes={[', label: '학생용 내부 자산 카드 차단 구조' },
-      { marker: 'assetsTitle="필요 자산"', label: '필요 자산 섹션 제목' },
+      { marker: 'assetsTitle="실습 자료 다운로드"', label: '실습 자료 다운로드 섹션 제목' },
     ];
     for (const { marker, label } of requiredLessonThreeStructures) {
       if (!source.includes(marker)) {
@@ -317,6 +331,18 @@ for (const fileName of files) {
       if (source.includes(disallowedTool)) {
         errors.push(`${fileName}: 제3차시 본문에서 사용하지 않는 도구 '${disallowedTool}'를 제거해야 합니다.`);
       }
+    }
+    for (const retiredScenarioText of [
+      '지역 생활브랜드 소형 쇼룸',
+      '소형 쇼룸 겸 상담 라운지',
+      '상품 전시와 2~4인 상담',
+    ]) {
+      if (source.includes(retiredScenarioText)) {
+        errors.push(`${fileName}: 폐기된 기존 쇼룸 사례 '${retiredScenarioText}'가 남아 있습니다.`);
+      }
+    }
+    if (source.includes('lesson-03-campus-lounge-rfp-v1.2.docx')) {
+      errors.push(`${fileName}: 학생용 본문에서 source DOCX 원본을 공개 다운로드로 연결할 수 없습니다.`);
     }
   }
   if (source.includes("category: '전문가 판단 필요'")) {

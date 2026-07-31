@@ -259,6 +259,9 @@
 .print-document .fact-panel,
 .print-document .case-notes,
 .print-document .download-placeholder,
+.print-document .lesson-resource-downloads li,
+.print-document .structured-practice-template,
+.print-document .structured-practice-templates__note,
 .print-document .outline-list li,
 .print-document .practice-list li {
   break-inside: avoid-page;
@@ -297,7 +300,7 @@
   page-break-inside: auto;
 }
 
-.print-document .print-lesson[data-print-lesson-id='03'] :is(#section-06, #section-07) {
+.print-document .print-lesson[data-print-lesson-id='03'] :is(#section-04, #section-06, #section-07) {
   break-inside: auto;
   page-break-inside: auto;
   padding-block: 2mm;
@@ -305,7 +308,15 @@
 
 .print-document
   .print-lesson[data-print-lesson-id='03']
-  :is(#section-06, #section-07)
+  :is(#section-04, #section-06, #section-07)
+  > .outline-list {
+  break-inside: auto;
+  page-break-inside: auto;
+}
+
+.print-document
+  .print-lesson[data-print-lesson-id='03']
+  :is(#section-04, #section-06, #section-07)
   .section-heading {
   margin-bottom: 3mm;
 }
@@ -354,6 +365,136 @@
   min-width: 0;
   padding: 2.4mm 2.8mm;
   overflow-wrap: anywhere;
+}
+
+.print-document .structured-practice-templates {
+  gap: 4mm;
+  margin: 4mm 0 6mm;
+}
+
+.print-document .structured-practice-template {
+  padding-top: 3mm;
+}
+
+.print-document .structured-practice-template > header h3 {
+  font-size: 12pt;
+}
+
+.print-document .structured-practice-template > header p {
+  margin-top: 1.5mm;
+  font-size: 8.8pt;
+}
+
+.print-document .structured-practice-template__table {
+  margin-block: 3mm;
+}
+
+.print-document .structured-practice-template__table .lesson-table {
+  font-size: 7.2pt;
+}
+
+.print-document .structured-practice-template__table .lesson-table th,
+.print-document .structured-practice-template__table .lesson-table td {
+  padding: 1.7mm;
+}
+
+.print-document .structured-practice-template--brief ol {
+  margin-top: 3mm;
+}
+
+.print-document .structured-practice-template--brief li {
+  padding: 2.5mm;
+  font-size: 8.6pt;
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+
+.print-document .structured-practice-templates__note {
+  padding: 3mm;
+  font-size: 8.8pt;
+}
+
+.print-document .lesson-resource-downloads {
+  display: none !important;
+}
+
+.print-document .project-reference-materials {
+  gap: 4mm;
+  margin: 4mm 0 6mm;
+}
+
+.print-document .project-reference-materials__priority,
+.print-document .project-reference-materials__order {
+  padding-top: 3mm;
+}
+
+.print-document .project-reference-materials__priority > ol,
+.print-document .project-reference-materials__order > ol {
+  margin-top: 3mm;
+}
+
+.print-document .project-reference-materials__priority > ol > li,
+.print-document .project-reference-materials__order > ol > li {
+  padding: 2.5mm;
+  font-size: 8.2pt;
+}
+
+.print-document .project-reference-materials__priority ul,
+.print-document .project-reference-materials__order > ol > li > span {
+  font-size: 7.6pt;
+}
+
+.print-document .project-reference-materials__notice,
+.print-document .project-reference-materials__rule {
+  padding: 3mm;
+  font-size: 8.3pt;
+}
+
+.print-document .project-reference-materials__figures {
+  grid-template-columns: 1fr;
+  gap: 5mm;
+}
+
+.print-document .project-reference-materials__figures figure {
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+
+.print-document .project-reference-materials__figures img {
+  width: 100%;
+  max-height: 155mm;
+  object-fit: contain;
+}
+
+.print-document .project-reference-materials__figures figcaption {
+  padding: 3mm;
+}
+
+.print-document .project-reference-materials__figures figcaption strong {
+  font-size: 10pt;
+}
+
+.print-document .project-reference-materials__figures figcaption span {
+  font-size: 8.2pt;
+}
+
+.print-document .structured-practice-evidence {
+  padding: 3mm;
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+
+.print-document .structured-practice-evidence h3 {
+  font-size: 12pt;
+}
+
+.print-document .structured-practice-evidence header p,
+.print-document .structured-practice-evidence li {
+  font-size: 8pt;
+}
+
+.print-document .structured-practice-evidence ul {
+  margin-top: 2mm;
 }
 
 .print-document pre,
