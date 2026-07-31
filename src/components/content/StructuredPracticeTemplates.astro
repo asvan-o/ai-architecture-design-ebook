@@ -7,24 +7,31 @@ type PracticeTable = {
 };
 
 interface Props {
-  tables: PracticeTable[];
-  briefTitle: string;
-  briefDescription: string;
-  briefFields: string[];
+  tables?: PracticeTable[];
+  briefTitle?: string;
+  briefDescription?: string;
+  briefFields?: string[];
   evidenceCategories?: string[];
   evidenceNote?: string;
   closingNote?: string;
+  idPrefix?: string;
+  tableLabelOffset?: number;
+  briefLabel?: string;
 }
 
 const {
-  tables,
+  tables = [],
   briefTitle,
   briefDescription,
-  briefFields,
+  briefFields = [],
   evidenceCategories,
   evidenceNote,
   closingNote,
+  idPrefix = 'practice',
+  tableLabelOffset = 0,
+  briefLabel = 'PRACTICE C',
 } = Astro.props;
+const briefId = idPrefix === 'practice' ? 'design-brief-fields' : `${idPrefix}-design-brief-fields`;
 ---
 
 <div class="structured-practice-templates">
@@ -42,10 +49,13 @@ const {
   )}
 
   {tables.map((table, index) => (
-    <section class="structured-practice-template" aria-labelledby={`practice-template-${index + 1}`}>
+    <section
+      class="structured-practice-template"
+      aria-labelledby={`${idPrefix}-template-${index + 1}`}
+    >
       <header>
-        <span>PRACTICE {String.fromCharCode(65 + index)}</span>
-        <h3 id={`practice-template-${index + 1}`}>{table.title}</h3>
+        <span>PRACTICE {String.fromCharCode(65 + tableLabelOffset + index)}</span>
+        <h3 id={`${idPrefix}-template-${index + 1}`}>{table.title}</h3>
         <p>{table.description}</p>
       </header>
       <div
@@ -70,21 +80,26 @@ const {
     </section>
   ))}
 
-  <section class="structured-practice-template structured-practice-template--brief" aria-labelledby="design-brief-fields">
-    <header>
-      <span>PRACTICE C</span>
-      <h3 id="design-brief-fields">{briefTitle}</h3>
-      <p>{briefDescription}</p>
-    </header>
-    <ol>
-      {briefFields.map((field, index) => (
-        <li>
-          <span>{String(index + 1).padStart(2, '0')}</span>
-          <strong>{field}</strong>
-        </li>
-      ))}
-    </ol>
-  </section>
+  {briefTitle && briefDescription && briefFields.length > 0 && (
+    <section
+      class="structured-practice-template structured-practice-template--brief"
+      aria-labelledby={briefId}
+    >
+      <header>
+        <span>{briefLabel}</span>
+        <h3 id={briefId}>{briefTitle}</h3>
+        <p>{briefDescription}</p>
+      </header>
+      <ol>
+        {briefFields.map((field, index) => (
+          <li>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <strong>{field}</strong>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )}
 
   {closingNote && <p class="structured-practice-templates__note">{closingNote}</p>}
 </div>

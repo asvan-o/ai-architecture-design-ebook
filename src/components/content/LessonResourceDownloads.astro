@@ -5,6 +5,7 @@ type DownloadItem = {
   label: string;
   description: string;
   meta: string;
+  note?: string;
 };
 
 interface Props {
@@ -25,6 +26,7 @@ const { items, note } = Astro.props;
             <strong>{item.label}</strong>
             <small>{item.description}</small>
             <span>{item.meta}</span>
+            {item.note && <small class="lesson-resource-downloads__item-note">{item.note}</small>}
           </span>
           <span class="lesson-resource-downloads__arrow" aria-hidden="true">↓</span>
         </a>

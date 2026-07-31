@@ -78,6 +78,7 @@ type ResourceDownload = {
   label: string;
   description: string;
   meta: string;
+  note?: string;
 };
 
 type PracticeTemplate = {
@@ -118,6 +119,7 @@ type ProjectReferences = {
 interface Props {
   lessonId: string;
   totalMinutes: number;
+  sectionLayout?: 'standard' | 'rfp-analysis';
   topic?: {
     number: string;
     title: string;
@@ -158,6 +160,7 @@ interface Props {
 const {
   lessonId,
   totalMinutes,
+  sectionLayout = 'standard',
   openingMessage,
   intro,
   questions,
@@ -198,6 +201,22 @@ const practiceMinutes = timePlan
   .reduce((sum, item) => sum + item.minutes, 0);
 const practicePercent = Math.round((practiceMinutes / totalMinutes) * 100);
 const isPresentation = Astro.url.pathname.includes('/presentation/');
+const isRfpAnalysisLayout = sectionLayout === 'rfp-analysis';
+const practiceStepNumber = new Map(
+  practice.map((step, index) => [step.id, String(index + 1).padStart(2, '0')]),
+);
+const rfpReadingSteps = practice.filter((step) => step.id === 'read-campus-lounge-rfp');
+const requirementMatrixSteps = practice.filter(
+  (step) => step.id === 'build-requirement-matrix',
+);
+const clientQuestionSteps = practice.filter((step) => step.id === 'write-client-questions');
+const geminiAnalysisSteps = practice.filter((step) =>
+  ['request-gemini-analysis', 'compare-human-ai-analysis'].includes(step.id),
+);
+const designBriefSteps = practice.filter((step) => step.id === 'write-design-brief');
+const alternativeCriteriaSteps = practice.filter(
+  (step) => step.id === 'define-alternative-criteria',
+);
 ---
 
 <LessonSection id="section-01" number="01" title="차시 소개" class="outline-section">
@@ -233,84 +252,317 @@ const isPresentation = Astro.url.pathname.includes('/presentation/');
   </div>
 </LessonSection>
 
-<LessonSection id="section-02" number="02" title={questionsTitle} class="outline-section">
-  <ClassifiedList items={questions} />
-</LessonSection>
-
-<LessonSection id="section-03" number="03" title="학습 목표" class="outline-section">
-  <ClassifiedList items={goals} />
-</LessonSection>
-
-<LessonSection id="section-04" number="04" title="핵심 개념" class="outline-section">
-  <ClassifiedList items={concepts} />
-</LessonSection>
-
-<LessonSection id="section-05" number="05" title={scenarioTitle} class="outline-section">
-  <ClassifiedList items={scenario} />
-</LessonSection>
-
-<LessonSection id="section-06" number="06" title="제공 자료" class="outline-section">
-  <ClassifiedList items={materials} />
-  {projectReferences && <ProjectReferenceMaterials {...projectReferences} />}
-  {practiceKit && <EmptySpacePracticeKit {...practiceKit} />}
-</LessonSection>
-
-<LessonSection id="section-07" number="07" title={demoTitle} class="outline-section">
-  {iterationSample
-    ? <IterativeImageSample {...iterationSample} />
-    : <ClassifiedList items={demo} />}
-</LessonSection>
-
-<LessonSection id="section-08" number="08" title="수강생 실습" class="outline-section">
-  {practiceGuidance && <ClassifiedList items={practiceGuidance} />}
-  {structuredPractice && <StructuredPracticeTemplates {...structuredPractice} />}
-  <ol class="practice-list">
-    {practice.map((step, index) => (
-      <li data-step-id={step.id}>
-        <span>STEP {String(index + 1).padStart(2, '0')} · {step.minutes}분</span>
-        <div>
-          <h3>{step.title}</h3>
-          <p>{step.description}</p>
-        </div>
-      </li>
-    ))}
-  </ol>
-</LessonSection>
-
-<LessonSection id="section-09" number="09" title="제출 결과물" class="outline-section">
-  <ClassifiedList items={deliverables} />
-</LessonSection>
-
-<LessonSection id="section-10" number="10" title="수강생이 판단할 항목" class="outline-section">
-  <ClassifiedList items={judgments} />
-</LessonSection>
-
-<LessonSection id="section-11" number="11" title="AI 오류 확인 체크리스트" class="outline-section">
-  <ClassifiedList items={errorChecks} checks />
-</LessonSection>
-
-<LessonSection id="section-12" number="12" title={assetsTitle} class="outline-section">
-  {assetNotes ? (
-    <ClassifiedList items={assetNotes} />
-  ) : !isPresentation ? (
-    <>
-      <p class="asset-policy">
-        아래는 실제 이미지나 영상을 대신하지 않는 자산 슬롯입니다. 파일은 제작·권리·검증 상태가
-        확인되기 전까지 <code>public/</code>에 넣지 않습니다.
-      </p>
-      <div class="lesson-assets">
-        {displayedAssets.map((asset) => <LessonAsset {...asset} />)}
+{isRfpAnalysisLayout ? (
+  <>
+    <LessonSection
+      id="section-02"
+      number="02"
+      title="오늘의 프로젝트와 제출 결과물"
+      class="outline-section"
+    >
+      <div class="lesson-section-group">
+        <h3>학습 목표</h3>
+        <ClassifiedList items={goals} />
       </div>
-    </>
-  ) : null}
-  {resourceDownloads && (
-    <LessonResourceDownloads items={resourceDownloads} note={resourceDownloadNote} />
-  )}
-</LessonSection>
+      <div class="lesson-section-group">
+        <h3>오늘의 프로젝트</h3>
+        <ClassifiedList items={scenario} />
+      </div>
+      <div class="lesson-section-group">
+        <h3>제출 결과물</h3>
+        <ClassifiedList items={deliverables} />
+      </div>
+    </LessonSection>
 
-<LessonSection id="section-13" number="13" title="확인 또는 검증이 필요한 내용" class="outline-section">
-  <ClassifiedList items={verification} />
-  {!isPresentation && (
-    <p class="review-state">LESSON {lessonId} · 상세 원고 작성 전 검토 요청 상태</p>
-  )}
-</LessonSection>
+    <LessonSection
+      id="section-03"
+      number="03"
+      title="실습자료 다운로드 및 현황자료"
+      class="outline-section"
+    >
+      {resourceDownloads && (
+        <LessonResourceDownloads items={resourceDownloads} note={resourceDownloadNote} />
+      )}
+      {assetNotes && <ClassifiedList items={assetNotes} />}
+      <ClassifiedList items={materials} />
+      {projectReferences && <ProjectReferenceMaterials {...projectReferences} />}
+      {practiceKit && <EmptySpacePracticeKit {...practiceKit} />}
+    </LessonSection>
+
+    <LessonSection
+      id="section-04"
+      number="04"
+      title="RFP와 디자인 브리프 핵심 개념"
+      class="outline-section"
+    >
+      <ClassifiedList items={concepts} />
+    </LessonSection>
+
+    <LessonSection
+      id="section-05"
+      number="05"
+      title="RFP를 읽을 때 확인할 핵심 질문"
+      class="outline-section"
+    >
+      <ClassifiedList items={questions} />
+    </LessonSection>
+
+    <LessonSection
+      id="section-06"
+      number="06"
+      title="RFP 구조 함께 확인하기"
+      class="outline-section"
+    >
+      <ClassifiedList items={demo.slice(0, 3)} />
+      <ol class="practice-list">
+        {rfpReadingSteps.map((step) => (
+          <li data-step-id={step.id}>
+            <span>STEP {practiceStepNumber.get(step.id)} · {step.minutes}분</span>
+            <div>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </LessonSection>
+
+    <LessonSection
+      id="section-07"
+      number="07"
+      title="요구조건 매트릭스 작성"
+      class="outline-section"
+    >
+      {practiceGuidance && <ClassifiedList items={practiceGuidance} />}
+      {structuredPractice && (
+        <StructuredPracticeTemplates
+          tables={structuredPractice.tables.slice(0, 1)}
+          evidenceCategories={structuredPractice.evidenceCategories}
+          evidenceNote={structuredPractice.evidenceNote}
+          idPrefix="section-07"
+        />
+      )}
+      <ol class="practice-list">
+        {requirementMatrixSteps.map((step) => (
+          <li data-step-id={step.id}>
+            <span>STEP {practiceStepNumber.get(step.id)} · {step.minutes}분</span>
+            <div>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </LessonSection>
+
+    <LessonSection
+      id="section-08"
+      number="08"
+      title="발주기관 추가 질의 작성"
+      class="outline-section"
+    >
+      {structuredPractice && (
+        <StructuredPracticeTemplates
+          tables={structuredPractice.tables.slice(1, 2)}
+          idPrefix="section-08"
+          tableLabelOffset={1}
+        />
+      )}
+      <ol class="practice-list">
+        {clientQuestionSteps.map((step) => (
+          <li data-step-id={step.id}>
+            <span>STEP {practiceStepNumber.get(step.id)} · {step.minutes}분</span>
+            <div>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </LessonSection>
+
+    <LessonSection
+      id="section-09"
+      number="09"
+      title="Gemini 분석 및 사람 분석과 비교"
+      class="outline-section"
+    >
+      <ClassifiedList items={demo.slice(3)} />
+      <ol class="practice-list">
+        {geminiAnalysisSteps.map((step) => (
+          <li data-step-id={step.id}>
+            <span>STEP {practiceStepNumber.get(step.id)} · {step.minutes}분</span>
+            <div>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </LessonSection>
+
+    <LessonSection
+      id="section-10"
+      number="10"
+      title="디자인 브리프 작성"
+      class="outline-section"
+    >
+      {structuredPractice && (
+        <StructuredPracticeTemplates
+          briefTitle={structuredPractice.briefTitle}
+          briefDescription={structuredPractice.briefDescription}
+          briefFields={structuredPractice.briefFields}
+          closingNote={structuredPractice.closingNote}
+          idPrefix="section-10"
+        />
+      )}
+      <ol class="practice-list">
+        {designBriefSteps.map((step) => (
+          <li data-step-id={step.id}>
+            <span>STEP {practiceStepNumber.get(step.id)} · {step.minutes}분</span>
+            <div>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </LessonSection>
+
+    <LessonSection
+      id="section-11"
+      number="11"
+      title="제4차시 대안 평가기준 설정"
+      class="outline-section"
+    >
+      <ol class="practice-list">
+        {alternativeCriteriaSteps.map((step) => (
+          <li data-step-id={step.id}>
+            <span>STEP {practiceStepNumber.get(step.id)} · {step.minutes}분</span>
+            <div>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </LessonSection>
+
+    <LessonSection
+      id="section-12"
+      number="12"
+      title="제출 결과물 점검"
+      class="outline-section"
+    >
+      <div class="lesson-section-group">
+        <h3>수강생 판단 항목</h3>
+        <ClassifiedList items={judgments} />
+      </div>
+      <div class="lesson-section-group">
+        <h3>오류 확인 체크리스트</h3>
+        <ClassifiedList items={errorChecks} checks />
+      </div>
+    </LessonSection>
+
+    <LessonSection
+      id="section-13"
+      number="13"
+      title="검증 필요와 정리"
+      class="outline-section"
+    >
+      <ClassifiedList items={verification} />
+      {!isPresentation && (
+        <p class="review-state">LESSON {lessonId} · 상세 원고 작성 전 검토 요청 상태</p>
+      )}
+    </LessonSection>
+  </>
+) : (
+  <>
+    <LessonSection id="section-02" number="02" title={questionsTitle} class="outline-section">
+      <ClassifiedList items={questions} />
+    </LessonSection>
+
+    <LessonSection id="section-03" number="03" title="학습 목표" class="outline-section">
+      <ClassifiedList items={goals} />
+    </LessonSection>
+
+    <LessonSection id="section-04" number="04" title="핵심 개념" class="outline-section">
+      <ClassifiedList items={concepts} />
+    </LessonSection>
+
+    <LessonSection id="section-05" number="05" title={scenarioTitle} class="outline-section">
+      <ClassifiedList items={scenario} />
+    </LessonSection>
+
+    <LessonSection id="section-06" number="06" title="제공 자료" class="outline-section">
+      <ClassifiedList items={materials} />
+      {projectReferences && <ProjectReferenceMaterials {...projectReferences} />}
+      {practiceKit && <EmptySpacePracticeKit {...practiceKit} />}
+    </LessonSection>
+
+    <LessonSection id="section-07" number="07" title={demoTitle} class="outline-section">
+      {iterationSample
+        ? <IterativeImageSample {...iterationSample} />
+        : <ClassifiedList items={demo} />}
+    </LessonSection>
+
+    <LessonSection id="section-08" number="08" title="수강생 실습" class="outline-section">
+      {practiceGuidance && <ClassifiedList items={practiceGuidance} />}
+      {structuredPractice && <StructuredPracticeTemplates {...structuredPractice} />}
+      <ol class="practice-list">
+        {practice.map((step, index) => (
+          <li data-step-id={step.id}>
+            <span>STEP {String(index + 1).padStart(2, '0')} · {step.minutes}분</span>
+            <div>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </LessonSection>
+
+    <LessonSection id="section-09" number="09" title="제출 결과물" class="outline-section">
+      <ClassifiedList items={deliverables} />
+    </LessonSection>
+
+    <LessonSection id="section-10" number="10" title="수강생이 판단할 항목" class="outline-section">
+      <ClassifiedList items={judgments} />
+    </LessonSection>
+
+    <LessonSection id="section-11" number="11" title="AI 오류 확인 체크리스트" class="outline-section">
+      <ClassifiedList items={errorChecks} checks />
+    </LessonSection>
+
+    <LessonSection id="section-12" number="12" title={assetsTitle} class="outline-section">
+      {assetNotes ? (
+        <ClassifiedList items={assetNotes} />
+      ) : !isPresentation ? (
+        <>
+          <p class="asset-policy">
+            아래는 실제 이미지나 영상을 대신하지 않는 자산 슬롯입니다. 파일은 제작·권리·검증
+            상태가 확인되기 전까지 <code>public/</code>에 넣지 않습니다.
+          </p>
+          <div class="lesson-assets">
+            {displayedAssets.map((asset) => <LessonAsset {...asset} />)}
+          </div>
+        </>
+      ) : null}
+      {resourceDownloads && (
+        <LessonResourceDownloads items={resourceDownloads} note={resourceDownloadNote} />
+      )}
+    </LessonSection>
+
+    <LessonSection
+      id="section-13"
+      number="13"
+      title="확인 또는 검증이 필요한 내용"
+      class="outline-section"
+    >
+      <ClassifiedList items={verification} />
+      {!isPresentation && (
+        <p class="review-state">LESSON {lessonId} · 상세 원고 작성 전 검토 요청 상태</p>
+      )}
+    </LessonSection>
+  </>
+)}

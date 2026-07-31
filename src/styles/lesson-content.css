@@ -9,6 +9,18 @@
   border-bottom: 1px solid var(--line-dark);
 }
 
+.lesson-section-group + .lesson-section-group {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line-dark);
+}
+
+.lesson-section-group > h3 {
+  margin: 0 0 1rem;
+  font-family: var(--serif);
+  font-size: clamp(1.35rem, 2vw, 1.75rem);
+}
+
 .objective-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -933,6 +945,14 @@
 
 .lesson-resource-downloads__copy > span {
   font-size: 0.75rem;
+  font-weight: 750;
+}
+
+.lesson-resource-downloads__copy .lesson-resource-downloads__item-note {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--line);
+  color: var(--accent-dark);
   font-weight: 750;
 }
 

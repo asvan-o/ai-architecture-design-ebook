@@ -428,6 +428,13 @@
   padding-top: 3mm;
 }
 
+.print-document .project-reference-materials__priority,
+.print-document .project-reference-materials__order,
+.print-document .project-reference-materials__notice {
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+
 .print-document .project-reference-materials__priority > ol,
 .print-document .project-reference-materials__order > ol {
   margin-top: 3mm;
