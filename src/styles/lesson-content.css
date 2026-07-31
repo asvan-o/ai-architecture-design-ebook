@@ -1216,6 +1216,523 @@
   white-space: pre-line;
 }
 
+.lesson04-section h2,
+.lesson04-section h3,
+.lesson04-section p,
+.lesson04-section li {
+  word-break: keep-all;
+}
+
+.lesson04-definition {
+  max-width: 62rem;
+  margin: 1.5rem 0;
+  padding: clamp(1.2rem, 3vw, 2rem);
+  border: 1px solid var(--line-dark);
+  border-left: 0.4rem solid var(--accent-dark);
+  font-family: var(--serif);
+  font-size: clamp(1.1rem, 2vw, 1.45rem);
+  line-height: 1.7;
+  background: var(--paper-deep);
+}
+
+.lesson04-two-column {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.lesson04-two-column > div {
+  min-width: 0;
+  padding: clamp(1rem, 2vw, 1.5rem);
+  border: 1px solid var(--line-dark);
+}
+
+.lesson04-two-column h3 {
+  margin: 0 0 1rem;
+}
+
+.lesson04-plain-list,
+.lesson04-file-names,
+.lesson04-sources ul,
+.lesson04-delivery-groups ul,
+.lesson04-run-guide ol {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.lesson04-plain-list li,
+.lesson04-file-names li,
+.lesson04-sources li,
+.lesson04-delivery-groups li,
+.lesson04-run-guide li {
+  margin: 0.55rem 0;
+  line-height: 1.65;
+}
+
+.lesson04-plain-list--warning li::marker {
+  color: var(--accent-dark);
+}
+
+.lesson04-alternatives,
+.lesson04-delivery-groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 2rem 0;
+  border-top: 1px solid var(--line-dark);
+  border-left: 1px solid var(--line-dark);
+}
+
+.lesson04-alternatives article,
+.lesson04-delivery-groups article {
+  min-width: 0;
+  padding: clamp(1.2rem, 3vw, 2rem);
+  border-right: 1px solid var(--line-dark);
+  border-bottom: 1px solid var(--line-dark);
+}
+
+.lesson04-alternatives article > span,
+.lesson04-delivery-groups article > span,
+.lesson04-code-frame > span {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--accent-dark);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.lesson04-alternatives h3,
+.lesson04-delivery-groups h3 {
+  margin: 0 0 0.7rem;
+}
+
+.lesson04-alternatives p {
+  color: var(--muted);
+}
+
+.lesson04-delivery-groups {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.lesson04-caution,
+.lesson04-next {
+  max-width: 62rem;
+  margin: 1.5rem 0;
+  padding: 1rem 1.2rem;
+  border-left: 0.3rem solid var(--accent-dark);
+  background: #f2e9df;
+  line-height: 1.7;
+}
+
+.lesson04-tool-table {
+  min-width: 1100px;
+}
+
+.lesson04-tool-table th,
+.lesson04-tool-table td {
+  min-width: 8.5rem;
+  vertical-align: top;
+}
+
+.lesson04-model-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 1rem;
+  border-top: 1px solid var(--line-dark);
+  border-left: 1px solid var(--line-dark);
+}
+
+.lesson04-model-grid article {
+  min-width: 0;
+  padding: 1.2rem;
+  border-right: 1px solid var(--line-dark);
+  border-bottom: 1px solid var(--line-dark);
+}
+
+.lesson04-model-grid p {
+  margin: 0.6rem 0 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.lesson04-sources {
+  margin-top: 2rem;
+}
+
+.lesson04-sources li {
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.45fr) 1fr;
+  gap: 1rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.lesson04-sources a {
+  color: var(--accent-dark);
+  font-weight: 800;
+}
+
+.lesson04-node-setup {
+  max-width: 68rem;
+  margin-top: 2.5rem;
+  padding: clamp(1.2rem, 3vw, 2rem);
+  border: 1px solid var(--line-dark);
+  border-top: 0.45rem solid var(--accent-dark);
+  background: #faf8f2;
+}
+
+.lesson04-node-setup > header > span {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: var(--accent-dark);
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.lesson04-node-setup > header h3 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(1.7rem, 4vw, 2.6rem);
+}
+
+.lesson04-node-setup > header p {
+  max-width: 54rem;
+  margin: 0.8rem 0 0;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.lesson04-runtime-flow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: stretch;
+  gap: 0.75rem;
+  margin: 1.7rem 0;
+}
+
+.lesson04-runtime-flow article {
+  min-width: 0;
+  padding: 1.1rem;
+  border: 1px solid var(--line-dark);
+  background: var(--paper);
+}
+
+.lesson04-runtime-flow article strong,
+.lesson04-runtime-flow article span {
+  display: block;
+}
+
+.lesson04-runtime-flow article strong {
+  font-size: 1.05rem;
+}
+
+.lesson04-runtime-flow article span {
+  margin-top: 0.35rem;
+  color: var(--accent-dark);
+  font-weight: 850;
+}
+
+.lesson04-runtime-flow article p {
+  margin: 0.7rem 0 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.lesson04-runtime-flow > b {
+  align-self: center;
+  color: var(--accent-dark);
+  font-size: 1.5rem;
+}
+
+.lesson04-version-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--line-dark);
+  border-left: 1px solid var(--line-dark);
+}
+
+.lesson04-version-grid article {
+  min-width: 0;
+  padding: 1rem;
+  border-right: 1px solid var(--line-dark);
+  border-bottom: 1px solid var(--line-dark);
+}
+
+.lesson04-version-grid span,
+.lesson04-version-grid strong {
+  display: block;
+}
+
+.lesson04-version-grid span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+.lesson04-version-grid strong {
+  margin-top: 0.35rem;
+  color: var(--accent-dark);
+  font-size: 1.08rem;
+}
+
+.lesson04-version-grid p {
+  margin: 0.55rem 0 0;
+  line-height: 1.55;
+}
+
+.lesson04-version-note {
+  margin: 0.8rem 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+.lesson04-version-note a {
+  display: inline-block;
+  margin-left: 0.5rem;
+  color: var(--accent-dark);
+  font-weight: 800;
+}
+
+.lesson04-install-block {
+  margin-top: 2rem;
+}
+
+.lesson04-install-steps {
+  counter-reset: node-install;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 1rem 0 0;
+  padding: 0;
+  border-top: 1px solid var(--line-dark);
+  border-left: 1px solid var(--line-dark);
+  list-style: none;
+}
+
+.lesson04-install-steps li {
+  counter-increment: node-install;
+  min-width: 0;
+  padding: 1rem;
+  border-right: 1px solid var(--line-dark);
+  border-bottom: 1px solid var(--line-dark);
+  line-height: 1.6;
+}
+
+.lesson04-install-steps li::before {
+  content: counter(node-install, decimal-leading-zero);
+  display: block;
+  margin-bottom: 0.45rem;
+  color: var(--accent-dark);
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+}
+
+.lesson04-command-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.lesson04-command-grid > section {
+  min-width: 0;
+}
+
+.lesson04-command-grid h3 {
+  margin: 0 0 0.8rem;
+}
+
+.lesson04-command-grid .prompt-example {
+  height: auto;
+  margin: 0;
+}
+
+.lesson04-command-grid .prompt-example pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.lesson04-command-grid > section > p {
+  margin: 0.8rem 0 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.lesson04-command-grid code,
+.lesson04-command-notes code,
+.lesson04-program-url code {
+  overflow-wrap: anywhere;
+}
+
+.lesson04-command-notes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 1rem 0 0;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.lesson04-command-notes div {
+  min-width: 0;
+  padding: 0.9rem;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.lesson04-command-notes dt {
+  color: var(--accent-dark);
+  font-weight: 850;
+}
+
+.lesson04-command-notes dd {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.lesson04-program-url {
+  margin: 1rem 0 0;
+  padding: 0.9rem 1rem;
+  border-left: 0.3rem solid var(--accent-dark);
+  background: var(--paper-deep);
+  font-weight: 750;
+}
+
+.lesson04-troubleshooting {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.lesson04-troubleshooting article {
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid var(--line-dark);
+}
+
+.lesson04-troubleshooting h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.lesson04-troubleshooting ul {
+  margin: 0.75rem 0 0;
+  padding-left: 1.2rem;
+}
+
+.lesson04-troubleshooting li {
+  margin-top: 0.4rem;
+  line-height: 1.55;
+}
+
+.lesson04-setup-checklist {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin: 1.5rem 0 0;
+  padding: 1rem;
+  border: 1px solid var(--line-dark);
+}
+
+.lesson04-setup-checklist legend {
+  padding: 0 0.5rem;
+  font-weight: 850;
+}
+
+.lesson04-setup-checklist label {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.6rem;
+  align-items: start;
+  min-width: 0;
+  padding: 0.7rem;
+  line-height: 1.5;
+}
+
+.lesson04-setup-checklist input {
+  inline-size: 1.15rem;
+  block-size: 1.15rem;
+  margin: 0.15rem 0 0;
+  accent-color: var(--accent-dark);
+}
+
+.lesson04-code-frame {
+  max-width: 64rem;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  color: #f5f2ea;
+  background: var(--ink);
+}
+
+.lesson04-code-frame pre {
+  max-width: 100%;
+  margin: 0;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.lesson04-code-frame code {
+  color: inherit;
+  font-size: clamp(0.82rem, 1.5vw, 0.98rem);
+  line-height: 1.65;
+}
+
+.lesson04-file-names {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.lesson04-file-names li {
+  min-width: 0;
+  margin: 0;
+  padding: 0.8rem;
+  border: 1px solid var(--line);
+}
+
+.lesson04-file-names code {
+  overflow-wrap: anywhere;
+}
+
+.lesson04-criteria-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 1.5rem 0;
+  padding: 0;
+  border-top: 1px solid var(--line-dark);
+  border-left: 1px solid var(--line-dark);
+  list-style: none;
+}
+
+.lesson04-criteria-grid li {
+  min-width: 0;
+  padding: 1rem;
+  border-right: 1px solid var(--line-dark);
+  border-bottom: 1px solid var(--line-dark);
+  font-weight: 750;
+}
+
+.lesson04-run-guide {
+  margin-top: 2rem;
+  padding: 1.2rem;
+  border: 1px solid var(--line-dark);
+}
+
+.lesson04-run-guide h3 {
+  margin-top: 0;
+}
+
+.lesson04-run-guide code {
+  overflow-wrap: anywhere;
+}
+
 @media print {
   .lesson-ai-response-disclosure > summary {
     display: none;
@@ -1295,5 +1812,36 @@
   }
   .instructor-note header span {
     grid-column: auto;
+  }
+  .lesson04-two-column,
+  .lesson04-alternatives,
+  .lesson04-delivery-groups,
+  .lesson04-model-grid,
+  .lesson04-version-grid,
+  .lesson04-command-grid,
+  .lesson04-command-notes,
+  .lesson04-troubleshooting,
+  .lesson04-setup-checklist,
+  .lesson04-install-steps,
+  .lesson04-file-names,
+  .lesson04-criteria-grid {
+    grid-template-columns: 1fr;
+  }
+  .lesson04-runtime-flow {
+    grid-template-columns: 1fr;
+  }
+  .lesson04-runtime-flow > b {
+    justify-self: center;
+    transform: rotate(90deg);
+  }
+  .lesson04-sources li {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+  .lesson04-code-frame {
+    max-width: 100%;
+  }
+  .lesson04-code-frame pre {
+    overflow-x: auto;
   }
 }

@@ -514,6 +514,144 @@
   word-break: break-word;
 }
 
+.print-document .lesson04-definition,
+.print-document .lesson04-caution,
+.print-document .lesson04-next,
+.print-document .lesson04-run-guide {
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+
+.print-document .lesson04-two-column,
+.print-document .lesson04-alternatives,
+.print-document .lesson04-delivery-groups,
+.print-document .lesson04-model-grid,
+.print-document .lesson04-file-names,
+.print-document .lesson04-criteria-grid {
+  grid-template-columns: 1fr 1fr;
+  gap: 3mm;
+  margin-block: 4mm;
+}
+
+.print-document .lesson04-two-column > div,
+.print-document .lesson04-alternatives article,
+.print-document .lesson04-delivery-groups article,
+.print-document .lesson04-model-grid article,
+.print-document .lesson04-file-names li,
+.print-document .lesson04-criteria-grid li {
+  padding: 3mm;
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+
+.print-document .lesson04-delivery-groups {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.print-document .lesson04-code-frame {
+  max-width: 100%;
+  margin-block: 4mm;
+  padding: 4mm;
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+
+.print-document .lesson04-code-frame pre {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.print-document .lesson04-tool-table {
+  min-width: 0;
+  table-layout: fixed;
+  font-size: 6.4pt;
+}
+
+.print-document .lesson04-tool-table th,
+.print-document .lesson04-tool-table td {
+  min-width: 0;
+  padding: 1.5mm;
+  overflow-wrap: anywhere;
+}
+
+.print-document .lesson04-sources li {
+  grid-template-columns: 1fr;
+  gap: 1mm;
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+
+.print-document .lesson04-node-setup {
+  max-width: 100%;
+  margin-top: 6mm;
+  padding: 5mm;
+  break-inside: auto;
+  page-break-inside: auto;
+}
+
+.print-document .lesson04-node-setup > header,
+.print-document .lesson04-version-note,
+.print-document .lesson04-program-url {
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+
+.print-document .lesson04-runtime-flow {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2mm;
+  margin-block: 4mm;
+}
+
+.print-document .lesson04-runtime-flow > b {
+  display: none;
+}
+
+.print-document .lesson04-runtime-flow article,
+.print-document .lesson04-version-grid article,
+.print-document .lesson04-install-steps li,
+.print-document .lesson04-command-grid > section,
+.print-document .lesson04-command-notes div,
+.print-document .lesson04-troubleshooting article,
+.print-document .lesson04-setup-checklist label {
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+
+.print-document .lesson04-version-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.print-document .lesson04-install-steps,
+.print-document .lesson04-command-notes,
+.print-document .lesson04-troubleshooting,
+.print-document .lesson04-setup-checklist {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.print-document .lesson04-command-grid {
+  grid-template-columns: 1fr;
+  gap: 3mm;
+}
+
+.print-document .lesson04-command-grid .prompt-example,
+.print-document .lesson04-command-grid .prompt-example pre,
+.print-document .lesson04-setup-checklist {
+  max-width: 100%;
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+
+.print-document .lesson04-setup-checklist input {
+  display: none !important;
+}
+
+.print-document .lesson04-setup-checklist label::before {
+  content: "□";
+  display: inline-block;
+  margin-right: 2mm;
+  font-family: sans-serif;
+}
+
 .print-document .lesson-ai-response-disclosure {
   max-width: 100%;
   break-inside: auto;

@@ -7,8 +7,10 @@ import EmptySpacePracticeKit from './EmptySpacePracticeKit.astro';
 import LessonResourceDownloads from './LessonResourceDownloads.astro';
 import StructuredPracticeTemplates from './StructuredPracticeTemplates.astro';
 import ProjectReferenceMaterials from './ProjectReferenceMaterials.astro';
+import Lesson04ProjectWorkflow from './Lesson04ProjectWorkflow.astro';
 import { getStudentLessonAssets } from '../../lib/asset-manifest';
 import type { ImageMetadata } from 'astro';
+import type { Lesson04Download, Lesson04WorkflowData } from '../../lib/lesson04-workflow';
 
 type ContentCategory =
   | '확인된 사실'
@@ -79,7 +81,7 @@ type ResourceDownload = {
   description: string;
   meta: string;
   note?: string;
-};
+} & Partial<Pick<Lesson04Download, 'group'>>;
 
 type PracticeTemplate = {
   title: string;
@@ -119,7 +121,7 @@ type ProjectReferences = {
 interface Props {
   lessonId: string;
   totalMinutes: number;
-  sectionLayout?: 'standard' | 'rfp-analysis';
+  sectionLayout?: 'standard' | 'rfp-analysis' | 'project-workflow';
   topic?: {
     number: string;
     title: string;
@@ -137,6 +139,7 @@ interface Props {
   scenarioTitle?: string;
   materials: OutlineItem[];
   projectReferences?: ProjectReferences;
+  projectWorkflow?: Lesson04WorkflowData;
   demo: OutlineItem[];
   demoTitle?: string;
   iterationSample?: IterationSample;
@@ -171,8 +174,9 @@ const {
   scenarioTitle = '실무형 가상 문제',
   materials,
   projectReferences,
+  projectWorkflow,
   demo,
-  demoTitle = '강사 시연',
+  demoTitle = '작업 과정 살펴보기',
   iterationSample,
   practiceKit,
   practice,
@@ -202,6 +206,7 @@ const practiceMinutes = timePlan
 const practicePercent = Math.round((practiceMinutes / totalMinutes) * 100);
 const isPresentation = Astro.url.pathname.includes('/presentation/');
 const isRfpAnalysisLayout = sectionLayout === 'rfp-analysis';
+const isProjectWorkflowLayout = sectionLayout === 'project-workflow';
 const practiceStepNumber = new Map(
   practice.map((step, index) => [step.id, String(index + 1).padStart(2, '0')]),
 );
@@ -476,6 +481,23 @@ const alternativeCriteriaSteps = practice.filter(
       )}
     </LessonSection>
   </>
+) : isProjectWorkflowLayout && projectWorkflow ? (
+  <Lesson04ProjectWorkflow
+    goals={goals}
+    scenario={scenario}
+    materials={materials}
+    projectReferences={projectReferences}
+    demo={demo}
+    practice={practice}
+    practiceGuidance={practiceGuidance}
+    deliverables={deliverables}
+    judgments={judgments}
+    errorChecks={errorChecks}
+    verification={verification}
+    resourceDownloads={resourceDownloads}
+    resourceDownloadNote={resourceDownloadNote}
+    workflow={projectWorkflow}
+  />
 ) : (
   <>
     <LessonSection id="section-02" number="02" title={questionsTitle} class="outline-section">

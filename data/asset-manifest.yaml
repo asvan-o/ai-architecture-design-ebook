@@ -46,14 +46,14 @@ assets:
     source_type: "original"
     production_owner: "instructor"
     lesson_usage: "demonstration"
-    title: "요청 분류 강사 시연"
+    title: "요청 분류 과정 살펴보기"
     type: "video"
     purpose: "가상 요청을 정보 유형과 작업 주체로 분류하는 화면 녹화"
-    required_files: ["강사 화면 녹화", "자막 또는 대본"]
+    required_files: ["작업 화면 녹화", "자막 또는 대본"]
     recommended_tool: "user-upload"
     status: "not-created"
     public_use: false
-    alt: "가상 공간 요청을 분류하는 강사 시연 영상"
+    alt: "가상 공간 요청을 분류하는 과정 안내 영상"
     verification_note: "실제 도구 화면과 개인정보 노출 여부 확인"
 
   - id: "l01-external-reference"
@@ -86,7 +86,7 @@ assets:
     status: "not-created"
     public_use: false
     alt: "한 줄 공간 요청 구조화와 생성 기록 양식"
-    verification_note: "분류 항목과 제출 형식을 강사 검토 후 확정"
+    verification_note: "분류 항목과 제출 형식을 수업 전 검토 후 확정"
 
   - id: "l02-concept-set"
     lesson: 2
@@ -113,14 +113,14 @@ assets:
     source_type: "original"
     production_owner: "instructor"
     lesson_usage: "demonstration"
-    title: "요청 구조화와 생성 강사 시연"
+    title: "요청 구조화와 생성 과정 살펴보기"
     type: "video"
     purpose: "요청 정리부터 결과 비교까지 보여 주는 화면 녹화"
-    required_files: ["강사 화면 녹화", "자막 또는 대본"]
+    required_files: ["작업 화면 녹화", "자막 또는 대본"]
     recommended_tool: "user-upload"
     status: "not-created"
     public_use: false
-    alt: "한 줄 요청을 구조화하고 이미지 후보를 비교하는 강사 시연"
+    alt: "한 줄 요청을 구조화하고 이미지 후보를 비교하는 과정 안내"
     verification_note: "실제 프롬프트와 도구 화면은 상세 교안 승인 후 촬영"
 
   - id: "l02-empty-prompt-01"
@@ -131,7 +131,7 @@ assets:
     lesson_usage: "practice-input"
     title: "빈 공간 이미지 제작 프롬프트 01"
     type: "document"
-    purpose: "수업용 빈 공간 이미지가 만들어진 과정을 보여 주는 강사 제작 예시"
+    purpose: "수업용 빈 공간 이미지가 만들어진 과정을 보여 주는 제작 예시"
     required_files: ["prompt-01.txt"]
     file_path: "src/assets/lessons/02/empty-space-sample/01-generation-prompts/prompt-01.txt"
     recommended_tool: "user-upload"
@@ -151,7 +151,7 @@ assets:
     lesson_usage: "practice-input"
     title: "빈 공간 이미지 제작 프롬프트 02"
     type: "document"
-    purpose: "수업용 빈 공간 이미지가 만들어진 과정을 보여 주는 강사 제작 예시"
+    purpose: "수업용 빈 공간 이미지가 만들어진 과정을 보여 주는 제작 예시"
     required_files: ["prompt-02.txt"]
     file_path: "src/assets/lessons/02/empty-space-sample/01-generation-prompts/prompt-02.txt"
     recommended_tool: "user-upload"
@@ -171,7 +171,7 @@ assets:
     lesson_usage: "practice-input"
     title: "빈 공간 이미지 제작 프롬프트 03"
     type: "document"
-    purpose: "수업용 빈 공간 이미지가 만들어진 과정을 보여 주는 강사 제작 예시"
+    purpose: "수업용 빈 공간 이미지가 만들어진 과정을 보여 주는 제작 예시"
     required_files: ["prompt-03.txt"]
     file_path: "src/assets/lessons/02/empty-space-sample/01-generation-prompts/prompt-03.txt"
     recommended_tool: "user-upload"
@@ -360,7 +360,7 @@ assets:
     status: "ready"
     public_use: true
     alt: "기둥, 창호, 카운터, 갱신 대상과 제외 영역이 표시된 캠퍼스 라운지 교육용 가상 현황 평면도"
-    source_note: "생성형 AI와 강사의 편집을 통해 제작한 교육용 가상 자료"
+    source_note: "생성형 AI와 수업 제작자의 편집을 통해 만든 교육용 가상 자료"
     license_note: "프로젝트 교육용 공개 사용을 위해 사용자가 제공한 원본 자산"
     rights_status: "cleared"
     privacy_note: "개인정보 없음"
@@ -382,7 +382,7 @@ assets:
     status: "ready"
     public_use: true
     alt: "서측 로비 진입부에서 본 캠퍼스 라운지의 교육용 가상 현황 참고 이미지"
-    source_note: "생성형 AI와 강사의 편집을 통해 제작한 교육용 가상 자료"
+    source_note: "생성형 AI와 수업 제작자의 편집을 통해 만든 교육용 가상 자료"
     license_note: "프로젝트 교육용 공개 사용을 위해 사용자가 제공한 원본 자산"
     rights_status: "cleared"
     privacy_note: "개인정보 없음"
@@ -411,15 +411,19 @@ assets:
     source_type: "template"
     production_owner: "codex"
     lesson_usage: "practice-input"
-    title: "가상 의뢰서와 비교·피드백 양식"
+    title: "공간구성 대안·이미지 생성·선택안 수정 요청문 템플릿"
     type: "document"
-    purpose: "조건 검토, 방향 비교, 피드백 분류에 사용하는 문서 묶음"
-    required_files: ["가상 공간디자인 의뢰서", "디자인 방향 비교표", "피드백 분류표", "콘셉트 보드 템플릿"]
-    recommended_tool: "gpt-and-codex"
-    status: "not-created"
-    public_use: false
-    alt: "가상 공간디자인 의뢰서와 콘셉트 보드 양식"
-    verification_note: "의뢰서가 전문 설계 답안으로 오해되지 않는지 검토"
+    purpose: "대안 운영전략, 대안별 이미지와 선택안 수정 요청을 RFP 근거와 연결하는 빈 작성 구조"
+    required_files: ["zoning-alternative-prompt-template.txt", "image-generation-prompt-template.txt", "selected-revision-prompt-template.txt"]
+    recommended_tool: "codex"
+    status: "ready"
+    public_use: true
+    alt: "공간구성 대안과 이미지 생성 및 선택안 수정을 위한 텍스트 작성 템플릿"
+    source_note: "사용자가 승인한 제4차시 지시서에 따라 Codex가 작성한 중립적 빈 템플릿"
+    rights_status: "cleared"
+    privacy_note: "개인정보와 실제 프로젝트 정보 없음"
+    verified_at: "2026-07-31"
+    verification_note: "특정 대안명, 디자인 정답이나 실제 법규·시공 판단을 포함하지 않음"
 
   - id: "l04-concept-images"
     lesson: 4
@@ -427,15 +431,15 @@ assets:
     source_type: "original"
     production_owner: "nano-banana"
     lesson_usage: "result-sample"
-    title: "디자인 방향별 대표 이미지 세트"
+    title: "공간구성 대안 A·B와 선택안 수정 이미지"
     type: "image"
-    purpose: "2~3개 방향과 수정 전후 비교에 사용할 이미지"
-    required_files: ["방향별 대표 이미지", "수정 전후 이미지", "이미지 생성 기록"]
+    purpose: "서로 다른 공간 운영전략 두 안과 선택안 수정 전후를 비교하는 수강생 결과물"
+    required_files: ["대안 이미지 A", "대안 이미지 B", "선택안 수정 이미지"]
     recommended_tool: "nano-banana"
     status: "not-created"
     public_use: false
-    alt: "두세 개 디자인 방향과 수정 전후 대표 이미지"
-    verification_note: "공간 왜곡, 권리 상태, 콘셉트 시각화 표시 확인"
+    alt: "공간 운영전략이 다른 대안 A와 B 및 선택안 수정 이미지"
+    verification_note: "수강생 제작 예정이며 실제 치수·구조·법규·시공 적합성의 확정안으로 표시하지 않음"
 
   - id: "l04-demo"
     lesson: 4
@@ -443,15 +447,119 @@ assets:
     source_type: "original"
     production_owner: "instructor"
     lesson_usage: "demonstration"
-    title: "콘셉트 보드 제작 강사 시연"
+    title: "Antigravity 관리 프로그램 제작 과정"
     type: "video"
-    purpose: "의뢰 검토부터 중간 피드백 반영까지 보여 주는 녹화"
-    required_files: ["강사 화면 녹화", "자막 또는 대본"]
+    purpose: "계획 확인, 승인, 프로그램 생성과 자동 테스트 순서를 보여 주는 선택적 녹화"
+    required_files: ["작업 화면 녹화", "계획·승인·테스트 순서 자막"]
     recommended_tool: "user-upload"
     status: "not-created"
     public_use: false
-    alt: "무드보드에서 공간 콘셉트 보드까지 제작하는 강사 시연"
-    verification_note: "실습 파일과 화면의 공개 사용 상태 확인"
+    alt: "Antigravity에서 로컬 프로젝트 관리 프로그램을 계획하고 승인 후 제작하는 과정 안내"
+    verification_note: "실제 수업 환경에서 Antigravity 화면과 프로그램 제작 흐름을 확인한 뒤 제공"
+
+  - id: "l04-rfp-reuse"
+    lesson: 4
+    priority: "required"
+    source_type: "original"
+    production_owner: "instructor"
+    lesson_usage: "practice-input"
+    title: "제3·4차시 공통 캠퍼스 라운지 가상 RFP v1.2"
+    type: "document"
+    purpose: "공간구성 대안 A·B를 개발하고 비교하는 공통 요구조건 기준"
+    required_files: ["lesson-03-campus-lounge-rfp-v1.2.pdf"]
+    file_path: "src/assets/lessons/03/rfp/lesson-03-campus-lounge-rfp-v1.2.pdf"
+    recommended_tool: "user-upload"
+    status: "ready"
+    public_use: true
+    alt: "캠퍼스 라운지 공간구성 대안을 비교하기 위한 교육용 가상 RFP"
+    source_note: "사용자가 승인한 제3차시 교육용 가상 RFP v1.2를 제4차시에서 동일 파일로 재사용"
+    rights_status: "cleared"
+    privacy_note: "실제 기관·주소·개인정보 없음"
+    verified_at: "2026-07-31"
+    verification_note: "실제 입찰·계약·설계·시공 문서가 아닌 교육용 가상 문서임을 확인"
+
+  - id: "l04-existing-plan"
+    lesson: 4
+    priority: "required"
+    source_type: "original"
+    production_owner: "instructor"
+    lesson_usage: "practice-input"
+    title: "제3·4차시 공통 캠퍼스 라운지 교육용 현황 평면도"
+    type: "image"
+    purpose: "공간구성 대안 A·B의 구조와 공간 관계를 비교하는 공통 기준"
+    required_files: ["campus-lounge-existing-plan.png"]
+    file_path: "src/assets/projects/campus-lounge/reference/campus-lounge-existing-plan.png"
+    recommended_tool: "user-upload"
+    status: "ready"
+    public_use: true
+    alt: "기둥, 창호, 카운터와 제외구역을 표시한 캠퍼스 라운지 교육용 현황 평면도"
+    source_note: "생성형 AI와 수업 제작자의 편집을 거쳐 사용자가 제공한 교육용 가상 자료"
+    rights_status: "cleared"
+    privacy_note: "개인정보 없음"
+    verified_at: "2026-07-31"
+    verification_note: "실측·시공도면이 아니며 제3차시와 같은 물리 파일을 참조함"
+
+  - id: "l04-existing-view-01"
+    lesson: 4
+    priority: "required"
+    source_type: "original"
+    production_owner: "instructor"
+    lesson_usage: "practice-input"
+    title: "제3·4차시 공통 캠퍼스 라운지 교육용 현황 이미지 01"
+    type: "image"
+    purpose: "Nano Banana 대안 A·B 이미지 생성에 동일하게 사용하는 공통 기준 원본"
+    required_files: ["campus-lounge-existing-view-01.jpeg"]
+    file_path: "src/assets/projects/campus-lounge/reference/campus-lounge-existing-view-01.jpeg"
+    recommended_tool: "user-upload"
+    status: "ready"
+    public_use: true
+    alt: "서측 로비 진입부에서 본 캠퍼스 라운지 교육용 가상 현황 이미지"
+    source_note: "생성형 AI와 수업 제작자의 편집을 거쳐 사용자가 제공한 교육용 가상 자료"
+    rights_status: "cleared"
+    privacy_note: "개인정보 없음"
+    verified_at: "2026-07-31"
+    verification_note: "실제 현장 사진이 아니며 제3차시와 같은 물리 파일을 참조함"
+
+  - id: "l04-manager-prompts"
+    lesson: 4
+    priority: "required"
+    source_type: "template"
+    production_owner: "codex"
+    lesson_usage: "practice-input"
+    title: "Antigravity 관리 프로그램 제작·승인 요청문"
+    type: "document"
+    purpose: "계획 검토 후 승인된 범위에서만 로컬 관리 프로그램을 제작하게 하는 공통 요청문"
+    required_files: ["antigravity-manager-build-prompt.txt", "antigravity-manager-approval-prompt.txt"]
+    recommended_tool: "codex"
+    status: "ready"
+    public_use: true
+    alt: "계획 단계와 승인 후 구현 단계를 분리한 Antigravity 프로그램 제작 요청문"
+    source_note: "사용자가 승인한 제4차시 안전 조건을 Codex가 텍스트 요청문으로 구조화"
+    rights_status: "cleared"
+    privacy_note: "개인정보·인증정보·실제 경로 없음"
+    verified_at: "2026-07-31"
+    verification_note: "프로젝트 밖 접근, 승인 전 실행, 원본 삭제와 덮어쓰기를 금지하는 조건 포함"
+
+  - id: "l04-ready-manager"
+    lesson: 4
+    priority: "required"
+    source_type: "original"
+    production_owner: "codex"
+    lesson_usage: "practice-input"
+    title: "AI_건축_캠퍼스라운지 관리 프로그램 복구본"
+    type: "document"
+    purpose: "프로그램 제작에 실패한 수강생이 실습을 계속할 수 있게 제공하는 검증된 로컬 복구 패키지"
+    required_files: ["AI_건축_캠퍼스라운지_복구본.zip"]
+    file_path: "src/assets/lessons/04/workspace/AI_건축_캠퍼스라운지_복구본.zip"
+    recommended_tool: "codex"
+    status: "ready"
+    public_use: true
+    alt: "Node.js Express 기반 캠퍼스 라운지 로컬 프로젝트 관리 프로그램 복구본"
+    source_note: "사용자가 승인한 제4차시 범위에 맞춰 Codex가 구현하고 자동 테스트한 로컬 프로그램"
+    rights_status: "cleared"
+    privacy_note: "환경변수·API 키·인증정보·개인정보와 node_modules 미포함"
+    verified_at: "2026-07-31"
+    verification_note: "폴더 생성, 등록, 버전, 중복, 누락, ZIP, 원본 유지와 루트 밖 접근 차단 자동 테스트 통과"
 
   - id: "l05-doc-pack"
     lesson: 5
@@ -494,11 +602,11 @@ assets:
     title: "문서 정리와 오류 확인 시연"
     type: "video"
     purpose: "가상 메모를 표로 옮기고 원문과 대조하는 화면 녹화"
-    required_files: ["강사 화면 녹화", "자막 또는 대본"]
+    required_files: ["작업 화면 녹화", "자막 또는 대본"]
     recommended_tool: "user-upload"
     status: "not-created"
     public_use: false
-    alt: "가상 문서를 정리하고 AI 추가 내용을 확인하는 강사 시연"
+    alt: "가상 문서를 정리하고 AI 추가 내용을 확인하는 과정 안내"
     verification_note: "도구 데이터 처리 조건과 화면 내 개인정보 확인"
 
   - id: "l06-brief-pack"
@@ -539,14 +647,14 @@ assets:
     source_type: "original"
     production_owner: "instructor"
     lesson_usage: "demonstration"
-    title: "디자인 브리프 변환 강사 시연"
+    title: "디자인 브리프 변환 과정 살펴보기"
     type: "video"
     purpose: "조건 분류와 AI 초안 수정 과정을 보여 주는 녹화"
-    required_files: ["강사 화면 녹화", "자막 또는 대본"]
+    required_files: ["작업 화면 녹화", "자막 또는 대본"]
     recommended_tool: "user-upload"
     status: "not-created"
     public_use: false
-    alt: "클라이언트 의뢰를 디자인 브리프로 변환하는 강사 시연"
+    alt: "클라이언트 의뢰를 디자인 브리프로 변환하는 과정 안내"
     verification_note: "전문 설계 판단과 AI 정보 정리의 경계 확인"
 
   - id: "l07-doc-pack"
@@ -589,12 +697,12 @@ assets:
     lesson_usage: "demonstration"
     title: "공간 유지 이미지 수정 시연"
     type: "video"
-    purpose: "변경 범위를 통제하고 전후 오류를 확인하는 강사 녹화"
-    required_files: ["강사 화면 녹화", "자막 또는 대본"]
+    purpose: "변경 범위를 통제하고 전후 오류를 확인하는 작업 녹화"
+    required_files: ["작업 화면 녹화", "자막 또는 대본"]
     recommended_tool: "user-upload"
     status: "not-created"
     public_use: false
-    alt: "공간을 유지하며 재료 조명 가구를 수정하는 강사 시연"
+    alt: "공간을 유지하며 재료·조명·가구를 수정하는 과정 안내"
     verification_note: "실제 도구 조작과 기준 이미지 권리 확인"
 
   - id: "l07-external-reference"
@@ -654,11 +762,11 @@ assets:
     title: "피드백 분류와 수정 제안 시연"
     type: "video"
     purpose: "코멘트 분석부터 수정 제안판까지 보여 주는 녹화"
-    required_files: ["강사 화면 녹화", "자막 또는 대본"]
+    required_files: ["작업 화면 녹화", "자막 또는 대본"]
     recommended_tool: "user-upload"
     status: "not-created"
     public_use: false
-    alt: "클라이언트 피드백을 분류해 수정 제안서를 만드는 강사 시연"
+    alt: "클라이언트 피드백을 분류해 수정 제안서를 만드는 과정 안내"
     verification_note: "실습 자료의 개인정보와 권리 상태 확인"
 
   - id: "l09-doc-pack"
@@ -701,12 +809,12 @@ assets:
     lesson_usage: "demonstration"
     title: "이미지 일관성 점검 시연"
     type: "video"
-    purpose: "기준표 적용과 수정·제외 판단을 보여 주는 강사 녹화"
-    required_files: ["강사 화면 녹화", "자막 또는 대본"]
+    purpose: "기준표 적용과 수정·제외 판단을 보여 주는 작업 녹화"
+    required_files: ["작업 화면 녹화", "자막 또는 대본"]
     recommended_tool: "user-upload"
     status: "not-created"
     public_use: false
-    alt: "여러 공간 이미지의 디자인 일관성을 점검하는 강사 시연"
+    alt: "여러 공간 이미지의 디자인 일관성을 점검하는 과정 안내"
     verification_note: "완전한 동일성 보장으로 오해되지 않는지 검토"
 
   - id: "l10-plan-pack"
@@ -749,12 +857,12 @@ assets:
     lesson_usage: "demonstration"
     title: "도면 정보 추출과 원본 대조 시연"
     type: "video"
-    purpose: "AI 추출 결과의 오독을 확인하는 강사 녹화"
-    required_files: ["강사 화면 녹화", "자막 또는 대본"]
+    purpose: "AI 추출 결과의 오독을 확인하는 작업 녹화"
+    required_files: ["작업 화면 녹화", "자막 또는 대본"]
     recommended_tool: "user-upload"
     status: "not-created"
     public_use: false
-    alt: "교육용 평면 PDF에서 정보를 찾고 AI 오독을 확인하는 강사 시연"
+    alt: "교육용 평면 PDF에서 정보를 찾고 AI 오독을 확인하는 과정 안내"
     verification_note: "법규·구조·소방 등 해당 전문가 판단과 분리되는지 강의 전 확인"
 
   - id: "l10-external-reference"
@@ -878,11 +986,11 @@ assets:
     title: "AGY 자료 구조 시연"
     type: "video"
     purpose: "검증된 실제 환경에서만 제작할 폴더·인덱스 구성 시연"
-    required_files: ["실제 환경 검증 기록", "강사 화면 녹화", "자막 또는 대본"]
+    required_files: ["실제 환경 검증 기록", "작업 화면 녹화", "자막 또는 대본"]
     recommended_tool: "user-upload"
     status: "actual-environment-validation-required"
     public_use: false
-    alt: "AGY로 프로젝트 자료 구조를 구성하는 강사 시연"
+    alt: "AGY로 프로젝트 자료 구조를 구성하는 과정 안내"
     verification_note: "명령어·지원 기능·권한 범위 검증 전 제작 금지"
 
   - id: "l13-audit-pack"
@@ -923,14 +1031,14 @@ assets:
     source_type: "original"
     production_owner: "instructor"
     lesson_usage: "demonstration"
-    title: "AGY 반복 점검 강사 시연"
+    title: "AGY 반복 점검 과정 살펴보기"
     type: "video"
     purpose: "검증된 실제 환경에서만 제작할 점검 과정 녹화"
-    required_files: ["실제 환경 검증 기록", "강사 화면 녹화", "자막 또는 대본"]
+    required_files: ["실제 환경 검증 기록", "작업 화면 녹화", "자막 또는 대본"]
     recommended_tool: "user-upload"
     status: "actual-environment-validation-required"
     public_use: false
-    alt: "AGY 기반 반복 점검과 제출 패키지 강사 시연"
+    alt: "AGY 기반 반복 점검과 제출 패키지 제작 과정 안내"
     verification_note: "명령어·지원 기능·권한 범위 검증 전 제작 금지"
 
   - id: "l14-final-pack"

@@ -10,7 +10,10 @@ const approvedLessons = [
   { title: '제1차시 · AI가 할 일과 디자이너가 판단할 일', durationMinutes: 180 },
   { title: '제2차시 · 첫 공간 콘셉트 생성과 빈 공간 인테리어 배치', durationMinutes: 180 },
   { title: '제3차시 · 실무 의뢰와 RFP를 디자인 브리프로 바꾸기', durationMinutes: 180 },
-  { title: '제4차시 · 무드보드에서 공간 콘셉트 보드까지', durationMinutes: 360 },
+  {
+    title: '제4차시 · RFP 기반 공간구성 대안 개발과 프로젝트 산출물 자동 정리',
+    durationMinutes: 360,
+  },
   { title: '제5차시 · AI로 실무 문서와 반복 정리 업무 줄이기', durationMinutes: 180 },
   { title: '제6차시 · 클라이언트 의뢰를 디자인 브리프로 변환하기', durationMinutes: 180 },
   { title: '제7차시 · 공간을 유지하며 재료·조명·가구 수정하기', durationMinutes: 180 },
@@ -345,6 +348,69 @@ for (const fileName of files) {
       errors.push(`${fileName}: 학생용 본문에서 source DOCX 원본을 공개 다운로드로 연결할 수 없습니다.`);
     }
   }
+  if (id === '04') {
+    const requiredLessonFourStructures = [
+      { marker: 'sectionLayout="project-workflow"', label: '제4차시 전용 프로젝트 워크플로우 레이아웃' },
+      { marker: 'projectWorkflow={{', label: '제4차시 프로젝트 워크플로우 데이터 연결' },
+      { marker: '공간구성(Spatial Zoning)', label: '공간구성 대안 용어' },
+      { marker: 'antigravity-manager-build-prompt.txt', label: 'Antigravity 관리 프로그램 제작 요청문' },
+      { marker: 'antigravity-manager-approval-prompt.txt', label: '프로그램 제작 승인 요청문' },
+      { marker: 'AI_건축_캠퍼스라운지_복구본.zip', label: '관리 프로그램 복구 ZIP' },
+      { marker: 'campus-lounge-existing-plan.png', label: '제3차시 공통 현황 평면도 재사용' },
+      { marker: 'campus-lounge-existing-view-01.jpeg', label: '제3차시 공통 현황 이미지 재사용' },
+      { marker: 'lesson-03-campus-lounge-rfp-v1.2.pdf', label: '제3차시 공통 RFP 재사용' },
+      { marker: '모델 선택 화면에 표시되는 목록', label: '수업 당일 모델 목록 확인 원칙' },
+      { marker: '프로젝트 밖 접근 금지', label: '프로젝트 루트 보안 조건' },
+      { marker: '같은 파일을 다시 등록하면 알림', label: '같은 파일 재등록 알림' },
+      { marker: '등록 파일 목록을 자동으로 갱신', label: '등록 파일 목록' },
+      { marker: '자료가 일부만 준비되어도 현재 작업 ZIP', label: '부분 작업 ZIP 허용 안내' },
+      { marker: '제출 ZIP', label: '제출 패키지 생성' },
+    ];
+    for (const { marker, label } of requiredLessonFourStructures) {
+      if (!source.includes(marker)) {
+        errors.push(`${fileName}: 제4차시 상세 본문에 ${label} 구성이 없습니다.`);
+      }
+    }
+    const expectedLessonFourSections = [
+      '차시 소개',
+      '오늘의 프로젝트와 제출 결과물',
+      '제공 자료와 제3차시 작업물 가져오기',
+      '공간구성 대안의 의미',
+      '대안 A·B 운영전략과 조닝 작성',
+      'Nano Banana 대안 이미지 생성',
+      'RFP 기준 비교와 선택',
+      '선택안 수정',
+      'Antigravity 도구 유형과 모델 선택',
+      '고정 프로젝트 경로와 핵심 계층구조',
+      '동일 프롬프트로 관리 프로그램 제작 과정',
+      '산출물 자동 정리와 제출 준비',
+      '제출 결과물·검증·다음 차시',
+    ];
+    for (const [index, label] of expectedLessonFourSections.entries()) {
+      const sectionId = `section-${String(index + 1).padStart(2, '0')}`;
+      if (!frontmatter.includes(`{ id: "${sectionId}", label: "${label}" }`)) {
+        errors.push(`${fileName}: ${sectionId} 제목이 승인된 제4차시 구성과 일치하지 않습니다.`);
+      }
+    }
+    if (source.includes('개념 구획(조닝)')) {
+      errors.push(`${fileName}: '개념 구획(조닝)' 대신 '공간구성(Spatial Zoning) 대안'을 사용해야 합니다.`);
+    }
+    const requiredLessonFourFiles = [
+      'tools/ai-architecture-project-manager/package.json',
+      'tools/ai-architecture-project-manager/server.mjs',
+      'tools/ai-architecture-project-manager/package-lock.json',
+      'src/assets/lessons/04/workspace/antigravity-manager-build-prompt.txt',
+      'src/assets/lessons/04/workspace/antigravity-manager-approval-prompt.txt',
+      'src/assets/lessons/04/workspace/AI_건축_캠퍼스라운지_복구본.zip',
+    ];
+    for (const filePath of requiredLessonFourFiles) {
+      try {
+        await access(path.resolve(filePath));
+      } catch {
+        errors.push(`${fileName}: 제4차시 필수 파일을 찾을 수 없습니다: ${filePath}`);
+      }
+    }
+  }
   if (source.includes("category: '전문가 판단 필요'")) {
     errors.push(
       `${fileName}: 포괄적인 '전문가 판단 필요' 대신 구체적인 판단·검증 분류를 사용해야 합니다.`,
@@ -393,6 +459,9 @@ for (const fileName of files) {
   }
   if (practiceMinutes < Number(duration) / 2) {
     errors.push(`${fileName}: 실습시간 ${practiceMinutes}분이 전체의 절반보다 적습니다.`);
+  }
+  if (id === '04' && practiceMinutes !== 280) {
+    errors.push(`${fileName}: 승인된 제4차시 실습시간 280분과 일치하지 않습니다.`);
   }
 
   const assetBlock =

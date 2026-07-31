@@ -1,0 +1,579 @@
+---
+import PromptCopy from '../PromptCopy';
+import type { ImageMetadata } from 'astro';
+import ClassifiedList from './ClassifiedList.astro';
+import LessonResourceDownloads from './LessonResourceDownloads.astro';
+import LessonSection from './LessonSection.astro';
+import ProjectReferenceMaterials from './ProjectReferenceMaterials.astro';
+import type {
+  Lesson04Download,
+  Lesson04WorkflowData,
+  Lesson04ResourceGroup,
+} from '../../lib/lesson04-workflow';
+
+type ContentCategory =
+  | '확인된 사실'
+  | '확정된 수업 구성'
+  | '학습 목표'
+  | '수업 산출물'
+  | '교육용 가정'
+  | '디자인 제안'
+  | '수강생 판단'
+  | '수강생 전문 판단'
+  | '추가 검증 필요'
+  | '강의 전 사실 검증'
+  | '추가 출처 확인'
+  | '법규·구조·소방 등 해당 전문가 판단';
+
+type OutlineItem = { category: ContentCategory; text: string };
+type PracticeItem = { id: string; title: string; minutes: number; description: string };
+type ProjectReferences = {
+  priorityItems: { title: string; details: string[] }[];
+  materialItems: { title: string; description: string }[];
+  notice: string;
+  figures: {
+    src: ImageMetadata;
+    alt: string;
+    title: string;
+    caption: string;
+  }[];
+};
+
+interface Props {
+  goals: OutlineItem[];
+  scenario: OutlineItem[];
+  materials: OutlineItem[];
+  projectReferences?: ProjectReferences;
+  demo: OutlineItem[];
+  practice: PracticeItem[];
+  practiceGuidance?: OutlineItem[];
+  deliverables: OutlineItem[];
+  judgments: OutlineItem[];
+  errorChecks: OutlineItem[];
+  verification: OutlineItem[];
+  resourceDownloads?: Lesson04Download[];
+  resourceDownloadNote?: string;
+  workflow: Lesson04WorkflowData;
+}
+
+const {
+  goals,
+  scenario,
+  materials,
+  projectReferences,
+  demo,
+  practice,
+  practiceGuidance,
+  deliverables,
+  judgments,
+  errorChecks,
+  verification,
+  resourceDownloads = [],
+  resourceDownloadNote,
+  workflow,
+} = Astro.props;
+
+const downloads = (group: Lesson04ResourceGroup) =>
+  resourceDownloads.filter((item) => item.group === group);
+const steps = (...ids: string[]) => practice.filter((step) => ids.includes(step.id));
+---
+
+<LessonSection
+  id="section-02"
+  number="02"
+  title="오늘의 프로젝트와 제출 결과물"
+  class="outline-section lesson04-section"
+>
+  <div class="lesson-section-group">
+    <h3>학습 목표</h3>
+    <ClassifiedList items={goals} />
+  </div>
+  <div class="lesson-section-group">
+    <h3>오늘의 프로젝트</h3>
+    <ClassifiedList items={scenario} />
+  </div>
+  <div class="lesson-section-group">
+    <h3>최종 결과물</h3>
+    <ClassifiedList items={deliverables} />
+  </div>
+</LessonSection>
+
+<LessonSection
+  id="section-03"
+  number="03"
+  title="제공 자료와 제3차시 작업물 가져오기"
+  class="outline-section lesson04-section"
+>
+  <LessonResourceDownloads
+    items={downloads('common')}
+    note={resourceDownloadNote}
+  />
+  <div class="lesson-section-group">
+    <h3>제3차시 개인 작업물</h3>
+    <ul class="lesson04-plain-list">
+      {workflow.carryoverItems.map((item) => <li>{item}</li>)}
+    </ul>
+  </div>
+  <ClassifiedList items={materials} />
+  {projectReferences && <ProjectReferenceMaterials {...projectReferences} />}
+</LessonSection>
+
+<LessonSection
+  id="section-04"
+  number="04"
+  title="공간구성 대안의 의미"
+  class="outline-section lesson04-section"
+>
+  <blockquote class="lesson04-definition">{workflow.definition}</blockquote>
+  <div class="lesson04-two-column">
+    <div>
+      <h3>공간 운영전략이 달라야 하는 항목</h3>
+      <ul class="lesson04-plain-list">
+        {workflow.differenceCriteria.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+    <div>
+      <h3>대안의 차이로 인정하지 않는 항목</h3>
+      <ul class="lesson04-plain-list lesson04-plain-list--warning">
+        {workflow.rejectedDifferences.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </div>
+  <div class="lesson04-alternatives" aria-label="교육용 공간구성 대안 비교 예시">
+    {workflow.examples.map((example) => (
+      <article>
+        <span>{example.label}</span>
+        <h3>{example.title}</h3>
+        <p>{example.note}</p>
+        <ul>{example.items.map((item) => <li>{item}</li>)}</ul>
+      </article>
+    ))}
+  </div>
+  <p class="lesson04-caution">
+    두 이름은 정답이 아닙니다. 수강생은 자신의 디자인 브리프를 근거로 대안명과
+    운영전략을 직접 정합니다.
+  </p>
+</LessonSection>
+
+<LessonSection
+  id="section-05"
+  number="05"
+  title="대안 A·B 운영전략과 조닝 작성"
+  class="outline-section lesson04-section"
+>
+  {practiceGuidance && <ClassifiedList items={practiceGuidance} />}
+  <div class="lesson04-two-column">
+    <div>
+      <h3>대안별 운영전략에 작성할 내용</h3>
+      <ul class="lesson04-plain-list">{workflow.alternativeFields.map((item) => <li>{item}</li>)}</ul>
+    </div>
+    <div>
+      <h3>조닝 평면도에 표시할 내용</h3>
+      <ul class="lesson04-plain-list">{workflow.zoningMarks.map((item) => <li>{item}</li>)}</ul>
+    </div>
+  </div>
+  <LessonResourceDownloads items={downloads('zoning')} />
+  <ol class="practice-list">
+    {steps('define-alternatives', 'draw-zoning').map((step, index) => (
+      <li data-step-id={step.id}>
+        <span>STEP {String(index + 1).padStart(2, '0')} · {step.minutes}분</span>
+        <div><h3>{step.title}</h3><p>{step.description}</p></div>
+      </li>
+    ))}
+  </ol>
+</LessonSection>
+
+<LessonSection
+  id="section-06"
+  number="06"
+  title="Nano Banana 대안 이미지 생성"
+  class="outline-section lesson04-section"
+>
+  <div class="lesson04-two-column">
+    <div>
+      <h3>동일하게 사용하는 자료</h3>
+      <ul class="lesson04-plain-list">{workflow.generationInputs.map((item) => <li>{item}</li>)}</ul>
+    </div>
+    <div>
+      <h3>이미지만으로 확정하지 않는 내용</h3>
+      <ul class="lesson04-plain-list lesson04-plain-list--warning">
+        {workflow.imageLimits.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </div>
+  <LessonResourceDownloads items={downloads('image')} />
+  <ol class="practice-list">
+    {steps('generate-alternative-images').map((step) => (
+      <li data-step-id={step.id}>
+        <span>STEP 03 · {step.minutes}분</span>
+        <div><h3>{step.title}</h3><p>{step.description}</p></div>
+      </li>
+    ))}
+  </ol>
+</LessonSection>
+
+<LessonSection
+  id="section-07"
+  number="07"
+  title="RFP 기준 비교와 선택"
+  class="outline-section lesson04-section"
+>
+  <p class="lesson04-definition">
+    예쁜 이미지를 고르는 것이 아니라 RFP를 더 설득력 있게 해결하는 안을 선택합니다.
+  </p>
+  <ul class="lesson04-criteria-grid">
+    {workflow.comparisonCriteria.map((item) => <li>{item}</li>)}
+  </ul>
+  <ol class="practice-list">
+    {steps('compare-alternatives').map((step) => (
+      <li data-step-id={step.id}>
+        <span>STEP 04 · {step.minutes}분</span>
+        <div><h3>{step.title}</h3><p>{step.description}</p></div>
+      </li>
+    ))}
+  </ol>
+</LessonSection>
+
+<LessonSection
+  id="section-08"
+  number="08"
+  title="선택안 수정"
+  class="outline-section lesson04-section"
+>
+  <ul class="lesson04-criteria-grid">
+    {workflow.revisionCategories.map((item) => <li>{item}</li>)}
+  </ul>
+  <p>
+    수정 요청문에는 유지·수정·변경 금지 요소, 수정 이유와 연결된 RFP 요구조건을
+    함께 기록합니다. 수정 요청문과 수정 이미지는 각각 새 버전으로 저장합니다.
+  </p>
+  <LessonResourceDownloads items={downloads('revision')} />
+  <ol class="practice-list">
+    {steps('revise-selected').map((step) => (
+      <li data-step-id={step.id}>
+        <span>STEP 05 · {step.minutes}분</span>
+        <div><h3>{step.title}</h3><p>{step.description}</p></div>
+      </li>
+    ))}
+  </ol>
+</LessonSection>
+
+<LessonSection
+  id="section-09"
+  number="09"
+  title="Antigravity 도구 유형과 모델 선택"
+  class="outline-section lesson04-section"
+>
+  <ClassifiedList items={workflow.toolNotes} />
+  <div class="table-scroll" tabindex="0" role="region" aria-label="Antigravity 제품 역할 비교">
+    <table class="lesson-table lesson04-tool-table">
+      <thead>
+        <tr>
+          <th>제품</th>
+          <th>화면·사용 방식</th>
+          <th>코드 직접 편집</th>
+          <th>프로젝트 관리</th>
+          <th>입문자 적합성</th>
+          <th>반복 자동화</th>
+          <th>프로그램 개발·수정</th>
+          <th>이번 수업</th>
+        </tr>
+      </thead>
+      <tbody>
+        {workflow.toolRows.map((row) => (
+          <tr>
+            <th scope="row">{row.product}</th>
+            <td>{row.interface}</td>
+            <td>{row.codeEditing}</td>
+            <td>{row.projectManagement}</td>
+            <td>{row.beginnerFit}</td>
+            <td>{row.repetition}</td>
+            <td>{row.development}</td>
+            <td>{row.courseUse}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <div class="lesson-section-group">
+    <h3>모델 선택 원칙</h3>
+    <div class="lesson04-model-grid">
+      {workflow.modelPrinciples.map((principle) => (
+        <article>
+          <strong>{principle.title}</strong>
+          <p>{principle.description}</p>
+        </article>
+      ))}
+    </div>
+    <p class="lesson04-caution">
+      실제 모델명은 {workflow.officialCheckedAt}에 고정하지 않았습니다. 수업 당일
+      Antigravity 모델 선택 화면에 표시되는 목록을 기준으로 선택합니다.
+    </p>
+  </div>
+  <div class="lesson04-sources">
+    <h3>공식 자료 · 마지막 확인 {workflow.officialCheckedAt}</h3>
+    <ul>
+      {workflow.officialSources.map((source) => (
+        <li>
+          <a href={source.url} target="_blank" rel="noreferrer">{source.title}</a>
+          <span>{source.description}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+  <div class="lesson04-node-setup">
+    <header>
+      <span>실습 환경 구축</span>
+      <h3>Node.js 설치</h3>
+      <p>
+        Antigravity가 프로그램을 만들더라도 Node.js가 설치되어 있지 않으면 로컬에서
+        실행할 수 없습니다. 아래 순서대로 설치와 동작 확인을 먼저 마칩니다.
+      </p>
+    </header>
+
+    <div class="lesson04-runtime-flow" aria-label="Antigravity, Node.js와 npm의 역할 관계">
+      {workflow.nodeSetup.roles.map((role, index) => (
+        <>
+          <article>
+            <strong>{role.name}</strong>
+            <span>{role.action}</span>
+            <p>{role.description}</p>
+          </article>
+          {index < workflow.nodeSetup.roles.length - 1 && <b aria-hidden="true">→</b>}
+        </>
+      ))}
+    </div>
+
+    <div class="lesson04-version-grid">
+      {workflow.nodeSetup.versions.map((version) => (
+        <article>
+          <span>{version.label}</span>
+          <strong>{version.value}</strong>
+          <p>{version.description}</p>
+        </article>
+      ))}
+    </div>
+    <p class="lesson04-version-note">
+      마지막 확인 {workflow.nodeSetup.checkedAt} · LTS와 Current 버전은 향후 변경될 수
+      있으므로 설치 직전에 공식 페이지를 다시 확인합니다.
+      <a href={workflow.nodeSetup.downloadUrl} target="_blank" rel="noreferrer">
+        Node.js 공식 다운로드
+      </a>
+    </p>
+
+    <div class="lesson-section-group lesson04-install-block">
+      <h3>Windows 설치 순서</h3>
+      <ol class="lesson04-install-steps">
+        {workflow.nodeSetup.windowsSteps.map((step) => <li>{step}</li>)}
+      </ol>
+    </div>
+
+    <div class="lesson04-command-grid">
+      <section>
+        <h3>설치 확인</h3>
+        <PromptCopy
+          client:idle
+          text={workflow.nodeSetup.verificationCommands}
+          label="NODE.JS · 설치 확인 명령"
+          buttonLabel="명령 복사"
+        />
+        <p>
+          <code>node --version</code> 결과가 <strong>v22 이상</strong>이고,
+          <code>npm --version</code>에서 버전 숫자가 표시되면 정상입니다.
+        </p>
+      </section>
+      <section>
+        <h3>학생이 직접 만든 프로그램</h3>
+        <PromptCopy
+          client:idle
+          text={workflow.nodeSetup.studentCommands}
+          label="PROGRAM · 직접 만든 프로그램 실행"
+          buttonLabel="명령 복사"
+        />
+      </section>
+      <section>
+        <h3>제공된 READY ZIP</h3>
+        <PromptCopy
+          client:idle
+          text={workflow.nodeSetup.readyCommands}
+          label="READY ZIP · 동일 버전 설치와 실행"
+          buttonLabel="명령 복사"
+        />
+      </section>
+    </div>
+
+    <aside class="lesson04-caution">
+      아래 설치·실행 명령은 프로젝트 최상위가 아니라 <code>관리프로그램</code> 폴더에서
+      실행해야 합니다. 복사 명령의 첫 줄인 <code>cd .\관리프로그램</code>부터 실행하세요.
+    </aside>
+
+    <dl class="lesson04-command-notes">
+      {workflow.nodeSetup.commandNotes.map((item) => (
+        <div>
+          <dt><code>{item.command}</code></dt>
+          <dd>{item.description}</dd>
+        </div>
+      ))}
+    </dl>
+    <p class="lesson04-program-url">
+      실행 후 브라우저에서 <code>{workflow.nodeSetup.programUrl}</code>을 엽니다.
+    </p>
+
+    <div class="lesson04-troubleshooting">
+      {workflow.nodeSetup.troubleshooting.map((issue) => (
+        <article>
+          <h3>{issue.title}</h3>
+          <ul>{issue.actions.map((action) => <li>{action}</li>)}</ul>
+        </article>
+      ))}
+    </div>
+
+    <fieldset class="lesson04-setup-checklist">
+      <legend>실습 환경 확인 체크리스트</legend>
+      {workflow.nodeSetup.checklist.map((item) => (
+        <label><input type="checkbox" /> <span>{item}</span></label>
+      ))}
+    </fieldset>
+  </div>
+</LessonSection>
+
+<LessonSection
+  id="section-10"
+  number="10"
+  title="고정 프로젝트 경로와 핵심 계층구조"
+  class="outline-section lesson04-section"
+>
+  <p>
+    바탕화면에 <code>AI_건축_캠퍼스라운지</code> 폴더를 직접 만들고, 빈 폴더에서
+    동일한 제작 요청문을 사용합니다. 별도 초기화 절차나 학생명 등록은 사용하지 않습니다.
+  </p>
+  <div class="lesson04-code-frame">
+    <span>프로젝트 폴더</span>
+    <pre><code>{workflow.projectTree}</code></pre>
+  </div>
+  <div class="lesson-section-group">
+    <h3>파일명은 네 가지만 구분합니다</h3>
+    <p>
+      프로젝트, 차시, 자료명, 버전(<code>v01</code>)만 알아볼 수 있게 남깁니다.
+    </p>
+    <ul class="lesson04-file-names">
+      {workflow.fileNameExamples.map((item) => <li><code>{item}</code></li>)}
+    </ul>
+  </div>
+</LessonSection>
+
+<LessonSection
+  id="section-11"
+  number="11"
+  title="동일 프롬프트로 관리 프로그램 제작 과정"
+  class="outline-section lesson04-section"
+>
+  <ClassifiedList items={demo} />
+  <div class="lesson04-two-column">
+    <div>
+      <h3>개발 조건</h3>
+      <ul class="lesson04-plain-list">{workflow.managerRequirements.map((item) => <li>{item}</li>)}</ul>
+    </div>
+    <div>
+      <h3>필수 기능</h3>
+      <ul class="lesson04-plain-list">{workflow.managerFeatures.map((item) => <li>{item}</li>)}</ul>
+    </div>
+  </div>
+  <PromptCopy
+    client:idle
+    text={workflow.managerPrompt}
+    label="PROMPT 01 · 계획만 요청"
+  />
+  <PromptCopy
+    client:idle
+    text={workflow.approvalPrompt}
+    label="PROMPT 02 · 구현 승인"
+  />
+  <aside class="lesson04-caution">
+    구현이 끝나면 직접 만든 프로그램 실행 순서인 <code>npm install</code> →
+    <code>npm test</code> → <code>npm start</code>를 사용하고,
+    브라우저에서 <code>{workflow.nodeSetup.programUrl}</code>을 확인합니다.
+  </aside>
+  <LessonResourceDownloads items={downloads('manager-build')} />
+  <ol class="practice-list">
+    {steps('build-manager').map((step) => (
+      <li data-step-id={step.id}>
+        <span>STEP 06 · {step.minutes}분</span>
+        <div><h3>{step.title}</h3><p>{step.description}</p></div>
+      </li>
+    ))}
+  </ol>
+</LessonSection>
+
+<LessonSection
+  id="section-12"
+  number="12"
+    title="산출물 자동 정리와 제출 준비"
+  class="outline-section lesson04-section"
+>
+  <div class="lesson04-two-column">
+    <div>
+      <h3>프로그램에 등록할 자료</h3>
+      <ul class="lesson04-plain-list">{workflow.registrationItems.map((item) => <li>{item}</li>)}</ul>
+    </div>
+    <div>
+      <h3>프로그램이 자동 처리하는 작업</h3>
+      <ul class="lesson04-plain-list">{workflow.automationItems.map((item) => <li>{item}</li>)}</ul>
+    </div>
+  </div>
+  <aside class="lesson04-caution">
+    프로그램은 파일 존재와 규칙을 확인할 뿐, 설계 품질이나 법규 적합성을 자동
+    판정하지 않습니다. 원본 파일은 삭제·이동·덮어쓰기하지 않습니다.
+  </aside>
+  <LessonResourceDownloads items={downloads('manager-recovery')} />
+  <ol class="practice-list">
+    {steps('organize-delivery').map((step) => (
+      <li data-step-id={step.id}>
+        <span>STEP 07 · {step.minutes}분</span>
+        <div><h3>{step.title}</h3><p>{step.description}</p></div>
+      </li>
+    ))}
+  </ol>
+  <div class="lesson04-run-guide">
+    <h3>READY ZIP 사용 순서</h3>
+    <ol>
+      <li>ZIP을 바탕화면에 풀어 <code>AI_건축_캠퍼스라운지</code> 폴더를 엽니다.</li>
+      <li><code>관리프로그램</code> 폴더에서 터미널을 엽니다.</li>
+      <li>터미널에서 <code>npm ci</code>를 실행합니다.</li>
+      <li><code>npm test</code>로 프로그램을 확인합니다.</li>
+      <li><code>npm start</code>를 실행하고 <code>{workflow.nodeSetup.programUrl}</code>을 엽니다.</li>
+      <li>준비된 개인 작업물을 하나씩 등록하고, 등록 파일 목록의 파일명을 눌러 바로 확인합니다.</li>
+      <li>자료가 일부만 준비되어도 현재 작업 ZIP을 만들 수 있습니다. 최종 제출 전에만 ‘제출 전 확인’을 사용합니다.</li>
+    </ol>
+  </div>
+</LessonSection>
+
+<LessonSection
+  id="section-13"
+  number="13"
+  title="제출 결과물·검증·다음 차시"
+  class="outline-section lesson04-section"
+>
+  <div class="lesson04-delivery-groups">
+    {workflow.deliveryGroups.map((group) => (
+      <article>
+        <span>{group.label}</span>
+        <h3>{group.title}</h3>
+        <ul>{group.items.map((item) => <li>{item}</li>)}</ul>
+      </article>
+    ))}
+  </div>
+  <div class="lesson-section-group">
+    <h3>수강생 판단 항목</h3>
+    <ClassifiedList items={judgments} />
+  </div>
+  <div class="lesson-section-group">
+    <h3>오류 확인 체크리스트</h3>
+    <ClassifiedList items={errorChecks} checks />
+  </div>
+  <div class="lesson-section-group">
+    <h3>검증이 필요한 내용</h3>
+    <ClassifiedList items={verification} />
+  </div>
+  <p class="lesson04-next">{workflow.nextLesson}</p>
+</LessonSection>
