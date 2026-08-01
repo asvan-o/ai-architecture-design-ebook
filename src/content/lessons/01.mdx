@@ -3,27 +3,35 @@ title: "제1차시 · AI가 할 일과 디자이너가 판단할 일"
 day: 1
 date: "2026-08-05"
 durationMinutes: 180
-lastVerified: null
+lastVerified: "2026-08-01"
 draft: true
+publicationStatus: "detailed"
 contentType: "instruction"
 authorship: "ai-assisted"
-verificationStatus: "pending"
+verificationStatus: "official-source-checked"
 freshness: "update-sensitive"
-riskLevel: "pending"
-professionalReviewStatus: "pending"
+riskLevel: "low"
+professionalReviewStatus: "not-required"
 professionalReviewScope: []
-sources: []
+sources:
+  - id: "gemini-3-6-flash-official"
+    title: "Using the latest Gemini models"
+    publisher: "Google AI for Developers"
+    url: "https://ai.google.dev/gemini-api/docs/latest-model"
+    accessedAt: "2026-08-01"
+    sourceType: "official"
+    note: "Gemini 3.6 Flash의 공식 모델명과 Thinking level 구분을 확인했다. 수업 화면과 기능은 수업 당일 다시 확인한다."
 sections:
   - { id: "section-01", label: "차시 소개" }
   - { id: "section-02", label: "오늘의 핵심 질문" }
   - { id: "section-03", label: "학습 목표" }
   - { id: "section-04", label: "생성형 AI(Generative AI)의 기본 개념" }
-  - { id: "section-05", label: "AI와 디자이너의 역할" }
-  - { id: "section-06", label: "안전한 사용을 위한 용어" }
-  - { id: "section-07", label: "정보 분류 기준" }
+  - { id: "section-05", label: "AI가 할 일과 디자이너가 판단할 일" }
+  - { id: "section-06", label: "안전하게 사용하기 위한 핵심 용어" }
+  - { id: "section-07", label: "사실·추론·가정·디자인 제안 구분" }
   - { id: "section-08", label: "북카페 가상 의뢰" }
   - { id: "section-09", label: "Gemini 첫 번째 입력" }
-  - { id: "section-10", label: "Gemini 실제 응답" }
+  - { id: "section-10", label: "Gemini 3.6 Flash 실제 응답" }
   - { id: "section-11", label: "실제 응답 분석" }
   - { id: "section-12", label: "개선된 요청문" }
   - { id: "section-13", label: "수강생 실습" }
@@ -89,7 +97,7 @@ export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
     <li>생성형 AI(Generative AI), 대규모 언어 모델(Large Language Model, LLM), 멀티모달 AI(Multimodal AI)의 기본 개념을 구분합니다.</li>
     <li>AI가 잘하는 일과 디자이너가 판단해야 할 일을 구분합니다.</li>
     <li>AI 답변에서 사실·추론·가정·디자인 제안을 분류합니다.</li>
-    <li>확인되지 않은 내용을 질문으로 되돌리는 요청문을 작성합니다.</li>
+    <li>프롬프트 또는 요청문(Prompt)은 AI에게 원하는 작업과 조건을 전달하는 입력입니다. 확인되지 않은 내용을 질문으로 되돌리는 요청문을 작성합니다.</li>
     <li>AI 활용·검증 체크리스트와 공간디자인 요청 분석표를 완성합니다.</li>
   </ul>
 </LessonSection>
@@ -134,14 +142,14 @@ export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
 
     <ul>
       <li>빠른 초기 분석과 생성: <code>Gemini 3.6 Flash</code></li>
-      <li>복잡한 분석과 재검토: <code>Gemini 3.6 사고 모델</code></li>
+      <li>복잡한 분석과 재검토: <code>Gemini 3.6 Flash의 Thinking 설정 또는 Thinking level</code></li>
     </ul>
 
     <aside class="lesson-callout lesson-callout--verification">
       <strong>강의 전 사실 검증</strong>
       <ul>
         <li>공식 API 모델 ID나 내부 기술 명칭을 임의로 만들지 않는다.</li>
-        <li>모델 명칭과 화면은 변경될 수 있으므로 강의 시점 실제 환경을 다시 확인한다.</li>
+        <li>모델과 Thinking 설정은 서로 다른 개념이며, 명칭과 화면은 변경될 수 있으므로 강의 시점 실제 환경을 다시 확인한다.</li>
         <li>아래 북카페 답변은 Gemini 3.6 Flash에서 생성된 실제 결과다.</li>
       </ul>
     </aside>
@@ -682,6 +690,7 @@ export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
     <p>AI가 틀린 답을 만들지 않도록 완벽하게 통제하는 것은 어렵습니다.</p>
     <p>대신 디자이너는 AI가 작성한 내용을 원문과 대조하고, 사실·추론·가정·디자인 제안을 구분하며, 확인되지 않은 내용은 질문으로 되돌릴 수 있어야 합니다.</p>
     <p>AI의 답변 자체가 최종 결과물이 아니라, 디자이너의 검토와 판단이 포함된 결과물이 최종 결과물입니다.</p>
+    <p>제2차시에서는 이 분류 기준을 이미지 생성 결과에 적용해, 무엇이 확인된 사실·추론·가정·디자인 제안인지 살피고 디자이너의 판단을 수정 요청문으로 바꿉니다.</p>
   </div>
 
   <blockquote class="lesson-principle">

@@ -158,6 +158,7 @@ interface Props {
   resourceDownloadNote?: string;
   verification: OutlineItem[];
   timePlan: TimeItem[];
+  reviewPending?: boolean;
 }
 
 const {
@@ -193,6 +194,7 @@ const {
   resourceDownloadNote,
   verification,
   timePlan,
+  reviewPending = true,
 } = Astro.props;
 
 const assets = getStudentLessonAssets(assetIds, Number(lessonId));
@@ -219,12 +221,17 @@ const geminiAnalysisSteps = practice.filter((step) =>
   ['request-gemini-analysis', 'compare-human-ai-analysis'].includes(step.id),
 );
 const designBriefSteps = practice.filter((step) => step.id === 'write-design-brief');
+const visualEvidenceSteps = practice.filter((step) => [
+  'generate-plan-based-existing-image',
+  'revise-existing-image',
+  'record-plan-image-mismatches',
+].includes(step.id));
 const alternativeCriteriaSteps = practice.filter(
   (step) => step.id === 'define-alternative-criteria',
 );
 ---
 
-<LessonSection id="section-01" number="01" title="차시 소개" class="outline-section">
+<LessonSection id="section-01" number="01" title="차시 소개" class="outline-section" lessonId={lessonId}>
   {openingMessage && (
     <aside class="lesson-opening-message">
       <span>COURSE PRINCIPLE</span>
@@ -236,14 +243,14 @@ const alternativeCriteriaSteps = practice.filter(
   <div class="time-plan">
     <header>
       <div>
-        <span>{isPresentation ? 'TIME PLAN' : 'TIME PLAN · REVIEW REQUESTED'}</span>
+        <span>{isPresentation || !reviewPending ? 'TIME PLAN' : 'TIME PLAN · REVIEW REQUESTED'}</span>
         <strong>{totalMinutes}분 중 수강생 실습 {practiceMinutes}분 · {practicePercent}%</strong>
       </div>
       <span class:list={['practice-ratio', { 'practice-ratio--valid': practiceMinutes >= totalMinutes / 2 }]}>
         실습 절반 이상
       </span>
     </header>
-    <ol>
+    <ol class="time-plan__screen-list">
       {timePlan.map((item) => (
         <li>
           <span>{item.label}</span>
@@ -251,6 +258,16 @@ const alternativeCriteriaSteps = practice.filter(
         </li>
       ))}
     </ol>
+    <table class="time-plan__print-table">
+      <thead>
+        <tr><th scope="col">수업 흐름</th><th scope="col">시간</th></tr>
+      </thead>
+      <tbody>
+        {timePlan.map((item) => (
+          <tr><th scope="row">{item.label}</th><td>{item.minutes}분</td></tr>
+        ))}
+      </tbody>
+    </table>
     {allocatedMinutes !== totalMinutes && (
       <p class="time-plan__warning">시간 배분 합계 검토 필요: {allocatedMinutes}분</p>
     )}
@@ -264,6 +281,7 @@ const alternativeCriteriaSteps = practice.filter(
       number="02"
       title="오늘의 프로젝트와 제출 결과물"
       class="outline-section"
+      lessonId={lessonId}
     >
       <div class="lesson-section-group">
         <h3>학습 목표</h3>
@@ -284,6 +302,7 @@ const alternativeCriteriaSteps = practice.filter(
       number="03"
       title="실습자료 다운로드 및 현황자료"
       class="outline-section"
+      lessonId={lessonId}
     >
       {resourceDownloads && (
         <LessonResourceDownloads items={resourceDownloads} note={resourceDownloadNote} />
@@ -299,6 +318,7 @@ const alternativeCriteriaSteps = practice.filter(
       number="04"
       title="RFP와 디자인 브리프 핵심 개념"
       class="outline-section"
+      lessonId={lessonId}
     >
       <ClassifiedList items={concepts} />
     </LessonSection>
@@ -308,6 +328,7 @@ const alternativeCriteriaSteps = practice.filter(
       number="05"
       title="RFP를 읽을 때 확인할 핵심 질문"
       class="outline-section"
+      lessonId={lessonId}
     >
       <ClassifiedList items={questions} />
     </LessonSection>
@@ -317,6 +338,7 @@ const alternativeCriteriaSteps = practice.filter(
       number="06"
       title="RFP 구조 함께 확인하기"
       class="outline-section"
+      lessonId={lessonId}
     >
       <ClassifiedList items={demo.slice(0, 3)} />
       <ol class="practice-list">
@@ -337,6 +359,7 @@ const alternativeCriteriaSteps = practice.filter(
       number="07"
       title="요구조건 매트릭스 작성"
       class="outline-section"
+      lessonId={lessonId}
     >
       {practiceGuidance && <ClassifiedList items={practiceGuidance} />}
       {structuredPractice && (
@@ -365,6 +388,7 @@ const alternativeCriteriaSteps = practice.filter(
       number="08"
       title="발주기관 추가 질의 작성"
       class="outline-section"
+      lessonId={lessonId}
     >
       {structuredPractice && (
         <StructuredPracticeTemplates
@@ -391,6 +415,7 @@ const alternativeCriteriaSteps = practice.filter(
       number="09"
       title="Gemini 분석 및 사람 분석과 비교"
       class="outline-section"
+      lessonId={lessonId}
     >
       <ClassifiedList items={demo.slice(3)} />
       <ol class="practice-list">
@@ -411,6 +436,7 @@ const alternativeCriteriaSteps = practice.filter(
       number="10"
       title="디자인 브리프 작성"
       class="outline-section"
+      lessonId={lessonId}
     >
       {structuredPractice && (
         <StructuredPracticeTemplates
@@ -437,9 +463,31 @@ const alternativeCriteriaSteps = practice.filter(
     <LessonSection
       id="section-11"
       number="11"
-      title="제4차시 대안 평가기준 설정"
+      title="현황 이미지 검토와 제4차시 평가기준"
       class="outline-section"
+      lessonId={lessonId}
     >
+      <div class="lesson-section-group">
+        <h3>평면도 기반 현황 이미지 생성·수정과 불일치 기록</h3>
+        <p>
+          생성 이미지가 평면도의 공간 관계를 대신하지 않도록, 생성 결과와 수정 결과를
+          평면도에 다시 대조하고 남은 차이를 기록합니다.
+        </p>
+      </div>
+      <ol class="practice-list">
+        {visualEvidenceSteps.map((step) => (
+          <li data-step-id={step.id}>
+            <span>STEP {practiceStepNumber.get(step.id)} · {step.minutes}분</span>
+            <div>
+              <h3>{step.title}</h3>
+              <p>{step.description}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <div class="lesson-section-group">
+        <h3>제4차시 대안 평가기준</h3>
+      </div>
       <ol class="practice-list">
         {alternativeCriteriaSteps.map((step) => (
           <li data-step-id={step.id}>
@@ -458,6 +506,7 @@ const alternativeCriteriaSteps = practice.filter(
       number="12"
       title="제출 결과물 점검"
       class="outline-section"
+      lessonId={lessonId}
     >
       <div class="lesson-section-group">
         <h3>수강생 판단 항목</h3>
@@ -474,15 +523,17 @@ const alternativeCriteriaSteps = practice.filter(
       number="13"
       title="검증 필요와 정리"
       class="outline-section"
+      lessonId={lessonId}
     >
       <ClassifiedList items={verification} />
-      {!isPresentation && (
+      {!isPresentation && reviewPending && (
         <p class="review-state">LESSON {lessonId} · 상세 원고 작성 전 검토 요청 상태</p>
       )}
     </LessonSection>
   </>
 ) : isProjectWorkflowLayout && projectWorkflow ? (
   <Lesson04ProjectWorkflow
+    lessonId={lessonId}
     goals={goals}
     scenario={scenario}
     materials={materials}
@@ -500,35 +551,35 @@ const alternativeCriteriaSteps = practice.filter(
   />
 ) : (
   <>
-    <LessonSection id="section-02" number="02" title={questionsTitle} class="outline-section">
+    <LessonSection id="section-02" number="02" title={questionsTitle} class="outline-section" lessonId={lessonId}>
       <ClassifiedList items={questions} />
     </LessonSection>
 
-    <LessonSection id="section-03" number="03" title="학습 목표" class="outline-section">
+    <LessonSection id="section-03" number="03" title="학습 목표" class="outline-section" lessonId={lessonId}>
       <ClassifiedList items={goals} />
     </LessonSection>
 
-    <LessonSection id="section-04" number="04" title="핵심 개념" class="outline-section">
+    <LessonSection id="section-04" number="04" title="핵심 개념" class="outline-section" lessonId={lessonId}>
       <ClassifiedList items={concepts} />
     </LessonSection>
 
-    <LessonSection id="section-05" number="05" title={scenarioTitle} class="outline-section">
+    <LessonSection id="section-05" number="05" title={scenarioTitle} class="outline-section" lessonId={lessonId}>
       <ClassifiedList items={scenario} />
     </LessonSection>
 
-    <LessonSection id="section-06" number="06" title="제공 자료" class="outline-section">
+    <LessonSection id="section-06" number="06" title="제공 자료" class="outline-section" lessonId={lessonId}>
       <ClassifiedList items={materials} />
       {projectReferences && <ProjectReferenceMaterials {...projectReferences} />}
       {practiceKit && <EmptySpacePracticeKit {...practiceKit} />}
     </LessonSection>
 
-    <LessonSection id="section-07" number="07" title={demoTitle} class="outline-section">
+    <LessonSection id="section-07" number="07" title={demoTitle} class="outline-section" lessonId={lessonId}>
       {iterationSample
         ? <IterativeImageSample {...iterationSample} />
         : <ClassifiedList items={demo} />}
     </LessonSection>
 
-    <LessonSection id="section-08" number="08" title="수강생 실습" class="outline-section">
+    <LessonSection id="section-08" number="08" title="수강생 실습" class="outline-section" lessonId={lessonId}>
       {practiceGuidance && <ClassifiedList items={practiceGuidance} />}
       {structuredPractice && <StructuredPracticeTemplates {...structuredPractice} />}
       <ol class="practice-list">
@@ -544,19 +595,19 @@ const alternativeCriteriaSteps = practice.filter(
       </ol>
     </LessonSection>
 
-    <LessonSection id="section-09" number="09" title="제출 결과물" class="outline-section">
+    <LessonSection id="section-09" number="09" title="제출 결과물" class="outline-section" lessonId={lessonId}>
       <ClassifiedList items={deliverables} />
     </LessonSection>
 
-    <LessonSection id="section-10" number="10" title="수강생이 판단할 항목" class="outline-section">
+    <LessonSection id="section-10" number="10" title="수강생이 판단할 항목" class="outline-section" lessonId={lessonId}>
       <ClassifiedList items={judgments} />
     </LessonSection>
 
-    <LessonSection id="section-11" number="11" title="AI 오류 확인 체크리스트" class="outline-section">
+    <LessonSection id="section-11" number="11" title="AI 오류 확인 체크리스트" class="outline-section" lessonId={lessonId}>
       <ClassifiedList items={errorChecks} checks />
     </LessonSection>
 
-    <LessonSection id="section-12" number="12" title={assetsTitle} class="outline-section">
+    <LessonSection id="section-12" number="12" title={assetsTitle} class="outline-section" lessonId={lessonId}>
       {assetNotes ? (
         <ClassifiedList items={assetNotes} />
       ) : !isPresentation ? (
@@ -580,9 +631,10 @@ const alternativeCriteriaSteps = practice.filter(
       number="13"
       title="확인 또는 검증이 필요한 내용"
       class="outline-section"
+      lessonId={lessonId}
     >
       <ClassifiedList items={verification} />
-      {!isPresentation && (
+      {!isPresentation && reviewPending && (
         <p class="review-state">LESSON {lessonId} · 상세 원고 작성 전 검토 요청 상태</p>
       )}
     </LessonSection>

@@ -3,13 +3,14 @@ title: "제3차시 · 실무 의뢰와 RFP를 디자인 브리프로 바꾸기"
 day: 3
 date: "pending"
 durationMinutes: 180
-lastVerified: null
+lastVerified: "2026-08-01"
 draft: true
+publicationStatus: "detailed"
 contentType: "instruction"
 authorship: "ai-assisted"
-verificationStatus: "pending"
-freshness: "pending"
-riskLevel: "pending"
+verificationStatus: "source-checked"
+freshness: "update-sensitive"
+riskLevel: "high"
 professionalReviewStatus: "required"
 professionalReviewScope:
   - "실제 프로젝트에서 법규·구조·소방·전기·기계·접근성·시공성에 해당하는 판단"
@@ -17,10 +18,17 @@ sources:
   - id: "de-montfort-campus-lounge-fit-out"
     title: "268400 - Campus Lounge Fit Out"
     publisher: "De Montfort University / Find a Tender"
-    url: "https://www.find-tender.service.gov.uk/Notice/018099-2026"
-    accessedAt: "2026-07-31"
+    url: "https://www.find-tender.service.gov.uk/Notice/018109-2026"
+    accessedAt: "2026-08-01"
     sourceType: "reference"
-    note: "프로젝트 유형과 공개 조달 문서의 기본 구조만 참고했으며, 강의용 RFP의 기관명·조건·수치·일정은 교육 목적으로 새로 구성했다."
+    note: "018109-2026은 018099-2026을 편집한 최신 게시 버전이다. 프로젝트 유형과 공개 조달 문서 구조만 참고했으며 강의용 RFP의 기관명·조건·수치·일정은 교육 목적으로 새로 구성했다."
+  - id: "gemini-3-6-flash-official"
+    title: "Using the latest Gemini models"
+    publisher: "Google AI for Developers"
+    url: "https://ai.google.dev/gemini-api/docs/latest-model"
+    accessedAt: "2026-08-01"
+    sourceType: "official"
+    note: "Gemini 3.6 Flash의 공식 모델명과 문서 분석에 사용하는 실제 도구 명칭을 확인했다."
 sections:
   - { id: "section-01", label: "차시 소개" }
   - { id: "section-02", label: "오늘의 프로젝트와 제출 결과물" }
@@ -32,7 +40,7 @@ sections:
   - { id: "section-08", label: "발주기관 추가 질의 작성" }
   - { id: "section-09", label: "Gemini 분석 및 사람 분석과 비교" }
   - { id: "section-10", label: "디자인 브리프 작성" }
-  - { id: "section-11", label: "제4차시 대안 평가기준 설정" }
+  - { id: "section-11", label: "현황 이미지 검토와 제4차시 평가기준" }
   - { id: "section-12", label: "제출 결과물 점검" }
   - { id: "section-13", label: "검증 필요와 정리" }
 ---
@@ -47,18 +55,20 @@ import campusLoungeView from '../../assets/projects/campus-lounge/reference/camp
   sectionLayout="rfp-analysis"
   lessonId="03"
   totalMinutes={180}
+  reviewPending={false}
   topic={{
     number: '2',
     title: '실무 시나리오 기반 맞춤형 제안 이미지 생성 및 워크플로우 자동화',
   }}
   openingMessage={{
     title: '이미지를 만들기 전에, RFP의 요구조건과 제안 가능한 범위를 구분한다.',
-    body: '제2차시의 단일 이미지 수정 경험을 더 복잡한 실무 문서 분석으로 확장하고, 제3차시 결과를 제4차시 이미지 대안의 기준으로 연결합니다.',
+    body: '제2차시 파일을 그대로 넘기지 않고, AI 결과를 검토하고 수정한 판단 방법을 새로운 RFP 프로젝트에 적용해 제4차시 대안 기준으로 연결합니다.',
   }}
   intro={[
-    { category: '확정된 수업 구성', text: '제2차시에서 경험한 이미지 생성과 수정 과정을 바탕으로, 이번에는 12쪽짜리 교육용 가상 제안요청서(Request for Proposal, RFP)를 읽고 요구조건의 근거를 추적한다.' },
+    { category: '확정된 수업 구성', text: '제2차시에서 생성한 파일을 그대로 가져오는 것이 아니라, AI 결과를 검토하고 수정하는 판단 방법을 새로운 캠퍼스 라운지 RFP 프로젝트에 적용한다.' },
+    { category: '확정된 수업 구성', text: '12쪽짜리 교육용 가상 제안요청서(Request for Proposal, RFP)를 읽고 요구조건의 근거를 추적한다.' },
     { category: '확정된 수업 구성', text: '이 차시는 이미지 생성 차시가 아니다. 사람이 먼저 RFP를 분석한 뒤 Gemini 결과와 교차검토하여 누락, 근거 없는 추가와 분류 오류를 찾는다.' },
-    { category: '수업 산출물', text: '요구조건 매트릭스, 발주기관 추가 질의 목록, 디자인 브리프와 제4차시 대안 생성·비교 기준을 완성한다.' },
+    { category: '수업 산출물', text: '요구조건 매트릭스, 발주기관 추가 질의, 디자인 브리프, 평면도 기반 현황 이미지 생성·수정 결과, 평면도와 이미지의 불일치 기록과 제4차시 대안 평가기준을 완성한다.' },
   ]}
   questions={[
     { category: '수강생 판단', text: '발주기관이 반드시 요구한 조건은 무엇인가?' },
@@ -77,11 +87,12 @@ import campusLoungeView from '../../assets/projects/campus-lounge/reference/camp
   ]}
   concepts={[
     { category: '강의 전 사실 검증', text: '제안요청서(Request for Proposal, RFP)는 제안에 필요한 목적, 범위, 요구사항과 제출 조건을 전달하는 문서다. 실제 형식과 법적 효력은 발주 방식과 계약 절차에 따라 달라질 수 있다.' },
+    { category: '강의 전 사실 검증', text: '요구사항(Requirement)은 프로젝트가 충족해야 할 필요나 조건이고, 제약조건(Constraint)은 선택 가능한 범위를 제한하는 조건이다. 실제 계약 문서에서는 용어와 효력이 다를 수 있으므로 원문 정의를 우선한다.' },
     { category: '강의 전 사실 검증', text: '디자인 브리프(Design Brief)는 RFP를 단순 요약하는 문서가 아니라, 프로젝트 목표와 조건을 다음 디자인 작업에 사용할 실행 기준으로 정리한 문서다.' },
     { category: '수강생 판단', text: '요구사항(Requirement)은 문서에서 요청한 필수 내용이고, 제약조건(Constraint)은 선택과 실행 범위를 제한하는 조건이다.' },
     { category: '수강생 판단', text: '미확정 조건(Unknown)은 원문만으로 확인할 수 없는 정보이며, 가정(Assumption)은 진행을 위해 임시로 둔 전제다. 가정은 확정 사실처럼 쓰지 않는다.' },
     { category: '디자인 제안', text: '디자인 제안(Design Proposal)은 요구사항과 제약조건을 바탕으로 디자이너가 제시하는 선택안이며, RFP의 필수 요구와 구분한다.' },
-    { category: '수강생 판단', text: '요구조건 추적성(Requirement Traceability)은 RFP의 근거가 요구조건 매트릭스, 디자인 브리프와 제안 결과에 어떻게 연결되는지 기록하는 방식이다.' },
+    { category: '강의 전 사실 검증', text: '출처 추적성(Traceability)은 각 요구조건이 RFP의 어느 근거에서 왔고 매트릭스·디자인 브리프·제안 결과로 어떻게 이어지는지 기록하는 방식이다.' },
     { category: '수강생 판단', text: '포함 범위(In Scope)와 제외 범위(Out of Scope)를 구분하고, 디자인 요구와 행정·입찰 조건을 같은 항목으로 섞지 않는다.' },
     { category: '확정된 수업 구성', text: '이번 수업에서는 범용 공식이 아니라 교육용 분석·요청 구조 프레임을 사용한다: RFP 근거, 요구내용 요약, 분류, 디자인 영향과 후속 행동.' },
   ]}
@@ -206,19 +217,25 @@ import campusLoungeView from '../../assets/projects/campus-lounge/reference/camp
     closingNote: '디자인 브리프는 RFP 요약본이 아니라 제4차시에서 서로 다른 운영 논리의 대안 2개 이상을 만들고 비교할 때 사용할 실행 기준이다.',
   }}
   practice={[
-    { id: 'read-campus-lounge-rfp', title: 'RFP 원문 개인 읽기', minutes: 20, description: '12쪽 PDF에서 프로젝트 목적, 범위, 필수 요구, 유지 조건, 제외 범위와 행정·입찰 조건을 표시한다.' },
-    { id: 'build-requirement-matrix', title: '요구조건 매트릭스 작성', minutes: 30, description: '각 요구조건에 ID, 원문 근거, 분류, 디자인 영향과 후속 행동을 기록한다.' },
-    { id: 'write-client-questions', title: '발주기관 추가 질의 작성', minutes: 15, description: '문서만으로 확정할 수 없는 정보를 질문으로 바꾸고 필요한 이유를 적는다.' },
-    { id: 'request-gemini-analysis', title: 'Gemini 문서 분석', minutes: 20, description: 'RFP PDF와 제공된 TXT 요청문을 사용해 문서를 분석하되 결과를 정답으로 채택하지 않는다.' },
-    { id: 'compare-human-ai-analysis', title: '사람 분석과 AI 분석 비교', minutes: 15, description: '원문 근거를 기준으로 누락, 근거 없는 추가와 분류 오류를 표시한다.' },
+    { id: 'read-campus-lounge-rfp', title: 'RFP 원문 개인 읽기', minutes: 15, description: '12쪽 PDF에서 프로젝트 목적, 범위, 필수 요구, 유지 조건, 제외 범위와 행정·입찰 조건을 표시한다.' },
+    { id: 'build-requirement-matrix', title: '요구조건 매트릭스 작성', minutes: 25, description: '각 요구조건에 ID, 원문 근거, 분류, 디자인 영향과 후속 행동을 기록한다.' },
+    { id: 'write-client-questions', title: '발주기관 추가 질의 작성', minutes: 10, description: '문서만으로 확정할 수 없는 정보를 질문으로 바꾸고 필요한 이유를 적는다.' },
+    { id: 'request-gemini-analysis', title: 'Gemini 문서 분석', minutes: 15, description: 'RFP PDF와 제공된 TXT 요청문을 사용해 문서를 분석하되 결과를 정답으로 채택하지 않는다.' },
+    { id: 'compare-human-ai-analysis', title: '사람 분석과 AI 분석 비교', minutes: 10, description: '원문 근거를 기준으로 누락, 근거 없는 추가와 분류 오류를 표시한다.' },
     { id: 'write-design-brief', title: '디자인 브리프 작성', minutes: 30, description: '요구조건 매트릭스와 질의를 다음 디자인 작업에 사용할 실행 기준으로 압축한다.' },
+    { id: 'generate-plan-based-existing-image', title: '평면도 기반 현황 이미지 생성', minutes: 10, description: '교육용 평면도와 RFP 조건을 기준으로 현황 이미지 후보를 만들고, 실제 현장 사진이나 실측자료가 아님을 표시한다.' },
+    { id: 'revise-existing-image', title: '현황 이미지 수정', minutes: 10, description: '평면도와 다른 공간 관계나 임의로 추가된 요소를 찾아 수정 요청을 적용한다.' },
+    { id: 'record-plan-image-mismatches', title: '평면도와 이미지 불일치 기록', minutes: 5, description: '수정 뒤에도 남은 불일치와 이미지로 확인할 수 없는 조건을 기록한다.' },
     { id: 'define-alternative-criteria', title: '제4차시 대안 평가 기준 정리', minutes: 10, description: '대안 이름이나 정답을 미리 정하지 않고, 서로 다른 운영 논리의 대안 2개 이상을 비교할 기준을 작성한다.' },
   ]}
   deliverables={[
     { category: '수업 산출물', text: '요구조건 매트릭스 1식.' },
     { category: '수업 산출물', text: '발주기관 추가 질의 목록 1식.' },
     { category: '수업 산출물', text: '디자인 브리프 1식.' },
-    { category: '수업 산출물', text: '제4차시 대안 생성·비교 기준 1식.' },
+    { category: '수업 산출물', text: '평면도 기반 현황 이미지 생성 결과 1식.' },
+    { category: '수업 산출물', text: '현황 이미지 수정 결과 1식.' },
+    { category: '수업 산출물', text: '평면도와 이미지의 불일치 기록 1식.' },
+    { category: '수업 산출물', text: '제4차시 대안 평가기준 1식.' },
   ]}
   judgments={[
     { category: '수강생 판단', text: '이 항목의 RFP 근거를 정확히 찾을 수 있는가?' },
@@ -286,13 +303,14 @@ import campusLoungeView from '../../assets/projects/campus-lounge/reference/camp
   ]}
   timePlan={[
     { label: '차시 안내와 RFP·디자인 브리프 개념', minutes: 25, mode: 'guide' },
-    { label: 'RFP 원문 개인 읽기', minutes: 20, mode: 'practice' },
-    { label: '요구조건 매트릭스 작성', minutes: 30, mode: 'practice' },
-    { label: '발주기관 추가 질의 작성', minutes: 15, mode: 'practice' },
+    { label: 'RFP 원문 개인 읽기', minutes: 15, mode: 'practice' },
+    { label: '요구조건 매트릭스 작성', minutes: 25, mode: 'practice' },
+    { label: '발주기관 추가 질의 작성', minutes: 10, mode: 'practice' },
     { label: '휴식', minutes: 10, mode: 'guide' },
-    { label: 'Gemini 문서 분석', minutes: 20, mode: 'practice' },
-    { label: '사람 분석과 AI 분석 비교', minutes: 15, mode: 'practice' },
+    { label: 'Gemini 문서 분석', minutes: 15, mode: 'practice' },
+    { label: '사람 분석과 AI 분석 비교', minutes: 10, mode: 'practice' },
     { label: '디자인 브리프 작성', minutes: 30, mode: 'practice' },
+    { label: '현황 이미지 생성·수정·불일치 기록', minutes: 25, mode: 'practice' },
     { label: '제4차시 대안 평가 기준 정리', minutes: 10, mode: 'practice' },
     { label: '정리', minutes: 5, mode: 'review' },
   ]}

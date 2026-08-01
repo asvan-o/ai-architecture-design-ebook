@@ -208,7 +208,6 @@
 .print-document .lesson-section:has(> .lesson-question-list),
 .print-document .lesson-section:has(> .lesson-output-grid),
 .print-document .lesson-section:has(> .lesson-prompt),
-.print-document .outline-section,
 .print-document .print-lesson__content > .lesson-section:last-child {
   break-inside: avoid-page;
   page-break-inside: avoid;
@@ -254,7 +253,6 @@
 .print-document .lesson-callout,
 .print-document .lesson-practice-block,
 .print-document .lesson-share,
-.print-document .time-plan,
 .print-document .warning-box,
 .print-document .fact-panel,
 .print-document .case-notes,
@@ -356,6 +354,61 @@
 }
 
 .print-document .lesson-table tr {
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+
+.print-document .time-plan {
+  break-inside: auto;
+  page-break-inside: auto;
+}
+
+.print-document .time-plan__screen-list {
+  display: none !important;
+}
+
+.print-document .time-plan__print-table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 9pt;
+  break-inside: auto;
+  page-break-inside: auto;
+}
+
+.print-document .time-plan__print-table thead {
+  display: table-header-group;
+}
+
+.print-document .time-plan__print-table tr {
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+
+.print-document .time-plan__print-table th,
+.print-document .time-plan__print-table td {
+  padding: 2.5mm 3mm;
+  border-bottom: 0.25mm solid var(--line-strong);
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+.print-document .time-plan__print-table th:last-child,
+.print-document .time-plan__print-table td:last-child {
+  width: 22mm;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.print-document .lesson04-term-guide {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3mm 6mm;
+}
+
+.print-document .lesson04-term-guide > div {
   break-inside: avoid-page;
   page-break-inside: avoid;
 }

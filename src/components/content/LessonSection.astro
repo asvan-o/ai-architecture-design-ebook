@@ -1,13 +1,18 @@
 ---
+import InstructorNoteSlot from '../instructor/InstructorNoteSlot.astro';
+import { getInstructorNoteSlots } from '../../lib/instructor-notes';
+
 interface Props {
   id: string;
   number: string;
   title: string;
   class?: string;
+  lessonId?: string;
 }
 
-const { id, number, title, class: className } = Astro.props;
+const { id, number, title, class: className, lessonId } = Astro.props;
 const headingId = `${id}-title`;
+const instructorNoteSlots = lessonId ? getInstructorNoteSlots(lessonId, id) : [];
 ---
 
 <section class:list={['lesson-section', className]} id={id} aria-labelledby={headingId}>
@@ -16,4 +21,7 @@ const headingId = `${id}-title`;
     <h2 id={headingId}>{title}</h2>
   </div>
   <slot />
+  {instructorNoteSlots.map((note) => (
+    <InstructorNoteSlot lessonId={lessonId!} slot={note.slot} label={note.label} />
+  ))}
 </section>

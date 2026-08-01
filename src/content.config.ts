@@ -32,6 +32,7 @@ const professionalReviewScopeSchema = z.array(z.string().trim().min(1));
 const sharedSchema = z.object({
   title: z.string().trim().min(1),
   draft: z.boolean(),
+  publicationStatus: z.enum(['outline', 'detailed']).optional(),
   contentType: z.enum([
     'pending',
     'factual',

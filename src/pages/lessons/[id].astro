@@ -37,7 +37,7 @@ const durationLabel = lesson.data.durationMinutes === null
   ? '수업시간 확인 예정'
   : `${lesson.data.durationMinutes}분`;
 const verifiedLabel = lesson.data.lastVerified ?? '검토 전';
-const isDetailedLesson = lesson.data.day === 1;
+const isDetailedLesson = lesson.data.publicationStatus === 'detailed' || lesson.data.day === 1;
 const publicDateLabel = isDetailedLesson ? dateLabel.replaceAll('-', '.') : dateLabel;
 const professionalReviewScope = lesson.data.professionalReviewScope ?? [];
 const localSections = lesson.data.sections ?? pageSections.map((label, index) => ({

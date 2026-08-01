@@ -5,6 +5,10 @@ import process from 'node:process';
 const lessonsDirectory = path.resolve('src/content/lessons');
 const assetManifestPath = path.resolve('data/asset-manifest.yaml');
 const lessonTopicsPath = path.resolve('src/lib/lesson-topics.ts');
+const glossaryPath = path.resolve('src/content/glossary/index.mdx');
+const toolCatalogPath = path.resolve('data/tool-catalog.yaml');
+const instructorNoteMapPath = path.resolve('src/lib/instructor-notes.ts');
+const printStylePath = path.resolve('src/styles/print.css');
 const requiredIds = Array.from({ length: 14 }, (_, index) => String(index + 1).padStart(2, '0'));
 const approvedLessons = [
   { title: '제1차시 · AI가 할 일과 디자이너가 판단할 일', durationMinutes: 180 },
@@ -90,6 +94,13 @@ const lessonOneInstructorSlots = [
   'l01-answer-key',
   'l01-closing',
 ];
+const detailedLessonSections = {
+  '01': ['차시 소개', '오늘의 핵심 질문', '학습 목표', '생성형 AI(Generative AI)의 기본 개념', 'AI가 할 일과 디자이너가 판단할 일', '안전하게 사용하기 위한 핵심 용어', '사실·추론·가정·디자인 제안 구분', '북카페 가상 의뢰', 'Gemini 첫 번째 입력', 'Gemini 3.6 Flash 실제 응답', '실제 응답 분석', '개선된 요청문', '수강생 실습', '결과물 작성', 'AI 활용·검증 체크리스트', '차시 마무리'],
+  '02': ['차시 소개', '직관적인 핵심 질문', '학습 목표', '핵심 개념', '실무형 가상 문제', '제공 자료', '플라워 카페 작업 과정', '수강생 실습', '제출 결과물', '수강생이 판단할 항목', 'AI 오류 확인 체크리스트', '필요한 이미지·영상·문서', '확인 또는 검증이 필요한 내용'],
+  '03': ['차시 소개', '오늘의 프로젝트와 제출 결과물', '실습자료 다운로드 및 현황자료', 'RFP와 디자인 브리프 핵심 개념', 'RFP를 읽을 때 확인할 핵심 질문', 'RFP 구조 함께 확인하기', '요구조건 매트릭스 작성', '발주기관 추가 질의 작성', 'Gemini 분석 및 사람 분석과 비교', '디자인 브리프 작성', '현황 이미지 검토와 제4차시 평가기준', '제출 결과물 점검', '검증 필요와 정리'],
+  '04': ['차시 소개', '오늘의 프로젝트와 제출 결과물', '제공 자료와 제3차시 작업물 가져오기', '공간구성 대안의 의미', '대안 A·B 운영전략과 조닝 작성', 'Nano Banana 대안 이미지 생성', 'RFP 기준 비교와 선택', '선택안 수정', 'Antigravity 도구 유형과 모델 선택', '고정 프로젝트 경로와 핵심 계층구조', '동일 프롬프트로 관리 프로그램 제작 과정', '산출물 자동 정리와 제출 준비', '제출 결과물·검증·다음 차시'],
+};
+const lessonThreeFourOutputs = ['요구조건 매트릭스', '발주기관 추가 질의', '디자인 브리프', '평면도 기반 현황 이미지 생성 결과', '현황 이미지 수정 결과', '평면도와 이미지의 불일치 기록', '제4차시 대안 평가기준'];
 
 const errors = [];
 const dayToFiles = new Map();
@@ -206,6 +217,7 @@ for (const id of connectedLessonIds) {
 for (const fileName of files) {
   const id = path.basename(fileName, '.mdx');
   const isDetailedLessonOne = id === '01';
+  const isDetailedPublicLesson = Number(id) <= 4;
   const source = await readFile(path.join(lessonsDirectory, fileName), 'utf8');
   const frontmatter = readFrontmatter(source, fileName);
 
@@ -253,6 +265,17 @@ for (const fileName of files) {
   const lastVerified = unquote(getScalar(frontmatter, 'lastVerified'));
   if (lastVerified !== 'null' && !/^\d{4}-\d{2}-\d{2}$/.test(lastVerified)) {
     errors.push(`${fileName}: lastVerified는 YYYY-MM-DD 또는 null이어야 합니다.`);
+  }
+  if (isDetailedPublicLesson) {
+    if (unquote(getScalar(frontmatter, 'publicationStatus')) !== 'detailed') {
+      errors.push(`${fileName}: 완성된 제1~4차시는 publicationStatus detailed여야 합니다.`);
+    }
+    if (!/^sources:\s*\r?\n\s{2}- id:/m.test(frontmatter)) {
+      errors.push(`${fileName}: 완성된 제1~4차시는 출처 항목이 필요합니다.`);
+    }
+    if (lastVerified === 'null') {
+      errors.push(`${fileName}: 완성된 제1~4차시는 lastVerified가 필요합니다.`);
+    }
   }
 
   const professionalReviewStatus = unquote(getScalar(frontmatter, 'professionalReviewStatus'));
@@ -347,12 +370,15 @@ for (const fileName of files) {
     if (source.includes('lesson-03-campus-lounge-rfp-v1.2.docx')) {
       errors.push(`${fileName}: 학생용 본문에서 source DOCX 원본을 공개 다운로드로 연결할 수 없습니다.`);
     }
+    for (const output of lessonThreeFourOutputs) {
+      if (!source.includes(output)) errors.push(`${fileName}: 제3차시 공식 결과물 '${output}'이 없습니다.`);
+    }
   }
   if (id === '04') {
     const requiredLessonFourStructures = [
       { marker: 'sectionLayout="project-workflow"', label: '제4차시 전용 프로젝트 워크플로우 레이아웃' },
       { marker: 'projectWorkflow={{', label: '제4차시 프로젝트 워크플로우 데이터 연결' },
-      { marker: '공간구성(Spatial Zoning)', label: '공간구성 대안 용어' },
+      { marker: '공간 조닝(Spatial Zoning)', label: '공간구성 대안 용어' },
       { marker: 'antigravity-manager-build-prompt.txt', label: 'Antigravity 관리 프로그램 제작 요청문' },
       { marker: 'antigravity-manager-approval-prompt.txt', label: '프로그램 제작 승인 요청문' },
       { marker: 'AI_건축_캠퍼스라운지_복구본.zip', label: '관리 프로그램 복구 ZIP' },
@@ -369,27 +395,6 @@ for (const fileName of files) {
     for (const { marker, label } of requiredLessonFourStructures) {
       if (!source.includes(marker)) {
         errors.push(`${fileName}: 제4차시 상세 본문에 ${label} 구성이 없습니다.`);
-      }
-    }
-    const expectedLessonFourSections = [
-      '차시 소개',
-      '오늘의 프로젝트와 제출 결과물',
-      '제공 자료와 제3차시 작업물 가져오기',
-      '공간구성 대안의 의미',
-      '대안 A·B 운영전략과 조닝 작성',
-      'Nano Banana 대안 이미지 생성',
-      'RFP 기준 비교와 선택',
-      '선택안 수정',
-      'Antigravity 도구 유형과 모델 선택',
-      '고정 프로젝트 경로와 핵심 계층구조',
-      '동일 프롬프트로 관리 프로그램 제작 과정',
-      '산출물 자동 정리와 제출 준비',
-      '제출 결과물·검증·다음 차시',
-    ];
-    for (const [index, label] of expectedLessonFourSections.entries()) {
-      const sectionId = `section-${String(index + 1).padStart(2, '0')}`;
-      if (!frontmatter.includes(`{ id: "${sectionId}", label: "${label}" }`)) {
-        errors.push(`${fileName}: ${sectionId} 제목이 승인된 제4차시 구성과 일치하지 않습니다.`);
       }
     }
     if (source.includes('개념 구획(조닝)')) {
@@ -409,6 +414,9 @@ for (const fileName of files) {
       } catch {
         errors.push(`${fileName}: 제4차시 필수 파일을 찾을 수 없습니다: ${filePath}`);
       }
+    }
+    for (const output of lessonThreeFourOutputs) {
+      if (!source.includes(output)) errors.push(`${fileName}: 제4차시 입력자료 '${output}'이 없습니다.`);
     }
   }
   if (source.includes("category: '전문가 판단 필요'")) {
@@ -439,6 +447,14 @@ for (const fileName of files) {
     const sectionId = `section-${String(section).padStart(2, '0')}`;
     if (!frontmatter.includes(`id: "${sectionId}"`)) {
       errors.push(`${fileName}: 로컬 목차에 ${sectionId}가 없습니다.`);
+    }
+  }
+  if (detailedLessonSections[id]) {
+    for (const [index, label] of detailedLessonSections[id].entries()) {
+      const sectionId = `section-${String(index + 1).padStart(2, '0')}`;
+      if (!frontmatter.includes(`{ id: "${sectionId}", label: "${label}" }`)) {
+        errors.push(`${fileName}: ${sectionId} 제목이 실제 상세 섹션과 일치하지 않습니다.`);
+      }
     }
   }
 
@@ -473,6 +489,53 @@ for (const fileName of files) {
     errors.push(`${fileName}: assetIds 항목이 없습니다.`);
   }
   lessonAssetIds.set(fileName, assetIds);
+}
+
+let glossarySource = '';
+try {
+  glossarySource = await readFile(glossaryPath, 'utf8');
+} catch {
+  errors.push('src/content/glossary/index.mdx를 읽을 수 없습니다.');
+}
+const glossaryTerms = ['생성형 AI', '대규모 언어 모델', '멀티모달 AI', '할루시네이션', '그라운딩', '인간 개입형 검토', '프롬프트 또는 요청문', '제안요청서', '요구사항', '제약조건', '출처 추적성', '요구조건 매트릭스', '디자인 브리프', '공간구성 또는 공간 조닝', '대안', '평가기준', '명령줄 인터페이스', '터미널 사용자 인터페이스', '헤드리스 실행', '로컬호스트', 'IP 주소 127.0.0.1', '포트', 'JSON', 'Express', '순수 HTML/CSS/JavaScript', '패키지 잠금 파일'];
+if (/placeholder|내용 검토 예정|준비 중/i.test(glossarySource)) {
+  errors.push('용어 사전에 placeholder 또는 준비 중 문구가 남아 있습니다.');
+}
+for (const term of glossaryTerms) {
+  if (!glossarySource.includes(`term="${term}"`)) errors.push(`용어 사전에 '${term}' 항목이 없습니다.`);
+}
+
+let toolCatalog = '';
+try {
+  toolCatalog = await readFile(toolCatalogPath, 'utf8');
+} catch {
+  errors.push('data/tool-catalog.yaml을 읽을 수 없습니다.');
+}
+const toolBlocks = toolCatalog.split(/\r?\n(?=  - id:\s*")/).filter((block) => block.trimStart().startsWith('- id:'));
+const expectedToolIds = ['gemini', 'nano-banana', 'veo', 'antigravity'];
+for (const toolId of expectedToolIds) {
+  const block = toolBlocks.find((candidate) => candidate.trimStart().startsWith(`- id: "${toolId}"`));
+  if (!block) {
+    errors.push(`tool-catalog에 '${toolId}'가 없습니다.`);
+    continue;
+  }
+  for (const field of ['name', 'category', 'officialUrl', 'courseRole', 'lessonIds', 'lastVerified', 'changeNotice']) {
+    if (!new RegExp(`^\\s{4}${field}:`, 'm').test(block)) errors.push(`tool-catalog ${toolId}: '${field}'가 없습니다.`);
+  }
+  if (!/^\s{4}officialUrl:\s*"https:\/\//m.test(block)) errors.push(`tool-catalog ${toolId}: officialUrl이 유효하지 않습니다.`);
+  if (!/^\s{4}lastVerified:\s*"\d{4}-\d{2}-\d{2}"/m.test(block)) errors.push(`tool-catalog ${toolId}: lastVerified가 유효하지 않습니다.`);
+}
+if (toolBlocks.length !== expectedToolIds.length) errors.push(`tool-catalog 도구 수: 예상 4개, 실제 ${toolBlocks.length}개`);
+
+let instructorNoteMap = '';
+let printStyle = '';
+try { instructorNoteMap = await readFile(instructorNoteMapPath, 'utf8'); } catch { errors.push('강사 메모 슬롯 맵을 읽을 수 없습니다.'); }
+try { printStyle = await readFile(printStylePath, 'utf8'); } catch { errors.push('인쇄 스타일을 읽을 수 없습니다.'); }
+for (const lessonId of ['02', '03', '04']) {
+  if (!instructorNoteMap.includes(`'${lessonId}': {`)) errors.push(`제${Number(lessonId)}차시 강사 메모 슬롯 맵이 없습니다.`);
+}
+if (!/\.time-plan__print-table[\s\S]*display:\s*table/.test(printStyle) || !/table-header-group/.test(printStyle)) {
+  errors.push('PDF 시간표 인쇄 테이블 또는 반복 열 제목 스타일이 없습니다.');
 }
 
 for (let day = 1; day <= 14; day += 1) {

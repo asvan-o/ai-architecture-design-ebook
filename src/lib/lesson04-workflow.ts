@@ -51,6 +51,10 @@ export type Lesson04WorkflowData = {
     title: string;
     description: string;
   }[];
+  technicalTerms: {
+    term: string;
+    definition: string;
+  }[];
   officialSources: {
     title: string;
     url: string;

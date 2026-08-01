@@ -40,6 +40,7 @@ type ProjectReferences = {
 };
 
 interface Props {
+  lessonId: string;
   goals: OutlineItem[];
   scenario: OutlineItem[];
   materials: OutlineItem[];
@@ -57,6 +58,7 @@ interface Props {
 }
 
 const {
+  lessonId,
   goals,
   scenario,
   materials,
@@ -83,6 +85,7 @@ const steps = (...ids: string[]) => practice.filter((step) => ids.includes(step.
   number="02"
   title="오늘의 프로젝트와 제출 결과물"
   class="outline-section lesson04-section"
+  lessonId={lessonId}
 >
   <div class="lesson-section-group">
     <h3>학습 목표</h3>
@@ -103,6 +106,7 @@ const steps = (...ids: string[]) => practice.filter((step) => ids.includes(step.
   number="03"
   title="제공 자료와 제3차시 작업물 가져오기"
   class="outline-section lesson04-section"
+  lessonId={lessonId}
 >
   <LessonResourceDownloads
     items={downloads('common')}
@@ -123,6 +127,7 @@ const steps = (...ids: string[]) => practice.filter((step) => ids.includes(step.
   number="04"
   title="공간구성 대안의 의미"
   class="outline-section lesson04-section"
+  lessonId={lessonId}
 >
   <blockquote class="lesson04-definition">{workflow.definition}</blockquote>
   <div class="lesson04-two-column">
@@ -160,6 +165,7 @@ const steps = (...ids: string[]) => practice.filter((step) => ids.includes(step.
   number="05"
   title="대안 A·B 운영전략과 조닝 작성"
   class="outline-section lesson04-section"
+  lessonId={lessonId}
 >
   {practiceGuidance && <ClassifiedList items={practiceGuidance} />}
   <div class="lesson04-two-column">
@@ -188,6 +194,7 @@ const steps = (...ids: string[]) => practice.filter((step) => ids.includes(step.
   number="06"
   title="Nano Banana 대안 이미지 생성"
   class="outline-section lesson04-section"
+  lessonId={lessonId}
 >
   <div class="lesson04-two-column">
     <div>
@@ -217,6 +224,7 @@ const steps = (...ids: string[]) => practice.filter((step) => ids.includes(step.
   number="07"
   title="RFP 기준 비교와 선택"
   class="outline-section lesson04-section"
+  lessonId={lessonId}
 >
   <p class="lesson04-definition">
     예쁜 이미지를 고르는 것이 아니라 RFP를 더 설득력 있게 해결하는 안을 선택합니다.
@@ -239,6 +247,7 @@ const steps = (...ids: string[]) => practice.filter((step) => ids.includes(step.
   number="08"
   title="선택안 수정"
   class="outline-section lesson04-section"
+  lessonId={lessonId}
 >
   <ul class="lesson04-criteria-grid">
     {workflow.revisionCategories.map((item) => <li>{item}</li>)}
@@ -263,6 +272,7 @@ const steps = (...ids: string[]) => practice.filter((step) => ids.includes(step.
   number="09"
   title="Antigravity 도구 유형과 모델 선택"
   class="outline-section lesson04-section"
+  lessonId={lessonId}
 >
   <ClassifiedList items={workflow.toolNotes} />
   <div class="table-scroll" tabindex="0" role="region" aria-label="Antigravity 제품 역할 비교">
@@ -294,6 +304,14 @@ const steps = (...ids: string[]) => practice.filter((step) => ids.includes(step.
         ))}
       </tbody>
     </table>
+  </div>
+  <div class="lesson-section-group">
+    <h3>실습 전에 알아둘 기술 용어</h3>
+    <dl class="lesson04-term-guide">
+      {workflow.technicalTerms.map((item) => (
+        <div><dt>{item.term}</dt><dd>{item.definition}</dd></div>
+      ))}
+    </dl>
   </div>
   <div class="lesson-section-group">
     <h3>모델 선택 원칙</h3>
@@ -442,6 +460,7 @@ const steps = (...ids: string[]) => practice.filter((step) => ids.includes(step.
   number="10"
   title="고정 프로젝트 경로와 핵심 계층구조"
   class="outline-section lesson04-section"
+  lessonId={lessonId}
 >
   <p>
     바탕화면에 <code>AI_건축_캠퍼스라운지</code> 폴더를 직접 만들고, 빈 폴더에서
@@ -467,6 +486,7 @@ const steps = (...ids: string[]) => practice.filter((step) => ids.includes(step.
   number="11"
   title="동일 프롬프트로 관리 프로그램 제작 과정"
   class="outline-section lesson04-section"
+  lessonId={lessonId}
 >
   <ClassifiedList items={demo} />
   <div class="lesson04-two-column">
@@ -508,8 +528,9 @@ const steps = (...ids: string[]) => practice.filter((step) => ids.includes(step.
 <LessonSection
   id="section-12"
   number="12"
-    title="산출물 자동 정리와 제출 준비"
+  title="산출물 자동 정리와 제출 준비"
   class="outline-section lesson04-section"
+  lessonId={lessonId}
 >
   <div class="lesson04-two-column">
     <div>
@@ -553,6 +574,7 @@ const steps = (...ids: string[]) => practice.filter((step) => ids.includes(step.
   number="13"
   title="제출 결과물·검증·다음 차시"
   class="outline-section lesson04-section"
+  lessonId={lessonId}
 >
   <div class="lesson04-delivery-groups">
     {workflow.deliveryGroups.map((group) => (

@@ -3,8 +3,9 @@ title: "제4차시 · RFP 기반 공간구성 대안 개발과 프로젝트 산�
 day: 4
 date: "pending"
 durationMinutes: 360
-lastVerified: "2026-07-31"
+lastVerified: "2026-08-01"
 draft: true
+publicationStatus: "detailed"
 contentType: "instruction"
 authorship: "ai-assisted"
 verificationStatus: "official-source-checked"
@@ -18,35 +19,35 @@ sources:
     title: "Antigravity 2.0 Overview"
     publisher: "Google Antigravity"
     url: "https://www.antigravity.google/docs/overview"
-    accessedAt: "2026-07-31"
+    accessedAt: "2026-08-01"
     sourceType: "official"
     note: "독립형 데스크톱 앱과 프로젝트·에이전트 관리 역할 확인"
   - id: "antigravity-cli-overview"
     title: "Antigravity CLI Overview"
     publisher: "Google Antigravity"
-    url: "https://antigravity.google/docs/cli-overview"
-    accessedAt: "2026-07-31"
+    url: "https://www.antigravity.google/docs/cli/overview"
+    accessedAt: "2026-08-01"
     sourceType: "official"
     note: "터미널 사용자 인터페이스와 터미널 중심 작업 역할 확인"
   - id: "antigravity-ide-codelab"
     title: "Getting Started with Antigravity IDE"
     publisher: "Google for Developers"
     url: "https://codelabs.developers.google.com/getting-started-agy-ide"
-    accessedAt: "2026-07-31"
+    accessedAt: "2026-08-01"
     sourceType: "official"
     note: "IDE의 편집기·에이전트 패널·코드 직접 편집 역할 확인"
   - id: "nodejs-download"
     title: "Download Node.js"
     publisher: "OpenJS Foundation"
     url: "https://nodejs.org/en/download"
-    accessedAt: "2026-07-31"
+    accessedAt: "2026-08-01"
     sourceType: "official"
     note: "Node.js v24.18.1 LTS와 Windows 설치 파일 확인"
   - id: "nodejs-releases"
     title: "Node.js Releases"
     publisher: "OpenJS Foundation"
     url: "https://nodejs.org/en/about/previous-releases"
-    accessedAt: "2026-07-31"
+    accessedAt: "2026-08-01"
     sourceType: "official"
     note: "운영 환경에 LTS 버전 사용을 권장하는 공식 안내 확인"
 sections:
@@ -82,6 +83,7 @@ import selectedRevisionPromptUrl from '../../assets/lessons/04/prompts/selected-
   sectionLayout="project-workflow"
   lessonId="04"
   totalMinutes={360}
+  reviewPending={false}
   topic={{
     number: '2',
     title: '실무 시나리오 기반 맞춤형 제안 이미지 생성 및 워크플로우 자동화',
@@ -107,7 +109,7 @@ import selectedRevisionPromptUrl from '../../assets/lessons/04/prompts/selected-
     { category: '학습 목표', text: '로컬 관리 프로그램으로 자료를 정리하고 버전을 구분해 현재 작업을 ZIP으로 묶는다.' },
   ]}
   concepts={[
-    { category: '확인된 사실', text: '공간구성 대안은 동일한 RFP의 요구조건을 서로 다른 공간 운영전략으로 해결한 설계안이다.' },
+    { category: '확정된 수업 구성', text: '이 강의에서 공간구성 또는 공간 조닝(Spatial Zoning) 대안은 동일한 RFP 요구조건을 서로 다른 공간 운영전략으로 해결해 보는 교육용 작업안이다. 유일하게 정해진 외부 정의나 확정 설계안이 아니다.' },
     { category: '수강생 판단', text: '색상, 재료, 시간대나 카메라 각도만 바꾼 결과는 서로 다른 공간 운영전략으로 보지 않는다.' },
     { category: '추가 검증 필요', text: 'AI 생성 이미지는 조닝과 운영전략을 검토하는 콘셉트 이미지이며 실제 치수·구조·법규·시공성을 확정하지 않는다.' },
   ]}
@@ -118,7 +120,7 @@ import selectedRevisionPromptUrl from '../../assets/lessons/04/prompts/selected-
   ]}
   materials={[
     { category: '확정된 수업 구성', text: '제3차시의 가상 RFP v1.2, 교육용 현황 평면도와 교육용 가상 현황 이미지 01을 같은 물리 파일로 재사용한다.' },
-    { category: '확정된 수업 구성', text: '제3차시 개인 결과물은 요구조건 매트릭스, 추가 질의, 디자인 브리프, 현황 이미지 수정본, 불일치 기록과 대안 평가기준이다.' },
+    { category: '확정된 수업 구성', text: '제3차시 개인 결과물은 요구조건 매트릭스, 발주기관 추가 질의, 디자인 브리프, 평면도 기반 현황 이미지 생성 결과, 현황 이미지 수정 결과, 평면도와 이미지의 불일치 기록과 제4차시 대안 평가기준이다.' },
     { category: '추가 검증 필요', text: '공통 자료와 개인 결과가 다르게 보이면 RFP와 교육용 현황 평면도를 우선하고 확인되지 않은 내용을 새 사실로 만들지 않는다.' },
   ]}
   projectReferences={{
@@ -283,7 +285,7 @@ import selectedRevisionPromptUrl from '../../assets/lessons/04/prompts/selected-
     { category: '법규·구조·소방 등 해당 전문가 판단', text: '공간 대안의 법규·구조·소방·전기·기계·접근성·시공성은 자동 프로그램이나 생성 이미지로 판정하지 않는다.' },
   ]}
   projectWorkflow={{
-    definition: '공간구성(Spatial Zoning) 대안은 동일한 RFP의 요구조건을 서로 다른 공간 운영전략으로 해결한 설계안이다.',
+    definition: '이 강의에서 공간구성 또는 공간 조닝(Spatial Zoning) 대안은 동일한 RFP의 요구조건을 서로 다른 공간 운영전략으로 해결해 보는 교육용 작업안이다. 유일하게 정해진 정의나 확정 설계안이 아니다.',
     differenceCriteria: [
       '주요 사용자와 활동의 우선순위',
       '공간별 면적과 기능 비중',
@@ -354,6 +356,17 @@ import selectedRevisionPromptUrl from '../../assets/lessons/04/prompts/selected-
         courseUse: '오류 보완용 선택 도구',
       },
     ],
+    technicalTerms: [
+      { term: '명령줄 인터페이스(Command-Line Interface, CLI)', definition: '문장 형태의 명령을 입력해 프로그램을 실행하고 파일을 다루는 방식이다.' },
+      { term: '터미널 사용자 인터페이스(Terminal User Interface, TUI)', definition: '터미널 안에서 목록, 메뉴와 상태를 보며 조작하는 화면 방식이다.' },
+      { term: '헤드리스 실행(Headless)', definition: '일반 창이나 시각적 화면을 열지 않고 명령이나 자동화 과정만 실행하는 방식이다.' },
+      { term: '로컬호스트(Localhost)와 127.0.0.1', definition: '둘 다 현재 사용 중인 자신의 컴퓨터를 가리킨다. 이 수업의 프로그램은 외부 웹 서버가 아니라 내 노트북에서 열린다.' },
+      { term: '포트(Port)', definition: '한 컴퓨터 안에서 실행 중인 여러 프로그램을 구분하는 번호다. 이 수업의 관리 프로그램은 4174번을 사용한다.' },
+      { term: 'JSON(JavaScript Object Notation)', definition: '등록 파일 목록과 같은 구조화된 정보를 텍스트로 저장하는 형식이다.' },
+      { term: 'Express', definition: 'Node.js에서 로컬 웹 프로그램의 요청과 응답을 처리하는 데 사용하는 패키지다.' },
+      { term: '순수 HTML/CSS/JavaScript(Vanilla HTML/CSS/JavaScript)', definition: 'React 같은 추가 UI 프레임워크 없이 웹 표준 파일만으로 화면과 동작을 만드는 방식을 뜻한다.' },
+      { term: '패키지 잠금 파일(package-lock.json)', definition: 'READY ZIP이 검사된 것과 같은 패키지 버전을 설치하도록 기록한 파일이다. npm ci는 이 파일을 기준으로 설치한다.' },
+    ],
     modelPrinciples: [
       { title: '빠른 모델', description: '파일 확인, 목록 작성과 간단한 수정에 사용한다.' },
       { title: '기본 모델', description: '프로젝트 구조 생성, 일반 코드 작성과 테스트에 사용한다.' },
@@ -368,7 +381,7 @@ import selectedRevisionPromptUrl from '../../assets/lessons/04/prompts/selected-
       },
       {
         title: 'Antigravity CLI 공식 개요',
-        url: 'https://antigravity.google/docs/cli-overview',
+        url: 'https://www.antigravity.google/docs/cli/overview',
         description: '터미널 TUI와 터미널 중심 작업 역할',
       },
       {
@@ -377,9 +390,9 @@ import selectedRevisionPromptUrl from '../../assets/lessons/04/prompts/selected-
         description: '코드 편집기, 에이전트 패널과 직접 편집 역할',
       },
     ],
-    officialCheckedAt: '2026-07-31',
+    officialCheckedAt: '2026-08-01',
     nodeSetup: {
-      checkedAt: '2026-07-31',
+      checkedAt: '2026-08-01',
       downloadUrl: 'https://nodejs.org/en/download',
       versions: [
         {
@@ -390,7 +403,7 @@ import selectedRevisionPromptUrl from '../../assets/lessons/04/prompts/selected-
         {
           label: '수업 권장',
           value: '최신 Node.js LTS',
-          description: '2026년 7월 31일 공식 다운로드 페이지 확인 기준 Node.js v24.18.1 LTS를 사용한다.',
+          description: '2026년 8월 1일 공식 다운로드 페이지 확인 기준 Node.js v24.18.1 LTS를 사용한다.',
         },
         {
           label: '설치 채널',
@@ -514,9 +527,10 @@ npm start`,
       '요구조건 매트릭스',
       '발주기관 추가 질의',
       '디자인 브리프',
-      '현황 이미지 수정본',
+      '평면도 기반 현황 이미지 생성 결과',
+      '현황 이미지 수정 결과',
       '평면도와 이미지의 불일치 기록',
-      '대안 평가기준',
+      '제4차시 대안 평가기준',
     ],
     alternativeFields: [
       '대안명',

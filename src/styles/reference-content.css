@@ -32,6 +32,12 @@
 .term-list article > span { color: var(--accent-dark); font-size: 0.78rem; font-weight: 800; }
 .term-list h3 { margin: 0; font-family: var(--serif); font-size: 1.35rem; }
 .term-list p { margin: 0.35rem 0 0; color: var(--muted); font-size: 0.92rem; }
+.term-list .term-english { color: var(--accent-dark); font-size: 0.78rem; font-weight: 800; }
+.term-list .term-definition { color: var(--ink); }
+.term-list dl { display: grid; gap: 0.55rem; margin: 1rem 0 0; }
+.term-list dl div { display: grid; grid-template-columns: minmax(8rem, 0.35fr) 1fr; gap: 1rem; }
+.term-list dt { color: var(--muted); font-size: 0.78rem; font-weight: 800; }
+.term-list dd { margin: 0; font-size: 0.88rem; }
 
 .filter-bar {
   display: flex;
@@ -117,6 +123,7 @@
   .letter-index span { border-bottom: 1px solid var(--line); }
   .term-list article { grid-template-columns: 2rem 1fr; }
   .term-list .status-badge { grid-column: 2; justify-self: start; }
+  .term-list dl div { grid-template-columns: 1fr; gap: 0.2rem; }
   .prompt-grid article { grid-template-columns: 1fr; gap: 1rem; }
   .prompt-grid .prompt-example { grid-column: 1; grid-row: auto; }
   .issue-list summary { grid-template-columns: 1fr auto; }

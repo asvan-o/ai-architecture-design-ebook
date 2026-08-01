@@ -272,6 +272,7 @@
   padding: 0;
   list-style: none;
 }
+.time-plan__print-table { display: none; }
 .time-plan li {
   display: grid;
   min-height: 6rem;
@@ -282,6 +283,21 @@
 .time-plan li:last-child { border-right: 0; }
 .time-plan li span { color: var(--muted); font-size: 0.78rem; }
 .time-plan__warning { margin: 0; padding: 0.8rem; color: #8f2d2d; }
+
+.lesson04-term-guide {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin: 1rem 0 0;
+  border-top: 1px solid var(--line-dark);
+}
+.lesson04-term-guide > div {
+  padding: 1rem;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.lesson04-term-guide dt { font-weight: 800; }
+.lesson04-term-guide dd { margin: 0.35rem 0 0; color: var(--muted); }
 .asset-policy {
   max-width: 54rem;
   margin: -0.5rem 0 1.5rem;
@@ -1773,6 +1789,7 @@
   .time-plan header { display: grid; }
   .time-plan ol { grid-template-columns: 1fr 1fr; }
   .time-plan li { min-height: 5rem; border-bottom: 1px solid var(--line); }
+  .lesson04-term-guide { grid-template-columns: 1fr; }
   .lesson-asset { grid-template-columns: 1fr; }
   .lesson-asset__visual { min-height: 11rem; border-right: 0; border-bottom: 1px solid var(--line-dark); }
   .lesson-summary-grid,

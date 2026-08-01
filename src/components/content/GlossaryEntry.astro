@@ -4,17 +4,38 @@ import StatusBadge from '../StatusBadge.astro';
 interface Props {
   index: string;
   term: string;
+  englishName: string;
   definition: string;
+  courseUse: string;
+  confusedWith: string;
+  lessons: string;
+  lastReviewed: string;
 }
 
-const { index, term, definition } = Astro.props;
+const {
+  index,
+  term,
+  englishName,
+  definition,
+  courseUse,
+  confusedWith,
+  lessons,
+  lastReviewed,
+} = Astro.props;
 ---
 
 <article>
   <span>{index}</span>
   <div>
     <h3>{term}</h3>
-    <p>{definition}</p>
+    <p class="term-english">{englishName}</p>
+    <p class="term-definition">{definition}</p>
+    <dl>
+      <div><dt>강의에서 사용하는 의미</dt><dd>{courseUse}</dd></div>
+      <div><dt>혼동하기 쉬운 개념</dt><dd>{confusedWith}</dd></div>
+      <div><dt>관련 차시</dt><dd>{lessons}</dd></div>
+      <div><dt>마지막 검토일</dt><dd>{lastReviewed}</dd></div>
+    </dl>
   </div>
-  <StatusBadge kind="verificationStatus" value="pending" />
+  <StatusBadge kind="verificationStatus" value="source-checked" />
 </article>
