@@ -237,15 +237,19 @@ if (mode === 'student') {
 
 for (const privateNotePath of privateNotePaths) {
   if (!existsSync(privateNotePath)) {
-    errors.push(`로컬 강사 메모 파일이 없습니다: ${privateNotePath}`);
+    if (mode === 'instructor') {
+      errors.push(`로컬 강사 메모 파일이 없습니다: ${privateNotePath}`);
+    }
     continue;
   }
   const source = privateNoteSources.get(privateNotePath) ?? '';
-  const lessonId = path.basename(privateNotePath, '.yaml');
-  const actualSlots = [...source.matchAll(/^\s{2}- slot:\s*"([^"]+)"\s*$/gm)].map((match) => match[1]);
-  const requiredSlots = requiredSlotsByLesson[lessonId] ?? [];
-  if (actualSlots.length !== requiredSlots.length || requiredSlots.some((slot) => !actualSlots.includes(slot))) {
-    errors.push(`로컬 제${Number(lessonId)}차시 YAML 슬롯 ID가 코드 정의와 일치하지 않습니다.`);
+  if (mode === 'instructor') {
+    const lessonId = path.basename(privateNotePath, '.yaml');
+    const actualSlots = [...source.matchAll(/^\s{2}- slot:\s*"([^"]+)"\s*$/gm)].map((match) => match[1]);
+    const requiredSlots = requiredSlotsByLesson[lessonId] ?? [];
+    if (actualSlots.length !== requiredSlots.length || requiredSlots.some((slot) => !actualSlots.includes(slot))) {
+      errors.push(`로컬 제${Number(lessonId)}차시 YAML 슬롯 ID가 코드 정의와 일치하지 않습니다.`);
+    }
   }
   try {
     execFileSync('git', ['check-ignore', '--quiet', privateNotePath], { stdio: 'ignore' });
@@ -262,11 +266,17 @@ if (errors.length > 0) {
 
 console.log(`${mode} 빌드 강사 메모 경계 검사 성공`);
 if (mode === 'student') {
-  console.log('- 강사 메모 슬롯·UI·누락 안내·로컬 메모 본문·YAML 파일 없음');
+  if (privateNoteSources.size === 0) {
+    console.log('- CI/공개 학생 빌드: 로컬 강사 메모 파일 부재 허용');
+  } else {
+    console.log('- 로컬 강사 메모 본문 유출 검사 완료');
+    console.log('- 실제 강사 메모 파일 Git 제외 확인');
+  }
+  console.log('- 학생용 결과물에 강사 메모 슬롯·UI·누락 안내·본문·YAML 파일 없음');
 } else {
   console.log('- 제1–4차시 강사 메모 슬롯 38개와 로컬 YAML ID 일치');
   console.log('- 제1–14차시 정적 페이지 존재');
   console.log('- 제1–14차시 강사 콘솔·프레젠테이션 route 존재');
   console.log('- 프레젠테이션 화면에 강사 메모·자산 관리 카드 없음');
+  console.log('- 실제 강사 메모 파일 Git 제외 확인');
 }
-console.log('- 실제 강사 메모 파일 Git 제외 확인');
