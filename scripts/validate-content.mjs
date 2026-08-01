@@ -497,7 +497,7 @@ try {
 } catch {
   errors.push('src/content/glossary/index.mdx를 읽을 수 없습니다.');
 }
-const glossaryTerms = ['생성형 AI', '대규모 언어 모델', '멀티모달 AI', '할루시네이션', '그라운딩', '인간 개입형 검토', '프롬프트 또는 요청문', '제안요청서', '요구사항', '제약조건', '출처 추적성', '요구조건 매트릭스', '디자인 브리프', '공간구성 또는 공간 조닝', '대안', '평가기준', '명령줄 인터페이스', '터미널 사용자 인터페이스', '헤드리스 실행', '로컬호스트', 'IP 주소 127.0.0.1', '포트', 'JSON', 'Express', '순수 HTML/CSS/JavaScript', '패키지 잠금 파일'];
+const glossaryTerms = ['생성형 AI', '대규모 언어 모델', '멀티모달 AI', '할루시네이션', '그라운딩', '인간 개입형 검토', '프롬프트 또는 요청문', '제안요청서', '요구사항', '제약조건', '출처 추적성', '요구조건 매트릭스', '디자인 브리프', '공간구성 또는 공간 조닝', '대안', '평가기준', '명령줄 인터페이스', '터미널 사용자 인터페이스', '헤드리스 실행', '로컬호스트', 'IP 주소 127.0.0.1', '포트', 'JSON', 'Express', '순수 HTML/CSS/JavaScript', '패키지 잠금 파일', '프로토타입'];
 if (/placeholder|내용 검토 예정|준비 중/i.test(glossarySource)) {
   errors.push('용어 사전에 placeholder 또는 준비 중 문구가 남아 있습니다.');
 }
@@ -512,20 +512,51 @@ try {
   errors.push('data/tool-catalog.yaml을 읽을 수 없습니다.');
 }
 const toolBlocks = toolCatalog.split(/\r?\n(?=  - id:\s*")/).filter((block) => block.trimStart().startsWith('- id:'));
-const expectedToolIds = ['gemini', 'nano-banana', 'veo', 'antigravity'];
+const expectedToolIds = [
+  'gemini',
+  'nano-banana',
+  'veo',
+  'antigravity',
+  'chatgpt-images',
+  'midjourney',
+  'adobe-firefly',
+  'krea',
+  'veras',
+  'seedance',
+  'higgsfield',
+  'runway',
+  'claude-artifacts',
+];
 for (const toolId of expectedToolIds) {
   const block = toolBlocks.find((candidate) => candidate.trimStart().startsWith(`- id: "${toolId}"`));
   if (!block) {
     errors.push(`tool-catalog에 '${toolId}'가 없습니다.`);
     continue;
   }
-  for (const field of ['name', 'category', 'officialUrl', 'courseRole', 'lessonIds', 'lastVerified', 'changeNotice']) {
+  for (const field of ['name', 'category', 'officialUrl', 'courseRole', 'lessonIds', 'modelOrFamily', 'runtime', 'lastVerified', 'changeNotice']) {
     if (!new RegExp(`^\\s{4}${field}:`, 'm').test(block)) errors.push(`tool-catalog ${toolId}: '${field}'가 없습니다.`);
   }
   if (!/^\s{4}officialUrl:\s*"https:\/\//m.test(block)) errors.push(`tool-catalog ${toolId}: officialUrl이 유효하지 않습니다.`);
   if (!/^\s{4}lastVerified:\s*"\d{4}-\d{2}-\d{2}"/m.test(block)) errors.push(`tool-catalog ${toolId}: lastVerified가 유효하지 않습니다.`);
+  if (!/^\s{4}lessonIds:\s*\[[^\]]*"01"/m.test(block)) errors.push(`tool-catalog ${toolId}: lessonIds에 '01'이 없습니다.`);
+  if (/^\s{4}(?:price|pricing|credit|credits|cost):/mi.test(block)) errors.push(`tool-catalog ${toolId}: 가격 또는 크레딧 필드를 기록할 수 없습니다.`);
 }
-if (toolBlocks.length !== expectedToolIds.length) errors.push(`tool-catalog 도구 수: 예상 4개, 실제 ${toolBlocks.length}개`);
+if (toolBlocks.length !== expectedToolIds.length) errors.push(`tool-catalog 도구 수: 예상 ${expectedToolIds.length}개, 실제 ${toolBlocks.length}개`);
+
+let lessonOneSource = '';
+try {
+  lessonOneSource = await readFile(path.join(lessonsDirectory, '01.mdx'), 'utf8');
+} catch {
+  errors.push('제1차시 본문을 읽을 수 없습니다.');
+}
+for (const toolName of ['Gemini', 'Nano Banana', 'Veo', 'Antigravity', 'ChatGPT Images', 'Midjourney', 'Adobe Firefly', 'Krea', 'Veras', 'Seedance', 'Higgsfield', 'Runway', 'Claude Artifacts']) {
+  if (!lessonOneSource.includes(toolName)) errors.push(`제1차시 도구 지형도에 '${toolName}'가 없습니다.`);
+}
+if (!lessonOneSource.includes('생성형 디자인 도구 지형도')) errors.push('제1차시에 생성형 디자인 도구 지형도가 없습니다.');
+if (!/생성형 디자인 도구 지형도 10분/.test(lessonOneSource)) errors.push('제1차시 도구 지형도 설명 시간이 10분으로 표시되지 않았습니다.');
+for (const forbiddenPhrase of ['최고의 도구', '가장 정확한 도구', '저작권 문제가 없음', '상업적 사용을 보장', '건축 설계를 자동 완성', '법규·시공 가능성을 자동 검증', '전문가 검토를 대체']) {
+  if (lessonOneSource.includes(forbiddenPhrase)) errors.push(`제1차시 도구 지형도 금지 표현: '${forbiddenPhrase}'`);
+}
 
 let instructorNoteMap = '';
 let printStyle = '';

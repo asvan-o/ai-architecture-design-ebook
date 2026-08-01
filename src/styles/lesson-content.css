@@ -545,6 +545,122 @@
   color: #8f2d2d;
 }
 
+.lesson-tool-landscape {
+  width: 100%;
+  max-width: 54rem;
+  margin: 3rem 0 2rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--ink);
+}
+
+.lesson-tool-landscape__header > span,
+.lesson-tool-card > span {
+  color: var(--accent-dark);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.lesson-tool-landscape__header h3 {
+  margin: 0.65rem 0 0.8rem;
+  text-wrap: balance;
+}
+
+.lesson-tool-landscape__header p,
+.lesson-tool-group__header p {
+  max-width: 46rem;
+  color: var(--muted);
+}
+
+.lesson-tool-group {
+  margin-top: 2.5rem;
+}
+
+.lesson-tool-group__header {
+  display: grid;
+  grid-template-columns: minmax(13rem, 0.65fr) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: end;
+  margin-bottom: 1rem;
+}
+
+.lesson-tool-group__header h4 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(1.2rem, 2vw, 1.55rem);
+  line-height: 1.35;
+  text-wrap: balance;
+}
+
+.lesson-tool-group__header p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.lesson-tool-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.lesson-tool-card {
+  min-width: 0;
+  padding: 1.25rem;
+  border: 1px solid var(--line-dark);
+  background: var(--surface);
+}
+
+.lesson-tool-card--primary {
+  border-top: 4px solid var(--accent-dark);
+}
+
+.lesson-tool-card h5 {
+  margin: 0.55rem 0 0.65rem;
+  overflow-wrap: anywhere;
+  font-family: var(--serif);
+  font-size: clamp(1.25rem, 2vw, 1.55rem);
+  line-height: 1.25;
+  word-break: keep-all;
+}
+
+.lesson-tool-card > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.lesson-tool-card dl {
+  margin: 1.1rem 0 0;
+}
+
+.lesson-tool-card dl div {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: 0.8rem;
+  padding: 0.55rem 0;
+  border-top: 1px solid var(--line);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.lesson-tool-card dt {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.lesson-tool-card dd {
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-weight: 700;
+  word-break: keep-all;
+}
+
+.lesson-tool-landscape__notice {
+  max-width: none;
+  margin-bottom: 0;
+}
+
 .lesson-role-grid {
   grid-template-columns: repeat(2, 1fr);
 }
@@ -1816,6 +1932,24 @@
   .lesson-term-grid article:last-child,
   .lesson-two-column article:last-child {
     border-bottom: 0;
+  }
+
+  .lesson-tool-group__header,
+  .lesson-tool-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lesson-tool-group__header {
+    gap: 0.5rem;
+  }
+
+  .lesson-tool-card {
+    padding: 1rem;
+  }
+
+  .lesson-tool-card dl div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.15rem;
   }
   .lesson-practice-block > header {
     display: grid;

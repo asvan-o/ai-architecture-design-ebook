@@ -260,6 +260,7 @@
 .print-document .lesson-resource-downloads li,
 .print-document .structured-practice-template,
 .print-document .structured-practice-templates__note,
+.print-document .lesson-tool-card,
 .print-document .outline-list li,
 .print-document .practice-list li {
   break-inside: avoid-page;
@@ -330,6 +331,77 @@
 .print-document .lesson-term-grid,
 .print-document .lesson-two-column {
   font-size: 9.25pt;
+}
+
+.print-document .lesson-tool-landscape {
+  margin: 7mm 0 4mm;
+  padding-top: 5mm;
+}
+
+.print-document .lesson-tool-landscape__header,
+.print-document .lesson-tool-group__header {
+  break-after: avoid-page;
+  page-break-after: avoid;
+}
+
+.print-document .lesson-tool-landscape__header h3 {
+  margin: 2mm 0 1.5mm;
+  font-size: 16pt;
+}
+
+.print-document .lesson-tool-group {
+  margin-top: 6mm;
+}
+
+.print-document .lesson-tool-group__header {
+  display: block;
+  margin-bottom: 3mm;
+}
+
+.print-document .lesson-tool-group__header h4 {
+  font-size: 13pt;
+}
+
+.print-document .lesson-tool-group__header p {
+  margin-top: 1mm;
+  font-size: 8.5pt;
+}
+
+.print-document .lesson-tool-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3mm;
+}
+
+.print-document .lesson-tool-card {
+  padding: 3.5mm;
+  font-size: 8.5pt;
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+
+.print-document .lesson-tool-card h5 {
+  margin: 1.5mm 0;
+  font-size: 12pt;
+}
+
+.print-document .lesson-tool-card > p {
+  font-size: 8.5pt;
+  line-height: 1.5;
+}
+
+.print-document .lesson-tool-card dl {
+  margin-top: 2.5mm;
+}
+
+.print-document .lesson-tool-card dl div {
+  grid-template-columns: 25mm minmax(0, 1fr);
+  gap: 2mm;
+  padding: 1.5mm 0;
+  font-size: 8pt;
+}
+
+.print-document .lesson-tool-landscape__notice {
+  margin-top: 5mm;
 }
 
 .print-document .table-scroll {

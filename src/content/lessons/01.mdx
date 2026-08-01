@@ -3,7 +3,7 @@ title: "제1차시 · AI가 할 일과 디자이너가 판단할 일"
 day: 1
 date: "2026-08-05"
 durationMinutes: 180
-lastVerified: "2026-08-01"
+lastVerified: "2026-08-02"
 draft: true
 publicationStatus: "detailed"
 contentType: "instruction"
@@ -70,7 +70,7 @@ export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
   <LessonTimePlan
     totalMinutes={180}
     timePlan={[
-      { label: '도입과 기본 개념', detail: '과정 소개, 생성형 AI(Generative AI)·대규모 언어 모델(Large Language Model, LLM)·멀티모달 AI(Multimodal AI)', minutes: 30 },
+      { label: '도입과 기본 개념', detail: '과정 소개와 기본 개념 20분, 생성형 디자인 도구 지형도 10분', minutes: 30 },
       { label: '역할과 검증', detail: 'AI와 디자이너의 역할, 안전한 사용', minutes: 40 },
       { label: '휴식', detail: '휴식', minutes: 10 },
       { label: '강사 시연', detail: '북카페 Gemini 사례', minutes: 30, practiceRelated: true },
@@ -135,6 +135,155 @@ export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
     <p>멀티모달 AI(Multimodal AI)는 텍스트뿐 아니라 이미지, PDF 등 여러 형식의 자료를 함께 다루는 AI다.</p>
 
     <p>이번 과정에서는 Gemini의 파일 업로드 기능을 사용할 수 있다. 다만 파일을 읽을 수 있다는 것과 모든 정보를 정확하게 해석한다는 것은 다르다. AI 답변은 반드시 원본과 대조한다.</p>
+
+    <section class="lesson-tool-landscape" aria-labelledby="lesson-tool-landscape-title">
+      <header class="lesson-tool-landscape__header">
+        <span>10분 개념 탐색</span>
+        <h3 id="lesson-tool-landscape-title">생성형 디자인 도구 지형도</h3>
+        <p>도구를 모두 익히기보다 어떤 입력을 다루고 어떤 결과를 만드는지 구분하는 데 초점을 둔다.</p>
+      </header>
+
+      <section class="lesson-tool-group" aria-labelledby="lesson-primary-tools-title">
+        <header class="lesson-tool-group__header">
+          <h4 id="lesson-primary-tools-title">이번 과정의 주 실습 도구</h4>
+          <p>본문 실습과 결과 검토에 직접 사용하는 4개 도구다.</p>
+        </header>
+        <div class="lesson-tool-grid lesson-tool-grid--primary">
+          <article class="lesson-tool-card lesson-tool-card--primary">
+            <span>문서·대화·멀티모달 분석</span>
+            <h5>Gemini</h5>
+            <p>문서·이미지·요구사항을 대화형으로 구조화하고 교차검토한다.</p>
+            <dl>
+              <div><dt>활용 예</dt><dd>RFP와 평면도의 조건 분류</dd></div>
+              <div><dt>과정 위치</dt><dd>제1·3차시 주 실습</dd></div>
+            </dl>
+          </article>
+          <article class="lesson-tool-card lesson-tool-card--primary">
+            <span>이미지 생성·수정</span>
+            <h5>Nano Banana</h5>
+            <p>공간 콘셉트 이미지를 만들고 선택한 영역을 요청에 맞게 반복 수정한다.</p>
+            <dl>
+              <div><dt>활용 예</dt><dd>가구·조명·마감 요소 조정</dd></div>
+              <div><dt>과정 위치</dt><dd>제2·4차시 주 실습</dd></div>
+            </dl>
+          </article>
+          <article class="lesson-tool-card lesson-tool-card--primary">
+            <span>영상 생성</span>
+            <h5>Veo</h5>
+            <p>이미지 또는 요청문을 바탕으로 짧은 영상을 생성하는 사례를 다룬다.</p>
+            <dl>
+              <div><dt>활용 예</dt><dd>정지 공간 이미지의 영상화</dd></div>
+              <div><dt>과정 위치</dt><dd>후속 영상 차시 주 실습</dd></div>
+            </dl>
+          </article>
+          <article class="lesson-tool-card lesson-tool-card--primary">
+            <span>작업 흐름·자동화</span>
+            <h5>Antigravity</h5>
+            <p>프로젝트 폴더와 파일을 기준으로 코드를 만들고 반복 업무를 정리한다.</p>
+            <dl>
+              <div><dt>활용 예</dt><dd>로컬 프로그램과 산출물 폴더 제작</dd></div>
+              <div><dt>과정 위치</dt><dd>제4차시 주 실습</dd></div>
+            </dl>
+          </article>
+        </div>
+      </section>
+
+      <section class="lesson-tool-group" aria-labelledby="lesson-reference-tools-title">
+        <header class="lesson-tool-group__header">
+          <h4 id="lesson-reference-tools-title">용도별 참고 사례</h4>
+          <p>직접 실습이 필수는 아니며, 도구별 접근방식의 차이를 이해하기 위한 사례다.</p>
+        </header>
+        <div class="lesson-tool-grid lesson-tool-grid--reference">
+          <article class="lesson-tool-card">
+            <span>이미지 생성·수정</span>
+            <h5>ChatGPT Images</h5>
+            <p>대화로 이미지를 만들고 반복 요청으로 요소·구도·문구를 조정한다.</p>
+            <dl>
+              <div><dt>활용 예</dt><dd>제안서 이미지의 요소 교체</dd></div>
+              <div><dt>과정 위치</dt><dd>대화형 이미지 편집 참고</dd></div>
+            </dl>
+          </article>
+          <article class="lesson-tool-card">
+            <span>이미지 생성·수정</span>
+            <h5>Midjourney</h5>
+            <p>요청문과 참고 이미지를 활용해 스타일·구도·분위기를 시각적으로 탐색한다.</p>
+            <dl>
+              <div><dt>활용 예</dt><dd>공간 분위기 방향 비교</dd></div>
+              <div><dt>과정 위치</dt><dd>참고 이미지 탐색 사례</dd></div>
+            </dl>
+          </article>
+          <article class="lesson-tool-card">
+            <span>이미지 생성·수정</span>
+            <h5>Adobe Firefly</h5>
+            <p>이미지 생성·편집을 Adobe 작업환경과 연결해 그래픽과 보정 과정을 다룬다.</p>
+            <dl>
+              <div><dt>활용 예</dt><dd>제안서 그래픽과 이미지 보정</dd></div>
+              <div><dt>과정 위치</dt><dd>디자인 편집 환경 참고</dd></div>
+            </dl>
+          </article>
+          <article class="lesson-tool-card">
+            <span>실시간 시각 탐색</span>
+            <h5>Krea</h5>
+            <p>실시간 캔버스에서 러프 스케치와 입력을 바꾸며 시각 방향을 빠르게 탐색한다.</p>
+            <dl>
+              <div><dt>활용 예</dt><dd>초기 스케치의 분위기 확인</dd></div>
+              <div><dt>과정 위치</dt><dd>빠른 반복 탐색 참고</dd></div>
+            </dl>
+          </article>
+          <article class="lesson-tool-card">
+            <span>건축 특화 시각화</span>
+            <h5>Veras</h5>
+            <p>건축 모델·스케치·기준 이미지를 시작점으로 시각화하는 건축 특화 사례다.</p>
+            <dl>
+              <div><dt>활용 예</dt><dd>모델 기하와 마감 탐색 조율</dd></div>
+              <div><dt>과정 위치</dt><dd>범용 도구와의 차이 비교</dd></div>
+            </dl>
+          </article>
+          <article class="lesson-tool-card">
+            <span>영상 생성</span>
+            <h5>Seedance</h5>
+            <p>텍스트·이미지를 입력해 영상을 만드는 접근방식을 보여준다.</p>
+            <dl>
+              <div><dt>활용 예</dt><dd>공간 이미지의 짧은 동선 표현</dd></div>
+              <div><dt>과정 위치</dt><dd>영상 생성 접근법 참고</dd></div>
+            </dl>
+          </article>
+          <article class="lesson-tool-card">
+            <span>영상 생성</span>
+            <h5>Higgsfield</h5>
+            <p>이미지를 영상화하고 카메라와 모션 연출을 조합하는 사례다.</p>
+            <dl>
+              <div><dt>활용 예</dt><dd>공간 시점의 카메라 움직임 탐색</dd></div>
+              <div><dt>과정 위치</dt><dd>모션 연출 참고</dd></div>
+            </dl>
+          </article>
+          <article class="lesson-tool-card">
+            <span>영상 생성</span>
+            <h5>Runway</h5>
+            <p>이미지·영상 생성과 수정을 하나의 제작 흐름에서 연결하는 사례다.</p>
+            <dl>
+              <div><dt>활용 예</dt><dd>공간 클립의 조명·배경 수정</dd></div>
+              <div><dt>과정 위치</dt><dd>영상 제작 환경 참고</dd></div>
+            </dl>
+          </article>
+          <article class="lesson-tool-card">
+            <span>프로토타입·인터랙티브 결과물</span>
+            <h5>Claude Artifacts</h5>
+            <p>설명을 웹페이지·다이어그램·인터랙티브 결과물로 구성해 프로토타입(Prototype)을 확인한다.</p>
+            <dl>
+              <div><dt>활용 예</dt><dd>건축 제안서용 간단한 웹 시안</dd></div>
+              <div><dt>과정 위치</dt><dd>인터랙티브 결과물 참고</dd></div>
+            </dl>
+          </article>
+        </div>
+      </section>
+
+      <aside class="lesson-callout lesson-tool-landscape__notice">
+        <strong>도구 사례 이해 범위</strong>
+        <p>아래 도구는 생성형 디자인 분야의 다양한 접근방식을 이해하기 위한 사례입니다. 본 과정에서 모든 도구를 직접 실습하는 것은 아닙니다. 기능, 화면, 모델, 제공 지역과 요금제는 변경될 수 있으므로 실제 사용 전 공식 정보를 다시 확인해야 합니다.</p>
+        <p>생성 결과는 설계도서나 법규·구조·소방·시공 등 해당 분야 전문가의 판단과 검토를 대체하지 않습니다.</p>
+      </aside>
+    </section>
 
     <h3>과정에서 사용할 모델</h3>
 
