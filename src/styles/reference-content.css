@@ -20,6 +20,14 @@
   font-weight: 750;
 }
 .letter-index span:last-child { border-right: 0; }
+.reference-note {
+  margin: 0 0 1.5rem;
+  padding: 1rem 1.1rem;
+  border-left: 3px solid var(--accent-dark);
+  background: var(--paper-deep);
+}
+.reference-note strong { display: block; margin-bottom: 0.35rem; }
+.reference-note p { margin: 0; color: var(--muted); }
 .term-list { border-top: 1px solid var(--line-dark); }
 .term-list article {
   display: grid;

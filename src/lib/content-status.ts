@@ -27,6 +27,9 @@ export const statusCatalog: Record<StatusKind, Record<string, StatusMeta>> = {
   },
   verificationStatus: {
     pending: { label: '검증 필요', tone: 'check' },
+    'mixed-verification': { label: '혼합 검증', tone: 'changing' },
+    'course-definition': { label: '강의용 정의', tone: 'instruction' },
+    'standard-public-reference': { label: '표준·공공 참고', tone: 'source' },
     'source-checked': { label: '출처 확인', tone: 'source' },
     'official-source-checked': { label: '공식 자료 확인', tone: 'verified' },
     'expert-reviewed': { label: '전문가 검토 완료', tone: 'verified' },

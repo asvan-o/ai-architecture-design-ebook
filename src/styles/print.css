@@ -333,6 +333,40 @@
   font-size: 9.25pt;
 }
 
+/* 제1차시 분석 카드는 카드 사이에서만 나누어 제목과 내용을 함께 보존한다. */
+.print-document .print-lesson[data-print-lesson-id='01'] .lesson-analysis-grid {
+  display: block;
+  break-inside: auto;
+  page-break-inside: auto;
+}
+
+.print-document .print-lesson[data-print-lesson-id='01'] .lesson-analysis-grid article {
+  margin: 0 0 3mm;
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+
+.print-document .print-lesson[data-print-lesson-id='01'] .lesson-classification-examples {
+  break-inside: auto;
+  page-break-inside: auto;
+}
+
+.print-document .print-lesson[data-print-lesson-id='01'] .lesson-classification-examples > header,
+.print-document .print-lesson[data-print-lesson-id='01'] .lesson-classification-steps,
+.print-document .print-lesson[data-print-lesson-id='01'] .lesson-classification-examples tr,
+.print-document .print-lesson[data-print-lesson-id='01'] .lesson-share-notes {
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+
+.print-document .print-lesson[data-print-lesson-id='01'] .lesson-classification-examples .lesson-table {
+  font-size: 8.25pt;
+}
+
+.print-document .print-lesson[data-print-lesson-id='01'] .lesson-share-notes > div {
+  min-height: 42mm;
+}
+
 .print-document .lesson-tool-landscape {
   margin: 7mm 0 4mm;
   padding-top: 5mm;
@@ -797,6 +831,19 @@
 
 .print-document .lesson-ai-response p:has(> strong:only-child) {
   break-after: avoid;
+}
+
+/* 소통 존 제목과 대상·구성·포인트는 같은 페이지에서 시작한다. */
+.print-document .print-lesson[data-print-lesson-id='01'] .lesson-ai-response p:nth-of-type(12) {
+  break-before: page;
+  page-break-before: always;
+}
+
+.print-document .print-lesson[data-print-lesson-id='01'] .lesson-ai-response p:nth-of-type(12),
+.print-document .print-lesson[data-print-lesson-id='01'] .lesson-ai-response p:nth-of-type(13),
+.print-document .print-lesson[data-print-lesson-id='01'] .lesson-ai-response p:nth-of-type(14) {
+  break-after: avoid-page;
+  page-break-after: avoid;
 }
 
 .print-document .outline-section .time-plan > header,

@@ -5,7 +5,7 @@ draft: false
 publicationStatus: "detailed"
 contentType: "instruction"
 authorship: "ai-assisted"
-verificationStatus: "source-checked"
+verificationStatus: "mixed-verification"
 freshness: "update-sensitive"
 riskLevel: "low"
 professionalReviewStatus: "not-required"
@@ -34,6 +34,60 @@ sources:
     url: "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/JSON"
     accessedAt: "2026-08-01"
     sourceType: "documentation"
+  - id: "google-cloud-generative-ai-glossary"
+    title: "Generative AI glossary"
+    publisher: "Google Cloud"
+    url: "https://docs.cloud.google.com/docs/generative-ai/glossary"
+    accessedAt: "2026-08-02"
+    sourceType: "official"
+  - id: "nist-multimodal-models"
+    title: "Multimodal Models"
+    publisher: "NIST"
+    url: "https://csrc.nist.gov/glossary/term/multimodal_models"
+    accessedAt: "2026-08-02"
+    sourceType: "standard"
+  - id: "nist-ai-rmf-core"
+    title: "AI RMF Core"
+    publisher: "NIST"
+    url: "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/"
+    accessedAt: "2026-08-02"
+    sourceType: "standard"
+  - id: "gemini-prompt-design"
+    title: "Prompt design strategies"
+    publisher: "Google AI for Developers"
+    url: "https://ai.google.dev/gemini-api/docs/prompting-strategies"
+    accessedAt: "2026-08-02"
+    sourceType: "official"
+  - id: "gemini-latest-models"
+    title: "Using the latest Gemini models"
+    publisher: "Google AI for Developers"
+    url: "https://ai.google.dev/gemini-api/docs/latest-model"
+    accessedAt: "2026-08-02"
+    sourceType: "official"
+  - id: "gemini-thinking"
+    title: "Gemini thinking"
+    publisher: "Google AI for Developers"
+    url: "https://ai.google.dev/gemini-api/docs/generate-content/thinking"
+    accessedAt: "2026-08-02"
+    sourceType: "official"
+  - id: "rfc-1122"
+    title: "Requirements for Internet Hosts — Communication Layers"
+    publisher: "IETF"
+    url: "https://www.rfc-editor.org/rfc/rfc1122"
+    accessedAt: "2026-08-02"
+    sourceType: "standard"
+  - id: "rfc-8259"
+    title: "The JavaScript Object Notation (JSON) Data Interchange Format"
+    publisher: "IETF"
+    url: "https://www.rfc-editor.org/rfc/rfc8259"
+    accessedAt: "2026-08-02"
+    sourceType: "standard"
+  - id: "npm-package-lock"
+    title: "package-lock.json"
+    publisher: "npm"
+    url: "https://docs.npmjs.com/cli/configuring-npm/package-lock-json"
+    accessedAt: "2026-08-02"
+    sourceType: "documentation"
 ---
 
 import GlossaryEntry from '../../components/content/GlossaryEntry.astro';
@@ -46,33 +100,47 @@ import GlossaryIndex from '../../components/content/GlossaryIndex.astro';
     <span>01</span>
     <h2 id="terms-title">제1~4차시 핵심 용어</h2>
   </div>
+  <aside className="reference-note">
+    <strong>정의 검증 상태</strong>
+    <p><code>공식 출처 확인</code>은 해당 기관·제품의 공식 문서로 대조한 항목, <code>표준·공공 참고</code>는 표준 또는 공공기관 자료를 참고한 항목, <code>강의용 정의</code>는 이 과정의 실습과 결과물 작성을 위해 범위를 정한 항목입니다.</p>
+  </aside>
   <div className="term-list">
-    <GlossaryEntry index="01" term="생성형 AI" englishName="Generative AI" definition="사용자의 요청과 제공 자료를 바탕으로 텍스트·이미지·영상 등의 새 결과를 만드는 인공지능이다." courseUse="결과를 정답으로 채택하지 않고 검토 가능한 첫 제안으로 다룬다." confusedWith="검색 결과나 검증된 사실 데이터 자체와 같지 않다." lessons="제1·2차시" lastReviewed="2026-08-01" />
-    <GlossaryEntry index="02" term="대규모 언어 모델" englishName="Large Language Model, LLM" definition="많은 언어 자료에서 학습한 패턴을 바탕으로 입력 문맥에 이어질 언어를 생성하는 모델이다." courseUse="의뢰 정리, 조건 분류, 질문 작성과 비교를 보조한다." confusedWith="사실 확인 시스템이나 설계 승인 시스템이 아니다." lessons="제1·3차시" lastReviewed="2026-08-01" />
-    <GlossaryEntry index="03" term="멀티모달 AI" englishName="Multimodal AI" definition="텍스트뿐 아니라 이미지, PDF, 음성 등 여러 형식의 입력을 함께 다루는 AI다." courseUse="문서와 이미지를 함께 분석하되 원본과 결과를 대조한다." confusedWith="파일을 읽을 수 있다는 것이 모든 내용을 정확히 판독한다는 뜻은 아니다." lessons="제1·3차시" lastReviewed="2026-08-01" />
-    <GlossaryEntry index="04" term="할루시네이션" englishName="Hallucination" definition="AI가 근거가 없거나 사실과 다른 내용을 그럴듯하게 생성하는 현상이다." courseUse="없는 치수·예산·공간 조건이 추가됐는지 확인한다." confusedWith="디자인 제안은 제안임을 표시하면 검토할 수 있지만, 할루시네이션은 사실처럼 오인될 위험이 있다." lessons="제1~4차시" lastReviewed="2026-08-01" />
-    <GlossaryEntry index="05" term="그라운딩" englishName="Grounding" definition="AI 결과를 사용자가 제공한 원문·도면·이미지·확인된 자료의 근거에 연결하는 과정이다." courseUse="답변의 근거 위치를 기록하고 오류를 줄인다." confusedWith="AI가 절대 틀리지 않게 만드는 보증이 아니다." lessons="제1·3차시" lastReviewed="2026-08-01" />
-    <GlossaryEntry index="06" term="인간 개입형 검토" englishName="Human in the Loop, HITL" definition="AI가 만든 결과를 사람이 검토하고 수정·승인·보류·제외하는 운영 구조다." courseUse="AI는 제안하고 디자이너가 최종 판단한다는 강의 원칙으로 사용한다." confusedWith="AI 작업을 사람이 한 번 보는 것만이 아니라 결정과 책임의 경계를 남기는 과정이다." lessons="제1~4차시" lastReviewed="2026-08-01" />
-    <GlossaryEntry index="07" term="프롬프트 또는 요청문" englishName="Prompt" definition="AI에게 원하는 작업, 제공 조건, 유지·변경 범위와 출력 형식을 전달하는 입력이다." courseUse="입문자 본문에서는 ‘요청문’을 기본 표현으로 사용한다." confusedWith="길수록 좋은 문장이 아니라 필요한 조건과 판단 기준이 분명한 입력이어야 한다." lessons="제1~4차시" lastReviewed="2026-08-01" />
-    <GlossaryEntry index="08" term="제안요청서" englishName="Request for Proposal, RFP" definition="발주 목적, 범위, 요구사항과 제출 조건을 제안자에게 전달하는 문서다." courseUse="교육용 가상 RFP를 분석해 다음 디자인 작업의 근거를 찾는다." confusedWith="실제 형식과 법적 효력은 발주·계약 절차마다 다르며 강의 문서는 실제 계약 문서가 아니다." lessons="제3·4차시" lastReviewed="2026-08-01" />
-    <GlossaryEntry index="09" term="요구사항" englishName="Requirement" definition="프로젝트가 충족해야 할 필요, 기능 또는 조건이다." courseUse="RFP 원문 근거와 함께 매트릭스에 기록한다." confusedWith="디자이너가 새로 제안한 아이디어나 확인되지 않은 가정과 구분한다." lessons="제3·4차시" lastReviewed="2026-08-01" />
-    <GlossaryEntry index="10" term="제약조건" englishName="Constraint" definition="디자인과 실행에서 선택 가능한 범위를 제한하는 조건이다." courseUse="유지 조건, 변경 금지 조건과 제외 범위를 구분한다." confusedWith="목표나 희망사항과 같지 않으며 실제 계약 문서의 정의를 우선한다." lessons="제3·4차시" lastReviewed="2026-08-01" />
-    <GlossaryEntry index="11" term="출처 추적성" englishName="Traceability" definition="각 요구조건의 원문 근거와 이후 분석·브리프·제안 결과의 연결을 기록하는 방식이다." courseUse="RFP 장·절, 평면도 표시와 이미지 참고를 구분해 기록한다." confusedWith="출처 링크만 적는 것이 아니라 요구조건이 어디에서 와서 어디에 반영됐는지 남긴다." lessons="제3·4차시" lastReviewed="2026-08-01" />
-    <GlossaryEntry index="12" term="요구조건 매트릭스" englishName="Requirements Matrix" definition="요구조건의 ID, 근거, 확인 상태, 디자인 영향과 후속 행동을 표로 연결한 작업 문서다." courseUse="RFP를 사람과 AI가 각각 분석한 뒤 원문 기준으로 비교한다." confusedWith="정답지가 아니라 근거를 추적하고 미확정 항목을 찾는 수강생 결과물이다." lessons="제3·4차시" lastReviewed="2026-08-01" />
-    <GlossaryEntry index="13" term="디자인 브리프" englishName="Design Brief" definition="프로젝트 목표와 조건을 다음 디자인 작업에서 사용할 실행 기준으로 정리한 문서다." courseUse="요구조건 매트릭스와 추가 질의를 제4차시 대안 개발 기준으로 압축한다." confusedWith="RFP 전체를 그대로 요약한 문서나 발주기관의 최종 승인 문서가 아니다." lessons="제3·4차시" lastReviewed="2026-08-01" />
-    <GlossaryEntry index="14" term="공간구성 또는 공간 조닝" englishName="Spatial Zoning" definition="이 강의에서는 기능, 사용자 활동, 인접 관계와 동선을 영역으로 나누어 비교하는 교육용 작업을 뜻한다." courseUse="같은 RFP를 서로 다른 운영전략 두 안으로 비교한다." confusedWith="유일하게 정해진 외부 정의나 법적·시공 확정 도면이 아니다." lessons="제4차시" lastReviewed="2026-08-01" />
-    <GlossaryEntry index="15" term="대안" englishName="Alternative" definition="같은 목표와 요구조건을 서로 다른 운영 논리로 해결하기 위해 비교하는 선택안이다." courseUse="색이나 재료만 바꾼 안이 아니라 공간 운영전략이 다른 안을 만든다." confusedWith="단순 스타일 변형이나 카메라 각도 변경과 구분한다." lessons="제4차시" lastReviewed="2026-08-01" />
-    <GlossaryEntry index="16" term="평가기준" englishName="Evaluation Criteria" definition="여러 대안을 같은 근거로 비교하기 위해 미리 정한 판단 항목이다." courseUse="RFP 목적, 기능, 동선, 유지 조건과 확인 필요 항목을 기준으로 사용한다." confusedWith="개인 취향이나 이미지의 화려함만으로 선택하는 기준이 아니다." lessons="제3·4차시" lastReviewed="2026-08-01" />
-    <GlossaryEntry index="17" term="명령줄 인터페이스" englishName="Command-Line Interface, CLI" definition="문장 형태의 명령을 입력해 프로그램을 실행하고 파일을 다루는 방식이다." courseUse="Node.js 설치 확인과 로컬 프로그램 실행 명령에 사용한다." confusedWith="그래픽 버튼 중심 화면과 사용 방식이 다르다." lessons="제4차시" lastReviewed="2026-08-01" />
-    <GlossaryEntry index="18" term="터미널 사용자 인터페이스" englishName="Terminal User Interface, TUI" definition="터미널 안에서 메뉴, 목록과 상태를 보며 조작하는 화면 방식이다." courseUse="Antigravity CLI의 화면 유형을 설명할 때만 사용하며 필수 실습 도구는 아니다." confusedWith="명령만 입력하는 CLI와 겹칠 수 있지만 시각적 터미널 요소를 포함한다." lessons="제4차시" lastReviewed="2026-08-01" />
-    <GlossaryEntry index="19" term="헤드리스 실행" englishName="Headless" definition="일반 창이나 시각적 화면을 열지 않고 명령 또는 자동화 과정만 실행하는 방식이다." courseUse="선택 심화 도구의 실행 특성을 이해하기 위한 용어다." confusedWith="프로그램이 작동하지 않거나 화면이 깨진 상태를 뜻하지 않는다." lessons="제4차시" lastReviewed="2026-08-01" />
-    <GlossaryEntry index="20" term="로컬호스트" englishName="Localhost" definition="현재 사용 중인 자신의 컴퓨터를 가리키는 네트워크 이름이다." courseUse="제4차시 관리 프로그램이 외부 서버가 아니라 수강생 노트북에서 열린다는 뜻이다." confusedWith="인터넷에 공개된 웹주소와 다르다." lessons="제4차시" lastReviewed="2026-08-01" />
-    <GlossaryEntry index="21" term="IP 주소 127.0.0.1" englishName="IPv4 Loopback Address" definition="현재 컴퓨터 자신에게 연결하기 위해 사용하는 대표적인 IPv4 주소다." courseUse="관리 프로그램 주소 http://127.0.0.1:4174에 사용한다." confusedWith="다른 수강생 컴퓨터나 공개 웹사이트의 주소가 아니다." lessons="제4차시" lastReviewed="2026-08-01" />
-    <GlossaryEntry index="22" term="포트" englishName="Port" definition="한 컴퓨터에서 실행되는 여러 네트워크 프로그램을 구분하는 번호다." courseUse="제4차시 관리 프로그램은 4174번 포트를 사용한다." confusedWith="폴더 경로나 IP 주소와 다르다." lessons="제4차시" lastReviewed="2026-08-01" />
-    <GlossaryEntry index="23" term="JSON" englishName="JavaScript Object Notation" definition="이름과 값을 짝지어 구조화된 정보를 텍스트로 저장·전달하는 형식이다." courseUse="등록 파일 목록과 프로그램 설정을 저장한다." confusedWith="데이터베이스 자체나 실행 프로그램이 아니다." lessons="제4차시" lastReviewed="2026-08-01" />
-    <GlossaryEntry index="24" term="Express" englishName="Express" definition="Node.js에서 웹 요청과 응답을 처리하는 데 사용하는 웹 애플리케이션 패키지다." courseUse="로컬 관리 프로그램의 파일 등록과 화면 요청을 연결한다." confusedWith="Node.js 자체나 브라우저가 아니다." lessons="제4차시" lastReviewed="2026-08-01" />
-    <GlossaryEntry index="25" term="순수 HTML/CSS/JavaScript" englishName="Vanilla HTML/CSS/JavaScript" definition="React 같은 추가 UI 프레임워크 없이 웹 표준 파일로 화면과 동작을 만드는 방식이다." courseUse="제4차시 관리 프로그램을 가볍게 유지하기 위한 개발 조건이다." confusedWith="기능이 없는 정적 문서만을 뜻하지 않는다." lessons="제4차시" lastReviewed="2026-08-01" />
-    <GlossaryEntry index="26" term="패키지 잠금 파일" englishName="package-lock.json" definition="설치할 패키지의 정확한 버전과 의존 관계를 기록하는 npm 파일이다." courseUse="READY ZIP에서 npm ci가 검사된 버전과 같게 설치하도록 한다." confusedWith="package.json의 실행 명령과 역할이 다르며 임의로 삭제하지 않는다." lessons="제4차시" lastReviewed="2026-08-01" />
-    <GlossaryEntry index="27" term="프로토타입" englishName="Prototype" definition="아이디어의 구조와 작동방식을 빠르게 확인하기 위해 만드는 초기 시안 또는 시험 결과물이다." courseUse="제1차시 도구 지형도에서 인터랙티브 웹 결과물의 역할을 구분할 때 사용한다." confusedWith="검증과 승인이 끝난 최종 제품이나 확정 설계안이 아니다." lessons="제1차시" lastReviewed="2026-08-02" />
+    <GlossaryEntry index="01" term="생성형 AI" englishName="Generative AI" definition="사용자의 입력과 학습된 패턴을 바탕으로 텍스트·이미지·영상 등의 새 결과를 만드는 인공지능이다." courseUse="결과를 정답으로 채택하지 않고 검토 가능한 첫 제안으로 다룬다." confusedWith="검색 결과나 검증된 사실 데이터 자체와 같지 않다." lessons="제1·2차시" lastReviewed="2026-08-02" definitionBasis="official-source" verificationBasis="Google Cloud 생성형 AI 용어 자료" />
+    <GlossaryEntry index="02" term="대규모 언어 모델" englishName="Large Language Model, LLM" definition="많은 언어 자료에서 학습한 패턴을 바탕으로 입력 문맥에 이어질 언어를 생성하는 모델이다." courseUse="의뢰 정리, 조건 분류, 질문 작성과 비교를 보조한다." confusedWith="사실 확인 시스템이나 설계 승인 시스템이 아니다." lessons="제1·3차시" lastReviewed="2026-08-02" definitionBasis="official-source" verificationBasis="Google Cloud 생성형 AI 용어 자료" />
+    <GlossaryEntry index="03" term="멀티모달 AI" englishName="Multimodal AI" definition="텍스트·이미지·PDF·음성처럼 둘 이상의 입력 형식을 함께 다룰 수 있는 AI다. 지원 형식과 정확도는 모델과 서비스에 따라 다르다." courseUse="문서와 이미지를 함께 분석하되 원본과 결과를 대조한다." confusedWith="파일을 읽을 수 있다는 것이 모든 내용을 정확히 판독한다는 뜻은 아니다." lessons="제1·3차시" lastReviewed="2026-08-02" definitionBasis="standard-public-reference" verificationBasis="NIST 멀티모달 모델 용어 자료" />
+    <GlossaryEntry index="04" term="할루시네이션" englishName="Hallucination" definition="AI가 근거가 없거나 사실과 다른 내용을 그럴듯하게 생성하는 현상이다." courseUse="없는 치수·예산·공간 조건이 추가됐는지 확인한다." confusedWith="디자인 제안은 제안임을 표시하면 검토할 수 있지만, 할루시네이션은 사실처럼 오인될 위험이 있다." lessons="제1~4차시" lastReviewed="2026-08-02" definitionBasis="standard-public-reference" verificationBasis="NIST 생성형 AI 위험 프로필" />
+    <GlossaryEntry index="05" term="그라운딩" englishName="Grounding" definition="AI 결과를 사용자가 제공한 원문·도면·이미지·확인된 자료의 근거에 연결하는 과정이다." courseUse="답변의 근거 위치를 기록하고 오류를 줄인다." confusedWith="AI가 절대 틀리지 않게 만드는 보증이 아니다." lessons="제1·3차시" lastReviewed="2026-08-02" definitionBasis="official-source" verificationBasis="Google Cloud 생성형 AI 용어 자료" />
+    <GlossaryEntry index="06" term="인간 개입형 검토" englishName="Human in the Loop, HITL" definition="AI가 만든 결과를 사람이 검토하고 수정·승인·보류·제외하는 운영 구조다." courseUse="AI는 제안하고 디자이너가 최종 판단한다는 강의 원칙으로 사용한다." confusedWith="AI 작업을 사람이 한 번 보는 것만이 아니라 결정과 책임의 경계를 남기는 과정이다." lessons="제1~4차시" lastReviewed="2026-08-02" definitionBasis="standard-public-reference" verificationBasis="NIST AI RMF의 인간 감독 원칙" />
+    <GlossaryEntry index="07" term="프롬프트 또는 요청문" englishName="Prompt" definition="AI에게 원하는 작업, 제공 조건, 유지·변경 범위와 출력 형식을 전달하는 입력이다." courseUse="입문자 본문에서는 ‘요청문’을 기본 표현으로 사용한다." confusedWith="길수록 좋은 문장이 아니라 필요한 조건과 판단 기준이 분명한 입력이어야 한다." lessons="제1~4차시" lastReviewed="2026-08-02" definitionBasis="official-source" verificationBasis="Google Gemini 요청문 설계 공식 문서" />
+    <GlossaryEntry index="08" term="제안요청서" englishName="Request for Proposal, RFP" definition="발주 목적, 범위, 요구사항과 제출 조건을 제안자에게 전달하는 문서다." courseUse="교육용 가상 RFP를 분석해 다음 디자인 작업의 근거를 찾는다." confusedWith="실제 형식과 법적 효력은 발주·계약 절차마다 다르며 강의 문서는 실제 계약 문서가 아니다." lessons="제3·4차시" lastReviewed="2026-08-02" definitionBasis="course-definition" verificationBasis="승인된 제3·4차시 교육용 RFP 실습 범위" />
+    <GlossaryEntry index="09" term="요구사항" englishName="Requirement" definition="프로젝트가 충족해야 할 필요, 기능 또는 조건이다." courseUse="RFP 원문 근거와 함께 매트릭스에 기록한다." confusedWith="디자이너가 새로 제안한 아이디어나 확인되지 않은 가정과 구분한다." lessons="제3·4차시" lastReviewed="2026-08-02" definitionBasis="course-definition" verificationBasis="승인된 제3·4차시 요구조건 분류 기준" />
+    <GlossaryEntry index="10" term="제약조건" englishName="Constraint" definition="디자인과 실행에서 선택 가능한 범위를 제한하는 조건이다." courseUse="유지 조건, 변경 금지 조건과 제외 범위를 구분한다." confusedWith="목표나 희망사항과 같지 않으며 실제 계약 문서의 정의를 우선한다." lessons="제3·4차시" lastReviewed="2026-08-02" definitionBasis="course-definition" verificationBasis="승인된 제3·4차시 요구조건 분류 기준" />
+    <GlossaryEntry index="11" term="출처 추적성" englishName="Traceability" definition="각 요구조건의 원문 근거와 이후 분석·브리프·제안 결과의 연결을 기록하는 방식이다." courseUse="RFP 장·절, 평면도 표시와 이미지 참고를 구분해 기록한다." confusedWith="출처 링크만 적는 것이 아니라 요구조건이 어디에서 와서 어디에 반영됐는지 남긴다." lessons="제3·4차시" lastReviewed="2026-08-02" definitionBasis="course-definition" verificationBasis="제3·4차시 요구조건 매트릭스 작성 규칙" />
+    <GlossaryEntry index="12" term="요구조건 매트릭스" englishName="Requirements Matrix" definition="이 강의에서는 요구조건의 ID, 근거, 확인 상태, 디자인 영향과 후속 행동을 표로 연결한 작업 문서를 뜻한다." courseUse="RFP를 사람과 AI가 각각 분석한 뒤 원문 기준으로 비교한다." confusedWith="정답지가 아니라 근거를 추적하고 미확정 항목을 찾는 수강생 결과물이다." lessons="제3·4차시" lastReviewed="2026-08-02" definitionBasis="course-definition" verificationBasis="제3차시 수강생 결과물 형식" />
+    <GlossaryEntry index="13" term="디자인 브리프" englishName="Design Brief" definition="프로젝트 목표와 조건을 다음 디자인 작업에서 사용할 실행 기준으로 정리한 문서다." courseUse="요구조건 매트릭스와 추가 질의를 제4차시 대안 개발 기준으로 압축한다." confusedWith="RFP 전체를 그대로 요약한 문서나 발주기관의 최종 승인 문서가 아니다." lessons="제3·4차시" lastReviewed="2026-08-02" definitionBasis="course-definition" verificationBasis="승인된 제3·4차시 연결 구조" />
+    <GlossaryEntry index="14" term="공간구성 또는 공간 조닝" englishName="Spatial Zoning" definition="이 강의에서는 기능, 사용자 활동, 인접 관계와 동선을 영역으로 나누어 비교하는 교육용 작업을 뜻한다." courseUse="같은 RFP를 서로 다른 운영전략 두 안으로 비교한다." confusedWith="유일하게 정해진 외부 정의나 법적·시공 확정 도면이 아니다." lessons="제4차시" lastReviewed="2026-08-02" definitionBasis="course-definition" verificationBasis="승인된 제4차시 대안 비교 실습 범위" />
+    <GlossaryEntry index="15" term="대안" englishName="Alternative" definition="같은 목표와 요구조건을 서로 다른 운영 논리로 해결하기 위해 비교하는 선택안이다." courseUse="색이나 재료만 바꾼 안이 아니라 공간 운영전략이 다른 안을 만든다." confusedWith="단순 스타일 변형이나 카메라 각도 변경과 구분한다." lessons="제4차시" lastReviewed="2026-08-02" definitionBasis="course-definition" verificationBasis="승인된 제4차시 대안 비교 기준" />
+    <GlossaryEntry index="16" term="평가기준" englishName="Evaluation Criteria" definition="여러 대안을 같은 근거로 비교하기 위해 미리 정한 판단 항목이다." courseUse="RFP 목적, 기능, 동선, 유지 조건과 확인 필요 항목을 기준으로 사용한다." confusedWith="개인 취향이나 이미지의 화려함만으로 선택하는 기준이 아니다." lessons="제3·4차시" lastReviewed="2026-08-02" definitionBasis="course-definition" verificationBasis="제3차시 결과물과 제4차시 대안 평가 규칙" />
+    <GlossaryEntry index="17" term="명령줄 인터페이스" englishName="Command-Line Interface, CLI" definition="문장 형태의 명령을 입력해 프로그램을 실행하고 파일을 다루는 방식이다." courseUse="Node.js 설치 확인과 로컬 프로그램 실행 명령에 사용한다." confusedWith="그래픽 버튼 중심 화면과 사용 방식이 다르다." lessons="제4차시" lastReviewed="2026-08-02" definitionBasis="official-source" verificationBasis="Node.js 명령줄 공식 문서" />
+    <GlossaryEntry index="18" term="터미널 사용자 인터페이스" englishName="Terminal User Interface, TUI" definition="터미널 안에서 메뉴, 목록과 상태를 보며 조작하는 화면 방식이다." courseUse="터미널 기반 도구의 화면 유형을 이해하기 위한 참고 용어이며 제4차시 필수 실습 개념은 아니다." confusedWith="명령만 입력하는 CLI와 겹칠 수 있지만 시각적 터미널 요소를 포함한다." lessons="제4차시" lastReviewed="2026-08-02" definitionBasis="course-definition" verificationBasis="제4차시 참고 용어 범위" />
+    <GlossaryEntry index="19" term="헤드리스 실행" englishName="Headless" definition="일반 창이나 시각적 화면을 열지 않고 명령 또는 자동화 과정만 실행하는 방식이다." courseUse="선택 심화 도구의 실행 특성을 이해하기 위한 용어다." confusedWith="프로그램이 작동하지 않거나 화면이 깨진 상태를 뜻하지 않는다." lessons="제4차시" lastReviewed="2026-08-02" definitionBasis="course-definition" verificationBasis="제4차시 선택 심화 용어 범위" />
+    <GlossaryEntry index="20" term="로컬호스트" englishName="Localhost" definition="현재 사용 중인 자신의 컴퓨터를 가리키는 네트워크 이름이다." courseUse="제4차시 관리 프로그램이 외부 서버가 아니라 수강생 노트북에서 열린다는 뜻이다." confusedWith="인터넷에 공개된 웹주소와 다르다." lessons="제4차시" lastReviewed="2026-08-02" definitionBasis="standard-public-reference" verificationBasis="IETF 로컬·루프백 네트워크 표준 자료" />
+    <GlossaryEntry index="21" term="IP 주소 127.0.0.1" englishName="IPv4 Loopback Address" definition="현재 컴퓨터 자신에게 연결하기 위해 사용하는 대표적인 IPv4 주소다." courseUse="관리 프로그램 주소 http://127.0.0.1:4174에 사용한다." confusedWith="다른 수강생 컴퓨터나 공개 웹사이트의 주소가 아니다." lessons="제4차시" lastReviewed="2026-08-02" definitionBasis="standard-public-reference" verificationBasis="IETF RFC 1122" />
+    <GlossaryEntry index="22" term="포트" englishName="Port" definition="한 컴퓨터에서 실행되는 여러 네트워크 프로그램을 구분하는 번호다." courseUse="제4차시 관리 프로그램은 4174번 포트를 사용한다." confusedWith="폴더 경로나 IP 주소와 다르다." lessons="제4차시" lastReviewed="2026-08-02" definitionBasis="standard-public-reference" verificationBasis="IETF 네트워크 표준과 제4차시 실행 환경" />
+    <GlossaryEntry index="23" term="JSON" englishName="JavaScript Object Notation" definition="이름과 값을 짝지어 구조화된 정보를 텍스트로 저장·전달하는 형식이다." courseUse="등록 파일 목록과 프로그램 설정을 저장한다." confusedWith="데이터베이스 자체나 실행 프로그램이 아니다." lessons="제4차시" lastReviewed="2026-08-02" definitionBasis="standard-public-reference" verificationBasis="IETF RFC 8259과 MDN 문서" />
+    <GlossaryEntry index="24" term="Express" englishName="Express" definition="Node.js에서 웹 요청과 응답을 처리하는 데 사용하는 웹 애플리케이션 패키지다." courseUse="로컬 관리 프로그램의 파일 등록과 화면 요청을 연결한다." confusedWith="Node.js 자체나 브라우저가 아니다." lessons="제4차시" lastReviewed="2026-08-02" definitionBasis="official-source" verificationBasis="Express 공식 문서" />
+    <GlossaryEntry index="25" term="순수 HTML/CSS/JavaScript" englishName="Vanilla HTML/CSS/JavaScript" definition="React 같은 추가 UI 프레임워크 없이 웹 표준 파일로 화면과 동작을 만드는 방식을 가리키는 통상 표현이다." courseUse="제4차시 관리 프로그램을 가볍게 유지하기 위한 개발 조건이다." confusedWith="기능이 없는 정적 문서만을 뜻하지 않는다." lessons="제4차시" lastReviewed="2026-08-02" definitionBasis="course-definition" verificationBasis="제4차시 로컬 프로그램 개발 조건" />
+    <GlossaryEntry index="26" term="패키지 잠금 파일" englishName="package-lock.json" definition="설치할 패키지의 정확한 버전과 의존 관계를 기록하는 npm 파일이다." courseUse="READY ZIP에서 npm ci가 검사된 버전과 같게 설치하도록 한다." confusedWith="package.json의 실행 명령과 역할이 다르며 임의로 삭제하지 않는다." lessons="제4차시" lastReviewed="2026-08-02" definitionBasis="official-source" verificationBasis="npm package-lock.json 공식 문서" />
+    <GlossaryEntry index="27" term="프로토타입" englishName="Prototype" definition="아이디어의 구조와 작동방식을 빠르게 확인하기 위해 만드는 초기 시안 또는 시험 결과물이다." courseUse="제1차시 도구 지형도에서 인터랙티브 웹 결과물의 역할을 구분할 때 사용한다." confusedWith="검증과 승인이 끝난 최종 제품이나 확정 설계안이 아니다." lessons="제1차시" lastReviewed="2026-08-02" definitionBasis="course-definition" verificationBasis="제1차시 도구 지형도에서 사용하는 작업 기준" />
+    <GlossaryEntry index="28" term="원문에서 직접 확인된 내용" englishName="Directly Stated in Source" definition="이번 실습에서 제공된 원문이나 자료에 실제로 적혀 있는 내용이다." courseUse="AI 답변의 주장에 원문 근거가 있는지 구분하는 정보 유형으로 사용한다." confusedWith="실제 현장·법규·구조 조건까지 외부 검증됐다는 뜻은 아니다." lessons="제1차시" lastReviewed="2026-08-02" definitionBasis="course-definition" verificationBasis="제1차시 정보 유형 분류 기준" />
+    <GlossaryEntry index="29" term="추론" englishName="Inference" definition="원문을 바탕으로 생각할 수 있지만 아직 확정되지 않은 내용이다." courseUse="가능한 해석을 원문 직접 확인 내용과 분리해 기록한다." confusedWith="원문에 직접 적힌 내용이나 근거 없이 임시로 전제한 가정과 다르다." lessons="제1차시" lastReviewed="2026-08-02" definitionBasis="course-definition" verificationBasis="제1차시 정보 유형 분류 기준" />
+    <GlossaryEntry index="30" term="가정" englishName="Assumption" definition="제공 자료에 근거가 없지만 분석이나 제안을 위해 임시로 전제한 조건이다." courseUse="질문·현장 확인·전문가 확인이 필요한 조건을 찾는 데 사용한다." confusedWith="확인된 현장 조건이나 확정된 설계 조건이 아니다." lessons="제1차시" lastReviewed="2026-08-02" definitionBasis="course-definition" verificationBasis="제1차시 정보 유형 분류 기준" />
+    <GlossaryEntry index="31" term="디자인 제안" englishName="Design Proposal" definition="확정 사항이 아니라 하나의 초기 대안으로 검토할 수 있는 내용이다." courseUse="AI가 만든 콘셉트·공간 구성·재료 방향을 제안으로 표시한다." confusedWith="오류나 확정 설계안과 같지 않으며 채택 여부는 디자이너가 판단한다." lessons="제1·2차시" lastReviewed="2026-08-02" definitionBasis="course-definition" verificationBasis="제1차시 정보 유형 분류 기준" />
+    <GlossaryEntry index="32" term="근거" englishName="Evidence" definition="판단이나 분류를 뒷받침하는 원문 문장, 도면 표시, 확인된 자료 또는 공식 출처다." courseUse="AI 답변의 각 주장에 어떤 자료가 연결되는지 기록한다." confusedWith="그럴듯한 설명이나 AI가 새로 만든 문장은 그 자체로 근거가 아니다." lessons="제1·3차시" lastReviewed="2026-08-02" definitionBasis="course-definition" verificationBasis="제1차시 원문 대조와 제3차시 출처 추적 규칙" />
+    <GlossaryEntry index="33" term="검증" englishName="Verification" definition="AI 결과를 원문·공식 자료·현장 조건과 대조하고 일치·불일치·확인 불가를 기록하는 과정이다." courseUse="체크리스트와 분석표를 사용해 결과의 채택·수정·확인 여부를 결정한다." confusedWith="AI 결과가 자동으로 사실이 되거나 전문가 판단을 대체한다는 뜻이 아니다." lessons="제1~4차시" lastReviewed="2026-08-02" definitionBasis="course-definition" verificationBasis="제1차시 AI 활용·검증 체크리스트 운영 기준" />
+    <GlossaryEntry index="34" term="AI 모델" englishName="AI Model" definition="입력을 처리해 결과를 생성하도록 학습된 기술 단위다." courseUse="서비스 이름, 화면 기능과 구분해 실제 응답 기록에 사용 모델을 적는다." confusedWith="앱·웹·API 같은 서비스 환경이나 개별 UI 기능과 다르다." lessons="제1차시" lastReviewed="2026-08-02" definitionBasis="official-source" verificationBasis="Google Cloud 생성형 AI 용어 자료와 공식 모델 문서" />
+    <GlossaryEntry index="35" term="AI 서비스" englishName="AI Service" definition="사용자가 AI 모델과 기능을 이용하는 앱·웹·API 등의 서비스 또는 환경이다." courseUse="수업에서 사용하는 웹 화면과 API의 기능 범위를 같은 것으로 단정하지 않게 한다." confusedWith="서비스 이름이 모델 이름이나 개별 기능 이름과 항상 같지는 않다." lessons="제1차시" lastReviewed="2026-08-02" definitionBasis="course-definition" verificationBasis="제1차시 서비스·모델·기능 구분 기준" />
+    <GlossaryEntry index="36" term="기능" englishName="Feature" definition="서비스나 모델이 제공하는 파일 업로드·문서 입력·이미지 처리 같은 개별 작업 능력이다." courseUse="계정·화면·지원 형식에 따라 제공 범위가 달라질 수 있음을 확인한다." confusedWith="기능의 존재가 판독 정확도나 사실성을 보증하지 않는다." lessons="제1차시" lastReviewed="2026-08-02" definitionBasis="course-definition" verificationBasis="제1차시 서비스·모델·설정 구분 기준" />
+    <GlossaryEntry index="37" term="thinking level" englishName="Thinking Level" definition="지원 모델에서 내부 추론 노력 수준을 조절하는 설정이다." courseUse="복잡한 분석과 재검토에 사용하는 설정으로 모델명과 분리해 기록한다." confusedWith="별도 모델명이나 결과의 사실성을 보증하는 기능이 아니다." lessons="제1차시" lastReviewed="2026-08-02" definitionBasis="official-source" verificationBasis="Google AI for Developers의 thinking 공식 문서" />
   </div>
 </section>

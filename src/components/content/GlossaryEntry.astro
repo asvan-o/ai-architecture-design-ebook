@@ -10,6 +10,8 @@ interface Props {
   confusedWith: string;
   lessons: string;
   lastReviewed: string;
+  definitionBasis: 'official-source' | 'standard-public-reference' | 'course-definition';
+  verificationBasis: string;
 }
 
 const {
@@ -21,7 +23,26 @@ const {
   confusedWith,
   lessons,
   lastReviewed,
+  definitionBasis,
+  verificationBasis,
 } = Astro.props;
+
+const definitionBasisCatalog = {
+  'official-source': {
+    label: '공식 출처 확인',
+    statusValue: 'official-source-checked',
+  },
+  'standard-public-reference': {
+    label: '표준·공공 참고',
+    statusValue: 'standard-public-reference',
+  },
+  'course-definition': {
+    label: '강의용 정의',
+    statusValue: 'course-definition',
+  },
+} as const;
+
+const definitionBasisMeta = definitionBasisCatalog[definitionBasis];
 ---
 
 <article>
@@ -34,8 +55,10 @@ const {
       <div><dt>강의에서 사용하는 의미</dt><dd>{courseUse}</dd></div>
       <div><dt>혼동하기 쉬운 개념</dt><dd>{confusedWith}</dd></div>
       <div><dt>관련 차시</dt><dd>{lessons}</dd></div>
+      <div><dt>정의 구분</dt><dd>{definitionBasisMeta.label}</dd></div>
+      <div><dt>정의 근거</dt><dd>{verificationBasis}</dd></div>
       <div><dt>마지막 검토일</dt><dd>{lastReviewed}</dd></div>
     </dl>
   </div>
-  <StatusBadge kind="verificationStatus" value="source-checked" />
+  <StatusBadge kind="verificationStatus" value={definitionBasisMeta.statusValue} />
 </article>

@@ -95,7 +95,7 @@ const lessonOneInstructorSlots = [
   'l01-closing',
 ];
 const detailedLessonSections = {
-  '01': ['차시 소개', '오늘의 핵심 질문', '학습 목표', '생성형 AI(Generative AI)의 기본 개념', 'AI가 할 일과 디자이너가 판단할 일', '안전하게 사용하기 위한 핵심 용어', '사실·추론·가정·디자인 제안 구분', '북카페 가상 의뢰', 'Gemini 첫 번째 입력', 'Gemini 3.6 Flash 실제 응답', '실제 응답 분석', '개선된 요청문', '수강생 실습', '결과물 작성', 'AI 활용·검증 체크리스트', '차시 마무리'],
+  '01': ['차시 소개', '오늘의 핵심 질문', '학습 목표', '생성형 AI(Generative AI)의 기본 개념', 'AI가 할 일과 디자이너가 판단할 일', '안전하게 사용하기 위한 핵심 용어', '원문·추론·가정·디자인 제안 구분', '북카페 가상 의뢰', 'Gemini 첫 번째 입력', 'Gemini 3.6 Flash 실제 응답', '실제 응답 분석', '개선된 요청문', '수강생 실습', '결과물 작성', 'AI 활용·검증 체크리스트', '차시 마무리'],
   '02': ['차시 소개', '직관적인 핵심 질문', '학습 목표', '핵심 개념', '실무형 가상 문제', '제공 자료', '플라워 카페 작업 과정', '수강생 실습', '제출 결과물', '수강생이 판단할 항목', 'AI 오류 확인 체크리스트', '필요한 이미지·영상·문서', '확인 또는 검증이 필요한 내용'],
   '03': ['차시 소개', '오늘의 프로젝트와 제출 결과물', '실습자료 다운로드 및 현황자료', 'RFP와 디자인 브리프 핵심 개념', 'RFP를 읽을 때 확인할 핵심 질문', 'RFP 구조 함께 확인하기', '요구조건 매트릭스 작성', '발주기관 추가 질의 작성', 'Gemini 분석 및 사람 분석과 비교', '디자인 브리프 작성', '현황 이미지 검토와 제4차시 평가기준', '제출 결과물 점검', '검증 필요와 정리'],
   '04': ['차시 소개', '오늘의 프로젝트와 제출 결과물', '제공 자료와 제3차시 작업물 가져오기', '공간구성 대안의 의미', '대안 A·B 운영전략과 조닝 작성', 'Nano Banana 대안 이미지 생성', 'RFP 기준 비교와 선택', '선택안 수정', 'Antigravity 도구 유형과 모델 선택', '고정 프로젝트 경로와 핵심 계층구조', '동일 프롬프트로 관리 프로그램 제작 과정', '산출물 자동 정리와 제출 준비', '제출 결과물·검증·다음 차시'],
@@ -497,12 +497,30 @@ try {
 } catch {
   errors.push('src/content/glossary/index.mdx를 읽을 수 없습니다.');
 }
-const glossaryTerms = ['생성형 AI', '대규모 언어 모델', '멀티모달 AI', '할루시네이션', '그라운딩', '인간 개입형 검토', '프롬프트 또는 요청문', '제안요청서', '요구사항', '제약조건', '출처 추적성', '요구조건 매트릭스', '디자인 브리프', '공간구성 또는 공간 조닝', '대안', '평가기준', '명령줄 인터페이스', '터미널 사용자 인터페이스', '헤드리스 실행', '로컬호스트', 'IP 주소 127.0.0.1', '포트', 'JSON', 'Express', '순수 HTML/CSS/JavaScript', '패키지 잠금 파일', '프로토타입'];
+const glossaryTerms = ['생성형 AI', '대규모 언어 모델', '멀티모달 AI', '할루시네이션', '그라운딩', '인간 개입형 검토', '프롬프트 또는 요청문', '제안요청서', '요구사항', '제약조건', '출처 추적성', '요구조건 매트릭스', '디자인 브리프', '공간구성 또는 공간 조닝', '대안', '평가기준', '명령줄 인터페이스', '터미널 사용자 인터페이스', '헤드리스 실행', '로컬호스트', 'IP 주소 127.0.0.1', '포트', 'JSON', 'Express', '순수 HTML/CSS/JavaScript', '패키지 잠금 파일', '프로토타입', '원문에서 직접 확인된 내용', '추론', '가정', '디자인 제안', '근거', '검증', 'AI 모델', 'AI 서비스', '기능', 'thinking level'];
 if (/placeholder|내용 검토 예정|준비 중/i.test(glossarySource)) {
   errors.push('용어 사전에 placeholder 또는 준비 중 문구가 남아 있습니다.');
 }
 for (const term of glossaryTerms) {
   if (!glossarySource.includes(`term="${term}"`)) errors.push(`용어 사전에 '${term}' 항목이 없습니다.`);
+}
+if (!/^verificationStatus:\s*"mixed-verification"/m.test(glossarySource)) {
+  errors.push('용어 사전 문서 상태가 mixed-verification이 아닙니다.');
+}
+const glossaryEntries = [...glossarySource.matchAll(/<GlossaryEntry\b[^>]*\/>/g)].map((match) => match[0]);
+if (glossaryEntries.length !== glossaryTerms.length) {
+  errors.push(`용어 사전 항목 수: 예상 ${glossaryTerms.length}개, 실제 ${glossaryEntries.length}개`);
+}
+for (const [index, entry] of glossaryEntries.entries()) {
+  if (!/definitionBasis="(?:official-source|standard-public-reference|course-definition)"/.test(entry)) {
+    errors.push(`용어 사전 ${index + 1}번 항목에 유효한 definitionBasis가 없습니다.`);
+  }
+  if (!/verificationBasis="[^"]+"/.test(entry)) {
+    errors.push(`용어 사전 ${index + 1}번 항목에 verificationBasis가 없습니다.`);
+  }
+  if (/verificationStatus=/.test(entry)) {
+    errors.push(`용어 사전 ${index + 1}번 항목에 이전 verificationStatus 속성이 남아 있습니다.`);
+  }
 }
 
 let toolCatalog = '';
@@ -542,6 +560,12 @@ for (const toolId of expectedToolIds) {
   if (/^\s{4}(?:price|pricing|credit|credits|cost):/mi.test(block)) errors.push(`tool-catalog ${toolId}: 가격 또는 크레딧 필드를 기록할 수 없습니다.`);
 }
 if (toolBlocks.length !== expectedToolIds.length) errors.push(`tool-catalog 도구 수: 예상 ${expectedToolIds.length}개, 실제 ${toolBlocks.length}개`);
+if (!toolCatalog.includes('officialUrl: "https://help.openai.com/en/articles/11084440-images-in-chatgpt"')) {
+  errors.push('ChatGPT Images 공식 URL이 현재 Help 문서와 일치하지 않습니다.');
+}
+if (!toolCatalog.includes('officialUrl: "https://support.claude.com/en/articles/9487310-what-are-artifacts-and-how-do-i-use-them"')) {
+  errors.push('Claude Artifacts 공식 URL이 현재 support.claude.com 문서와 일치하지 않습니다.');
+}
 
 let lessonOneSource = '';
 try {
@@ -553,7 +577,29 @@ for (const toolName of ['Gemini', 'Nano Banana', 'Veo', 'Antigravity', 'ChatGPT 
   if (!lessonOneSource.includes(toolName)) errors.push(`제1차시 도구 지형도에 '${toolName}'가 없습니다.`);
 }
 if (!lessonOneSource.includes('생성형 디자인 도구 지형도')) errors.push('제1차시에 생성형 디자인 도구 지형도가 없습니다.');
-if (!/생성형 디자인 도구 지형도 10분/.test(lessonOneSource)) errors.push('제1차시 도구 지형도 설명 시간이 10분으로 표시되지 않았습니다.');
+if (!/label: '25~33분', detail: '생성형 디자인 도구 지형도', minutes: 8/.test(lessonOneSource)) {
+  errors.push('제1차시 도구 지형도 시간이 승인된 25~33분 구간과 일치하지 않습니다.');
+}
+if (!/data-representative-statements="6"/.test(lessonOneSource)) {
+  errors.push('제1차시에 대표 문장 6개 공동 분석 블록이 없습니다.');
+}
+for (const statement of ['따로 또 같이', '도심 속 거실', '2~4인 동반 고객', '창가 배치', '중앙 기둥 또는 벽면', '주광색(주황빛)']) {
+  if (!lessonOneSource.includes(statement)) errors.push(`제1차시 대표 문장 '${statement}'이 없습니다.`);
+}
+const rawGeminiBlock = lessonOneSource.match(/<div class="lesson-ai-response">([\s\S]*?)<\/div>/)?.[1] ?? '';
+const rawGeminiParagraphs = [...rawGeminiBlock.matchAll(/<p(?:\s|>)/g)].length;
+if (rawGeminiParagraphs !== 22) errors.push(`제1차시 Gemini 실제 응답 원문: 예상 22문단, 실제 ${rawGeminiParagraphs}문단`);
+for (const informationType of ['원문에서 직접 확인된 내용', '추론', '가정', '디자인 제안']) {
+  if (!lessonOneSource.includes(`<li>${informationType}</li>`)) errors.push(`제1차시 정보 유형 '${informationType}'이 없습니다.`);
+}
+for (const followUp of ['유지', '질문', '현장 확인', '전문가 확인', '수정', '제외']) {
+  if (!lessonOneSource.includes(`<li>${followUp}</li>`)) errors.push(`제1차시 후속 대응 '${followUp}'이 없습니다.`);
+}
+if (lessonOneSource.includes('사용자 추론')) errors.push('제1차시에 문맥 없는 사용자 추론 표현이 남아 있습니다.');
+if (!lessonOneSource.includes('너는 건축디자인 초기 기획을 돕는 분석 보조자다.')) {
+  errors.push('제1차시 개선 요청문에 AI 역할이 명시되지 않았습니다.');
+}
+if (!lessonOneSource.includes('결과 공유 메모')) errors.push('제1차시에 결과 공유 메모 공간이 없습니다.');
 for (const forbiddenPhrase of ['최고의 도구', '가장 정확한 도구', '저작권 문제가 없음', '상업적 사용을 보장', '건축 설계를 자동 완성', '법규·시공 가능성을 자동 검증', '전문가 검토를 대체']) {
   if (lessonOneSource.includes(forbiddenPhrase)) errors.push(`제1차시 도구 지형도 금지 표현: '${forbiddenPhrase}'`);
 }

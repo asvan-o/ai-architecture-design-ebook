@@ -43,6 +43,9 @@ const sharedSchema = z.object({
   authorship: z.enum(['pending', 'human', 'ai-assisted', 'ai-generated']),
   verificationStatus: z.enum([
     'pending',
+    'mixed-verification',
+    'course-definition',
+    'standard-public-reference',
     'source-checked',
     'official-source-checked',
     'expert-reviewed',

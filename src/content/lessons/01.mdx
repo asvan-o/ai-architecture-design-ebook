@@ -8,7 +8,7 @@ draft: true
 publicationStatus: "detailed"
 contentType: "instruction"
 authorship: "ai-assisted"
-verificationStatus: "official-source-checked"
+verificationStatus: "mixed-verification"
 freshness: "update-sensitive"
 riskLevel: "low"
 professionalReviewStatus: "not-required"
@@ -18,9 +18,44 @@ sources:
     title: "Using the latest Gemini models"
     publisher: "Google AI for Developers"
     url: "https://ai.google.dev/gemini-api/docs/latest-model"
-    accessedAt: "2026-08-01"
+    accessedAt: "2026-08-02"
     sourceType: "official"
     note: "Gemini 3.6 Flash의 공식 모델명과 Thinking level 구분을 확인했다. 수업 화면과 기능은 수업 당일 다시 확인한다."
+  - id: "google-cloud-generative-ai-glossary"
+    title: "Generative AI glossary"
+    publisher: "Google Cloud"
+    url: "https://docs.cloud.google.com/docs/generative-ai/glossary"
+    accessedAt: "2026-08-02"
+    sourceType: "official"
+    note: "생성형 AI, 대규모 언어 모델과 그라운딩의 입문 설명을 대조했다."
+  - id: "nist-generative-ai-profile"
+    title: "Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile"
+    publisher: "NIST"
+    url: "https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=958388"
+    accessedAt: "2026-08-02"
+    sourceType: "standard"
+    note: "생성형 AI의 confabulation 위험 설명을 대조했다."
+  - id: "nist-multimodal-models"
+    title: "Multimodal Models"
+    publisher: "NIST"
+    url: "https://csrc.nist.gov/glossary/term/multimodal_models"
+    accessedAt: "2026-08-02"
+    sourceType: "standard"
+    note: "멀티모달 모델의 입력 형식 설명을 대조했다."
+  - id: "nist-ai-rmf-core"
+    title: "AI RMF Core"
+    publisher: "NIST"
+    url: "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/"
+    accessedAt: "2026-08-02"
+    sourceType: "standard"
+    note: "사람의 감독과 책임 경계 설명을 대조했다."
+  - id: "gemini-thinking"
+    title: "Gemini thinking"
+    publisher: "Google AI for Developers"
+    url: "https://ai.google.dev/gemini-api/docs/generate-content/thinking"
+    accessedAt: "2026-08-02"
+    sourceType: "official"
+    note: "Thinking이 별도 모델명이 아닌 지원 모델의 기능·설정임을 확인했다."
 sections:
   - { id: "section-01", label: "차시 소개" }
   - { id: "section-02", label: "오늘의 핵심 질문" }
@@ -28,7 +63,7 @@ sections:
   - { id: "section-04", label: "생성형 AI(Generative AI)의 기본 개념" }
   - { id: "section-05", label: "AI가 할 일과 디자이너가 판단할 일" }
   - { id: "section-06", label: "안전하게 사용하기 위한 핵심 용어" }
-  - { id: "section-07", label: "사실·추론·가정·디자인 제안 구분" }
+  - { id: "section-07", label: "원문·추론·가정·디자인 제안 구분" }
   - { id: "section-08", label: "북카페 가상 의뢰" }
   - { id: "section-09", label: "Gemini 첫 번째 입력" }
   - { id: "section-10", label: "Gemini 3.6 Flash 실제 응답" }
@@ -70,12 +105,18 @@ export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
   <LessonTimePlan
     totalMinutes={180}
     timePlan={[
-      { label: '도입과 기본 개념', detail: '과정 소개와 기본 개념 20분, 생성형 디자인 도구 지형도 10분', minutes: 30 },
-      { label: '역할과 검증', detail: 'AI와 디자이너의 역할, 안전한 사용', minutes: 40 },
-      { label: '휴식', detail: '휴식', minutes: 10 },
-      { label: '강사 시연', detail: '북카페 Gemini 사례', minutes: 30, practiceRelated: true },
-      { label: '수강생 실습', detail: '답변 분석과 요청문 개선', minutes: 60, practiceRelated: true },
-      { label: '공유와 정리', detail: '결과 비교와 체크리스트', minutes: 10, practiceRelated: true },
+      { label: '00~10분', detail: '원칙·학습목표·결과물', minutes: 10 },
+      { label: '10~25분', detail: '생성형 AI·LLM·멀티모달 AI', minutes: 15 },
+      { label: '25~33분', detail: '생성형 디자인 도구 지형도', minutes: 8 },
+      { label: '33~53분', detail: 'AI 역할, 할루시네이션·그라운딩·HITL', minutes: 20 },
+      { label: '53~65분', detail: '정보 유형 미니 실습', minutes: 12, practiceRelated: true },
+      { label: '65~75분', detail: '휴식', minutes: 10 },
+      { label: '75~85분', detail: '북카페 의뢰문과 누락 조건', minutes: 10, practiceRelated: true },
+      { label: '85~105분', detail: 'Gemini 시연 또는 fallback', minutes: 20, practiceRelated: true },
+      { label: '105~120분', detail: '대표 문장 공동 분석', minutes: 15, practiceRelated: true },
+      { label: '120~170분', detail: '베이커리 카페 실습', minutes: 50, practiceRelated: true },
+      { label: '170~177분', detail: '결과 공유와 체크리스트', minutes: 7, practiceRelated: true },
+      { label: '177~180분', detail: '제2차시 연결', minutes: 3 },
     ]}
   />
 
@@ -84,7 +125,7 @@ export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
 
 <LessonSection id="section-02" number="02" title="오늘의 핵심 질문" class="lesson-one-section">
   <ol class="lesson-question-list">
-    <li>무엇이 확인된 조건인가?</li>
+    <li>무엇이 원문에서 직접 확인되는 조건인가?</li>
     <li>AI가 임의로 추가한 것은 무엇인가?</li>
     <li>무엇을 유지하고 무엇을 바꿀 것인가?</li>
     <li>디자이너가 판단해야 할 부분은 무엇인가?</li>
@@ -96,7 +137,7 @@ export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
   <ul class="lesson-check-list">
     <li>생성형 AI(Generative AI), 대규모 언어 모델(Large Language Model, LLM), 멀티모달 AI(Multimodal AI)의 기본 개념을 구분합니다.</li>
     <li>AI가 잘하는 일과 디자이너가 판단해야 할 일을 구분합니다.</li>
-    <li>AI 답변에서 사실·추론·가정·디자인 제안을 분류합니다.</li>
+    <li>AI 답변에서 원문에 직접 있는 내용·추론·가정·디자인 제안을 구분합니다.</li>
     <li>프롬프트 또는 요청문(Prompt)은 AI에게 원하는 작업과 조건을 전달하는 입력입니다. 확인되지 않은 내용을 질문으로 되돌리는 요청문을 작성합니다.</li>
     <li>AI 활용·검증 체크리스트와 공간디자인 요청 분석표를 완성합니다.</li>
   </ul>
@@ -106,7 +147,7 @@ export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
   <div class="lesson-prose">
     <h3>생성형 AI(Generative AI)</h3>
 
-    <p>생성형 AI(Generative AI)는 사용자의 요청과 제공된 자료를 바탕으로 텍스트, 이미지, 영상 등 새로운 결과를 만드는 인공지능이다.</p>
+    <p>생성형 AI(Generative AI)는 사용자의 입력과 학습된 패턴을 바탕으로 텍스트, 이미지, 영상 등 새로운 결과를 만드는 인공지능이다.</p>
 
     <p>생성형 AI(Generative AI)는 사실을 확인한 뒤 정답을 꺼내는 시스템이 아니다. 학습된 패턴과 현재 입력을 바탕으로 상황에 적절해 보이는 결과를 생성한다.</p>
 
@@ -132,15 +173,28 @@ export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
 
     <h3>멀티모달 AI(Multimodal AI)</h3>
 
-    <p>멀티모달 AI(Multimodal AI)는 텍스트뿐 아니라 이미지, PDF 등 여러 형식의 자료를 함께 다루는 AI다.</p>
+    <p>멀티모달 AI(Multimodal AI)는 텍스트, 이미지, PDF처럼 둘 이상의 입력 형식을 함께 다룰 수 있는 AI다. 지원 형식과 판독 범위는 모델과 서비스에 따라 다르다.</p>
 
-    <p>이번 과정에서는 Gemini의 파일 업로드 기능을 사용할 수 있다. 다만 파일을 읽을 수 있다는 것과 모든 정보를 정확하게 해석한다는 것은 다르다. AI 답변은 반드시 원본과 대조한다.</p>
+    <p>Gemini 모델은 문서와 이미지 등 여러 입력 형식을 처리할 수 있다. 다만 수업에서 사용하는 계정과 화면의 파일 업로드 가능 여부, 지원 형식과 UI는 수업 당일 다시 확인한다. 파일을 읽을 수 있다는 것과 모든 정보를 정확하게 해석한다는 것은 다르므로 AI 답변은 반드시 원본과 대조한다.</p>
+
+    <dl class="lesson-meta-list" aria-label="Gemini 서비스와 모델 구분">
+      <div><dt>AI 서비스</dt><dd>사용자가 모델과 기능을 이용하는 서비스 또는 환경. 이 수업에서는 <strong>Gemini</strong> 웹 화면을 사용하며 API와 동일한 기능 범위를 가정하지 않는다.</dd></div>
+      <div><dt>AI 모델</dt><dd>입력을 처리해 결과를 생성하도록 학습된 기술 단위. 실제 응답에는 <strong>Gemini 3.6 Flash</strong>를 사용했다.</dd></div>
+      <div><dt>기능</dt><dd>파일 업로드, 문서·이미지 입력처럼 서비스나 모델이 제공하는 개별 작업 능력. 화면과 계정에 따라 제공 범위가 달라질 수 있다.</dd></div>
+      <div><dt>Thinking level</dt><dd>지원 모델에서 내부 추론 노력 수준을 조정하는 설정. 별도 모델명이나 사실성 보증이 아니다.</dd></div>
+    </dl>
+
+    <aside class="lesson-callout lesson-callout--verification">
+      <strong>자료 업로드 전 운영 원칙</strong>
+      <p>개인정보, 기업 기밀, 공개 권한이 없는 도면·이미지, 사용 권한이 확인되지 않은 자료는 업로드하지 않습니다. 실제 사용 전 해당 서비스의 현재 약관과 데이터 처리 정책을 확인하며, 필요하면 조직의 법률·계약·보안 담당자에게 확인합니다.</p>
+    </aside>
 
     <section class="lesson-tool-landscape" aria-labelledby="lesson-tool-landscape-title">
       <header class="lesson-tool-landscape__header">
         <span>10분 개념 탐색</span>
         <h3 id="lesson-tool-landscape-title">생성형 디자인 도구 지형도</h3>
         <p>도구를 모두 익히기보다 어떤 입력을 다루고 어떤 결과를 만드는지 구분하는 데 초점을 둔다.</p>
+        <p class="lesson-tool-landscape__ebook-note"><strong>e-book 참고</strong> 강의에서는 주 실습 흐름과 참고 도구 1~2개만 확인하고, 13개 도구의 전체 설명은 복습할 때 참고한다.</p>
       </header>
 
       <section class="lesson-tool-group" aria-labelledby="lesson-primary-tools-title">
@@ -287,11 +341,11 @@ export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
 
     <h3>과정에서 사용할 모델</h3>
 
-    <p>사용자가 실제 강의 준비 환경에서 확인한 UI 명칭을 기준으로 표기한다.</p>
+    <p>서비스명, 모델명, 기능과 설정을 구분해 표기한다. 수업 당일에는 실제 계정의 화면과 공식 문서를 다시 확인한다.</p>
 
     <ul>
-      <li>빠른 초기 분석과 생성: <code>Gemini 3.6 Flash</code></li>
-      <li>복잡한 분석과 재검토: <code>Gemini 3.6 Flash의 Thinking 설정 또는 Thinking level</code></li>
+      <li>빠른 초기 분석과 생성에 사용하는 모델: <code>Gemini 3.6 Flash</code></li>
+      <li>복잡한 분석과 재검토에 사용하는 설정: <code>Gemini 3.6 Flash의 thinking level</code></li>
     </ul>
 
     <aside class="lesson-callout lesson-callout--verification">
@@ -368,23 +422,48 @@ export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
   </div>
 </LessonSection>
 
-<LessonSection id="section-07" number="07" title="사실·추론·가정·디자인 제안 구분" class="lesson-one-section">
-  <div class="table-scroll" tabindex="0" role="region" aria-label="정보 분류 기준">
+<LessonSection id="section-07" number="07" title="원문·추론·가정·디자인 제안 구분" class="lesson-one-section">
+  <p>먼저 <strong>정보 유형</strong>을 구분하고, 그다음 <strong>확인 상태와 판단 주체</strong>를 기록한다. 한 열에 정보 유형·오류·후속 행동을 섞지 않는다.</p>
+
+  <h3>1. 정보 유형</h3>
+  <div class="table-scroll" tabindex="0" role="region" aria-label="정보 유형 분류 기준">
     <table class="lesson-table">
       <thead>
         <tr><th>분류</th><th>기준</th></tr>
       </thead>
       <tbody>
-        <tr><th scope="row">확인된 사실</th><td>원문이나 제공 자료에서 직접 확인되는 내용</td></tr>
+        <tr><th scope="row">원문에서 직접 확인된 내용</th><td>원문이나 제공 자료에 실제로 적혀 있는 내용. 실제 현장·법규·구조 조건까지 외부 검증됐다는 뜻은 아니다.</td></tr>
         <tr><th scope="row">추론</th><td>원문을 바탕으로 생각할 수 있지만 확정되지 않은 내용</td></tr>
-        <tr><th scope="row">가정</th><td>실제 자료 없이 AI가 존재한다고 전제한 조건</td></tr>
+        <tr><th scope="row">가정</th><td>제공 자료에 근거가 없지만 분석이나 제안을 위해 임시로 전제한 조건</td></tr>
         <tr><th scope="row">디자인 제안</th><td>하나의 초기 대안으로 검토할 수 있는 내용</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>2. 확인 상태와 판단 주체</h3>
+  <div class="table-scroll" tabindex="0" role="region" aria-label="확인 상태와 판단 주체 기준">
+    <table class="lesson-table">
+      <thead>
+        <tr><th>상태·주체</th><th>기준</th></tr>
+      </thead>
+      <tbody>
         <tr><th scope="row">추가 확인 필요</th><td>클라이언트, 현장 또는 자료를 통해 확인할 내용</td></tr>
         <tr><th scope="row">수강생 전문 판단</th><td>공간디자인 방향과 결과 채택 여부</td></tr>
         <tr><th scope="row">해당 전문가 판단</th><td>법규·구조·소방·접근성·자재 성능·설비·시공 등</td></tr>
       </tbody>
     </table>
   </div>
+
+  <h3>3. 후속 대응</h3>
+  <p>분류와 확인 상태를 기록한 뒤 다음 행동은 여섯 가지 중 하나로 정한다.</p>
+  <ul class="lesson-tag-list" aria-label="후속 대응 6개">
+    <li>유지</li>
+    <li>질문</li>
+    <li>현장 확인</li>
+    <li>전문가 확인</li>
+    <li>수정</li>
+    <li>제외</li>
+  </ul>
 
   <blockquote class="lesson-principle">
     <p>요구는 유지하고, 제안은 제안으로 표시하며, 가정은 질문으로 되돌립니다.</p>
@@ -441,11 +520,11 @@ export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
 </LessonSection>
 
 <LessonSection id="section-10" number="10" title="Gemini 3.6 Flash 실제 응답" class="lesson-one-section">
-  <p class="lesson-context-label">아래 원문은 문법이나 표현을 수정하지 않고 그대로 수록한다.</p>
+  <p class="lesson-context-label">아래 원문은 문법이나 표현을 수정하지 않고 그대로 수록한 실제 AI 출력이다.</p>
 
   <aside class="lesson-ai-proposal-notice">
     <strong>AI가 생성한 콘셉트 제안</strong>
-    <p>아래 내용은 확정된 디자인 방향이 아니라 Gemini가 생성한 초기 제안이다.</p>
+    <p>아래 내용은 확정된 디자인 방향이 아니라 Gemini가 생성한 초기 제안이다. 수업 중 22문단 전체를 낭독하지 않으며, 문맥 확인과 복습을 위한 e-book 참고자료로 사용한다. 오류와 가정은 다음 분석 단계에서 검토한다.</p>
   </aside>
 
   <details class="lesson-ai-response-disclosure">
@@ -506,10 +585,42 @@ export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
 </LessonSection>
 
 <LessonSection id="section-11" number="11" title="실제 응답 분석" class="lesson-one-section">
+  <section class="lesson-classification-examples" aria-labelledby="lesson-classification-examples-title" data-representative-statements="6">
+    <header>
+      <span>공동 분석 · 15분</span>
+      <h3 id="lesson-classification-examples-title">수업에서 함께 분류할 대표 문장</h3>
+      <p>전체 22문단을 낭독하는 대신 아래 6개 표현을 먼저 분류하고 교육용 분석표와 비교한다.</p>
+    </header>
+    <ol class="lesson-classification-steps">
+      <li>대표 문장 확인</li>
+      <li>정보 유형 분류</li>
+      <li>원문 근거 확인</li>
+      <li>문제·확인 상태 작성</li>
+      <li>후속 대응 선택</li>
+      <li>교육용 분석표와 비교</li>
+    </ol>
+    <div class="table-scroll" tabindex="0" role="region" aria-label="대표 문장 6개 공동 분석표">
+      <table class="lesson-table lesson-table--wide">
+        <thead>
+          <tr><th>대표 문장</th><th>분리한 주장</th><th>정보 유형</th><th>문제·확인 상태</th><th>후속 대응</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>따로 또 같이</td><td>초기 콘셉트명</td><td>디자인 제안</td><td>확정 사항이 아닌 AI 제안</td><td>유지</td></tr>
+          <tr><td>도심 속 거실</td><td>AI의 해석을 바탕으로 만든 콘셉트</td><td>디자인 제안</td><td>원문에 직접 적힌 명칭이 아님</td><td>유지</td></tr>
+          <tr><td rowspan="2">2&#126;4인 동반 고객</td><td>동반 이용자</td><td>원문에서 직접 확인된 내용</td><td>원문 근거 있음</td><td>유지</td></tr>
+          <tr><td>2&#126;4인</td><td>가정</td><td>원문에 구체적인 인원 범위 없음</td><td>질문</td></tr>
+          <tr><td>창가 배치</td><td>창가에 좌석을 둔다는 제안</td><td>디자인 제안</td><td>실제 창호 위치 미확인</td><td>현장 확인</td></tr>
+          <tr><td>중앙 기둥 또는 벽면</td><td>중앙 구조 요소가 존재한다는 전제</td><td>가정</td><td>존재 여부 미확인</td><td>현장 확인</td></tr>
+          <tr><td>주광색(주황빛)</td><td>따뜻한 조명을 사용한다는 제안</td><td>디자인 제안</td><td>조명 용어 오류·효과 검증 필요</td><td>수정</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
   <div class="lesson-analysis-grid">
     <article>
-      <span>확인된 사실</span>
-      <h3>원문에 근거한 내용</h3>
+      <span>원문에서 직접 확인</span>
+      <h3>원문에 직접 있는 내용</h3>
       <ul>
         <li>혼자와 동반 이용자를 함께 고려</li>
         <li>차분하지만 너무 무겁지 않은 분위기</li>
@@ -517,17 +628,16 @@ export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
       </ul>
     </article>
     <article>
-      <span>추론</span>
-      <h3>AI의 해석·추론</h3>
+      <span>디자인 제안</span>
+      <h3>AI가 만든 공간 구성 제안</h3>
       <ul>
-        <li>‘도심 속 거실’ 콘셉트</li>
-        <li>2~4인 동반 고객</li>
-        <li>몰입 존과 소통 존 구분</li>
+        <li>AI가 만든 ‘도심 속 거실’ 콘셉트</li>
+        <li>사용자 요구를 공간 구성으로 바꾼 몰입 존·소통 존 구분</li>
       </ul>
     </article>
     <article>
-      <span>디자인 제안</span>
-      <h3>활용 가능한 디자인 제안</h3>
+      <span>세부 디자인 제안</span>
+      <h3>검토할 수 있는 재료·가구 제안</h3>
       <ul>
         <li>우드와 베이지·크림 계열</li>
         <li>원형 테이블</li>
@@ -543,6 +653,7 @@ export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
       <h3>확인되지 않은 현장 가정</h3>
       <ul>
         <li>창가 존재 및 좌석 배치 가능</li>
+        <li>동반 이용자를 2~4인으로 한정한 숫자</li>
         <li>중앙 기둥 또는 중앙 벽면 존재</li>
         <li>기존 천장과 바닥 재사용 가능</li>
         <li>좌석별 콘센트 설치 가능</li>
@@ -591,21 +702,25 @@ export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
   <div class="table-scroll" tabindex="0" role="region" aria-label="Gemini 실제 응답 분석표">
     <table class="lesson-table">
       <thead>
-        <tr><th>Gemini 답변</th><th>분류</th><th>판단 및 대응</th></tr>
+        <tr><th>Gemini 답변</th><th>정보 유형</th><th>문제·확인 상태</th><th>후속 대응</th></tr>
       </thead>
       <tbody>
-        <tr><td>따로 또 같이</td><td>디자인 제안</td><td>AI가 만든 초기 콘셉트명이며 확정 사항이 아님</td></tr>
-        <tr><td>도심 속 거실</td><td>디자인 제안</td><td>초기 콘셉트로 활용 가능</td></tr>
-        <tr><td>짙은 우드·베이지·크림</td><td>디자인 제안</td><td>확정이 아닌 제안으로 표시</td></tr>
-        <tr><td>창가 배치</td><td>확인되지 않은 가정</td><td>창호 위치 확인 후 검토</td></tr>
-        <tr><td>주광색(주황빛)</td><td>용어 오류</td><td>전구색·웜화이트 등으로 수정</td></tr>
-        <tr><td>벽면 바 테이블</td><td>제안·현장 확인</td><td>벽면 길이와 동선 확인</td></tr>
-        <tr><td>좌석별 콘센트</td><td>설비 확인</td><td>전기 용량과 배선 조건 확인</td></tr>
-        <tr><td>2~4인 고객</td><td>추론</td><td>실제 운영 대상 확인</td></tr>
-        <tr><td>중앙 기둥·벽면</td><td>가정</td><td>존재 여부 확인</td></tr>
-        <tr><td>기존 천장·바닥 재사용</td><td>가정</td><td>현장 상태 확인 후 판단</td></tr>
-        <tr><td>비용 효율적 방식</td><td>근거 없는 평가</td><td>공사 범위와 비용 자료 필요</td></tr>
-        <tr><td>가구 배치 레이아웃 도면</td><td>자료 부족</td><td>평면도·치수 확인 후 작성</td></tr>
+        <tr><td>따로 또 같이</td><td>디자인 제안</td><td>확정 사항이 아닌 초기 콘셉트명</td><td>유지</td></tr>
+        <tr><td>도심 속 거실</td><td>디자인 제안</td><td>AI의 해석을 바탕으로 만든 초기 콘셉트명</td><td>유지</td></tr>
+        <tr><td>몰입 존·소통 존</td><td>디자인 제안</td><td>사용자 요구를 공간 구성으로 바꾼 초기 제안</td><td>현장 확인</td></tr>
+        <tr><td>짙은 우드·베이지·크림</td><td>디자인 제안</td><td>확정되지 않은 재료·색상 방향</td><td>유지</td></tr>
+        <tr><td>창가 배치</td><td>디자인 제안</td><td>실제 창호 위치 미확인</td><td>현장 확인</td></tr>
+        <tr><td>주광색(주황빛)</td><td>디자인 제안</td><td>조명 용어 오류·효과 검증 필요</td><td>수정</td></tr>
+        <tr><td>원형 테이블의 동선·친근함 효과</td><td>디자인 제안</td><td>실제 배치 조건에 따라 달라지므로 배치안에서 비교가 필요한 가설</td><td>수정</td></tr>
+        <tr><td>벽면 바 테이블</td><td>디자인 제안</td><td>벽면 길이·동선 미확인</td><td>현장 확인</td></tr>
+        <tr><td>좌석별 콘센트</td><td>디자인 제안</td><td>전기 용량·배선 미확인</td><td>전문가 확인</td></tr>
+        <tr><td>동반 이용자</td><td>원문에서 직접 확인된 내용</td><td>원문 근거 있음</td><td>유지</td></tr>
+        <tr><td>2&#126;4인</td><td>가정</td><td>원문에 구체적인 인원 범위 없음</td><td>질문</td></tr>
+        <tr><td>중앙 기둥·벽면</td><td>가정</td><td>존재 여부 미확인</td><td>현장 확인</td></tr>
+        <tr><td>기존 천장·바닥 재사용</td><td>가정</td><td>현장 상태·공사 범위 미확인</td><td>현장 확인</td></tr>
+        <tr><td>조명 교체만으로 충분</td><td>디자인 제안</td><td>설비 조건·시공 가능성 미확인</td><td>전문가 확인</td></tr>
+        <tr><td>비용 효율적 방식</td><td>추론</td><td>비용 근거 없는 평가</td><td>질문</td></tr>
+        <tr><td>가구 배치 레이아웃 도면</td><td>디자인 제안</td><td>평면도·치수 자료 부족</td><td>현장 확인</td></tr>
       </tbody>
     </table>
   </div>
@@ -614,7 +729,12 @@ export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
 </LessonSection>
 
 <LessonSection id="section-12" number="12" title="개선된 요청문" class="lesson-one-section">
-  <pre class="lesson-prompt"><code>{`다음 클라이언트 문의를 분석해 주세요.
+  <pre class="lesson-prompt"><code>{`너는 건축디자인 초기 기획을 돕는 분석 보조자다.
+
+다음 클라이언트 문의를 분석해 주세요.
+
+역할 범위는 원문 정리, 정보 유형 분류, 근거 표시,
+미확정 조건 표시와 초기 디자인 제안입니다.
 
 중요한 규칙은 다음과 같습니다.
 
@@ -691,30 +811,36 @@ export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
     <p>AI 답변에서 최소 10개 문장을 골라 분류한다.</p>
     <div class="table-scroll" tabindex="0" role="region" aria-label="AI 문장 분류 활동지">
       <table class="lesson-table lesson-table--wide">
-        <thead><tr><th>번호</th><th>AI 문장</th><th>분류</th><th>원문 근거</th><th>문제점</th></tr></thead>
+        <thead><tr><th>번호</th><th>AI 문장</th><th>정보 유형</th><th>원문 근거</th><th>문제·확인 상태</th><th>후속 대응</th></tr></thead>
         <tbody>
-          <tr><td>1</td><td></td><td></td><td></td><td></td></tr>
-          <tr><td>2</td><td></td><td></td><td></td><td></td></tr>
-          <tr><td>3</td><td></td><td></td><td></td><td></td></tr>
-          <tr><td>4</td><td></td><td></td><td></td><td></td></tr>
-          <tr><td>5</td><td></td><td></td><td></td><td></td></tr>
-          <tr><td>6</td><td></td><td></td><td></td><td></td></tr>
-          <tr><td>7</td><td></td><td></td><td></td><td></td></tr>
-          <tr><td>8</td><td></td><td></td><td></td><td></td></tr>
-          <tr><td>9</td><td></td><td></td><td></td><td></td></tr>
-          <tr><td>10</td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>1</td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>2</td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>3</td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>4</td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>5</td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>6</td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>7</td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>8</td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>9</td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>10</td><td></td><td></td><td></td><td></td><td></td></tr>
         </tbody>
       </table>
     </div>
-    <p>분류:</p>
+    <p>정보 유형:</p>
     <ul class="lesson-tag-list">
-      <li>확인된 사실</li>
+      <li>원문에서 직접 확인된 내용</li>
       <li>추론</li>
       <li>가정</li>
       <li>디자인 제안</li>
-      <li>추가 확인 필요</li>
-      <li>수강생 전문 판단</li>
-      <li>해당 전문가 판단</li>
+    </ul>
+    <p>후속 대응:</p>
+    <ul class="lesson-tag-list">
+      <li>유지</li>
+      <li>질문</li>
+      <li>현장 확인</li>
+      <li>전문가 확인</li>
+      <li>수정</li>
+      <li>제외</li>
     </ul>
   </div>
 
@@ -724,13 +850,12 @@ export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
       <table class="lesson-table">
         <thead><tr><th>대응 방식</th><th>적용 상황</th></tr></thead>
         <tbody>
-          <tr><td>유지</td><td>원문에서 확인되는 내용</td></tr>
-          <tr><td>질문으로 전환</td><td>사실 확인이 필요한 내용</td></tr>
-          <tr><td>추론으로 표시</td><td>가능하지만 미확정</td></tr>
-          <tr><td>디자인 제안으로 변경</td><td>하나의 대안</td></tr>
-          <tr><td>삭제</td><td>근거 없고 활용 가치 낮음</td></tr>
-          <tr><td>보류</td><td>현장·자료 확인 전 결정 불가</td></tr>
-          <tr><td>해당 전문가 판단으로 분리</td><td>법규·구조·소방·설비·시공 등</td></tr>
+          <tr><td>유지</td><td>원문 근거가 있거나 제안임을 명확히 표시한 내용</td></tr>
+          <tr><td>질문</td><td>클라이언트나 자료 제공자에게 확인해야 하는 내용</td></tr>
+          <tr><td>현장 확인</td><td>도면·치수·창호·기둥·마감 상태처럼 현황 자료가 필요한 내용</td></tr>
+          <tr><td>전문가 확인</td><td>법규·구조·소방·접근성·설비·시공 등 해당 전문가의 검토가 필요한 내용</td></tr>
+          <tr><td>수정</td><td>용어 오류, 과도한 단정 또는 근거와 맞지 않는 표현</td></tr>
+          <tr><td>제외</td><td>근거가 없고 분석이나 디자인 대안으로도 사용할 필요가 없는 내용</td></tr>
         </tbody>
       </table>
     </div>
@@ -768,7 +893,7 @@ export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
         <tbody>
           <tr><td>근거 없는 숫자</td><td></td><td></td></tr>
           <tr><td>임의로 추가된 공간 조건</td><td></td><td></td></tr>
-          <tr><td>사용자 추론</td><td></td><td></td></tr>
+          <tr><td>AI가 추가한 추론·해석</td><td></td><td></td></tr>
           <tr><td>확정형 디자인 제안</td><td></td><td></td></tr>
           <tr><td>원문과 충돌하는 내용</td><td></td><td></td></tr>
           <tr><td>추가 질문의 구체성</td><td></td><td></td></tr>
@@ -787,6 +912,11 @@ export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
       <li>어떻게 수정하거나 대응했는가?</li>
     </ol>
     <p><strong>예시:</strong> Gemini가 공간에 창가가 존재한다고 가정했습니다. 의뢰문에는 창호 정보가 없으므로 확인되지 않은 가정으로 분류했습니다. 창호 위치와 채광 조건을 확인한 뒤 검토하는 조건부 제안으로 수정했습니다.</p>
+    <div class="lesson-share-notes" aria-label="결과 공유 메모 작성 공간">
+      <strong>결과 공유 메모</strong>
+      <span>공유된 AI 문장, 문제·확인 상태와 선택한 후속 대응을 기록합니다.</span>
+      <div aria-hidden="true"></div>
+    </div>
   </div>
 </LessonSection>
 
@@ -796,7 +926,7 @@ export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
       <span>OUTPUT 01</span>
       <h3>공간디자인 요청 분석표</h3>
       <ul>
-        <li>확인된 조건</li>
+        <li>원문에서 직접 확인된 조건</li>
         <li>확인되지 않은 조건</li>
         <li>AI의 추론</li>
         <li>AI의 가정</li>
@@ -822,7 +952,7 @@ export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
     <li>AI 답변의 각 내용에 원문 근거가 있는가?</li>
     <li>원문에 없는 면적, 예산, 좌석 수, 사용자층을 임의로 확정하지 않았는가?</li>
     <li>창문, 출입구, 기둥, 벽체, 설비 등 확인되지 않은 현장 조건을 가정하지 않았는가?</li>
-    <li>확인된 사실과 추론을 구분했는가?</li>
+    <li>원문에서 직접 확인된 내용과 추론을 구분했는가?</li>
     <li>디자인 제안을 확정 사항처럼 표현하지 않았는가?</li>
     <li>클라이언트 요구와 충돌하는 제안이 없는가?</li>
     <li>전문용어를 확인했는가?</li>
@@ -837,9 +967,9 @@ export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
 <LessonSection id="section-16" number="16" title="차시 마무리" class="lesson-one-section">
   <div class="lesson-closing">
     <p>AI가 틀린 답을 만들지 않도록 완벽하게 통제하는 것은 어렵습니다.</p>
-    <p>대신 디자이너는 AI가 작성한 내용을 원문과 대조하고, 사실·추론·가정·디자인 제안을 구분하며, 확인되지 않은 내용은 질문으로 되돌릴 수 있어야 합니다.</p>
+    <p>대신 디자이너는 AI가 작성한 내용을 원문과 대조하고, 원문에서 직접 확인된 내용·추론·가정·디자인 제안을 구분하며, 확인되지 않은 내용은 질문으로 되돌릴 수 있어야 합니다.</p>
     <p>AI의 답변 자체가 최종 결과물이 아니라, 디자이너의 검토와 판단이 포함된 결과물이 최종 결과물입니다.</p>
-    <p>제2차시에서는 이 분류 기준을 이미지 생성 결과에 적용해, 무엇이 확인된 사실·추론·가정·디자인 제안인지 살피고 디자이너의 판단을 수정 요청문으로 바꿉니다.</p>
+    <p>제2차시에서는 이 분류 기준을 이미지 생성 결과에 적용해, 무엇이 원문에서 직접 확인된 내용·추론·가정·디자인 제안인지 살피고 디자이너의 판단을 수정 요청문으로 바꿉니다.</p>
   </div>
 
   <blockquote class="lesson-principle">

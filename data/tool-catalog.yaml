@@ -43,7 +43,7 @@ tools:
   - id: "chatgpt-images"
     name: "ChatGPT Images"
     category: "image-generation-editing"
-    officialUrl: "https://openai.com/academy/image-generation/"
+    officialUrl: "https://help.openai.com/en/articles/11084440-images-in-chatgpt"
     courseRole: "참고 사례: 대화형 이미지 생성과 반복 수정"
     lessonIds: ["01"]
     modelOrFamily: "ChatGPT Images; 세부 이미지 모델은 수업 당일 확인"
@@ -123,7 +123,7 @@ tools:
   - id: "claude-artifacts"
     name: "Claude Artifacts"
     category: "prototype-interactive-output"
-    officialUrl: "https://support.anthropic.com/en/articles/9487310-what-are-artifacts-and-how-do-i-use-them"
+    officialUrl: "https://support.claude.com/en/articles/9487310-what-are-artifacts-and-how-do-i-use-them"
     courseRole: "참고 사례: 설명을 웹페이지·다이어그램·인터랙티브 결과물로 구성"
     lessonIds: ["01"]
     modelOrFamily: "Claude Artifacts 기능; 세부 Claude 모델은 수업 당일 확인"

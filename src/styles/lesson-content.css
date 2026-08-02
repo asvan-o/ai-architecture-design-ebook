@@ -572,6 +572,17 @@
   color: var(--muted);
 }
 
+.lesson-tool-landscape__ebook-note {
+  margin-top: 1rem;
+  padding: 0.85rem 1rem;
+  border-left: 3px solid var(--accent-dark);
+  background: var(--paper-deep);
+}
+
+.lesson-tool-landscape__ebook-note strong {
+  color: var(--accent-dark);
+}
+
 .lesson-tool-group {
   margin-top: 2.5rem;
 }
@@ -1268,6 +1279,39 @@
   border-bottom: 1px solid var(--line-dark);
 }
 
+.lesson-classification-examples {
+  max-width: 54rem;
+  margin: 0 0 2rem;
+  padding: clamp(1.2rem, 3vw, 2rem);
+  border: 1px solid var(--line-dark);
+  background: var(--paper-deep);
+}
+
+.lesson-classification-examples > header > span {
+  color: var(--accent-dark);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.lesson-classification-examples > header h3 {
+  margin: 0.5rem 0;
+  text-wrap: balance;
+}
+
+.lesson-classification-examples > header p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.lesson-classification-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem 1rem;
+  margin: 1.25rem 0;
+  padding-left: 1.4rem;
+}
+
 .lesson-two-column,
 .lesson-output-grid {
   grid-template-columns: repeat(2, 1fr);
@@ -1307,6 +1351,36 @@
   padding: 1.5rem;
   border-left: 4px solid var(--blue);
   background: #edf1f0;
+}
+
+.lesson-share-notes {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  border: 1px solid var(--line-dark);
+  background: var(--paper);
+}
+
+.lesson-share-notes > strong,
+.lesson-share-notes > span {
+  display: block;
+}
+
+.lesson-share-notes > span {
+  margin-top: 0.3rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.lesson-share-notes > div {
+  min-height: 8rem;
+  margin-top: 0.8rem;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 1.75rem,
+    var(--line) 1.75rem,
+    var(--line) calc(1.75rem + 1px)
+  );
 }
 
 .lesson-closing {
@@ -1936,6 +2010,10 @@
 
   .lesson-tool-group__header,
   .lesson-tool-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lesson-classification-steps {
     grid-template-columns: minmax(0, 1fr);
   }
 

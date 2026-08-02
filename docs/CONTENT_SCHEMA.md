@@ -67,7 +67,8 @@ authorship:
   pending | human | ai-assisted | ai-generated
 
 verificationStatus:
-  pending | source-checked | official-source-checked | expert-reviewed
+  pending | mixed-verification | course-definition | standard-public-reference | source-checked |
+  official-source-checked | expert-reviewed
 
 freshness:
   pending | stable | update-sensitive
@@ -78,6 +79,17 @@ riskLevel:
 professionalReviewStatus:
   pending | required | not-required | completed
 ```
+
+용어 사전의 개별 항목은 문서 전체의 `mixed-verification` 상태와 별도로
+다음 `definitionBasis` 중 하나를 반드시 사용한다.
+
+```text
+official-source | standard-public-reference | course-definition
+```
+
+- `official-source`: 해당 기관·제품의 공식 문서로 대조
+- `standard-public-reference`: 표준 또는 공공기관 자료를 참고
+- `course-definition`: 승인된 강의의 실습·분류 범위에서 정의
 
 서로 다른 의미를 한 필드에 섞지 않으며 한 콘텐츠에 여러 배지를 동시에 표시합니다. `riskLevel: pending`은 “검토 대기”로 표시합니다. `professionalReviewStatus`가 `required` 또는 `completed`일 때만 해당 확정 배지를 표시합니다.
 
