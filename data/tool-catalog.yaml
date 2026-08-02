@@ -16,10 +16,10 @@ tools:
     officialUrl: "https://ai.google.dev/gemini-api/docs/image-generation"
     courseRole: "제2차시 이미지 생성·수정과 제4차시 공간 대안 이미지 제작"
     lessonIds: ["01", "02", "04"]
-    modelOrFamily: "Gemini 이미지 생성 모델군; 세부 모델 미확정"
-    runtime: "수업 당일 사용 가능한 Gemini 이미지 생성 화면"
+    modelOrFamily: "Gemini의 네이티브 이미지 생성 기능; Gemini API 공식 문서에는 Nano Banana 2 Lite, Nano Banana 2, Nano Banana Pro, Nano Banana(legacy) 세부 모델이 공존"
+    runtime: "Gemini Apps 웹 화면 또는 Gemini API; 이번 수업은 수업 당일 계정에서 사용 가능한 Gemini 이미지 생성 화면과 선택된 세부 모델을 확인"
     lastVerified: "2026-08-02"
-    changeNotice: "Nano Banana는 여러 세부 모델을 가리킬 수 있다. 실제 사용 모델은 수업 당일 선택 화면에서 확인한다."
+    changeNotice: "기능 명칭, 세부 모델, API 제공 범위와 Gemini Apps 화면은 서로 구분한다. 계정·연령·지역·요금제·쿼터에 따라 이용 범위가 달라질 수 있어 수업 당일 공식 문서와 화면을 다시 확인한다."
   - id: "veo"
     name: "Veo"
     category: "video-generation"

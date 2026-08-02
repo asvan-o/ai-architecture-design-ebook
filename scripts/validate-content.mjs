@@ -9,6 +9,9 @@ const glossaryPath = path.resolve('src/content/glossary/index.mdx');
 const toolCatalogPath = path.resolve('data/tool-catalog.yaml');
 const instructorNoteMapPath = path.resolve('src/lib/instructor-notes.ts');
 const printStylePath = path.resolve('src/styles/print.css');
+const lessonTwoPromptPath = path.resolve(
+  'src/assets/lessons/02/empty-space-sample/01-generation-prompts/prompt-02.txt',
+);
 const requiredIds = Array.from({ length: 14 }, (_, index) => String(index + 1).padStart(2, '0'));
 const approvedLessons = [
   { title: '제1차시 · AI가 할 일과 디자이너가 판단할 일', durationMinutes: 180 },
@@ -323,6 +326,35 @@ for (const fileName of files) {
   } else if (!source.includes('<LessonOutline')) {
     errors.push(`${fileName}: LessonOutline 골격이 없습니다.`);
   }
+  if (id === '02') {
+    const requiredLessonTwoStructures = [
+      { marker: '02-original-result.jpeg', label: '실제 인코딩과 일치하는 최초 이미지 확장자' },
+      { marker: '04-revised-result.jpeg', label: '실제 인코딩과 일치하는 수정 이미지 확장자' },
+      { marker: 'reviewFramework: {', label: '관찰·변경·후속 대응 분류 구조' },
+      { marker: '이미지에서 직접 관찰되는 내용', label: '이미지 관찰 결과 구분' },
+      { marker: '의도하지 않은 변경', label: 'AI 변경 유형 구분' },
+      { marker: '원본 이미지 재확인', label: '후속 대응 구분' },
+      { marker: '고양이처럼 보이는 동물 1마리', label: '최초 이미지 관찰 기록' },
+      { marker: '고양이도 함께 제거됨', label: '의도하지 않은 수정 기록' },
+      { marker: 'errorCheckDetails={[', label: 'e-book 상세 오류 체크리스트' },
+      { marker: '제2차시 생성 이미지는 제3차시의 필수 입력', label: '제3차시 연결 경계' },
+    ];
+    for (const { marker, label } of requiredLessonTwoStructures) {
+      if (!source.includes(marker)) {
+        errors.push(`${fileName}: 제2차시 상세 본문에 ${label} 구성이 없습니다.`);
+      }
+    }
+    for (const retiredLessonTwoText of [
+      '소형 매장의 분위기도 더 안정적으로 유지되었다',
+      '카메라 왜곡 없음',
+      '02-original-result.png',
+      '04-revised-result.png',
+    ]) {
+      if (source.includes(retiredLessonTwoText)) {
+        errors.push(`${fileName}: 제2차시에서 수정 대상 표현 '${retiredLessonTwoText}'이 남아 있습니다.`);
+      }
+    }
+  }
   if (id === '03') {
     const requiredLessonThreeStructures = [
       { marker: '지역혁신대학교 중앙도서관 1층 캠퍼스 라운지', label: '캠퍼스 라운지 가상 프로젝트' },
@@ -621,6 +653,18 @@ for (let day = 1; day <= 14; day += 1) {
   if (matchingFiles.length > 1) errors.push(`중복 day ${day}: ${matchingFiles.join(', ')}`);
 }
 
+try {
+  const lessonTwoPrompt = await readFile(lessonTwoPromptPath, 'utf8');
+  if (lessonTwoPrompt.includes('카메라 왜곡 없음')) {
+    errors.push('제2차시 prompt-02에 결과를 보장하는 카메라 왜곡 없음 표현이 남아 있습니다.');
+  }
+  if (!lessonTwoPrompt.includes('과도한 카메라 왜곡을 줄인 아이레벨 시점')) {
+    errors.push('제2차시 prompt-02에 조건부 카메라 시점 표현이 없습니다.');
+  }
+} catch {
+  errors.push('제2차시 prompt-02 파일을 읽을 수 없습니다.');
+}
+
 let manifest = '';
 try {
   manifest = await readFile(assetManifestPath, 'utf8');
@@ -721,8 +765,18 @@ for (const block of manifestBlocks) {
     if (!sourceNote) {
       errors.push(`asset-manifest ${id}: 공개 자산에는 source_note가 필요합니다.`);
     }
-    if (rightsStatus !== 'cleared') {
-      errors.push(`asset-manifest ${id}: 공개 자산의 rights_status는 cleared여야 합니다.`);
+    if (!['cleared', 'review-required'].includes(rightsStatus)) {
+      errors.push(`asset-manifest ${id}: 공개 자산의 rights_status는 cleared 또는 review-required여야 합니다.`);
+    }
+    if (rightsStatus === 'review-required') {
+      const provenanceNote = block.match(/^\s{4}provenance_note:\s*"([^"]+)"\s*$/m)?.[1];
+      const rightsReviewNote = block.match(/^\s{4}rights_review_note:\s*"([^"]+)"\s*$/m)?.[1];
+      if (!provenanceNote) {
+        errors.push(`asset-manifest ${id}: rights_status review-required에는 provenance_note가 필요합니다.`);
+      }
+      if (!rightsReviewNote) {
+        errors.push(`asset-manifest ${id}: rights_status review-required에는 rights_review_note가 필요합니다.`);
+      }
     }
     if (!verifiedAt || !/^\d{4}-\d{2}-\d{2}$/.test(verifiedAt)) {
       errors.push(`asset-manifest ${id}: 공개 자산에는 YYYY-MM-DD verified_at이 필요합니다.`);

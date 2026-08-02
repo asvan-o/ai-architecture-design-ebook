@@ -59,6 +59,19 @@ type IterationSample = {
   comparison: string;
   learningPoint: string;
   caution: string;
+  reviewFramework: {
+    observationResults: string[];
+    changeTypes: string[];
+    followUpActions: string[];
+    originalReview: {
+      label: string;
+      items: string[];
+    }[];
+    revisedReview: {
+      label: string;
+      items: string[];
+    }[];
+  };
 };
 
 type PracticeKit = {
@@ -150,6 +163,7 @@ interface Props {
   deliverables: OutlineItem[];
   judgments: OutlineItem[];
   errorChecks: OutlineItem[];
+  errorCheckDetails?: OutlineItem[];
   assetIds: string[];
   assetsTitle?: string;
   showOnlyReadyAssets?: boolean;
@@ -186,6 +200,7 @@ const {
   deliverables,
   judgments,
   errorChecks,
+  errorCheckDetails,
   assetIds,
   assetsTitle = '필요한 이미지·영상·문서',
   showOnlyReadyAssets = false,
@@ -310,7 +325,7 @@ const alternativeCriteriaSteps = practice.filter(
       {assetNotes && <ClassifiedList items={assetNotes} />}
       <ClassifiedList items={materials} />
       {projectReferences && <ProjectReferenceMaterials {...projectReferences} />}
-      {practiceKit && <EmptySpacePracticeKit {...practiceKit} />}
+      {practiceKit && lessonId !== '02' && <EmptySpacePracticeKit {...practiceKit} />}
     </LessonSection>
 
     <LessonSection
@@ -570,13 +585,14 @@ const alternativeCriteriaSteps = practice.filter(
     <LessonSection id="section-06" number="06" title="제공 자료" class="outline-section" lessonId={lessonId}>
       <ClassifiedList items={materials} />
       {projectReferences && <ProjectReferenceMaterials {...projectReferences} />}
-      {practiceKit && <EmptySpacePracticeKit {...practiceKit} />}
+      {practiceKit && lessonId !== '02' && <EmptySpacePracticeKit {...practiceKit} />}
     </LessonSection>
 
     <LessonSection id="section-07" number="07" title={demoTitle} class="outline-section" lessonId={lessonId}>
       {iterationSample
         ? <IterativeImageSample {...iterationSample} />
         : <ClassifiedList items={demo} />}
+      {practiceKit && lessonId === '02' && <EmptySpacePracticeKit {...practiceKit} />}
     </LessonSection>
 
     <LessonSection id="section-08" number="08" title="수강생 실습" class="outline-section" lessonId={lessonId}>
@@ -605,6 +621,12 @@ const alternativeCriteriaSteps = practice.filter(
 
     <LessonSection id="section-11" number="11" title="AI 오류 확인 체크리스트" class="outline-section" lessonId={lessonId}>
       <ClassifiedList items={errorChecks} checks />
+      {errorCheckDetails && (
+        <details class="lesson-reference-checks">
+          <summary>e-book 상세 참고 체크리스트</summary>
+          <ClassifiedList items={errorCheckDetails} checks />
+        </details>
+      )}
     </LessonSection>
 
     <LessonSection id="section-12" number="12" title={assetsTitle} class="outline-section" lessonId={lessonId}>

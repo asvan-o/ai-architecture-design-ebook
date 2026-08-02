@@ -363,6 +363,50 @@
   font-size: 8.25pt;
 }
 
+/* 제2차시의 사례·제작 예시·체크리스트는 제목과 첫 내용을 같은 페이지에서 시작한다. */
+.print-document .print-lesson[data-print-lesson-id='02'] #section-04 {
+  padding-block: 4mm;
+}
+
+.print-document .print-lesson[data-print-lesson-id='02'] #section-04 .section-heading {
+  margin-bottom: 3mm;
+}
+
+.print-document .print-lesson[data-print-lesson-id='02'] #section-04 .outline-list li {
+  padding-block: 0.6rem;
+}
+
+.print-document .print-lesson[data-print-lesson-id='02'] #section-05 {
+  break-before: page;
+  page-break-before: always;
+}
+
+.print-document .print-lesson[data-print-lesson-id='02'] :is(
+  .iteration-review__header,
+  .empty-space-kit__header,
+  #section-11 > .section-heading,
+  #section-11 > .section-heading + .classified-list > li:first-child
+) {
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+
+.print-document .lesson-reference-checks {
+  break-inside: auto;
+  page-break-inside: auto;
+}
+
+.print-document .lesson-reference-checks > summary {
+  padding: 3mm 0;
+  break-after: avoid-page;
+  page-break-after: avoid;
+}
+
+.print-document .lesson-reference-checks > .classified-list {
+  display: grid !important;
+  padding: 0;
+}
+
 .print-document .print-lesson[data-print-lesson-id='01'] .lesson-share-notes > div {
   min-height: 42mm;
 }

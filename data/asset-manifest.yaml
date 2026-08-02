@@ -74,19 +74,19 @@ assets:
 
   - id: "l02-doc-pack"
     lesson: 2
-    priority: "required"
+    priority: "optional"
     source_type: "template"
     production_owner: "codex"
     lesson_usage: "checklist"
     title: "요청 구조화·생성 기록 양식"
     type: "document"
-    purpose: "요청 분석과 생성 이력을 함께 기록하는 빈 문서 묶음"
-    required_files: ["요청 구조화표", "이미지 비교표", "생성 기록표"]
+    purpose: "향후 수업 운영에 필요한 경우 관찰·변경·후속 대응 기록을 보조하는 선택 활동지"
+    required_files: ["선택형 보조 활동지"]
     recommended_tool: "codex"
     status: "not-created"
     public_use: false
-    alt: "한 줄 공간 요청 구조화와 생성 기록 양식"
-    verification_note: "분류 항목과 제출 형식을 수업 전 검토 후 확정"
+    alt: "향후 추가할 수 있는 이미지 관찰과 수정 판단 보조 활동지"
+    verification_note: "현재 제2차시 제출물은 본문에 명시된 이미지·요청문·비교 문장으로 구성하며 별도 문서팩은 필수가 아님"
 
   - id: "l02-concept-set"
     lesson: 2
@@ -97,15 +97,23 @@ assets:
     title: "플라워 카페 수정 전후 실습 샘플"
     type: "image"
     purpose: "한 줄 요청의 첫 결과를 검토하고 수정 요청으로 발전시키는 실제 수업 샘플"
-    required_files: ["01-original-prompt.txt", "02-original-result.png", "03-revision-prompt.txt", "04-revised-result.png"]
+    required_files: ["01-original-prompt.txt", "02-original-result.jpeg", "03-revision-prompt.txt", "04-revised-result.jpeg"]
     recommended_tool: "nano-banana"
     status: "ready"
     public_use: true
     alt: "한 줄 요청으로 생성한 플라워 카페 이미지와 수정 요청을 반영한 두 번째 이미지"
-    source_note: "사용자가 제공한 Nano Banana 생성 결과와 요청문"
-    rights_status: "cleared"
+    source_note: "사용자가 제공한 요청문과 Google AI로 생성된 이미지 파일"
+    rights_status: "review-required"
+    provenance_note: "두 이미지 XMP에서 DigitalSourceType trainedAlgorithmicMedia와 Credit Made with Google AI 확인"
+    generation_model: "unknown"
+    generation_date: "unknown"
+    third_party_input: "unknown"
+    public_scope: "student-web-and-pdf"
+    rights_reviewer: "not-recorded"
+    rights_reviewed_at: "not-recorded"
+    rights_review_note: "게시 요청만으로 저작권·상업 이용·제3자 권리 정리가 완료됐다고 판단하지 않음"
     verified_at: "2026-07-30"
-    verification_note: "사용자가 제2차시 학생용 본문과 PDF 반영을 명시적으로 요청함"
+    verification_note: "학생용 본문·PDF 사용 요청과 Google AI 생성 메타데이터는 확인했으나 세부 모델·생성일·제3자 입력·권리 검토자 기록은 없음"
 
   - id: "l02-demo"
     lesson: 2
@@ -197,11 +205,19 @@ assets:
     recommended_tool: "user-upload"
     status: "ready"
     public_use: true
-    alt: "일부 마감과 선반이 남아 있고 가구와 사람이 없는 소형 상업공간 교육용 이미지"
-    source_note: "사용자가 직접 생성해 제공한 제2차시 교육용 샘플"
-    rights_status: "cleared"
+    alt: "목재 바닥과 천장 요소가 보이고 가구와 사람이 없는 소형 공간 교육용 이미지"
+    source_note: "사용자가 제공한 Google AI 생성 제2차시 교육용 샘플"
+    rights_status: "review-required"
+    provenance_note: "XMP에서 DigitalSourceType trainedAlgorithmicMedia와 Credit Made with Google AI 확인"
+    generation_model: "unknown"
+    generation_date: "unknown"
+    third_party_input: "unknown"
+    public_scope: "student-web-and-pdf"
+    rights_reviewer: "not-recorded"
+    rights_reviewed_at: "not-recorded"
+    rights_review_note: "공개 사용 권리와 제3자 입력 여부의 별도 검토 기록이 없음"
     verified_at: "2026-07-30"
-    verification_note: "교육용 빈 공간 생성 예시이며 실제 설계도면·면적·구조 정보가 아님"
+    verification_note: "교육용 AI 생성 이미지이며 실제 설계도면·면적·구조 정보가 아님. 세부 모델·생성일·권리 검토 기록은 없음"
 
   - id: "l02-empty-base-02"
     lesson: 2
@@ -218,10 +234,18 @@ assets:
     status: "ready"
     public_use: true
     alt: "마감 전 상태로 보이며 가구와 사람이 없는 빈 상업공간 교육용 이미지"
-    source_note: "사용자가 직접 생성해 제공한 제2차시 교육용 샘플"
-    rights_status: "cleared"
+    source_note: "사용자가 제공한 Google AI 생성 제2차시 교육용 샘플"
+    rights_status: "review-required"
+    provenance_note: "XMP에서 DigitalSourceType trainedAlgorithmicMedia와 Credit Made with Google AI 확인"
+    generation_model: "unknown"
+    generation_date: "unknown"
+    third_party_input: "unknown"
+    public_scope: "student-web-and-pdf"
+    rights_reviewer: "not-recorded"
+    rights_reviewed_at: "not-recorded"
+    rights_review_note: "공개 사용 권리와 제3자 입력 여부의 별도 검토 기록이 없음"
     verified_at: "2026-07-30"
-    verification_note: "교육용 빈 공간 생성 예시이며 실제 설계도면·면적·구조 정보가 아님"
+    verification_note: "교육용 AI 생성 이미지이며 실제 설계도면·면적·구조 정보가 아님. 세부 모델·생성일·권리 검토 기록은 없음"
 
   - id: "l02-empty-base-03"
     lesson: 2
@@ -238,10 +262,18 @@ assets:
     status: "ready"
     public_use: true
     alt: "길고 단순한 직사각형 형태로 보이는 빈 상업공간 교육용 이미지"
-    source_note: "사용자가 직접 생성해 제공한 제2차시 교육용 샘플"
-    rights_status: "cleared"
+    source_note: "사용자가 제공한 Google AI 생성 제2차시 교육용 샘플"
+    rights_status: "review-required"
+    provenance_note: "XMP에서 DigitalSourceType trainedAlgorithmicMedia와 Credit Made with Google AI 확인"
+    generation_model: "unknown"
+    generation_date: "unknown"
+    third_party_input: "unknown"
+    public_scope: "student-web-and-pdf"
+    rights_reviewer: "not-recorded"
+    rights_reviewed_at: "not-recorded"
+    rights_review_note: "공개 사용 권리와 제3자 입력 여부의 별도 검토 기록이 없음"
     verified_at: "2026-07-30"
-    verification_note: "교육용 빈 공간 생성 예시이며 실제 설계도면·면적·구조 정보가 아님"
+    verification_note: "교육용 AI 생성 이미지이며 실제 설계도면·면적·구조 정보가 아님. 세부 모델·생성일·권리 검토 기록은 없음"
 
   - id: "l02-empty-base-04"
     lesson: 2
@@ -258,10 +290,18 @@ assets:
     status: "ready"
     public_use: true
     alt: "코너 창이 보이고 가구와 사람이 없는 소형 상업공간 교육용 이미지"
-    source_note: "사용자가 직접 생성해 제공한 제2차시 교육용 샘플"
-    rights_status: "cleared"
+    source_note: "사용자가 제공한 Google AI 생성 제2차시 교육용 샘플"
+    rights_status: "review-required"
+    provenance_note: "XMP에서 DigitalSourceType trainedAlgorithmicMedia와 Credit Made with Google AI 확인"
+    generation_model: "unknown"
+    generation_date: "unknown"
+    third_party_input: "unknown"
+    public_scope: "student-web-and-pdf"
+    rights_reviewer: "not-recorded"
+    rights_reviewed_at: "not-recorded"
+    rights_review_note: "공개 사용 권리와 제3자 입력 여부의 별도 검토 기록이 없음"
     verified_at: "2026-07-30"
-    verification_note: "교육용 빈 공간 생성 예시이며 실제 설계도면·면적·구조 정보가 아님"
+    verification_note: "교육용 AI 생성 이미지이며 실제 설계도면·면적·구조 정보가 아님. 세부 모델·생성일·권리 검토 기록은 없음"
 
   - id: "l02-empty-base-05"
     lesson: 2
@@ -277,11 +317,19 @@ assets:
     recommended_tool: "user-upload"
     status: "ready"
     public_use: true
-    alt: "전면창과 출입문이 보이고 가구와 사람이 없는 소형 매장 교육용 이미지"
-    source_note: "사용자가 직접 생성해 제공한 제2차시 교육용 샘플"
-    rights_status: "cleared"
+    alt: "전면창과 출입문, 붙박이 선반과 일부 고정 가구가 보이는 소형 공간 교육용 이미지"
+    source_note: "사용자가 제공한 Google AI 생성 제2차시 교육용 샘플"
+    rights_status: "review-required"
+    provenance_note: "XMP에서 DigitalSourceType trainedAlgorithmicMedia와 Credit Made with Google AI 확인"
+    generation_model: "unknown"
+    generation_date: "unknown"
+    third_party_input: "unknown"
+    public_scope: "student-web-and-pdf"
+    rights_reviewer: "not-recorded"
+    rights_reviewed_at: "not-recorded"
+    rights_review_note: "공개 사용 권리와 제3자 입력 여부의 별도 검토 기록이 없음"
     verified_at: "2026-07-30"
-    verification_note: "교육용 빈 공간 생성 예시이며 실제 설계도면·면적·구조 정보가 아님"
+    verification_note: "교육용 AI 생성 이미지이며 실제 설계도면·면적·구조 정보가 아님. 세부 모델·생성일·권리 검토 기록은 없음"
 
   - id: "l03-doc-pack"
     lesson: 3

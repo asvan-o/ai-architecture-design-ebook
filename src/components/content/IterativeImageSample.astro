@@ -17,7 +17,19 @@ export interface Props {
   comparison: string;
   learningPoint: string;
   caution: string;
+  reviewFramework: {
+    observationResults: string[];
+    changeTypes: string[];
+    followUpActions: string[];
+    originalReview: ReviewGroup[];
+    revisedReview: ReviewGroup[];
+  };
 }
+
+type ReviewGroup = {
+  label: string;
+  items: string[];
+};
 
 const {
   bridge,
@@ -34,6 +46,7 @@ const {
   comparison,
   learningPoint,
   caution,
+  reviewFramework,
 } = Astro.props;
 ---
 
@@ -65,6 +78,56 @@ const {
       <p>{originalCaption}</p>
     </figcaption>
   </figure>
+
+  <section class="iteration-review" aria-labelledby="flower-sample-review-title">
+    <header class="iteration-review__header">
+      <span>IMAGE REVIEW FRAME</span>
+      <h3 id="flower-sample-review-title">관찰·변경·후속 대응을 나누어 기록하기</h3>
+      <p>
+        이미지에서 보이는 내용과 수업 목적에 따른 판단, 이미지로 확인할 수 없는 실제 조건을
+        한 항목에 섞지 않습니다.
+      </p>
+    </header>
+
+    <div class="iteration-review__framework" aria-label="이미지 검토 분류 체계">
+      <article>
+        <span>A</span>
+        <h4>관찰 결과</h4>
+        <ul>{reviewFramework.observationResults.map((item) => <li>{item}</li>)}</ul>
+      </article>
+      <article>
+        <span>B</span>
+        <h4>AI 변경 유형</h4>
+        <ul>{reviewFramework.changeTypes.map((item) => <li>{item}</li>)}</ul>
+      </article>
+      <article>
+        <span>C</span>
+        <h4>후속 대응</h4>
+        <ul>{reviewFramework.followUpActions.map((item) => <li>{item}</li>)}</ul>
+      </article>
+    </div>
+
+    <div class="iteration-review__results">
+      <article>
+        <h4>최초 이미지 관찰</h4>
+        {reviewFramework.originalReview.map((group) => (
+          <section>
+            <h5>{group.label}</h5>
+            <ul>{group.items.map((item) => <li>{item}</li>)}</ul>
+          </section>
+        ))}
+      </article>
+      <article>
+        <h4>수정 이미지 변화</h4>
+        {reviewFramework.revisedReview.map((group) => (
+          <section>
+            <h5>{group.label}</h5>
+            <ul>{group.items.map((item) => <li>{item}</li>)}</ul>
+          </section>
+        ))}
+      </article>
+    </div>
+  </section>
 
   <article
     class="iteration-sample__note iteration-sample__note--judgment"
@@ -284,6 +347,104 @@ const {
     letter-spacing: 0.08em;
   }
 
+  .iteration-review {
+    display: grid;
+    gap: 1.4rem;
+    min-width: 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line-dark);
+  }
+
+  .iteration-review__header {
+    max-width: 52rem;
+  }
+
+  .iteration-review__header > span {
+    color: var(--accent-dark);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+  }
+
+  .iteration-review__header h3 {
+    margin: 0.45rem 0 0.65rem;
+    font-family: var(--serif);
+    font-size: clamp(1.4rem, 2.8vw, 2rem);
+    line-height: 1.35;
+    text-wrap: balance;
+  }
+
+  .iteration-review__header p,
+  .iteration-review li {
+    line-height: 1.65;
+  }
+
+  .iteration-review__header p,
+  .iteration-review ul {
+    margin: 0;
+  }
+
+  .iteration-review__framework,
+  .iteration-review__results {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  .iteration-review__framework > article,
+  .iteration-review__results > article {
+    min-width: 0;
+    padding: 1.1rem;
+    border: 1px solid var(--line-dark);
+    background: #fff;
+  }
+
+  .iteration-review__framework > article > span {
+    color: var(--accent-dark);
+    font-size: 0.76rem;
+    font-weight: 800;
+  }
+
+  .iteration-review h4,
+  .iteration-review h5 {
+    margin: 0;
+    font-family: var(--serif);
+    line-height: 1.35;
+  }
+
+  .iteration-review h4 {
+    margin-top: 0.3rem;
+    font-size: 1.2rem;
+  }
+
+  .iteration-review h5 {
+    font-size: 1rem;
+  }
+
+  .iteration-review ul {
+    padding-left: 1.15rem;
+  }
+
+  .iteration-review__framework ul {
+    margin-top: 0.75rem;
+  }
+
+  .iteration-review__results {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .iteration-review__results > article {
+    display: grid;
+    gap: 1rem;
+    background: #f7f3ec;
+  }
+
+  .iteration-review__results section {
+    display: grid;
+    gap: 0.45rem;
+  }
+
   @media (max-width: 44rem) {
     .iteration-sample {
       gap: 1.5rem;
@@ -294,6 +455,11 @@ const {
       font-size: 0.9rem;
       line-height: 1.65;
       word-break: normal;
+    }
+
+    .iteration-review__framework,
+    .iteration-review__results {
+      grid-template-columns: minmax(0, 1fr);
     }
   }
 
@@ -331,6 +497,30 @@ const {
 
     .iteration-sample__caution {
       padding: 4mm 5mm;
+    }
+
+    .iteration-review__header,
+    .iteration-review__framework > article,
+    .iteration-review__results > article,
+    .iteration-review__results section {
+      break-inside: avoid-page;
+      page-break-inside: avoid;
+    }
+
+    .iteration-review__framework {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 3mm;
+    }
+
+    .iteration-review__results {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 3mm;
+    }
+
+    .iteration-review__framework > article,
+    .iteration-review__results > article {
+      padding: 3.5mm;
+      font-size: 8.5pt;
     }
   }
 </style>

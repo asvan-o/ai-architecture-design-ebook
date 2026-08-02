@@ -234,6 +234,28 @@
   color: var(--accent-dark);
   font-weight: 800;
 }
+
+.lesson-reference-checks {
+  margin-top: 1.25rem;
+  border-block: 1px solid var(--line-dark);
+  background: var(--surface);
+}
+
+.lesson-reference-checks > summary {
+  padding: 1rem 1.1rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.lesson-reference-checks > summary:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.lesson-reference-checks > .classified-list {
+  margin: 0;
+  padding: 0 1.1rem 1.1rem;
+}
 .time-plan {
   margin-top: 2rem;
   border: 1px solid var(--line-dark);
@@ -283,6 +305,25 @@
 .time-plan li:last-child { border-right: 0; }
 .time-plan li span { color: var(--muted); font-size: 0.78rem; }
 .time-plan__warning { margin: 0; padding: 0.8rem; color: #8f2d2d; }
+
+/* 제2차시 프로젝터 도입은 핵심 원칙과 시간 배분 요약만 한 화면에 보인다. */
+.presentation-page[data-lesson-id='02'] #section-01 {
+  padding-block: 2.5rem;
+}
+
+.presentation-page[data-lesson-id='02'] #section-01 > .classified-list,
+.presentation-page[data-lesson-id='02'] #section-01 .time-plan__screen-list {
+  display: none;
+}
+
+.presentation-page[data-lesson-id='02'] #section-01 .lesson-opening-message {
+  margin-bottom: 1.25rem;
+  padding: 1.5rem 2rem;
+}
+
+.presentation-page[data-lesson-id='02'] #section-01 .lesson-opening-message h2 {
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+}
 
 .lesson04-term-guide {
   display: grid;
