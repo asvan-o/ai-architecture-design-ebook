@@ -7,9 +7,9 @@ tools:
     courseRole: "제1차시 실제 응답 분석과 제3차시 RFP 교차검토"
     lessonIds: ["01", "03"]
     modelOrFamily: "Gemini 3.6 Flash"
-    runtime: "실제 수업 계정의 Gemini 화면; Thinking 설정은 모델명과 구분"
-    lastVerified: "2026-08-02"
-    changeNotice: "모델명, Thinking level과 화면은 변경될 수 있으므로 수업 당일 공식 문서와 선택 화면을 다시 확인한다."
+    runtime: "수업 실습은 Gemini Apps 웹 화면. Gemini 3.6 Flash는 API 모델명, gemini-3.6-flash는 API 모델 ID이며 Apps의 모델 선택·파일 업로드 화면과 구분"
+    lastVerified: "2026-08-03"
+    changeNotice: "Google 공식 API 문서에서 모델명과 ID를 확인했다. Gemini Apps의 로그인·파일 업로드·모델 선택은 계정 유형·조직 관리자 설정·지역·화면·사용량 한도에 따라 달라질 수 있으므로 수업 당일 확인한다."
   - id: "nano-banana"
     name: "Nano Banana"
     category: "image-generation-editing"

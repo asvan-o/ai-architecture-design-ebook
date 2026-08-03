@@ -365,12 +365,12 @@ assets:
     status: "ready"
     public_use: true
     alt: "지역혁신대학교 중앙도서관 1층 캠퍼스 라운지 리뉴얼 교육용 가상 RFP"
-    source_note: "사용자가 제공한 교육용 가상 RFP v1.2. De Montfort University 공개 조달 공고의 사업 유형과 문서 구조를 참고해 새로 작성"
-    source_url: "https://www.find-tender.service.gov.uk/Notice/018099-2026"
+    source_note: "사용자가 제공한 교육용 가상 RFP v1.2. De Montfort University 공개 조달 공고의 사업 유형과 문서 구조만 참고해 기관명·면적·예산·일정·요구조건을 교육용으로 새로 작성"
+    source_url: "https://www.find-tender.service.gov.uk/Notice/018109-2026"
     license_note: "참고 원문의 공개 영역은 Open Government Licence v3.0 조건을 따르며, 이 파일은 강의 목적에 맞게 새로 작성한 교육용 가상 문서"
     rights_status: "cleared"
     verified_at: "2026-07-31"
-    verification_note: "12쪽 PDF의 출처·재구성 고지와 실제 입찰·계약·설계·시공 문서가 아니라는 주의 문구 확인"
+    verification_note: "승인된 12쪽 PDF SHA-256 95B9756FD818D8F86847CA72D1E094B9DD6C2E4B9D1DFBC029169D057E638C2E. 018109-2026은 018099-2026을 편집한 최신 공고이며 PDF 4쪽의 현황 사진은 실제 사진이 아닌 교육용 AI 현황 참고 이미지를 뜻함. 정확한 생성 원본 확보 전 재생성 금지"
 
   - id: "l03-demo"
     lesson: 3
@@ -391,7 +391,7 @@ assets:
     license_note: "프로젝트 전용 교육용 요청문으로 학생 실습 배포 승인"
     rights_status: "cleared"
     verified_at: "2026-07-31"
-    verification_note: "실제 Gemini 응답, 특정 대안명 또는 디자인 정답을 포함하지 않고 분석 기준만 제공"
+    verification_note: "페이지·절·REQ ID와 짧은 원문 근거, 판독 불가 시 추정 금지, 행정·입찰 조건 분리, 개인정보·기밀·권한 없는 도면 업로드 금지와 사람의 원문 재확인을 포함함"
 
   - id: "l03-existing-plan"
     lesson: 3
@@ -429,13 +429,18 @@ assets:
     recommended_tool: "user-upload"
     status: "ready"
     public_use: true
-    alt: "서측 로비 진입부에서 본 캠퍼스 라운지의 교육용 가상 현황 참고 이미지"
-    source_note: "생성형 AI와 수업 제작자의 편집을 통해 만든 교육용 가상 자료"
-    license_note: "프로젝트 교육용 공개 사용을 위해 사용자가 제공한 원본 자산"
-    rights_status: "cleared"
+    alt: "캠퍼스 라운지의 서측 로비 진입부를 가정한 교육용 AI 현황 참고 이미지"
+    source_note: "생성형 AI와 수업 제작자의 편집을 통해 만든 교육용 가상 자료. XMP Credit에서 Made with Google AI 확인"
+    license_note: "프로젝트 교육용 공개 범위로 사용자가 제공했으나 정확한 생성 모델·생성일과 세부 권리 검토 기록은 없음"
+    rights_status: "review-required"
+    provenance_note: "XMP DigitalSourceType trainedAlgorithmicMedia와 Credit Made with Google AI 확인. 정확한 생성 모델과 생성일은 기록되지 않음"
+    generation_model: "unknown"
+    generation_date: "unknown"
+    public_scope: "student-web-and-pdf"
+    rights_review_note: "현재 수업 공개 범위의 사용자 제공 자산으로 유지하되 범위 외 재사용 전 생성 계정·제3자 입력·권리 조건을 다시 확인해야 함"
     privacy_note: "개인정보 없음"
     verified_at: "2026-07-31"
-    verification_note: "실제 현장 사진이나 실측도면과 1:1로 일치하지 않으며 구조·치수·설비·법규 판단 근거로 사용할 수 없는 교육용 자료임을 확인"
+    verification_note: "실제 현장 사진이 아닌 교육용 AI 이미지이며 서측 로비 진입부를 가정한 시점이다. 평면도와 1:1로 일치하지 않고 구조·치수·설비·법규 판단 근거로 사용할 수 없음"
 
   - id: "l04-external-reference"
     lesson: 4
@@ -524,7 +529,7 @@ assets:
     rights_status: "cleared"
     privacy_note: "실제 기관·주소·개인정보 없음"
     verified_at: "2026-07-31"
-    verification_note: "실제 입찰·계약·설계·시공 문서가 아닌 교육용 가상 문서임을 확인"
+    verification_note: "제3차시와 동일한 승인 12쪽 PDF와 SHA-256 95B9756FD818D8F86847CA72D1E094B9DD6C2E4B9D1DFBC029169D057E638C2E를 사용하며 실제 입찰·계약·설계·시공 문서가 아님"
 
   - id: "l04-existing-plan"
     lesson: 4
@@ -561,12 +566,17 @@ assets:
     recommended_tool: "user-upload"
     status: "ready"
     public_use: true
-    alt: "서측 로비 진입부에서 본 캠퍼스 라운지 교육용 가상 현황 이미지"
-    source_note: "생성형 AI와 수업 제작자의 편집을 거쳐 사용자가 제공한 교육용 가상 자료"
-    rights_status: "cleared"
+    alt: "캠퍼스 라운지의 서측 로비 진입부를 가정한 교육용 AI 현황 이미지"
+    source_note: "생성형 AI와 수업 제작자의 편집을 거쳐 사용자가 제공한 교육용 가상 자료. XMP Credit에서 Made with Google AI 확인"
+    rights_status: "review-required"
+    provenance_note: "제3차시 l03-existing-view-01과 동일한 물리 파일. XMP DigitalSourceType trainedAlgorithmicMedia와 Credit Made with Google AI 확인"
+    generation_model: "unknown"
+    generation_date: "unknown"
+    public_scope: "student-web-and-pdf"
+    rights_review_note: "정확한 생성 모델·생성일과 제3자 입력 기록이 없어 현재 수업 공개 범위 외 재사용 전 권리 조건을 다시 확인해야 함"
     privacy_note: "개인정보 없음"
     verified_at: "2026-07-31"
-    verification_note: "실제 현장 사진이 아니며 제3차시와 같은 물리 파일을 참조함"
+    verification_note: "실제 현장 사진이 아닌 교육용 AI 이미지이며 서측 로비 진입부를 가정한 시점이다. 제3차시와 같은 물리 파일을 참조함"
 
   - id: "l04-manager-prompts"
     lesson: 4

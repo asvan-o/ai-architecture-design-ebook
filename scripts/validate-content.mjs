@@ -1,4 +1,5 @@
 import { access, readdir, readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import path from 'node:path';
 import process from 'node:process';
 
@@ -12,6 +13,14 @@ const printStylePath = path.resolve('src/styles/print.css');
 const lessonTwoPromptPath = path.resolve(
   'src/assets/lessons/02/empty-space-sample/01-generation-prompts/prompt-02.txt',
 );
+const lessonThreeRfpPath = path.resolve(
+  'src/assets/lessons/03/rfp/lesson-03-campus-lounge-rfp-v1.2.pdf',
+);
+const lessonThreePromptPath = path.resolve(
+  'src/assets/lessons/03/rfp/gemini-rfp-analysis-prompt-v1.2.txt',
+);
+const approvedLessonThreeRfpSha256 =
+  '95B9756FD818D8F86847CA72D1E094B9DD6C2E4B9D1DFBC029169D057E638C2E';
 const requiredIds = Array.from({ length: 14 }, (_, index) => String(index + 1).padStart(2, '0'));
 const approvedLessons = [
   { title: '제1차시 · AI가 할 일과 디자이너가 판단할 일', durationMinutes: 180 },
@@ -376,6 +385,13 @@ for (const fileName of files) {
       { marker: '발주기관에 추가로 물어볼 내용', label: '발주기관 추가 질의 구분' },
       { marker: '관련 전문가가 확인해야 하는 내용', label: '전문가 확인 구분' },
       { marker: '실제 Gemini 응답 원문은 사용자가 제공하기 전까지', label: '실제 Gemini 응답 비생성 원칙' },
+      { marker: 'RFP PDF 4쪽의 “현황 사진”', label: 'RFP 현황 사진 정정 안내' },
+      { marker: '주목적은 사람이 먼저 RFP를 분석하고 디자인 브리프를 만드는 것', label: '이미지 보조 실습 범위' },
+      { marker: '수업 중 최소 3건을 반드시 작성', label: '불일치 최소 기록 수' },
+      { marker: '출처 추적 정보: 페이지·절·REQ ID', label: '디자인 브리프 출처 추적' },
+      { marker: '제3차시 결과물 → 제4차시 사용 위치', label: '제3·4차시 결과물 대응표' },
+      { marker: '개인정보·기업 기밀·비공개 RFP·권한 없는 도면', label: '외부 AI 업로드 보안 안내' },
+      { marker: 'Gemini 3.6 Flash는 API 모델명', label: 'Gemini API 모델과 Apps 구분' },
       { marker: 'resourceDownloads={[', label: '공개 실습 자료 다운로드 구조' },
       { marker: 'assetNotes={[', label: '학생용 내부 자산 카드 차단 구조' },
       { marker: 'assetsTitle="실습 자료 다운로드"', label: '실습 자료 다운로드 섹션 제목' },
@@ -521,6 +537,38 @@ for (const fileName of files) {
     errors.push(`${fileName}: assetIds 항목이 없습니다.`);
   }
   lessonAssetIds.set(fileName, assetIds);
+}
+
+try {
+  const rfpBuffer = await readFile(lessonThreeRfpPath);
+  const actualRfpSha256 = createHash('sha256').update(rfpBuffer).digest('hex').toUpperCase();
+  if (actualRfpSha256 !== approvedLessonThreeRfpSha256) {
+    errors.push(
+      `제3차시 승인 RFP PDF SHA-256 불일치: 예상 ${approvedLessonThreeRfpSha256}, 실제 ${actualRfpSha256}`,
+    );
+  }
+} catch {
+  errors.push('제3차시 승인 RFP PDF를 읽을 수 없습니다.');
+}
+
+try {
+  const lessonThreePrompt = await readFile(lessonThreePromptPath, 'utf8');
+  const promptMarkers = [
+    'RFP 페이지, 장·절과 요구조건 ID(REQ ID)',
+    '근거가 되는 짧은 원문 인용',
+    '‘판독 불가’ 또는 ‘미확정’',
+    '행정·입찰 조건과 공간 디자인 요구를 분리',
+    '실제 회사 자료, 비공개 RFP, 개인정보, 기업 기밀 또는 사용 권한이 없는 도면',
+    '사람이 RFP 원문의 페이지·절·REQ ID와 짧은 근거 문장을 다시 확인',
+    '출처 추적 정보: 페이지·절·REQ ID',
+  ];
+  for (const marker of promptMarkers) {
+    if (!lessonThreePrompt.includes(marker)) {
+      errors.push(`제3차시 Gemini 요청문에 '${marker}' 안내가 없습니다.`);
+    }
+  }
+} catch {
+  errors.push('제3차시 Gemini 분석 요청문을 읽을 수 없습니다.');
 }
 
 let glossarySource = '';

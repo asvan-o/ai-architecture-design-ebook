@@ -101,6 +101,8 @@ type PracticeTemplate = {
   description: string;
   columns: string[];
   placeholders: string[];
+  minimumRows?: number;
+  rows?: string[][];
 };
 
 type StructuredPractice = {
@@ -500,6 +502,13 @@ const alternativeCriteriaSteps = practice.filter(
           </li>
         ))}
       </ol>
+      {structuredPractice && (
+        <StructuredPracticeTemplates
+          tables={structuredPractice.tables.slice(2, 3)}
+          idPrefix="section-11"
+          tableLabelOffset={2}
+        />
+      )}
       <div class="lesson-section-group">
         <h3>제4차시 대안 평가기준</h3>
       </div>
@@ -514,6 +523,13 @@ const alternativeCriteriaSteps = practice.filter(
           </li>
         ))}
       </ol>
+      {structuredPractice && (
+        <StructuredPracticeTemplates
+          tables={structuredPractice.tables.slice(3, 4)}
+          idPrefix="section-11-handoff"
+          tableLabelOffset={3}
+        />
+      )}
     </LessonSection>
 
     <LessonSection

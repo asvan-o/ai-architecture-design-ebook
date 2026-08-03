@@ -4,6 +4,8 @@ type PracticeTable = {
   description: string;
   columns: string[];
   placeholders: string[];
+  minimumRows?: number;
+  rows?: string[][];
 };
 
 interface Props {
@@ -32,9 +34,12 @@ const {
   briefLabel = 'PRACTICE C',
 } = Astro.props;
 const briefId = idPrefix === 'practice' ? 'design-brief-fields' : `${idPrefix}-design-brief-fields`;
+const getTableRows = (table: PracticeTable) =>
+  table.rows ??
+  Array.from({ length: table.minimumRows ?? 1 }, () => table.placeholders);
 ---
 
-<div class="structured-practice-templates">
+<div class="structured-practice-templates" data-practice-id={idPrefix}>
   {evidenceCategories && (
     <aside class="structured-practice-evidence" aria-labelledby="practice-evidence-title">
       <header>
@@ -71,9 +76,11 @@ const briefId = idPrefix === 'practice' ? 'design-brief-fields' : `${idPrefix}-d
             </tr>
           </thead>
           <tbody>
-            <tr>
-              {table.placeholders.map((placeholder) => <td>{placeholder}</td>)}
-            </tr>
+            {getTableRows(table).map((row) => (
+              <tr>
+                {row.map((cell) => <td>{cell}</td>)}
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

@@ -575,8 +575,18 @@
   margin: 4mm 0 6mm;
 }
 
+.print-document .structured-practice-templates[data-practice-id='section-11-handoff'] {
+  break-before: page;
+  page-break-before: always;
+}
+
 .print-document .structured-practice-template {
   padding-top: 3mm;
+}
+
+.print-document .structured-practice-template > header {
+  break-after: avoid-page;
+  page-break-after: avoid;
 }
 
 .print-document .structured-practice-template > header h3 {

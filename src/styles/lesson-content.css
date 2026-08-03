@@ -325,6 +325,38 @@
   font-size: clamp(1.8rem, 3vw, 2.8rem);
 }
 
+/* 제3차시 프로젝터 도입은 내용은 유지하고 원칙·완료 수준·시간표를 두 단으로 정리한다. */
+.presentation-page[data-lesson-id='03'] #section-01 {
+  padding-block: 2.5rem;
+}
+
+.presentation-page[data-lesson-id='03'] #section-01 .lesson-opening-message {
+  margin-bottom: 1.25rem;
+  padding: 1.4rem 1.75rem;
+}
+
+.presentation-page[data-lesson-id='03'] #section-01 > .outline-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.presentation-page[data-lesson-id='03'] #section-01 > .outline-list > li {
+  min-width: 0;
+}
+
+.presentation-page[data-lesson-id='03'] #section-01 .time-plan {
+  margin-top: 1.25rem;
+}
+
+.presentation-page[data-lesson-id='03'] #section-01 .time-plan__screen-list {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.presentation-page[data-lesson-id='03'] #section-01 .time-plan li {
+  min-height: 4.5rem;
+  padding: 0.7rem;
+}
+
 .lesson04-term-guide {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2020,6 +2052,12 @@
   .time-plan header { display: grid; }
   .time-plan ol { grid-template-columns: 1fr 1fr; }
   .time-plan li { min-height: 5rem; border-bottom: 1px solid var(--line); }
+  .presentation-page[data-lesson-id='03'] #section-01 > .outline-list {
+    grid-template-columns: 1fr;
+  }
+  .presentation-page[data-lesson-id='03'] #section-01 .time-plan__screen-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   .lesson04-term-guide { grid-template-columns: 1fr; }
   .lesson-asset { grid-template-columns: 1fr; }
   .lesson-asset__visual { min-height: 11rem; border-right: 0; border-bottom: 1px solid var(--line-dark); }
