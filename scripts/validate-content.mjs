@@ -437,7 +437,8 @@ for (const fileName of files) {
       { marker: '프로젝트 밖 접근 금지', label: '프로젝트 루트 보안 조건' },
       { marker: '같은 파일을 다시 등록하면 알림', label: '같은 파일 재등록 알림' },
       { marker: '등록 파일 목록을 자동으로 갱신', label: '등록 파일 목록' },
-      { marker: '자료가 일부만 준비되어도 현재 작업 ZIP', label: '부분 작업 ZIP 허용 안내' },
+      { marker: '등록목록의 파일만 ZIP에 포함', label: '등록 파일 전용 ZIP 안내' },
+      { marker: 'ZIP 전 포함 목록·미등록 제외 수·누락 항목 표시', label: '제출 전 사람 검토 안내' },
       { marker: '제출 ZIP', label: '제출 패키지 생성' },
     ];
     for (const { marker, label } of requiredLessonFourStructures) {
@@ -524,8 +525,8 @@ for (const fileName of files) {
   if (practiceMinutes < Number(duration) / 2) {
     errors.push(`${fileName}: 실습시간 ${practiceMinutes}분이 전체의 절반보다 적습니다.`);
   }
-  if (id === '04' && practiceMinutes !== 280) {
-    errors.push(`${fileName}: 승인된 제4차시 실습시간 280분과 일치하지 않습니다.`);
+  if (id === '04' && practiceMinutes !== 255) {
+    errors.push(`${fileName}: 승인된 제4차시 실습시간 255분과 일치하지 않습니다.`);
   }
 
   const assetBlock =
@@ -817,8 +818,12 @@ for (const block of manifestBlocks) {
       errors.push(`asset-manifest ${id}: 공개 자산의 rights_status는 cleared 또는 review-required여야 합니다.`);
     }
     if (rightsStatus === 'review-required') {
+      const publicScope = block.match(/^\s{4}public_scope:\s*"([^"]+)"\s*$/m)?.[1];
       const provenanceNote = block.match(/^\s{4}provenance_note:\s*"([^"]+)"\s*$/m)?.[1];
       const rightsReviewNote = block.match(/^\s{4}rights_review_note:\s*"([^"]+)"\s*$/m)?.[1];
+      if (!publicScope) {
+        errors.push(`asset-manifest ${id}: rights_status review-required에는 public_scope가 필요합니다.`);
+      }
       if (!provenanceNote) {
         errors.push(`asset-manifest ${id}: rights_status review-required에는 provenance_note가 필요합니다.`);
       }

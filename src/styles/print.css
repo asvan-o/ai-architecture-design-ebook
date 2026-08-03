@@ -775,16 +775,56 @@
 }
 
 .print-document .lesson04-tool-table {
-  min-width: 0;
-  table-layout: fixed;
-  font-size: 6.4pt;
+  display: none;
 }
 
-.print-document .lesson04-tool-table th,
-.print-document .lesson04-tool-table td {
-  min-width: 0;
-  padding: 1.5mm;
-  overflow-wrap: anywhere;
+.print-document .lesson04-tool-print {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 3mm;
+  margin-block: 4mm;
+}
+
+.print-document .lesson04-tool-print article {
+  padding: 3mm;
+  border: 0.25mm solid var(--line-dark);
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+
+.print-document .lesson04-tool-print h3,
+.print-document .lesson04-tool-print dl {
+  margin: 0;
+}
+
+.print-document .lesson04-tool-print dl div {
+  margin-top: 2mm;
+}
+
+.print-document .lesson04-tool-print dt {
+  font-size: 7pt;
+  font-weight: 800;
+}
+
+.print-document .lesson04-tool-print dd {
+  margin: 0.5mm 0 0;
+}
+
+.print-document .lesson04-project-structure,
+.print-document .lesson04-registration-groups article,
+.print-document .lesson04-reference-note,
+.print-document .lesson04-safety-block {
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+
+.print-document .lesson04-manager-prompt-full {
+  display: none !important;
+}
+
+.print-document .print-lesson[data-print-lesson-id='04'] #section-13 {
+  break-inside: auto;
+  page-break-inside: auto;
 }
 
 .print-document .lesson04-sources li {

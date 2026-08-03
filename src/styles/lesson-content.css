@@ -1614,6 +1614,17 @@
   vertical-align: top;
 }
 
+.lesson04-tool-print {
+  display: none;
+}
+
+.lesson04-safety-block {
+  max-width: 64rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--line-dark);
+  background: #f6eee6;
+}
+
 .lesson04-model-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1948,6 +1959,51 @@
   background: var(--ink);
 }
 
+.lesson04-project-structure {
+  max-width: 64rem;
+}
+
+.lesson04-reference-note {
+  max-width: 62rem;
+  margin: 0.75rem 0 1.5rem;
+  padding: 0.85rem 1rem;
+  border-left: 0.25rem solid var(--accent-dark);
+  color: var(--muted);
+  background: var(--paper-deep);
+}
+
+.lesson04-registration-groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.lesson04-registration-groups article {
+  min-width: 0;
+  padding: 1.2rem;
+  border: 1px solid var(--line-dark);
+}
+
+.lesson04-registration-groups h3 {
+  margin: 0;
+}
+
+.lesson04-registration-groups p {
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.lesson04-registration-groups ul {
+  margin: 1rem 0 0;
+  padding-left: 1.2rem;
+}
+
+.lesson04-registration-groups li {
+  margin-top: 0.55rem;
+  line-height: 1.6;
+}
+
 .lesson04-code-frame pre {
   max-width: 100%;
   margin: 0;
@@ -2132,7 +2188,8 @@
   .lesson04-setup-checklist,
   .lesson04-install-steps,
   .lesson04-file-names,
-  .lesson04-criteria-grid {
+  .lesson04-criteria-grid,
+  .lesson04-registration-groups {
     grid-template-columns: 1fr;
   }
   .lesson04-runtime-flow {

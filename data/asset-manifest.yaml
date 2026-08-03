@@ -575,8 +575,8 @@ assets:
     public_scope: "student-web-and-pdf"
     rights_review_note: "정확한 생성 모델·생성일과 제3자 입력 기록이 없어 현재 수업 공개 범위 외 재사용 전 권리 조건을 다시 확인해야 함"
     privacy_note: "개인정보 없음"
-    verified_at: "2026-07-31"
-    verification_note: "실제 현장 사진이 아닌 교육용 AI 이미지이며 서측 로비 진입부를 가정한 시점이다. 제3차시와 같은 물리 파일을 참조함"
+    verified_at: "2026-08-04"
+    verification_note: "실제 현장 사진이 아닌 교육용 AI 이미지이며 서측 로비 진입부를 가정한 시점이다. 제3차시와 같은 물리 파일을 참조한다. public_use는 student-web-and-pdf 범위의 빌드 포함 여부이며 권리·상업 이용 허락 완료를 뜻하지 않는다."
 
   - id: "l04-manager-prompts"
     lesson: 4
@@ -616,8 +616,11 @@ assets:
     source_note: "사용자가 승인한 제4차시 범위에 맞춰 Codex가 구현하고 자동 테스트한 로컬 프로그램"
     rights_status: "cleared"
     privacy_note: "환경변수·API 키·인증정보·개인정보와 node_modules 미포함"
-    verified_at: "2026-07-31"
-    verification_note: "폴더 생성, 등록, 버전, 중복, 누락, ZIP, 원본 유지와 루트 밖 접근 차단 자동 테스트 통과"
+    package_version: "1.1.0"
+    baseline_git_sha: "cbc905922019751acbf3cf4736fc97e4eae27515"
+    sha256: "6804d30885047a908dbb6aabaf5cf949e8419d8c4930ac9eba2f966776123d97"
+    verified_at: "2026-08-04"
+    verification_note: "동시 등록 10개, 원자적 등록목록 갱신, 파일 검증, 등록 파일 전용 ZIP, 미등록 민감자료 제외, 원본 유지와 프로젝트 밖 링크 접근 차단 자동 테스트 통과"
 
   - id: "l05-doc-pack"
     lesson: 5

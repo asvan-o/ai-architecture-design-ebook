@@ -1,4 +1,10 @@
-const state = { areas: [], assets: [], missing: [], submissionCheckVisible: false };
+const state = {
+  areas: [],
+  assets: [],
+  missing: [],
+  deliveryPreview: { includedFiles: [], excludedFileCount: 0, missing: [] },
+  submissionCheckVisible: false,
+};
 
 const elements = {
   areaGrid: document.querySelector('#area-grid'),
@@ -6,6 +12,10 @@ const elements = {
   lesson: document.querySelector('#lesson-select'),
   message: document.querySelector('#message'),
   validation: document.querySelector('#validation-result'),
+  deliverySummary: document.querySelector('#delivery-summary'),
+  deliveryFileList: document.querySelector('#delivery-file-list'),
+  deliveryReview: document.querySelector('#delivery-review'),
+  zipButton: document.querySelector('#zip-button'),
 };
 
 const showMessage = (message, error = false) => {
@@ -46,6 +56,7 @@ const registerFile = async (area, type, file) => {
         type,
         originalName: file.name,
         contentBase64: await toBase64(file),
+        mediaType: file.type,
       }),
     });
     showMessage(`${file.name} 등록 완료`);
@@ -58,12 +69,14 @@ const registerFile = async (area, type, file) => {
 const createAreaCard = (area) => {
   const card = document.createElement('article');
   card.className = 'area-card';
-  const typeOptions = area.types
+  const currentLesson = Number(elements.lesson.value);
+  const lessonTypes = area.types.filter((type) => type.lessons.includes(currentLesson));
+  const typeOptions = lessonTypes
     .map((type) => `<option value="${type.key}">${type.label}</option>`)
     .join('');
   card.innerHTML = `
     <header><span>${String(state.areas.indexOf(area) + 1).padStart(2, '0')}</span><h3>${area.label}</h3></header>
-    ${area.types.length > 0 ? `
+    ${lessonTypes.length > 0 ? `
       <label>자료 유형<select>${typeOptions}</select></label>
       <div class="drop-zone" tabindex="0" role="button" aria-label="${area.label} 파일 선택">
         <strong>파일을 놓거나 선택</strong>
@@ -77,7 +90,9 @@ const createAreaCard = (area) => {
   if (dropZone) {
     const input = card.querySelector('input');
     const select = card.querySelector('select');
-    const handleFiles = (files) => [...files].forEach((file) => registerFile(area.key, select.value, file));
+    const handleFiles = async (files) => {
+      for (const file of files) await registerFile(area.key, select.value, file);
+    };
     dropZone.addEventListener('click', () => input.click());
     dropZone.addEventListener('keydown', (event) => {
       if (event.key === 'Enter' || event.key === ' ') {
@@ -128,28 +143,60 @@ const renderMissing = () => {
     : '<strong>제출 항목이 모두 등록되었습니다.</strong><p>이 확인은 파일 존재 여부만 살피며 설계 품질이나 적합성을 판정하지 않습니다.</p>';
 };
 
+const renderDeliveryPreview = () => {
+  const preview = state.deliveryPreview;
+  elements.deliverySummary.textContent = [
+    `등록 파일 ${preview.includedFiles.length}개가 포함됩니다.`,
+    `작업 폴더의 미등록 파일 ${preview.excludedFileCount}개는 제외됩니다.`,
+    `아직 필요한 항목 ${preview.missing.length}개를 확인하세요.`,
+  ].join(' ');
+  elements.deliveryFileList.replaceChildren(
+    ...preview.includedFiles.map((file) => {
+      const item = document.createElement('li');
+      item.textContent = `${file.typeLabel} · ${file.fileName}`;
+      return item;
+    }),
+  );
+  if (preview.includedFiles.length === 0) {
+    const item = document.createElement('li');
+    item.textContent = '아직 등록된 파일이 없습니다.';
+    elements.deliveryFileList.append(item);
+  }
+  elements.deliveryReview.checked = false;
+  elements.zipButton.disabled = true;
+};
+
 async function loadStatus() {
   const payload = await request('/api/status');
   Object.assign(state, payload);
   renderAreas();
   renderFiles();
   renderMissing();
+  renderDeliveryPreview();
 }
 
 document.querySelector('#refresh-button').addEventListener('click', loadStatus);
+elements.lesson.addEventListener('change', renderAreas);
 document.querySelector('#missing-button').addEventListener('click', async () => {
   state.submissionCheckVisible = true;
   await loadStatus();
   elements.validation.focus();
   showMessage('제출 전 확인을 완료했습니다.');
 });
-document.querySelector('#zip-button').addEventListener('click', async () => {
+elements.deliveryReview.addEventListener('change', () => {
+  elements.zipButton.disabled = !elements.deliveryReview.checked;
+});
+elements.zipButton.addEventListener('click', async () => {
   try {
-    const { asset, missing } = await request('/api/delivery', { method: 'POST' });
+    if (!elements.deliveryReview.checked) {
+      showMessage('ZIP 포함 목록과 누락 항목을 먼저 확인하세요.', true);
+      return;
+    }
+    const { asset, missing, excludedFileCount } = await request('/api/delivery', { method: 'POST' });
     showMessage(
       missing.length
-        ? `${asset.fileName} 생성 완료 · 아직 등록하지 않은 자료 ${missing.length}개`
-        : `${asset.fileName} 생성 완료`,
+        ? `${asset.fileName} 생성 완료 · 누락 ${missing.length}개 · 미등록 파일 ${excludedFileCount}개 제외`
+        : `${asset.fileName} 생성 완료 · 미등록 파일 ${excludedFileCount}개 제외`,
     );
     await loadStatus();
   } catch (error) {

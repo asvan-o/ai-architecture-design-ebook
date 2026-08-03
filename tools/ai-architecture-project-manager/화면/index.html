@@ -48,9 +48,18 @@
         </div>
         <div class="validation-actions">
           <button id="missing-button" type="button">제출 전 확인</button>
-          <button id="zip-button" type="button">현재 자료로 ZIP 만들기</button>
+          <button id="zip-button" type="button" disabled>검토한 등록 파일로 ZIP 만들기</button>
         </div>
         <div id="validation-result" tabindex="-1"></div>
+        <div class="delivery-preview" aria-labelledby="delivery-preview-title">
+          <h3 id="delivery-preview-title">ZIP 포함 예정 파일</h3>
+          <p id="delivery-summary"></p>
+          <ul id="delivery-file-list"></ul>
+          <label class="review-confirmation">
+            <input id="delivery-review" type="checkbox" />
+            포함 목록과 누락 항목을 직접 확인했습니다.
+          </label>
+        </div>
       </section>
 
       <section aria-labelledby="files-title">

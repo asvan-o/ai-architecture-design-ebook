@@ -1,6 +1,6 @@
 {
   "name": "ai-architecture-project-manager",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "type": "module",
   "description": "제4차시 캠퍼스 라운지 산출물을 로컬에서 정리하는 교육용 프로젝트 관리 프로그램",

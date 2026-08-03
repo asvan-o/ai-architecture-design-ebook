@@ -97,10 +97,19 @@ export type Lesson04WorkflowData = {
   alternativeFields: string[];
   zoningMarks: string[];
   generationInputs: string[];
+  generationChecks: string[];
   imageLimits: string[];
   comparisonCriteria: string[];
   revisionCategories: string[];
   registrationItems: string[];
+  registrationGroups: {
+    title: string;
+    description: string;
+    items: string[];
+  }[];
+  antigravitySafety: string[];
+  programBoundary: string[];
+  zipReviewItems: string[];
   automationItems: string[];
   deliveryGroups: {
     label: string;

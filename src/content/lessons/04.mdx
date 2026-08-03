@@ -3,7 +3,7 @@ title: "제4차시 · RFP 기반 공간구성 대안 개발과 프로젝트 산�
 day: 4
 date: "pending"
 durationMinutes: 360
-lastVerified: "2026-08-01"
+lastVerified: "2026-08-04"
 draft: true
 publicationStatus: "detailed"
 contentType: "instruction"
@@ -19,37 +19,58 @@ sources:
     title: "Antigravity 2.0 Overview"
     publisher: "Google Antigravity"
     url: "https://www.antigravity.google/docs/overview"
-    accessedAt: "2026-08-01"
+    accessedAt: "2026-08-04"
     sourceType: "official"
     note: "독립형 데스크톱 앱과 프로젝트·에이전트 관리 역할 확인"
   - id: "antigravity-cli-overview"
     title: "Antigravity CLI Overview"
     publisher: "Google Antigravity"
     url: "https://www.antigravity.google/docs/cli/overview"
-    accessedAt: "2026-08-01"
+    accessedAt: "2026-08-04"
     sourceType: "official"
     note: "터미널 사용자 인터페이스와 터미널 중심 작업 역할 확인"
   - id: "antigravity-ide-codelab"
     title: "Getting Started with Antigravity IDE"
     publisher: "Google for Developers"
     url: "https://codelabs.developers.google.com/getting-started-agy-ide"
-    accessedAt: "2026-08-01"
+    accessedAt: "2026-08-04"
     sourceType: "official"
     note: "IDE의 편집기·에이전트 패널·코드 직접 편집 역할 확인"
   - id: "nodejs-download"
     title: "Download Node.js"
     publisher: "OpenJS Foundation"
     url: "https://nodejs.org/en/download"
-    accessedAt: "2026-08-01"
+    accessedAt: "2026-08-04"
     sourceType: "official"
     note: "Node.js v24.18.1 LTS와 Windows 설치 파일 확인"
   - id: "nodejs-releases"
     title: "Node.js Releases"
     publisher: "OpenJS Foundation"
     url: "https://nodejs.org/en/about/previous-releases"
-    accessedAt: "2026-08-01"
+    accessedAt: "2026-08-04"
     sourceType: "official"
     note: "운영 환경에 LTS 버전 사용을 권장하는 공식 안내 확인"
+  - id: "antigravity-settings"
+    title: "Antigravity Settings"
+    publisher: "Google Antigravity"
+    url: "https://www.antigravity.google/docs/settings"
+    accessedAt: "2026-08-04"
+    sourceType: "official"
+    note: "프로젝트 밖 폴더 접근, 터미널 실행 정책과 샌드박스 설정 확인"
+  - id: "antigravity-projects"
+    title: "Antigravity Projects"
+    publisher: "Google Antigravity"
+    url: "https://www.antigravity.google/docs/projects"
+    accessedAt: "2026-08-04"
+    sourceType: "official"
+    note: "프로젝트 폴더 접근 범위와 명령 실행 확인 절차 확인"
+  - id: "gemini-image-generation"
+    title: "Gemini API image generation"
+    publisher: "Google AI for Developers"
+    url: "https://ai.google.dev/gemini-api/docs/image-generation"
+    accessedAt: "2026-08-04"
+    sourceType: "official"
+    note: "Nano Banana 계열 이미지 생성·편집과 결과 변동 가능 범위 확인"
 sections:
   - { id: "section-01", label: "차시 소개" }
   - { id: "section-02", label: "오늘의 프로젝트와 제출 결과물" }
@@ -106,7 +127,7 @@ import selectedRevisionPromptUrl from '../../assets/lessons/04/prompts/selected-
     { category: '학습 목표', text: '동일한 RFP를 서로 다른 공간 운영전략 두 개로 전환한다.' },
     { category: '학습 목표', text: '공간구성 대안 A·B의 조닝 평면도와 생성 이미지를 만든다.' },
     { category: '학습 목표', text: 'RFP 요구조건으로 두 대안을 비교하고 선택안을 수정한다.' },
-    { category: '학습 목표', text: '로컬 관리 프로그램으로 자료를 정리하고 버전을 구분해 현재 작업을 ZIP으로 묶는다.' },
+    { category: '학습 목표', text: '로컬 관리 프로그램으로 자료를 등록하고 버전을 구분한 뒤, 사람이 포함 목록을 검토해 등록 파일만 ZIP으로 묶는다.' },
   ]}
   concepts={[
     { category: '확정된 수업 구성', text: '이 강의에서 공간구성 또는 공간 조닝(Spatial Zoning) 대안은 동일한 RFP 요구조건을 서로 다른 공간 운영전략으로 해결해 보는 교육용 작업안이다. 유일하게 정해진 외부 정의나 확정 설계안이 아니다.' },
@@ -116,7 +137,7 @@ import selectedRevisionPromptUrl from '../../assets/lessons/04/prompts/selected-
   scenario={[
     { category: '교육용 가정', text: '지역혁신대학교 중앙도서관 1층 캠퍼스 라운지의 동일한 가상 RFP를 두 공간 운영전략으로 제안한다.' },
     { category: '수강생 판단', text: '대안명과 우선 사용자는 제3차시 디자인 브리프와 평가기준을 근거로 수강생이 직접 정한다.' },
-    { category: '확정된 수업 구성', text: '대안 A·B를 RFP 기준으로 비교한 뒤 한 안을 선택해 수정하고, 전체 산출물을 제출 ZIP으로 만든다.' },
+    { category: '확정된 수업 구성', text: '대안 A·B를 RFP 기준으로 비교한 뒤 한 안을 선택해 수정하고, 등록목록에 있는 산출물만 검토 후 제출 ZIP으로 만든다.' },
   ]}
   materials={[
     { category: '확정된 수업 구성', text: '제3차시의 가상 RFP v1.2, 교육용 현황 평면도와 교육용 가상 현황 이미지 01을 같은 물리 파일로 재사용한다.' },
@@ -152,7 +173,7 @@ import selectedRevisionPromptUrl from '../../assets/lessons/04/prompts/selected-
   }}
   demo={[
     { category: '확정된 수업 구성', text: '모든 수강생은 같은 제작 요청문을 사용하고, 첫 요청에서는 계획만 확인한다.' },
-    { category: '강의 전 사실 검증', text: '계획을 검토할 때 프로젝트 밖 접근, 원본 삭제, 덮어쓰기 또는 승인 전 명령 실행이 포함되지 않았는지 확인한다.' },
+    { category: '강의 전 사실 검증', text: '계획을 검토할 때 프로젝트 밖 접근, Full Access 기본 사용, 원본 삭제·덮어쓰기 또는 승인 전 명령 실행이 포함되지 않았는지 확인한다.' },
     { category: '확정된 수업 구성', text: '두 번째 승인 요청문을 보낸 뒤 프로그램 생성과 자동 테스트를 진행한다.' },
     { category: '추가 검증 필요', text: '프로그램 제작이 실패한 경우 빈 ZIP이나 가짜 결과물을 만들지 않고 READY ZIP 복구본을 사용한다.' },
   ]}
@@ -162,13 +183,13 @@ import selectedRevisionPromptUrl from '../../assets/lessons/04/prompts/selected-
     { category: '추가 검증 필요', text: '조닝 평면도와 생성 이미지의 관계를 확인하되 이미지 하나로 실제 조건을 확정하지 않는다.' },
   ]}
   practice={[
-    { id: 'build-manager', title: '관리 프로그램 제작·테스트', minutes: 45, description: '계획을 먼저 검토한 뒤 승인 요청문을 보내고, 자동 테스트까지 실행한다.' },
-    { id: 'define-alternatives', title: '공간구성 대안 A·B 정의', minutes: 35, description: '대안명, 주요 사용자, 핵심 활동, 공간 우선순위와 운영전략을 작성한다.' },
-    { id: 'draw-zoning', title: '조닝 평면도 A·B 작성', minutes: 45, description: '기능별 영역, 인접 관계, 주·보조 동선, 유지 조건과 가구 운영을 두 평면도에 표시한다.' },
-    { id: 'generate-alternative-images', title: '대안별 이미지 생성', minutes: 65, description: '동일한 공통 자료와 각 대안의 조닝·운영전략으로 두 콘셉트 이미지를 만든다.' },
-    { id: 'compare-alternatives', title: 'RFP 기준 비교와 선택', minutes: 35, description: '요구조건과 운영 논리를 기준으로 대안 A·B를 비교하고 선택 이유를 기록한다.' },
-    { id: 'revise-selected', title: '선택안 수정', minutes: 35, description: '유지·수정·제거·추가 확인·전문가 확인을 구분해 요청문과 수정 이미지를 만든다.' },
-    { id: 'organize-delivery', title: '산출물 등록과 제출 준비', minutes: 20, description: '준비된 자료부터 등록해 목록을 확인하고, 현재 작업을 ZIP으로 묶는다. 제출 전 확인은 모든 자료가 준비된 마지막 단계에 사용한다.' },
+    { id: 'build-manager', title: '관리 프로그램 제작·테스트', minutes: 35, description: '최소 권한 계획을 먼저 검토한 뒤 승인 요청문을 보내고, 동시 등록과 민감자료 제외 자동 테스트까지 실행한다.' },
+    { id: 'define-alternatives', title: '공간구성 대안 A·B 정의', minutes: 30, description: '대안명, 주요 사용자, 핵심 활동, 공간 우선순위와 운영전략을 작성한다.' },
+    { id: 'draw-zoning', title: '조닝 평면도 A·B 작성', minutes: 40, description: '기능별 영역, 인접 관계, 주·보조 동선, 유지 조건과 가구 운영을 두 평면도에 표시한다.' },
+    { id: 'generate-alternative-images', title: '대안별 이미지 생성', minutes: 50, description: '동일한 공통 자료와 각 대안의 조닝·운영전략으로 두 콘셉트 이미지를 만들고 서비스·모델·생성일을 기록한다.' },
+    { id: 'compare-alternatives', title: 'RFP 기준 비교와 선택', minutes: 30, description: '제3차시 평가기준과 RFP 요구조건으로 대안 A·B를 비교하고 선택 이유와 미선택안 보존 위치를 기록한다.' },
+    { id: 'revise-selected', title: '선택안 수정', minutes: 30, description: '유지·수정·제거·추가 확인·전문가 확인을 구분해 요청문과 수정 이미지를 새 버전으로 만든다.' },
+    { id: 'organize-delivery', title: '산출물 등록과 제출 준비', minutes: 20, description: '등록 파일·미등록 제외 수·누락 항목을 사람이 확인한 뒤 등록목록의 파일만 제출 ZIP으로 묶는다.' },
   ]}
   deliverables={[
     { category: '수업 산출물', text: '대안 A 운영전략, 조닝 평면도 A와 대안 이미지 A.' },
@@ -176,7 +197,7 @@ import selectedRevisionPromptUrl from '../../assets/lessons/04/prompts/selected-
     { category: '수업 산출물', text: 'RFP 요구조건 비교표.' },
     { category: '수업 산출물', text: '선택안 수정 요청문과 선택안 수정 이미지.' },
     { category: '수업 산출물', text: '로컬 프로젝트 관리 프로그램.' },
-    { category: '수업 산출물', text: '정리된 산출물과 현재 작업을 묶은 ZIP.' },
+    { category: '수업 산출물', text: '등록 파일 목록, 누락 점검과 사람이 확인한 등록 파일만 묶은 제출 ZIP.' },
   ]}
   judgments={[
     { category: '수강생 판단', text: '두 대안의 차이가 공간 운영전략과 조닝에서 실제로 읽히는가?' },
@@ -191,6 +212,7 @@ import selectedRevisionPromptUrl from '../../assets/lessons/04/prompts/selected-
     { category: '법규·구조·소방 등 해당 전문가 판단', text: '구조 안전, 소방·피난·접근성, 법규 충족과 실제 시공 가능성을 자동 판정하지 않았는가?' },
     { category: '수강생 판단', text: '원본 삭제·이동·덮어쓰기 없이 새 버전으로 저장했는가?' },
     { category: '수강생 판단', text: '최종 제출 전에 아직 등록하지 않은 자료와 같은 파일의 중복 등록 여부를 확인했는가?' },
+    { category: '수강생 판단', text: 'ZIP 포함 예정 목록과 제외되는 미등록 파일 수를 확인하고 개인정보·기밀자료가 없는지 직접 검토했는가?' },
   ]}
   assetIds={[
     'l04-brief-pack',
@@ -318,9 +340,9 @@ import selectedRevisionPromptUrl from '../../assets/lessons/04/prompts/selected-
       },
     ],
     toolNotes: [
-      { category: '확인된 사실', text: 'Antigravity 2.0은 IDE와 독립적으로 작동하는 데스크톱 앱이며 프로젝트에서 여러 에이전트를 실행·관리하는 시각적 명령 중심 화면이다.' },
+      { category: '확인된 사실', text: 'Antigravity 2.0은 프로젝트·에이전트·편집기·터미널을 함께 다루는 데스크톱 제작 도구다.' },
       { category: '확인된 사실', text: 'Antigravity CLI는 터미널에서 사용하는 경량 TUI이며 터미널 중심·헤드리스 작업에 맞춰져 있다.' },
-      { category: '확인된 사실', text: 'Antigravity IDE는 편집기와 에이전트 패널을 함께 제공해 개발자가 코드를 직접 보고 수정하는 환경이다.' },
+      { category: '확인된 사실', text: 'IDE는 코드 편집기, 실행·검사 도구를 한 환경에 모은 일반 개발환경 용어다.' },
       { category: '확정된 수업 구성', text: '이번 제4차시의 주 도구는 Antigravity 2.0이다. CLI는 사용하지 않고 후반 차시의 선택 심화 도구로만 안내한다.' },
       { category: '강의 전 사실 검증', text: '실제 모델명은 수업 당일 Antigravity 모델 선택 화면에 표시되는 목록을 기준으로 확인한다.' },
     ],
@@ -346,14 +368,14 @@ import selectedRevisionPromptUrl from '../../assets/lessons/04/prompts/selected-
         courseUse: '이번 실습에서는 사용하지 않음',
       },
       {
-        product: 'Antigravity IDE',
-        interface: '코드 편집기와 에이전트 패널',
+        product: 'IDE(일반 용어)',
+        interface: '코드 편집기와 실행·검사 도구',
         codeEditing: '직접 편집·검토',
         projectManagement: '열린 프로젝트·코드 중심',
         beginnerFit: '코드 확인이 필요할 때',
         repetition: '디버깅·수정 반복',
         development: '세부 코드 수정에 유리',
-        courseUse: '오류 보완용 선택 도구',
+        courseUse: '용어 이해용 참고',
       },
     ],
     technicalTerms: [
@@ -390,9 +412,9 @@ import selectedRevisionPromptUrl from '../../assets/lessons/04/prompts/selected-
         description: '코드 편집기, 에이전트 패널과 직접 편집 역할',
       },
     ],
-    officialCheckedAt: '2026-08-01',
+    officialCheckedAt: '2026-08-04',
     nodeSetup: {
-      checkedAt: '2026-08-01',
+      checkedAt: '2026-08-04',
       downloadUrl: 'https://nodejs.org/en/download',
       versions: [
         {
@@ -403,7 +425,7 @@ import selectedRevisionPromptUrl from '../../assets/lessons/04/prompts/selected-
         {
           label: '수업 권장',
           value: '최신 Node.js LTS',
-          description: '2026년 8월 1일 공식 다운로드 페이지 확인 기준 Node.js v24.18.1 LTS를 사용한다.',
+          description: '2026년 8월 4일 공식 다운로드 페이지 확인 기준 Node.js v24.18.1 LTS를 사용한다.',
         },
         {
           label: '설치 채널',
@@ -477,6 +499,8 @@ npm start`,
         'npm --version 정상',
         '바탕화면의 AI_건축_캠퍼스라운지 폴더 생성',
         '해당 폴더를 Antigravity 프로젝트로 연결',
+        '프로젝트 밖 폴더 접근 Ask 또는 Deny 확인',
+        '터미널 명령과 수정 예정 파일을 실행 전에 확인',
       ],
       programUrl: 'http://127.0.0.1:4174',
     },
@@ -513,6 +537,8 @@ npm start`,
       'Vanilla HTML/CSS/JavaScript',
       'React·Electron·데이터베이스 사용 금지',
       'JSON 파일 저장과 로컬 브라우저 실행',
+      '프로젝트 밖 접근 Ask 또는 Deny·Full Access 기본 사용 금지',
+      '터미널 명령과 수정 예정 파일의 사람 검토',
     ],
     managerFeatures: [
       '파일 드래그앤드롭과 자료 유형 선택',
@@ -520,7 +546,10 @@ npm start`,
       '자동 파일명과 v01·v02 버전 증가',
       '같은 파일을 다시 등록하면 알림',
       '등록 파일 목록을 자동으로 갱신',
-      '자료가 일부만 준비되어도 현재 작업 ZIP 생성',
+      '동시 등록 직렬화와 원자적 등록목록 갱신',
+      '등록목록의 파일만 ZIP에 포함',
+      'ZIP 전 포함 목록·미등록 제외 수·누락 항목 표시',
+      '허용 확장자·20MB 크기·파일명·실제 바이트 검증',
       '원본 삭제·덮어쓰기 금지',
     ],
     carryoverItems: [
@@ -559,6 +588,14 @@ npm start`,
       '각 대안의 조닝 평면도',
       '각 대안의 공간 운영전략',
     ],
+    generationChecks: [
+      '카메라 시점과 렌즈 왜곡 최소화 기준',
+      '사람 포함 또는 제외 여부',
+      '확인되지 않은 문자·상호·로고 생성 금지',
+      'RFP와 평면도 조건을 우선하는 보존 순서',
+      '사용 서비스와 화면에 표시된 모델명',
+      '생성일과 결과 변동 가능성',
+    ],
     imageLimits: [
       '실제 전체 좌석 수',
       '실제 치수',
@@ -569,6 +606,7 @@ npm start`,
       '실제 시공 가능성',
     ],
     comparisonCriteria: [
+      '제3차시 대안 평가기준',
       'RFP 목적 반영',
       '필수 기능',
       '사용자 활동',
@@ -578,16 +616,64 @@ npm start`,
       '유지 조건',
       '제외 범위',
       '이미지 오류',
+      '평면도·이미지 불일치',
+      '생성 결과 변동성',
+      '전문가 확인 필요사항',
+      '파일명·버전·근거 추적 가능성',
+      '선택하지 않은 대안 보존 위치',
       '추가 확인사항',
     ],
     revisionCategories: ['유지', '수정', '제거', '추가 확인 필요', '전문가 확인 필요'],
     registrationItems: [
       'RFP·평면도·현황 이미지',
-      '요구조건 매트릭스·추가 질의·디자인 브리프',
-      '대안 A 조닝·요청문·이미지',
-      '대안 B 조닝·요청문·이미지',
+      '요구조건 매트릭스·추가 질의·디자인 브리프·대안 평가기준',
+      '현황 이미지 후보·수정 후보·평면도와 이미지의 불일치 기록',
+      '대안 A 전략·조닝·요청문·이미지',
+      '대안 B 전략·조닝·요청문·이미지',
       '선택안 수정 요청문·수정 이미지',
-      'RFP 비교표',
+      'RFP 기준 대안 비교표',
+    ],
+    registrationGroups: [
+      {
+        title: '공통 기준자료와 제3차시 결과물',
+        description: '제3차시에서 확인하거나 만든 자료다. 제4차시에서 새 사실처럼 다시 만들지 않고 등록 위치만 확인한다.',
+        items: [
+          '기준자료 · RFP, 현황 평면도, 교육용 현황 이미지, 현황 이미지 후보와 수정 후보',
+          '요구분석·디자인 브리프 · 요구조건 매트릭스, 추가 질의, 디자인 브리프, 대안 평가기준',
+          '선택안·검증 · 평면도와 이미지의 불일치 기록',
+        ],
+      },
+      {
+        title: '제4차시 필수 제출물',
+        description: '이번 차시에 새로 만드는 자료다. A와 B를 분리하고 선택안 수정 결과는 새 버전으로 남긴다.',
+        items: [
+          '대안 A · 전략, 조닝, 이미지',
+          '대안 B · 전략, 조닝, 이미지',
+          '선택안·검증 · RFP 기준 비교표, 수정 요청문, 수정 이미지',
+          '최종 제출 · 프로그램이 만든 등록 파일 제출 ZIP',
+        ],
+      },
+    ],
+    antigravitySafety: [
+      'AI_건축_캠퍼스라운지 폴더만 프로젝트로 연다.',
+      '프로젝트 밖 폴더 접근은 Ask 또는 Deny를 사용한다.',
+      'Full Access를 기본으로 켜지 않고 관리자 권한을 요구하지 않는다.',
+      '터미널 명령과 수정 예정 파일 목록을 사람이 실행 전에 확인한다.',
+      '프로젝트 밖 수정이 감지되면 즉시 중단한다.',
+      '개인정보·기밀자료가 있는 폴더를 프로젝트에 포함하지 않는다.',
+    ],
+    programBoundary: [
+      '더 좋은 디자인 선택 또는 RFP 충족 확정',
+      '법규·구조·소방·설비·접근성·시공성 검증',
+      '저작권 판단과 개인정보 자동 탐지',
+      '문서 내용 승인과 파일 삭제 결정',
+    ],
+    zipReviewItems: [
+      'ZIP 포함 예정 등록 파일 목록',
+      '제외되는 미등록 파일 수',
+      '누락된 필수 결과물',
+      '개인정보·기밀·권리 미확인 자료 포함 여부',
+      '등록 파일의 파일명·버전·근거',
     ],
     automationItems: [
       '파일 복사',
@@ -596,7 +682,8 @@ npm start`,
       '같은 파일 재등록 알림',
       '등록 목록 갱신',
       '제출 전 준비 항목 확인',
-      '현재 자료 ZIP 생성',
+      'ZIP 포함 예정 목록과 미등록 제외 수 표시',
+      '사람 확인 후 등록 파일만 제출 ZIP 생성',
     ],
     deliveryGroups: [
       {
@@ -612,7 +699,7 @@ npm start`,
       {
         label: 'C',
         title: '프로젝트 관리 결과',
-        items: ['정리된 프로젝트 폴더', '등록 파일 목록', '현재 작업 ZIP'],
+        items: ['정리된 프로젝트 폴더', '등록 파일 목록', '누락 점검', '검토한 등록 파일 제출 ZIP'],
       },
     ],
     nextLesson: '다음 차시에서는 선택한 개념을 래피드 콘셉트와 인페인팅으로 발전시킵니다.',
@@ -621,16 +708,19 @@ npm start`,
   }}
   timePlan={[
     { label: '제3차시 결과와 제4차시 목표', minutes: 15, mode: 'guide' },
-    { label: '공간구성 대안 A·B 정의', minutes: 35, mode: 'practice' },
-    { label: '조닝 평면도 A·B 작성', minutes: 45, mode: 'practice' },
+    { label: '공간구성 대안 A·B 정의', minutes: 30, mode: 'practice' },
+    { label: '조닝 평면도 A·B 작성', minutes: 40, mode: 'practice' },
     { label: '휴식', minutes: 10, mode: 'guide' },
-    { label: '대안별 이미지 생성', minutes: 65, mode: 'practice' },
-    { label: 'RFP 기준 비교와 선택', minutes: 35, mode: 'practice' },
-    { label: '선택안 수정', minutes: 35, mode: 'practice' },
-    { label: 'Antigravity 환경·도구·모델 설명', minutes: 25, mode: 'guide' },
-    { label: '프로젝트 폴더 생성과 제작 요청문', minutes: 25, mode: 'demo' },
-    { label: '관리 프로그램 제작·테스트', minutes: 45, mode: 'practice' },
+    { label: '대안별 이미지 생성', minutes: 50, mode: 'practice' },
+    { label: 'RFP 기준 비교와 선택', minutes: 30, mode: 'practice' },
+    { label: '선택안 수정', minutes: 30, mode: 'practice' },
+    { label: '휴식', minutes: 10, mode: 'guide' },
+    { label: 'Antigravity 안전·모델 확인', minutes: 15, mode: 'guide' },
+    { label: 'Node.js 환경 확인', minutes: 15, mode: 'guide' },
+    { label: '프로젝트 폴더와 제작 요청문 계획', minutes: 20, mode: 'practice' },
+    { label: '관리 프로그램 제작·테스트', minutes: 35, mode: 'practice' },
+    { label: '기술 문제 대응 버퍼', minutes: 20, mode: 'guide' },
     { label: '산출물 등록·제출 전 확인·ZIP 생성', minutes: 20, mode: 'practice' },
-    { label: '결과 공유와 정리', minutes: 5, mode: 'review' },
+    { label: '결과 공유·제출 점검', minutes: 20, mode: 'review' },
   ]}
 />

@@ -209,6 +209,12 @@ const steps = (...ids: string[]) => practice.filter((step) => ids.includes(step.
     </div>
   </div>
   <LessonResourceDownloads items={downloads('image')} />
+  <div class="lesson-section-group">
+    <h3>생성 전에 기록할 항목</h3>
+    <ul class="lesson04-criteria-grid">
+      {workflow.generationChecks.map((item) => <li>{item}</li>)}
+    </ul>
+  </div>
   <ol class="practice-list">
     {steps('generate-alternative-images').map((step) => (
       <li data-step-id={step.id}>
@@ -275,6 +281,12 @@ const steps = (...ids: string[]) => practice.filter((step) => ids.includes(step.
   lessonId={lessonId}
 >
   <ClassifiedList items={workflow.toolNotes} />
+  <div class="lesson-section-group lesson04-safety-block">
+    <h3>Antigravity 최소 권한 체크</h3>
+    <ul class="lesson04-plain-list lesson04-plain-list--warning">
+      {workflow.antigravitySafety.map((item) => <li>{item}</li>)}
+    </ul>
+  </div>
   <div class="table-scroll" tabindex="0" role="region" aria-label="Antigravity 제품 역할 비교">
     <table class="lesson-table lesson04-tool-table">
       <thead>
@@ -304,6 +316,18 @@ const steps = (...ids: string[]) => practice.filter((step) => ids.includes(step.
         ))}
       </tbody>
     </table>
+  </div>
+  <div class="lesson04-tool-print" aria-label="Antigravity 제품 역할 인쇄 요약">
+    {workflow.toolRows.map((row) => (
+      <article>
+        <h3>{row.product}</h3>
+        <dl>
+          <div><dt>사용 방식</dt><dd>{row.interface}</dd></div>
+          <div><dt>개발 역할</dt><dd>{row.development}</dd></div>
+          <div><dt>이번 수업</dt><dd>{row.courseUse}</dd></div>
+        </dl>
+      </article>
+    ))}
   </div>
   <div class="lesson-section-group">
     <h3>실습 전에 알아둘 기술 용어</h3>
@@ -462,13 +486,15 @@ const steps = (...ids: string[]) => practice.filter((step) => ids.includes(step.
   class="outline-section lesson04-section"
   lessonId={lessonId}
 >
-  <p>
-    바탕화면에 <code>AI_건축_캠퍼스라운지</code> 폴더를 직접 만들고, 빈 폴더에서
-    동일한 제작 요청문을 사용합니다. 별도 초기화 절차나 학생명 등록은 사용하지 않습니다.
-  </p>
-  <div class="lesson04-code-frame">
-    <span>프로젝트 폴더</span>
-    <pre><code>{workflow.projectTree}</code></pre>
+  <div class="lesson04-project-structure">
+    <p>
+      바탕화면에 <code>AI_건축_캠퍼스라운지</code> 폴더를 직접 만들고, 빈 폴더에서
+      동일한 제작 요청문을 사용합니다. 별도 초기화 절차나 학생명 등록은 사용하지 않습니다.
+    </p>
+    <div class="lesson04-code-frame">
+      <span>프로젝트 폴더</span>
+      <pre><code>{workflow.projectTree}</code></pre>
+    </div>
   </div>
   <div class="lesson-section-group">
     <h3>파일명은 네 가지만 구분합니다</h3>
@@ -499,11 +525,17 @@ const steps = (...ids: string[]) => practice.filter((step) => ids.includes(step.
       <ul class="lesson04-plain-list">{workflow.managerFeatures.map((item) => <li>{item}</li>)}</ul>
     </div>
   </div>
-  <PromptCopy
-    client:idle
-    text={workflow.managerPrompt}
-    label="PROMPT 01 · 계획만 요청"
-  />
+  <div class="lesson04-manager-prompt-full">
+    <PromptCopy
+      client:idle
+      text={workflow.managerPrompt}
+      label="PROMPT 01 · 계획만 요청"
+    />
+  </div>
+  <p class="lesson04-reference-note">
+    전체 제작 요청문은 e-book 참고자료입니다. 수업에서는 안전 규칙, 생성 파일과
+    실행 명령만 확인하고 문장 전체를 낭독하지 않습니다.
+  </p>
   <PromptCopy
     client:idle
     text={workflow.approvalPrompt}
@@ -542,6 +574,29 @@ const steps = (...ids: string[]) => practice.filter((step) => ids.includes(step.
       <ul class="lesson04-plain-list">{workflow.automationItems.map((item) => <li>{item}</li>)}</ul>
     </div>
   </div>
+  <div class="lesson04-registration-groups">
+    {workflow.registrationGroups.map((group) => (
+      <article>
+        <h3>{group.title}</h3>
+        <p>{group.description}</p>
+        <ul>{group.items.map((item) => <li>{item}</li>)}</ul>
+      </article>
+    ))}
+  </div>
+  <div class="lesson04-two-column">
+    <div>
+      <h3>프로그램이 판단하지 않는 내용</h3>
+      <ul class="lesson04-plain-list lesson04-plain-list--warning">
+        {workflow.programBoundary.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+    <div>
+      <h3>ZIP 생성 전 사람이 확인할 내용</h3>
+      <ul class="lesson04-plain-list">
+        {workflow.zipReviewItems.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </div>
   <aside class="lesson04-caution">
     프로그램은 파일 존재와 규칙을 확인할 뿐, 설계 품질이나 법규 적합성을 자동
     판정하지 않습니다. 원본 파일은 삭제·이동·덮어쓰기하지 않습니다.
@@ -564,7 +619,8 @@ const steps = (...ids: string[]) => practice.filter((step) => ids.includes(step.
       <li><code>npm test</code>로 프로그램을 확인합니다.</li>
       <li><code>npm start</code>를 실행하고 <code>{workflow.nodeSetup.programUrl}</code>을 엽니다.</li>
       <li>준비된 개인 작업물을 하나씩 등록하고, 등록 파일 목록의 파일명을 눌러 바로 확인합니다.</li>
-      <li>자료가 일부만 준비되어도 현재 작업 ZIP을 만들 수 있습니다. 최종 제출 전에만 ‘제출 전 확인’을 사용합니다.</li>
+      <li>화면의 ZIP 포함 예정 파일, 제외되는 미등록 파일 수와 누락 항목을 확인합니다.</li>
+      <li>검토 확인란을 선택한 뒤 등록목록의 파일만 제출 ZIP으로 만듭니다.</li>
     </ol>
   </div>
 </LessonSection>

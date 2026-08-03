@@ -135,11 +135,12 @@ sources:
 
 `public_use`는 다음 조건으로 검증합니다.
 
+- `public_use`는 학생용 빌드에 포함해도 되는지를 나타내는 배포 범위 값이며, 저작권·상업 이용 허락이 완료됐다는 뜻이 아님
 - `not-created`, `awaiting-rights-review`, `reference-only-unverified`, `actual-environment-validation-required` 등 미제작·미검증 상태는 `false`
 - `source_type: "external-reference"`인 외부 참고 자산은 `false`
 - `true`는 `status: "ready"`에서만 허용
 - `true`인 자산은 비어 있지 않은 `source_note`, `rights_status: "cleared"` 또는 `"review-required"`, `YYYY-MM-DD` 형식의 `verified_at`, 검증 내용을 담은 `verification_note`가 필요
-- `rights_status: "review-required"`는 공개 요청은 있으나 권리 정리 완료 근거가 부족한 상태입니다. 이 경우 `provenance_note`와 `rights_review_note`에 확인된 생성 출처와 남은 검토 범위를 기록하며, `cleared`로 오해하지 않습니다.
+- `rights_status: "review-required"`는 공개 요청은 있으나 권리 정리 완료 근거가 부족한 상태입니다. 이 경우 `public_scope`, `provenance_note`, `rights_review_note`에 현재 허용한 교육용 공개 범위, 확인된 생성 출처와 남은 검토 범위를 기록하며, `cleared`로 오해하지 않습니다.
 - `ready`라도 공개 승인이 보류됐다면 `public_use: false`를 유지할 수 있음
 
 콘텐츠 판단 표시는 포괄적인 “전문가 검토 필요” 하나로 처리하지 않습니다. 수강생의 공간디자인 판단은 `수강생 전문 판단`, 도구 기능·교육 예시 확인은 `강의 전 사실 검증`, 출처·라이선스·배포 범위는 `추가 출처 확인`, 법규·구조·소방·접근성·시공 등은 `법규·구조·소방 등 해당 전문가 판단`으로 구분합니다.

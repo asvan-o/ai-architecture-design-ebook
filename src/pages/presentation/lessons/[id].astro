@@ -86,6 +86,7 @@ const presentationBaseUrl = withBase('/presentation/lessons/');
         const lessonId = root.dataset.lessonId;
         const baseUrl = root.dataset.presentationBaseUrl;
         const select = document.querySelector('[data-section-select]');
+        const sectionNav = document.querySelector('.presentation-section-nav');
         const sectionIds = [...select.options].map((option) => option.value);
         const currentNumber = document.querySelector('[data-current-number]');
         const currentTitle = document.querySelector('[data-current-title]');
@@ -127,9 +128,13 @@ const presentationBaseUrl = withBase('/presentation/lessons/');
           history.replaceState(null, '', `#${sectionId}`);
           writeState(lessonId, sectionId);
           if (options.scroll !== false) {
-            element.scrollIntoView({
+            const targetTop = Math.max(
+              0,
+              element.getBoundingClientRect().top + window.scrollY - (sectionNav?.offsetHeight ?? 0),
+            );
+            window.scrollTo({
+              top: targetTop,
               behavior: reducedMotion.matches ? 'auto' : 'smooth',
-              block: 'start',
             });
           }
         };

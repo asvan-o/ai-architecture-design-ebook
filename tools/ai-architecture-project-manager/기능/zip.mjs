@@ -1,5 +1,5 @@
 import { deflateRawSync } from 'node:zlib';
-import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 const crcTable = Array.from({ length: 256 }, (_, index) => {
@@ -33,7 +33,10 @@ export async function createZipFromEntries(entries, outputPath) {
 
   for (const entry of entries) {
     const name = normalizeEntryName(entry.name);
-    if (!name || name.includes('../')) throw new Error(`ZIP 경로가 안전하지 않습니다: ${name}`);
+    const segments = name.split('/').filter(Boolean);
+    if (!name || path.posix.isAbsolute(name) || segments.some((segment) => segment === '..')) {
+      throw new Error(`ZIP 경로가 안전하지 않습니다: ${name}`);
+    }
 
     const nameBuffer = Buffer.from(name, 'utf8');
     const isDirectory = name.endsWith('/');
@@ -94,25 +97,4 @@ export async function createZipFromEntries(entries, outputPath) {
   await mkdir(path.dirname(outputPath), { recursive: true });
   await writeFile(outputPath, Buffer.concat([...localParts, centralDirectory, end]));
   return outputPath;
-}
-
-async function collectDirectoryEntries(root, current, filter, entries) {
-  const directoryEntries = await readdir(current, { withFileTypes: true });
-  for (const directoryEntry of directoryEntries) {
-    const absolutePath = path.join(current, directoryEntry.name);
-    const relativePath = normalizeEntryName(path.relative(root, absolutePath));
-    if (!filter(relativePath, directoryEntry)) continue;
-    if (directoryEntry.isDirectory()) {
-      entries.push({ name: `${relativePath}/`, data: Buffer.alloc(0) });
-      await collectDirectoryEntries(root, absolutePath, filter, entries);
-    } else if (directoryEntry.isFile()) {
-      entries.push({ name: relativePath, data: await readFile(absolutePath) });
-    }
-  }
-}
-
-export async function createZipFromDirectory(root, outputPath, filter = () => true) {
-  const entries = [];
-  await collectDirectoryEntries(root, root, filter, entries);
-  return createZipFromEntries(entries, outputPath);
 }
