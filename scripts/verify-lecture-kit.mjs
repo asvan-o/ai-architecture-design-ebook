@@ -87,7 +87,7 @@ try {
     await requireHttp(`${instructorOrigin}/instructor-assets/profile/${encodeURIComponent('\uC624\uACBD\uC2DD.jpg')}`);
     await requireHttp(`${instructorOrigin}/instructor-assets/profile/inforest-logo.png`);
   }
-  for (const lesson of ['01', '02', '03', '04']) {
+  for (const lesson of ['01', '02', '03', '04', '05', '06']) {
     await requireHttp(`${studentOrigin}/lessons/${lesson}/`);
   }
   for (let day = 1; day <= 14; day += 1) {
@@ -141,7 +141,7 @@ try {
   }
   console.log('[verify-kit] 휴대용 강의키트 기본 검증 성공');
   console.log(`- ports: ${state.ports.hub}, ${state.ports.student}, ${state.ports.instructor}`);
-  console.log(`- ${requireInstructorIntroduction ? '강사 소개·전용 자산, ' : ''}${requireCourseOverview ? '과정 안내 3종, ' : ''}학생 1~4차시, 강사 콘솔·프로젝터 1~14차시, 전체 PDF HTTP 200`);
+  console.log(`- ${requireInstructorIntroduction ? '강사 소개·전용 자산, ' : ''}${requireCourseOverview ? '과정 안내 3종, ' : ''}학생 1~6차시, 강사 콘솔·프로젝터 1~14차시, 전체 PDF HTTP 200`);
   console.log('- 학생용 강사 메모·발표자 코드·YAML 경계 통과');
   console.log('- 경로 차단 및 안전 종료 후 포트 해제 통과');
 } catch (error) {
