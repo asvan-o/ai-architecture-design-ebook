@@ -29,11 +29,11 @@ const topicCards = getLessonTopics().map((topic) => {
         <h1 class="display-title" id="home-title">AI 건축<br />디자인 바이블</h1>
         <p class="lead">
           수업과 실습, 복습을 하나의 흐름으로 연결하는 학생용 웹 전자서적입니다.
-          현재는 승인된 14차시를 바탕으로 한 교육 콘텐츠 골격과 자산 제작 목록을 검토하는 단계입니다.
+          승인된 7개 주제와 14차시 로드맵을 따라 강의의 전체 흐름을 확인할 수 있습니다.
         </p>
         <div class="hero-actions">
-          <a class="primary-action" href={withBase('/curriculum/')}>전체 목차 보기 <span aria-hidden="true">→</span></a>
-          <a class="text-action" href={withBase('/guide/')}>이용 안내</a>
+          <a class="primary-action" href={withBase('/course-overview/')}>과정 안내 먼저 보기 <span aria-hidden="true">→</span></a>
+          <a class="text-action" href={withBase('/curriculum/')}>전체 목차</a>
         </div>
       </div>
       <div class="hero-index" aria-label="과정 개요">
@@ -85,21 +85,30 @@ const topicCards = getLessonTopics().map((topic) => {
       <ol class="topic-preview">
         {topicCards.map(({ topic, firstLesson, lessonRange }) => (
           <li>
-            <a href={withBase(firstLesson ? `/lessons/${firstLesson.id}/` : '/curriculum/')}>
-              <span class="topic-number">{topic.number}</span>
-              <span class="topic-preview__copy">
-                <small>주제 {topic.number} · {lessonRange} · {topic.lessonCount}개 차시</small>
-                <strong>{topic.title}</strong>
-                {firstLesson && <span>시작 차시: {firstLesson.data.title}</span>}
-              </span>
-              <span class="lesson-arrow" aria-hidden="true">↗</span>
-            </a>
+            {firstLesson ? (
+              <a href={withBase(`/lessons/${firstLesson.id}/`)}>
+                <span class="topic-number">{topic.number}</span>
+                <span class="topic-preview__copy">
+                  <small>주제 {topic.number} · {lessonRange} · {topic.lessonCount}개 차시</small>
+                  <strong>{topic.title}</strong>
+                  {topic.subtitle && <em>{topic.subtitle}</em>}
+                  <span>시작 차시: {firstLesson.data.title}</span>
+                </span>
+                <span class="lesson-arrow" aria-hidden="true">↗</span>
+              </a>
+            ) : (
+              <div class="topic-preview__roadmap">
+                <span class="topic-number">{topic.number}</span>
+                <span class="topic-preview__copy">
+                  <small>주제 {topic.number} · {lessonRange} · {topic.lessonCount}개 차시</small>
+                  <strong>{topic.title}</strong>
+                  {topic.subtitle && <em>{topic.subtitle}</em>}
+                </span>
+              </div>
+            )}
           </li>
         ))}
       </ol>
-      {lessons.length === 0 && (
-        <p class="empty-lessons">현재 공개된 차시는 없습니다. 검토가 완료된 차시부터 순차적으로 제공됩니다.</p>
-      )}
       <a class="all-link" href={withBase('/curriculum/')}>7개 주제와 14개 차시 전체 보기 <span aria-hidden="true">→</span></a>
     </section>
 
@@ -279,25 +288,23 @@ const topicCards = getLessonTopics().map((topic) => {
     list-style: none;
   }
 
-  .empty-lessons {
-    margin: 2rem 0 0;
-    padding: 2rem 0;
-    border-top: 1px solid var(--line-dark);
-    border-bottom: 1px solid var(--line-dark);
-    color: var(--muted);
-  }
-
   .lesson-preview li {
     border-bottom: 1px solid var(--line);
   }
 
-  .topic-preview li a {
+  .topic-preview li a,
+  .topic-preview__roadmap {
     display: grid;
     grid-template-columns: 4rem minmax(0, 1fr) 2rem;
     gap: 1.2rem;
     align-items: center;
     padding: 1.25rem 0;
     text-decoration: none;
+  }
+
+  .topic-preview__roadmap {
+    grid-template-columns: 4rem minmax(0, 1fr);
+    padding-right: 2rem;
   }
 
   .lesson-preview li a:hover {
@@ -335,6 +342,15 @@ const topicCards = getLessonTopics().map((topic) => {
     margin-top: 0.45rem;
     color: var(--muted);
     font-size: 0.78rem;
+  }
+
+  .topic-preview__copy > em {
+    display: block;
+    margin-top: 0.35rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+    font-style: normal;
+    line-height: 1.45;
   }
 
   .lesson-arrow {
@@ -403,8 +419,14 @@ const topicCards = getLessonTopics().map((topic) => {
       display: block;
     }
 
-    .topic-preview li a {
+    .topic-preview li a,
+    .topic-preview__roadmap {
       grid-template-columns: 3rem 1fr 1.5rem;
+    }
+
+    .topic-preview__roadmap {
+      grid-template-columns: 3rem 1fr;
+      padding-right: 0;
     }
 
     .topic-preview li strong {

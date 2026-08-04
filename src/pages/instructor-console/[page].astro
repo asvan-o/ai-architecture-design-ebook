@@ -1,0 +1,82 @@
+---
+import CourseOverviewContent from '../../components/course/CourseOverviewContent.astro';
+import InstructorDeckConsole from '../../components/instructor/InstructorDeckConsole.astro';
+import InstructorIntroduction from '../../components/instructor/InstructorIntroduction.astro';
+import { courseOverviewSections, courseOverviewTitle } from '../../lib/course-overview';
+import { getVisibleLessons } from '../../lib/lessons';
+import { withBase } from '../../lib/site';
+import '../../styles/global.css';
+import '../../styles/lesson-content.css';
+import '../../styles/course-overview.css';
+import '../../styles/presentation.css';
+import '../../styles/instructor-console.css';
+import '../../styles/instructor-introduction.css';
+
+export function getStaticPaths() {
+  if (import.meta.env.MODE !== 'instructor') return [];
+  return [
+    { params: { page: 'lecture-start' } },
+    { params: { page: 'instructor-introduction' } },
+    { params: { page: 'course-overview' } },
+  ];
+}
+
+const lessons = await getVisibleLessons();
+const page = Astro.params.page ?? 'course-overview';
+const isLectureStart = page === 'lecture-start';
+const isIntroduction = page === 'instructor-introduction';
+const contentId = isLectureStart ? 'lecture-start' : isIntroduction ? 'instructor-introduction' : 'course-overview';
+const title = isIntroduction ? '강사 소개 · 오경식' : courseOverviewTitle;
+const kicker = isIntroduction ? 'INSTRUCTOR INTRODUCTION' : 'COURSE ORIENTATION';
+const presentationUrl = withBase(`/presentation/${contentId}/`);
+const navigation = [
+  { href: withBase('/instructor-console/lecture-start/'), label: '강의 시작', current: isLectureStart },
+  ...lessons.map((item) => ({
+    href: withBase(`/instructor-console/lessons/${item.id}/`),
+    label: `${String(item.data.day).padStart(2, '0')} · ${item.data.title}`,
+  })),
+];
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>강사용 콘솔 · {title}</title>
+  </head>
+  <body class="presenter-console">
+    <div>
+      <InstructorDeckConsole
+        {contentId}
+        {kicker}
+        {title}
+        topic={isIntroduction ? 'INFOREST 대표 · 3D/VFX 콘텐츠 디렉터' : '7개 주제 · 14개 차시 · 총 48시간'}
+        {presentationUrl}
+        {navigation}
+      >
+        <div slot="source">
+          {isLectureStart ? (
+            <><InstructorIntroduction /><CourseOverviewContent {lessons} /></>
+          ) : isIntroduction ? <InstructorIntroduction /> : <CourseOverviewContent {lessons} />}
+        </div>
+        <div slot="notes">
+          <section data-note-panel={isLectureStart ? 'instructor-introduction' : 'title'} class="console-note-panel">
+            <p class="console-note-empty">{isLectureStart || isIntroduction ? '강사 소개 슬라이드입니다.' : '과정 안내 제목 슬라이드입니다.'}</p>
+          </section>
+          {isLectureStart && (
+            <section data-note-panel="title" class="console-note-panel" hidden>
+              <p class="console-note-empty">과정 안내 제목 슬라이드입니다.</p>
+            </section>
+          )}
+          {!isIntroduction && courseOverviewSections.map((section) => (
+            <section data-note-panel={section.id} class="console-note-panel" hidden>
+              <p class="console-note-empty">과정 안내에는 별도 강사 YAML 메모를 추가하지 않았습니다.</p>
+            </section>
+          ))}
+        </div>
+      </InstructorDeckConsole>
+    </div>
+  </body>
+</html>

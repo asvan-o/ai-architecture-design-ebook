@@ -1,0 +1,158 @@
+.presenter-console {
+  min-width: 74rem;
+  min-height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: #e4e1d8;
+}
+
+.instructor-deck-console {
+  display: grid;
+  width: 100vw;
+  height: 100vh;
+  grid-template-columns: minmax(15rem, 18vw) minmax(35rem, 1fr) minmax(21rem, 26vw);
+  overflow: hidden;
+}
+
+.instructor-deck-console__navigation,
+.instructor-deck-console__tools {
+  min-width: 0;
+  overflow-y: auto;
+  padding: 1rem;
+  background: #e7e3da;
+}
+.instructor-deck-console__navigation { border-right: 1px solid var(--line-dark); }
+.instructor-deck-console__tools { border-left: 1px solid var(--line-dark); background: var(--surface); }
+.instructor-deck-console__navigation header { padding-bottom: 1rem; border-bottom: 1px solid var(--line-dark); }
+.instructor-deck-console__navigation header span,
+.instructor-deck-console__notes header span,
+.quick-edit header span { color: var(--accent-dark); font-size: 0.66rem; font-weight: 850; letter-spacing: 0.12em; }
+.instructor-deck-console__navigation h1 { margin: 0.25rem 0; font-family: var(--serif); font-size: 1.25rem; line-height: 1.3; text-wrap: balance; }
+.instructor-deck-console__navigation header p { margin: 0; color: var(--muted); font-size: 0.72rem; line-height: 1.45; }
+.instructor-deck-console__navigation label,
+.quick-edit label { display: block; margin: 1rem 0 0.35rem; font-size: 0.72rem; font-weight: 800; }
+.instructor-deck-console select,
+.quick-edit textarea { width: 100%; padding: 0.55rem; border: 1px solid var(--line-dark); background: #fff; }
+.instructor-deck-console__slide-heading { display: flex; justify-content: space-between; margin: 1.2rem 0 0.55rem; font-size: 0.75rem; }
+.instructor-deck-console__slides { display: grid; gap: 0.25rem; margin: 0; padding: 0; list-style: none; }
+.instructor-deck-console__slides button { display: grid; grid-template-columns: 2rem minmax(0, 1fr); width: 100%; padding: 0.5rem; border: 1px solid transparent; background: transparent; text-align: left; cursor: pointer; }
+.instructor-deck-console__slides button span { color: var(--accent); font-size: 0.68rem; font-weight: 850; }
+.instructor-deck-console__slides button strong { font-size: 0.72rem; font-weight: 650; line-height: 1.35; }
+.instructor-deck-console__slides button:hover { border-color: var(--line-dark); }
+.instructor-deck-console__slides button[aria-current="true"] { color: #fff; background: var(--ink); }
+
+.instructor-deck-console__preview { display: grid; min-width: 0; min-height: 0; grid-template-rows: auto minmax(0, 1fr) auto; gap: 0.75rem; padding: 1rem; overflow: hidden; }
+.instructor-deck-console__connection { display: flex; align-items: center; gap: 0.65rem; }
+.instructor-deck-console__connection > span { color: var(--muted); font-size: 0.72rem; font-weight: 800; }
+.instructor-deck-console__connection strong { margin-right: auto; font-size: 0.78rem; }
+.instructor-deck-console__connection strong::before { display: inline-block; width: 0.65rem; height: 0.65rem; margin-right: 0.4rem; border-radius: 50%; background: #9b7d30; content: ""; }
+.instructor-deck-console__connection strong[data-state="connected"]::before { background: #28724c; }
+.instructor-deck-console__connection strong[data-state="disconnected"]::before { background: #a33d24; }
+.instructor-deck-console__connection button,
+.quick-edit__actions button { padding: 0.45rem 0.65rem; border: 1px solid var(--ink); background: transparent; font-size: 0.72rem; font-weight: 750; cursor: pointer; }
+.instructor-deck-console__connection button:hover,
+.quick-edit__actions button:hover { color: #fff; background: var(--ink); }
+.instructor-deck-console__keyboard { margin: 0; color: var(--muted); font-size: 0.68rem; text-align: center; }
+
+.instructor-deck-console__notes,
+.instructor-environment-check,
+.quick-edit { padding-bottom: 1.2rem; border-bottom: 1px solid var(--line-dark); }
+
+.instructor-environment-check { margin-bottom: 1.2rem; }
+.instructor-environment-check header span { color: var(--accent-dark); font-size: 0.66rem; font-weight: 850; letter-spacing: 0.12em; }
+.instructor-environment-check h2 { margin: 0.15rem 0 0.65rem; font-family: var(--serif); font-size: 1.1rem; }
+.instructor-environment-check ul { display: grid; gap: 0.35rem; margin: 0; padding: 0; list-style: none; }
+.instructor-environment-check li { position: relative; padding-left: 1.15rem; font-size: 0.7rem; line-height: 1.45; }
+.instructor-environment-check li::before { position: absolute; top: 0.05rem; left: 0; color: var(--accent-dark); content: '□'; font-weight: 850; }
+
+.console-next-preview {
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid var(--line-dark);
+}
+.console-next-preview header span { color: var(--accent-dark); font-size: 0.66rem; font-weight: 850; letter-spacing: 0.12em; }
+.console-next-preview h2 { margin: 0.15rem 0 0.65rem; font-family: var(--serif); font-size: 1.1rem; }
+.console-next-preview__frame {
+  position: relative;
+  display: grid;
+  aspect-ratio: 1280 / 598;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--line-dark);
+  background: #111815;
+}
+.console-next-preview__canvas {
+  --deck-pad: clamp(1.25rem, 3.2cqw, 3.5rem);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1280px;
+  height: 598px;
+  flex: none;
+  container-type: size;
+  transform: translate(-50%, -50%) scale(var(--console-next-scale, 0));
+  transform-origin: center;
+}
+.console-next-preview__canvas .lecture-slide { width: 100%; height: 100%; pointer-events: none; }
+.console-next-preview > p { margin: 0.35rem 0 0; color: var(--muted); font-size: 0.65rem; line-height: 1.4; }
+
+.instructor-progress {
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid var(--line-dark);
+}
+.instructor-progress__header { display: grid; gap: 0.35rem; }
+.instructor-progress__header span { color: var(--accent-dark); font-size: 0.66rem; font-weight: 850; letter-spacing: 0.12em; }
+.instructor-progress__header h2 { margin: 0.15rem 0; font-family: var(--serif); font-size: 1.1rem; }
+.instructor-progress__header > strong { font-size: 0.74rem; line-height: 1.4; }
+.instructor-progress__metrics,
+.instructor-progress__checkpoints { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin: 0.75rem 0; background: var(--line-dark); border: 1px solid var(--line-dark); }
+.instructor-progress__metrics div,
+.instructor-progress__checkpoints div { min-width: 0; padding: 0.55rem; background: #fff; }
+.instructor-progress__metrics dt,
+.instructor-progress__checkpoints dt { color: var(--muted); font-size: 0.62rem; font-weight: 800; }
+.instructor-progress__metrics dd,
+.instructor-progress__checkpoints dd { margin: 0.15rem 0 0; overflow-wrap: anywhere; font-size: 0.73rem; font-weight: 750; line-height: 1.35; }
+.instructor-progress__checkpoints { grid-template-columns: 1fr; }
+.instructor-progress__status { display: grid; gap: 0.2rem; padding: 0.7rem; border-left: 0.35rem solid #7b746c; background: #efede7; }
+.instructor-progress__status strong { font-size: 0.78rem; }
+.instructor-progress__status span { color: var(--muted); font-size: 0.68rem; line-height: 1.45; }
+.instructor-progress__status[data-state="appropriate"] { border-color: #28724c; background: #edf7f1; }
+.instructor-progress__status[data-state="caution"] { border-color: #a27822; background: #fbf5e8; }
+.instructor-progress__status[data-state="adjust"] { border-color: #a33d24; background: #f9eee9; }
+.instructor-progress__controls,
+.instructor-progress__adjustments { display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem; }
+.instructor-progress button { min-height: 2.2rem; padding: 0.42rem 0.5rem; border: 1px solid var(--ink); background: transparent; font-size: 0.68rem; font-weight: 760; cursor: pointer; }
+.instructor-progress button:hover:not(:disabled) { color: #fff; background: var(--ink); }
+.instructor-progress button:disabled { cursor: not-allowed; opacity: 0.42; }
+.instructor-progress__time-edit { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.35rem; margin: 0.55rem 0; }
+.instructor-progress__time-edit label { grid-column: 1 / -1; font-size: 0.65rem; font-weight: 800; }
+.instructor-progress__time-edit input { min-width: 0; padding: 0.4rem; border: 1px solid var(--line-dark); background: #fff; }
+.instructor-progress__log { margin-top: 0.65rem; font-size: 0.68rem; }
+.instructor-progress__log summary { cursor: pointer; font-weight: 800; }
+.instructor-progress__log ol { display: grid; gap: 0.35rem; padding-left: 1.2rem; }
+.instructor-progress__log li { line-height: 1.4; }
+.instructor-progress__log li[data-completed="true"] { color: #28724c; font-weight: 760; }
+.instructor-deck-console__notes h2,
+.quick-edit h2 { margin: 0.2rem 0 0.75rem; font-family: var(--serif); font-size: 1.1rem; }
+[data-note-panel][hidden] { display: none; }
+.instructor-deck-console__notes .instructor-note { margin: 0.65rem 0; padding: 0.8rem; border: 1px solid #b4987c; border-left: 0.3rem solid var(--accent); background: #fff8e9; font-size: 0.78rem; line-height: 1.55; }
+.instructor-deck-console__notes .instructor-note header { display: grid; }
+.instructor-deck-console__notes .instructor-note p { white-space: pre-line; }
+.console-note-empty { padding: 1rem; border: 1px dashed var(--line-dark); color: var(--muted); font-size: 0.75rem; }
+
+.quick-edit { padding-top: 1.2rem; }
+.quick-edit__warning { padding: 0.75rem; border-left: 0.3rem solid var(--accent); background: #f7eee8; font-size: 0.72rem; line-height: 1.5; }
+.quick-edit__comparison { display: grid; gap: 0.45rem; margin: 0.8rem 0 0; }
+.quick-edit__comparison div { padding: 0.55rem; border: 1px solid var(--line); }
+.quick-edit__comparison dt { color: var(--muted); font-size: 0.65rem; font-weight: 800; }
+.quick-edit__comparison dd { margin: 0.2rem 0 0; font-size: 0.72rem; line-height: 1.45; white-space: pre-wrap; }
+.quick-edit textarea { resize: vertical; font-size: 0.75rem; line-height: 1.5; }
+.quick-edit__meta,
+.quick-edit__import-status { margin: 0.45rem 0; color: var(--muted); font-size: 0.65rem; }
+.quick-edit__actions { display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem; margin-top: 0.75rem; }
+.quick-edit__changes { margin-top: 1rem; }
+.quick-edit__changes > strong { font-size: 0.75rem; }
+.quick-edit__changes ol { display: grid; gap: 0.45rem; margin: 0.5rem 0 0; padding-left: 1.2rem; }
+.quick-edit__changes li { font-size: 0.68rem; line-height: 1.4; }
+.quick-edit__changes li > * { display: block; overflow-wrap: anywhere; }
+.quick-edit__changes code { color: var(--accent-dark); }
+.quick-edit__changes time { color: var(--muted); }

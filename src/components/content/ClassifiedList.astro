@@ -1,6 +1,8 @@
 ---
 type ContentCategory =
   | '확인된 사실'
+  | '원문에서 확인된 사실'
+  | '분석·해석'
   | '확정된 수업 구성'
   | '학습 목표'
   | '수업 산출물'
@@ -17,6 +19,7 @@ interface Props {
   items: Array<{
     category: ContentCategory;
     text: string;
+    validationKey?: string;
   }>;
   checks?: boolean;
 }
@@ -29,7 +32,9 @@ const categoryClass = (category: ContentCategory) =>
     .replace('확정된-수업-구성', 'structure')
     .replace('학습-목표', 'goal')
     .replace('수업-산출물', 'deliverable')
+    .replace('원문에서-확인된-사실', 'fact')
     .replace('확인된-사실', 'fact')
+    .replace('분석·해석', 'judgment')
     .replace('교육용-가정', 'assumption')
     .replace('디자인-제안', 'proposal')
     .replace('수강생-전문-판단', 'judgment')
@@ -42,7 +47,7 @@ const categoryClass = (category: ContentCategory) =>
 
 <ul class:list={['outline-list', { 'outline-list--checks': checks }]}>
   {items.map((item) => (
-    <li>
+    <li data-validation-key={item.validationKey}>
       <span class:list={['outline-category', categoryClass(item.category)]}>{item.category}</span>
       <p>{item.text}</p>
     </li>

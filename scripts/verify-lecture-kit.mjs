@@ -12,6 +12,8 @@ const valueAfter = (name) => {
 };
 const kitRoot = path.resolve(valueAfter('--root') ?? path.join('release', 'AI_건축디자인_강의키트_windows_x64'));
 const keepLogs = argumentsList.includes('--keep-logs');
+const requireCourseOverview = argumentsList.includes('--require-course-overview');
+const requireInstructorIntroduction = argumentsList.includes('--require-instructor-introduction');
 const runtimeNode = path.join(kitRoot, 'runtime', 'node.exe');
 const serverScript = path.join(kitRoot, 'app', 'lecture-kit-server.mjs');
 const statePath = path.join(kitRoot, 'logs', 'state.json');
@@ -72,6 +74,19 @@ try {
 
   await requireHttp(`${hubOrigin}/`);
   await requireHttp(`${hubOrigin}/hub/style.css`);
+  if (requireCourseOverview) {
+    await requireHttp(`${studentOrigin}/course-overview/`);
+    await requireHttp(`${instructorOrigin}/instructor-console/course-overview/`);
+    await requireHttp(`${instructorOrigin}/presentation/course-overview/`);
+  }
+  if (requireInstructorIntroduction) {
+    await requireHttp(`${instructorOrigin}/instructor-console/lecture-start/`);
+    await requireHttp(`${instructorOrigin}/presentation/lecture-start/`);
+    await requireHttp(`${instructorOrigin}/instructor-console/instructor-introduction/`);
+    await requireHttp(`${instructorOrigin}/presentation/instructor-introduction/`);
+    await requireHttp(`${instructorOrigin}/instructor-assets/profile/${encodeURIComponent('\uC624\uACBD\uC2DD.jpg')}`);
+    await requireHttp(`${instructorOrigin}/instructor-assets/profile/inforest-logo.png`);
+  }
   for (const lesson of ['01', '02', '03', '04']) {
     await requireHttp(`${studentOrigin}/lessons/${lesson}/`);
   }
@@ -88,11 +103,25 @@ try {
   const studentSource = await collectText(path.join(kitRoot, 'sites', 'student'));
   const forbidden = [
     'ai-architecture-presenter',
+    'ai-architecture-slide-overrides-v1',
+    'data-quick-edit',
     'data-instructor-note-slot',
     'INSTRUCTOR CONSOLE · LOCAL ONLY',
     '/instructor-console/lessons/',
     '/presentation/lessons/',
     'instructor-content/',
+    'instructor-introduction',
+    'data-instructor-introduction',
+    'lecture-start',
+    'data-deck-first-lesson',
+    '주요 경력 및 전시·프로젝트',
+    '힐꼼의 이중생활',
+    'Bambeol Brew & Bloom',
+    'instructor-assets/profile',
+    'ai-architecture-instructor-progress-v1',
+    'data-instructor-progress',
+    'completedCheckpoints',
+    'checkpointOverrides',
   ].filter((marker) => studentSource.includes(marker));
   if (forbidden.length > 0) throw new Error(`학생 산출물 경계 위반: ${forbidden.join(', ')}`);
   if ((await readdir(path.join(kitRoot, 'sites', 'student'), { recursive: true })).some((name) => /\.ya?ml$/i.test(name))) {
@@ -112,7 +141,7 @@ try {
   }
   console.log('[verify-kit] 휴대용 강의키트 기본 검증 성공');
   console.log(`- ports: ${state.ports.hub}, ${state.ports.student}, ${state.ports.instructor}`);
-  console.log('- 학생 1~4차시, 강사 콘솔·프로젝터 1~14차시, 전체 PDF HTTP 200');
+  console.log(`- ${requireInstructorIntroduction ? '강사 소개·전용 자산, ' : ''}${requireCourseOverview ? '과정 안내 3종, ' : ''}학생 1~4차시, 강사 콘솔·프로젝터 1~14차시, 전체 PDF HTTP 200`);
   console.log('- 학생용 강사 메모·발표자 코드·YAML 경계 통과');
   console.log('- 경로 차단 및 안전 종료 후 포트 해제 통과');
 } catch (error) {

@@ -101,8 +101,14 @@ try {
       throw new Error('이중 실행이 기존 서버 상태를 바꿨습니다.');
     }
 
+    const hasCourseOverview = existsSync(path.join(kitRoot, 'sites', 'student', 'course-overview', 'index.html'));
     const localRoutes = [
       `http://127.0.0.1:${firstState.ports.hub}/`,
+      ...(hasCourseOverview ? [
+        `http://127.0.0.1:${firstState.ports.student}/course-overview/`,
+        `http://127.0.0.1:${firstState.ports.instructor}/instructor-console/course-overview/`,
+        `http://127.0.0.1:${firstState.ports.instructor}/presentation/course-overview/`,
+      ] : []),
       `http://127.0.0.1:${firstState.ports.student}/lessons/01/`,
       `http://127.0.0.1:${firstState.ports.instructor}/instructor-console/lessons/01/`,
       `http://127.0.0.1:${firstState.ports.instructor}/presentation/lessons/01/`,

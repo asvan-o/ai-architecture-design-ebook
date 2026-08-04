@@ -14,6 +14,8 @@ import type { Lesson04Download, Lesson04WorkflowData } from '../../lib/lesson04-
 
 type ContentCategory =
   | '확인된 사실'
+  | '원문에서 확인된 사실'
+  | '분석·해석'
   | '확정된 수업 구성'
   | '학습 목표'
   | '수업 산출물'
@@ -29,6 +31,7 @@ type ContentCategory =
 type OutlineItem = {
   category: ContentCategory;
   text: string;
+  validationKey?: string;
 };
 
 type TimeItem = {
@@ -218,12 +221,12 @@ const assets = getStudentLessonAssets(assetIds, Number(lessonId));
 const displayedAssets = showOnlyReadyAssets
   ? assets.filter((asset) => asset.status === 'ready' && asset.publicUse)
   : assets;
-const allocatedMinutes = timePlan.reduce((sum, item) => sum + item.minutes, 0);
-const practiceMinutes = timePlan
-  .filter((item) => item.mode === 'practice')
-  .reduce((sum, item) => sum + item.minutes, 0);
-const practicePercent = Math.round((practiceMinutes / totalMinutes) * 100);
 const isPresentation = Astro.url.pathname.includes('/presentation/');
+const isInstructorConsole = Astro.url.pathname.includes('/instructor-console/');
+const instructorTimelineJson = JSON.stringify({ totalMinutes, items: timePlan })
+  .replaceAll('<', '\\u003c')
+  .replaceAll('\u2028', '\\u2028')
+  .replaceAll('\u2029', '\\u2029');
 const isRfpAnalysisLayout = sectionLayout === 'rfp-analysis';
 const isProjectWorkflowLayout = sectionLayout === 'project-workflow';
 const practiceStepNumber = new Map(
@@ -248,6 +251,10 @@ const alternativeCriteriaSteps = practice.filter(
 );
 ---
 
+{isInstructorConsole && (
+  <script is:inline type="application/json" data-instructor-timeline set:html={instructorTimelineJson} />
+)}
+
 <LessonSection id="section-01" number="01" title="차시 소개" class="outline-section" lessonId={lessonId}>
   {openingMessage && (
     <aside class="lesson-opening-message">
@@ -260,34 +267,25 @@ const alternativeCriteriaSteps = practice.filter(
   <div class="time-plan">
     <header>
       <div>
-        <span>{isPresentation || !reviewPending ? 'TIME PLAN' : 'TIME PLAN · REVIEW REQUESTED'}</span>
-        <strong>{totalMinutes}분 중 수강생 실습 {practiceMinutes}분 · {practicePercent}%</strong>
+        <span>TODAY'S FLOW</span>
+        <strong>오늘의 수업 흐름</strong>
       </div>
-      <span class:list={['practice-ratio', { 'practice-ratio--valid': practiceMinutes >= totalMinutes / 2 }]}>
-        실습 절반 이상
-      </span>
     </header>
     <ol class="time-plan__screen-list">
-      {timePlan.map((item) => (
-        <li>
-          <span>{item.label}</span>
-          <strong>{item.minutes}분</strong>
-        </li>
+      {timePlan.map((item, index) => (
+        <li><span>{String(index + 1).padStart(2, '0')}</span><strong>{item.label}</strong></li>
       ))}
     </ol>
     <table class="time-plan__print-table">
       <thead>
-        <tr><th scope="col">수업 흐름</th><th scope="col">시간</th></tr>
+        <tr><th scope="col">오늘의 수업 흐름</th></tr>
       </thead>
       <tbody>
-        {timePlan.map((item) => (
-          <tr><th scope="row">{item.label}</th><td>{item.minutes}분</td></tr>
+        {timePlan.map((item, index) => (
+          <tr><th scope="row">{String(index + 1).padStart(2, '0')} · {item.label}</th></tr>
         ))}
       </tbody>
     </table>
-    {allocatedMinutes !== totalMinutes && (
-      <p class="time-plan__warning">시간 배분 합계 검토 필요: {allocatedMinutes}분</p>
-    )}
   </div>
 </LessonSection>
 
@@ -361,7 +359,7 @@ const alternativeCriteriaSteps = practice.filter(
       <ol class="practice-list">
         {rfpReadingSteps.map((step) => (
           <li data-step-id={step.id}>
-            <span>STEP {practiceStepNumber.get(step.id)} · {step.minutes}분</span>
+            <span>STEP {practiceStepNumber.get(step.id)}</span>
             <div>
               <h3>{step.title}</h3>
               <p>{step.description}</p>
@@ -390,7 +388,7 @@ const alternativeCriteriaSteps = practice.filter(
       <ol class="practice-list">
         {requirementMatrixSteps.map((step) => (
           <li data-step-id={step.id}>
-            <span>STEP {practiceStepNumber.get(step.id)} · {step.minutes}분</span>
+            <span>STEP {practiceStepNumber.get(step.id)}</span>
             <div>
               <h3>{step.title}</h3>
               <p>{step.description}</p>
@@ -417,7 +415,7 @@ const alternativeCriteriaSteps = practice.filter(
       <ol class="practice-list">
         {clientQuestionSteps.map((step) => (
           <li data-step-id={step.id}>
-            <span>STEP {practiceStepNumber.get(step.id)} · {step.minutes}분</span>
+            <span>STEP {practiceStepNumber.get(step.id)}</span>
             <div>
               <h3>{step.title}</h3>
               <p>{step.description}</p>
@@ -438,7 +436,7 @@ const alternativeCriteriaSteps = practice.filter(
       <ol class="practice-list">
         {geminiAnalysisSteps.map((step) => (
           <li data-step-id={step.id}>
-            <span>STEP {practiceStepNumber.get(step.id)} · {step.minutes}분</span>
+            <span>STEP {practiceStepNumber.get(step.id)}</span>
             <div>
               <h3>{step.title}</h3>
               <p>{step.description}</p>
@@ -467,7 +465,7 @@ const alternativeCriteriaSteps = practice.filter(
       <ol class="practice-list">
         {designBriefSteps.map((step) => (
           <li data-step-id={step.id}>
-            <span>STEP {practiceStepNumber.get(step.id)} · {step.minutes}분</span>
+            <span>STEP {practiceStepNumber.get(step.id)}</span>
             <div>
               <h3>{step.title}</h3>
               <p>{step.description}</p>
@@ -494,7 +492,7 @@ const alternativeCriteriaSteps = practice.filter(
       <ol class="practice-list">
         {visualEvidenceSteps.map((step) => (
           <li data-step-id={step.id}>
-            <span>STEP {practiceStepNumber.get(step.id)} · {step.minutes}분</span>
+            <span>STEP {practiceStepNumber.get(step.id)}</span>
             <div>
               <h3>{step.title}</h3>
               <p>{step.description}</p>
@@ -515,7 +513,7 @@ const alternativeCriteriaSteps = practice.filter(
       <ol class="practice-list">
         {alternativeCriteriaSteps.map((step) => (
           <li data-step-id={step.id}>
-            <span>STEP {practiceStepNumber.get(step.id)} · {step.minutes}분</span>
+            <span>STEP {practiceStepNumber.get(step.id)}</span>
             <div>
               <h3>{step.title}</h3>
               <p>{step.description}</p>
@@ -617,7 +615,7 @@ const alternativeCriteriaSteps = practice.filter(
       <ol class="practice-list">
         {practice.map((step, index) => (
           <li data-step-id={step.id}>
-            <span>STEP {String(index + 1).padStart(2, '0')} · {step.minutes}분</span>
+            <span>STEP {String(index + 1).padStart(2, '0')}</span>
             <div>
               <h3>{step.title}</h3>
               <p>{step.description}</p>

@@ -8,6 +8,19 @@ import { chromium } from 'playwright';
 const outputDirectory = path.resolve(process.argv[2] ?? 'dist-student');
 const manifestPath = path.resolve('data', 'pdf-exports.json');
 const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
+const studentReleasePath = path.resolve('data', 'student-release.json');
+const studentRelease = JSON.parse(readFileSync(studentReleasePath, 'utf8'));
+const releasedLessonIds = new Set(studentRelease.releasedStudentLessonIds);
+const targets = manifest.targets
+  .filter((target) =>
+    target.kind === 'course' || target.lessonIds.every((lessonId) => releasedLessonIds.has(lessonId)),
+  )
+  .map((target) => target.kind === 'course'
+    ? {
+        ...target,
+        lessonIds: target.lessonIds.filter((lessonId) => releasedLessonIds.has(lessonId)),
+      }
+    : target);
 const downloadsDirectory = path.join(outputDirectory, 'downloads');
 const basePath = normalizeBasePath(process.env.BASE_PATH);
 
@@ -104,7 +117,7 @@ try {
   const context = await browser.newContext();
   const origin = `http://127.0.0.1:${address.port}`;
 
-  for (const target of manifest.targets) {
+  for (const target of targets) {
     const page = await context.newPage();
     const route = `${basePath}${target.route}`;
     const response = await page.goto(`${origin}${route}`, {
@@ -221,7 +234,7 @@ try {
   }
 
   await context.close();
-  console.log(`PDF 생성 완료: ${manifest.targets.length}개`);
+  console.log(`PDF 생성 완료: ${targets.length}개`);
 } finally {
   if (browser) await browser.close();
   if (server.listening) await closeServer();

@@ -1,5 +1,5 @@
 import { existsSync } from 'node:fs';
-import { readdir, readFile, writeFile } from 'node:fs/promises';
+import { copyFile, mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
 
@@ -13,6 +13,13 @@ const outputPath = path.resolve(outputDirectory);
 const privateNoteDirectory = path.resolve(
   process.env.INSTRUCTOR_CONTENT_DIR ?? path.join('instructor-content', 'lessons'),
 );
+const privateProfileDirectory = path.resolve(
+  process.env.INSTRUCTOR_PROFILE_DIR ?? path.join('instructor-content', 'assets', 'profile'),
+);
+const profileAssets = [
+  { source: '오경식.jpg', output: '오경식.jpg' },
+  { source: 'inforest-logo.png', output: 'inforest-logo.png' },
+];
 const noteTypes = [
   'instructor-script',
   'question-cue',
@@ -85,6 +92,25 @@ const escapeHtml = (value) =>
 const templatePattern =
   /<span hidden data-instructor-note-template="([^"]+)" data-instructor-lesson="([^"]+)" data-instructor-label="([^"]*)">INSTRUCTOR_NOTE_SLOT<\/span>/g;
 const htmlFiles = await collectHtmlFiles(outputPath);
+
+if (mode === 'instructor') {
+  const missingAssets = profileAssets
+    .filter((asset) => !existsSync(path.join(privateProfileDirectory, asset.source)))
+    .map((asset) => path.join(privateProfileDirectory, asset.source));
+  if (missingAssets.length > 0) {
+    console.error('강사용 빌드에 필요한 강사 소개 자산을 찾지 못했습니다.');
+    missingAssets.forEach((assetPath) => console.error(`- ${assetPath}`));
+    process.exit(1);
+  }
+  const outputProfileDirectory = path.join(outputPath, 'instructor-assets', 'profile');
+  await mkdir(outputProfileDirectory, { recursive: true });
+  await Promise.all(profileAssets.map((asset) => copyFile(
+    path.join(privateProfileDirectory, asset.source),
+    path.join(outputProfileDirectory, asset.output),
+  )));
+  console.log(`강사 소개 로컬 자산 복사 성공: ${profileAssets.length}개`);
+}
+
 const noteSources = new Map();
 if (mode === 'instructor' && existsSync(privateNoteDirectory)) {
   const noteFiles = (await readdir(privateNoteDirectory))
@@ -100,7 +126,14 @@ for (const htmlFile of htmlFiles) {
   const source = await readFile(htmlFile, 'utf8');
   const relativeSegments = path.relative(outputPath, htmlFile).split(path.sep);
   const isPresentationFile = relativeSegments[0] === 'presentation';
-  const transformed = source.replace(
+  const isInstructorConsoleFile = relativeSegments[0] === 'instructor-console';
+  const preparedSource = isInstructorConsoleFile
+    ? source.replace(
+        /(<div class="lecture-deck__source"[^>]*>)([\s\S]*?)(<\/div><header class="lecture-deck__toolbar">)/g,
+        (_match, opening, body, closing) => `${opening}${body.replace(templatePattern, '')}${closing}`,
+      )
+    : source;
+  const transformed = preparedSource.replace(
     templatePattern,
     (_template, slot, lessonId, label) => {
       transformedSlots += 1;

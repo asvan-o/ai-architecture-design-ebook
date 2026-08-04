@@ -1,0 +1,492 @@
+---
+import PresentationDeck from '../presentation/PresentationDeck.astro';
+import InstructorProgressPanel from './InstructorProgressPanel.astro';
+
+type NavigationItem = {
+  href: string;
+  label: string;
+  current?: boolean;
+};
+
+interface Props {
+  contentId: string;
+  title: string;
+  kicker: string;
+  topic?: string;
+  presentationUrl: string;
+  navigation: NavigationItem[];
+  durationMinutes?: number;
+}
+
+const {
+  contentId,
+  title,
+  kicker,
+  topic = '',
+  presentationUrl,
+  navigation,
+  durationMinutes,
+} = Astro.props;
+---
+
+<main
+  class="instructor-deck-console"
+  data-instructor-deck-console
+  data-content-id={contentId}
+  data-deck-id={contentId}
+  data-presentation-url={presentationUrl}
+  data-build-id={import.meta.env.PUBLIC_LECTURE_BUILD_ID ?? 'local-working-tree'}
+>
+  <aside class="instructor-deck-console__navigation" aria-label="과정과 슬라이드 이동">
+    <header>
+      <span>LOCAL INSTRUCTOR CONSOLE</span>
+      <h1>{title}</h1>
+      <p>강의 화면과 로컬 메모를 한곳에서 제어합니다.</p>
+    </header>
+    <label for={`content-select-${contentId}`}>과정 안내·차시 선택</label>
+    <select id={`content-select-${contentId}`} data-content-select>
+      {navigation.map((item) => (
+        <option value={item.href} selected={item.current}>{item.label}</option>
+      ))}
+    </select>
+    <div class="instructor-deck-console__slide-heading">
+      <strong>슬라이드 목록</strong>
+      <span data-console-slide-count>준비 중</span>
+    </div>
+    <ol class="instructor-deck-console__slides" data-console-slide-list></ol>
+  </aside>
+
+  <section class="instructor-deck-console__preview" aria-label="현재 슬라이드 미리보기">
+    <div class="instructor-deck-console__connection" aria-live="polite">
+      <span>프로젝터 연결</span>
+      <strong data-projector-status data-state="waiting">연결 대기</strong>
+      <button type="button" data-console-action="open-projector">프로젝터 열기</button>
+      <button type="button" data-console-action="resend">현재 위치 다시 전송</button>
+    </div>
+    <PresentationDeck
+      {contentId}
+      {title}
+      {kicker}
+      {topic}
+      embedded
+      role="console"
+    >
+      <slot name="source" />
+    </PresentationDeck>
+    <p class="instructor-deck-console__keyboard">
+      ← → · Space · PageUp/PageDown · Home/End · Esc 전체 보기 · F 전체화면
+    </p>
+  </section>
+
+  <aside class="instructor-deck-console__tools" aria-label="강사 메모와 로컬 빠른 수정">
+    <section class="console-next-preview" aria-labelledby={`next-preview-title-${contentId}`}>
+      <header>
+        <span>NEXT SLIDE</span>
+        <h2 id={`next-preview-title-${contentId}`}>다음 슬라이드 미리보기</h2>
+      </header>
+      <div class="console-next-preview__frame" data-console-next-frame>
+        <div class="console-next-preview__canvas" data-console-next-canvas>
+          <article class="lecture-slide" data-console-next-slide></article>
+        </div>
+      </div>
+      <p data-console-next-label>슬라이드를 준비하는 중입니다.</p>
+    </section>
+
+    {durationMinutes && (
+      <InstructorProgressPanel {contentId} {title} {durationMinutes} />
+    )}
+
+    <section class="instructor-environment-check" aria-labelledby={`environment-check-${contentId}`}>
+      <header>
+        <span>PRE-CLASS CHECK</span>
+        <h2 id={`environment-check-${contentId}`}>강의 전 환경 점검</h2>
+      </header>
+      <ul>
+        <li>로그인과 교육용 계정 상태</li>
+        <li>사용할 모델·메뉴와 필요한 기능</li>
+        <li>파일·이미지 업로드 가능 여부</li>
+        <li>잔여 쿼터와 요금제 조건</li>
+        <li>조직 계정·지역 제한</li>
+        <li>공식 안내와 서비스 화면 변경</li>
+        <li>준비된 대체자료·정지 캡처·READY ZIP</li>
+      </ul>
+    </section>
+
+    <section class="instructor-deck-console__notes">
+      <header>
+        <span>INSTRUCTOR NOTES</span>
+        <h2>현재 슬라이드 강사 메모</h2>
+      </header>
+      <div data-console-notes><slot name="notes" /></div>
+    </section>
+
+    <section class="quick-edit" data-quick-edit>
+      <header>
+        <span>LOCAL QUICK EDIT</span>
+        <h2>프레젠테이션 텍스트 빠른 수정</h2>
+      </header>
+      <p class="quick-edit__warning">
+        이 수정은 현재 브라우저의 강의 화면에만 적용됩니다. 공개 e-book, PDF와 원본 소스에는 반영되지 않습니다.
+        다른 PC로 옮길 때는 JSON을 내보내고 새 PC에서 가져오세요.
+      </p>
+
+      <label for={`edit-target-${contentId}`}>수정할 텍스트</label>
+      <select id={`edit-target-${contentId}`} data-edit-target></select>
+      <dl class="quick-edit__comparison">
+        <div><dt>원문</dt><dd data-edit-original>선택할 텍스트가 없습니다.</dd></div>
+        <div><dt>현재 표시</dt><dd data-edit-current>선택할 텍스트가 없습니다.</dd></div>
+      </dl>
+      <label for={`edit-value-${contentId}`}>로컬 수정문</label>
+      <textarea id={`edit-value-${contentId}`} rows="5" data-edit-value spellcheck="true"></textarea>
+      <p class="quick-edit__meta" data-edit-meta>공개 e-book 미반영 · 소스 미반영</p>
+      <div class="quick-edit__actions">
+        <button type="button" data-edit-action="save">현재 항목 저장</button>
+        <button type="button" data-edit-action="restore">현재 항목 원본 복원</button>
+        <button type="button" data-edit-action="reset-lesson">현재 과정·차시 전체 초기화</button>
+        <button type="button" data-edit-action="reset-all">전체 로컬 수정 초기화</button>
+        <button type="button" data-edit-action="export">수정 JSON 내보내기</button>
+        <button type="button" data-edit-action="copy-prompt">수정 요청문 복사</button>
+        <button type="button" data-edit-action="import">수정 JSON 가져오기</button>
+        <input type="file" accept="application/json,.json" data-edit-import hidden />
+      </div>
+      <div class="quick-edit__changes">
+        <strong>수정된 항목</strong>
+        <ol data-edit-change-list><li>현재 저장된 수정이 없습니다.</li></ol>
+      </div>
+      <p class="quick-edit__import-status" data-edit-import-status aria-live="polite"></p>
+    </section>
+  </aside>
+</main>
+
+<script>
+  const overrideStorageKey = 'ai-architecture-slide-overrides-v1';
+  const channelName = 'ai-architecture-presenter';
+
+  document.querySelectorAll<HTMLElement>('[data-instructor-deck-console]').forEach((consoleRoot) => {
+    if (consoleRoot.dataset.consoleReady === 'true') return;
+    consoleRoot.dataset.consoleReady = 'true';
+    const contentId = consoleRoot.dataset.contentId ?? '';
+    const deckId = consoleRoot.dataset.deckId ?? contentId;
+    const lessonId = contentId.startsWith('lesson-') ? contentId.slice('lesson-'.length) : contentId;
+    const buildId = consoleRoot.dataset.buildId ?? 'local-working-tree';
+    const deckRoot = consoleRoot.querySelector<HTMLElement>('[data-lecture-deck]');
+    const stage = consoleRoot.querySelector<HTMLElement>('[data-deck-slide]');
+    const slideList = consoleRoot.querySelector<HTMLOListElement>('[data-console-slide-list]');
+    const slideCount = consoleRoot.querySelector<HTMLElement>('[data-console-slide-count]');
+    const notePanels = [...consoleRoot.querySelectorAll<HTMLElement>('[data-note-panel]')];
+    const targetSelect = consoleRoot.querySelector<HTMLSelectElement>('[data-edit-target]');
+    const original = consoleRoot.querySelector<HTMLElement>('[data-edit-original]');
+    const current = consoleRoot.querySelector<HTMLElement>('[data-edit-current]');
+    const editor = consoleRoot.querySelector<HTMLTextAreaElement>('[data-edit-value]');
+    const meta = consoleRoot.querySelector<HTMLElement>('[data-edit-meta]');
+    const changeList = consoleRoot.querySelector<HTMLOListElement>('[data-edit-change-list]');
+    const importInput = consoleRoot.querySelector<HTMLInputElement>('[data-edit-import]');
+    const importStatus = consoleRoot.querySelector<HTMLElement>('[data-edit-import-status]');
+    const projectorStatus = consoleRoot.querySelector<HTMLElement>('[data-projector-status]');
+    const nextStage = consoleRoot.querySelector<HTMLElement>('[data-console-next-slide]');
+    const nextFrame = consoleRoot.querySelector<HTMLElement>('[data-console-next-frame]');
+    const nextCanvas = consoleRoot.querySelector<HTMLElement>('[data-console-next-canvas]');
+    const nextLabel = consoleRoot.querySelector<HTMLElement>('[data-console-next-label]');
+    const channel = 'BroadcastChannel' in window ? new BroadcastChannel(channelName) : null;
+    let activeSlideId = '';
+    let activeSectionId = 'title';
+    let lastProjectorSeen = 0;
+
+    const resizeNextPreview = () => {
+      if (!nextFrame || !nextCanvas) return;
+      const scale = Math.min(nextFrame.clientWidth / 1280, nextFrame.clientHeight / 598);
+      nextCanvas.style.setProperty('--console-next-scale', String(Math.max(scale, 0)));
+    };
+    if (nextFrame && nextCanvas) {
+      new ResizeObserver(resizeNextPreview).observe(nextFrame);
+      resizeNextPreview();
+    }
+
+    const readRecords = () => {
+      try { return JSON.parse(localStorage.getItem(overrideStorageKey) ?? '{}'); }
+      catch { return {}; }
+    };
+    const writeRecords = (records: Record<string, unknown>) => {
+      localStorage.setItem(overrideStorageKey, JSON.stringify(records));
+      channel?.postMessage({
+        type: 'slide-overrides-updated',
+        buildId,
+        deckId,
+        lessonId,
+        slideId: activeSlideId,
+        slideIndex: getController()?.getActiveIndex() ?? 0,
+        timestamp: Date.now(),
+      });
+      window.dispatchEvent(new StorageEvent('storage', { key: overrideStorageKey }));
+    };
+    const getController = () => (deckRoot as HTMLElement & { lectureDeck?: any })?.lectureDeck;
+    const refreshDeck = () => {
+      const controller = getController();
+      if (controller) controller.render(controller.getActiveIndex(), { broadcast: true, persist: false });
+    };
+    const refreshNextPreview = (slides: any[], activeIndex: number) => {
+      if (!nextStage || !nextLabel) return;
+      const nextSlide = slides[activeIndex + 1];
+      nextStage.replaceChildren();
+      if (!nextSlide) {
+        nextStage.dataset.slideId = '';
+        nextLabel.textContent = '현재 덱의 마지막 슬라이드입니다.';
+        return;
+      }
+      const clone = nextSlide.node.cloneNode(true) as HTMLElement;
+      const records = readRecords() as Record<string, any>;
+      clone.querySelectorAll<HTMLElement>('[data-edit-key]').forEach((element) => {
+        const record = records[element.dataset.editKey ?? ''];
+        if (record?.slideId === nextSlide.id) element.textContent = record.replacementText;
+      });
+      nextStage.append(clone);
+      nextStage.dataset.slideId = nextSlide.id;
+      nextLabel.textContent = `${String(activeIndex + 2).padStart(2, '0')} · ${nextSlide.title}`;
+      resizeNextPreview();
+    };
+    const setConnection = (state: 'connected' | 'waiting' | 'disconnected') => {
+      if (!projectorStatus) return;
+      projectorStatus.dataset.state = state;
+      projectorStatus.textContent = state === 'connected' ? '연결됨' : state === 'disconnected' ? '연결 끊김' : '연결 대기';
+    };
+
+    const refreshChanges = () => {
+      if (!changeList) return;
+      const records = Object.values(readRecords() as Record<string, any>)
+        .filter((record: any) => record.lessonId === contentId)
+        .sort((a: any, b: any) => String(b.updatedAt).localeCompare(String(a.updatedAt)));
+      changeList.replaceChildren();
+      if (!records.length) {
+        const item = document.createElement('li');
+        item.textContent = '현재 저장된 수정이 없습니다.';
+        changeList.append(item);
+        return;
+      }
+      records.forEach((record: any) => {
+        const item = document.createElement('li');
+        const key = document.createElement('code');
+        key.textContent = record.editKey;
+        const text = document.createElement('span');
+        text.textContent = `${record.originalText} → ${record.replacementText}`;
+        const time = document.createElement('time');
+        time.dateTime = record.updatedAt;
+        time.textContent = new Date(record.updatedAt).toLocaleString('ko-KR');
+        item.append(key, text, time);
+        changeList.append(item);
+      });
+    };
+
+    const refreshEditor = () => {
+      if (!stage || !targetSelect || !original || !current || !editor || !meta) return;
+      const editable = [...stage.querySelectorAll<HTMLElement>('[data-edit-key]')];
+      const previousKey = targetSelect.value;
+      targetSelect.replaceChildren();
+      editable.forEach((element, index) => {
+        const option = document.createElement('option');
+        option.value = element.dataset.editKey ?? '';
+        const label = element.textContent?.trim() ?? '';
+        option.textContent = `${String(index + 1).padStart(2, '0')} · ${label.slice(0, 56)}${label.length > 56 ? '…' : ''}`;
+        targetSelect.append(option);
+      });
+      if (editable.some((element) => element.dataset.editKey === previousKey)) targetSelect.value = previousKey;
+      const selected = editable.find((element) => element.dataset.editKey === targetSelect.value) ?? editable[0];
+      if (!selected) {
+        original.textContent = '이 슬라이드에는 빠르게 수정할 일반 텍스트가 없습니다.';
+        current.textContent = original.textContent;
+        editor.value = '';
+        editor.disabled = true;
+        return;
+      }
+      editor.disabled = false;
+      const originalText = selected.dataset.originalText ?? selected.textContent?.trim() ?? '';
+      const currentText = selected.textContent?.trim() ?? '';
+      original.textContent = originalText;
+      current.textContent = currentText;
+      editor.value = currentText;
+      const record = (readRecords() as Record<string, any>)[selected.dataset.editKey ?? ''];
+      meta.textContent = record
+        ? `로컬 수정본 · ${new Date(record.updatedAt).toLocaleString('ko-KR')} · 공개 e-book 미반영 · 소스 미반영`
+        : '원본 · 공개 e-book 미반영 · 소스 미반영';
+    };
+
+    const selectEditTarget = () => refreshEditor();
+    targetSelect?.addEventListener('change', selectEditTarget);
+
+    const saveCurrent = () => {
+      if (!targetSelect || !editor || !original || !activeSlideId) return;
+      const editKey = targetSelect.value;
+      if (!editKey) return;
+      const records = readRecords() as Record<string, any>;
+      records[editKey] = {
+        lessonId: contentId,
+        slideId: activeSlideId,
+        editKey,
+        originalText: original.textContent ?? '',
+        replacementText: editor.value,
+        updatedAt: new Date().toISOString(),
+      };
+      writeRecords(records);
+      refreshDeck();
+      refreshChanges();
+    };
+
+    const restoreCurrent = () => {
+      const editKey = targetSelect?.value;
+      if (!editKey) return;
+      const records = readRecords() as Record<string, any>;
+      delete records[editKey];
+      writeRecords(records);
+      refreshDeck();
+      refreshChanges();
+    };
+
+    const resetMatching = (all: boolean) => {
+      const message = all ? '모든 과정·차시의 로컬 수정을 초기화할까요?' : '현재 과정·차시의 로컬 수정을 모두 초기화할까요?';
+      if (!window.confirm(message)) return;
+      const records = readRecords() as Record<string, any>;
+      Object.entries(records).forEach(([key, record]: [string, any]) => {
+        if (all || record.lessonId === contentId) delete records[key];
+      });
+      writeRecords(records);
+      refreshDeck();
+      refreshChanges();
+    };
+
+    const changesForExport = () => Object.values(readRecords() as Record<string, any>);
+    const exportChanges = () => {
+      const payload = { schemaVersion: 1, buildId, exportedAt: new Date().toISOString(), changes: changesForExport() };
+      const blob = new Blob([`${JSON.stringify(payload, null, 2)}\n`], { type: 'application/json' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `ai-architecture-local-edits-${new Date().toISOString().slice(0, 10)}.json`;
+      link.click();
+      URL.revokeObjectURL(link.href);
+    };
+    const copyPrompt = async () => {
+      const changes = changesForExport();
+      const prompt = [
+        '아래 로컬 프레젠테이션 수정사항을 검토하고, 승인된 항목만 원본 MDX 또는 공용 데이터에 반영해 주세요.',
+        `기준 빌드: ${buildId}`,
+        JSON.stringify(changes, null, 2),
+      ].join('\n\n');
+      await navigator.clipboard.writeText(prompt);
+      if (importStatus) importStatus.textContent = '수정 요청문을 클립보드에 복사했습니다.';
+    };
+
+    const importChanges = async (file: File) => {
+      try {
+        const payload = JSON.parse(await file.text());
+        if (payload.schemaVersion !== 1 || !Array.isArray(payload.changes)) throw new Error('지원하지 않는 JSON 구조입니다.');
+        const differentBuild = payload.buildId && payload.buildId !== buildId;
+        const preview = payload.changes.slice(0, 8).map((item: any) => `• ${item.editKey}: ${item.replacementText}`).join('\n');
+        const warning = differentBuild ? `\n\n주의: 파일 빌드(${payload.buildId})와 현재 빌드(${buildId})가 다릅니다.` : '';
+        const approved = window.confirm(`가져올 변경 ${payload.changes.length}개\n\n${preview}${warning}\n\n확인 후 적용하시겠습니까?`);
+        if (!approved) {
+          if (importStatus) importStatus.textContent = '가져오기를 취소했습니다. 어떤 변경도 적용하지 않았습니다.';
+          return;
+        }
+        const records = readRecords() as Record<string, any>;
+        payload.changes.forEach((item: any) => {
+          if (item && typeof item.editKey === 'string' && typeof item.replacementText === 'string') {
+            records[item.editKey] = { ...item, replacementText: String(item.replacementText), updatedAt: item.updatedAt || new Date().toISOString() };
+          }
+        });
+        writeRecords(records);
+        refreshDeck();
+        refreshChanges();
+        if (importStatus) importStatus.textContent = `${payload.changes.length}개 변경을 적용했습니다.${differentBuild ? ' 다른 빌드에서 작성된 파일입니다.' : ''}`;
+      } catch (error) {
+        if (importStatus) importStatus.textContent = error instanceof Error ? error.message : 'JSON을 읽지 못했습니다.';
+      }
+    };
+
+    consoleRoot.querySelector('[data-edit-action="save"]')?.addEventListener('click', saveCurrent);
+    consoleRoot.querySelector('[data-edit-action="restore"]')?.addEventListener('click', restoreCurrent);
+    consoleRoot.querySelector('[data-edit-action="reset-lesson"]')?.addEventListener('click', () => resetMatching(false));
+    consoleRoot.querySelector('[data-edit-action="reset-all"]')?.addEventListener('click', () => resetMatching(true));
+    consoleRoot.querySelector('[data-edit-action="export"]')?.addEventListener('click', exportChanges);
+    consoleRoot.querySelector('[data-edit-action="copy-prompt"]')?.addEventListener('click', () => void copyPrompt());
+    consoleRoot.querySelector('[data-edit-action="import"]')?.addEventListener('click', () => importInput?.click());
+    importInput?.addEventListener('change', () => {
+      const file = importInput.files?.[0];
+      if (file) void importChanges(file);
+      importInput.value = '';
+    });
+
+    const showNotes = (sectionId: string) => {
+      notePanels.forEach((panel) => { panel.hidden = panel.dataset.notePanel !== sectionId; });
+    };
+
+    const handleDeckReady = (event: Event) => {
+      const detail = (event as CustomEvent).detail;
+      const slides = detail?.slides ?? [];
+      if (!slideList) return;
+      slideList.replaceChildren();
+      slides.forEach((slide: any, index: number) => {
+        const item = document.createElement('li');
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.dataset.consoleSlide = slide.id;
+        button.innerHTML = `<span>${String(index + 1).padStart(2, '0')}</span><strong></strong>`;
+        button.querySelector('strong')!.textContent = slide.title;
+        button.addEventListener('click', () => detail.render(index));
+        item.append(button);
+        slideList.append(item);
+      });
+      if (slideCount) slideCount.textContent = `${slides.length}장`;
+      refreshChanges();
+    };
+    deckRoot?.addEventListener('lecture-deck-ready', handleDeckReady);
+
+    deckRoot?.addEventListener('lecture-deck-change', (event) => {
+      const detail = (event as CustomEvent).detail;
+      activeSlideId = detail.slide.id;
+      activeSectionId = detail.slide.sectionId;
+      slideList?.querySelectorAll('button').forEach((button, index) => button.setAttribute('aria-current', index === detail.activeIndex ? 'true' : 'false'));
+      showNotes(activeSectionId);
+      refreshNextPreview(detail.slides ?? [], detail.activeIndex);
+      refreshEditor();
+    });
+
+    consoleRoot.querySelector('[data-content-select]')?.addEventListener('change', (event) => {
+      window.location.assign((event.currentTarget as HTMLSelectElement).value);
+    });
+    consoleRoot.querySelector('[data-console-action="open-projector"]')?.addEventListener('click', () => {
+      window.open(consoleRoot.dataset.presentationUrl, 'ai-architecture-projector');
+      setConnection('waiting');
+      window.setTimeout(() => {
+        const controller = getController();
+        if (controller) controller.render(controller.getActiveIndex(), { broadcast: true, persist: false });
+      }, 600);
+    });
+    consoleRoot.querySelector('[data-console-action="resend"]')?.addEventListener('click', () => refreshDeck());
+    channel?.addEventListener('message', (event) => {
+      const message = event.data;
+      if (!message || typeof message !== 'object') return;
+      if (message.buildId !== buildId || message.deckId !== deckId) return;
+      if (message.type === 'projector-ready' || message.type === 'pong') {
+        lastProjectorSeen = Date.now();
+        setConnection('connected');
+        refreshDeck();
+      }
+      if (message.type === 'projector-closing') setConnection('disconnected');
+    });
+    window.setInterval(() => {
+      const controller = getController();
+      const slideIndex = controller?.getActiveIndex() ?? 0;
+      channel?.postMessage({
+        type: 'ping',
+        buildId,
+        deckId,
+        lessonId,
+        slideId: controller?.slides?.[slideIndex]?.id ?? activeSlideId,
+        slideIndex,
+        timestamp: Date.now(),
+      });
+      if (lastProjectorSeen && Date.now() - lastProjectorSeen > 5500) setConnection('disconnected');
+    }, 2000);
+
+    const readyController = getController();
+    if (readyController) handleDeckReady(new CustomEvent('lecture-deck-ready', { detail: { slides: readyController.slides, render: readyController.render } }));
+  });
+</script>

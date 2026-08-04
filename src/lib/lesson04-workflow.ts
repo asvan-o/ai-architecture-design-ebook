@@ -46,6 +46,7 @@ export type Lesson04WorkflowData = {
       | '강의 전 사실 검증'
       | '추가 출처 확인';
     text: string;
+    validationKey?: string;
   }[];
   modelPrinciples: {
     title: string;

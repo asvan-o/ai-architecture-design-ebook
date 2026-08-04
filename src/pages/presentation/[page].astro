@@ -1,0 +1,53 @@
+---
+import CourseOverviewContent from '../../components/course/CourseOverviewContent.astro';
+import InstructorIntroduction from '../../components/instructor/InstructorIntroduction.astro';
+import PresentationDeck from '../../components/presentation/PresentationDeck.astro';
+import { courseOverviewTitle } from '../../lib/course-overview';
+import { getVisibleLessons } from '../../lib/lessons';
+import '../../styles/global.css';
+import '../../styles/lesson-content.css';
+import '../../styles/course-overview.css';
+import '../../styles/presentation.css';
+import '../../styles/instructor-introduction.css';
+
+export function getStaticPaths() {
+  if (import.meta.env.MODE !== 'instructor') return [];
+  return [
+    { params: { page: 'lecture-start' } },
+    { params: { page: 'instructor-introduction' } },
+    { params: { page: 'course-overview' } },
+  ];
+}
+
+const lessons = await getVisibleLessons();
+const page = Astro.params.page ?? 'course-overview';
+const isLectureStart = page === 'lecture-start';
+const isIntroduction = page === 'instructor-introduction';
+const contentId = isLectureStart ? 'lecture-start' : isIntroduction ? 'instructor-introduction' : 'course-overview';
+const title = isIntroduction ? '강사 소개 · 오경식' : courseOverviewTitle;
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>프레젠테이션 · {title}</title>
+  </head>
+  <body class="presentation-page">
+    <main>
+      <PresentationDeck
+        {contentId}
+        kicker={isIntroduction ? 'INSTRUCTOR INTRODUCTION' : 'COURSE ORIENTATION'}
+        {title}
+        topic={isIntroduction ? 'INFOREST 대표 · 3D/VFX 콘텐츠 디렉터' : '7개 주제 · 14개 차시 · 총 48시간'}
+        role="projector"
+      >
+        {isLectureStart ? (
+          <><InstructorIntroduction /><CourseOverviewContent {lessons} /></>
+        ) : isIntroduction ? <InstructorIntroduction /> : <CourseOverviewContent {lessons} />}
+      </PresentationDeck>
+    </main>
+  </body>
+</html>

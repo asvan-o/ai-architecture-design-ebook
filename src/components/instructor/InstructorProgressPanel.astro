@@ -1,0 +1,473 @@
+---
+interface Props {
+  contentId: string;
+  title: string;
+  durationMinutes: number;
+}
+
+const { contentId, title, durationMinutes } = Astro.props;
+---
+
+<section
+  class="instructor-progress"
+  data-instructor-progress
+  data-content-id={contentId}
+  data-duration-minutes={durationMinutes}
+  aria-labelledby={`progress-title-${contentId}`}
+>
+  <header class="instructor-progress__header">
+    <div>
+      <span>LOCAL CLASS PROGRESS</span>
+      <h2 id={`progress-title-${contentId}`}>수업 진행 체크</h2>
+    </div>
+    <strong data-progress-course>{title} · {durationMinutes / 60}시간 수업</strong>
+  </header>
+
+  <dl class="instructor-progress__metrics" aria-live="polite">
+    <div><dt>시작 시각</dt><dd data-progress-started>-</dd></div>
+    <div><dt>현재 시각</dt><dd data-progress-current-time>-</dd></div>
+    <div><dt>실제 경과</dt><dd data-progress-elapsed>0분</dd></div>
+    <div><dt>권장 누적</dt><dd data-progress-target>권장 시간 미매핑</dd></div>
+    <div><dt>계획 대비</dt><dd data-progress-difference>-</dd></div>
+    <div><dt>남은 시간</dt><dd data-progress-remaining>{durationMinutes}분</dd></div>
+  </dl>
+
+  <div class="instructor-progress__status" data-progress-status data-state="unmapped">
+    <strong>권장 시간 미매핑</strong>
+    <span>현재 슬라이드와 시간표의 정확한 연결을 확인해 주세요.</span>
+  </div>
+
+  <dl class="instructor-progress__checkpoints">
+    <div><dt>이전 체크포인트</dt><dd data-progress-previous>-</dd></div>
+    <div><dt>현재 체크포인트</dt><dd data-progress-current>-</dd></div>
+    <div><dt>다음 체크포인트</dt><dd data-progress-next>-</dd></div>
+  </dl>
+
+  <div class="instructor-progress__controls">
+    <button type="button" data-progress-action="start">수업 시작</button>
+    <button type="button" data-progress-action="pause" disabled>일시정지</button>
+    <button type="button" data-progress-action="resume" disabled>계속</button>
+    <button type="button" data-progress-action="reset">초기화</button>
+  </div>
+
+  <div class="instructor-progress__time-edit">
+    <label for={`progress-start-time-${contentId}`}>시작 시각 직접 입력</label>
+    <input id={`progress-start-time-${contentId}`} type="time" step="60" data-progress-start-input />
+    <button type="button" data-progress-action="set-start">시작 시각 적용</button>
+  </div>
+
+  <div class="instructor-progress__adjustments">
+    <button type="button" data-progress-action="complete" disabled>현재 체크포인트 완료</button>
+    <button type="button" data-progress-action="minus-five" disabled>현재 이후 목표 -5분</button>
+    <button type="button" data-progress-action="plus-five" disabled>현재 이후 목표 +5분</button>
+    <button type="button" data-progress-action="restore-plan">기본 시간계획 복원</button>
+    <button type="button" data-progress-action="export">시간 운영 기록 JSON 내보내기</button>
+  </div>
+
+  <details class="instructor-progress__log">
+    <summary>체크포인트 기록</summary>
+    <ol data-progress-log><li>시간표를 불러오는 중입니다.</li></ol>
+  </details>
+</section>
+
+<script>
+  type TimelineItem = { label: string; detail?: string; minutes: number; mode?: string };
+  type Timeline = { totalMinutes: number; items: TimelineItem[] };
+  type DeckSlide = { id: string; sectionId: string; sectionLabel: string; title: string; node?: HTMLElement };
+  type Checkpoint = TimelineItem & {
+    id: string;
+    index: number;
+    cumulativeMinutes: number;
+    mappedSlideId: string | null;
+    mappedSlideIndex: number | null;
+  };
+  type ProgressState = {
+    schemaVersion: 1;
+    buildId: string;
+    deckId: string;
+    startedAt: number | null;
+    running: boolean;
+    pausedAt: number | null;
+    pausedDurationMs: number;
+    activeSlideId: string;
+    completedCheckpoints: string[];
+    actualArrivalTimes: Record<string, { timestamp: number; elapsedMinutes: number }>;
+    checkpointOverrides: Record<string, number>;
+    updatedAt: string;
+  };
+
+  const progressStoragePrefix = 'ai-architecture-instructor-progress-v1';
+  const minute = 60_000;
+
+  const formatMinutes = (value: number) => {
+    const rounded = Math.max(0, Math.floor(value));
+    const hours = Math.floor(rounded / 60);
+    const minutes = rounded % 60;
+    if (hours === 0) return `${minutes}분`;
+    return minutes === 0 ? `${hours}시간` : `${hours}시간 ${String(minutes).padStart(2, '0')}분`;
+  };
+  const formatClock = (timestamp: number | null) => timestamp
+    ? new Date(timestamp).toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', hour12: false })
+    : '-';
+  const normalize = (value: string) => value
+    .toLocaleLowerCase('ko-KR')
+    .replace(/\([^)]*\)/g, ' ')
+    .replace(/[^\p{L}\p{N}]+/gu, ' ')
+    .trim();
+  const meaningfulTokens = (value: string) => normalize(value)
+    .split(/\s+/)
+    .filter((token) => token.length >= 2 && !['그리고', '오늘의', '작성', '진행', '정리', '확인'].includes(token));
+
+  const mapCheckpoints = (timeline: Timeline, slides: DeckSlide[]): Checkpoint[] => {
+    let cumulativeMinutes = 0;
+    let minimumSlideIndex = 0;
+    return timeline.items.map((item, index) => {
+      cumulativeMinutes += item.minutes;
+      const displayLabel = /^\s*\d/.test(item.label) && item.label.includes('분') && item.detail
+        ? item.detail
+        : item.label;
+      const labelNormalized = normalize(displayLabel);
+      const labelTokens = meaningfulTokens(displayLabel);
+      const candidates = slides
+        .map((slide, slideIndex) => ({
+          slide,
+          slideIndex,
+          headingText: normalize(`${slide.sectionLabel} ${slide.title}`),
+          text: normalize(`${slide.sectionLabel} ${slide.title} ${slide.node?.textContent ?? ''}`),
+        }))
+        .filter(({ slide, slideIndex }) => slideIndex >= minimumSlideIndex
+          && slide.sectionId !== 'title'
+          && (index === 0 || slide.sectionId !== 'section-01'))
+        .map((candidate) => {
+          const common = labelTokens.filter((token) => candidate.text.includes(token));
+          const exactPhrase = labelNormalized.length >= 4
+            && (candidate.text.includes(labelNormalized) || labelNormalized.includes(candidate.text));
+          const exactHeading = labelNormalized.length >= 4
+            && (candidate.headingText.includes(labelNormalized) || labelNormalized.includes(candidate.headingText));
+          const unambiguousToken = common.length === 1 && common[0].length >= 3
+            && slides.filter((slide) => normalize(`${slide.sectionLabel} ${slide.title}`).includes(common[0])).length === 1;
+          return { ...candidate, exactPhrase, exactHeading, common, qualified: exactPhrase || exactHeading || common.length >= 2 || unambiguousToken };
+        })
+        .filter((candidate) => candidate.qualified);
+      const exactHeadingCandidates = candidates.filter((candidate) => candidate.exactHeading);
+      const exactPhraseCandidates = candidates.filter((candidate) => candidate.exactPhrase);
+      const candidatePool = exactHeadingCandidates.length > 0
+        ? exactHeadingCandidates
+        : exactPhraseCandidates.length > 0
+          ? exactPhraseCandidates
+          : candidates;
+      const sectionMatches = new Map<string, typeof candidates[number]>();
+      candidatePool.forEach((candidate) => {
+        if (!sectionMatches.has(candidate.slide.sectionId)) sectionMatches.set(candidate.slide.sectionId, candidate);
+      });
+      const selected = sectionMatches.size === 1 ? [...sectionMatches.values()][0] : null;
+      if (selected) minimumSlideIndex = selected.slideIndex + 1;
+      return {
+        ...item,
+        label: displayLabel,
+        id: `checkpoint-${String(index + 1).padStart(2, '0')}`,
+        index,
+        cumulativeMinutes,
+        mappedSlideId: selected?.slide.id ?? null,
+        mappedSlideIndex: selected?.slideIndex ?? null,
+      };
+    });
+  };
+
+  const initializeProgressPanels = () => {
+    document.querySelectorAll<HTMLElement>('[data-instructor-progress]').forEach((panel) => {
+      if (panel.dataset.progressReady === 'true') return;
+      const consoleRoot = panel.closest<HTMLElement>('[data-instructor-deck-console]');
+      const deckRoot = consoleRoot?.querySelector<HTMLElement>('[data-lecture-deck]');
+      const timelineElement = consoleRoot?.querySelector<HTMLScriptElement>('[data-instructor-timeline]');
+      if (!consoleRoot || !deckRoot || !timelineElement?.textContent) return;
+
+      let timeline: Timeline;
+      try { timeline = JSON.parse(timelineElement.textContent); }
+      catch { return; }
+      if (!Array.isArray(timeline.items) || !timeline.items.length) return;
+      panel.dataset.progressReady = 'true';
+
+      const contentId = panel.dataset.contentId ?? '';
+      const buildId = consoleRoot.dataset.buildId ?? 'local-working-tree';
+      const deckId = consoleRoot.dataset.deckId ?? contentId;
+      const durationMinutes = Number(panel.dataset.durationMinutes) || timeline.totalMinutes;
+      const storageKey = `${progressStoragePrefix}:${buildId}:${deckId}`;
+      let slides: DeckSlide[] = [];
+      let checkpoints: Checkpoint[] = [];
+      let activeSlideIndex = 0;
+      let state: ProgressState;
+
+      const defaultState = (): ProgressState => ({
+        schemaVersion: 1,
+        buildId,
+        deckId,
+        startedAt: null,
+        running: false,
+        pausedAt: null,
+        pausedDurationMs: 0,
+        activeSlideId: '',
+        completedCheckpoints: [],
+        actualArrivalTimes: {},
+        checkpointOverrides: {},
+        updatedAt: new Date().toISOString(),
+      });
+      try {
+        const stored = JSON.parse(localStorage.getItem(storageKey) ?? 'null');
+        state = stored?.schemaVersion === 1 && stored.buildId === buildId && stored.deckId === deckId
+          ? { ...defaultState(), ...stored }
+          : defaultState();
+      } catch { state = defaultState(); }
+
+      const save = () => {
+        state.updatedAt = new Date().toISOString();
+        localStorage.setItem(storageKey, JSON.stringify(state));
+      };
+      const startInput = panel.querySelector<HTMLInputElement>('[data-progress-start-input]');
+      const formatTimeInput = (date: Date) => `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+      if (startInput) {
+        startInput.value = formatTimeInput(new Date());
+        startInput.dataset.useCurrentTime = 'true';
+        startInput.addEventListener('input', () => {
+          startInput.dataset.useCurrentTime = 'false';
+        });
+      }
+      const elapsedMinutes = (now = Date.now()) => {
+        if (!state.startedAt) return 0;
+        const end = state.running ? now : (state.pausedAt ?? now);
+        return Math.max(0, (end - state.startedAt - state.pausedDurationMs) / minute);
+      };
+      const targetFor = (checkpoint: Checkpoint) => checkpoint.cumulativeMinutes
+        + (state.checkpointOverrides[checkpoint.id] ?? 0);
+      const currentMapped = () => checkpoints.find((checkpoint) => checkpoint.mappedSlideId === state.activeSlideId) ?? null;
+      const previousMapped = () => [...checkpoints]
+        .reverse()
+        .find((checkpoint) => checkpoint.mappedSlideIndex != null && checkpoint.mappedSlideIndex < activeSlideIndex) ?? null;
+      const nextMapped = () => checkpoints
+        .find((checkpoint) => checkpoint.mappedSlideIndex != null && checkpoint.mappedSlideIndex > activeSlideIndex) ?? null;
+      const statusThresholds = durationMinutes >= 360
+        ? { appropriate: 10, caution: 20 }
+        : { appropriate: 5, caution: 15 };
+      const checkpointText = (checkpoint: Checkpoint | null) => {
+        if (!checkpoint) return '-';
+        const target = targetFor(checkpoint);
+        const mapped = checkpoint.mappedSlideId ? `권장 누적 ${formatMinutes(target)}` : '권장 시간 미매핑';
+        const completed = state.completedCheckpoints.includes(checkpoint.id) ? ' · 완료' : '';
+        return `${checkpoint.label} · ${mapped}${completed}`;
+      };
+
+      const setText = (selector: string, value: string) => {
+        const element = panel.querySelector<HTMLElement>(selector);
+        if (element) element.textContent = value;
+      };
+      const render = () => {
+        const now = Date.now();
+        const elapsed = elapsedMinutes(now);
+        const current = currentMapped();
+        const previous = previousMapped();
+        const next = nextMapped();
+        const pause = panel.querySelector<HTMLButtonElement>('[data-progress-action="pause"]');
+        const resume = panel.querySelector<HTMLButtonElement>('[data-progress-action="resume"]');
+        const complete = panel.querySelector<HTMLButtonElement>('[data-progress-action="complete"]');
+        const minus = panel.querySelector<HTMLButtonElement>('[data-progress-action="minus-five"]');
+        const plus = panel.querySelector<HTMLButtonElement>('[data-progress-action="plus-five"]');
+
+        setText('[data-progress-started]', formatClock(state.startedAt));
+        setText('[data-progress-current-time]', formatClock(now));
+        setText('[data-progress-elapsed]', formatMinutes(elapsed));
+        setText('[data-progress-remaining]', formatMinutes(Math.max(0, durationMinutes - elapsed)));
+        setText('[data-progress-previous]', checkpointText(previous));
+        setText('[data-progress-current]', checkpointText(current));
+        setText('[data-progress-next]', checkpointText(next));
+
+        const status = panel.querySelector<HTMLElement>('[data-progress-status]');
+        const statusTitle = status?.querySelector('strong');
+        const statusDetail = status?.querySelector('span');
+        if (!current) {
+          setText('[data-progress-target]', '권장 시간 미매핑');
+          setText('[data-progress-difference]', '-');
+          if (status) status.dataset.state = 'unmapped';
+          if (statusTitle) statusTitle.textContent = '권장 시간 미매핑';
+          if (statusDetail) statusDetail.textContent = '정확히 매핑된 체크포인트에서만 속도를 판정합니다.';
+        } else {
+          const target = targetFor(current);
+          const difference = elapsed - target;
+          const absoluteDifference = Math.abs(difference);
+          const range = `${formatMinutes(Math.max(0, target - statusThresholds.appropriate))}~${formatMinutes(target + statusThresholds.appropriate)}`;
+          setText('[data-progress-target]', `${formatMinutes(target)} · 적정 ${range}`);
+          setText('[data-progress-difference]', absoluteDifference < 0.5
+            ? '계획과 일치'
+            : `${formatMinutes(absoluteDifference)} ${difference < 0 ? '빠름' : '느림'}`);
+          const direction = difference < 0 ? '빠름' : '느림';
+          const pace = absoluteDifference <= statusThresholds.appropriate
+            ? 'appropriate'
+            : absoluteDifference <= statusThresholds.caution
+              ? 'caution'
+              : 'adjust';
+          const needsAdjustment = absoluteDifference > statusThresholds.caution;
+          if (status) status.dataset.state = pace;
+          if (statusTitle) statusTitle.textContent = needsAdjustment
+            ? `조정 필요 · ${direction}`
+            : pace === 'appropriate' ? '적정 속도' : `주의 · ${direction}`;
+          if (statusDetail) statusDetail.textContent = needsAdjustment
+            ? '이후 체크포인트를 수동으로 조정할지 검토하세요.'
+            : `${current.label} 기준 권장 누적시간과 비교한 결과입니다.`;
+        }
+
+        if (pause) pause.disabled = !state.running;
+        if (resume) resume.disabled = state.running || !state.startedAt;
+        [complete, minus, plus].forEach((button) => { if (button) button.disabled = !current; });
+
+        const log = panel.querySelector<HTMLOListElement>('[data-progress-log]');
+        if (log) {
+          log.replaceChildren();
+          checkpoints.forEach((checkpoint) => {
+            const item = document.createElement('li');
+            const arrival = state.actualArrivalTimes[checkpoint.id];
+            const mapping = checkpoint.mappedSlideId ? `slideId ${checkpoint.mappedSlideId}` : '권장 시간 미매핑';
+            item.textContent = `${checkpoint.label} · ${formatMinutes(targetFor(checkpoint))} · ${mapping}${arrival ? ` · 실제 ${formatMinutes(arrival.elapsedMinutes)}` : ''}`;
+            if (state.completedCheckpoints.includes(checkpoint.id)) item.dataset.completed = 'true';
+            log.append(item);
+          });
+        }
+      };
+
+      const setSlides = (nextSlides: DeckSlide[]) => {
+        slides = nextSlides;
+        checkpoints = mapCheckpoints(timeline, slides);
+        const restoredIndex = slides.findIndex((slide) => slide.id === state.activeSlideId);
+        if (restoredIndex >= 0) activeSlideIndex = restoredIndex;
+        render();
+      };
+      deckRoot.addEventListener('lecture-deck-ready', (event) => {
+        setSlides((event as CustomEvent).detail?.slides ?? []);
+      });
+      deckRoot.addEventListener('lecture-deck-change', (event) => {
+        const detail = (event as CustomEvent).detail;
+        state.activeSlideId = detail?.slide?.id ?? '';
+        activeSlideIndex = Number(detail?.activeIndex) || 0;
+        save();
+        render();
+      });
+
+      const start = () => {
+        const now = Date.now();
+        if (!state.startedAt) state.startedAt = now;
+        if (state.pausedAt) state.pausedDurationMs += now - state.pausedAt;
+        state.pausedAt = null;
+        state.running = true;
+        save();
+        render();
+      };
+      const pause = () => {
+        if (!state.running) return;
+        state.running = false;
+        state.pausedAt = Date.now();
+        save();
+        render();
+      };
+      const resume = () => start();
+      const reset = () => {
+        if (!window.confirm('현재 차시의 시간 운영 기록을 모두 초기화할까요?')) return;
+        state = defaultState();
+        save();
+        render();
+      };
+      const setStartTime = () => {
+        if (!startInput) return;
+        const now = new Date();
+        if (!startInput.value || startInput.dataset.useCurrentTime === 'true') {
+          startInput.value = formatTimeInput(now);
+          startInput.dataset.useCurrentTime = 'true';
+          state.startedAt = now.getTime();
+        } else {
+          const [hours, minutes] = startInput.value.split(':').map(Number);
+          now.setHours(hours, minutes, 0, 0);
+          state.startedAt = now.getTime();
+        }
+        state.pausedDurationMs = 0;
+        if (!state.running) state.pausedAt = Date.now();
+        save();
+        render();
+      };
+      const completeCurrent = () => {
+        const checkpoint = currentMapped();
+        if (!checkpoint) return;
+        if (!state.completedCheckpoints.includes(checkpoint.id)) state.completedCheckpoints.push(checkpoint.id);
+        state.actualArrivalTimes[checkpoint.id] = { timestamp: Date.now(), elapsedMinutes: elapsedMinutes() };
+        save();
+        render();
+      };
+      const shiftCurrentAndLater = (delta: number) => {
+        const checkpoint = currentMapped();
+        if (!checkpoint) return;
+        checkpoints.filter((item) => item.index >= checkpoint.index).forEach((item) => {
+          state.checkpointOverrides[item.id] = (state.checkpointOverrides[item.id] ?? 0) + delta;
+        });
+        save();
+        render();
+      };
+      const restorePlan = () => {
+        state.checkpointOverrides = {};
+        save();
+        render();
+      };
+      const exportJson = () => {
+        const payload = {
+          schemaVersion: 1,
+          buildId,
+          deckId,
+          contentId,
+          durationMinutes,
+          exportedAt: new Date().toISOString(),
+          state,
+          checkpoints: checkpoints.map((checkpoint) => ({
+            ...checkpoint,
+            targetMinutes: targetFor(checkpoint),
+            actualArrival: state.actualArrivalTimes[checkpoint.id] ?? null,
+          })),
+        };
+        const blob = new Blob([`${JSON.stringify(payload, null, 2)}\n`], { type: 'application/json' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `ai-architecture-class-progress-${contentId}-${new Date().toISOString().slice(0, 10)}.json`;
+        link.click();
+        URL.revokeObjectURL(link.href);
+      };
+
+      panel.querySelector('[data-progress-action="start"]')?.addEventListener('click', start);
+      panel.querySelector('[data-progress-action="pause"]')?.addEventListener('click', pause);
+      panel.querySelector('[data-progress-action="resume"]')?.addEventListener('click', resume);
+      panel.querySelector('[data-progress-action="reset"]')?.addEventListener('click', reset);
+      panel.querySelector('[data-progress-action="set-start"]')?.addEventListener('click', setStartTime);
+      panel.querySelector('[data-progress-action="complete"]')?.addEventListener('click', completeCurrent);
+      panel.querySelector('[data-progress-action="minus-five"]')?.addEventListener('click', () => shiftCurrentAndLater(-5));
+      panel.querySelector('[data-progress-action="plus-five"]')?.addEventListener('click', () => shiftCurrentAndLater(5));
+      panel.querySelector('[data-progress-action="restore-plan"]')?.addEventListener('click', restorePlan);
+      panel.querySelector('[data-progress-action="export"]')?.addEventListener('click', exportJson);
+
+      const controller = (deckRoot as HTMLElement & { lectureDeck?: { slides?: DeckSlide[]; getActiveIndex?: () => number } }).lectureDeck;
+      if (controller?.slides) {
+        activeSlideIndex = controller.getActiveIndex?.() ?? 0;
+        state.activeSlideId = controller.slides[activeSlideIndex]?.id ?? state.activeSlideId;
+        setSlides(controller.slides);
+      }
+      save();
+      render();
+      window.setInterval(render, 1000);
+
+      (panel as HTMLElement & { instructorProgress?: unknown }).instructorProgress = {
+        getState: () => structuredClone(state),
+        getCheckpoints: () => structuredClone(checkpoints),
+        thresholds: { ...statusThresholds },
+        elapsedMinutes,
+        start,
+        pause,
+        resume,
+        render,
+      };
+    });
+  };
+
+  initializeProgressPanels();
+</script>

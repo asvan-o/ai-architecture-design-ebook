@@ -5,6 +5,7 @@ import process from 'node:process';
 
 const lessonsDirectory = path.resolve('src/content/lessons');
 const assetManifestPath = path.resolve('data/asset-manifest.yaml');
+const studentReleaseConfigPath = path.resolve('data/student-release.json');
 const lessonTopicsPath = path.resolve('src/lib/lesson-topics.ts');
 const glossaryPath = path.resolve('src/content/glossary/index.mdx');
 const toolCatalogPath = path.resolve('data/tool-catalog.yaml');
@@ -41,6 +42,22 @@ const approvedLessons = [
   { title: '제13차시 · AGY 기반 반복 점검과 제출 패키지 만들기', durationMinutes: 180 },
   { title: '제14차시 · AI 공간디자인 콘셉트 패키지 완성', durationMinutes: 360 },
 ];
+const approvedRoadmapTitles = [
+  '제1차시 · AI가 할 일과 디자이너가 판단할 일',
+  '제2차시 · 첫 공간 콘셉트 생성과 빈 공간 인테리어 배치',
+  '제3차시 · 실무 의뢰와 RFP를 디자인 브리프로 바꾸기',
+  '제4차시 · RFP 기반 공간구성 대안 개발과 프로젝트 산출물 자동 정리',
+  '제5차시 · AI로 실무 문서와 반복 정리 업무 줄이기',
+  '제6차시 · 클라이언트 의뢰를 디자인 브리프로 변환하기',
+  '제7차시 · 메인 이미지 설정과 공간 디자인 일관성 관리',
+  '제8차시 · 서브 이미지 확장과 고도화 수정',
+  '제9차시 · 3D 콘셉트 이미지에서 2D 개념 조닝 역추출',
+  '제10차시 · 실무 데이터 비식별화와 도면·PDF 전처리',
+  '제11차시 · 2D 도면 기반 3D 콘셉트 시각화와 오류 탐지',
+  '제12차시 · 다차원 검증 체크리스트와 교차검증',
+  '제13차시 · 제안서 고도화와 KPI·제출 패키지',
+  '제14차시 · AI 공간디자인 콘셉트 제안서 롤플레잉 최종 발표',
+];
 const approvedTopics = [
   {
     number: '1',
@@ -59,22 +76,26 @@ const approvedTopics = [
   },
   {
     number: '4',
-    title: '메인-서브 통합 워크플로우 및 2D 역추출 브릿지(Bridge) 실습',
+    title: '메인–서브 통합 워크플로우 및 2D 역추출 브릿지 실습',
+    subtitle: '(이미지 일관성과 공간 관계 확장)',
     lessonIds: ['07', '08', '09'],
   },
   {
     number: '5',
     title: '실무 데이터셋 전처리 및 2D 도면 기반 3D 시각화 기초',
+    subtitle: '(도면과 데이터 기반 3D 시각화)',
     lessonIds: ['10', '11'],
   },
   {
     number: '6',
     title: 'AI 생성 결과물 다차원 실무 검증 및 제안서 고도화',
+    subtitle: '(결과물 검증과 제안서 완성)',
     lessonIds: ['12', '13'],
   },
   {
     number: '7',
     title: '실무 검증형 설계 제안서 롤플레잉 최종 발표 및 수료',
+    subtitle: '(최종 제안과 발표)',
     lessonIds: ['14'],
   },
 ];
@@ -117,6 +138,70 @@ const lessonThreeFourOutputs = ['요구조건 매트릭스', '발주기관 추�
 const errors = [];
 const dayToFiles = new Map();
 const lessonAssetIds = new Map();
+
+const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const objectValidationKeyPattern = (key) =>
+  new RegExp(`\\bvalidationKey\\s*:\\s*['\"]${escapeRegExp(key)}['\"]`);
+const hasObjectValidationKey = (source, key) => objectValidationKeyPattern(key).test(source);
+const requireObjectValidationKey = (source, key, context) => {
+  if (!hasObjectValidationKey(source, key)) {
+    errors.push(`${context}: 구조 검증 키 '${key}'가 없습니다.`);
+    return;
+  }
+
+  const keyLine = source.split(/\r?\n/).find((line) => hasObjectValidationKey(line, key));
+  const naturallyRewordedLine = keyLine?.replace(
+    /text:\s*'[^']*'/,
+    "text: '표현을 자연스럽게 바꾼 안전 안내 문장이다.'",
+  );
+  const naturallyRewordedSource =
+    keyLine && naturallyRewordedLine ? source.replace(keyLine, naturallyRewordedLine) : source;
+  if (!hasObjectValidationKey(naturallyRewordedSource, key)) {
+    errors.push(`${context}: 문구 변경 양성 테스트에 실패했습니다.`);
+  }
+
+  const sourceWithoutItem = source
+    .split(/\r?\n/)
+    .filter((line) => !hasObjectValidationKey(line, key))
+    .join('\n');
+  if (hasObjectValidationKey(sourceWithoutItem, key)) {
+    errors.push(`${context}: 구조 항목 제거 음성 테스트에 실패했습니다.`);
+  }
+};
+const promptValidationMarker = (key) => `<!-- validation-key: ${key} -->`;
+const hasPromptValidationItem = (source, key) => {
+  const marker = promptValidationMarker(key);
+  const line = source.split(/\r?\n/).find((candidate) => candidate.includes(marker));
+  if (!line) return false;
+  const itemText = line.replace(marker, '').replace(/^\s*-\s*/, '').trim();
+  return itemText.length >= 20;
+};
+const requirePromptValidationItem = (source, key, context) => {
+  if (!hasPromptValidationItem(source, key)) {
+    errors.push(`${context}: 구조 검증 키 '${key}'가 연결된 안전 항목이 없습니다.`);
+    return;
+  }
+
+  const marker = promptValidationMarker(key);
+  const keyLine = source.split(/\r?\n/).find((line) => line.includes(marker));
+  const naturallyRewordedSource = keyLine
+    ? source.replace(
+        keyLine,
+        `- 표현을 자연스럽게 바꿔도 원문 추적성 검증 의미를 유지합니다. ${marker}`,
+      )
+    : source;
+  if (!hasPromptValidationItem(naturallyRewordedSource, key)) {
+    errors.push(`${context}: 문구 변경 양성 테스트에 실패했습니다.`);
+  }
+
+  const sourceWithoutItem = source
+    .split(/\r?\n/)
+    .filter((line) => !line.includes(marker))
+    .join('\n');
+  if (hasPromptValidationItem(sourceWithoutItem, key)) {
+    errors.push(`${context}: 안전 항목 제거 음성 테스트에 실패했습니다.`);
+  }
+};
 
 const readFrontmatter = (source, fileName) => {
   const match = source.match(/^---\r?\n([\s\S]*?)\r?\n---/);
@@ -170,14 +255,55 @@ try {
 
 const parsedTopics = [
   ...lessonTopicsSource.matchAll(
-    /\{\s*number:\s*'(\d+)'\s*,\s*title:\s*'([^']+)'\s*,\s*lessonIds:\s*\[([^\]]*)\]\s*,\s*lessonCount:\s*(\d+)\s*,?\s*\}/g,
+    /\{\s*number:\s*'(\d+)'\s*,\s*title:\s*'([^']+)'\s*,(?:\s*subtitle:\s*'([^']+)'\s*,)?\s*lessonIds:\s*\[([^\]]*)\]\s*,\s*lessonCount:\s*(\d+)\s*,?\s*\}/g,
   ),
 ].map((match) => ({
   number: match[1],
   title: match[2],
-  lessonIds: [...match[3].matchAll(/'(\d{2})'/g)].map((lessonMatch) => lessonMatch[1]),
-  lessonCount: Number(match[4]),
+  subtitle: match[3],
+  lessonIds: [...match[4].matchAll(/'(\d{2})'/g)].map((lessonMatch) => lessonMatch[1]),
+  lessonCount: Number(match[5]),
 }));
+
+const parsedRoadmap = [...lessonTopicsSource.matchAll(
+  /\{\s*id:\s*'(\d{2})'\s*,\s*day:\s*(\d+)\s*,\s*title:\s*'([^']+)'\s*\}/g,
+)].map((match) => ({ id: match[1], day: Number(match[2]), title: match[3] }));
+
+if (parsedRoadmap.length !== 14) {
+  errors.push(`과정 로드맵 차시 수: 예상 14개, 실제 ${parsedRoadmap.length}개`);
+}
+for (const [index, approvedTitle] of approvedRoadmapTitles.entries()) {
+  const lessonId = String(index + 1).padStart(2, '0');
+  const roadmapLesson = parsedRoadmap.find((lesson) => lesson.id === lessonId);
+  if (!roadmapLesson) {
+    errors.push(`과정 로드맵에 제${index + 1}차시가 없습니다.`);
+    continue;
+  }
+  if (roadmapLesson.day !== index + 1 || roadmapLesson.title !== approvedTitle) {
+    errors.push(`과정 로드맵 제${index + 1}차시 번호 또는 승인 제목이 다릅니다.`);
+  }
+}
+
+try {
+  const studentRelease = JSON.parse(await readFile(studentReleaseConfigPath, 'utf8'));
+  const releasedIds = studentRelease.releasedStudentLessonIds;
+  if (!Array.isArray(releasedIds)) {
+    errors.push('학생 공개 설정의 releasedStudentLessonIds는 배열이어야 합니다.');
+  } else {
+    const expectedContiguousRelease = requiredIds.slice(0, releasedIds.length);
+    if (releasedIds.join(',') !== expectedContiguousRelease.join(',')) {
+      errors.push('학생 공개 차시는 01부터 순서가 끊기지 않는 연속 목록이어야 합니다.');
+    }
+    if (new Set(releasedIds).size !== releasedIds.length) {
+      errors.push('학생 공개 설정에 중복 차시 ID가 있습니다.');
+    }
+    for (const id of releasedIds) {
+      if (!requiredIds.includes(id)) errors.push(`학생 공개 설정에 허용되지 않은 차시 ID가 있습니다: ${id}`);
+    }
+  }
+} catch {
+  errors.push('data/student-release.json을 읽거나 해석할 수 없습니다.');
+}
 
 if (parsedTopics.length !== 7) {
   errors.push(`상위 주제 수: 예상 7개, 실제 ${parsedTopics.length}개`);
@@ -197,6 +323,9 @@ for (const approvedTopic of approvedTopics) {
   const [actualTopic] = matches;
   if (actualTopic.title !== approvedTopic.title) {
     errors.push(`주제 ${approvedTopic.number}: 승인된 주제명과 일치하지 않습니다.`);
+  }
+  if (actualTopic.subtitle !== approvedTopic.subtitle) {
+    errors.push(`주제 ${approvedTopic.number}: 승인된 보조 설명과 일치하지 않습니다.`);
   }
   if (actualTopic.lessonIds.join(',') !== approvedTopic.lessonIds.join(',')) {
     errors.push(
@@ -342,7 +471,6 @@ for (const fileName of files) {
       { marker: 'reviewFramework: {', label: '관찰·변경·후속 대응 분류 구조' },
       { marker: '이미지에서 직접 관찰되는 내용', label: '이미지 관찰 결과 구분' },
       { marker: '의도하지 않은 변경', label: 'AI 변경 유형 구분' },
-      { marker: '원본 이미지 재확인', label: '후속 대응 구분' },
       { marker: '고양이처럼 보이는 동물 1마리', label: '최초 이미지 관찰 기록' },
       { marker: '고양이도 함께 제거됨', label: '의도하지 않은 수정 기록' },
       { marker: 'errorCheckDetails={[', label: 'e-book 상세 오류 체크리스트' },
@@ -353,6 +481,7 @@ for (const fileName of files) {
         errors.push(`${fileName}: 제2차시 상세 본문에 ${label} 구성이 없습니다.`);
       }
     }
+    requireObjectValidationKey(source, 'source-image-comparison', `${fileName} 제2차시 후속 대응`);
     for (const retiredLessonTwoText of [
       '소형 매장의 분위기도 더 안정적으로 유지되었다',
       '카메라 왜곡 없음',
@@ -433,7 +562,6 @@ for (const fileName of files) {
       { marker: 'campus-lounge-existing-plan.png', label: '제3차시 공통 현황 평면도 재사용' },
       { marker: 'campus-lounge-existing-view-01.jpeg', label: '제3차시 공통 현황 이미지 재사용' },
       { marker: 'lesson-03-campus-lounge-rfp-v1.2.pdf', label: '제3차시 공통 RFP 재사용' },
-      { marker: '모델 선택 화면에 표시되는 목록', label: '수업 당일 모델 목록 확인 원칙' },
       { marker: '프로젝트 밖 접근 금지', label: '프로젝트 루트 보안 조건' },
       { marker: '같은 파일을 다시 등록하면 알림', label: '같은 파일 재등록 알림' },
       { marker: '등록 파일 목록을 자동으로 갱신', label: '등록 파일 목록' },
@@ -446,6 +574,7 @@ for (const fileName of files) {
         errors.push(`${fileName}: 제4차시 상세 본문에 ${label} 구성이 없습니다.`);
       }
     }
+    requireObjectValidationKey(source, 'available-agent-capability', `${fileName} 제4차시 모델 선택 원칙`);
     if (source.includes('개념 구획(조닝)')) {
       errors.push(`${fileName}: '개념 구획(조닝)' 대신 '공간구성(Spatial Zoning) 대안'을 사용해야 합니다.`);
     }
@@ -560,7 +689,6 @@ try {
     '‘판독 불가’ 또는 ‘미확정’',
     '행정·입찰 조건과 공간 디자인 요구를 분리',
     '실제 회사 자료, 비공개 RFP, 개인정보, 기업 기밀 또는 사용 권한이 없는 도면',
-    '사람이 RFP 원문의 페이지·절·REQ ID와 짧은 근거 문장을 다시 확인',
     '출처 추적 정보: 페이지·절·REQ ID',
   ];
   for (const marker of promptMarkers) {
@@ -568,6 +696,11 @@ try {
       errors.push(`제3차시 Gemini 요청문에 '${marker}' 안내가 없습니다.`);
     }
   }
+  requirePromptValidationItem(
+    lessonThreePrompt,
+    'rfp-source-traceability',
+    '제3차시 Gemini 요청문 원문 추적성',
+  );
 } catch {
   errors.push('제3차시 Gemini 분석 요청문을 읽을 수 없습니다.');
 }
@@ -645,7 +778,7 @@ if (!toolCatalog.includes('officialUrl: "https://help.openai.com/en/articles/110
   errors.push('ChatGPT Images 공식 URL이 현재 Help 문서와 일치하지 않습니다.');
 }
 if (!toolCatalog.includes('officialUrl: "https://support.claude.com/en/articles/9487310-what-are-artifacts-and-how-do-i-use-them"')) {
-  errors.push('Claude Artifacts 공식 URL이 현재 support.claude.com 문서와 일치하지 않습니다.');
+  errors.push('Claude 공식 URL이 현재 support.claude.com 문서와 일치하지 않습니다.');
 }
 
 let lessonOneSource = '';
@@ -654,9 +787,28 @@ try {
 } catch {
   errors.push('제1차시 본문을 읽을 수 없습니다.');
 }
-for (const toolName of ['Gemini', 'Nano Banana', 'Veo', 'Antigravity', 'ChatGPT Images', 'Midjourney', 'Adobe Firefly', 'Krea', 'Veras', 'Seedance', 'Higgsfield', 'Runway', 'Claude Artifacts']) {
+for (const toolName of ['Gemini', 'Nano Banana', 'Veo', 'Antigravity', 'ChatGPT Images', 'Midjourney', 'Adobe Firefly', 'Krea', 'Veras', 'Seedance', 'Higgsfield', 'Runway', 'Claude']) {
   if (!lessonOneSource.includes(toolName)) errors.push(`제1차시 도구 지형도에 '${toolName}'가 없습니다.`);
 }
+for (const contentKey of [
+  'lesson-01/tools-overview',
+  'lesson-01/practice-tools',
+  'lesson-01/use-case-examples',
+  'lesson-01/safety-terms',
+  'lesson-01/source-inference-assumption-proposal',
+  'lesson-01/response-analysis',
+  'lesson-01/follow-up-actions',
+]) {
+  const matches = lessonOneSource.match(new RegExp(`data-content-key=["']${contentKey.replaceAll('/', '\\/')}["']`, 'g')) ?? [];
+  if (matches.length !== 1) errors.push(`제1차시 공통 content key '${contentKey}': 예상 1개, 실제 ${matches.length}개`);
+}
+if (/Claude\s+Artifacts?/.test(lessonOneSource)) {
+  errors.push('제1차시 학생 노출 콘텐츠에 Claude Artifact(s) 표기가 남아 있습니다. 도구명은 Claude로 표기합니다.');
+}
+for (const fieldName of ['응답 원문 또는 핵심 문장', '판단 구분', '근거 여부', '확인이 필요한 부분', '후속 조치']) {
+  if (!lessonOneSource.includes(`<th>${fieldName}</th>`)) errors.push(`제1차시 대표 응답 분석표에 '${fieldName}' 필드가 없습니다.`);
+}
+if (lessonOneSource.includes('<th>분리한 주장</th>')) errors.push('제1차시 대표 응답 분석표에 실제 분석과 불일치하는 분리한 주장 필드가 남아 있습니다.');
 if (!lessonOneSource.includes('생성형 디자인 도구 지형도')) errors.push('제1차시에 생성형 디자인 도구 지형도가 없습니다.');
 if (!/label: '25~33분', detail: '생성형 디자인 도구 지형도', minutes: 8/.test(lessonOneSource)) {
   errors.push('제1차시 도구 지형도 시간이 승인된 25~33분 구간과 일치하지 않습니다.');
@@ -664,7 +816,7 @@ if (!/label: '25~33분', detail: '생성형 디자인 도구 지형도', minutes
 if (!/data-representative-statements="6"/.test(lessonOneSource)) {
   errors.push('제1차시에 대표 문장 6개 공동 분석 블록이 없습니다.');
 }
-for (const statement of ['따로 또 같이', '도심 속 거실', '2~4인 동반 고객', '창가 배치', '중앙 기둥 또는 벽면', '주광색(주황빛)']) {
+for (const statement of ['따로 또 같이', '도심 속 거실', '동반 이용자', '2&#126;4인', '창가 배치', '중앙 기둥 또는 벽면', '주광색(주황빛)']) {
   if (!lessonOneSource.includes(statement)) errors.push(`제1차시 대표 문장 '${statement}'이 없습니다.`);
 }
 const rawGeminiBlock = lessonOneSource.match(/<div class="lesson-ai-response">([\s\S]*?)<\/div>/)?.[1] ?? '';

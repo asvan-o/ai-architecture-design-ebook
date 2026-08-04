@@ -1,0 +1,28 @@
+---
+import CourseOverviewContent from '../components/course/CourseOverviewContent.astro';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { courseOverviewSections, courseOverviewTitle } from '../lib/course-overview';
+import { getVisibleLessons } from '../lib/lessons';
+
+const lessons = await getVisibleLessons();
+---
+
+<SiteLayout title={courseOverviewTitle} section="COURSE OVERVIEW">
+  <article class="course-overview-page">
+    <header class="course-overview-hero">
+      <p class="page-kicker">COURSE OVERVIEW · BEFORE LESSON 01</p>
+      <h1>{courseOverviewTitle}</h1>
+      <p>수업에서 반복해서 사용할 판단 기준과 7개 주제·14개 차시의 전체 흐름을 먼저 확인합니다.</p>
+    </header>
+
+    <nav class="course-overview-nav" aria-label="과정 안내 목차">
+      <ol>
+        {courseOverviewSections.map((section, index) => (
+          <li><a href={`#${section.id}`}><span>{String(index + 1).padStart(2, '0')}</span>{section.label}</a></li>
+        ))}
+      </ol>
+    </nav>
+
+    <CourseOverviewContent lessons={lessons} linkReleasedLessons />
+  </article>
+</SiteLayout>

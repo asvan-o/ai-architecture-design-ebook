@@ -1,0 +1,86 @@
+---
+import { withBase } from '../../lib/site';
+
+const portraitUrl = withBase(`/instructor-assets/profile/${encodeURIComponent('오경식.jpg')}`);
+const logoUrl = withBase('/instructor-assets/profile/inforest-logo.png');
+---
+
+<section class="instructor-introduction" data-instructor-introduction aria-labelledby="instructor-name">
+  <div class="instructor-introduction__visual">
+    <img
+      class="instructor-introduction__portrait"
+      src={portraitUrl}
+      alt="강사 오경식 프로필 사진"
+      width="2304"
+      height="3032"
+      loading="eager"
+      decoding="sync"
+    />
+    <div class="instructor-introduction__brand">
+      <span>STUDIO</span>
+      <img src={logoUrl} alt="INFOREST" width="758" height="151" loading="eager" decoding="sync" />
+    </div>
+  </div>
+
+  <div class="instructor-introduction__content">
+    <header>
+      <p>INSTRUCTOR</p>
+      <h1 id="instructor-name">오경식</h1>
+      <strong>INFOREST 대표 · 3D/VFX 콘텐츠 디렉터</strong>
+    </header>
+
+    <p class="instructor-introduction__summary">
+      생성형 AI, 3D·VFX, 모션그래픽과 프로젝션 기술을 기반으로
+      공간·이미지·영상 콘텐츠를 기획하고 제작하고 있습니다.
+    </p>
+
+    <section class="instructor-introduction__career" aria-labelledby="career-title">
+      <h2 id="career-title">주요 경력 및 전시·프로젝트</h2>
+      <div class="instructor-introduction__career-grid">
+        <article>
+          <h3>2026</h3>
+          <ul>
+            <li>&lt;힐꼼의 이중생활&gt; 애니메이션 제작 총괄</li>
+            <li>홍천 BB(Bambeol Brew &amp; Bloom) 페스타, 미디어아트 ‘낙화’ 제작 총괄</li>
+          </ul>
+        </article>
+
+        <article class="instructor-introduction__career-featured">
+          <h3>2025</h3>
+          <ul>
+            <li>광주 국제 아트페어 미디어아트 스크리닝 전시</li>
+            <li>광주 &lt;추억의 충장축제&gt; 홍보영상 제작</li>
+            <li>&lt;도시의 빛과 그림자&gt; 미디어월 콘텐츠 제작 총괄</li>
+            <li>&lt;몽글몽글극장&gt; 애니메이션 제작 총괄 감독</li>
+            <li>서천군립무용단 &lt;소리花&gt; 융복합 콘텐츠 제작</li>
+            <li>제4회 국제 디지털아트 트리엔날 &lt;공생&gt; 참여 작가</li>
+          </ul>
+        </article>
+
+        <div class="instructor-introduction__career-archive">
+          <article>
+            <h3>2024</h3>
+            <ul>
+              <li>예루살렘 비엔날레 &lt;봄(Spring)&gt; 참여 작가 · S&amp;KOMUST</li>
+            </ul>
+          </article>
+          <article>
+            <h3>2022</h3>
+            <ul>
+              <li>광주 동구 &lt;미로메타아트&gt; 프로젝트 기술 감독</li>
+            </ul>
+          </article>
+          <article>
+            <h3>2021</h3>
+            <ul>
+              <li>광주 남구청사 미디어파사드 &lt;빛의 선물&gt; 제작 참여</li>
+              <li>문화의 달(홍성) 융복합 공연 3D VFX 제작 참여</li>
+              <li>그린발레단 &lt;어린왕자&gt; 융복합 공연 콘텐츠 제작</li>
+              <li>광주 비엔날레 미디어파사드 3D VFX 제작 참여</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>

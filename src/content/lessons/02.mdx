@@ -21,7 +21,7 @@ sources:
     url: "https://ai.google.dev/gemini-api/docs/image-generation"
     accessedAt: "2026-08-02"
     sourceType: "official"
-    note: "Nano Banana가 Gemini의 네이티브 이미지 생성 기능 명칭이며 Gemini API에 여러 세부 모델이 함께 제공됨을 확인했다. 실제 수업 모델과 화면은 수업 당일 다시 확인한다."
+    note: "Nano Banana가 Gemini의 네이티브 이미지 생성 기능 명칭이며 Gemini API에 여러 세부 모델이 함께 제공됨을 확인했다. 앱 화면과 제공 모델은 계정 환경과 서비스 업데이트에 따라 달라질 수 있다."
   - id: "gemini-apps-image-generation"
     title: "Generate and edit images with Gemini Apps"
     publisher: "Google Gemini Apps Help"
@@ -92,9 +92,8 @@ import emptyBase05 from '../../assets/lessons/02/empty-space-sample/02-base-imag
   ]}
   concepts={[
     { category: '확정된 수업 구성', text: '프롬프트 또는 요청문(Prompt)은 AI에게 원하는 작업, 유지할 조건과 확인할 기준을 전달하는 입력이다. 이번 강의에서는 입문자가 이해하기 쉬운 “요청문”을 기본 표현으로 사용한다.' },
-    { category: '강의 전 사실 검증', text: 'Nano Banana는 Gemini의 이미지 생성 기능 명칭이다. Gemini Apps의 웹 화면과 Gemini API는 서로 다른 사용 경로이며, 각 경로에서 여러 세부 이미지 모델이 제공될 수 있다.' },
-    { category: '강의 전 사실 검증', text: '수업에서는 당일 사용할 Gemini 이미지 생성 화면, 로그인 계정, 선택된 세부 모델과 사용 가능 기능을 각각 확인한다. API 문서에 있는 기능이 모든 수강생의 웹 화면에 항상 동일하게 보인다고 단정하지 않는다.' },
-    { category: '강의 전 사실 검증', text: '이미지 생성 AI는 입력 조건을 바탕으로 이미지를 생성하거나 수정한다. 확산 모델은 이미지 생성 방식을 이해하기 위한 대표 기술 개념으로만 다룬다.' },
+    { category: '확인된 사실', text: 'Nano Banana는 Gemini의 이미지 생성 기능 명칭이다. Gemini Apps의 웹 화면과 Gemini API는 서로 다른 사용 경로이며, 각 경로에서 여러 세부 이미지 모델이 제공될 수 있다.' },
+    { category: '확인된 사실', text: '이미지 생성 AI는 입력 조건을 바탕으로 이미지를 생성하거나 수정한다. 확산 모델은 이미지 생성 방식을 이해하기 위한 대표 기술 개념으로만 다룬다.' },
     { category: '추가 출처 확인', text: '특정 Google 이미지 모델의 공개되지 않은 내부 구조는 공식 자료 없이 단정하지 않는다.' },
     { category: '수강생 판단', text: '짧은 요청에는 공간 조건이 충분히 담기지 않아 AI가 요청하지 않은 사람, 문자, 가구와 분위기를 생성할 수 있다.' },
     { category: '수강생 판단', text: '같은 요청을 사용해도 결과가 달라질 수 있으므로 첫 결과를 그대로 정답으로 취급하지 않는다.' },
@@ -111,7 +110,7 @@ import emptyBase05 from '../../assets/lessons/02/empty-space-sample/02-base-imag
     { category: '교육용 가정', text: '제공 자료는 고객명, 주소, 연락처나 회사 기밀이 없는 교육용 샘플이며 실제 프로젝트 자료가 아니다.' },
     { category: '추가 검증 필요', text: '고객 개인정보, 외부 업로드가 금지된 회사 자료, 사용 권한이 확인되지 않은 사진은 입력 자료로 사용하지 않는다.' },
     { category: '디자인 제안', text: '특정 건축가나 작품을 그대로 복제하도록 요청하기보다 형태, 재료, 빛, 색과 분위기처럼 관찰 가능한 특성으로 표현한다.' },
-    { category: '강의 전 사실 검증', text: '수업 당일 서비스 약관, 개인정보 처리와 업로드 자료 정책, 활동 저장 설정과 자료 보관 정책을 확인한다. 개인 계정과 학교·회사 계정의 정책은 다를 수 있다.' },
+    { category: '추가 검증 필요', text: '개인 계정과 학교·회사 계정은 데이터 처리와 자료 보관 정책이 다를 수 있으므로, 외부 업로드가 허용된 자료만 사용한다.' },
     { category: '추가 출처 확인', text: '생성 결과의 저작권·소유권·상업 이용 가능성은 계정, 약관, 입력 자료와 관할에 따라 별도 확인한다. 이 수업은 권리나 상업 이용을 보장하지 않는다.' },
     { category: '추가 검증 필요', text: '이 안내는 교육용 안전 사용 원칙이며, 실제 상업 프로젝트에서는 법률·계약·보안 담당자와 공개 범위를 확인한다.' },
   ]}
@@ -149,7 +148,7 @@ import emptyBase05 from '../../assets/lessons/02/empty-space-sample/02-base-imag
     reviewFramework: {
       observationResults: ['이미지에서 직접 관찰되는 내용', '이미지에서 보이지 않아 확인할 수 없는 내용'],
       changeTypes: ['유지', '의도한 변경', '의도하지 않은 변경', '새로 생성', '삭제', '확인 불가'],
-      followUpActions: ['유지', '수정 요청', '원본 이미지 재확인', '도면 확인', '현장 확인', '전문가 확인', '제외'],
+      followUpActions: ['유지', '수정 요청', '원본 이미지 대조', '도면 확인', '현장 확인', '전문가 확인', '제외'],
       originalReview: [
         { label: '이미지에서 직접 관찰되는 내용', items: ['사람 2명', '고양이처럼 보이는 동물 1마리', '창문에 읽을 수 있는 상호·문자', '에스프레소 머신과 카운터처럼 보이는 요소', '테이블과 의자', '꽃과 식물', '큰 창과 출입문처럼 보이는 요소', '따뜻한 조명과 우드 계열 마감'] },
         { label: '이미지로 확인할 수 없는 실제 조건', items: ['실제 면적과 통로 폭', '기존 창호·출입구와 동일한지', '실제 벽체·기둥·천장·바닥이 보존됐는지', '구조·설비·소방·접근성·법규와 시공 가능성'] },
@@ -171,7 +170,7 @@ import emptyBase05 from '../../assets/lessons/02/empty-space-sample/02-base-imag
     { id: 'define-furniture-and-functions', title: '필요한 가구와 기능 결정', minutes: 10, description: '공간 용도와 사용자에게 필요한 가구, 작업 영역과 기능을 우선순위에 따라 정한다.' },
     { id: 'define-atmosphere', title: '원하는 분위기 결정', minutes: 5, description: '형태, 재료, 빛, 색과 분위기처럼 관찰 가능한 특성으로 원하는 방향을 정리한다.' },
     { id: 'write-first-prompt', title: '첫 인테리어 요청문 작성', minutes: 10, description: '공간 용도, 사용자, 기능과 분위기를 자연어 요청문으로 작성하고 유지해야 할 공간 요소를 덧붙인다.' },
-    { id: 'generate-first-result', title: 'Gemini 이미지 생성 화면에서 첫 결과 생성', minutes: 15, description: '수업 당일 사용할 Nano Banana 세부 모델과 계정 권한을 확인한 뒤, 선택한 빈 공간 이미지와 첫 요청문으로 첫 결과를 생성한다.' },
+    { id: 'generate-first-result', title: 'Gemini 이미지 생성 화면에서 첫 결과 생성', minutes: 15, description: '선택한 빈 공간 이미지와 첫 요청문을 이용해, 사용할 수 있는 이미지 생성 기능으로 첫 결과를 생성한다.' },
     { id: 'review-first-result', title: '관찰·변경·후속 대응 구분', minutes: 10, description: '직접 관찰되는 내용과 확인 불가 조건을 나누고, 변경 유형과 유지·수정 요청·도면 확인 등 후속 대응을 따로 정한다.' },
     { id: 'write-revision-prompt', title: '수정 요청문 작성', minutes: 10, description: '판단 내용을 바탕으로 유지 조건과 변경 범위를 분명히 적은 수정 요청문을 작성한다.' },
     { id: 'generate-second-result', title: '두 번째 결과 생성', minutes: 15, description: '수정 요청문을 적용해 두 번째 결과를 만들고 요청하지 않은 공간 변화가 생겼는지 확인한다.' },
@@ -188,7 +187,7 @@ import emptyBase05 from '../../assets/lessons/02/empty-space-sample/02-base-imag
   judgments={[
     { category: '수강생 판단', text: '관찰 결과: 이미지에서 직접 보이는 내용과 이미지로 확인할 수 없는 내용을 나눈다.' },
     { category: '수강생 판단', text: 'AI 변경 유형: 유지, 의도한 변경, 의도하지 않은 변경, 새로 생성, 삭제, 확인 불가 중 하나로 기록한다.' },
-    { category: '수강생 판단', text: '후속 대응: 유지, 수정 요청, 원본 이미지 재확인, 도면 확인, 현장 확인, 전문가 확인, 제외 중 다음 행동을 정한다.' },
+    { category: '수강생 판단', text: '후속 대응: 유지, 수정 요청, 원본 이미지 대조, 도면 확인, 현장 확인, 전문가 확인, 제외 중 다음 행동을 정한다.', validationKey: 'source-image-comparison' },
     { category: '수강생 판단', text: '세 분류는 필수 표가 아니라 수정 요청문과 확인 계획을 만들기 위한 사고 기준이며 한 항목에 섞어 쓰지 않는다.' },
   ]}
   errorChecks={[
@@ -233,7 +232,7 @@ import emptyBase05 from '../../assets/lessons/02/empty-space-sample/02-base-imag
     { category: '추가 검증 필요', text: '생성 결과는 개념 시각화이며 실제 설계 확정안이 아니다.' },
     { category: '법규·구조·소방 등 해당 전문가 판단', text: '실제 면적, 구조, 동선, 법규, 설비와 시공성은 생성 이미지로 확정할 수 없다.' },
     { category: '추가 출처 확인', text: '실제 프로젝트에서는 원본 도면과 현장 자료를 별도로 확인해야 한다.' },
-    { category: '강의 전 사실 검증', text: 'Nano Banana는 Gemini의 이미지 생성 기능 명칭이며 API와 Gemini Apps의 화면·세부 모델은 구분한다. 수업 당일 계정에서 사용할 화면과 선택된 모델을 확인한다.' },
+    { category: '확인된 사실', text: 'Nano Banana는 Gemini의 이미지 생성 기능 명칭이며 API와 Gemini Apps의 화면·세부 모델은 구분한다.' },
     { category: '확정된 수업 구성', text: '제2차시에서는 이미지에 보이는 결과와 확인할 수 없는 조건을 구분했다. 제3차시에서는 문서의 요구조건과 근거를 구조화한다.' },
     { category: '확정된 수업 구성', text: '제2차시 생성 이미지는 제3차시의 필수 입력, 실제 현황자료, RFP 분석 자료나 설계 기준이 아니다. 결과 검토 방법을 연습한 선행 경험으로만 연결한다.' },
   ]}

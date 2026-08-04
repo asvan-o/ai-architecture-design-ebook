@@ -11,6 +11,10 @@ if (!['student', 'instructor'].includes(mode) || !outputDirectory) {
 }
 
 const outputPath = path.resolve(outputDirectory);
+const studentRelease = JSON.parse(
+  await readFile(path.resolve('data', 'student-release.json'), 'utf8'),
+);
+const releasedStudentLessonIds = new Set(studentRelease.releasedStudentLessonIds);
 const privateNoteDirectory = path.resolve(
   process.env.INSTRUCTOR_CONTENT_DIR ?? path.join('instructor-content', 'lessons'),
 );
@@ -59,6 +63,17 @@ const parsePrivateBodies = (source) => {
   return bodies;
 };
 
+const readDeckManifest = (source, deckId) => {
+  const escapedDeckId = deckId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const match = source.match(new RegExp(`<script type="application/json" data-deck-manifest="${escapedDeckId}">([^<]+)</script>`));
+  if (!match) return null;
+  try {
+    return JSON.parse(match[1]);
+  } catch {
+    return null;
+  }
+};
+
 const files = await collectFiles(outputPath);
 const textFiles = files
   .filter((filePath) => /\.(?:html|js|mjs|css|json|map|txt|xml)$/i.test(filePath));
@@ -94,6 +109,22 @@ const presenterOnlyMarkers = [
   '/instructor-console/lessons/',
   '/presentation/lessons/',
   'instructor-content/',
+  'ai-architecture-slide-overrides-v1',
+  'data-quick-edit',
+  'LOCAL QUICK EDIT',
+  'instructor-introduction',
+  'data-instructor-introduction',
+  'lecture-start',
+  'data-deck-first-lesson',
+  '주요 경력 및 전시·프로젝트',
+  '힐꼼의 이중생활',
+  'Bambeol Brew & Bloom',
+  'instructor-assets/profile',
+  'ai-architecture-instructor-progress-v1',
+  'data-instructor-progress',
+  'completedCheckpoints',
+  'checkpointOverrides',
+  '시간 운영 기록 JSON',
 ];
 
 if (mode === 'student') {
@@ -132,7 +163,48 @@ if (mode === 'student') {
       break;
     }
   }
+  for (let day = 1; day <= 14; day += 1) {
+    const lessonId = String(day).padStart(2, '0');
+    const shouldExist = releasedStudentLessonIds.has(lessonId);
+    const lessonPath = path.join(outputPath, 'lessons', lessonId, 'index.html');
+    const printPath = path.join(outputPath, 'print', 'lessons', lessonId, 'index.html');
+    if (existsSync(lessonPath) !== shouldExist) {
+      errors.push(`학생용 제${day}차시 route 공개 상태가 중앙 설정과 다릅니다.`);
+    }
+    if (existsSync(printPath) !== shouldExist) {
+      errors.push(`학생용 제${day}차시 인쇄 route 공개 상태가 중앙 설정과 다릅니다.`);
+    }
+    if (!shouldExist) {
+      const lessonLinkPattern = new RegExp(`href=["'][^"']*/lessons/${lessonId}/?["']`);
+      if (lessonLinkPattern.test(combinedSource)) {
+        errors.push(`학생용 결과물에 비공개 제${day}차시 직접 링크가 포함됐습니다.`);
+      }
+    }
+  }
+  const coursePrintPath = path.join(outputPath, 'print', 'course', 'index.html');
+  const coursePrintSource = existsSync(coursePrintPath)
+    ? await readFile(coursePrintPath, 'utf8')
+    : '';
+  for (let day = 1; day <= 14; day += 1) {
+    const lessonId = String(day).padStart(2, '0');
+    const shouldExist = releasedStudentLessonIds.has(lessonId);
+    const markerExists = coursePrintSource.includes(`data-print-lesson-id="${lessonId}"`);
+    if (markerExists !== shouldExist) {
+      errors.push(`학생용 전체 교안의 제${day}차시 포함 상태가 중앙 설정과 다릅니다.`);
+    }
+  }
 } else {
+  const introductionConsolePath = path.join(outputPath, 'instructor-console', 'instructor-introduction', 'index.html');
+  const introductionPresentationPath = path.join(outputPath, 'presentation', 'instructor-introduction', 'index.html');
+  const lectureStartConsolePath = path.join(outputPath, 'instructor-console', 'lecture-start', 'index.html');
+  const lectureStartPresentationPath = path.join(outputPath, 'presentation', 'lecture-start', 'index.html');
+  const profileAssetPath = path.join(outputPath, 'instructor-assets', 'profile', '오경식.jpg');
+  const logoAssetPath = path.join(outputPath, 'instructor-assets', 'profile', 'inforest-logo.png');
+  for (const requiredPath of [lectureStartConsolePath, lectureStartPresentationPath, introductionConsolePath, introductionPresentationPath, profileAssetPath, logoAssetPath]) {
+    if (!existsSync(requiredPath)) errors.push(`강사용 결과물에 필수 강사 소개 파일이 없습니다: ${requiredPath}`);
+  }
+  const portfolioFiles = files.filter((filePath) => /(?:포폴|portfolio).*\.pdf$/i.test(filePath));
+  if (portfolioFiles.length > 0) errors.push('강사용 결과물에 포트폴리오 PDF가 포함됐습니다.');
   if (yamlFiles.length > 0) {
     errors.push('강사용 정적 결과물에 원본 YAML 파일이 포함됐습니다.');
   }
@@ -186,6 +258,60 @@ if (mode === 'student') {
     }
   }
 
+  const manifestTargets = [
+    {
+      deckId: 'lecture-start',
+      consolePath: path.join(outputPath, 'instructor-console', 'lecture-start', 'index.html'),
+      presentationPath: path.join(outputPath, 'presentation', 'lecture-start', 'index.html'),
+    },
+    {
+      deckId: 'instructor-introduction',
+      consolePath: path.join(outputPath, 'instructor-console', 'instructor-introduction', 'index.html'),
+      presentationPath: path.join(outputPath, 'presentation', 'instructor-introduction', 'index.html'),
+    },
+    {
+      deckId: 'course-overview',
+      consolePath: path.join(outputPath, 'instructor-console', 'course-overview', 'index.html'),
+      presentationPath: path.join(outputPath, 'presentation', 'course-overview', 'index.html'),
+    },
+    ...Array.from({ length: 14 }, (_, index) => {
+      const lessonId = String(index + 1).padStart(2, '0');
+      return {
+        deckId: `lesson-${lessonId}`,
+        consolePath: path.join(outputPath, 'instructor-console', 'lessons', lessonId, 'index.html'),
+        presentationPath: path.join(outputPath, 'presentation', 'lessons', lessonId, 'index.html'),
+      };
+    }),
+  ];
+  for (const target of manifestTargets) {
+    if (!existsSync(target.consolePath) || !existsSync(target.presentationPath)) continue;
+    const [consoleSource, presentationSource] = await Promise.all([
+      readFile(target.consolePath, 'utf8'),
+      readFile(target.presentationPath, 'utf8'),
+    ]);
+    const consoleManifest = readDeckManifest(consoleSource, target.deckId);
+    const presentationManifest = readDeckManifest(presentationSource, target.deckId);
+    if (!consoleManifest || !presentationManifest) {
+      errors.push(`${target.deckId}: 고정 slide manifest가 양쪽 화면에 없습니다.`);
+      continue;
+    }
+    if (JSON.stringify(consoleManifest) !== JSON.stringify(presentationManifest)) {
+      errors.push(`${target.deckId}: 강사 콘솔과 프로젝터의 slide manifest가 다릅니다.`);
+      continue;
+    }
+    const slides = consoleManifest.slides ?? [];
+    const ids = slides.map((slide) => slide.id);
+    if (
+      consoleManifest.schemaVersion !== 1
+      || consoleManifest.deckId !== target.deckId
+      || consoleManifest.referenceViewport?.width !== 1280
+      || consoleManifest.referenceViewport?.height !== 720
+      || ids.length === 0
+      || new Set(ids).size !== ids.length
+      || slides.some((slide, slideIndex) => slide.slideIndex !== slideIndex)
+    ) errors.push(`${target.deckId}: 고정 slide manifest 식별자 또는 순서가 올바르지 않습니다.`);
+  }
+
   for (const [lessonId, requiredSlots] of Object.entries(requiredSlotsByLesson)) {
     const consolePath = path.join(outputPath, 'instructor-console', 'lessons', lessonId, 'index.html');
     const consoleSource = existsSync(consolePath) ? await readFile(consolePath, 'utf8') : '';
@@ -204,7 +330,11 @@ if (mode === 'student') {
     if (
       presentationSource.includes('data-instructor-note-slot') ||
       presentationSource.includes('INSTRUCTOR ONLY · LOCAL BUILD') ||
-      presentationSource.includes('INSTRUCTOR_NOTE_SLOT')
+      presentationSource.includes('INSTRUCTOR_NOTE_SLOT') ||
+      presentationSource.includes('data-instructor-progress') ||
+      presentationSource.includes('ai-architecture-instructor-progress-v1') ||
+      presentationSource.includes('completedCheckpoints') ||
+      presentationSource.includes('checkpointOverrides')
     ) {
       errors.push('프레젠테이션 화면에 강사 메모 또는 메모 슬롯이 포함됐습니다.');
     }

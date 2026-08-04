@@ -547,9 +547,29 @@
 
 .print-document .time-plan__print-table th:last-child,
 .print-document .time-plan__print-table td:last-child {
-  width: 22mm;
-  text-align: right;
-  white-space: nowrap;
+  width: auto;
+  text-align: left;
+  white-space: normal;
+}
+
+.print-course-toc > ol > li > div small {
+  color: #68706b;
+  font-size: 9.5pt;
+  line-height: 1.4;
+}
+
+.print-document .time-plan__detailed-list {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.print-document .time-plan__detailed-list li {
+  min-height: 0;
+  break-inside: avoid-page;
+  page-break-inside: avoid;
 }
 
 .print-document .lesson04-term-guide {
@@ -940,7 +960,6 @@
   page-break-after: avoid;
 }
 
-.print-document .outline-section .time-plan > header,
 .print-document .review-state,
 .print-document .asset-policy,
 .print-document .lesson-assets,

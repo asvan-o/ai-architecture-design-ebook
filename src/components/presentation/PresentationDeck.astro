@@ -1,0 +1,95 @@
+---
+import { withBase } from '../../lib/site';
+
+interface Props {
+  contentId: string;
+  title: string;
+  kicker: string;
+  topic?: string;
+  embedded?: boolean;
+  role?: 'projector' | 'console';
+}
+
+const {
+  contentId,
+  title,
+  kicker,
+  topic = '',
+  embedded = false,
+  role = 'projector',
+} = Astro.props;
+const firstLessonUrl = withBase(role === 'console'
+  ? '/instructor-console/lessons/01/'
+  : '/presentation/lessons/01/');
+---
+
+<div class:list={['lecture-deck-frame', { 'lecture-deck-frame--embedded': embedded }]} data-deck-frame>
+<section
+  class:list={['lecture-deck', { 'lecture-deck--embedded': embedded }]}
+  data-lecture-deck
+  data-content-id={contentId}
+  data-deck-id={contentId}
+  data-title={title}
+  data-kicker={kicker}
+  data-topic={topic}
+  data-build-id={import.meta.env.PUBLIC_LECTURE_BUILD_ID ?? 'local-working-tree'}
+  data-deck-role={role}
+>
+  <div class="lecture-deck__source" data-deck-source hidden>
+    <slot />
+  </div>
+
+  <header class="lecture-deck__toolbar">
+    <div class="lecture-deck__position">
+      <span data-deck-section>시작</span>
+      <strong><span data-deck-number>1</span> / <span data-deck-total>1</span></strong>
+    </div>
+    <div class="lecture-deck__toolbar-actions">
+      <button type="button" data-deck-action="overview" aria-expanded="false">전체 보기</button>
+      <button type="button" data-deck-action="fullscreen">전체화면</button>
+    </div>
+  </header>
+
+  <div class="lecture-deck__viewport" data-deck-viewport tabindex="0" aria-live="polite">
+    <article class="lecture-slide" data-deck-slide></article>
+  </div>
+
+  <footer class="lecture-deck__footer">
+    <button type="button" data-deck-action="previous" aria-label="이전 슬라이드">← 이전</button>
+    <div class="lecture-deck__progress" aria-hidden="true"><span data-deck-progress></span></div>
+    {contentId === 'lecture-start' && (
+      <a class="lecture-deck__first-lesson" data-deck-first-lesson href={firstLessonUrl} hidden>제1차시 열기</a>
+    )}
+    <button type="button" data-deck-action="next" aria-label="다음 슬라이드">다음 →</button>
+  </footer>
+
+  <div class="lecture-deck__overview" data-deck-overview hidden>
+    <header>
+      <div>
+        <span>SLIDE OVERVIEW</span>
+        <h2>{title}</h2>
+      </div>
+      <button type="button" data-deck-action="close-overview">닫기</button>
+    </header>
+    <ol data-deck-overview-list></ol>
+  </div>
+</section>
+</div>
+
+<script>
+  import { initializeLectureDecks } from '../../scripts/lecture-deck';
+  initializeLectureDecks();
+
+  document.querySelectorAll<HTMLElement>('.lecture-deck-frame--embedded').forEach((frame) => {
+    if (frame.dataset.scaleReady === 'true') return;
+    frame.dataset.scaleReady = 'true';
+    const deck = frame.querySelector<HTMLElement>('[data-lecture-deck]');
+    if (!deck) return;
+    const resize = () => {
+      const scale = Math.min(frame.clientWidth / 1280, frame.clientHeight / 720);
+      deck.style.setProperty('--deck-embedded-scale', String(Math.max(scale, 0)));
+    };
+    new ResizeObserver(resize).observe(frame);
+    resize();
+  });
+</script>

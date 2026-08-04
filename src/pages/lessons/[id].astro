@@ -6,7 +6,9 @@ import PdfDownloadPanel from '../../components/PdfDownloadPanel.astro';
 import StatusBadge from '../../components/StatusBadge.astro';
 import { getVisibleLessons } from '../../lib/lessons';
 import { getLessonTopicSummary } from '../../lib/lesson-topics';
+import { hasUnreleasedStudentLessons, isStudentBuild } from '../../lib/student-release';
 import { pageSections, withBase } from '../../lib/site';
+import { formatCourseDuration } from '../../lib/duration';
 import '../../styles/lesson-content.css';
 
 type Lesson = CollectionEntry<'lessons'>;
@@ -35,7 +37,7 @@ const topic = getLessonTopicSummary(dayLabel);
 const dateLabel = lesson.data.date === 'pending' ? '일정 확인 예정' : lesson.data.date;
 const durationLabel = lesson.data.durationMinutes === null
   ? '수업시간 확인 예정'
-  : `${lesson.data.durationMinutes}분`;
+  : formatCourseDuration(lesson.data.durationMinutes);
 const verifiedLabel = lesson.data.lastVerified ?? '검토 전';
 const isDetailedLesson = lesson.data.publicationStatus === 'detailed' || lesson.data.day === 1;
 const publicDateLabel = isDetailedLesson ? dateLabel.replaceAll('-', '.') : dateLabel;
@@ -153,7 +155,11 @@ const localSections = lesson.data.sections ?? pageSections.map((label, index) =>
           <span>NEXT →</span><strong>{next.data.title}</strong>
         </a>
       ) : (
-        <span class="pagination-empty pagination-empty--next">마지막 차시입니다.</span>
+        <span class="pagination-empty pagination-empty--next">
+          {isStudentBuild && hasUnreleasedStudentLessons
+            ? '다음 학습자료는 강의 진행에 맞춰 제공된다.'
+            : '마지막 차시입니다.'}
+        </span>
       )}
     </nav>
   </article>
@@ -366,3 +372,18 @@ const localSections = lesson.data.sections ?? pageSections.map((label, index) =>
     .pagination-empty--next { text-align: left; }
   }
 </style>
+
+<script>
+  const cleanLessonOneTimeLabels = (root: ParentNode = document) => {
+    const summary = root.querySelector('.lesson-summary-grid > div:first-child strong');
+    if (summary?.textContent?.includes('총 180분')) summary.textContent = '3시간 수업';
+    const toolLabel = root.querySelector('.lesson-tool-landscape__header > span');
+    if (toolLabel?.textContent?.includes('분')) toolLabel.textContent = toolLabel.textContent.replace(/^\s*\d+분\s*/, '');
+    const analysisLabel = root.querySelector('.lesson-classification-examples > header > span');
+    if (analysisLabel?.textContent?.includes('분')) analysisLabel.textContent = analysisLabel.textContent.replace(/\s*·\s*\d+분\s*$/, '');
+    root.querySelectorAll('.lesson-practice-block > header strong').forEach((label) => {
+      if (label.textContent?.includes('분')) label.textContent = label.textContent.replace(/\s*·\s*\d+분\s*$/, '');
+    });
+  };
+  cleanLessonOneTimeLabels();
+</script>

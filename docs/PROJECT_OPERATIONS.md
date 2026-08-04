@@ -126,6 +126,17 @@ git pull --ff-only origin main
 
 포터블 키트에는 원본 소스, `.git`, 환경변수 파일과 강사 YAML을 넣지 않는다. 서버는 `127.0.0.1`에만 바인딩한다.
 
+강사 콘솔의 빠른 텍스트 수정은 현재 브라우저의 `localStorage`에만 보관되는 현장용 임시값이다. 공개 e-book, PDF, 소스 MDX와 강사 YAML을 직접 바꾸지 않는다. 다른 PC로 옮길 때는 강사 콘솔의 JSON 내보내기·가져오기를 사용하고, 정식 강의자료 반영은 별도 검토와 소스 변경으로 진행한다.
+
+강사용 빌드는 1280×720 기준의 고정 slide manifest를 생성한다. 화면 해상도는 슬라이드 분할에 영향을 주지 않으며, 콘솔과 프로젝터는 같은 `buildId`·`deckId`·`slideId`만 동기화한다. 강의 본문, 공통 컴포넌트 또는 발표 스타일을 변경한 경우 `npm run build:instructor`로 manifest를 다시 만들고 `npm run lecture:ui:verify`로 1280×720과 1920×1080의 장수·ID·현재/다음 슬라이드 일치를 확인한다.
+
+### 강사 전용 콘텐츠·수업 진행 데이터
+
+- 강사 소개 사진과 로고는 `instructor-content/assets/profile/`에 두고 Git·학생 빌드·PDF에서 제외한다.
+- 강의 허브의 단일 `강의 시작`은 `lecture-start` 덱을 열고, 고정 순서 `instructor-introduction` → `course-overview-title` → 과정 안내 나머지 슬라이드로 진행한다. 과정 안내가 끝나면 제1차시를 자동 시작하지 않고 콘솔 또는 프로젝터에서 직접 연다.
+- 수업 진행 상태와 시간 조정값은 강사 브라우저 `localStorage`에만 저장하고, 학생용 산출물·프로젝터·PDF로 전달하지 않는다.
+- 포트폴리오 PDF는 경력 사실 대조에만 사용하고 Git·빌드·포터블 키트에 복사하지 않는다.
+
 ## 8. 강의키트 재생성 시점
 
 다음 변경이 `main`에 반영된 경우 강의 전에 키트를 다시 생성한다.
@@ -157,6 +168,12 @@ https://asvan-o.github.io/ai-architecture-design-ebook/lessons/<차시>/
 ```
 
 e-book에서 강의 내용, 실습자료, 요청문, 차시별 PDF와 전체 PDF를 제공한다. 제5~14차시가 미완성인 동안에는 완성된 차시의 직접 링크만 안내한다. 목차에 보이는 미완성 차시는 수업자료로 사용하도록 안내하지 않는다.
+
+전체 과정의 목적, 7개 주제·14개 차시 흐름과 AI 결과 검증 원칙은 다음 과정 안내에서 먼저 확인한다.
+
+```text
+https://asvan-o.github.io/ai-architecture-design-ebook/course-overview/
+```
 
 ## 10. 제5차시 이후 제작
 

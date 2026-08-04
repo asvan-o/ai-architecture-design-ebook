@@ -12,28 +12,29 @@ interface Props {
 }
 
 const { totalMinutes, timePlan } = Astro.props;
-const allocatedMinutes = timePlan.reduce((sum, item) => sum + item.minutes, 0);
+const isInstructorConsole = Astro.url.pathname.includes('/instructor-console/');
+const instructorTimelineJson = JSON.stringify({ totalMinutes, items: timePlan })
+  .replaceAll('<', '\\u003c')
+  .replaceAll('\u2028', '\\u2028')
+  .replaceAll('\u2029', '\\u2029');
+const displayedTimePlan = timePlan.map((item) => {
+  const labelIsTimeRange = /^\s*\d/.test(item.label) && item.label.includes('분');
+  return {
+    title: labelIsTimeRange ? item.detail : item.label,
+    detail: labelIsTimeRange ? '' : item.detail,
+  };
+});
 ---
 
+{isInstructorConsole && (
+  <script is:inline type="application/json" data-instructor-timeline set:html={instructorTimelineJson} />
+)}
+
 <div class="time-plan time-plan--detailed">
-  <div class="table-scroll" tabindex="0" role="region" aria-label="제1차시 시간표">
-    <table class="lesson-table">
-      <caption class="sr-only">제1차시 수업 구성</caption>
-      <thead>
-        <tr><th>구간</th><th>내용</th><th>시간</th></tr>
-      </thead>
-      <tbody>
-        {timePlan.map((item) => (
-          <tr>
-            <th scope="row">{item.label}</th>
-            <td>{item.detail}</td>
-            <td>{item.minutes}분</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-  {allocatedMinutes !== totalMinutes && (
-    <p class="time-plan__warning">시간 배분 합계 검토 필요: {allocatedMinutes}분</p>
-  )}
+  <header><span>TODAY'S FLOW</span><strong>오늘의 수업 흐름</strong></header>
+  <ol class="time-plan__detailed-list">
+    {displayedTimePlan.map((item, index) => (
+      <li><span>{String(index + 1).padStart(2, '0')}</span><div><strong>{item.title}</strong>{item.detail && <p>{item.detail}</p>}</div></li>
+    ))}
+  </ol>
 </div>

@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { mainNav, withBase } from '../lib/site';
 import { getVisibleLessons } from '../lib/lessons';
+import { formatCourseDuration } from '../lib/duration';
 
 export const GET: APIRoute = async () => {
   const lessons = await getVisibleLessons();
@@ -19,7 +20,7 @@ export const GET: APIRoute = async () => {
     summary: `${
       lesson.data.date === 'pending' ? '일정 확인 예정' : lesson.data.date
     } · ${
-      lesson.data.durationMinutes === null ? '수업시간 확인 예정' : `${lesson.data.durationMinutes}분`
+      lesson.data.durationMinutes === null ? '수업시간 확인 예정' : formatCourseDuration(lesson.data.durationMinutes)
     }`,
   }));
 

@@ -2,21 +2,24 @@
 import SiteLayout from '../layouts/SiteLayout.astro';
 import PdfDownloadPanel from '../components/PdfDownloadPanel.astro';
 import { getVisibleLessons } from '../lib/lessons';
-import { getLessonTopics } from '../lib/lesson-topics';
+import { getLessonRoadmap, getLessonTopics } from '../lib/lesson-topics';
+import { releasedStudentLessonIds } from '../lib/student-release';
 import { withBase } from '../lib/site';
+import { formatCourseDuration } from '../lib/duration';
 
 const lessons = await getVisibleLessons();
 const lessonsById = new Map(lessons.map((lesson) => [lesson.id, lesson]));
+const roadmapById = new Map(getLessonRoadmap().map((lesson) => [lesson.id, lesson]));
 const topicGroups = getLessonTopics().map((topic) => ({
   topic,
   lessons: topic.lessonIds.flatMap((lessonId) => {
-    const lesson = lessonsById.get(lessonId);
+    const lesson = roadmapById.get(lessonId);
     return lesson ? [lesson] : [];
   }),
 }));
 const dateLabel = (date: string) => date === 'pending' ? '일정 확인 예정' : date;
 const durationLabel = (durationMinutes: number | null) =>
-  durationMinutes === null ? '수업시간 확인 예정' : `${durationMinutes}분`;
+  durationMinutes === null ? '수업시간 확인 예정' : formatCourseDuration(durationMinutes);
 ---
 
 <SiteLayout title="전체 강의 목차" section="CURRICULUM">
@@ -42,7 +45,7 @@ const durationLabel = (durationMinutes: number | null) =>
       items={[{
         href: '/downloads/ai-architecture-design-course.pdf',
         label: '전체 교안 PDF 다운로드',
-        meta: '14차시 학생용 교안 · A4',
+        meta: `현재 공개 ${releasedStudentLessonIds.length}개 차시 · A4`,
       }]}
     />
 
@@ -51,33 +54,43 @@ const durationLabel = (durationMinutes: number | null) =>
         <section class="topic-group" aria-labelledby={`topic-${topic.number}-title`}>
           <header class="topic-group__header">
             <p>주제 {topic.number}</p>
-            <h2 id={`topic-${topic.number}-title`}>{topic.title}</h2>
+            <div>
+              <h2 id={`topic-${topic.number}-title`}>{topic.title}</h2>
+              {topic.subtitle && <p class="topic-group__subtitle">{topic.subtitle}</p>}
+            </div>
             <span>{topic.lessonCount}개 차시</span>
           </header>
           <ol class="curriculum-list">
-            {topicLessons.map((lesson) => (
-              <li>
-                <a href={withBase(`/lessons/${lesson.id}/`)}>
-                  <span class="number">{String(lesson.data.day).padStart(2, '0')}</span>
-                  <div>
-                    <p>LESSON {String(lesson.data.day).padStart(2, '0')}</p>
-                    <h3>{lesson.data.title}</h3>
-                  </div>
-                  <div class="schedule">
-                    <span>{dateLabel(lesson.data.date)}</span>
-                    <span>{durationLabel(lesson.data.durationMinutes)}</span>
-                  </div>
-                  <span class="arrow" aria-hidden="true">→</span>
-                </a>
-              </li>
-            ))}
+            {topicLessons.map((roadmapLesson) => {
+              const lesson = lessonsById.get(roadmapLesson.id);
+              return (
+                <li>
+                  {lesson ? (
+                    <a href={withBase(`/lessons/${lesson.id}/`)}>
+                      <span class="number">{String(lesson.data.day).padStart(2, '0')}</span>
+                      <div>
+                        <p>LESSON {String(lesson.data.day).padStart(2, '0')}</p>
+                        <h3>{roadmapLesson.title}</h3>
+                      </div>
+                      <div class="schedule">
+                        <span>{dateLabel(lesson.data.date)}</span>
+                        <span>{durationLabel(lesson.data.durationMinutes)}</span>
+                      </div>
+                      <span class="arrow" aria-hidden="true">→</span>
+                    </a>
+                  ) : (
+                    <div class="curriculum-roadmap-item">
+                      <span class="number">{String(roadmapLesson.day).padStart(2, '0')}</span>
+                      <h3>{roadmapLesson.title}</h3>
+                    </div>
+                  )}
+                </li>
+              );
+            })}
           </ol>
         </section>
       ))}
     </div>
-    {lessons.length === 0 && (
-      <p class="empty-lessons">현재 공개된 차시가 없습니다. 검토가 완료된 차시부터 순차적으로 제공됩니다.</p>
-    )}
   </div>
 </SiteLayout>
 
@@ -138,7 +151,7 @@ const durationLabel = (durationMinutes: number | null) =>
     border-bottom: 1px solid var(--line-dark);
   }
 
-  .topic-group__header p,
+  .topic-group__header > p,
   .topic-group__header span {
     margin: 0;
     color: var(--accent-dark);
@@ -158,6 +171,15 @@ const durationLabel = (durationMinutes: number | null) =>
     word-break: keep-all;
   }
 
+  .topic-group__subtitle {
+    margin: 0.5rem 0 0;
+    color: var(--muted);
+    font-size: clamp(1.1rem, 1.9vw, 1.9rem);
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 1.4;
+  }
+
   .topic-group__header span {
     color: var(--muted);
     letter-spacing: 0;
@@ -173,14 +195,8 @@ const durationLabel = (durationMinutes: number | null) =>
     border-bottom: 1px solid var(--line-dark);
   }
 
-  .empty-lessons {
-    margin: 0;
-    padding: 3rem 1rem;
-    border-bottom: 1px solid var(--line-dark);
-    color: var(--muted);
-  }
-
-  .curriculum-list a {
+  .curriculum-list a,
+  .curriculum-roadmap-item {
     display: grid;
     grid-template-columns: 5rem minmax(16rem, 1fr) 11rem 2rem;
     gap: 1.2rem;
@@ -188,6 +204,10 @@ const durationLabel = (durationMinutes: number | null) =>
     min-height: 8.5rem;
     padding: 1rem 0.7rem;
     text-decoration: none;
+  }
+
+  .curriculum-roadmap-item {
+    grid-template-columns: 5rem minmax(0, 1fr);
   }
 
   .curriculum-list a:hover {
@@ -207,6 +227,10 @@ const durationLabel = (durationMinutes: number | null) =>
     font-family: var(--serif);
     font-size: 1.25rem;
     font-weight: 600;
+  }
+
+  .curriculum-roadmap-item h3 {
+    color: var(--ink);
   }
 
   .curriculum-list div > p {
@@ -238,8 +262,13 @@ const durationLabel = (durationMinutes: number | null) =>
       border-bottom: 1px solid var(--line);
     }
 
-    .curriculum-list a {
+    .curriculum-list a,
+    .curriculum-roadmap-item {
       grid-template-columns: 4rem 1fr auto;
+    }
+
+    .curriculum-roadmap-item {
+      grid-template-columns: 4rem 1fr;
     }
 
     .schedule {
@@ -266,10 +295,15 @@ const durationLabel = (durationMinutes: number | null) =>
       border-bottom: 1px solid var(--line);
     }
 
-    .curriculum-list a {
+    .curriculum-list a,
+    .curriculum-roadmap-item {
       grid-template-columns: 3rem 1fr 1.2rem;
       gap: 0.7rem;
       min-height: 7rem;
+    }
+
+    .curriculum-roadmap-item {
+      grid-template-columns: 3rem 1fr;
     }
 
     .number {

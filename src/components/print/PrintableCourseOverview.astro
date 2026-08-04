@@ -1,0 +1,26 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import CourseOverviewContent from '../course/CourseOverviewContent.astro';
+import { courseOverviewTitle } from '../../lib/course-overview';
+import { getLessonTopics } from '../../lib/lesson-topics';
+
+interface Props {
+  lessons: CollectionEntry<'lessons'>[];
+}
+
+const { lessons } = Astro.props;
+const isCompleteCourse = lessons.length === 14;
+const lessonIds = new Set(lessons.map((lesson) => lesson.id));
+const topicCount = getLessonTopics().filter((topic) =>
+  topic.lessonIds.some((lessonId) => lessonIds.has(lessonId)),
+).length;
+---
+
+<article class="print-course-overview" data-print-course-overview>
+  <header class="print-course-overview__cover">
+    <p>COURSE ORIENTATION</p>
+    <h1>{courseOverviewTitle}</h1>
+    <span>{topicCount}개 주제 · {lessons.length}개 차시{isCompleteCourse ? ' · 총 48시간' : ' · 현재 공개 교안'}</span>
+  </header>
+  <CourseOverviewContent lessons={lessons} roadmapScope={isCompleteCourse ? 'full' : 'released'} />
+</article>

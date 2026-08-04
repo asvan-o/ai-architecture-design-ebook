@@ -26,9 +26,15 @@ const topicGroups = getLessonTopics().map((topic) => ({
     const lesson = lessonsById.get(lessonId);
     return lesson ? [lesson] : [];
   }),
-}));
+})).filter(({ lessons: topicLessons }) => topicLessons.length > 0);
 const currentPath = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ''), '') || '/';
 const currentLessonId = currentPath.match(/\/lessons\/(\d{2})/)?.[1];
+const currentLesson = currentLessonId ? lessonsById.get(currentLessonId) : undefined;
+const currentLocationLabel = currentLesson
+  ? `제${currentLesson.data.day}차시`
+  : currentPath.startsWith('/course-overview')
+    ? '과정 안내'
+    : section ?? title;
 const isCurrent = (href: string) =>
   href === '/' ? currentPath === '/' : currentPath.startsWith(href.replace(/\/$/, ''));
 ---
@@ -65,7 +71,18 @@ const isCurrent = (href: string) =>
           <strong>AI 건축디자인<br />바이블</strong>
         </a>
         <p>48H COURSE READER</p>
+        <button
+          type="button"
+          class="sidebar-toggle sidebar-toggle--collapse"
+          aria-label="왼쪽 목차 접기"
+          aria-expanded="true"
+          aria-controls="desktop-navigation"
+          data-sidebar-collapse
+        >
+          <span aria-hidden="true">←</span><span>목차 접기</span>
+        </button>
       </div>
+      <div id="desktop-navigation">
       <nav class="primary-nav" aria-label="주요 메뉴">
         {mainNav.map((item) => (
           <a href={withBase(item.href)} aria-current={isCurrent(item.href) ? 'page' : undefined}>
@@ -74,7 +91,7 @@ const isCurrent = (href: string) =>
         ))}
       </nav>
       <div class="sidebar-lessons">
-        <p class="nav-label">TOPICS · 7 / LESSONS · 14</p>
+        <p class="nav-label">TOPICS · {topicGroups.length} / LESSONS · {lessons.length}</p>
         <nav aria-label="주제별 강의 차시">
           {topicGroups.map(({ topic, lessons: topicLessons }) => (
             <section class:list={['sidebar-topic', { 'is-current-topic': topic.lessonIds.includes(currentLessonId ?? '') }]}>
@@ -101,6 +118,7 @@ const isCurrent = (href: string) =>
         <span>LAST UI UPDATE</span>
         <time datetime="2026-07-28">2026.07.28</time>
       </div>
+      </div>
     </aside>
 
     <dialog class="mobile-menu" id="mobile-navigation" data-mobile-menu>
@@ -115,7 +133,7 @@ const isCurrent = (href: string) =>
           </a>
         ))}
       </nav>
-      <p class="nav-label">주제 7개 · 차시 14개</p>
+      <p class="nav-label">주제 {topicGroups.length}개 · 차시 {lessons.length}개</p>
       <nav class="mobile-lessons" aria-label="모바일 주제별 강의 차시">
         {topicGroups.map(({ topic, lessons: topicLessons }) => (
           <section class:list={['mobile-topic', { 'is-current-topic': topic.lessonIds.includes(currentLessonId ?? '') }]}>
@@ -141,7 +159,17 @@ const isCurrent = (href: string) =>
 
     <main id="main-content" class:list={['site-main', { 'site-main--wide': hideSidebar }]}>
       <div class="utility-bar">
-        <p><span>AI ARCHITECTURE DESIGN BIBLE</span><span aria-hidden="true">/</span><strong>{section ?? title}</strong></p>
+        <div class="utility-bar__location">
+          <button
+            type="button"
+            class="sidebar-toggle sidebar-toggle--expand"
+            aria-label={`왼쪽 목차 펼치기 · 현재 위치 ${currentLocationLabel}`}
+            aria-expanded="false"
+            aria-controls="desktop-navigation"
+            data-sidebar-expand
+          ><span aria-hidden="true">☰</span><span>목차 열기</span></button>
+          <p><span>AI ARCHITECTURE DESIGN BIBLE</span><span aria-hidden="true">/</span><strong>{section ?? title}</strong></p>
+        </div>
         <SearchPanel client:idle searchUrl={withBase('/search-index.json')} />
       </div>
       <slot />
@@ -172,17 +200,42 @@ const isCurrent = (href: string) =>
       };
       const handleMenuClosed = () => {
         openButton?.setAttribute('aria-expanded', 'false');
+        document.documentElement.removeAttribute('data-mobile-menu-open');
         openButton?.focus();
       };
       openButton?.addEventListener('click', () => {
         if (!dialog?.open) dialog?.showModal();
         openButton.setAttribute('aria-expanded', 'true');
+        document.documentElement.setAttribute('data-mobile-menu-open', 'true');
         closeButton?.focus();
       });
       closeButton?.addEventListener('click', closeMenu);
       dialog?.addEventListener('close', handleMenuClosed);
+      dialog?.addEventListener('cancel', () => closeMenu());
       dialog?.addEventListener('click', (event) => {
         if (event.target === dialog) closeMenu();
+      });
+      dialog?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+
+      const sidebarStorageKey = 'ai-architecture-ebook-sidebar-v1';
+      const collapseButton = document.querySelector<HTMLButtonElement>('[data-sidebar-collapse]');
+      const expandButton = document.querySelector<HTMLButtonElement>('[data-sidebar-expand]');
+      const applySidebarState = (collapsed: boolean) => {
+        document.documentElement.dataset.sidebarState = collapsed ? 'collapsed' : 'expanded';
+        collapseButton?.setAttribute('aria-expanded', String(!collapsed));
+        expandButton?.setAttribute('aria-expanded', String(!collapsed));
+      };
+      const storedSidebarState = localStorage.getItem(sidebarStorageKey);
+      applySidebarState(storedSidebarState === 'collapsed');
+      collapseButton?.addEventListener('click', () => {
+        localStorage.setItem(sidebarStorageKey, 'collapsed');
+        applySidebarState(true);
+        expandButton?.focus();
+      });
+      expandButton?.addEventListener('click', () => {
+        localStorage.setItem(sidebarStorageKey, 'expanded');
+        applySidebarState(false);
+        collapseButton?.focus();
       });
     </script>
   </body>

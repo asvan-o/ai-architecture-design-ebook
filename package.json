@@ -24,6 +24,7 @@
     "lecture:stop": "node scripts/lecture-kit-status.mjs --mode source --stop",
     "lecture:verify": "node scripts/verify-lecture-kit.mjs --root release/AI_건축디자인_강의키트_windows_x64",
     "lecture:verify:windows": "node scripts/verify-lecture-kit-windows.mjs",
+    "lecture:ui:verify": "node scripts/verify-lecture-ui.mjs",
     "lecture:kit": "node scripts/build-lecture-kit.mjs",
     "preview": "astro preview",
     "astro": "astro"

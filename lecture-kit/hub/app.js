@@ -30,6 +30,7 @@ const renderStatus = (nextState) => {
     .map(([key, value]) => `<div><dt>${labels[key]}</dt><dd>${value}</dd></div>`)
     .join('');
   document.querySelector('#public-ebook').href = nextState.publicEbookUrl;
+  document.querySelector('#student-course-overview').href = `http://127.0.0.1:${nextState.ports.student}/course-overview/`;
 };
 
 const refresh = async () => {
@@ -49,6 +50,17 @@ const lessonUrl = (kind) => {
   if (kind === 'course-pdf') return `${studentOrigin}/downloads/ai-architecture-design-course.pdf`;
   return studentOrigin;
 };
+
+const lectureStartUrl = (kind) => {
+  const instructorOrigin = `http://127.0.0.1:${state.ports.instructor}`;
+  if (kind === 'console') return `${instructorOrigin}/instructor-console/lecture-start/`;
+  return `${instructorOrigin}/presentation/lecture-start/`;
+};
+
+document.querySelector('[data-open-lecture-start]').addEventListener('click', () => {
+  window.open(lectureStartUrl('console'), 'ai-architecture-instructor-console');
+  window.open(lectureStartUrl('presentation'), 'ai-architecture-projector');
+});
 
 document.querySelectorAll('[data-open]').forEach((button) => {
   button.addEventListener('click', () => {

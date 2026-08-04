@@ -1,11 +1,12 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { render } from 'astro:content';
+import PresentationDeck from '../../../components/presentation/PresentationDeck.astro';
 import { getVisibleLessons } from '../../../lib/lessons';
 import { getLessonTopicSummary } from '../../../lib/lesson-topics';
-import { withBase } from '../../../lib/site';
 import '../../../styles/global.css';
 import '../../../styles/lesson-content.css';
+import '../../../styles/presentation.css';
 
 type Lesson = CollectionEntry<'lessons'>;
 
@@ -15,292 +16,36 @@ interface Props {
 
 export async function getStaticPaths() {
   if (import.meta.env.MODE !== 'instructor') return [];
-
   const lessons = await getVisibleLessons();
-  return lessons.map((lesson) => ({
-    params: { id: lesson.id },
-    props: { lesson },
-  }));
+  return lessons.map((lesson) => ({ params: { id: lesson.id }, props: { lesson } }));
 }
 
 const { lesson } = Astro.props;
 const { Content } = await render(lesson);
-const sections = lesson.data.sections ?? [];
 const lessonId = String(lesson.data.day).padStart(2, '0');
 const topic = getLessonTopicSummary(lessonId);
-const presentationBaseUrl = withBase('/presentation/lessons/');
 ---
 
 <!doctype html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow" />
     <title>프레젠테이션 · {lesson.data.title}</title>
   </head>
-  <body
-    class="presentation-page"
-    data-presentation-page
-    data-lesson-id={lessonId}
-    data-presentation-base-url={presentationBaseUrl}
-  >
-    <a class="skip-link" href="#presentation-content">교안 본문으로 이동</a>
-
-    <header class="presentation-header">
-      <div>
-        <span>LESSON {lessonId}</span>
-        {topic && <p>주제 {topic.number} · {topic.title}</p>}
-        <h1>{lesson.data.title}</h1>
-      </div>
-      <div class="presentation-current" aria-live="polite">
-        <span data-current-number>SECTION 01</span>
-        <strong data-current-title>{sections[0]?.label}</strong>
-      </div>
-    </header>
-
-    <nav class="presentation-section-nav" aria-label="발표 섹션 직접 이동">
-      <label for="presentation-section-select">현재 섹션</label>
-      <select id="presentation-section-select" data-section-select>
-        {sections.map((section, index) => (
-          <option value={section.id}>
-            {String(index + 1).padStart(2, '0')} · {section.label}
-          </option>
-        ))}
-      </select>
-      <button type="button" data-action="previous">← 이전</button>
-      <button type="button" data-action="next">다음 →</button>
-    </nav>
-
-    <main id="presentation-content" class="presentation-content lesson-content">
-      <Content />
+  <body class="presentation-page">
+    <a class="skip-link" href="#presentation-deck">프레젠테이션으로 이동</a>
+    <main id="presentation-deck">
+      <PresentationDeck
+        contentId={`lesson-${lessonId}`}
+        kicker={`LESSON ${lessonId}`}
+        title={lesson.data.title}
+        topic={topic ? `주제 ${topic.number} · ${topic.title}` : ''}
+        role="projector"
+      >
+        <div class="lesson-content"><Content /></div>
+      </PresentationDeck>
     </main>
-
-    <script is:inline>
-      (() => {
-        const root = document.querySelector('[data-presentation-page]');
-        if (!root) return;
-
-        const channelName = 'ai-architecture-presenter';
-        const storageKey = 'ai-architecture-presenter-state';
-        const lessonId = root.dataset.lessonId;
-        const baseUrl = root.dataset.presentationBaseUrl;
-        const select = document.querySelector('[data-section-select]');
-        const sectionNav = document.querySelector('.presentation-section-nav');
-        const sectionIds = [...select.options].map((option) => option.value);
-        const currentNumber = document.querySelector('[data-current-number]');
-        const currentTitle = document.querySelector('[data-current-title]');
-        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-        const channel = 'BroadcastChannel' in window ? new BroadcastChannel(channelName) : null;
-        let activeSectionId = sectionIds[0];
-
-        const readStoredState = () => {
-          try {
-            return JSON.parse(localStorage.getItem(storageKey) || 'null');
-          } catch {
-            return null;
-          }
-        };
-
-        const writeState = (targetLessonId, sectionId) => {
-          const state = { lessonId: targetLessonId, sectionId, updatedAt: Date.now() };
-          localStorage.setItem(storageKey, JSON.stringify(state));
-          return state;
-        };
-
-        const post = (type) => {
-          channel?.postMessage({
-            type,
-            lessonId,
-            sectionId: activeSectionId,
-            timestamp: Date.now(),
-          });
-        };
-
-        const activate = (sectionId, options = {}) => {
-          const index = sectionIds.indexOf(sectionId);
-          const element = document.getElementById(sectionId);
-          if (index < 0 || !element) return;
-          activeSectionId = sectionId;
-          select.value = sectionId;
-          currentNumber.textContent = `SECTION ${String(index + 1).padStart(2, '0')}`;
-          currentTitle.textContent = select.options[index].textContent.replace(/^\d{2}\s*·\s*/, '');
-          history.replaceState(null, '', `#${sectionId}`);
-          writeState(lessonId, sectionId);
-          if (options.scroll !== false) {
-            const targetTop = Math.max(
-              0,
-              element.getBoundingClientRect().top + window.scrollY - (sectionNav?.offsetHeight ?? 0),
-            );
-            window.scrollTo({
-              top: targetTop,
-              behavior: reducedMotion.matches ? 'auto' : 'smooth',
-            });
-          }
-        };
-
-        const move = (offset) => {
-          const index = sectionIds.indexOf(activeSectionId);
-          const nextIndex = Math.max(0, Math.min(sectionIds.length - 1, index + offset));
-          activate(sectionIds[nextIndex]);
-        };
-
-        select.addEventListener('change', () => activate(select.value));
-        document.querySelector('[data-action="previous"]')?.addEventListener('click', () => move(-1));
-        document.querySelector('[data-action="next"]')?.addEventListener('click', () => move(1));
-
-        channel?.addEventListener('message', (event) => {
-          const message = event.data;
-          if (!message || typeof message !== 'object') return;
-
-          if (message.type === 'ping') {
-            post('pong');
-            return;
-          }
-          if (message.type === 'presenter-ready') {
-            post('projector-ready');
-            return;
-          }
-          if (message.type !== 'sync-state') return;
-
-          if (message.lessonId !== lessonId) {
-            writeState(message.lessonId, message.sectionId);
-            window.location.assign(
-              `${baseUrl}${message.lessonId}/#${encodeURIComponent(message.sectionId)}`,
-            );
-            return;
-          }
-          activate(message.sectionId);
-        });
-
-        const stored = readStoredState();
-        const hashSection = decodeURIComponent(window.location.hash.slice(1));
-        const initialSection =
-          sectionIds.includes(hashSection)
-            ? hashSection
-            : stored?.lessonId === lessonId && sectionIds.includes(stored.sectionId)
-              ? stored.sectionId
-              : sectionIds[0];
-
-        requestAnimationFrame(() => activate(initialSection));
-        post('projector-ready');
-        window.addEventListener('beforeunload', () => post('projector-closing'));
-      })();
-    </script>
   </body>
 </html>
-
-<style is:global>
-  .presentation-page {
-    min-width: 0;
-    background: var(--paper);
-    font-size: clamp(1rem, 1.3vw, 1.35rem);
-  }
-
-  .presentation-header {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.3fr);
-    min-height: 12rem;
-    border-bottom: 1px solid var(--line-dark);
-    background: var(--surface);
-  }
-
-  .presentation-header > div:first-child {
-    display: grid;
-    align-content: center;
-    padding: clamp(1.5rem, 4vw, 3.5rem);
-  }
-
-  .presentation-header span,
-  .presentation-current span {
-    color: var(--accent-dark);
-    font-size: 0.72rem;
-    font-weight: 850;
-    letter-spacing: 0.12em;
-  }
-
-  .presentation-header h1 {
-    max-width: 22ch;
-    margin: 0.2rem 0;
-    font-family: var(--serif);
-    font-size: clamp(2.2rem, 4.5vw, 4.8rem);
-    line-height: 1.15;
-    text-wrap: balance;
-  }
-
-  .presentation-header p {
-    margin: 0.3rem 0 0;
-    color: var(--muted);
-    font-size: 0.9rem;
-  }
-
-  .presentation-current {
-    display: grid;
-    align-content: center;
-    gap: 0.55rem;
-    padding: 1.5rem;
-    border-left: 1px solid var(--line-dark);
-    background: var(--paper-deep);
-  }
-
-  .presentation-current strong {
-    font-family: var(--serif);
-    font-size: clamp(1.35rem, 2.2vw, 2rem);
-    line-height: 1.35;
-  }
-
-  .presentation-section-nav {
-    position: sticky;
-    z-index: 30;
-    top: 0;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.7rem clamp(1rem, 4vw, 3.5rem);
-    border-bottom: 1px solid var(--line-dark);
-    background: rgba(244, 241, 234, 0.97);
-  }
-
-  .presentation-section-nav label {
-    font-size: 0.75rem;
-    font-weight: 800;
-  }
-
-  .presentation-section-nav select {
-    min-width: min(28rem, 55vw);
-    padding: 0.5rem 0.7rem;
-    border: 1px solid var(--line-dark);
-    background: var(--surface);
-  }
-
-  .presentation-section-nav button {
-    padding: 0.45rem 0.75rem;
-    border: 1px solid var(--ink);
-    background: transparent;
-    font-weight: 750;
-    cursor: pointer;
-  }
-
-  .presentation-section-nav button:hover { color: #fff; background: var(--ink); }
-
-  .presentation-content {
-    width: min(100%, 92rem);
-    margin: 0 auto;
-  }
-
-  .presentation-content .lesson-section {
-    scroll-margin-top: 5rem;
-  }
-
-  @media (max-width: 760px) {
-    .presentation-header { grid-template-columns: 1fr; }
-    .presentation-current { border-top: 1px solid var(--line-dark); border-left: 0; }
-    .presentation-section-nav { flex-wrap: wrap; }
-    .presentation-section-nav label { width: 100%; }
-    .presentation-section-nav select { min-width: 0; flex: 1 1 100%; }
-  }
-
-  @media print {
-    .presentation-section-nav { display: none; }
-  }
-</style>

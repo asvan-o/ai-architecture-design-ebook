@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { getLessonTopicSummary } from '../../lib/lesson-topics';
+import { formatCourseDuration } from '../../lib/duration';
 
 interface Props {
   lesson: CollectionEntry<'lessons'>;
@@ -15,7 +16,7 @@ const dateLabel = lesson.data.date === 'pending'
   : lesson.data.date.replaceAll('-', '.');
 const durationLabel = lesson.data.durationMinutes === null
   ? '수업시간 확인 예정'
-  : `${lesson.data.durationMinutes}분`;
+  : formatCourseDuration(lesson.data.durationMinutes);
 ---
 
 <article
@@ -40,3 +41,17 @@ const durationLabel = lesson.data.durationMinutes === null
     <slot />
   </div>
 </article>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.print-lesson[data-print-lesson-id="01"]').forEach((root) => {
+    const summary = root.querySelector('.lesson-summary-grid > div:first-child strong');
+    if (summary?.textContent?.includes('총 180분')) summary.textContent = '3시간 수업';
+    const toolLabel = root.querySelector('.lesson-tool-landscape__header > span');
+    if (toolLabel?.textContent?.includes('분')) toolLabel.textContent = toolLabel.textContent.replace(/^\s*\d+분\s*/, '');
+    const analysisLabel = root.querySelector('.lesson-classification-examples > header > span');
+    if (analysisLabel?.textContent?.includes('분')) analysisLabel.textContent = analysisLabel.textContent.replace(/\s*·\s*\d+분\s*$/, '');
+    root.querySelectorAll('.lesson-practice-block > header strong').forEach((label) => {
+      if (label.textContent?.includes('분')) label.textContent = label.textContent.replace(/\s*·\s*\d+분\s*$/, '');
+    });
+  });
+</script>

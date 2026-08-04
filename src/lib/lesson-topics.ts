@@ -1,9 +1,33 @@
 export interface LessonTopicSummary {
   number: string;
   title: string;
+  subtitle?: string;
   lessonIds: readonly string[];
   lessonCount: number;
 }
+
+export interface LessonRoadmapItem {
+  id: string;
+  day: number;
+  title: string;
+}
+
+export const lessonRoadmap: readonly LessonRoadmapItem[] = [
+  { id: '01', day: 1, title: '제1차시 · AI가 할 일과 디자이너가 판단할 일' },
+  { id: '02', day: 2, title: '제2차시 · 첫 공간 콘셉트 생성과 빈 공간 인테리어 배치' },
+  { id: '03', day: 3, title: '제3차시 · 실무 의뢰와 RFP를 디자인 브리프로 바꾸기' },
+  { id: '04', day: 4, title: '제4차시 · RFP 기반 공간구성 대안 개발과 프로젝트 산출물 자동 정리' },
+  { id: '05', day: 5, title: '제5차시 · AI로 실무 문서와 반복 정리 업무 줄이기' },
+  { id: '06', day: 6, title: '제6차시 · 클라이언트 의뢰를 디자인 브리프로 변환하기' },
+  { id: '07', day: 7, title: '제7차시 · 메인 이미지 설정과 공간 디자인 일관성 관리' },
+  { id: '08', day: 8, title: '제8차시 · 서브 이미지 확장과 고도화 수정' },
+  { id: '09', day: 9, title: '제9차시 · 3D 콘셉트 이미지에서 2D 개념 조닝 역추출' },
+  { id: '10', day: 10, title: '제10차시 · 실무 데이터 비식별화와 도면·PDF 전처리' },
+  { id: '11', day: 11, title: '제11차시 · 2D 도면 기반 3D 콘셉트 시각화와 오류 탐지' },
+  { id: '12', day: 12, title: '제12차시 · 다차원 검증 체크리스트와 교차검증' },
+  { id: '13', day: 13, title: '제13차시 · 제안서 고도화와 KPI·제출 패키지' },
+  { id: '14', day: 14, title: '제14차시 · AI 공간디자인 콘셉트 제안서 롤플레잉 최종 발표' },
+] as const;
 
 export const lessonTopics: readonly LessonTopicSummary[] = [
   {
@@ -26,25 +50,29 @@ export const lessonTopics: readonly LessonTopicSummary[] = [
   },
   {
     number: '4',
-    title: '메인-서브 통합 워크플로우 및 2D 역추출 브릿지(Bridge) 실습',
+    title: '메인–서브 통합 워크플로우 및 2D 역추출 브릿지 실습',
+    subtitle: '(이미지 일관성과 공간 관계 확장)',
     lessonIds: ['07', '08', '09'],
     lessonCount: 3,
   },
   {
     number: '5',
     title: '실무 데이터셋 전처리 및 2D 도면 기반 3D 시각화 기초',
+    subtitle: '(도면과 데이터 기반 3D 시각화)',
     lessonIds: ['10', '11'],
     lessonCount: 2,
   },
   {
     number: '6',
     title: 'AI 생성 결과물 다차원 실무 검증 및 제안서 고도화',
+    subtitle: '(결과물 검증과 제안서 완성)',
     lessonIds: ['12', '13'],
     lessonCount: 2,
   },
   {
     number: '7',
     title: '실무 검증형 설계 제안서 롤플레잉 최종 발표 및 수료',
+    subtitle: '(최종 제안과 발표)',
     lessonIds: ['14'],
     lessonCount: 1,
   },
@@ -59,7 +87,17 @@ const topicsByLessonId = new Map(
   ),
 );
 
+const roadmapByLessonId = new Map(
+  lessonRoadmap.map((lesson) => [lesson.id, lesson] as const),
+);
+
 export const getLessonTopics = (): readonly LessonTopicSummary[] => lessonTopics;
+
+export const getLessonRoadmap = (): readonly LessonRoadmapItem[] => lessonRoadmap;
+
+export const getLessonRoadmapItem = (
+  lessonId: string | number,
+): LessonRoadmapItem | undefined => roadmapByLessonId.get(normalizeLessonId(lessonId));
 
 export const getLessonTopicSummary = (
   lessonId: string | number,
