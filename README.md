@@ -2,6 +2,10 @@
 
 2026년 8월, 총 48시간의 AI 건축디자인 강의를 위한 학생용 웹 전자서적입니다. 현재 저장소는 실제 강의 본문을 포함하지 않으며, 승인된 MDX를 안전하게 삽입하기 위한 개발환경·UI 골격·콘텐츠 검증 구조만 제공합니다.
 
+## 프로젝트 운영 기준
+
+Codex를 포함한 모든 작업자는 작업 시작 전 [프로젝트 운영 기준](docs/PROJECT_OPERATIONS.md)을 먼저 읽어야 합니다. 공식 최신본은 특정 PC의 폴더가 아니라 GitHub 저장소의 `origin/main`입니다.
+
 ## 기술 스택
 
 - Astro 7 정적 사이트
@@ -33,6 +37,12 @@ npm run preview
 ```
 
 `lint`와 `typecheck`는 요청된 명령 인터페이스를 유지하기 위해 현재 모두 `astro check`를 실행합니다. 두 명령은 기능상 동일하며 Astro·MDX·TypeScript 진단을 함께 수행합니다. `validate:content`는 14개 차시의 파일 ID, day, 누락·중복, 필수 metadata를 별도로 검사합니다.
+
+## 로컬 강의 실행과 휴대용 키트
+
+소스 폴더에서는 `강의_실행.cmd` 또는 `npm run lecture`를 사용합니다. 최신 학생용·강사용·PDF 빌드를 검사한 뒤 127.0.0.1 전용 강의 허브를 엽니다. 종료는 `강의_종료.cmd`, 상태 확인은 `강의키트_상태확인.cmd`를 사용합니다.
+
+다른 Windows x64 PC에서 Node.js와 npm 설치 없이 실행할 배포본은 clean working tree에서 `강의키트_생성.cmd`로 생성합니다. 미커밋 검토본은 생성 의도를 명확히 하기 위해서만 `강의키트_생성.cmd --allow-dirty`를 사용합니다. 자세한 구조와 보안 경계는 [Windows 휴대용 강의키트 가이드](docs/LECTURE_KIT_GUIDE.md)를 확인하세요.
 
 ## 콘텐츠 렌더링
 

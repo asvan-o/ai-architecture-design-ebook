@@ -19,6 +19,12 @@
     "typecheck": "astro check",
     "validate:content": "node scripts/validate-content.mjs",
     "lecture": "node scripts/lecture.mjs",
+    "lecture:portable": "node scripts/lecture-kit-server.mjs --mode portable --root release/AI_건축디자인_강의키트_windows_x64",
+    "lecture:status": "node scripts/lecture-kit-status.mjs --mode source",
+    "lecture:stop": "node scripts/lecture-kit-status.mjs --mode source --stop",
+    "lecture:verify": "node scripts/verify-lecture-kit.mjs --root release/AI_건축디자인_강의키트_windows_x64",
+    "lecture:verify:windows": "node scripts/verify-lecture-kit-windows.mjs",
+    "lecture:kit": "node scripts/build-lecture-kit.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },

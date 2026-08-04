@@ -28,3 +28,10 @@ pnpm-debug.log*
 
 # local-only instructor notes
 instructor-content/
+
+# local lecture runtime, portable bundle and generated state
+.lecture-kit/
+release/
+*.pid
+*.port
+lecture-kit.log

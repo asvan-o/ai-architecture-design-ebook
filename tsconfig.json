@@ -8,7 +8,10 @@
     "dist",
     "dist-student",
     "dist-instructor",
-    "instructor-content"
+    "instructor-content",
+    ".lecture-kit",
+    "release",
+    "tmp"
   ],
   "compilerOptions": {
     "jsx": "react-jsx",
