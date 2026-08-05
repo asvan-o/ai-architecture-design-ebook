@@ -23,7 +23,7 @@ const downloadsEnabled =
   import.meta.env.PUBLIC_PDF_DOWNLOADS_ENABLED === 'true';
 ---
 
-{downloadsEnabled && (
+{downloadsEnabled && items.length > 0 && (
   <aside class:list={['pdf-download-panel', { 'pdf-download-panel--compact': compact }]}>
     <p>{eyebrow}</p>
     <div>

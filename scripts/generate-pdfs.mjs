@@ -1,16 +1,28 @@
 import { createServer } from 'node:http';
 import { readFileSync } from 'node:fs';
-import { mkdir, readFile, stat } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
+import { mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
 import { chromium } from 'playwright';
 
 const outputDirectory = path.resolve(process.argv[2] ?? 'dist-student');
+const pdfScope = process.argv[3] ?? 'student';
+if (!['student', 'instructor'].includes(pdfScope)) {
+  throw new Error(`지원하지 않는 PDF 생성 범위입니다: ${pdfScope}`);
+}
 const manifestPath = path.resolve('data', 'pdf-exports.json');
 const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
 const studentReleasePath = path.resolve('data', 'student-release.json');
 const studentRelease = JSON.parse(readFileSync(studentReleasePath, 'utf8'));
-const releasedLessonIds = new Set(studentRelease.releasedStudentLessonIds);
+const allLessonIds = manifest.targets
+  .filter((target) => target.kind === 'lesson')
+  .flatMap((target) => target.lessonIds);
+const selectedLessonIds = pdfScope === 'instructor'
+  ? allLessonIds
+  : studentRelease.releasedPdfLessonIds;
+const releasedLessonIds = new Set(selectedLessonIds);
 const targets = manifest.targets
   .filter((target) =>
     target.kind === 'course' || target.lessonIds.every((lessonId) => releasedLessonIds.has(lessonId)),
@@ -23,6 +35,20 @@ const targets = manifest.targets
     : target);
 const downloadsDirectory = path.join(outputDirectory, 'downloads');
 const basePath = normalizeBasePath(process.env.BASE_PATH);
+const sourceGitSha = (process.env.GITHUB_SHA || execFileSync('git', ['rev-parse', 'HEAD'], {
+  encoding: 'utf8',
+  windowsHide: true,
+}).trim()).toLowerCase();
+if (!/^[0-9a-f]{40}$/.test(sourceGitSha)) {
+  throw new Error(`PDF source Git SHA 형식이 올바르지 않습니다: ${sourceGitSha}`);
+}
+const generatedAt = new Date().toISOString();
+const generatedFiles = [];
+
+const hashFile = async (filePath) => {
+  const source = await readFile(filePath);
+  return createHash('sha256').update(source).digest('hex');
+};
 
 const contentTypes = new Map([
   ['.css', 'text/css; charset=utf-8'],
@@ -107,6 +133,7 @@ const forbiddenVisibleText = [
 
 let browser;
 try {
+  await rm(downloadsDirectory, { recursive: true, force: true });
   await mkdir(downloadsDirectory, { recursive: true });
   const address = await listen();
   if (!address || typeof address === 'string') {
@@ -229,12 +256,34 @@ try {
     if (fileStats.size < 1024) {
       throw new Error(`${target.id}: PDF 파일 크기가 비정상적으로 작습니다 (${fileStats.size} bytes).`);
     }
+    generatedFiles.push({
+      kind: target.kind,
+      lessonId: target.kind === 'lesson' ? target.lessonIds[0] : null,
+      lessonIds: target.lessonIds,
+      fileName: target.output,
+      sha256: await hashFile(outputPath),
+      sizeBytes: fileStats.size,
+    });
     console.log(`PDF 생성: ${target.output} (${fileStats.size} bytes)`);
     await page.close();
   }
 
   await context.close();
+  const outputManifest = {
+    version: 1,
+    scope: pdfScope,
+    sourceGitSha,
+    generatedAt,
+    releasedLessonIds: selectedLessonIds,
+    files: generatedFiles,
+  };
+  await writeFile(
+    path.join(downloadsDirectory, 'pdf-manifest.json'),
+    `${JSON.stringify(outputManifest, null, 2)}\n`,
+    'utf8',
+  );
   console.log(`PDF 생성 완료: ${targets.length}개`);
+  console.log(`PDF manifest: ${sourceGitSha} · ${pdfScope}`);
 } finally {
   if (browser) await browser.close();
   if (server.listening) await closeServer();

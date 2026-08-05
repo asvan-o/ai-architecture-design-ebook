@@ -30,8 +30,8 @@ npm run dev
 | `npm run build` | 학생용 정적 사이트를 `dist/`에 생성 |
 | `npm run build:student` | 학생용 정적 사이트를 `dist-student/`에 생성 |
 | `npm run build:instructor` | 로컬 강사용 정적 사이트를 `dist-instructor/`에 생성 |
-| `npm run build:pdf` | 학생용 사이트와 PDF를 `dist-student/`에 생성 |
-| `npm run build:student-with-pdf` | Pages 배포용 학생 사이트와 PDF를 `dist/`에 생성 |
+| `npm run build:pdf` | 강사 내부 검수용 제1~14차시 PDF를 `dist-pdf-review/`에 생성 |
+| `npm run build:student-with-pdf` | Pages 배포용 학생 사이트와 승인된 PDF만 `dist/`에 생성 |
 | `npm run preview` | 빌드 결과 미리보기 |
 
 `lint`와 `typecheck`는 현재 같은 Astro 진단 명령입니다. 외부 자동화와 작업 완료 기준의 명령 이름을 유지하기 위해 둘 다 제공합니다.
@@ -104,15 +104,26 @@ npm run build
 
 ### PDF 출력
 
+학생 e-book과 학생 PDF의 공개 범위는 `data/student-release.json`의 서로 다른 키로
+관리합니다. `releasedStudentLessonIds`는 e-book 접근 범위이고,
+`releasedPdfLessonIds`는 최종 승인된 PDF 범위입니다. 공개 빌드는 두 번째 목록에
+있는 차시별 PDF만 만들고, 전체 교안에도 같은 차시만 포함합니다. 승인 목록에 ID를
+추가하면 차시 페이지 버튼, 개별 PDF, 전체 교안 포함 범위가 함께 갱신됩니다.
+
+생성된 `downloads/pdf-manifest.json`에는 생성 범위, source Git SHA, 생성 시각,
+각 PDF의 SHA-256이 기록됩니다. 빌드 검증은 manifest와 실제 파일의 해시가 다르거나
+승인되지 않은 PDF가 출력 폴더에 남아 있으면 실패합니다.
+
 - `src/pages/print/lessons/[id].astro`: 차시별 인쇄 전용 route
-- `src/pages/print/course.astro`: 14개 차시 전체 인쇄 route
+- `src/pages/print/course.astro`: 공개 승인 범위 또는 강사 검수 범위의 전체 인쇄 route
 - `data/pdf-exports.json`: PDF 파일명, route, 포함 차시 설정
 - `scripts/generate-pdfs.mjs`: 정적 결과를 임시 로컬 서버로 제공하고 Chromium PDF 생성
 - `src/styles/print.css`: A4 분할, 표·코드 줄바꿈, 접기 영역 전체 표시 규칙
 
-PDF 다운로드 링크는 `PUBLIC_PDF_DOWNLOADS_ENABLED=true`로 빌드할 때만 생성됩니다.
-`build:pdf`와 `build:student-with-pdf`가 이 값을 내부에서 설정하고 실제 PDF까지
-생성하므로 개발 서버나 일반 빌드에는 깨진 링크가 나타나지 않습니다.
+PDF 다운로드 링크는 `PUBLIC_PDF_DOWNLOADS_ENABLED=true`인 학생 공개 빌드에서만
+생성됩니다. `build:student-with-pdf`가 이 값을 설정하고 승인된 실제 PDF까지
+생성합니다. `build:pdf`는 링크 없는 강사 내부 검수 출력입니다. 개발 서버나 일반
+빌드에는 깨진 링크가 나타나지 않습니다.
 
 향후 주제별 PDF는 `data/pdf-exports.json`에 대상을 추가하여 구성합니다.
 각 대상은 `lessonIds`로 포함 차시를 지정하고, 필요하면

@@ -15,6 +15,7 @@ const studentRelease = JSON.parse(
   await readFile(path.resolve('data', 'student-release.json'), 'utf8'),
 );
 const releasedStudentLessonIds = new Set(studentRelease.releasedStudentLessonIds);
+const releasedPdfLessonIds = new Set(studentRelease.releasedPdfLessonIds);
 const privateNoteDirectory = path.resolve(
   process.env.INSTRUCTOR_CONTENT_DIR ?? path.join('instructor-content', 'lessons'),
 );
@@ -187,7 +188,7 @@ if (mode === 'student') {
     : '';
   for (let day = 1; day <= 14; day += 1) {
     const lessonId = String(day).padStart(2, '0');
-    const shouldExist = releasedStudentLessonIds.has(lessonId);
+    const shouldExist = releasedPdfLessonIds.has(lessonId);
     const markerExists = coursePrintSource.includes(`data-print-lesson-id="${lessonId}"`);
     if (markerExists !== shouldExist) {
       errors.push(`학생용 전체 교안의 제${day}차시 포함 상태가 중앙 설정과 다릅니다.`);

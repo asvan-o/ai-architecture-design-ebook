@@ -3,7 +3,7 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 import PdfDownloadPanel from '../components/PdfDownloadPanel.astro';
 import { getVisibleLessons } from '../lib/lessons';
 import { getLessonRoadmap, getLessonTopics } from '../lib/lesson-topics';
-import { releasedStudentLessonIds } from '../lib/student-release';
+import { releasedPdfLessonIds } from '../lib/student-release';
 import { withBase } from '../lib/site';
 import { formatCourseDuration } from '../lib/duration';
 
@@ -45,7 +45,7 @@ const durationLabel = (durationMinutes: number | null) =>
       items={[{
         href: '/downloads/ai-architecture-design-course.pdf',
         label: '전체 교안 PDF 다운로드',
-        meta: `현재 공개 ${releasedStudentLessonIds.length}개 차시 · A4`,
+        meta: `현재 PDF 공개 ${releasedPdfLessonIds.length}개 차시 · A4`,
       }]}
     />
 

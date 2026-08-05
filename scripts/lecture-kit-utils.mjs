@@ -126,6 +126,8 @@ export const ensureDependencies = async (rootDirectory) => {
 
 export const buildInfoFromOutputs = async ({ rootDirectory, studentRoot, instructorRoot, kitVersion }) => {
   const pdfDirectory = path.join(studentRoot, 'downloads');
+  const pdfManifestPath = path.join(pdfDirectory, 'pdf-manifest.json');
+  const pdfManifest = JSON.parse(await readFile(pdfManifestPath, 'utf8'));
   const pdfFiles = (await collectFiles(pdfDirectory)).filter((filePath) => filePath.toLowerCase().endsWith('.pdf'));
   const lessonPdfPageCounts = {};
   let coursePdfPageCount = 0;
@@ -136,12 +138,18 @@ export const buildInfoFromOutputs = async ({ rootDirectory, studentRoot, instruc
     if (name === 'ai-architecture-design-course.pdf') coursePdfPageCount = await countPdfPages(filePath);
   }
   const status = gitText(['status', '--porcelain'], rootDirectory);
+  const gitHead = gitText(['rev-parse', 'HEAD'], rootDirectory);
+  if (pdfManifest.scope !== 'student' || pdfManifest.sourceGitSha !== gitHead) {
+    throw new Error(
+      `학생 PDF manifest가 현재 Git HEAD와 일치하지 않습니다: ${pdfManifest.sourceGitSha}/${gitHead}`,
+    );
+  }
   return {
     projectName: 'AI 건축디자인 바이블',
     kitVersion,
     buildTimestamp: new Date().toISOString(),
     gitBranch: gitText(['branch', '--show-current'], rootDirectory),
-    gitHead: gitText(['rev-parse', 'HEAD'], rootDirectory),
+    gitHead,
     originMain: gitText(['rev-parse', 'origin/main'], rootDirectory),
     workingTreeDirty: status.length > 0,
     nodeVersion: process.version,
@@ -150,6 +158,9 @@ export const buildInfoFromOutputs = async ({ rootDirectory, studentRoot, instruc
     instructorPageCount: await countIndexPages(instructorRoot),
     presentationPageCount: await countIndexPages(path.join(instructorRoot, 'presentation')),
     pdfCount: pdfFiles.length,
+    releasedPdfLessonIds: pdfManifest.releasedLessonIds,
+    pdfSourceGitSha: pdfManifest.sourceGitSha,
+    pdfManifestSha256: await hashFile(pdfManifestPath),
     lessonPdfPageCounts,
     coursePdfPageCount,
     studentBuildSha256: await hashTree(studentRoot),

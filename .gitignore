@@ -2,6 +2,7 @@
 dist/
 dist-student/
 dist-instructor/
+dist-pdf-review/
 tmp/
 # generated types
 .astro/

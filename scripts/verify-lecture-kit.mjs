@@ -71,6 +71,8 @@ try {
   const hubOrigin = `http://127.0.0.1:${state.ports.hub}`;
   const studentOrigin = `http://127.0.0.1:${state.ports.student}`;
   const instructorOrigin = `http://127.0.0.1:${state.ports.instructor}`;
+  const buildInfo = JSON.parse(await readFile(path.join(kitRoot, 'BUILD_INFO.json'), 'utf8'));
+  const releasedPdfLessonIdSet = new Set(buildInfo.releasedPdfLessonIds);
 
   await requireHttp(`${hubOrigin}/`);
   await requireHttp(`${hubOrigin}/hub/style.css`);
@@ -96,11 +98,39 @@ try {
     await requireHttp(`${instructorOrigin}/presentation/lessons/${lesson}/`);
   }
   await requireHttp(`${studentOrigin}/downloads/ai-architecture-design-course.pdf`);
+  await requireHttp(`${studentOrigin}/downloads/pdf-manifest.json`);
+  for (let day = 1; day <= 14; day += 1) {
+    const lesson = String(day).padStart(2, '0');
+    await requireHttp(
+      `${studentOrigin}/downloads/ai-architecture-design-lesson-${lesson}.pdf`,
+      releasedPdfLessonIdSet.has(lesson) ? 200 : 404,
+    );
+  }
   await requireHttp(`${studentOrigin}/%2e%2e/%2eenv`, 403);
   await requireHttp(`${instructorOrigin}/source/approved-curriculum.md`, 403);
   await requireHttp(`${instructorOrigin}/instructor-content/lessons/01.yaml`, 403);
 
   const studentSource = await collectText(path.join(kitRoot, 'sites', 'student'));
+  const pdfManifest = JSON.parse(
+    await readFile(path.join(kitRoot, 'sites', 'student', 'downloads', 'pdf-manifest.json'), 'utf8'),
+  );
+  if (pdfManifest.scope !== 'student' || pdfManifest.sourceGitSha !== buildInfo.gitHead) {
+    throw new Error('포터블 키트의 학생 PDF manifest와 BUILD_INFO Git SHA가 일치하지 않습니다.');
+  }
+  if (pdfManifest.releasedLessonIds.join(',') !== buildInfo.releasedPdfLessonIds.join(',')) {
+    throw new Error(`포터블 키트 PDF 공개 범위가 예상과 다릅니다: ${pdfManifest.releasedLessonIds.join(',')}`);
+  }
+  const expectedPdfFiles = [
+    'ai-architecture-design-course.pdf',
+    ...buildInfo.releasedPdfLessonIds.map((lessonId) =>
+      `ai-architecture-design-lesson-${lessonId}.pdf`),
+  ].sort();
+  const actualPdfFiles = (await readdir(path.join(kitRoot, 'pdf')))
+    .filter((name) => name.toLowerCase().endsWith('.pdf'))
+    .sort();
+  if (actualPdfFiles.join('\n') !== expectedPdfFiles.join('\n')) {
+    throw new Error(`포터블 키트 PDF 목록이 승인 범위와 다릅니다: ${actualPdfFiles.join(', ')}`);
+  }
   const forbidden = [
     'ai-architecture-presenter',
     'ai-architecture-slide-overrides-v1',
@@ -141,7 +171,8 @@ try {
   }
   console.log('[verify-kit] 휴대용 강의키트 기본 검증 성공');
   console.log(`- ports: ${state.ports.hub}, ${state.ports.student}, ${state.ports.instructor}`);
-  console.log(`- ${requireInstructorIntroduction ? '강사 소개·전용 자산, ' : ''}${requireCourseOverview ? '과정 안내 3종, ' : ''}학생 1~6차시, 강사 콘솔·프로젝터 1~14차시, 전체 PDF HTTP 200`);
+  console.log(`- ${requireInstructorIntroduction ? '강사 소개·전용 자산, ' : ''}${requireCourseOverview ? '과정 안내 3종, ' : ''}학생 1~6차시, 강사 콘솔·프로젝터 1~14차시, 공개 PDF 2개 HTTP 200`);
+  console.log(`- 학생 PDF 승인 차시 ${buildInfo.releasedPdfLessonIds.join(', ')}만 HTTP 200, 나머지는 HTTP 404`);
   console.log('- 학생용 강사 메모·발표자 코드·YAML 경계 통과');
   console.log('- 경로 차단 및 안전 종료 후 포트 해제 통과');
 } catch (error) {

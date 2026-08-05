@@ -6,7 +6,11 @@ import PdfDownloadPanel from '../../components/PdfDownloadPanel.astro';
 import StatusBadge from '../../components/StatusBadge.astro';
 import { getVisibleLessons } from '../../lib/lessons';
 import { getLessonTopicSummary } from '../../lib/lesson-topics';
-import { hasUnreleasedStudentLessons, isStudentBuild } from '../../lib/student-release';
+import {
+  hasUnreleasedStudentLessons,
+  isReleasedStudentPdf,
+  isStudentBuild,
+} from '../../lib/student-release';
 import { pageSections, withBase } from '../../lib/site';
 import { formatCourseDuration } from '../../lib/duration';
 import '../../styles/lesson-content.css';
@@ -115,11 +119,11 @@ const localSections = lesson.data.sections ?? pageSections.map((label, index) =>
 
     <PdfDownloadPanel
       compact
-      items={[{
-        href: `/downloads/ai-architecture-design-lesson-${dayLabel}.pdf`,
-        label: 'PDF 다운로드',
-        meta: `제${lesson.data.day}차시 학생용 교안 · A4`,
-      }]}
+      items={isReleasedStudentPdf(dayLabel) ? [{
+          href: `/downloads/ai-architecture-design-lesson-${dayLabel}.pdf`,
+          label: 'PDF 다운로드',
+          meta: `제${lesson.data.day}차시 학생용 교안 · A4`,
+        }] : []}
     />
 
     <nav class="lesson-local-nav" aria-label="이 차시의 섹션" tabindex="0">

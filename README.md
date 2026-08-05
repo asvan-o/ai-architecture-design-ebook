@@ -90,9 +90,19 @@ PDF가 포함된 학생용 배포 결과는 다음 명령으로 생성합니다.
 npm run build:student-with-pdf
 ```
 
-이 명령은 학생용 사이트를 `dist/`에 빌드한 뒤 14개 차시 PDF와 전체 교안 PDF를
+학생 e-book 공개와 PDF 공개는 `data/student-release.json`에서 분리해 관리합니다.
+`releasedStudentLessonIds`는 웹에서 읽을 수 있는 차시, `releasedPdfLessonIds`는
+최종 승인되어 다운로드할 수 있는 차시입니다. 공개 빌드는 승인된 차시별 PDF와
+그 차시들만 포함한 전체 교안 PDF를 새로 생성하며, 이전 출력 폴더의 오래된 PDF는
+먼저 제거합니다. 현재 PDF 공개 차시는 제1차시입니다.
+
+`npm run build:pdf`는 공개용이 아니라 강사 내부 검수용으로 제1~14차시 PDF와
+전체 교안을 `dist-pdf-review/`에 생성합니다.
+
+이 명령은 학생용 사이트를 `dist/`에 빌드한 뒤 승인된 차시 PDF와 전체 교안 PDF를
 `dist/downloads/`에 생성합니다. 일반 `npm run dev`, `npm run build`,
 `npm run build:student`에서는 아직 생성되지 않은 PDF 링크를 표시하지 않습니다.
-PDF 생성 대상과 향후 주제별 조합은 `data/pdf-exports.json`에서 관리합니다.
+PDF 파일·route 조합은 `data/pdf-exports.json`, 학생 공개 승인은
+`data/student-release.json`에서 관리합니다.
 
 사용자·조직 루트 저장소(`<owner>.github.io`)로 전환할 때는 `BASE_PATH=/`를 사용합니다. 커스텀 도메인에서는 `SITE_URL=https://<custom-domain>`과 `BASE_PATH=/`로 바꾸고 Pages의 custom domain 설정을 함께 적용합니다.

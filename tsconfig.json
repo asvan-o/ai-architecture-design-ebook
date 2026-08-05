@@ -8,6 +8,7 @@
     "dist",
     "dist-student",
     "dist-instructor",
+    "dist-pdf-review",
     "instructor-content",
     ".lecture-kit",
     "release",

@@ -287,6 +287,7 @@ for (const [index, approvedTitle] of approvedRoadmapTitles.entries()) {
 try {
   const studentRelease = JSON.parse(await readFile(studentReleaseConfigPath, 'utf8'));
   const releasedIds = studentRelease.releasedStudentLessonIds;
+  const releasedPdfIds = studentRelease.releasedPdfLessonIds;
   if (!Array.isArray(releasedIds)) {
     errors.push('학생 공개 설정의 releasedStudentLessonIds는 배열이어야 합니다.');
   } else {
@@ -299,6 +300,21 @@ try {
     }
     for (const id of releasedIds) {
       if (!requiredIds.includes(id)) errors.push(`학생 공개 설정에 허용되지 않은 차시 ID가 있습니다: ${id}`);
+    }
+  }
+  if (!Array.isArray(releasedPdfIds)) {
+    errors.push('학생 PDF 공개 설정의 releasedPdfLessonIds는 배열이어야 합니다.');
+  } else {
+    if (new Set(releasedPdfIds).size !== releasedPdfIds.length) {
+      errors.push('학생 PDF 공개 설정에 중복 차시 ID가 있습니다.');
+    }
+    for (const id of releasedPdfIds) {
+      if (!requiredIds.includes(id)) {
+        errors.push(`학생 PDF 공개 설정에 허용되지 않은 차시 ID가 있습니다: ${id}`);
+      }
+      if (Array.isArray(releasedIds) && !releasedIds.includes(id)) {
+        errors.push(`학생 PDF 공개 차시는 학생 e-book 공개 차시에 포함되어야 합니다: ${id}`);
+      }
     }
   }
 } catch {

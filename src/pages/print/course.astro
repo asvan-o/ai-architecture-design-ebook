@@ -5,8 +5,17 @@ import PrintableCourseOverview from '../../components/print/PrintableCourseOverv
 import PrintLayout from '../../layouts/PrintLayout.astro';
 import { getVisibleLessons } from '../../lib/lessons';
 import { getLessonTopics } from '../../lib/lesson-topics';
+import {
+  isInstructorBuild,
+  isPdfReviewBuild,
+  releasedPdfLessonIds,
+} from '../../lib/student-release';
 
-const lessons = await getVisibleLessons();
+const visibleLessons = await getVisibleLessons();
+const releasedPdfLessonIdSet = new Set(releasedPdfLessonIds);
+const lessons = isInstructorBuild || isPdfReviewBuild
+  ? visibleLessons
+  : visibleLessons.filter((lesson) => releasedPdfLessonIdSet.has(lesson.id));
 const lessonsById = new Map(lessons.map((lesson) => [lesson.id, lesson]));
 const topicGroups = getLessonTopics().map((topic) => ({
   topic,

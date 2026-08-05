@@ -1,3 +1,4 @@
 {
-  "releasedStudentLessonIds": ["01", "02", "03", "04", "05", "06"]
+  "releasedStudentLessonIds": ["01", "02", "03", "04", "05", "06"],
+  "releasedPdfLessonIds": ["01"]
 }

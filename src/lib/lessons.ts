@@ -1,6 +1,10 @@
 import { getCollection } from 'astro:content';
 import { getLessonRoadmapItem } from './lesson-topics';
-import { isInstructorBuild, isReleasedStudentLesson } from './student-release';
+import {
+  isInstructorBuild,
+  isPdfReviewBuild,
+  isReleasedStudentLesson,
+} from './student-release';
 
 export const getVisibleLessons = async () => {
   const lessons = await getCollection('lessons');
@@ -19,6 +23,7 @@ export const getVisibleLessons = async () => {
   });
 
   return titledLessons
-    .filter((lesson) => isInstructorBuild || isReleasedStudentLesson(lesson.id))
+    .filter((lesson) =>
+      isInstructorBuild || isPdfReviewBuild || isReleasedStudentLesson(lesson.id))
     .sort((a, b) => a.data.day - b.data.day);
 };

@@ -5,10 +5,10 @@ import process from 'node:process';
 
 const [command, mode, outDir, ...extraArguments] = process.argv.slice(2);
 const allowedCommands = ['dev', 'build'];
-const allowedModes = ['student', 'instructor'];
+const allowedModes = ['student', 'instructor', 'pdf-review'];
 
 if (!allowedCommands.includes(command) || !allowedModes.includes(mode)) {
-  console.error('사용법: node scripts/run-ebook-mode.mjs <dev|build> <student|instructor> [outDir]');
+  console.error('사용법: node scripts/run-ebook-mode.mjs <dev|build> <student|instructor|pdf-review> [outDir]');
   process.exit(1);
 }
 
@@ -54,7 +54,7 @@ if (result.status !== 0) {
 }
 
 if (command === 'build') {
-  if (mode === 'student') {
+  if (mode === 'student' || mode === 'pdf-review') {
     const outputPath = path.resolve(outDir);
     const collectFiles = (directory) => readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
       const entryPath = path.join(directory, entry.name);
@@ -97,7 +97,7 @@ if (command === 'build') {
   }
   const rendering = spawnSync(
     process.execPath,
-    [path.resolve('scripts', 'render-instructor-notes.mjs'), mode, outDir],
+    [path.resolve('scripts', 'render-instructor-notes.mjs'), mode === 'pdf-review' ? 'student' : mode, outDir],
     {
       cwd: process.cwd(),
       env: runtimeEnvironment,
@@ -123,14 +123,18 @@ if (command === 'build') {
     }
   }
 
-  const verification = spawnSync(
-    process.execPath,
-    [path.resolve('scripts', 'verify-instructor-boundary.mjs'), mode, outDir],
-    {
-      cwd: process.cwd(),
-      env: runtimeEnvironment,
-      stdio: 'inherit',
-    },
-  );
-  process.exit(verification.status ?? 1);
+  if (mode === 'pdf-review') {
+    console.log('PDF 검수 빌드: 제1–14차시 학생 본문, 강사 메모·콘솔·프레젠테이션 제외');
+  } else {
+    const verification = spawnSync(
+      process.execPath,
+      [path.resolve('scripts', 'verify-instructor-boundary.mjs'), mode, outDir],
+      {
+        cwd: process.cwd(),
+        env: runtimeEnvironment,
+        stdio: 'inherit',
+      },
+    );
+    process.exit(verification.status ?? 1);
+  }
 }
