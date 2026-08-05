@@ -319,6 +319,13 @@ html[data-sidebar-state="collapsed"] .site-sidebar { transform: translateX(-100%
 html[data-sidebar-state="collapsed"] .site-main { margin-left: 0; }
 html[data-sidebar-state="collapsed"] .sidebar-toggle--expand { display: inline-flex; }
 
+@media (min-width: 821px) {
+  html[data-sidebar-state="collapsed"] .utility-bar {
+    position: sticky;
+    top: 0;
+  }
+}
+
 .utility-bar__location {
   display: flex;
   min-width: 0;

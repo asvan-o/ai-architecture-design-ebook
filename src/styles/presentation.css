@@ -199,6 +199,24 @@
 .lecture-slide__body :is(p, li, td, dd, figcaption) { font-weight: 400; }
 .lecture-slide__body :is(h3, h4, th, dt) { font-weight: 680; }
 .lecture-slide__body [data-presentation-group="single"] { min-width: 0; }
+.lecture-slide__body :is(
+  [data-presentation-layout="llm-overview"],
+  [data-presentation-layout="multimodal-overview"]
+) h3 {
+  margin: 0 0 0.55em;
+  font-size: 1.12em;
+  line-height: 1.3;
+  word-break: keep-all;
+}
+.lecture-slide__body [data-presentation-layout="llm-overview"] ul {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.4em 1.6em;
+  padding-left: 1.4em;
+}
+.lecture-slide__body :is(
+  [data-presentation-layout="llm-overview"],
+  [data-presentation-layout="multimodal-overview"]
+) p:last-child { margin-bottom: 0; }
 .lecture-slide__body :is(.classified-list, .outline-list, .lesson04-two-column, .lesson04-alternatives, .lesson04-model-grid, .lesson-tool-grid) {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

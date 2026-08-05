@@ -81,13 +81,13 @@ import LessonTimePlan from '../../components/content/LessonTimePlan.astro';
 export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
 
 <LessonSection id="section-01" number="01" title="차시 소개" class="lesson-one-section">
-  <div class="lesson-opening-message">
+  <div class="lesson-opening-message" data-presentation-group="single">
     <span>LESSON PRINCIPLE</span>
     <h2>AI는 제안하고, 디자이너는 판단합니다.</h2>
     <p>제1차시는 생성형 AI(Generative AI)의 결과를 그대로 채택하지 않고, 원문과 대조해 분류하고 검토하는 기준을 세우는 시간입니다.</p>
   </div>
 
-  <div class="lesson-summary-grid">
+  <div class="lesson-summary-grid" data-presentation-group="single">
     <div>
       <span>수업시간</span>
       <strong>3시간 · 총 180분</strong>
@@ -153,29 +153,33 @@ export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
 
     <p>따라서 문장이 자연스럽고 구체적이라고 해서 실제 조건이나 사실과 일치한다고 판단해서는 안 된다.</p>
 
-    <h3>대규모 언어 모델(Large Language Model, LLM)</h3>
+    <div data-presentation-group="single" data-presentation-layout="llm-overview">
+      <h3>대규모 언어 모델(Large Language Model, LLM)</h3>
 
-    <p>대규모 언어 모델(Large Language Model, LLM)은 많은 텍스트를 학습해 문맥상 이어질 가능성이 높은 언어를 생성하는 모델이다.</p>
+      <p>대규모 언어 모델(Large Language Model, LLM)은 많은 텍스트를 학습해 문맥상 이어질 가능성이 높은 언어를 생성하는 모델이다.</p>
 
-    <p>활용 예:</p>
+      <p>활용 예:</p>
 
-    <ul>
-      <li>의뢰 내용 정리</li>
-      <li>회의록 요약</li>
-      <li>조건 분류</li>
-      <li>질문 목록 작성</li>
-      <li>디자인 방향 제안</li>
-      <li>여러 결과 비교</li>
-      <li>수정 요청 정리</li>
-    </ul>
+      <ul>
+        <li>의뢰 내용 정리</li>
+        <li>회의록 요약</li>
+        <li>조건 분류</li>
+        <li>질문 목록 작성</li>
+        <li>디자인 방향 제안</li>
+        <li>여러 결과 비교</li>
+        <li>수정 요청 정리</li>
+      </ul>
 
-    <p>대규모 언어 모델(Large Language Model, LLM)의 답변은 검증된 설계 결과나 사실 데이터 그 자체가 아니다.</p>
+      <p>대규모 언어 모델(Large Language Model, LLM)의 답변은 검증된 설계 결과나 사실 데이터 그 자체가 아니다.</p>
+    </div>
 
-    <h3>멀티모달 AI(Multimodal AI)</h3>
+    <div data-presentation-group="single" data-presentation-layout="multimodal-overview">
+      <h3>멀티모달 AI(Multimodal AI)</h3>
 
-    <p>멀티모달 AI(Multimodal AI)는 텍스트, 이미지, PDF처럼 둘 이상의 입력 형식을 함께 다룰 수 있는 AI다. 지원 형식과 판독 범위는 모델과 서비스에 따라 다르다.</p>
+      <p>멀티모달 AI(Multimodal AI)는 텍스트, 이미지, PDF처럼 둘 이상의 입력 형식을 함께 다룰 수 있는 AI다. 지원 형식과 판독 범위는 모델과 서비스에 따라 다르다.</p>
 
-    <p>Gemini 모델은 문서와 이미지 등 여러 입력 형식을 처리할 수 있다. AI 서비스의 화면과 제공 기능은 계정, 지역, 요금제 및 서비스 업데이트에 따라 다르게 보일 수 있다. 실습에서는 특정 메뉴 이름보다 필요한 기능의 사용 가능 여부를 기준으로 진행한다. 파일을 읽을 수 있다는 것과 모든 정보를 정확하게 해석한다는 것은 다르므로 AI 답변은 반드시 원본과 대조한다.</p>
+      <p>Gemini 모델은 문서와 이미지 등 여러 입력 형식을 처리할 수 있다. AI 서비스의 화면과 제공 기능은 계정, 지역, 요금제 및 서비스 업데이트에 따라 다르게 보일 수 있다. 실습에서는 특정 메뉴 이름보다 필요한 기능의 사용 가능 여부를 기준으로 진행한다. 파일을 읽을 수 있다는 것과 모든 정보를 정확하게 해석한다는 것은 다르므로 AI 답변은 반드시 원본과 대조한다.</p>
+    </div>
 
     <dl class="lesson-meta-list" aria-label="Gemini 서비스와 모델 구분">
       <div><dt>AI 서비스</dt><dd>사용자가 모델과 기능을 이용하는 서비스 또는 환경. 이 수업에서는 <strong>Gemini</strong> 웹 화면을 사용하며 API와 동일한 기능 범위를 가정하지 않는다.</dd></div>
@@ -332,7 +336,7 @@ export const lessonAssetIds = ['l01-doc-pack', 'l01-tool-map', 'l01-demo'];
         </div>
       </section>
 
-      <aside class="lesson-callout lesson-tool-landscape__notice">
+      <aside class="lesson-callout lesson-tool-landscape__notice" data-presentation-group="single">
         <strong>도구 사례 이해 범위</strong>
         <p>아래 도구는 생성형 디자인 분야의 다양한 접근방식을 이해하기 위한 사례입니다. 본 과정에서 모든 도구를 직접 실습하는 것은 아닙니다.</p>
         <p>생성 결과는 설계도서나 법규·구조·소방·시공 등 해당 분야 전문가의 판단과 검토를 대체하지 않습니다.</p>
