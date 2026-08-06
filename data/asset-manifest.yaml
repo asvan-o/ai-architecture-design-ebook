@@ -199,7 +199,7 @@ assets:
     lesson_usage: "practice-input"
     title: "빈 공간 실습 이미지 01"
     type: "image"
-    purpose: "수강생이 공간 용도와 인테리어 구성을 제안할 때 선택하는 교육용 입력 이미지"
+    purpose: "실습에서 공간 용도와 인테리어 구성을 제안할 때 선택하는 교육용 입력 이미지"
     required_files: ["base-01.jpeg"]
     file_path: "src/assets/lessons/02/empty-space-sample/02-base-images/base-01.jpeg"
     recommended_tool: "user-upload"
@@ -227,7 +227,7 @@ assets:
     lesson_usage: "practice-input"
     title: "빈 공간 실습 이미지 02"
     type: "image"
-    purpose: "수강생이 공간 용도와 인테리어 구성을 제안할 때 선택하는 교육용 입력 이미지"
+    purpose: "실습에서 공간 용도와 인테리어 구성을 제안할 때 선택하는 교육용 입력 이미지"
     required_files: ["base-02.jpeg"]
     file_path: "src/assets/lessons/02/empty-space-sample/02-base-images/base-02.jpeg"
     recommended_tool: "user-upload"
@@ -255,7 +255,7 @@ assets:
     lesson_usage: "practice-input"
     title: "빈 공간 실습 이미지 03"
     type: "image"
-    purpose: "수강생이 공간 용도와 인테리어 구성을 제안할 때 선택하는 교육용 입력 이미지"
+    purpose: "실습에서 공간 용도와 인테리어 구성을 제안할 때 선택하는 교육용 입력 이미지"
     required_files: ["base-03.jpeg"]
     file_path: "src/assets/lessons/02/empty-space-sample/02-base-images/base-03.jpeg"
     recommended_tool: "user-upload"
@@ -283,7 +283,7 @@ assets:
     lesson_usage: "practice-input"
     title: "빈 공간 실습 이미지 04"
     type: "image"
-    purpose: "수강생이 공간 용도와 인테리어 구성을 제안할 때 선택하는 교육용 입력 이미지"
+    purpose: "실습에서 공간 용도와 인테리어 구성을 제안할 때 선택하는 교육용 입력 이미지"
     required_files: ["base-04.jpeg"]
     file_path: "src/assets/lessons/02/empty-space-sample/02-base-images/base-04.jpeg"
     recommended_tool: "user-upload"
@@ -311,7 +311,7 @@ assets:
     lesson_usage: "practice-input"
     title: "빈 공간 실습 이미지 05"
     type: "image"
-    purpose: "수강생이 공간 용도와 인테리어 구성을 제안할 때 선택하는 교육용 입력 이미지"
+    purpose: "실습에서 공간 용도와 인테리어 구성을 제안할 때 선택하는 교육용 입력 이미지"
     required_files: ["base-05.jpeg"]
     file_path: "src/assets/lessons/02/empty-space-sample/02-base-images/base-05.jpeg"
     recommended_tool: "user-upload"

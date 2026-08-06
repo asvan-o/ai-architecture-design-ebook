@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
+import PromptCopyBlock from './PromptCopyBlock.astro';
 
 type PromptExample = {
   id: string;
@@ -28,8 +29,9 @@ const { prompts, images } = Astro.props;
       <span>교육용 제작 예시</span>
       <h3 id="empty-space-prompts-title">빈 공간 이미지 제작 프롬프트</h3>
       <p>
-        아래 세 문장은 수업용 빈 공간 이미지를 준비할 때 사용한 제작 예시입니다. 수강생이 작성할
-        인테리어 요청문의 정답이 아니며, 공간 용도와 사용자에 맞게 새 요청문을 작성해야 합니다.
+        아래 세 문장은 수업용 빈 공간 이미지를 준비할 때 사용한 제작 예시입니다. 이미지 생성·수정
+        실습에서 작성할 인테리어 요청문의 정답이 아니며, 공간 용도와 사용자에 맞게 새 요청문을
+        작성해야 합니다.
       </p>
     </header>
 
@@ -41,7 +43,12 @@ const { prompts, images } = Astro.props;
             <strong>{prompt.title}</strong>
           </summary>
           <div class="prompt-example" id={prompt.id}>
-            <p>{prompt.content.trim()}</p>
+            <PromptCopyBlock
+              id={`${prompt.id}-copy`}
+              title={prompt.title}
+              prompt={prompt.content}
+              label="생성 프롬프트 복사"
+            />
           </div>
         </details>
       ))}
@@ -51,7 +58,7 @@ const { prompts, images } = Astro.props;
   <section aria-labelledby="empty-space-gallery-title">
     <header class="empty-space-kit__header">
       <span>PRACTICE INPUT</span>
-      <h3 id="empty-space-gallery-title">수강생 선택용 빈 공간 이미지</h3>
+      <h3 id="empty-space-gallery-title">실습 선택용 빈 공간 이미지</h3>
       <p>
         다섯 장 중 하나를 선택합니다. 특정 이미지가 정답은 아니며, 보이는 장면만으로 정확한 구조·면적이나
         도면 정보를 단정하지 않습니다.
@@ -254,7 +261,11 @@ const { prompts, images } = Astro.props;
 
   @media print {
     .empty-space-kit {
-      gap: 8mm;
+      display: block;
+    }
+
+    .empty-space-kit > section + section {
+      margin-top: 8mm;
     }
 
     .empty-space-kit__header {

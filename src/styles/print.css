@@ -391,6 +391,16 @@
   page-break-inside: avoid;
 }
 
+/* 제2차시의 긴 실습 자료는 항목 단위로 이어서 배치해 큰 빈 페이지를 만들지 않는다. */
+.print-document
+  .print-lesson[data-print-lesson-id='02']
+  .lesson02-existing-materials
+  .classified-list,
+.print-document .print-lesson[data-print-lesson-id='02'] .lesson02-application > .practice-list {
+  break-inside: auto;
+  page-break-inside: auto;
+}
+
 .print-document .lesson-reference-checks {
   break-inside: auto;
   page-break-inside: auto;

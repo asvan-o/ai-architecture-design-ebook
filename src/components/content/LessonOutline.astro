@@ -3,6 +3,7 @@ import LessonSection from './LessonSection.astro';
 import LessonAsset from './LessonAsset.astro';
 import ClassifiedList from './ClassifiedList.astro';
 import IterativeImageSample from './IterativeImageSample.astro';
+import Lesson02Ebook from './Lesson02Ebook.astro';
 import EmptySpacePracticeKit from './EmptySpacePracticeKit.astro';
 import LessonResourceDownloads from './LessonResourceDownloads.astro';
 import StructuredPracticeTemplates from './StructuredPracticeTemplates.astro';
@@ -21,6 +22,7 @@ type ContentCategory =
   | '수업 산출물'
   | '교육용 가정'
   | '디자인 제안'
+  | '디자인 판단'
   | '수강생 판단'
   | '수강생 전문 판단'
   | '추가 검증 필요'
@@ -223,6 +225,7 @@ const displayedAssets = showOnlyReadyAssets
   : assets;
 const isPresentation = Astro.url.pathname.includes('/presentation/');
 const isInstructorConsole = Astro.url.pathname.includes('/instructor-console/');
+const isLesson02Ebook = lessonId === '02' && !isPresentation && !isInstructorConsole;
 const instructorTimelineJson = JSON.stringify({ totalMinutes, items: timePlan })
   .replaceAll('<', '\\u003c')
   .replaceAll('\u2028', '\\u2028')
@@ -255,7 +258,7 @@ const alternativeCriteriaSteps = practice.filter(
   <script is:inline type="application/json" data-instructor-timeline set:html={instructorTimelineJson} />
 )}
 
-<LessonSection id="section-01" number="01" title="차시 소개" class="outline-section" lessonId={lessonId}>
+{!isLesson02Ebook && <LessonSection id="section-01" number="01" title="차시 소개" class="outline-section" lessonId={lessonId}>
   {openingMessage && (
     <aside class="lesson-opening-message">
       <span>COURSE PRINCIPLE</span>
@@ -287,9 +290,22 @@ const alternativeCriteriaSteps = practice.filter(
       </tbody>
     </table>
   </div>
-</LessonSection>
+</LessonSection>}
 
-{isRfpAnalysisLayout ? (
+{isLesson02Ebook && practiceKit && iterationSample ? (
+  <Lesson02Ebook
+    practiceKit={practiceKit}
+    iterationSample={iterationSample}
+    materials={materials}
+    practiceGuidance={practiceGuidance}
+    practice={practice}
+    deliverables={deliverables}
+    judgments={judgments}
+    errorChecks={errorChecks}
+    errorCheckDetails={errorCheckDetails}
+    verification={verification}
+  />
+) : isRfpAnalysisLayout ? (
   <>
     <LessonSection
       id="section-02"

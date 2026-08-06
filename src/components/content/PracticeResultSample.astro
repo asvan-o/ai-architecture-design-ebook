@@ -1,0 +1,125 @@
+---
+interface Props {
+  title?: string;
+  summary?: string;
+  open?: boolean;
+}
+
+const {
+  title = '실습 결과 샘플 보기',
+  summary,
+  open = false,
+} = Astro.props;
+---
+
+<details class="practice-result-sample" open={open || undefined}>
+  <summary>
+    <span>RESULT SAMPLE</span>
+    <strong>{title}</strong>
+    {summary && <small>{summary}</small>}
+  </summary>
+  <div class="practice-result-sample__body">
+    <slot />
+  </div>
+</details>
+
+<style>
+  .practice-result-sample {
+    min-width: 0;
+    border: 1px solid var(--line-dark);
+    background: #f8f6f0;
+  }
+
+  .practice-result-sample > summary {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.3rem 1rem;
+    align-items: baseline;
+    padding: clamp(1rem, 2.5vw, 1.45rem);
+    cursor: pointer;
+  }
+
+  .practice-result-sample > summary:focus-visible {
+    outline: 3px solid var(--focus, #1d4ed8);
+    outline-offset: 3px;
+  }
+
+  .practice-result-sample > summary span {
+    color: var(--accent-dark);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+  }
+
+  .practice-result-sample > summary strong {
+    font-family: var(--serif);
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+  }
+
+  .practice-result-sample > summary small {
+    grid-column: 2;
+    color: var(--muted);
+    font-size: 0.88rem;
+  }
+
+  .practice-result-sample__body {
+    display: grid;
+    gap: 1.1rem;
+    min-width: 0;
+    padding: 0 clamp(1rem, 2.5vw, 1.45rem) clamp(1.2rem, 3vw, 1.75rem);
+    border-top: 1px solid var(--line);
+  }
+
+  .practice-result-sample__body :global(> :first-child) {
+    margin-top: 1.25rem;
+  }
+
+  .practice-result-sample__body :global(h4),
+  .practice-result-sample__body :global(p),
+  .practice-result-sample__body :global(ul),
+  .practice-result-sample__body :global(ol),
+  .practice-result-sample__body :global(dl) {
+    margin-block: 0;
+  }
+
+  @media (max-width: 640px) {
+    .practice-result-sample > summary {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .practice-result-sample > summary small {
+      grid-column: 1;
+    }
+  }
+
+  @media print {
+    .practice-result-sample {
+      display: block;
+      border: 0;
+      background: transparent;
+      break-inside: auto;
+      page-break-inside: auto;
+    }
+
+    .practice-result-sample > summary {
+      display: none !important;
+    }
+
+    .practice-result-sample__body {
+      display: block !important;
+      padding: 0;
+      border-top: 0;
+    }
+
+    .practice-result-sample__body :global(> *) {
+      margin-top: 4mm;
+      break-inside: avoid-page;
+      page-break-inside: avoid;
+    }
+
+    .practice-result-sample__body :global(> prompt-copy-block) {
+      break-inside: auto;
+      page-break-inside: auto;
+    }
+  }
+</style>

@@ -8,6 +8,7 @@ type ContentCategory =
   | '수업 산출물'
   | '교육용 가정'
   | '디자인 제안'
+  | '디자인 판단'
   | '수강생 판단'
   | '수강생 전문 판단'
   | '추가 검증 필요'
@@ -37,6 +38,7 @@ const categoryClass = (category: ContentCategory) =>
     .replace('분석·해석', 'judgment')
     .replace('교육용-가정', 'assumption')
     .replace('디자인-제안', 'proposal')
+    .replace('디자인-판단', 'judgment')
     .replace('수강생-전문-판단', 'judgment')
     .replace('수강생-판단', 'judgment')
     .replace('강의-전-사실-검증', 'verification')

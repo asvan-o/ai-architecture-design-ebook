@@ -1,0 +1,245 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  description?: string;
+  prompt: string;
+  showBody?: boolean;
+  label?: string;
+}
+
+const {
+  id,
+  title,
+  description,
+  prompt,
+  showBody = true,
+  label = '프롬프트 복사',
+} = Astro.props;
+---
+
+<prompt-copy-block class:list={['prompt-copy-block', { 'prompt-copy-block--compact': !showBody }]}>
+  <header>
+    <div>
+      <span>PROMPT</span>
+      <h4>{title}</h4>
+      {description && <p>{description}</p>}
+    </div>
+    <button type="button" data-copy-trigger aria-describedby={`${id}-copy-status`}>
+      {label}
+    </button>
+  </header>
+  {showBody && <pre id={id}><code>{prompt.trim()}</code></pre>}
+  <textarea class="prompt-copy-block__source" data-copy-source tabindex="-1" aria-hidden="true">{prompt.trim()}</textarea>
+  <span class="prompt-copy-block__status" id={`${id}-copy-status`} data-copy-status aria-live="polite"></span>
+</prompt-copy-block>
+
+<script is:inline>
+  if (!customElements.get('prompt-copy-block')) {
+    customElements.define('prompt-copy-block', class extends HTMLElement {
+      connectedCallback() {
+        const button = this.querySelector('[data-copy-trigger]');
+        const source = this.querySelector('[data-copy-source]');
+        const status = this.querySelector('[data-copy-status]');
+        if (!(button instanceof HTMLButtonElement) || !(source instanceof HTMLTextAreaElement)) return;
+
+        const originalLabel = button.textContent?.trim() || '프롬프트 복사';
+        let resetTimer;
+
+        const fallbackCopy = () => {
+          source.removeAttribute('aria-hidden');
+          source.focus({ preventScroll: true });
+          source.select();
+          const copied = document.execCommand('copy');
+          source.setAttribute('aria-hidden', 'true');
+          button.focus({ preventScroll: true });
+          if (!copied) throw new Error('fallback copy failed');
+        };
+
+        button.addEventListener('click', async () => {
+          try {
+            let copied = false;
+            if (navigator.clipboard?.writeText && window.isSecureContext) {
+              try {
+                await navigator.clipboard.writeText(source.value);
+                copied = true;
+              } catch {
+                copied = false;
+              }
+            }
+            if (!copied) fallbackCopy();
+            button.textContent = '복사됨';
+            if (status) status.textContent = '프롬프트가 클립보드에 복사되었습니다.';
+          } catch {
+            if (status) status.textContent = '자동 복사에 실패했습니다. 프롬프트 본문을 직접 선택해 복사해 주세요.';
+          }
+
+          window.clearTimeout(resetTimer);
+          resetTimer = window.setTimeout(() => {
+            button.textContent = originalLabel;
+            if (status) status.textContent = '';
+          }, 1800);
+        });
+      }
+    });
+  }
+</script>
+
+<style>
+  .prompt-copy-block {
+    display: grid;
+    min-width: 0;
+    border: 1px solid var(--line-dark);
+    background: #fff;
+  }
+
+  .prompt-copy-block > header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1rem;
+    align-items: start;
+    padding: clamp(1rem, 2.5vw, 1.5rem);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .prompt-copy-block > header div {
+    min-width: 0;
+  }
+
+  .prompt-copy-block > header span {
+    display: block;
+    margin-bottom: 0.35rem;
+    color: var(--accent-dark);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+  }
+
+  .prompt-copy-block h4,
+  .prompt-copy-block p {
+    margin: 0;
+  }
+
+  .prompt-copy-block h4 {
+    font-family: var(--serif);
+    font-size: clamp(1.12rem, 2vw, 1.35rem);
+    line-height: 1.4;
+    text-wrap: balance;
+  }
+
+  .prompt-copy-block p {
+    margin-top: 0.45rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .prompt-copy-block button {
+    min-width: 7rem;
+    min-height: 2.75rem;
+    padding: 0.65rem 0.9rem;
+    border: 1px solid var(--ink);
+    color: var(--paper);
+    background: var(--ink);
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .prompt-copy-block button:hover {
+    color: var(--ink);
+    background: #fff;
+  }
+
+  .prompt-copy-block button:focus-visible {
+    outline: 3px solid var(--focus, #1d4ed8);
+    outline-offset: 3px;
+  }
+
+  .prompt-copy-block pre {
+    box-sizing: border-box;
+    max-width: 100%;
+    margin: 0;
+    padding: clamp(1.1rem, 3vw, 1.75rem);
+    overflow-x: auto;
+    color: #f7f4ed;
+    background: #26312d;
+    font-family: var(--sans);
+    font-size: clamp(0.96rem, 1.4vw, 1.05rem);
+    line-height: 1.75;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    word-break: keep-all;
+  }
+
+  .prompt-copy-block code {
+    color: inherit;
+    background: transparent;
+    font: inherit;
+    white-space: inherit;
+  }
+
+  .prompt-copy-block--compact > header {
+    border-bottom: 0;
+  }
+
+  .prompt-copy-block__source {
+    position: fixed;
+    inset: auto auto 0 -10000px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+
+  .prompt-copy-block__status {
+    min-height: 1.4rem;
+    padding: 0 clamp(1rem, 2.5vw, 1.5rem) 0.8rem;
+    color: var(--muted);
+    font-size: 0.82rem;
+  }
+
+  @media (max-width: 640px) {
+    .prompt-copy-block > header {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .prompt-copy-block button {
+      width: 100%;
+    }
+  }
+
+  @media print {
+    .prompt-copy-block {
+      display: block;
+      border: 0;
+      background: transparent;
+      break-inside: auto;
+      page-break-inside: auto;
+    }
+
+    .prompt-copy-block > header {
+      display: block;
+      padding: 3mm;
+      break-after: avoid-page;
+      page-break-after: avoid;
+    }
+
+    .prompt-copy-block button,
+    .prompt-copy-block__source,
+    .prompt-copy-block__status {
+      display: none !important;
+    }
+
+    .prompt-copy-block pre {
+      overflow: visible;
+      padding: 4mm;
+      font-size: 8.8pt;
+      line-height: 1.55;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+      break-inside: auto;
+      page-break-inside: auto;
+    }
+  }
+</style>
