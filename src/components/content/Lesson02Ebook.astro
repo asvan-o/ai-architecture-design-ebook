@@ -25,7 +25,7 @@ import {
   lesson02PromptRules,
 } from '../../lib/lesson02-ebook';
 
-type ContentCategory =
+export type ContentCategory =
   | '확인된 사실'
   | '원문에서 확인된 사실'
   | '분석·해석'
@@ -42,7 +42,7 @@ type ContentCategory =
   | '추가 출처 확인'
   | '법규·구조·소방 등 해당 전문가 판단';
 
-type OutlineItem = {
+export type OutlineItem = {
   category: ContentCategory;
   text: string;
   validationKey?: string;

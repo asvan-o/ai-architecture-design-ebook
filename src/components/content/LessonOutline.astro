@@ -3,7 +3,10 @@ import LessonSection from './LessonSection.astro';
 import LessonAsset from './LessonAsset.astro';
 import ClassifiedList from './ClassifiedList.astro';
 import IterativeImageSample from './IterativeImageSample.astro';
-import Lesson02Ebook from './Lesson02Ebook.astro';
+import Lesson02Ebook, {
+  type ContentCategory,
+  type OutlineItem as Lesson02OutlineItem,
+} from './Lesson02Ebook.astro';
 import EmptySpacePracticeKit from './EmptySpacePracticeKit.astro';
 import LessonResourceDownloads from './LessonResourceDownloads.astro';
 import StructuredPracticeTemplates from './StructuredPracticeTemplates.astro';
@@ -13,28 +16,16 @@ import { getStudentLessonAssets } from '../../lib/asset-manifest';
 import type { ImageMetadata } from 'astro';
 import type { Lesson04Download, Lesson04WorkflowData } from '../../lib/lesson04-workflow';
 
-type ContentCategory =
-  | '확인된 사실'
-  | '원문에서 확인된 사실'
-  | '분석·해석'
-  | '확정된 수업 구성'
-  | '학습 목표'
-  | '수업 산출물'
-  | '교육용 가정'
-  | '디자인 제안'
-  | '디자인 판단'
-  | '수강생 판단'
-  | '수강생 전문 판단'
-  | '추가 검증 필요'
-  | '강의 전 사실 검증'
-  | '추가 출처 확인'
-  | '법규·구조·소방 등 해당 전문가 판단';
+type OutlineItem = Lesson02OutlineItem;
 
-type OutlineItem = {
-  category: ContentCategory;
-  text: string;
-  validationKey?: string;
+type ProjectWorkflowOutlineItem = Omit<OutlineItem, 'category'> & {
+  category: Exclude<ContentCategory, '디자인 판단'>;
 };
+
+const asProjectWorkflowItems = (items: OutlineItem[]) =>
+  items as ProjectWorkflowOutlineItem[];
+const asOptionalProjectWorkflowItems = (items?: OutlineItem[]) =>
+  items as ProjectWorkflowOutlineItem[] | undefined;
 
 type TimeItem = {
   label: string;
@@ -579,17 +570,17 @@ const alternativeCriteriaSteps = practice.filter(
 ) : isProjectWorkflowLayout && projectWorkflow ? (
   <Lesson04ProjectWorkflow
     lessonId={lessonId}
-    goals={goals}
-    scenario={scenario}
-    materials={materials}
+    goals={asProjectWorkflowItems(goals)}
+    scenario={asProjectWorkflowItems(scenario)}
+    materials={asProjectWorkflowItems(materials)}
     projectReferences={projectReferences}
-    demo={demo}
+    demo={asProjectWorkflowItems(demo)}
     practice={practice}
-    practiceGuidance={practiceGuidance}
-    deliverables={deliverables}
-    judgments={judgments}
-    errorChecks={errorChecks}
-    verification={verification}
+    practiceGuidance={asOptionalProjectWorkflowItems(practiceGuidance)}
+    deliverables={asProjectWorkflowItems(deliverables)}
+    judgments={asProjectWorkflowItems(judgments)}
+    errorChecks={asProjectWorkflowItems(errorChecks)}
+    verification={asProjectWorkflowItems(verification)}
     resourceDownloads={resourceDownloads}
     resourceDownloadNote={resourceDownloadNote}
     workflow={projectWorkflow}
