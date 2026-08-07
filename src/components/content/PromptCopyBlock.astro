@@ -16,21 +16,25 @@ const {
   showBody = true,
   label = '프롬프트 복사',
 } = Astro.props;
+const copyText = prompt.trim();
 ---
 
-<prompt-copy-block class:list={['prompt-copy-block', { 'prompt-copy-block--compact': !showBody }]}>
+<prompt-copy-block
+  class:list={['prompt-copy-block', { 'prompt-copy-block--compact': !showBody }]}
+  data-copy-block-id={id}
+>
   <header>
     <div>
       <span>PROMPT</span>
       <h4>{title}</h4>
       {description && <p>{description}</p>}
     </div>
-    <button type="button" data-copy-trigger aria-describedby={`${id}-copy-status`}>
+    <button type="button" data-copy-trigger data-copy-for={id} aria-describedby={`${id}-copy-status`}>
       {label}
     </button>
   </header>
-  {showBody && <pre id={id}><code>{prompt.trim()}</code></pre>}
-  <textarea class="prompt-copy-block__source" data-copy-source tabindex="-1" aria-hidden="true">{prompt.trim()}</textarea>
+  {showBody && <pre id={id}><code>{copyText}</code></pre>}
+  <textarea class="prompt-copy-block__source" data-copy-source data-copy-source-for={id} tabindex="-1" aria-hidden="true">{copyText}</textarea>
   <span class="prompt-copy-block__status" id={`${id}-copy-status`} data-copy-status aria-live="polite"></span>
 </prompt-copy-block>
 
@@ -38,10 +42,23 @@ const {
   if (!customElements.get('prompt-copy-block')) {
     customElements.define('prompt-copy-block', class extends HTMLElement {
       connectedCallback() {
+        if (this.dataset.copyReady === 'true') return;
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', () => this.initializeCopyButton(), { once: true });
+          return;
+        }
+        this.initializeCopyButton();
+      }
+
+      initializeCopyButton() {
+        if (this.dataset.copyReady === 'true') return;
         const button = this.querySelector('[data-copy-trigger]');
         const source = this.querySelector('[data-copy-source]');
         const status = this.querySelector('[data-copy-status]');
         if (!(button instanceof HTMLButtonElement) || !(source instanceof HTMLTextAreaElement)) return;
+        const blockId = this.dataset.copyBlockId;
+        if (!blockId || button.dataset.copyFor !== blockId || source.dataset.copySourceFor !== blockId) return;
+        this.dataset.copyReady = 'true';
 
         const originalLabel = button.textContent?.trim() || '프롬프트 복사';
         let resetTimer;

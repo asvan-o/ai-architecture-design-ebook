@@ -1,0 +1,343 @@
+---
+import type { ImageMetadata } from 'astro';
+import LessonSection from './LessonSection.astro';
+import PromptCopyBlock from './PromptCopyBlock.astro';
+
+type ReferenceImage = {
+  src: ImageMetadata;
+  label: string;
+  role: string;
+  alt: string;
+  downloadName: string;
+};
+
+type QuestionGroup = {
+  title: string;
+  items: string[];
+};
+
+type SampleGroup = {
+  title: string;
+  items: string[];
+};
+
+type Annotation = {
+  label: string;
+  description: string;
+};
+
+type Practice = {
+  title: string;
+  subtitle: string;
+  customerRequest: string;
+  questions: QuestionGroup[];
+  prompt: string;
+  promptTitle: string;
+  promptId: string;
+  sampleGroups?: SampleGroup[];
+  annotations?: Annotation[];
+  checks?: string[];
+};
+
+interface Props {
+  formula: string[];
+  easyFormula: string[];
+  reviewIntro: string[];
+  images: ReferenceImage[];
+  practiceOne: Practice;
+  practiceTwo: Practice;
+  comparison: {
+    title: string;
+    summary: string;
+    points: string[];
+  }[];
+  bridge: string[];
+}
+
+const {
+  formula,
+  easyFormula,
+  reviewIntro,
+  images,
+  practiceOne,
+  practiceTwo,
+  comparison,
+  bridge,
+} = Astro.props;
+---
+
+<div class="lesson03-review-practice" data-lesson03-review-practice>
+  <LessonSection
+    id="section-02"
+    number="02"
+    title="제2차시 복습 · 작업지시서를 다시 만들어보기"
+    class="outline-section lesson03-review-section"
+    lessonId="03"
+  >
+    <div class="lesson03-review-intro">
+      {reviewIntro.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+    <div class="lesson03-formula" aria-label="제2차시 공통 공식 복습">
+      <ol>
+        {formula.map((item, index) => (
+          <li><span>{String(index + 1).padStart(2, '0')}</span><strong>{item}</strong></li>
+        ))}
+      </ol>
+      <p aria-label="공통 공식을 쉬운 표현으로 설명">
+        {easyFormula.map((item, index) => (
+          <><span>{item}</span>{index < easyFormula.length - 1 && <b aria-hidden="true">→</b>}</>
+        ))}
+      </p>
+    </div>
+  </LessonSection>
+
+  <LessonSection
+    id="section-03"
+    number="03"
+    title={practiceOne.title}
+    class="outline-section lesson03-review-section"
+    lessonId="03"
+  >
+    <blockquote class="lesson03-client-request">
+      <span>고객 의뢰</span>
+      <p>{practiceOne.customerRequest}</p>
+    </blockquote>
+
+    <div class="lesson03-reference-images" aria-label="복습 실습 기준 이미지">
+      {images.map((image) => (
+        <figure>
+          <img
+            src={image.src.src}
+            width={image.src.width}
+            height={image.src.height}
+            alt={image.alt}
+            loading="lazy"
+          />
+          <figcaption>
+            <strong>{image.label}</strong>
+            <span>{image.role}</span>
+          </figcaption>
+          <a href={image.src.src} download={image.downloadName}>
+            {image.label} 다운로드 <span aria-hidden="true">↓</span>
+          </a>
+        </figure>
+      ))}
+    </div>
+    <p class="lesson03-practice-direction">
+      두 기준 이미지를 내려받아 Nano Banana에 첨부한 뒤, 아래 질문을 바탕으로 자신의 구조화 프롬프트를 작성합니다.
+    </p>
+    <div class="lesson03-question-sheet">
+      <h3>프롬프트를 쓰기 전에 먼저 정리해보세요.</h3>
+      <ol>
+        {practiceOne.questions.map((group, index) => (
+          <li>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <div><strong>{group.title}</strong><ul>{group.items.map((item) => <li>{item}</li>)}</ul></div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </LessonSection>
+
+  <LessonSection
+    id="section-04"
+    number="04"
+    title="복습 실습 1 결과 샘플"
+    class="outline-section lesson03-review-section"
+    lessonId="03"
+  >
+    <p class="lesson03-sample-note">먼저 직접 작성한 뒤 샘플을 열어 비교합니다. 아래 내용은 생성 이미지가 아니라 작업 조건과 프롬프트의 작성 예시입니다.</p>
+    <details class="lesson03-result-sample">
+      <summary>실습 결과 샘플 보기</summary>
+      <div class="lesson03-result-sample__body">
+        {practiceOne.sampleGroups && (
+          <div class="lesson03-condition-sample">
+            <h3>조건 정리 샘플</h3>
+            <dl>
+              {practiceOne.sampleGroups.map((group) => (
+                <div><dt>{group.title}</dt><dd>{group.items.length === 1 ? group.items[0] : <ul>{group.items.map((item) => <li>{item}</li>)}</ul>}</dd></div>
+              ))}
+            </dl>
+          </div>
+        )}
+        <PromptCopyBlock
+          id={practiceOne.promptId}
+          title={practiceOne.promptTitle}
+          description="주석과 결과 설명은 복사되지 않습니다."
+          prompt={practiceOne.prompt}
+        />
+        {practiceOne.annotations && (
+          <div class="lesson03-prompt-annotations" aria-label="구조화 프롬프트 주석">
+            <h3>문장 구조 주석</h3>
+            <dl>{practiceOne.annotations.map((item) => <div><dt>{item.label}</dt><dd>{item.description}</dd></div>)}</dl>
+          </div>
+        )}
+      </div>
+    </details>
+    {practiceOne.checks && (
+      <div class="lesson03-result-checks">
+        <h3>Nano Banana 결과 확인</h3>
+        <ul>{practiceOne.checks.map((item) => <li>{item}</li>)}</ul>
+      </div>
+    )}
+  </LessonSection>
+
+  <LessonSection
+    id="section-05"
+    number="05"
+    title={practiceTwo.title}
+    class="outline-section lesson03-review-section"
+    lessonId="03"
+  >
+    <p class="lesson03-practice-kicker">{practiceTwo.subtitle}</p>
+    <blockquote class="lesson03-client-request">
+      <span>고객 의뢰</span>
+      <p>{practiceTwo.customerRequest}</p>
+    </blockquote>
+    <p class="lesson03-practice-direction">
+      고객 의뢰를 읽고 7가지 공통 공식에 맞춰 Nano Banana용 구조화 프롬프트를 작성해보세요.
+    </p>
+    <div class="lesson03-question-sheet lesson03-question-sheet--compact">
+      <h3>보조 질문</h3>
+      <ul>{practiceTwo.questions.flatMap((group) => group.items).map((item) => <li>{item}</li>)}</ul>
+    </div>
+    <aside class="lesson03-caution">
+      이번 실습은 교육용 콘셉트 이미지 제작입니다. 실제 접근성 법규, 통로 폭, 구조 안전성 또는 인체공학 수치를 AI가 임의로 확정하게 하지 않습니다.
+    </aside>
+  </LessonSection>
+
+  <LessonSection
+    id="section-06"
+    number="06"
+    title="미니실습 2 결과 샘플"
+    class="outline-section lesson03-review-section"
+    lessonId="03"
+  >
+    <p class="lesson03-sample-note">직접 작성한 프롬프트와 비교할 수 있는 구조화 샘플입니다. 실제 설계 적합성을 보증하는 답안은 아닙니다.</p>
+    <details class="lesson03-result-sample">
+      <summary>실습 결과 샘플 보기</summary>
+      <div class="lesson03-result-sample__body">
+        <PromptCopyBlock
+          id={practiceTwo.promptId}
+          title={practiceTwo.promptTitle}
+          description="화면에 보이는 프롬프트 원문만 복사됩니다."
+          prompt={practiceTwo.prompt}
+        />
+      </div>
+    </details>
+  </LessonSection>
+
+  <LessonSection
+    id="section-07"
+    number="07"
+    title="두 실습의 차이와 제3차시 본론 연결"
+    class="outline-section lesson03-review-section"
+    lessonId="03"
+  >
+    <div class="lesson03-practice-comparison">
+      {comparison.map((item) => (
+        <article>
+          <h3>{item.title}</h3>
+          <p>{item.summary}</p>
+          <ul>{item.points.map((point) => <li>{point}</li>)}</ul>
+        </article>
+      ))}
+    </div>
+    <div class="lesson03-bridge">{bridge.map((paragraph) => <p>{paragraph}</p>)}</div>
+  </LessonSection>
+</div>
+
+<style>
+  .lesson03-review-practice { min-width: 0; }
+  .lesson03-review-intro { max-width: 54rem; }
+  .lesson03-review-intro p,
+  .lesson03-practice-direction,
+  .lesson03-sample-note,
+  .lesson03-practice-kicker,
+  .lesson03-bridge p { font-size: clamp(1rem, 1.45vw, 1.18rem); line-height: 1.8; }
+  .lesson03-formula { margin-top: 2rem; border-top: 1px solid var(--line-dark); border-left: 1px solid var(--line-dark); }
+  .lesson03-formula ol { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; }
+  .lesson03-formula li { min-width: 0; min-height: 7.5rem; padding: 1rem; border-right: 1px solid var(--line-dark); border-bottom: 1px solid var(--line-dark); }
+  .lesson03-formula li span { display: block; color: var(--accent-dark); font-size: 0.72rem; font-weight: 850; }
+  .lesson03-formula li strong { display: block; margin-top: 0.7rem; line-height: 1.5; word-break: keep-all; }
+  .lesson03-formula > p { display: flex; flex-wrap: wrap; gap: 0.55rem; align-items: center; margin: 0; padding: 1rem; border-right: 1px solid var(--line-dark); border-bottom: 1px solid var(--line-dark); }
+  .lesson03-formula > p span { font-weight: 700; }
+  .lesson03-formula > p b { color: var(--accent-dark); }
+  .lesson03-client-request { margin: 0 0 2rem; padding: clamp(1.4rem, 3vw, 2.3rem); border: 0; border-left: 0.35rem solid var(--accent-dark); background: var(--paper-deep); }
+  .lesson03-client-request span { color: var(--accent-dark); font-size: 0.76rem; font-weight: 850; letter-spacing: 0.12em; }
+  .lesson03-client-request p { max-width: 55rem; margin: 0.8rem 0 0; font-family: var(--serif); font-size: clamp(1.35rem, 2.5vw, 2rem); line-height: 1.55; white-space: pre-line; word-break: keep-all; }
+  .lesson03-reference-images { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+  .lesson03-reference-images figure { display: grid; min-width: 0; margin: 0; border: 1px solid var(--line-dark); background: #fff; }
+  .lesson03-reference-images img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+  .lesson03-reference-images figcaption { display: grid; gap: 0.4rem; padding: 1rem 1.1rem; }
+  .lesson03-reference-images figcaption strong { font-family: var(--serif); font-size: 1.2rem; }
+  .lesson03-reference-images figcaption span { color: var(--muted); line-height: 1.6; }
+  .lesson03-reference-images a { display: flex; min-height: 3.3rem; align-items: center; justify-content: space-between; padding: 0.8rem 1.1rem; border-top: 1px solid var(--line-dark); color: #fff; background: var(--ink); font-weight: 800; text-decoration: none; }
+  .lesson03-reference-images a:hover { color: var(--ink); background: #fff; }
+  .lesson03-reference-images a:focus-visible,
+  .lesson03-result-sample summary:focus-visible { outline: 3px solid var(--focus, #1d4ed8); outline-offset: 3px; }
+  .lesson03-question-sheet { margin-top: 1.5rem; padding: clamp(1.2rem, 3vw, 2rem); border: 1px solid var(--line-dark); }
+  .lesson03-question-sheet h3 { margin-top: 0; font-family: var(--serif); font-size: clamp(1.35rem, 2.2vw, 1.8rem); }
+  .lesson03-question-sheet > ol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; margin: 1.2rem 0 0; padding: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); list-style: none; }
+  .lesson03-question-sheet > ol > li { display: grid; grid-template-columns: 2rem 1fr; gap: 0.6rem; min-width: 0; padding: 1rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .lesson03-question-sheet > ol > li > span { color: var(--accent-dark); font-size: 0.76rem; font-weight: 850; }
+  .lesson03-question-sheet ul { margin: 0.65rem 0 0; padding-left: 1.1rem; }
+  .lesson03-question-sheet li li { margin-top: 0.4rem; line-height: 1.55; }
+  .lesson03-question-sheet--compact > ul { columns: 2; gap: 2.5rem; }
+  .lesson03-question-sheet--compact > ul li { break-inside: avoid; margin-bottom: 0.7rem; }
+  .lesson03-result-sample { margin-top: 1.5rem; border: 1px solid var(--line-dark); background: #fff; }
+  .lesson03-result-sample > summary { padding: 1rem 1.2rem; color: #fff; background: var(--ink); font-weight: 850; cursor: pointer; }
+  .lesson03-result-sample__body { display: grid; gap: 1.5rem; padding: clamp(1rem, 3vw, 1.8rem); }
+  .lesson03-condition-sample h3,
+  .lesson03-prompt-annotations h3,
+  .lesson03-result-checks h3 { margin-top: 0; font-family: var(--serif); font-size: 1.35rem; }
+  .lesson03-condition-sample dl,
+  .lesson03-prompt-annotations dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+  .lesson03-condition-sample dl > div,
+  .lesson03-prompt-annotations dl > div { min-width: 0; padding: 1rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .lesson03-condition-sample dt,
+  .lesson03-prompt-annotations dt { color: var(--accent-dark); font-weight: 850; }
+  .lesson03-condition-sample dd,
+  .lesson03-prompt-annotations dd { margin: 0.45rem 0 0; line-height: 1.6; }
+  .lesson03-condition-sample dd ul { margin: 0; padding-left: 1.1rem; }
+  .lesson03-result-checks { margin-top: 2rem; padding: 1.4rem; border: 1px solid var(--line-dark); }
+  .lesson03-result-checks ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem 1.5rem; padding-left: 1.2rem; }
+  .lesson03-result-checks li { line-height: 1.6; }
+  .lesson03-caution { margin-top: 1.5rem; padding: 1.2rem 1.4rem; border-left: 0.35rem solid var(--accent-dark); background: #fff6ee; font-weight: 700; line-height: 1.7; }
+  .lesson03-practice-comparison { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--line-dark); border-left: 1px solid var(--line-dark); }
+  .lesson03-practice-comparison article { min-width: 0; padding: 1.4rem; border-right: 1px solid var(--line-dark); border-bottom: 1px solid var(--line-dark); }
+  .lesson03-practice-comparison h3 { margin-top: 0; font-family: var(--serif); font-size: 1.45rem; }
+  .lesson03-practice-comparison p { font-weight: 750; line-height: 1.65; }
+  .lesson03-practice-comparison ul { margin-bottom: 0; padding-left: 1.2rem; }
+  .lesson03-practice-comparison li { margin-top: 0.45rem; line-height: 1.55; }
+  .lesson03-bridge { margin-top: 2rem; padding: clamp(1.3rem, 3vw, 2rem); border-left: 0.35rem solid var(--accent-dark); background: var(--paper-deep); }
+
+  @media (max-width: 900px) {
+    .lesson03-formula ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 760px) {
+    .lesson03-reference-images,
+    .lesson03-question-sheet > ol,
+    .lesson03-condition-sample dl,
+    .lesson03-prompt-annotations dl,
+    .lesson03-result-checks ul,
+    .lesson03-practice-comparison { grid-template-columns: 1fr; }
+    .lesson03-formula ol { grid-template-columns: 1fr 1fr; }
+    .lesson03-formula li { min-height: 6rem; }
+    .lesson03-question-sheet--compact > ul { columns: 1; }
+  }
+  @media print {
+    .lesson03-reference-images a { display: none !important; }
+    .lesson03-reference-images figure,
+    .lesson03-client-request,
+    .lesson03-question-sheet,
+    .lesson03-condition-sample dl > div,
+    .lesson03-prompt-annotations dl > div,
+    .lesson03-result-checks,
+    .lesson03-practice-comparison article { break-inside: avoid-page; page-break-inside: avoid; }
+    .lesson03-result-sample > summary { display: none; }
+    .lesson03-result-sample:not([open]) > :not(summary) { display: block !important; }
+    .lesson03-result-sample { border: 0; }
+    .lesson03-result-sample__body { padding: 0; }
+  }
+</style>

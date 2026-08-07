@@ -17,7 +17,14 @@ const suppressInstructorNotes = Astro.url.pathname.includes('/presentation/')
   || Astro.url.pathname.includes('/instructor-console/');
 ---
 
-<section class:list={['lesson-section', className]} id={id} aria-labelledby={headingId}>
+<section
+  class:list={['lesson-section', className]}
+  id={id}
+  aria-labelledby={headingId}
+  data-lesson-section
+  data-section-number={number}
+  data-section-title={title}
+>
   <div class="section-heading">
     <span>{number}</span>
     <h2 id={headingId}>{title}</h2>

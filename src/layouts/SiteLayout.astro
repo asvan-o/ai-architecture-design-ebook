@@ -101,13 +101,21 @@ const isCurrent = (href: string) =>
               </p>
               <div class="sidebar-topic__lessons">
                 {topicLessons.map((lesson) => (
-                  <a
-                    href={withBase(`/lessons/${lesson.id}/`)}
-                    aria-current={currentPath.includes(`/lessons/${lesson.id}`) ? 'page' : undefined}
-                  >
-                    <span>{String(lesson.data.day).padStart(2, '0')}</span>
-                    <span>{lesson.data.title.replace(/^제\d+차시\s*·?\s*/, '')}</span>
-                  </a>
+                  <>
+                    <a
+                      href={withBase(`/lessons/${lesson.id}/`)}
+                      aria-current={currentPath.includes(`/lessons/${lesson.id}`) ? 'page' : undefined}
+                    >
+                      <span>{String(lesson.data.day).padStart(2, '0')}</span>
+                      <span>{lesson.data.title.replace(/^제\d+차시\s*·?\s*/, '')}</span>
+                    </a>
+                    {currentLessonId === lesson.id && (
+                      <nav class="current-lesson-toc" aria-label={`제${lesson.data.day}차시 내부 목차`} data-current-lesson-toc="desktop" hidden>
+                        <p>현재 차시 목차</p>
+                        <ol data-current-lesson-toc-list></ol>
+                      </nav>
+                    )}
+                  </>
                 ))}
               </div>
             </section>
@@ -143,13 +151,21 @@ const isCurrent = (href: string) =>
             </p>
             <div>
               {topicLessons.map((lesson) => (
-                <a
-                  href={withBase(`/lessons/${lesson.id}/`)}
-                  aria-current={currentPath.includes(`/lessons/${lesson.id}`) ? 'page' : undefined}
-                >
-                  <span>{String(lesson.data.day).padStart(2, '0')}</span>
-                  <span>{lesson.data.title.replace(/^제\d+차시\s*·?\s*/, '')}</span>
-                </a>
+                <>
+                  <a
+                    href={withBase(`/lessons/${lesson.id}/`)}
+                    aria-current={currentPath.includes(`/lessons/${lesson.id}`) ? 'page' : undefined}
+                  >
+                    <span>{String(lesson.data.day).padStart(2, '0')}</span>
+                    <span>{lesson.data.title.replace(/^제\d+차시\s*·?\s*/, '')}</span>
+                  </a>
+                  {currentLessonId === lesson.id && (
+                    <nav class="current-lesson-toc current-lesson-toc--mobile" aria-label={`제${lesson.data.day}차시 내부 목차`} data-current-lesson-toc="mobile" hidden>
+                      <p>현재 차시 목차</p>
+                      <ol data-current-lesson-toc-list></ol>
+                    </nav>
+                  )}
+                </>
               ))}
             </div>
           </section>
@@ -198,16 +214,18 @@ const isCurrent = (href: string) =>
       const closeMenu = () => {
         if (dialog?.open) dialog.close();
       };
+      let revealActiveLessonSection = () => {};
       const handleMenuClosed = () => {
         openButton?.setAttribute('aria-expanded', 'false');
         document.documentElement.removeAttribute('data-mobile-menu-open');
-        openButton?.focus();
+        openButton?.focus({ preventScroll: true });
       };
       openButton?.addEventListener('click', () => {
         if (!dialog?.open) dialog?.showModal();
         openButton.setAttribute('aria-expanded', 'true');
         document.documentElement.setAttribute('data-mobile-menu-open', 'true');
         closeButton?.focus();
+        window.requestAnimationFrame(revealActiveLessonSection);
       });
       closeButton?.addEventListener('click', closeMenu);
       dialog?.addEventListener('close', handleMenuClosed);
@@ -216,6 +234,103 @@ const isCurrent = (href: string) =>
         if (event.target === dialog) closeMenu();
       });
       dialog?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+
+      const lessonSections = Array.from(
+        document.querySelectorAll<HTMLElement>('.lesson-content [data-lesson-section][id]'),
+      );
+      const currentLessonTocs = Array.from(
+        document.querySelectorAll<HTMLElement>('[data-current-lesson-toc]'),
+      );
+
+      if (lessonSections.length > 1 && currentLessonTocs.length > 0) {
+        const linksBySection = new Map<string, HTMLAnchorElement[]>();
+
+        currentLessonTocs.forEach((toc) => {
+          const list = toc.querySelector<HTMLOListElement>('[data-current-lesson-toc-list]');
+          if (!list) return;
+          list.replaceChildren();
+
+          lessonSections.forEach((section, index) => {
+            const sectionId = section.id;
+            const number = section.dataset.sectionNumber
+              ?? String(index + 1).padStart(2, '0');
+            const title = section.dataset.sectionTitle
+              ?? section.querySelector('h2')?.textContent?.trim()
+              ?? `섹션 ${number}`;
+            const item = document.createElement('li');
+            const link = document.createElement('a');
+            const numberLabel = document.createElement('span');
+            const titleLabel = document.createElement('span');
+
+            link.href = `#${sectionId}`;
+            link.dataset.lessonSectionLink = sectionId;
+            numberLabel.textContent = number;
+            titleLabel.textContent = title;
+            link.append(numberLabel, titleLabel);
+            link.addEventListener('click', () => {
+              setActiveSection(sectionId, false);
+              if (toc.closest('[data-mobile-menu]')) {
+                closeMenu();
+                window.requestAnimationFrame(() => section.scrollIntoView({ block: 'start' }));
+              }
+            });
+            item.append(link);
+            list.append(item);
+            linksBySection.set(sectionId, [...(linksBySection.get(sectionId) ?? []), link]);
+          });
+
+          toc.hidden = false;
+        });
+
+        let activeSectionId = '';
+        const setActiveSection = (sectionId: string, reveal = true) => {
+          if (!linksBySection.has(sectionId)) return;
+          activeSectionId = sectionId;
+          linksBySection.forEach((links, id) => {
+            links.forEach((link) => {
+              if (id === sectionId) link.setAttribute('aria-current', 'location');
+              else link.removeAttribute('aria-current');
+            });
+          });
+          if (!reveal) return;
+          const visibleLink = linksBySection.get(sectionId)?.find((link) => link.offsetParent !== null);
+          visibleLink?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+        };
+
+        revealActiveLessonSection = () => {
+          if (activeSectionId) setActiveSection(activeSectionId);
+        };
+
+        const sectionAtHash = () => {
+          const hashId = decodeURIComponent(window.location.hash.replace(/^#/, ''));
+          return linksBySection.has(hashId) ? hashId : '';
+        };
+        setActiveSection(sectionAtHash() || lessonSections[0].id, false);
+        window.addEventListener('hashchange', () => {
+          const hashId = sectionAtHash();
+          if (hashId) setActiveSection(hashId);
+        });
+
+        const visibleSections = new Set<string>();
+        const sectionObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) visibleSections.add(entry.target.id);
+            else visibleSections.delete(entry.target.id);
+          });
+          const activationLine = window.innerHeight * 0.1;
+          const nextActive = lessonSections
+            .filter((section) => visibleSections.has(section.id))
+            .sort((a, b) => (
+              Math.abs(a.getBoundingClientRect().top - activationLine)
+              - Math.abs(b.getBoundingClientRect().top - activationLine)
+            ))[0];
+          if (nextActive) setActiveSection(nextActive.id);
+        }, {
+          rootMargin: '-10% 0px -72% 0px',
+          threshold: [0, 0.01],
+        });
+        lessonSections.forEach((section) => sectionObserver.observe(section));
+      }
 
       const sidebarStorageKey = 'ai-architecture-ebook-sidebar-v1';
       const collapseButton = document.querySelector<HTMLButtonElement>('[data-sidebar-collapse]');

@@ -26,7 +26,7 @@ const requiredIds = Array.from({ length: 14 }, (_, index) => String(index + 1).p
 const approvedLessons = [
   { title: '제1차시 · AI가 할 일과 디자이너가 판단할 일', durationMinutes: 180 },
   { title: '제2차시 · 첫 공간 콘셉트 생성과 빈 공간 인테리어 배치', durationMinutes: 180 },
-  { title: '제3차시 · 실무 의뢰와 RFP를 디자인 브리프로 바꾸기', durationMinutes: 180 },
+  { title: '제3차시 · 실무 의뢰와 제안요청서(RFP)를 디자인 브리프로 바꾸기', durationMinutes: 180 },
   {
     title: '제4차시 · RFP 기반 공간구성 대안 개발과 프로젝트 산출물 자동 정리',
     durationMinutes: 360,
@@ -45,7 +45,7 @@ const approvedLessons = [
 const approvedRoadmapTitles = [
   '제1차시 · AI가 할 일과 디자이너가 판단할 일',
   '제2차시 · 첫 공간 콘셉트 생성과 빈 공간 인테리어 배치',
-  '제3차시 · 실무 의뢰와 RFP를 디자인 브리프로 바꾸기',
+  '제3차시 · 실무 의뢰와 제안요청서(RFP)를 디자인 브리프로 바꾸기',
   '제4차시 · RFP 기반 공간구성 대안 개발과 프로젝트 산출물 자동 정리',
   '제5차시 · AI로 실무 문서와 반복 정리 업무 줄이기',
   '제6차시 · 클라이언트 의뢰를 디자인 브리프로 변환하기',
@@ -130,7 +130,7 @@ const lessonOneInstructorSlots = [
 const detailedLessonSections = {
   '01': ['차시 소개', '오늘의 핵심 질문', '학습 목표', '생성형 AI(Generative AI)의 기본 개념', 'AI가 할 일과 디자이너가 판단할 일', '안전하게 사용하기 위한 핵심 용어', '원문·추론·가정·디자인 제안 구분', '북카페 가상 의뢰', 'Gemini 첫 번째 입력', 'Gemini 3.6 Flash 실제 응답', '실제 응답 분석', '개선된 요청문', '수강생 실습', '결과물 작성', 'AI 활용·검증 체크리스트', '차시 마무리'],
   '02': ['오늘의 학습 안내', '제1차시에서 제2차시로', '프롬프트란 무엇인가', '프롬프트를 작성하기 전에 알아야 할 기본 개념', '정보 확인형 질문과 작업지시형 프롬프트', '좋은 프롬프트의 7가지 공통 규칙', '프롬프트 작성 공통 공식', '짧은 요청과 구조화된 요청 비교', '구조화된 프롬프트 문장 분석', '실습 전 예열과 실습 1 · 작업 조건표', '실습 2 · 조건표를 작업지시서로 조립하기', '실습 3~4 · 프롬프트 다듬기와 A/B 테스트', '응용 실습 · 실제 이미지 생성과 수정'],
-  '03': ['차시 소개', '오늘의 프로젝트와 제출 결과물', '실습자료 다운로드 및 현황자료', 'RFP와 디자인 브리프 핵심 개념', 'RFP를 읽을 때 확인할 핵심 질문', 'RFP 구조 함께 확인하기', '요구조건 매트릭스 작성', '발주기관 추가 질의 작성', 'Gemini 분석 및 사람 분석과 비교', '디자인 브리프 작성', '현황 이미지 검토와 제4차시 평가기준', '제출 결과물 점검', '검증 필요와 정리'],
+  '03': ['차시 소개', '제2차시 복습 · 작업지시서를 다시 만들어보기', '복습 실습 1 · 주민 커뮤니티 쉼터 리모델링', '복습 실습 1 결과 샘플', '미니실습 2 · 고령 입주민을 위한 휴게 쉼터', '미니실습 2 결과 샘플', '두 실습의 차이와 제3차시 본론 연결', '제안요청서(RFP)와 디자인 브리프', '정보 분류와 전체 업무 흐름', '실습 1 · 제안요청서(RFP)를 디자인 브리프로 바꾸기', '공통 마무리 · 오류 확인과 핵심 정리'],
   '04': ['차시 소개', '오늘의 프로젝트와 제출 결과물', '제공 자료와 제3차시 작업물 가져오기', '공간구성 대안의 의미', '대안 A·B 운영전략과 조닝 작성', 'Nano Banana 대안 이미지 생성', 'RFP 기준 비교와 선택', '선택안 수정', 'Antigravity 도구 유형과 모델 선택', '고정 프로젝트 경로와 핵심 계층구조', '동일 프롬프트로 관리 프로그램 제작 과정', '산출물 자동 정리와 제출 준비', '제출 결과물·검증·다음 차시'],
 };
 const lessonThreeFourOutputs = ['요구조건 매트릭스', '발주기관 추가 질의', '디자인 브리프', '평면도 기반 현황 이미지 생성 결과', '현황 이미지 수정 결과', '평면도와 이미지의 불일치 기록', '제4차시 대안 평가기준'];
@@ -518,6 +518,11 @@ for (const fileName of files) {
       { marker: 'lesson-03-04-campus-lounge-existing-plan.png', label: '현황 평면도 다운로드 파일명' },
       { marker: 'lesson-03-04-campus-lounge-existing-view-01.jpeg', label: '현황 이미지 다운로드 파일명' },
       { marker: 'gemini-rfp-analysis-prompt-v1.2.txt', label: 'Gemini 분석 요청문 다운로드' },
+      { marker: 'lesson03DesignBrief={{', label: '제안요청서(RFP) 디자인 브리프 통합 실습 연결' },
+      { marker: 'lesson03-gemini-rfp-analysis-prompt', label: 'Gemini 분석 요청문 복사 블록' },
+      { marker: 'lesson03-campus-lounge-image-brief-prompt', label: 'Design Brief 기반 이미지 작업지시 복사 블록' },
+      { marker: 'Design Brief v0.1', label: '디자인 브리프 작업 초안 버전' },
+      { marker: "evidenceFlow: ['제안요청서(RFP)', 'Design Brief', '현황자료', '디자인']", label: '근거 수준과 디자인 작업 흐름' },
       { marker: 'questionsTitle="핵심 질문"', label: '핵심 질문 섹션 제목' },
       { marker: 'scenarioTitle="교육용 가상 RFP 원문"', label: '교육용 가상 RFP 섹션 제목' },
       { marker: '요구조건 매트릭스', label: '요구조건 매트릭스 실습' },
@@ -531,22 +536,30 @@ for (const fileName of files) {
       { marker: '관련 전문가가 확인해야 하는 내용', label: '전문가 확인 구분' },
       { marker: '실제 Gemini 응답 원문은 사용자가 제공하기 전까지', label: '실제 Gemini 응답 비생성 원칙' },
       { marker: 'RFP PDF 4쪽의 “현황 사진”', label: 'RFP 현황 사진 정정 안내' },
-      { marker: '주목적은 사람이 먼저 RFP를 분석하고 디자인 브리프를 만드는 것', label: '이미지 보조 실습 범위' },
+      { marker: '12쪽 교육용 가상 제안요청서(RFP)를 사람이 먼저 읽은 뒤', label: '사람 우선 분석 원칙' },
       { marker: '수업 중 최소 3건을 반드시 작성', label: '불일치 최소 기록 수' },
       { marker: '출처 추적 정보: 페이지·절·REQ ID', label: '디자인 브리프 출처 추적' },
       { marker: '제3차시 결과물 → 제4차시 사용 위치', label: '제3·4차시 결과물 대응표' },
-      { marker: '개인정보·기업 기밀·비공개 RFP·권한 없는 도면', label: '외부 AI 업로드 보안 안내' },
+      { marker: '개인정보·기업 기밀·비공개 제안요청서(RFP)·권한 없는 도면', label: '외부 AI 업로드 보안 안내' },
       { marker: 'Gemini 3.6 Flash는 API 모델명', label: 'Gemini API 모델과 Apps 구분' },
       { marker: 'resourceDownloads={[', label: '공개 실습 자료 다운로드 구조' },
       { marker: 'assetNotes={[', label: '학생용 내부 자산 카드 차단 구조' },
       { marker: 'assetsTitle="실습 자료 다운로드"', label: '실습 자료 다운로드 섹션 제목' },
+      { marker: 'A_쉼터_정면기준.jpeg', label: '복습 실습 기준 이미지 A' },
+      { marker: 'B_쉼터_주변환경참고.jpeg', label: '복습 실습 기준 이미지 B' },
+      { marker: 'lesson03-shelter-community-prompt', label: '주민 커뮤니티 쉼터 구조화 프롬프트' },
+      { marker: 'lesson03-shelter-senior-prompt', label: '고령 입주민 쉼터 구조화 프롬프트' },
+      { marker: "formula: ['목적', '맥락', '입력자료', '작업 단계', '조건·제한', '출력 형식', '검토 기준']", label: '제2차시 공통 공식 복습' },
+      { marker: '주민 커뮤니티 쉼터 리모델링', label: '제3차시 복습 실습 1' },
+      { marker: '고령 입주민을 위한 휴게 쉼터', label: '제3차시 미니실습 2' },
+      { marker: '실제 법규상 통로 폭,', label: '기능 요구 실습 안전 경계' },
     ];
     for (const { marker, label } of requiredLessonThreeStructures) {
       if (!source.includes(marker)) {
         errors.push(`${fileName}: 제3차시 상세 본문에 ${label} 구성이 없습니다.`);
       }
     }
-    for (const disallowedTool of ['나노바나나', 'Nano Banana', 'Veo']) {
+    for (const disallowedTool of ['Veo']) {
       if (source.includes(disallowedTool)) {
         errors.push(`${fileName}: 제3차시 본문에서 사용하지 않는 도구 '${disallowedTool}'를 제거해야 합니다.`);
       }
@@ -636,7 +649,7 @@ for (const fileName of files) {
     }
   }
 
-  const expectedSectionCount = isDetailedLessonOne ? 16 : 13;
+  const expectedSectionCount = detailedLessonSections[id]?.length ?? (isDetailedLessonOne ? 16 : 13);
   for (let section = 1; section <= expectedSectionCount; section += 1) {
     const sectionId = `section-${String(section).padStart(2, '0')}`;
     if (!frontmatter.includes(`id: "${sectionId}"`)) {
@@ -700,11 +713,11 @@ try {
 try {
   const lessonThreePrompt = await readFile(lessonThreePromptPath, 'utf8');
   const promptMarkers = [
-    'RFP 페이지, 장·절과 요구조건 ID(REQ ID)',
+    '제안요청서(RFP) 페이지, 장·절과 요구조건 ID(REQ ID)',
     '근거가 되는 짧은 원문 인용',
     '‘판독 불가’ 또는 ‘미확정’',
     '행정·입찰 조건과 공간 디자인 요구를 분리',
-    '실제 회사 자료, 비공개 RFP, 개인정보, 기업 기밀 또는 사용 권한이 없는 도면',
+    '실제 회사 자료, 비공개 제안요청서(RFP), 개인정보, 기업 기밀 또는 사용 권한이 없는 도면',
     '출처 추적 정보: 페이지·절·REQ ID',
   ];
   for (const marker of promptMarkers) {
@@ -1053,7 +1066,7 @@ console.log('- day: 1–14 누락·중복 없음');
 console.log('- ID/day 일치');
 console.log('- 승인된 제목·수업시간 일치');
 console.log('- 승인된 상위 주제 7개·차시 연결 14개 일치');
-console.log('- 제1차시 16개 섹션, 제2–14차시 13개 섹션');
+console.log('- 제1차시 16개, 제2차시 13개, 제3차시 11개, 제4–14차시 13개 섹션');
 console.log('- 모든 차시 실습시간 50% 이상');
 console.log(`- 자산 manifest: ${manifestAssetIds.length}개, 필수 필드·연결 ID·공개 조건 확인`);
 console.log(`- 필수 metadata: ${requiredFields.join(', ')}`);
