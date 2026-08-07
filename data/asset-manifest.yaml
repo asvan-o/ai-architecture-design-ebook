@@ -331,6 +331,50 @@ assets:
     verified_at: "2026-07-30"
     verification_note: "교육용 AI 생성 이미지이며 실제 설계도면·면적·구조 정보가 아님. 세부 모델·생성일·권리 검토 기록은 없음"
 
+  - id: "l03-shelter-reference-a"
+    lesson: 3
+    priority: "required"
+    source_type: "original"
+    production_owner: "instructor"
+    lesson_usage: "practice-input"
+    title: "기준 이미지 A · 쉼터 정면 기준"
+    type: "image"
+    purpose: "주민 쉼터 리모델링 복습 실습에서 기존 쉼터의 정면 구조와 카메라 시점을 확인하는 기준 이미지"
+    required_files: ["A_쉼터_정면기준.jpeg"]
+    file_path: "src/assets/lessons/03/shelter-review/A_쉼터_정면기준.jpeg"
+    recommended_tool: "user-upload"
+    status: "ready"
+    public_use: true
+    alt: "공동주택 조경 공간 중앙에 있는 사각 골조와 목재 좌석의 주민 쉼터 정면 기준 이미지"
+    source_note: "사용자가 제3차시 복습 실습용으로 제공하고 학생 e-book 공개 사용을 지시한 기준 이미지"
+    license_note: "프로젝트의 학생용 웹·인쇄 교보재 범위에서 사용하도록 사용자가 제공"
+    rights_status: "cleared"
+    privacy_note: "사람, 차량 번호판, 연락처 등 직접 식별 정보는 보이지 않으며 건물 동 번호 표기는 포함됨"
+    verified_at: "2026-08-07"
+    verification_note: "쉼터 정면 구조와 카메라 시점 참고용으로 확인했다. 실제 위치·치수·구조·법규·시공 조건의 근거로 사용하지 않는다."
+
+  - id: "l03-shelter-reference-b"
+    lesson: 3
+    priority: "required"
+    source_type: "original"
+    production_owner: "instructor"
+    lesson_usage: "practice-input"
+    title: "기준 이미지 B · 쉼터 주변 환경 참고"
+    type: "image"
+    purpose: "주민 쉼터 리모델링 복습 실습에서 주변 조경과 공간 환경을 함께 참고하는 보조 이미지"
+    required_files: ["B_쉼터_주변환경참고.jpeg"]
+    file_path: "src/assets/lessons/03/shelter-review/B_쉼터_주변환경참고.jpeg"
+    recommended_tool: "user-upload"
+    status: "ready"
+    public_use: true
+    alt: "공동주택 건물과 조경 사이에 있는 사각 골조 주민 쉼터의 주변 환경 참고 이미지"
+    source_note: "사용자가 제3차시 복습 실습용으로 제공하고 학생 e-book 공개 사용을 지시한 보조 이미지"
+    license_note: "프로젝트의 학생용 웹·인쇄 교보재 범위에서 사용하도록 사용자가 제공"
+    rights_status: "cleared"
+    privacy_note: "사람, 차량 번호판, 연락처 등 직접 식별 정보는 보이지 않으며 건물 동 번호 표기는 포함됨"
+    verified_at: "2026-08-07"
+    verification_note: "쉼터 주변 조경과 공간 환경 참고용으로 확인했다. 실제 위치·치수·구조·법규·시공 조건의 근거로 사용하지 않는다."
+
   - id: "l03-doc-pack"
     lesson: 3
     priority: "required"

@@ -15,7 +15,7 @@ export interface LessonRoadmapItem {
 export const lessonRoadmap: readonly LessonRoadmapItem[] = [
   { id: '01', day: 1, title: '제1차시 · AI가 할 일과 디자이너가 판단할 일' },
   { id: '02', day: 2, title: '제2차시 · 첫 공간 콘셉트 생성과 빈 공간 인테리어 배치' },
-  { id: '03', day: 3, title: '제3차시 · 실무 의뢰와 RFP를 디자인 브리프로 바꾸기' },
+    { id: '03', day: 3, title: '제3차시 · 실무 의뢰와 제안요청서(RFP)를 디자인 브리프로 바꾸기' },
   { id: '04', day: 4, title: '제4차시 · RFP 기반 공간구성 대안 개발과 프로젝트 산출물 자동 정리' },
   { id: '05', day: 5, title: '제5차시 · AI로 실무 문서와 반복 정리 업무 줄이기' },
   { id: '06', day: 6, title: '제6차시 · 클라이언트 의뢰를 디자인 브리프로 변환하기' },

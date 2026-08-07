@@ -24,9 +24,10 @@ interface Props {
   materialItems: MaterialItem[];
   notice: string;
   figures: ReferenceFigure[];
+  documentLabel?: string;
 }
 
-const { priorityItems, materialItems, notice, figures } = Astro.props;
+const { priorityItems, materialItems, notice, figures, documentLabel = 'RFP' } = Astro.props;
 ---
 
 <div class="project-reference-materials">
@@ -49,7 +50,7 @@ const { priorityItems, materialItems, notice, figures } = Astro.props;
       ))}
     </ol>
     <p class="project-reference-materials__rule">
-      자료가 서로 다르게 보일 경우 RFP와 교육용 현황 평면도를 우선한다.
+      자료가 서로 다르게 보일 경우 {documentLabel}와 교육용 현황 평면도를 우선한다.
     </p>
   </section>
 

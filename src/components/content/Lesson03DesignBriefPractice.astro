@@ -1,0 +1,1027 @@
+---
+import LessonSection from './LessonSection.astro';
+import LessonResourceDownloads from './LessonResourceDownloads.astro';
+import ProjectReferenceMaterials from './ProjectReferenceMaterials.astro';
+import PromptCopyBlock from './PromptCopyBlock.astro';
+import type { ComponentProps } from 'astro/types';
+
+type Classification = {
+  title: string;
+  description: string;
+  action: string;
+  examples?: string[];
+};
+
+type SampleGroup = {
+  title: string;
+  items: string[];
+};
+
+type QuestionSample = {
+  id: string;
+  question: string;
+  basis?: string;
+  impact: string;
+  temporary?: string;
+  reviewer?: string;
+};
+
+type BriefSection = {
+  number: string;
+  english: string;
+  korean: string;
+  items: string[];
+};
+
+type Props = {
+  coreMessage: string;
+  rfpDefinition: string;
+  rfpCaution: string;
+  briefDefinition: string;
+  briefPrinciples: string[];
+  briefUsers: string[];
+  stakeholderFlow: string[];
+  classifications: Classification[];
+  distinction: {
+    proposed: string;
+    unknown: string;
+    proposedQuestion: string;
+    unknownQuestion: string;
+  };
+  process: string[];
+  projectTitle: string;
+  readingTargets: string[];
+  furnitureRows: string[][];
+  classificationSample: SampleGroup[];
+  geminiPrompt: ComponentProps<typeof PromptCopyBlock>;
+  humanAiColumns: string[];
+  humanAiRows: string[][];
+  matrixColumns: string[];
+  matrixRows: string[][];
+  questionFields: string[];
+  questionSamples: QuestionSample[];
+  briefVersion: {
+    current: string;
+    currentDescription: string;
+    future: string;
+    futureDescription: string;
+  };
+  briefFields: { number: string; english: string; korean: string }[];
+  briefSampleTitle: string;
+  briefSample: BriefSection[];
+  evidenceFlow: string[];
+  visibleEvidence: string[];
+  unverifiableEvidence: string[];
+  imageFormula: string[];
+  imagePrompt: ComponentProps<typeof PromptCopyBlock>;
+  generationNotices: string[];
+  reviewColumns: string[];
+  reviewRows: string[][];
+  outputs: string[];
+  closingFlow: string[];
+  errorChecks: string[];
+  closingMessage: string;
+  resourceDownloads: ComponentProps<typeof LessonResourceDownloads>['items'];
+  resourceDownloadNote?: string;
+  projectReferences: ComponentProps<typeof ProjectReferenceMaterials>;
+};
+
+const {
+  coreMessage,
+  rfpDefinition,
+  rfpCaution,
+  briefDefinition,
+  briefPrinciples,
+  briefUsers,
+  stakeholderFlow,
+  classifications,
+  distinction,
+  process,
+  projectTitle,
+  readingTargets,
+  furnitureRows,
+  classificationSample,
+  geminiPrompt,
+  humanAiColumns,
+  humanAiRows,
+  matrixColumns,
+  matrixRows,
+  questionFields,
+  questionSamples,
+  briefVersion,
+  briefFields,
+  briefSampleTitle,
+  briefSample,
+  evidenceFlow,
+  visibleEvidence,
+  unverifiableEvidence,
+  imageFormula,
+  imagePrompt,
+  generationNotices,
+  reviewColumns,
+  reviewRows,
+  outputs,
+  closingFlow,
+  errorChecks,
+  closingMessage,
+  resourceDownloads,
+  resourceDownloadNote,
+  projectReferences,
+} = Astro.props;
+---
+
+<LessonSection
+  id="section-08"
+  number="08"
+  title="제안요청서(RFP)와 디자인 브리프"
+  class="outline-section lesson03-brief-section"
+  lessonId="03"
+>
+  <aside class="lesson03-brief-message">
+    <span>CORE MESSAGE</span>
+    <strong>{coreMessage}</strong>
+  </aside>
+
+  <div class="lesson03-definition-grid">
+    <article>
+      <span>01</span>
+      <h3>제안요청서(RFP)란 무엇인가</h3>
+      <p>{rfpDefinition}</p>
+      <p class="lesson03-definition-note">{rfpCaution}</p>
+    </article>
+    <article>
+      <span>02</span>
+      <h3>디자인 브리프란 무엇인가</h3>
+      <p>{briefDefinition}</p>
+      <ul>
+        {briefPrinciples.map((item) => <li>{item}</li>)}
+      </ul>
+    </article>
+    <article>
+      <span>03</span>
+      <h3>누가 사용하는가</h3>
+      <ul>
+        {briefUsers.map((item) => <li>{item}</li>)}
+      </ul>
+    </article>
+  </div>
+
+  <section class="lesson03-stakeholder-flow" aria-labelledby="lesson03-stakeholder-flow-title">
+    <h3 id="lesson03-stakeholder-flow-title">발주자에서 디자인팀까지</h3>
+    <ol>
+      {stakeholderFlow.map((item, index) => (
+        <li>
+          <span>{String(index + 1).padStart(2, '0')}</span>
+          <strong>{item}</strong>
+        </li>
+      ))}
+    </ol>
+  </section>
+</LessonSection>
+
+<LessonSection
+  id="section-09"
+  number="09"
+  title="정보 분류와 전체 업무 흐름"
+  class="outline-section lesson03-brief-section"
+  lessonId="03"
+>
+  <div class="lesson03-classification-grid">
+    {classifications.map((item, index) => (
+      <article>
+        <span>{String(index + 1).padStart(2, '0')}</span>
+        <h3>{item.title}</h3>
+        <p>{item.description}</p>
+        {item.examples && (
+          <ul>
+            {item.examples.map((example) => <li>{example}</li>)}
+          </ul>
+        )}
+        <strong>{item.action}</strong>
+      </article>
+    ))}
+  </div>
+
+  <aside class="lesson03-distinction">
+    <h3>결정되지 않은 것과 확인할 수 없는 것은 다르다</h3>
+    <div>
+      <article>
+        <strong>제안요청서(RFP)가 결정하지 않은 것</strong>
+        <p>{distinction.proposed}</p>
+        <span>{distinction.proposedQuestion}</span>
+      </article>
+      <article>
+        <strong>제안요청서(RFP)만으로 확인할 수 없는 것</strong>
+        <p>{distinction.unknown}</p>
+        <span>{distinction.unknownQuestion}</span>
+      </article>
+    </div>
+  </aside>
+
+  <section class="lesson03-process" aria-labelledby="lesson03-process-title">
+    <header>
+      <span>WORKFLOW</span>
+      <h3 id="lesson03-process-title">디자인 브리프를 만드는 전체 과정</h3>
+    </header>
+    <ol>
+      {process.map((item, index) => (
+        <li>
+          <span>{String(index + 1).padStart(2, '0')}</span>
+          <strong>{item}</strong>
+        </li>
+      ))}
+    </ol>
+    <p>
+      Gemini는 문서를 읽고 분류하는 일을 보조한다. 최종 판단은 사람이 제안요청서(RFP)
+      원문과 비교해 결정한다.
+    </p>
+  </section>
+</LessonSection>
+
+<LessonSection
+  id="section-10"
+  number="10"
+  title="실습 1 · 제안요청서(RFP)를 디자인 브리프로 바꾸기"
+  class="outline-section lesson03-brief-section lesson03-brief-practice"
+  lessonId="03"
+>
+  <header class="lesson03-practice-header">
+    <span>CAMPUS LOUNGE</span>
+    <h3>{projectTitle}</h3>
+    <p>
+      하나의 제안요청서(RFP)를 직접 읽고, AI 분석을 교차검토한 뒤 디자인 작업의 기준으로
+      바꾼다. 아래 12단계는 하나의 연속된 실습이다.
+    </p>
+  </header>
+
+  <article class="lesson03-practice-step" id="lesson03-practice-1-1">
+    <header><span>1-1</span><h3>자료 확인</h3></header>
+    <LessonResourceDownloads items={resourceDownloads} note={resourceDownloadNote} />
+    <ProjectReferenceMaterials {...projectReferences} />
+
+    <section class="lesson03-furniture-list" aria-labelledby="lesson03-furniture-title">
+      <h4 id="lesson03-furniture-title">기존 가구·시설 목록</h4>
+      <p>제안요청서(RFP) 5쪽에 기록된 교육용 현황 조건이다. 실제 재사용 가능 수량은 현장 확인 전까지 확정하지 않는다.</p>
+      <div class="lesson03-table-scroll" role="region" tabindex="0" aria-label="기존 가구와 시설 목록">
+        <table>
+          <thead><tr><th scope="col">구분</th><th scope="col">수량</th><th scope="col">상태</th><th scope="col">처리 원칙</th></tr></thead>
+          <tbody>
+            {furnitureRows.map((row) => <tr>{row.map((cell) => <td>{cell}</td>)}</tr>)}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </article>
+
+  <article class="lesson03-practice-step" id="lesson03-practice-1-2">
+    <header><span>1-2</span><h3>사람이 먼저 제안요청서(RFP) 읽기</h3></header>
+    <p class="lesson03-practice-lead">먼저 직접 읽은 결과가 있어야 Gemini 분석 결과가 맞는지 비교할 수 있다.</p>
+    <ul class="lesson03-check-grid">
+      {readingTargets.map((item) => <li>{item}</li>)}
+    </ul>
+  </article>
+
+  <article class="lesson03-practice-step" id="lesson03-practice-1-3">
+    <header><span>1-3</span><h3>핵심 조건 분류</h3></header>
+    <p>직접 읽은 내용을 필수 요구, 제약·유지, 제외, 디자인 제안 가능, 추가 확인 필요로 나눈다.</p>
+    <details class="lesson03-sample-details">
+      <summary>핵심 조건 분류 결과 샘플 보기</summary>
+      <div class="lesson03-sample-groups">
+        {classificationSample.map((group) => (
+          <section>
+            <h4>{group.title}</h4>
+            <ul>{group.items.map((item) => <li>{item}</li>)}</ul>
+          </section>
+        ))}
+      </div>
+    </details>
+  </article>
+
+  <article class="lesson03-practice-step" id="lesson03-practice-1-4">
+    <header><span>1-4</span><h3>Gemini 분석</h3></header>
+    <p>
+      직접 읽은 뒤 같은 제안요청서(RFP) PDF를 Gemini에 첨부한다. 표나 작은 글자를 정확히
+      판독하지 못하면 추정하지 않고 판독 불가 또는 미확정으로 남긴다.
+    </p>
+    <PromptCopyBlock {...geminiPrompt} />
+    <aside class="lesson03-caution">Gemini의 결과는 제안요청서(RFP) 원문보다 우선하지 않는다.</aside>
+  </article>
+
+  <article class="lesson03-practice-step" id="lesson03-practice-1-5">
+    <header><span>1-5</span><h3>사람 분석과 Gemini 결과 비교</h3></header>
+    <div class="lesson03-table-scroll" role="region" tabindex="0" aria-label="사람 분석과 Gemini 분석 비교">
+      <table>
+        <thead><tr>{humanAiColumns.map((column) => <th scope="col">{column}</th>)}</tr></thead>
+        <tbody>{humanAiRows.map((row) => <tr>{row.map((cell) => <td>{cell}</td>)}</tr>)}</tbody>
+      </table>
+    </div>
+    <p class="lesson03-emphasis">AI 분석 결과는 브리프의 원자료이지 브리프의 정답이 아니다.</p>
+  </article>
+
+  <article class="lesson03-practice-step" id="lesson03-practice-1-6">
+    <header><span>1-6</span><h3>요구조건 매트릭스 작성</h3></header>
+    <p>이 표는 공식 산업 표준 양식이 아니라 이번 강의에서 사용하는 요구조건 추적용 작업표다.</p>
+    <details class="lesson03-sample-details">
+      <summary>요구조건 매트릭스 결과 샘플 보기</summary>
+      <div class="lesson03-table-scroll" role="region" tabindex="0" aria-label="요구조건 매트릭스 결과 샘플">
+        <table class="lesson03-wide-table">
+          <thead><tr>{matrixColumns.map((column) => <th scope="col">{column}</th>)}</tr></thead>
+          <tbody>{matrixRows.map((row) => <tr>{row.map((cell) => <td>{cell}</td>)}</tr>)}</tbody>
+        </table>
+      </div>
+    </details>
+  </article>
+
+  <article class="lesson03-practice-step" id="lesson03-practice-1-7">
+    <header><span>1-7</span><h3>추가 확인 질문 작성</h3></header>
+    <p>질문 수를 늘리는 것이 아니라 디자인 결정에 영향을 주는 미확정 정보를 질문으로 바꾼다.</p>
+    <ol class="lesson03-field-list">
+      {questionFields.map((item, index) => <li><span>{String(index + 1).padStart(2, '0')}</span>{item}</li>)}
+    </ol>
+    <details class="lesson03-sample-details">
+      <summary>추가 확인 질문 결과 샘플 보기</summary>
+      <div class="lesson03-question-samples">
+        {questionSamples.map((item) => (
+          <article>
+            <span>{item.id}</span>
+            <h4>{item.question}</h4>
+            {item.basis && <p><strong>근거</strong>{item.basis}</p>}
+            <p><strong>영향받는 결정</strong>{item.impact}</p>
+            {item.temporary && <p><strong>답변 전 처리</strong>{item.temporary}</p>}
+            {item.reviewer && <p><strong>확인 주체</strong>{item.reviewer}</p>}
+          </article>
+        ))}
+      </div>
+    </details>
+  </article>
+
+  <article class="lesson03-practice-step" id="lesson03-practice-1-8">
+    <header><span>1-8</span><h3>Design Brief v0.1 작성</h3></header>
+    <div class="lesson03-version-grid">
+      <article><span>{briefVersion.current}</span><p>{briefVersion.currentDescription}</p></article>
+      <article><span>{briefVersion.future}</span><p>{briefVersion.futureDescription}</p></article>
+    </div>
+    <p class="lesson03-caution">현재 존재하지 않는 발주기관 답변을 임의로 만들어 v1.0으로 표시하지 않는다.</p>
+    <ol class="lesson03-brief-fields">
+      {briefFields.map((field) => (
+        <li><span>{field.number}</span><div><strong>{field.english}</strong><p>{field.korean}</p></div></li>
+      ))}
+    </ol>
+    <details class="lesson03-sample-details lesson03-brief-sample">
+      <summary>Design Brief v0.1 전체 결과 샘플 보기</summary>
+      <div>
+        <header><span>CAMPUS LOUNGE</span><h4>{briefSampleTitle}</h4></header>
+        {briefSample.map((section) => (
+          <section>
+            <span>{section.number}</span>
+            <div><strong>{section.english}</strong><h5>{section.korean}</h5><ul>{section.items.map((item) => <li>{item}</li>)}</ul></div>
+          </section>
+        ))}
+      </div>
+    </details>
+  </article>
+
+  <article class="lesson03-practice-step" id="lesson03-practice-1-9">
+    <header><span>1-9</span><h3>현황자료와 브리프 연결</h3></header>
+    <div class="lesson03-evidence-flow">{evidenceFlow.map((item) => <strong>{item}</strong>)}</div>
+    <p>이미지를 먼저 보고 디자인하는 것이 아니라, 문서에서 만든 기준을 현황자료에 대조한 뒤 디자인한다.</p>
+    <div class="lesson03-evidence-grid">
+      <article><h4>이미지에서 표현·검토하기 쉬운 것</h4><ul>{visibleEvidence.map((item) => <li>{item}</li>)}</ul></article>
+      <article><h4>이미지만으로 확정할 수 없는 것</h4><ul>{unverifiableEvidence.map((item) => <li>{item}</li>)}</ul></article>
+    </div>
+  </article>
+
+  <article class="lesson03-practice-step" id="lesson03-practice-1-10">
+    <header><span>1-10</span><h3>브리프를 이미지 작업지시로 변환</h3></header>
+    <p>조건을 즉흥적으로 만드는 것이 아니라 Design Brief에서 가져온다.</p>
+    <div class="lesson03-formula">{imageFormula.map((item) => <strong>{item}</strong>)}</div>
+    <details class="lesson03-sample-details">
+      <summary>이미지 생성 작업지시 샘플 보기</summary>
+      <PromptCopyBlock {...imagePrompt} />
+    </details>
+  </article>
+
+  <article class="lesson03-practice-step" id="lesson03-practice-1-11">
+    <header><span>1-11</span><h3>공간 콘셉트 이미지 생성</h3></header>
+    <ul class="lesson03-generation-notices">{generationNotices.map((item) => <li>{item}</li>)}</ul>
+    <p class="lesson03-empty-result">현재 승인된 실제 생성 결과 이미지는 없다. 결과 이미지를 임의로 만들거나 정답처럼 표시하지 않는다.</p>
+  </article>
+
+  <article class="lesson03-practice-step" id="lesson03-practice-1-12">
+    <header><span>1-12</span><h3>Design Brief 기준으로 결과 검토</h3></header>
+    <p>생성 결과를 예쁘다 또는 안 예쁘다로만 판단하지 않고 브리프의 기준에 다시 대조한다.</p>
+    <div class="lesson03-table-scroll" role="region" tabindex="0" aria-label="디자인 브리프 기준 결과 검토표">
+      <table>
+        <thead><tr>{reviewColumns.map((column) => <th scope="col">{column}</th>)}</tr></thead>
+        <tbody>{reviewRows.map((row) => <tr>{row.map((cell) => <td>{cell}</td>)}</tr>)}</tbody>
+      </table>
+    </div>
+    <p class="lesson03-emphasis">디자인 브리프는 이미지를 만들 때도 사용하고, 만든 결과를 검토할 때도 사용한다.</p>
+  </article>
+
+  <section class="lesson03-practice-outputs" aria-labelledby="lesson03-practice-outputs-title">
+    <h3 id="lesson03-practice-outputs-title">실습 1 최종 산출물</h3>
+    <ol>{outputs.map((item) => <li>{item}</li>)}</ol>
+    <p>추가 질의 목록은 Design Brief를 만드는 과정 자료로 함께 보관한다.</p>
+  </section>
+</LessonSection>
+
+<!-- 향후 실습 2는 section-10과 공통 마무리 사이에 독립 LessonSection으로 삽입한다. -->
+
+<LessonSection
+  id="section-11"
+  number="11"
+  title="공통 마무리 · 오류 확인과 핵심 정리"
+  class="outline-section lesson03-brief-section lesson03-common-closing"
+  lessonId="03"
+>
+  <div class="lesson03-closing-flow">{closingFlow.map((item) => <strong>{item}</strong>)}</div>
+  <section>
+    <h3>오류 체크</h3>
+    <ul class="lesson03-checklist">{errorChecks.map((item) => <li>{item}</li>)}</ul>
+  </section>
+  <p class="lesson03-closing-message">{closingMessage}</p>
+</LessonSection>
+
+<style>
+  .lesson03-brief-message,
+  .lesson03-caution,
+  .lesson03-emphasis,
+  .lesson03-empty-result,
+  .lesson03-closing-message {
+    border-left: 4px solid var(--accent);
+    background: var(--paper-deep, #f1ede4);
+  }
+
+  .lesson03-brief-message {
+    display: grid;
+    gap: 0.5rem;
+    padding: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  .lesson03-brief-message span,
+  .lesson03-practice-header > span,
+  .lesson03-process header > span {
+    color: var(--accent-dark);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+  }
+
+  .lesson03-brief-message strong {
+    max-width: 48rem;
+    font-family: var(--serif);
+    font-size: clamp(1.25rem, 2.6vw, 1.8rem);
+    line-height: 1.5;
+    text-wrap: balance;
+  }
+
+  .lesson03-definition-grid,
+  .lesson03-classification-grid,
+  .lesson03-evidence-grid,
+  .lesson03-version-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .lesson03-definition-grid > article,
+  .lesson03-classification-grid > article,
+  .lesson03-evidence-grid > article,
+  .lesson03-version-grid > article {
+    min-width: 0;
+    padding: clamp(1rem, 2.5vw, 1.5rem);
+    border: 1px solid var(--line);
+    background: #fff;
+  }
+
+  .lesson03-definition-grid > article:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .lesson03-definition-grid article > span,
+  .lesson03-classification-grid article > span,
+  .lesson03-practice-step > header > span,
+  .lesson03-brief-sample section > span {
+    color: var(--accent-dark);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+  }
+
+  .lesson03-definition-grid h3,
+  .lesson03-classification-grid h3,
+  .lesson03-evidence-grid h4,
+  .lesson03-furniture-list h4 {
+    margin: 0.45rem 0 0.7rem;
+    font-family: var(--serif);
+    font-size: clamp(1.15rem, 2vw, 1.4rem);
+    line-height: 1.4;
+    text-wrap: balance;
+  }
+
+  .lesson03-definition-grid p,
+  .lesson03-classification-grid p,
+  .lesson03-evidence-grid p,
+  .lesson03-furniture-list p {
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  .lesson03-definition-grid ul,
+  .lesson03-classification-grid ul,
+  .lesson03-evidence-grid ul {
+    margin: 0.8rem 0 0;
+    padding-left: 1.2rem;
+  }
+
+  .lesson03-definition-note {
+    margin-top: 0.8rem !important;
+    color: var(--muted);
+  }
+
+  .lesson03-stakeholder-flow,
+  .lesson03-process,
+  .lesson03-practice-step,
+  .lesson03-practice-outputs {
+    padding: clamp(1.1rem, 3vw, 1.75rem);
+    border: 1px solid var(--line-dark);
+    background: #fff;
+  }
+
+  .lesson03-stakeholder-flow h3,
+  .lesson03-process h3,
+  .lesson03-practice-header h3,
+  .lesson03-practice-step > header h3,
+  .lesson03-practice-outputs h3 {
+    margin: 0;
+    font-family: var(--serif);
+    line-height: 1.35;
+    text-wrap: balance;
+  }
+
+  .lesson03-stakeholder-flow ol,
+  .lesson03-process ol,
+  .lesson03-check-grid,
+  .lesson03-field-list,
+  .lesson03-brief-fields,
+  .lesson03-practice-outputs ol {
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .lesson03-stakeholder-flow ol,
+  .lesson03-process ol {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--line);
+  }
+
+  .lesson03-stakeholder-flow li,
+  .lesson03-process li {
+    display: grid;
+    gap: 0.45rem;
+    min-width: 0;
+    padding: 1rem;
+    background: #fff;
+  }
+
+  .lesson03-stakeholder-flow li span,
+  .lesson03-process li span,
+  .lesson03-field-list li span,
+  .lesson03-brief-fields li > span {
+    color: var(--accent-dark);
+    font-size: 0.72rem;
+    font-weight: 800;
+  }
+
+  .lesson03-distinction {
+    padding: clamp(1.1rem, 3vw, 1.75rem);
+    border: 1px solid var(--accent-dark);
+    background: #fffaf5;
+  }
+
+  .lesson03-distinction h3 {
+    margin: 0 0 1rem;
+    font-family: var(--serif);
+    font-size: clamp(1.25rem, 2.5vw, 1.65rem);
+    text-wrap: balance;
+  }
+
+  .lesson03-distinction > div {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .lesson03-distinction article {
+    padding: 1rem;
+    border: 1px solid var(--line);
+    background: #fff;
+  }
+
+  .lesson03-distinction article > span {
+    display: block;
+    margin-top: 0.75rem;
+    color: var(--accent-dark);
+    font-weight: 800;
+  }
+
+  .lesson03-process > p {
+    margin: 1rem 0 0;
+    font-weight: 700;
+  }
+
+  .lesson03-practice-header {
+    display: grid;
+    gap: 0.55rem;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    border: 1px solid var(--line-dark);
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .lesson03-practice-header p {
+    max-width: 50rem;
+    margin: 0;
+    color: #e6e1d8;
+  }
+
+  .lesson03-practice-step {
+    display: grid;
+    min-width: 0;
+    gap: 1.1rem;
+    scroll-margin-top: 8rem;
+  }
+
+  .lesson03-practice-step > *,
+  .lesson03-furniture-list,
+  .lesson03-practice-step :global(.project-reference-materials),
+  .lesson03-practice-step :global(.project-reference-materials__figures) {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .lesson03-practice-step :global(.project-reference-materials__figures img) {
+    max-width: 100%;
+  }
+
+  .lesson03-practice-step > header {
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr);
+    align-items: baseline;
+    gap: 0.75rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .lesson03-practice-step > p,
+  .lesson03-practice-lead {
+    margin: 0;
+    line-height: 1.75;
+  }
+
+  .lesson03-check-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+
+  .lesson03-check-grid li,
+  .lesson03-generation-notices li,
+  .lesson03-checklist li {
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--line);
+    background: var(--paper-soft, #faf8f2);
+  }
+
+  .lesson03-sample-details {
+    border: 1px solid var(--line-dark);
+    background: #fff;
+  }
+
+  .lesson03-sample-details > summary {
+    padding: 1rem 3rem 1rem 1rem;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .lesson03-sample-details > summary:focus-visible {
+    outline: 3px solid var(--focus, #1d4ed8);
+    outline-offset: 3px;
+  }
+
+  .lesson03-sample-groups {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: 1px solid var(--line);
+  }
+
+  .lesson03-sample-groups section {
+    padding: 1rem;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .lesson03-sample-groups h4,
+  .lesson03-question-samples h4 {
+    margin: 0 0 0.6rem;
+    font-family: var(--serif);
+    font-size: 1.15rem;
+  }
+
+  .lesson03-sample-groups ul {
+    margin: 0;
+    padding-left: 1.15rem;
+  }
+
+  .lesson03-table-scroll {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--line);
+  }
+
+  .lesson03-table-scroll:focus-visible {
+    outline: 3px solid var(--focus, #1d4ed8);
+    outline-offset: 3px;
+  }
+
+  .lesson03-table-scroll table {
+    width: 100%;
+    min-width: 44rem;
+    border-collapse: collapse;
+  }
+
+  .lesson03-table-scroll .lesson03-wide-table {
+    min-width: 82rem;
+  }
+
+  .lesson03-table-scroll th,
+  .lesson03-table-scroll td {
+    padding: 0.75rem;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    vertical-align: top;
+    line-height: 1.55;
+  }
+
+  .lesson03-table-scroll th {
+    background: var(--paper-deep, #f1ede4);
+  }
+
+  .lesson03-caution,
+  .lesson03-emphasis,
+  .lesson03-empty-result,
+  .lesson03-closing-message {
+    margin: 0;
+    padding: 1rem 1.1rem;
+    font-weight: 750;
+    line-height: 1.65;
+  }
+
+  .lesson03-field-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--line);
+  }
+
+  .lesson03-field-list li {
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr);
+    gap: 0.5rem;
+    padding: 0.9rem;
+    background: #fff;
+  }
+
+  .lesson03-question-samples {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: 1px solid var(--line);
+  }
+
+  .lesson03-question-samples article {
+    padding: 1rem;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .lesson03-question-samples article > span {
+    color: var(--accent-dark);
+    font-size: 0.75rem;
+    font-weight: 800;
+  }
+
+  .lesson03-question-samples p {
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  .lesson03-version-grid article > span {
+    display: block;
+    margin-bottom: 0.45rem;
+    color: var(--accent-dark);
+    font-size: 1.2rem;
+    font-weight: 850;
+  }
+
+  .lesson03-brief-fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--line);
+  }
+
+  .lesson03-brief-fields li {
+    display: grid;
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+    gap: 0.75rem;
+    padding: 1rem;
+    background: #fff;
+  }
+
+  .lesson03-brief-fields p {
+    margin: 0.25rem 0 0;
+    color: var(--muted);
+  }
+
+  .lesson03-brief-sample > div {
+    border-top: 1px solid var(--line);
+  }
+
+  .lesson03-brief-sample > div > header {
+    padding: 1.2rem;
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .lesson03-brief-sample > div > header h4 {
+    margin: 0.35rem 0 0;
+    font-family: var(--serif);
+    font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+  }
+
+  .lesson03-brief-sample section {
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr);
+    gap: 1rem;
+    padding: 1.1rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .lesson03-brief-sample h5 {
+    margin: 0.25rem 0 0.7rem;
+    font-family: var(--serif);
+    font-size: 1.15rem;
+  }
+
+  .lesson03-brief-sample ul {
+    margin: 0;
+    padding-left: 1.15rem;
+  }
+
+  .lesson03-evidence-flow,
+  .lesson03-formula,
+  .lesson03-closing-flow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    align-items: center;
+  }
+
+  .lesson03-evidence-flow strong,
+  .lesson03-formula strong,
+  .lesson03-closing-flow strong {
+    padding: 0.65rem 0.8rem;
+    border: 1px solid var(--line-dark);
+    background: #fff;
+  }
+
+  .lesson03-evidence-flow strong:not(:last-child)::after,
+  .lesson03-formula strong:not(:last-child)::after,
+  .lesson03-closing-flow strong:not(:last-child)::after {
+    content: ' →';
+    margin-left: 0.55rem;
+    color: var(--accent-dark);
+  }
+
+  .lesson03-generation-notices,
+  .lesson03-checklist {
+    display: grid;
+    gap: 0.6rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .lesson03-practice-outputs ol {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--line);
+  }
+
+  .lesson03-practice-outputs li {
+    padding: 1rem;
+    background: #fff;
+    font-weight: 800;
+  }
+
+  .lesson03-practice-outputs p {
+    margin: 1rem 0 0;
+  }
+
+  .lesson03-common-closing > section {
+    padding: 1rem;
+    border: 1px solid var(--line);
+    background: #fff;
+  }
+
+  @media (max-width: 760px) {
+    .lesson03-definition-grid,
+    .lesson03-classification-grid,
+    .lesson03-evidence-grid,
+    .lesson03-version-grid,
+    .lesson03-distinction > div,
+    .lesson03-sample-groups,
+    .lesson03-question-samples,
+    .lesson03-field-list,
+    .lesson03-brief-fields,
+    .lesson03-practice-outputs ol {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .lesson03-stakeholder-flow ol,
+    .lesson03-process ol {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .lesson03-practice-step > header {
+      grid-template-columns: 2.5rem minmax(0, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .lesson03-stakeholder-flow ol,
+    .lesson03-process ol {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .lesson03-brief-sample section {
+      grid-template-columns: 2.3rem minmax(0, 1fr);
+      gap: 0.55rem;
+    }
+  }
+
+  @media print {
+    .lesson03-definition-grid,
+    .lesson03-classification-grid,
+    .lesson03-evidence-grid,
+    .lesson03-version-grid,
+    .lesson03-distinction > div,
+    .lesson03-sample-groups,
+    .lesson03-question-samples,
+    .lesson03-brief-fields {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .lesson03-practice-step,
+    .lesson03-practice-outputs,
+    .lesson03-distinction,
+    .lesson03-stakeholder-flow,
+    .lesson03-process,
+    .lesson03-stakeholder-flow li,
+    .lesson03-process li,
+    .lesson03-definition-grid > article,
+    .lesson03-classification-grid > article,
+    .lesson03-evidence-grid > article,
+    .lesson03-question-samples article,
+    .lesson03-brief-sample section {
+      break-inside: avoid-page;
+      page-break-inside: avoid;
+    }
+
+    .lesson03-sample-details > *:not(summary) {
+      display: block !important;
+    }
+
+    .lesson03-table-scroll {
+      overflow: visible;
+    }
+
+    .lesson03-table-scroll table,
+    .lesson03-table-scroll .lesson03-wide-table {
+      min-width: 0;
+      font-size: 7.4pt;
+    }
+
+    .lesson03-table-scroll th,
+    .lesson03-table-scroll td {
+      padding: 2.2mm;
+    }
+  }
+</style>

@@ -12,8 +12,11 @@ import LessonResourceDownloads from './LessonResourceDownloads.astro';
 import StructuredPracticeTemplates from './StructuredPracticeTemplates.astro';
 import ProjectReferenceMaterials from './ProjectReferenceMaterials.astro';
 import Lesson04ProjectWorkflow from './Lesson04ProjectWorkflow.astro';
+import Lesson03ReviewPractice from './Lesson03ReviewPractice.astro';
+import Lesson03DesignBriefPractice from './Lesson03DesignBriefPractice.astro';
 import { getStudentLessonAssets } from '../../lib/asset-manifest';
 import type { ImageMetadata } from 'astro';
+import type { ComponentProps } from 'astro/types';
 import type { Lesson04Download, Lesson04WorkflowData } from '../../lib/lesson04-workflow';
 
 type OutlineItem = Lesson02OutlineItem;
@@ -112,6 +115,7 @@ type StructuredPractice = {
 };
 
 type ProjectReferences = {
+  documentLabel?: string;
   priorityItems: {
     title: string;
     details: string[];
@@ -128,6 +132,11 @@ type ProjectReferences = {
     caption: string;
   }[];
 };
+
+type Lesson03DesignBriefData = Omit<
+  ComponentProps<typeof Lesson03DesignBriefPractice>,
+  'resourceDownloads' | 'resourceDownloadNote' | 'projectReferences'
+>;
 
 interface Props {
   lessonId: string;
@@ -151,6 +160,9 @@ interface Props {
   materials: OutlineItem[];
   projectReferences?: ProjectReferences;
   projectWorkflow?: Lesson04WorkflowData;
+  lesson03Review?: ComponentProps<typeof Lesson03ReviewPractice>;
+  lesson03DesignBrief?: Lesson03DesignBriefData;
+  ebookTimePlan?: TimeItem[];
   demo: OutlineItem[];
   demoTitle?: string;
   iterationSample?: IterationSample;
@@ -188,6 +200,9 @@ const {
   materials,
   projectReferences,
   projectWorkflow,
+  lesson03Review,
+  lesson03DesignBrief,
+  ebookTimePlan,
   demo,
   demoTitle = '작업 과정 살펴보기',
   iterationSample,
@@ -217,6 +232,8 @@ const displayedAssets = showOnlyReadyAssets
 const isPresentation = Astro.url.pathname.includes('/presentation/');
 const isInstructorConsole = Astro.url.pathname.includes('/instructor-console/');
 const isLesson02Ebook = lessonId === '02' && !isPresentation && !isInstructorConsole;
+const isLesson03Ebook = lessonId === '03' && !isPresentation && !isInstructorConsole;
+const displayedTimePlan = isLesson03Ebook && ebookTimePlan ? ebookTimePlan : timePlan;
 const instructorTimelineJson = JSON.stringify({ totalMinutes, items: timePlan })
   .replaceAll('<', '\\u003c')
   .replaceAll('\u2028', '\\u2028')
@@ -266,7 +283,7 @@ const alternativeCriteriaSteps = practice.filter(
       </div>
     </header>
     <ol class="time-plan__screen-list">
-      {timePlan.map((item, index) => (
+      {displayedTimePlan.map((item, index) => (
         <li><span>{String(index + 1).padStart(2, '0')}</span><strong>{item.label}</strong></li>
       ))}
     </ol>
@@ -275,13 +292,15 @@ const alternativeCriteriaSteps = practice.filter(
         <tr><th scope="col">오늘의 수업 흐름</th></tr>
       </thead>
       <tbody>
-        {timePlan.map((item, index) => (
+        {displayedTimePlan.map((item, index) => (
           <tr><th scope="row">{String(index + 1).padStart(2, '0')} · {item.label}</th></tr>
         ))}
       </tbody>
     </table>
   </div>
 </LessonSection>}
+
+{isLesson03Ebook && lesson03Review && <Lesson03ReviewPractice {...lesson03Review} />}
 
 {isLesson02Ebook && practiceKit && iterationSample ? (
   <Lesson02Ebook
@@ -295,6 +314,13 @@ const alternativeCriteriaSteps = practice.filter(
     errorChecks={errorChecks}
     errorCheckDetails={errorCheckDetails}
     verification={verification}
+  />
+) : isRfpAnalysisLayout && isLesson03Ebook && lesson03DesignBrief && resourceDownloads && projectReferences ? (
+  <Lesson03DesignBriefPractice
+    {...lesson03DesignBrief}
+    resourceDownloads={resourceDownloads}
+    resourceDownloadNote={resourceDownloadNote}
+    projectReferences={projectReferences}
   />
 ) : isRfpAnalysisLayout ? (
   <>
