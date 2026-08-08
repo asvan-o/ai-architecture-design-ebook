@@ -20,6 +20,8 @@ const lessonThreeRfpPath = path.resolve(
 const lessonThreePromptPath = path.resolve(
   'src/assets/lessons/03/rfp/gemini-rfp-analysis-prompt-v1.2.txt',
 );
+const lessonFourFinalContentPath = path.resolve('src/lib/lesson04-final-content.ts');
+const lessonFourReviewComponentPath = path.resolve('src/components/content/Lesson04RfpReviewPractice.astro');
 const approvedLessonThreeRfpSha256 =
   '95B9756FD818D8F86847CA72D1E094B9DD6C2E4B9D1DFBC029169D057E638C2E';
 const requiredIds = Array.from({ length: 14 }, (_, index) => String(index + 1).padStart(2, '0'));
@@ -131,7 +133,7 @@ const detailedLessonSections = {
   '01': ['차시 소개', '오늘의 핵심 질문', '학습 목표', '생성형 AI(Generative AI)의 기본 개념', 'AI가 할 일과 디자이너가 판단할 일', '안전하게 사용하기 위한 핵심 용어', '원문·추론·가정·디자인 제안 구분', '북카페 가상 의뢰', 'Gemini 첫 번째 입력', 'Gemini 3.6 Flash 실제 응답', '실제 응답 분석', '개선된 요청문', '수강생 실습', '결과물 작성', 'AI 활용·검증 체크리스트', '차시 마무리'],
   '02': ['오늘의 학습 안내', '제1차시에서 제2차시로', '프롬프트란 무엇인가', '프롬프트를 작성하기 전에 알아야 할 기본 개념', '정보 확인형 질문과 작업지시형 프롬프트', '좋은 프롬프트의 7가지 공통 규칙', '프롬프트 작성 공통 공식', '짧은 요청과 구조화된 요청 비교', '구조화된 프롬프트 문장 분석', '실습 전 예열과 실습 1 · 작업 조건표', '실습 2 · 조건표를 작업지시서로 조립하기', '실습 3~4 · 프롬프트 다듬기와 A/B 테스트', '응용 실습 · 실제 이미지 생성과 수정'],
   '03': ['차시 소개', '제2차시 복습 · 작업지시서를 다시 만들어보기', '복습 실습 1 · 주민 커뮤니티 쉼터 리모델링', '복습 실습 1 결과 샘플', '미니실습 2 · 고령 입주민을 위한 휴게 쉼터', '미니실습 2 결과 샘플', '두 실습의 차이와 제3차시 본론 연결', '제안요청서(RFP)와 디자인 브리프', '정보 분류와 전체 업무 흐름', '실습 1 · 제안요청서(RFP)를 디자인 브리프로 바꾸기', '공통 마무리 · 오류 확인과 핵심 정리'],
-  '04': ['차시 소개', '오늘의 프로젝트와 제출 결과물', '제공 자료와 제3차시 작업물 가져오기', '공간구성 대안의 의미', '대안 A·B 운영전략과 조닝 작성', 'Nano Banana 대안 이미지 생성', 'RFP 기준 비교와 선택', '선택안 수정', 'Antigravity 도구 유형과 모델 선택', '고정 프로젝트 경로와 핵심 계층구조', '동일 프롬프트로 관리 프로그램 제작 과정', '산출물 자동 정리와 제출 준비', '제출 결과물·검증·다음 차시'],
+  '04': ['차시 소개', '제3차시 복습 · 제안요청서(RFP)에서 디자인 기준 찾기', '이번 복습에서 한 단계 더 · 재질 참고자료 활용', '복습 실습 · 제안요청서(RFP)를 읽고 디자인 3안 만들기', '복습 실습 결과 정리 · 3안 비교하기', 'Antigravity 2.0 이해와 실습 준비', 'Antigravity 2.0 사용법 · Project, Local Mode, 설정, 단축키, slash command', '무엇을 자동화할 것인가 · 설계 프로젝트 자동 정리 프로그램', '개발 실습 · ROOT와 다중 프로젝트 구조 만들기', '개발 실습 · 파일 감지와 자동 분류', '개발 실습 · Gemini API 이미지 자동 분류', '개발 실습 · 작업파일 Revision 라벨링', '전체 자동화 검증', 'Antigravity 2.0으로 더 만들어볼 수 있는 건축·디자인 업무 도구'],
 };
 const lessonThreeFourOutputs = ['요구조건 매트릭스', '발주기관 추가 질의', '디자인 브리프', '평면도 기반 현황 이미지 생성 결과', '현황 이미지 수정 결과', '평면도와 이미지의 불일치 기록', '제4차시 대안 평가기준'];
 
@@ -584,46 +586,63 @@ for (const fileName of files) {
     const requiredLessonFourStructures = [
       { marker: 'sectionLayout="project-workflow"', label: '제4차시 전용 프로젝트 워크플로우 레이아웃' },
       { marker: 'projectWorkflow={{', label: '제4차시 프로젝트 워크플로우 데이터 연결' },
-      { marker: '공간 조닝(Spatial Zoning)', label: '공간구성 대안 용어' },
-      { marker: 'antigravity-manager-build-prompt.txt', label: 'Antigravity 관리 프로그램 제작 요청문' },
-      { marker: 'antigravity-manager-approval-prompt.txt', label: '프로그램 제작 승인 요청문' },
-      { marker: 'AI_건축_캠퍼스라운지_복구본.zip', label: '관리 프로그램 복구 ZIP' },
+      { marker: 'reviewPractice: {', label: '제3차시 복습 RFP 실습 데이터' },
+      { marker: 'ARVEN_Headquarters_Interior_RFP_v1.2.pdf', label: 'ARVEN 교육용 가상 RFP 다운로드' },
+      { marker: 'lesson04Materials', label: '33개 재질 데이터 연결' },
+      { marker: 'lesson04FinalContent', label: 'Antigravity 2.0 최종 콘텐츠 연결' },
+      { marker: 'Option A / B / C', label: '선택 공간 3안 실습' },
       { marker: 'campus-lounge-existing-plan.png', label: '제3차시 공통 현황 평면도 재사용' },
       { marker: 'campus-lounge-existing-view-01.jpeg', label: '제3차시 공통 현황 이미지 재사용' },
       { marker: 'lesson-03-campus-lounge-rfp-v1.2.pdf', label: '제3차시 공통 RFP 재사용' },
-      { marker: '프로젝트 밖 접근 금지', label: '프로젝트 루트 보안 조건' },
-      { marker: '같은 파일을 다시 등록하면 알림', label: '같은 파일 재등록 알림' },
-      { marker: '등록 파일 목록을 자동으로 갱신', label: '등록 파일 목록' },
-      { marker: '등록목록의 파일만 ZIP에 포함', label: '등록 파일 전용 ZIP 안내' },
-      { marker: 'ZIP 전 포함 목록·미등록 제외 수·누락 항목 표시', label: '제출 전 사람 검토 안내' },
-      { marker: '제출 ZIP', label: '제출 패키지 생성' },
+      { marker: "'l04-material-reference-review'", label: 'Material Library 자산 ID' },
     ];
     for (const { marker, label } of requiredLessonFourStructures) {
       if (!source.includes(marker)) {
         errors.push(`${fileName}: 제4차시 상세 본문에 ${label} 구성이 없습니다.`);
       }
     }
-    requireObjectValidationKey(source, 'available-agent-capability', `${fileName} 제4차시 모델 선택 원칙`);
-    if (source.includes('개념 구획(조닝)')) {
-      errors.push(`${fileName}: '개념 구획(조닝)' 대신 '공간구성(Spatial Zoning) 대안'을 사용해야 합니다.`);
-    }
     const requiredLessonFourFiles = [
-      'tools/ai-architecture-project-manager/package.json',
-      'tools/ai-architecture-project-manager/server.mjs',
-      'tools/ai-architecture-project-manager/package-lock.json',
-      'src/assets/lessons/04/workspace/antigravity-manager-build-prompt.txt',
-      'src/assets/lessons/04/workspace/antigravity-manager-approval-prompt.txt',
-      'src/assets/lessons/04/workspace/AI_건축_캠퍼스라운지_복구본.zip',
+      'src/assets/lessons/04/review-rfp/ARVEN_Headquarters_Interior_RFP_v1.2.pdf',
+      ...Array.from({ length: 33 }, (_, index) => {
+        const materialNumber = String(index + 1).padStart(2, '0');
+        return `src/assets/lessons/04/material-reference-review/m-${materialNumber}-`;
+      }),
     ];
-    for (const filePath of requiredLessonFourFiles) {
+    for (const filePath of requiredLessonFourFiles.slice(0, 1)) {
       try {
         await access(path.resolve(filePath));
       } catch {
         errors.push(`${fileName}: 제4차시 필수 파일을 찾을 수 없습니다: ${filePath}`);
       }
     }
-    for (const output of lessonThreeFourOutputs) {
-      if (!source.includes(output)) errors.push(`${fileName}: 제4차시 입력자료 '${output}'이 없습니다.`);
+    let lessonFourFinalContent = '';
+    let lessonFourReviewComponent = '';
+    try { lessonFourFinalContent = await readFile(lessonFourFinalContentPath, 'utf8'); } catch { errors.push('제4차시 최종 콘텐츠 데이터를 읽을 수 없습니다.'); }
+    try { lessonFourReviewComponent = await readFile(lessonFourReviewComponentPath, 'utf8'); } catch { errors.push('제4차시 복습 컴포넌트를 읽을 수 없습니다.'); }
+    const materialEntries = [...lessonFourFinalContent.matchAll(/id: 'M-\d{2}'/g)].length;
+    if (materialEntries !== 33) errors.push(`제4차시 Material Card 데이터: 예상 33개, 실제 ${materialEntries}개`);
+    const materialFiles = [...lessonFourFinalContent.matchAll(/fileName: '(m-\d{2}-[^']+\.png)'/g)].map((match) => match[1]);
+    if (materialFiles.length !== 33 || new Set(materialFiles).size !== 33) {
+      errors.push('제4차시 Material Library 파일명이 33개 고유 항목과 일치하지 않습니다.');
+    }
+    for (const materialFile of materialFiles) {
+      try { await access(path.resolve('src/assets/lessons/04/material-reference-review', materialFile)); }
+      catch { errors.push(`제4차시 재질 파일을 찾을 수 없습니다: ${materialFile}`); }
+    }
+    const programIdeas = [...lessonFourFinalContent.matchAll(/number: \d+, title:/g)].length;
+    if (programIdeas !== 10) errors.push(`제4차시 추가 프로그램: 예상 10개, 실제 ${programIdeas}개`);
+    for (const auditMarker of ["file: '0번.mp4', duration: '00:22.5', discovered: 10", "file: '1번.mp4', duration: '00:20.1', discovered: 10", "file: '2번.mp4', duration: '00:20.3', discovered: 5", "file: '3번.mp4', duration: '00:21.5', discovered: 10", 'beforeDeduplication: 35', 'afterDeduplication: 33']) {
+      if (!lessonFourFinalContent.includes(auditMarker)) errors.push(`제4차시 재질 감사 기록 누락: ${auditMarker}`);
+    }
+    for (const marker of ['Always Proceed', '/grill-me', '/goal', 'Ctrl + K', '98_REVIEW', 'gemini-3.6-flash', 'Revision은 백업 기능이 아니다']) {
+      if (!lessonFourFinalContent.includes(marker)) errors.push(`제4차시 최종 콘텐츠에 '${marker}'가 없습니다.`);
+    }
+    if (!lessonFourReviewComponent.includes('재질 이미지 다운로드')) errors.push('제4차시 재질 다운로드 연결이 없습니다.');
+    if (lessonFourReviewComponent.includes('lesson04-material-selection')) errors.push('제4차시에서 제거 대상 재질 체크박스가 남아 있습니다.');
+    if (!lessonFourReviewComponent.includes('lesson04-review-output-prompt')) errors.push('제4차시 Nano Banana용 출력 프롬프트 샘플이 없습니다.');
+    if (!lessonFourReviewComponent.includes('STEP 8')) errors.push('제4차시 복습 Step 1~8이 완성되지 않았습니다.');
+    for (const retiredSection of ['제공 자료와 제3차시 작업물 가져오기', '대안 A·B 운영전략과 조닝 작성']) {
+      if (source.includes(retiredSection)) errors.push(`${fileName}: 제거 대상 중복 섹션 '${retiredSection}'이 남아 있습니다.`);
     }
   }
   if (source.includes("category: '전문가 판단 필요'")) {
@@ -683,8 +702,8 @@ for (const fileName of files) {
   if (practiceMinutes < Number(duration) / 2) {
     errors.push(`${fileName}: 실습시간 ${practiceMinutes}분이 전체의 절반보다 적습니다.`);
   }
-  if (id === '04' && practiceMinutes !== 255) {
-    errors.push(`${fileName}: 승인된 제4차시 실습시간 255분과 일치하지 않습니다.`);
+  if (id === '04' && practiceMinutes !== 280) {
+    errors.push(`${fileName}: 승인된 제4차시 실습시간 280분과 일치하지 않습니다.`);
   }
 
   const assetBlock =
@@ -1066,7 +1085,7 @@ console.log('- day: 1–14 누락·중복 없음');
 console.log('- ID/day 일치');
 console.log('- 승인된 제목·수업시간 일치');
 console.log('- 승인된 상위 주제 7개·차시 연결 14개 일치');
-console.log('- 제1차시 16개, 제2차시 13개, 제3차시 11개, 제4–14차시 13개 섹션');
+console.log('- 제1차시 16개, 제2차시 13개, 제3차시 11개, 제4차시 14개, 제5–14차시 13개 섹션');
 console.log('- 모든 차시 실습시간 50% 이상');
 console.log(`- 자산 manifest: ${manifestAssetIds.length}개, 필수 필드·연결 ID·공개 조건 확인`);
 console.log(`- 필수 metadata: ${requiredFields.join(', ')}`);

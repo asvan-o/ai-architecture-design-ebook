@@ -89,17 +89,17 @@ export const instructorNoteSlotsByLesson: Record<string, LessonSectionNoteMap> =
       { slot: 'l04-timing', label: '제4차시 시간 운영' },
     ],
     'section-04': [{ slot: 'l04-alternative-difference', label: '공간구성 대안 차이' }],
-    'section-07': [{ slot: 'l04-evaluation', label: 'RFP 평가기준' }],
-    'section-09': [
+    'section-05': [{ slot: 'l04-evaluation', label: 'RFP 평가기준' }],
+    'section-06': [
       { slot: 'l04-tool-selection', label: '도구·모델 확인' },
       { slot: 'l04-node-install', label: 'Node.js 설치 주의' },
     ],
-    'section-11': [
+    'section-08': [
       { slot: 'l04-manager-demo', label: '관리 프로그램 제작 안내' },
       { slot: 'l04-fallback', label: '프로그램 제작 실패 대응' },
     ],
-    'section-12': [{ slot: 'l04-local-errors', label: 'localhost·포트 오류 대응' }],
-    'section-13': [{ slot: 'l04-final-check', label: '최종 제출 점검' }],
+    'section-10': [{ slot: 'l04-local-errors', label: 'localhost·포트 오류 대응' }],
+    'section-13': [{ slot: 'l04-final-check', label: '최종 자동화 점검' }],
   },
 };
 

@@ -1,0 +1,900 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import LessonSection from './LessonSection.astro';
+import PromptCopyBlock from './PromptCopyBlock.astro';
+import type { Lesson04ReviewPracticeData } from '../../lib/lesson04-workflow';
+import { lesson04FinalContent } from '../../lib/lesson04-final-content';
+
+interface Props {
+  lessonId: string;
+  review: Lesson04ReviewPracticeData;
+}
+
+const { lessonId, review } = Astro.props;
+const materialModules = import.meta.glob<{ default: ImageMetadata }>(
+  '../../assets/lessons/04/material-reference-review/*.png',
+  { eager: true },
+);
+const materials = review.materials.map((material) => ({
+  ...material,
+  image: Object.entries(materialModules).find(([filePath]) => filePath.endsWith(material.fileName))?.[1].default,
+}));
+---
+
+<LessonSection
+  id="section-02"
+  number="02"
+  title="제3차시 복습 · 제안요청서(RFP)에서 디자인 기준 찾기"
+  class="outline-section lesson04-review-section"
+  {lessonId}
+>
+  <div class="review-lead">
+    <span>LESSON 03 REVIEW</span>
+    <p>{review.reviewSummary}</p>
+  </div>
+
+  <ol class="review-flow" aria-label="제안요청서에서 공간 콘셉트 이미지까지의 흐름">
+    {review.reviewFlow.map((item) => <li>{item}</li>)}
+  </ol>
+
+  <article class="rfp-download-card">
+    <div>
+      <span>EDUCATIONAL RFP · 6 PAGES</span>
+      <h3>{review.rfp.title}</h3>
+      <p>{review.rfp.description}</p>
+      <small>{review.rfp.notice}</small>
+    </div>
+    <a href={review.rfp.href} download={review.rfp.downloadName}>제안요청서(RFP) 다운로드</a>
+  </article>
+
+  <div class="scope-note">
+    <strong>RFP 전체 과업</strong>
+    <p>네 공간 각각에 3개의 디자인 대안을 요청한다.</p>
+    <strong>이번 복습 범위</strong>
+    <p>A~D 중 한 공간을 선택해 Option A / B / C 세 대안을 만든다.</p>
+  </div>
+</LessonSection>
+
+<LessonSection
+  id="section-03"
+  number="03"
+  title="이번 복습에서 한 단계 더 · 재질 참고자료 활용"
+  class="outline-section lesson04-review-section"
+  {lessonId}
+>
+  <div class="review-lead review-lead--quiet">
+    <span>MATERIAL LIBRARY</span>
+    <h3>현장사진과 함께 사용할 재질 참고 이미지를 준비합니다.</h3>
+    <p>{review.extensionSummary}</p>
+  </div>
+
+  <ol class="review-flow review-flow--extended" aria-label="재질을 포함한 디자인 대안 비교 흐름">
+    {review.extensionFlow.map((item) => <li>{item}</li>)}
+  </ol>
+
+  <div class="material-grid" aria-label="재질 참고자료 카드">
+    {materials.map((material) => (
+      <article class="material-card">
+        {material.image && (
+          <Image
+            src={material.image}
+            alt={`${material.name} 이름과 질감이 함께 표시된 재질 참고 이미지`}
+            widths={[320, 480, 720]}
+            sizes="(max-width: 640px) 100vw, (max-width: 1100px) 42vw, 360px"
+            format="webp"
+            loading="lazy"
+          />
+        )}
+        <div class="material-card__body">
+          <span>{material.id}</span>
+          <h3>{material.name}</h3>
+          {material.category && <b>{material.category}</b>}
+          <p>{material.description}</p>
+          <small>{material.sourceVideo} · {material.timestamp}</small>
+          {material.image && <a class="material-download" href={material.image.src} download={material.fileName}>재질 이미지 다운로드</a>}
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <aside class="material-caution">
+    <strong>이미지로 확인할 수 있는 범위</strong>
+    <p>{review.materialCaution}</p>
+    <p>{review.materialRightsNote}</p>
+  </aside>
+</LessonSection>
+
+<LessonSection
+  id="section-04"
+  number="04"
+  title="복습 실습 · 제안요청서(RFP)를 읽고 디자인 3안 만들기"
+  class="outline-section lesson04-review-section"
+  {lessonId}
+>
+  <p class="practice-intro">
+    전체 RFP를 한 번에 수행하지 않는다. 한 공간에서 분석 → 디자인 → 비교 과정을
+    완성하는 것이 이번 복습의 목표다.
+  </p>
+
+  <ol class="review-steps">
+    <li>
+      <span>STEP 1</span>
+      <div>
+        <h3>제안요청서(RFP) 확인</h3>
+        <p>네 공간의 현재 기능, 변경 요구, 유지 조건, 디자인 가능 영역과 이미지로 확인할 수 없는 내용을 찾는다.</p>
+        <a href={review.rfp.href} download={review.rfp.downloadName}>RFP PDF 내려받기</a>
+      </div>
+    </li>
+    <li>
+      <span>STEP 2</span>
+      <div>
+        <h3>A~D 중 대상 공간 하나 선택</h3>
+        <p>처음에는 A~D 중 한 공간만 선택한다.</p>
+        <div class="space-grid">
+          {review.spaces.map((space) => (
+            <article>
+              <span>{space.id}</span>
+              <h4>{space.title}</h4>
+              <p>{space.focus}</p>
+              <small>RFP에서 자세히 확인하기</small>
+            </article>
+          ))}
+        </div>
+      </div>
+    </li>
+    <li>
+      <span>STEP 3</span>
+      <div>
+        <h3>핵심 요구조건 정리</h3>
+        <ol class="question-list">
+          {review.requirementQuestions.map((question) => <li>{question}</li>)}
+        </ol>
+      </div>
+    </li>
+    <li>
+      <span>STEP 4</span>
+      <div>
+        <h3>Mini Design Brief</h3>
+        <dl class="mini-brief-fields">
+          {review.miniBriefFields.map((field) => (
+            <div><dt>{field.key}</dt><dd>{field.label}</dd></div>
+          ))}
+        </dl>
+        <details class="sample-details">
+          <summary>결과 샘플 보기 · 1층 방문객 라운지</summary>
+          <p class="sample-notice">정답이 아니라 작성 형식을 보여주는 예시다.</p>
+          <dl>
+            {review.miniBriefSample.map((field) => (
+              <div>
+                <dt>{field.key}</dt>
+                <dd>{field.lines.map((line) => <span>{line}</span>)}</dd>
+              </div>
+            ))}
+          </dl>
+        </details>
+      </div>
+    </li>
+    <li>
+      <span>STEP 5</span>
+      <div>
+        <h3>현장사진과 재질 참고자료 준비</h3>
+        <p>현장사진 1장, 필요한 재질 이미지 1~2장, Mini Design Brief를 준비한다. 재질 이미지는 위 Material Library에서 직접 내려받는다.</p>
+      </div>
+    </li>
+    <li>
+      <span>STEP 6</span>
+      <div>
+        <h3>Design Brief 기반 이미지 제작 프롬프트 작성</h3>
+        <p>현장사진 + 재질 참고 이미지 + Mini Design Brief를 Gemini 등 LLM에 입력해 Nano Banana용 최종 이미지 제작 프롬프트를 만든다.</p>
+        <div class="prompt-flow" aria-label="이미지 제작 프롬프트 작성 흐름">
+          <span>현장사진 + 재질 + Mini Design Brief</span><b>→</b><span>Gemini 등 LLM</span><b>→</b><span>Nano Banana용 최종 프롬프트</span><b>→</b><span>Option A / B / C</span>
+        </div>
+        <PromptCopyBlock
+          id="lesson04-review-image-prompt"
+          title="A · Gemini 등에 입력하는 요청문"
+          description="입력자료의 역할과 판단 한계를 먼저 지정한다."
+          prompt={lesson04FinalContent.reviewInputPrompt}
+        />
+        <PromptCopyBlock
+          id="lesson04-review-output-prompt"
+          title="B · LLM이 작성하는 Nano Banana용 최종 이미지 제작 프롬프트 샘플"
+          description="무엇이 출력되고 어디에 사용하는지 보여주는 구조 샘플이다. 대괄호 안은 선택한 공간과 Option에 맞게 채운다."
+          prompt={lesson04FinalContent.reviewOutputPrompt}
+        />
+      </div>
+    </li>
+    <li>
+      <span>STEP 7</span>
+      <div>
+        <h3>Option A / B / C 생성</h3>
+        <p>{review.optionGuidance}</p>
+        <div class="option-boundaries">
+          <article><h4>공통 고정</h4><ul>{review.fixedConditions.map((item) => <li>{item}</li>)}</ul></article>
+          <article><h4>변화 가능</h4><ul>{review.variableConditions.map((item) => <li>{item}</li>)}</ul></article>
+        </div>
+      </div>
+    </li>
+    <li>
+      <span>STEP 8</span>
+      <div>
+        <h3>3안 비교 및 선택</h3>
+        <p>세 결과의 콘셉트, 재질과 핵심 차이를 기록한 뒤 다음 섹션의 같은 기준으로 비교한다.</p>
+      </div>
+    </li>
+  </ol>
+</LessonSection>
+
+<LessonSection
+  id="section-05"
+  number="05"
+  title="복습 실습 결과 정리 · 3안 비교하기"
+  class="outline-section lesson04-review-section"
+  {lessonId}
+>
+  <div class="option-record-grid">
+    {['A', 'B', 'C'].map((option) => (
+      <article>
+        <span>OPTION {option}</span>
+        <dl>
+          <div><dt>Concept</dt><dd></dd></div>
+          <div><dt>Material</dt><dd></dd></div>
+          <div><dt>핵심 차이</dt><dd></dd></div>
+        </dl>
+      </article>
+    ))}
+  </div>
+
+  <div class="comparison-scroll" tabindex="0" role="region" aria-label="Option A, B, C 비교표">
+    <table>
+      <thead><tr><th>평가기준</th><th>Option A</th><th>Option B</th><th>Option C</th></tr></thead>
+      <tbody>
+        {review.comparisonCriteria.map((criterion) => (
+          <tr><th scope="row">{criterion}</th><td></td><td></td><td></td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="comparison-caution">{review.comparisonCaution}</p>
+
+  <div class="review-results">
+    <h3>복습을 마치면 정리할 결과</h3>
+    <ol>{review.resultItems.map((item) => <li>{item}</li>)}</ol>
+    <p>실제 After 이미지가 준비되지 않은 상태에서는 가짜 결과 이미지를 대신 넣지 않는다.</p>
+  </div>
+
+</LessonSection>
+
+<style>
+  :global(.lesson04-review-section) {
+    --review-ink: #17211d;
+    --review-paper: #f3efe6;
+    --review-accent: #a33c25;
+  }
+
+  .review-lead {
+    display: grid;
+    gap: 0.75rem;
+    padding: clamp(1.4rem, 4vw, 2.5rem);
+    border-left: 5px solid var(--review-accent);
+    background: var(--review-paper);
+  }
+
+  .review-lead > span,
+  .rfp-download-card > div > span,
+  .material-card__body > span,
+  .option-record-grid > article > span {
+    color: var(--review-accent);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+  }
+
+  .review-lead h3,
+  .review-lead p {
+    margin: 0;
+  }
+
+  .review-lead h3 {
+    font-family: var(--serif);
+    font-size: clamp(1.45rem, 3vw, 2rem);
+  }
+
+  .review-lead p {
+    max-width: 48rem;
+    font-size: clamp(1.05rem, 1.7vw, 1.2rem);
+    line-height: 1.8;
+    white-space: pre-line;
+  }
+
+  .review-lead--quiet {
+    border: 1px solid var(--line-dark);
+    border-left: 5px solid var(--review-accent);
+    background: #fff;
+  }
+
+  .review-flow {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1.7rem;
+    margin: 1.5rem 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: flow;
+  }
+
+  .review-flow li {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 5.5rem;
+    padding: 0.85rem;
+    border: 1px solid var(--line-dark);
+    background: #fff;
+    text-align: center;
+    font-weight: 800;
+    line-height: 1.45;
+    word-break: keep-all;
+  }
+
+  .review-flow li:not(:last-child)::after {
+    content: '→';
+    position: absolute;
+    right: -1.4rem;
+    color: var(--review-accent);
+    font-size: 1.3rem;
+  }
+
+  .review-flow--extended {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .rfp-download-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 2rem;
+    align-items: center;
+    padding: clamp(1.3rem, 3vw, 2rem);
+    border: 1px solid var(--review-ink);
+    background: #fff;
+  }
+
+  .rfp-download-card h3,
+  .rfp-download-card p {
+    margin: 0.35rem 0 0;
+  }
+
+  .rfp-download-card small {
+    display: block;
+    margin-top: 0.7rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .rfp-download-card a,
+  .review-steps a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0.8rem 1rem;
+    color: #fff;
+    background: var(--review-ink);
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .rfp-download-card a:focus-visible,
+  .review-steps a:focus-visible,
+  .sample-details summary:focus-visible {
+    outline: 3px solid var(--focus, #1d4ed8);
+    outline-offset: 3px;
+  }
+
+  .scope-note {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.6rem 1rem;
+    margin-top: 1.25rem;
+    padding: 1.1rem 1.25rem;
+    border: 1px solid var(--line);
+    background: #faf8f2;
+  }
+
+  .scope-note p {
+    margin: 0;
+  }
+
+  .material-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .material-card {
+    display: grid;
+    grid-template-columns: minmax(10rem, 42%) minmax(0, 1fr);
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--line-dark);
+    background: #fff;
+  }
+
+  .material-card img,
+  .material-card__restricted {
+    width: 100%;
+    min-height: 16rem;
+    height: 100%;
+  }
+
+  .material-card img {
+    display: block;
+    object-fit: cover;
+  }
+
+  .material-card__restricted {
+    display: grid;
+    align-content: center;
+    gap: 0.45rem;
+    padding: 1rem;
+    color: #f6f2e9;
+    background: #2a332f;
+    text-align: center;
+  }
+
+  .material-card__restricted span {
+    color: #d9a68f;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+  }
+
+  .material-card__restricted p {
+    margin: 0;
+  }
+
+  .material-card__body {
+    display: grid;
+    align-content: start;
+    gap: 0.55rem;
+    min-width: 0;
+    padding: 1.2rem;
+  }
+
+  .material-card__body h3,
+  .material-card__body p,
+  .material-card__body small {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .material-card__body h3 {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+  }
+
+  .material-card__body p,
+  .material-card__body small {
+    line-height: 1.6;
+  }
+
+  .material-card__body small {
+    color: var(--muted);
+  }
+
+  .material-card__body > b {
+    color: var(--review-accent);
+    font-size: 0.78rem;
+  }
+
+  .material-download {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.8rem;
+    margin-top: 0.35rem;
+    padding: 0.65rem 0.8rem;
+    color: #fff;
+    background: var(--review-ink);
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .material-download:focus-visible {
+    outline: 3px solid var(--focus, #1d4ed8);
+    outline-offset: 3px;
+  }
+
+  .material-card__body label {
+    display: flex;
+    gap: 0.65rem;
+    align-items: center;
+    margin-top: 0.35rem;
+    padding: 0.75rem;
+    border: 1px solid var(--review-ink);
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .material-card__body input {
+    width: 1.15rem;
+    height: 1.15rem;
+    accent-color: var(--review-accent);
+  }
+
+  .material-caution,
+  .comparison-caution {
+    margin-top: 1.2rem;
+    padding: 1rem 1.2rem;
+    border-left: 4px solid var(--review-accent);
+    background: #f8eee8;
+  }
+
+  .material-caution p,
+  .comparison-caution {
+    line-height: 1.7;
+  }
+
+  .practice-intro {
+    margin: 0 0 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.7;
+  }
+
+  .prompt-flow {
+    display: grid;
+    grid-template-columns: repeat(7, auto);
+    gap: 0.55rem;
+    align-items: center;
+    margin: 1rem 0;
+    overflow-x: auto;
+  }
+
+  .prompt-flow span {
+    min-width: 10rem;
+    padding: 0.75rem;
+    border: 1px solid var(--line-dark);
+    background: #faf8f2;
+    text-align: center;
+    font-weight: 800;
+  }
+
+  .prompt-flow b {
+    color: var(--review-accent);
+  }
+
+  .review-steps {
+    display: grid;
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .review-steps > li {
+    display: grid;
+    grid-template-columns: 6rem minmax(0, 1fr);
+    gap: 1.25rem;
+    min-width: 0;
+    padding: clamp(1.1rem, 3vw, 1.8rem);
+    border-top: 1px solid var(--line-dark);
+  }
+
+  .review-steps > li > span {
+    color: var(--review-accent);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+  }
+
+  .review-steps > li > div,
+  .review-steps h3,
+  .review-steps p {
+    min-width: 0;
+  }
+
+  .review-steps h3,
+  .review-steps p {
+    margin: 0 0 0.8rem;
+  }
+
+  .space-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .space-grid article {
+    padding: 1rem;
+    border: 1px solid var(--line);
+    background: #faf8f2;
+  }
+
+  .space-grid article > span {
+    color: var(--review-accent);
+    font-weight: 800;
+  }
+
+  .space-grid h4,
+  .space-grid p {
+    margin: 0.3rem 0;
+  }
+
+  .space-grid small {
+    color: var(--muted);
+  }
+
+  .question-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+    padding-left: 1.3rem;
+  }
+
+  .mini-brief-fields,
+  .sample-details dl,
+  .material-form,
+  .option-record-grid dl {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    border: 1px solid var(--line-dark);
+  }
+
+  .mini-brief-fields > div,
+  .sample-details dl > div,
+  .material-form > div,
+  .option-record-grid dl > div {
+    display: grid;
+    grid-template-columns: minmax(7rem, 0.32fr) minmax(0, 1fr);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .mini-brief-fields > div:last-child,
+  .sample-details dl > div:last-child,
+  .material-form > div:last-child,
+  .option-record-grid dl > div:last-child {
+    border-bottom: 0;
+  }
+
+  .mini-brief-fields dt,
+  .mini-brief-fields dd,
+  .sample-details dt,
+  .sample-details dd,
+  .material-form dt,
+  .material-form dd,
+  .option-record-grid dt,
+  .option-record-grid dd {
+    margin: 0;
+    padding: 0.75rem;
+  }
+
+  .mini-brief-fields dt,
+  .sample-details dt,
+  .material-form dt,
+  .option-record-grid dt {
+    background: #f1ede4;
+    font-weight: 800;
+  }
+
+  .material-form dd,
+  .option-record-grid dd {
+    min-height: 3.1rem;
+  }
+
+  .sample-details {
+    margin-top: 1rem;
+    border: 1px solid var(--line-dark);
+  }
+
+  .sample-details summary {
+    padding: 1rem;
+    background: #f1ede4;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .sample-details dl,
+  .sample-notice {
+    margin: 1rem;
+  }
+
+  .sample-details dd span {
+    display: block;
+    line-height: 1.6;
+  }
+
+  .option-boundaries,
+  .option-record-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .option-boundaries article,
+  .option-record-grid > article {
+    padding: 1rem;
+    border: 1px solid var(--line-dark);
+    background: #fff;
+  }
+
+  .option-record-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .option-record-grid dl {
+    margin-top: 0.75rem;
+  }
+
+  .comparison-scroll {
+    max-width: 100%;
+    margin-top: 1.25rem;
+    overflow-x: auto;
+    border: 1px solid var(--line-dark);
+  }
+
+  .comparison-scroll table {
+    width: 100%;
+    min-width: 46rem;
+    border-collapse: collapse;
+  }
+
+  .comparison-scroll th,
+  .comparison-scroll td {
+    min-width: 9rem;
+    height: 3.25rem;
+    padding: 0.7rem;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+  }
+
+  .comparison-scroll thead th {
+    color: #fff;
+    background: var(--review-ink);
+  }
+
+  .comparison-scroll tbody th {
+    background: #f1ede4;
+  }
+
+  .review-results {
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+    border: 1px solid var(--line);
+  }
+
+  .review-results h3,
+  .review-results p {
+    margin: 0 0 0.8rem;
+  }
+
+  .review-results ol {
+    margin: 0 0 0.8rem;
+    padding-left: 1.4rem;
+  }
+
+  @media (max-width: 960px) {
+    .review-flow,
+    .review-flow--extended {
+      grid-template-columns: 1fr;
+      gap: 0.6rem;
+    }
+
+    .review-flow li {
+      min-height: 0;
+    }
+
+    .review-flow li:not(:last-child)::after {
+      content: '↓';
+      right: auto;
+      bottom: -0.75rem;
+    }
+
+    .material-grid,
+    .option-record-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .rfp-download-card,
+    .scope-note,
+    .review-steps > li,
+    .material-card,
+    .space-grid,
+    .question-list,
+    .option-boundaries {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .rfp-download-card a {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .material-card img,
+    .material-card__restricted {
+      min-height: 0;
+      aspect-ratio: 9 / 8;
+    }
+
+    .review-steps > li {
+      gap: 0.55rem;
+      padding-inline: 0;
+    }
+
+    .mini-brief-fields > div,
+    .sample-details dl > div,
+    .material-form > div,
+    .option-record-grid dl > div {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .prompt-flow {
+      grid-template-columns: minmax(0, 1fr);
+      overflow: visible;
+    }
+
+    .prompt-flow b {
+      text-align: center;
+      transform: rotate(90deg);
+    }
+  }
+
+  @media print {
+    .rfp-download-card a,
+    .review-steps a,
+    .material-card__body label,
+    .material-download {
+      display: none !important;
+    }
+
+    .review-flow,
+    .review-flow--extended {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 3mm;
+    }
+
+    .review-flow li:not(:last-child)::after {
+      display: none;
+    }
+
+    .rfp-download-card,
+    .material-card,
+    .space-grid article,
+    .option-record-grid > article,
+    .review-results {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .material-card__restricted {
+      min-height: 28mm;
+      color: #222;
+      background: #eee;
+    }
+
+    .sample-details > * {
+      display: block !important;
+    }
+
+    .comparison-scroll {
+      overflow: visible;
+    }
+
+    .comparison-scroll table {
+      min-width: 0;
+      font-size: 8.5pt;
+    }
+
+    .comparison-scroll th,
+    .comparison-scroll td {
+      min-width: 0;
+      height: 10mm;
+      padding: 2mm;
+    }
+  }
+</style>

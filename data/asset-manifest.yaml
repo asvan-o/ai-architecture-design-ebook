@@ -486,6 +486,48 @@ assets:
     verified_at: "2026-07-31"
     verification_note: "실제 현장 사진이 아닌 교육용 AI 이미지이며 서측 로비 진입부를 가정한 시점이다. 평면도와 1:1로 일치하지 않고 구조·치수·설비·법규 판단 근거로 사용할 수 없음"
 
+  - id: "l04-arven-review-rfp"
+    lesson: 4
+    priority: "required"
+    source_type: "original"
+    production_owner: "instructor"
+    lesson_usage: "practice-input"
+    title: "ARVEN 본사 1·2층 공용공간 리뉴얼 교육용 가상 RFP v1.2"
+    type: "document"
+    purpose: "제3차시 RFP 분석을 복습하고 한 공간의 재질 포함 디자인 대안 3개를 만드는 기준 문서"
+    required_files: ["ARVEN_Headquarters_Interior_RFP_v1.2.pdf"]
+    file_path: "src/assets/lessons/04/review-rfp/ARVEN_Headquarters_Interior_RFP_v1.2.pdf"
+    recommended_tool: "user-upload"
+    status: "ready"
+    public_use: true
+    alt: "ARVEN 본사 1층과 2층의 네 공용공간에 대한 교육용 가상 인테리어 제안요청서"
+    source_note: "사용자가 학생용 다운로드 자산으로 제공한 교육용 가상 RFP 원본"
+    rights_status: "cleared"
+    privacy_note: "실제 기업·프로젝트·개인정보 없음"
+    sha256: "49CF98E23C82AE26640399C780DE96EE48CDEDF96890482B1C47F0282A2F6A29"
+    verified_at: "2026-08-08"
+    verification_note: "6쪽 원문과 가상 발주기관 안내, A~D 공간, 공간별 3안 요구를 확인했으며 PDF는 재작성하지 않음"
+
+  - id: "l04-material-reference-review"
+    lesson: 4
+    priority: "required"
+    source_type: "original"
+    production_owner: "instructor"
+    lesson_usage: "practice-input"
+    title: "제4차시 복습 실습 Material Library"
+    type: "image"
+    purpose: "현장사진과 Mini Design Brief에 함께 사용할 재질 참고 이미지를 비교하고 내려받는 학생용 카드"
+    required_files: ["m-01-oyster-quartzite.png", "m-02-almond-limestone.png", "m-03-azul-blue-marble.png", "m-04-pearl-white-porcelain.png", "m-05-rosso-levanto-marble.png", "m-06-sand-beige-porcelain.png", "m-07-silver-travertine.png", "m-08-taupe-microcement.png", "m-09-verde-alpi-marble.png", "m-10-charcoal-microcement.png", "m-11-travertine-beige.png", "m-12-soft-cream-micro-cement.png", "m-13-dark-grey-marble.png", "m-14-ivory-travertine.png", "m-15-light-grey-marble.png", "m-16-warm-beige-porcelain.png", "m-17-dark-grey-slate.png", "m-18-green-marble.png", "m-19-walnut-wood.png", "m-20-light-grey-microcement.png", "m-21-dark-walnut.png", "m-22-taj-mahal.png", "m-23-white-oak.png", "m-24-natural-oak.png", "m-25-taupe.png", "m-26-calacatta-viola-marble.png", "m-27-warm-ivory-porcelain.png", "m-28-light-taupe-porcelain.png", "m-29-matte-black-porcelain.png", "m-30-breccia-capraia-marble.png", "m-31-champagne-porcelain.png", "m-32-lilac-marble.png", "m-33-pearl-grey-porcelain.png"]
+    recommended_tool: "user-upload"
+    status: "ready"
+    public_use: true
+    alt: "영상 0번부터 3번까지에서 확인한 33개 고유 재질명과 표면 참고 이미지"
+    source_note: "사용자가 제공하고 수업용 반영을 승인한 텍스처 활용 0~3번 영상에서 재질명과 표면이 함께 보이는 대표 프레임을 개별 추출"
+    rights_status: "cleared"
+    privacy_note: "개인정보 없음"
+    verified_at: "2026-08-08"
+    verification_note: "0~3번 영상을 처음부터 끝까지 확인해 영상에 명확히 표시된 이름만 사용함. 영상별 35개 항목에서 Rosso Levanto Marble과 Verde Alpi Marble 중복을 제거해 33개 고유 재질로 등록했으며 제품 성능은 추정하지 않음"
+
   - id: "l04-external-reference"
     lesson: 4
     priority: "reference-only"

@@ -20,10 +20,20 @@ const report = {
   mobile: {},
   lesson03Mobile: {},
   lesson03Print: {},
+  lesson04: {},
+  lesson04ProgramPrompts: [],
+  lesson04Mobile: {},
+  runtimeErrors: [],
   errors: [],
 };
 const copiedTextById = new Map();
 const normalizeClipboardText = (value) => value.replace(/\r\n/g, '\n');
+const watchRuntimeErrors = (page, label) => {
+  page.on('console', (message) => {
+    if (message.type() === 'error') report.runtimeErrors.push({ label, type: 'console', message: message.text() });
+  });
+  page.on('pageerror', (error) => report.runtimeErrors.push({ label, type: 'pageerror', message: error.message }));
+};
 
 const browser = await chromium.launch({ headless: true });
 
@@ -31,6 +41,7 @@ try {
   for (const viewport of desktopViewports) {
     const context = await browser.newContext({ viewport });
     const page = await context.newPage();
+    watchRuntimeErrors(page, `desktop-${viewport.width}x${viewport.height}`);
 
     for (const lessonId of lessonIds) {
       const response = await page.goto(`${baseUrl}/lessons/${lessonId}/`, { waitUntil: 'networkidle' });
@@ -81,6 +92,7 @@ try {
   const copyContext = await browser.newContext({ viewport: desktopViewports[0] });
   await copyContext.grantPermissions(['clipboard-read', 'clipboard-write'], { origin: new URL(baseUrl).origin });
   const copyPage = await copyContext.newPage();
+  watchRuntimeErrors(copyPage, 'desktop-copy-and-lesson04');
   await copyPage.goto(`${baseUrl}/lessons/02/#section-07`, { waitUntil: 'networkidle' });
   await copyPage.waitForTimeout(800);
   report.hashEntry = await copyPage.evaluate(() => ({
@@ -215,10 +227,75 @@ try {
       structure: lessonThreeStructure,
     });
   }
+
+  await copyPage.goto(`${baseUrl}/lessons/04/`, { waitUntil: 'networkidle' });
+  const lesson04MaterialImages = copyPage.locator('.material-card img');
+  for (let index = 0; index < await lesson04MaterialImages.count(); index += 1) {
+    const image = lesson04MaterialImages.nth(index);
+    await image.scrollIntoViewIfNeeded();
+    await image.evaluate(async (element) => {
+      if (element instanceof HTMLImageElement && !element.complete) {
+        await new Promise((resolve) => {
+          element.addEventListener('load', resolve, { once: true });
+          element.addEventListener('error', resolve, { once: true });
+        });
+      }
+    });
+  }
+  report.lesson04 = await copyPage.evaluate(() => ({
+    sectionCount: document.querySelectorAll('.lesson-content [data-lesson-section][id]').length,
+    tocCount: document.querySelectorAll('[data-current-lesson-toc="desktop"] [data-lesson-section-link]').length,
+    materialCards: document.querySelectorAll('.material-card').length,
+    materialDownloads: document.querySelectorAll('.material-download[download]').length,
+    materialImagesLoaded: [...document.querySelectorAll('.material-card img')]
+      .every((image) => image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0),
+    materialCheckboxes: document.querySelectorAll('[name="lesson04-material-selection"]').length,
+    programIdeas: document.querySelectorAll('.idea-card').length,
+    programPrompts: document.querySelectorAll('prompt-copy-block[data-copy-block-id^="lesson04-program-"]').length,
+    rfpHref: document.querySelector('.rfp-download-card a[download]')?.getAttribute('href'),
+  }));
+  const lesson04Downloads = await copyPage.locator('.material-download[download]').evaluateAll((links) => (
+    links.map((link) => ({ href: link.getAttribute('href'), downloadName: link.getAttribute('download') }))
+  ));
+  report.lesson04.downloadChecks = [];
+  for (const item of lesson04Downloads) {
+    const response = await copyContext.request.get(new URL(item.href, copyPage.url()).href);
+    report.lesson04.downloadChecks.push({ ...item, status: response.status(), ok: response.ok() });
+  }
+  if (report.lesson04.rfpHref) {
+    const response = await copyContext.request.get(new URL(report.lesson04.rfpHref, copyPage.url()).href);
+    report.lesson04.rfpStatus = response.status();
+  }
+  const lesson04ProgramBlocks = copyPage.locator('prompt-copy-block[data-copy-block-id^="lesson04-program-"]');
+  for (let index = 0; index < await lesson04ProgramBlocks.count(); index += 1) {
+    const block = lesson04ProgramBlocks.nth(index);
+    const id = await block.getAttribute('data-copy-block-id');
+    const source = await block.locator('[data-copy-source]').inputValue();
+    await copyPage.evaluate(() => navigator.clipboard.writeText('COPY_AUDIT_SENTINEL'));
+    await block.locator('[data-copy-trigger]').click();
+    const clipboard = await copyPage.evaluate(() => navigator.clipboard.readText());
+    const record = { id, sourceMatches: normalizeClipboardText(clipboard) === normalizeClipboardText(source), length: clipboard.length };
+    report.lesson04ProgramPrompts.push(record);
+  }
+  if (report.lesson04.sectionCount !== 14
+    || report.lesson04.tocCount !== 14
+    || report.lesson04.materialCards !== 33
+    || report.lesson04.materialDownloads !== 33
+    || !report.lesson04.materialImagesLoaded
+    || report.lesson04.materialCheckboxes !== 0
+    || report.lesson04.programIdeas !== 10
+    || report.lesson04.programPrompts !== 10
+    || report.lesson04.rfpStatus !== 200
+    || report.lesson04.downloadChecks.some((item) => !item.ok || !item.downloadName)
+    || report.lesson04ProgramPrompts.length !== 10
+    || report.lesson04ProgramPrompts.some((item) => !item.sourceMatches)) {
+    report.errors.push({ type: 'lesson04-final-workflow', lesson04: report.lesson04, prompts: report.lesson04ProgramPrompts });
+  }
   await copyContext.close();
 
   const mobileContext = await browser.newContext({ viewport: { width: 390, height: 844 } });
   const mobilePage = await mobileContext.newPage();
+  watchRuntimeErrors(mobilePage, 'mobile-390x844');
   await mobilePage.goto(`${baseUrl}/lessons/02/`, { waitUntil: 'networkidle' });
   await mobilePage.locator('[data-menu-open]').click();
   const openState = await mobilePage.evaluate(() => ({
@@ -276,6 +353,21 @@ try {
     report.errors.push({ type: 'lesson03-mobile', ...report.lesson03Mobile });
   }
 
+  await mobilePage.goto(`${baseUrl}/lessons/04/`, { waitUntil: 'networkidle' });
+  report.lesson04Mobile = await mobilePage.evaluate(() => ({
+    overflow: document.documentElement.scrollWidth > window.innerWidth + 1,
+    sectionCount: document.querySelectorAll('.lesson-content [data-lesson-section][id]').length,
+    materialCards: document.querySelectorAll('.material-card').length,
+    programIdeas: document.querySelectorAll('.idea-card').length,
+  }));
+  if (report.lesson04Mobile.overflow
+    || report.lesson04Mobile.sectionCount !== 14
+    || report.lesson04Mobile.materialCards !== 33
+    || report.lesson04Mobile.programIdeas !== 10) {
+    report.errors.push({ type: 'lesson04-mobile', ...report.lesson04Mobile });
+  }
+
+  await mobilePage.goto(`${baseUrl}/lessons/03/`, { waitUntil: 'networkidle' });
   await mobilePage.emulateMedia({ media: 'print' });
   const printTocDisplay = await mobilePage.locator('[data-current-lesson-toc="mobile"]').evaluate((element) => getComputedStyle(element).display);
   if (printTocDisplay !== 'none') report.errors.push({ type: 'print-toc-visible', printTocDisplay });
@@ -297,6 +389,7 @@ try {
     report.errors.push({ type: 'lesson03-print', ...report.lesson03Print });
   }
   await mobileContext.close();
+  if (report.runtimeErrors.length > 0) report.errors.push({ type: 'runtime-errors', items: report.runtimeErrors });
 } finally {
   await browser.close();
 }
@@ -311,6 +404,10 @@ console.log(JSON.stringify({
   mobile: report.mobile,
   lesson03Mobile: report.lesson03Mobile,
   lesson03Print: report.lesson03Print,
+  lesson04: report.lesson04,
+  lesson04ProgramPrompts: report.lesson04ProgramPrompts,
+  lesson04Mobile: report.lesson04Mobile,
+  runtimeErrors: report.runtimeErrors,
   hashEntry: report.hashEntry,
   errors: report.errors,
 }, null, 2));

@@ -1,3 +1,5 @@
+import type { Lesson04Material, lesson04FinalContent } from './lesson04-final-content';
+
 export type Lesson04ResourceGroup =
   | 'common'
   | 'manager-build'
@@ -16,7 +18,48 @@ export type Lesson04Download = {
   group?: Lesson04ResourceGroup;
 };
 
+export type Lesson04ReviewPracticeData = {
+  rfp: {
+    href: string;
+    downloadName: string;
+    title: string;
+    description: string;
+    notice: string;
+  };
+  reviewSummary: string;
+  reviewFlow: string[];
+  extensionSummary: string;
+  extensionFlow: string[];
+  spaces: {
+    id: string;
+    title: string;
+    focus: string;
+  }[];
+  materials: Lesson04Material[];
+  materialCaution: string;
+  materialRightsNote: string;
+  requirementQuestions: string[];
+  miniBriefFields: {
+    key: string;
+    label: string;
+  }[];
+  miniBriefSample: {
+    key: string;
+    lines: string[];
+  }[];
+  materialForm: string[];
+  promptTemplate: string;
+  optionGuidance: string;
+  fixedConditions: string[];
+  variableConditions: string[];
+  comparisonCriteria: string[];
+  comparisonCaution: string;
+  resultItems: string[];
+};
+
 export type Lesson04WorkflowData = {
+  reviewPractice: Lesson04ReviewPracticeData;
+  finalContent: typeof lesson04FinalContent;
   definition: string;
   differenceCriteria: string[];
   rejectedDifferences: string[];
@@ -42,6 +85,7 @@ export type Lesson04WorkflowData = {
       | '확정된 수업 구성'
       | '교육용 가정'
       | '디자인 제안'
+      | '디자인 판단'
       | '수강생 판단'
       | '강의 전 사실 검증'
       | '추가 출처 확인';
