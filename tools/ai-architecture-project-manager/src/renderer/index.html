@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:" />
+    <title>Design Project Auto Organizer</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p>DESIGN PROJECT AUTO ORGANIZER</p>
+        <h1>설계 프로젝트 자동 정리 프로그램</h1>
+      </div>
+      <span id="watch-state" class="state">감시 준비</span>
+    </header>
+
+    <main>
+      <section class="root-panel" aria-labelledby="root-title">
+        <div>
+          <p class="eyebrow">ROOT</p>
+          <h2 id="root-title">여러 프로젝트를 담는 상위 폴더</h2>
+          <p id="root-path" class="path">아직 ROOT가 연결되지 않았습니다.</p>
+        </div>
+        <button id="choose-root" type="button">ROOT 변경</button>
+      </section>
+
+      <section class="create-panel" aria-labelledby="create-title">
+        <div>
+          <p class="eyebrow">NEW PROJECT</p>
+          <h2 id="create-title">새 프로젝트</h2>
+        </div>
+        <form id="project-form">
+          <label for="project-name">프로젝트 이름</label>
+          <div>
+            <input id="project-name" name="projectName" placeholder="예: 카페 A 리모델링" autocomplete="off" />
+            <button type="submit">+ 새 프로젝트</button>
+          </div>
+        </form>
+      </section>
+
+      <section aria-labelledby="project-title">
+        <div class="section-heading">
+          <div><p class="eyebrow">PROJECTS</p><h2 id="project-title">등록 프로젝트</h2></div>
+          <button id="refresh" type="button" class="secondary">새로고침</button>
+        </div>
+        <div id="project-list" class="project-grid" aria-live="polite"></div>
+      </section>
+
+      <section aria-labelledby="log-title">
+        <div class="section-heading"><div><p class="eyebrow">RECENT ACTIVITY</p><h2 id="log-title">최근 자동분류 내역</h2></div></div>
+        <ol id="event-list" class="event-list" aria-live="polite"></ol>
+      </section>
+    </main>
+
+    <div id="message" role="status" aria-live="polite"></div>
+    <script src="renderer.js"></script>
+  </body>
+</html>

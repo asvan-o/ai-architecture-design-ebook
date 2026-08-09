@@ -148,66 +148,131 @@ export const lesson04FinalContent = {
   },
   organizer: {
     name: 'Design Project Auto Organizer',
-    rootExample: `바탕화면/
-├─ DesignProjectAutoOrganizer/
-│  └─ 프로그램 개발용
-│
-└─ MY_DESIGN_PROJECTS/
-   ├─ ARVEN 본사 리뉴얼/
-   ├─ 카페 A 리모델링/
-   ├─ 아파트 커뮤니티센터/
-   └─ 오피스 B 프로젝트/`,
+    koreanName: '설계 프로젝트 자동 정리 프로그램',
+    purpose: '하나의 ROOT 아래에서 여러 설계 프로젝트를 만들고, 각 프로젝트 최상위에 새로 들어온 파일을 확장자 규칙에 따라 정해진 폴더로 이동하는 Windows 로컬 프로그램이다.',
+    aiBoundary: 'AI Agent는 프로그램을 만드는 과정을 돕는다. 완성된 기본 프로그램의 자동분류는 Gemini API나 API Key 없이 고정된 확장자 규칙으로 작동한다.',
+    rootExample: `ROOT/
+├─ PROJECT_A/
+├─ PROJECT_B/
+└─ PROJECT_C/`,
+    rootScopeExample: `분류하지 않음
+ROOT/test.dwg
+ROOT/image.jpg
+
+자동분류 대상
+ROOT/PROJECT_A/test.dwg
+ROOT/PROJECT_A/image.jpg`,
     projectTree: `프로젝트명/
 ├─ 01_CAD/
-├─ 02_SKETCHUP/
-├─ 03_REVIT/
-├─ 04_ASSETS/
+│  ├─ AUTOCAD/
+│  └─ MICROSTATION/
+├─ 02_BIM/
+│  ├─ REVIT/
+│  ├─ ARCHICAD/
+│  ├─ VECTORWORKS/
+│  └─ EXCHANGE/
+├─ 03_SKETCHUP/
+├─ 04_3D_WORKFILES/
+│  ├─ 3DSMAX/
+│  ├─ MAYA/
+│  ├─ BLENDER/
+│  ├─ RHINO/
+│  ├─ CINEMA4D/
+│  ├─ HOUDINI/
+│  └─ TWINMOTION/
+├─ 05_GRAPHIC/
+│  ├─ ILLUSTRATOR/
+│  ├─ PHOTOSHOP/
+│  ├─ INDESIGN/
+│  ├─ AFTER_EFFECTS/
+│  └─ PREMIERE/
+├─ 06_ASSETS/
 │  ├─ MODEL/
-│  ├─ MATERIAL/
-│  ├─ REFERENCE/
-│  ├─ SITE_PHOTO/
-│  ├─ DRAWING_IMAGE/
+│  ├─ IMAGE/
+│  ├─ VIDEO/
 │  └─ OTHER/
-├─ 05_DESIGN_OUTPUT/
-├─ 06_DOCUMENT/
-├─ 07_DELIVERABLE/
+├─ 07_DOCUMENT/
 └─ 98_REVIEW/`,
-    intake: [
-      'Windows 탐색기에서 ROOT → 프로젝트명 폴더 최상위에 파일을 드래그한다.',
-      '프로그램 실행 중에는 새 파일을 감지해 분류한다.',
-      '프로그램이 꺼져 있을 때 들어온 파일은 그대로 두고 다음 실행에서 최상위 미분류 파일을 스캔한다.',
-      '프로그램 UI에 파일을 업로드하거나 _INBOX 폴더를 만드는 구조가 아니다.',
+    whyExamples: ['plan.dwg', 'lobby.skp', 'building.rvt', 'scene.hip', 'chair.fbx', 'render.jpg', 'presentation.ai', 'movie.mp4', 'proposal.pdf'],
+    creationMethods: [
+      'Windows 탐색기에서 ROOT 안에 프로젝트 폴더를 직접 만든다.',
+      '프로그램의 “+ 새 프로젝트”에서 이름을 입력하면 프로젝트와 표준 하위폴더가 함께 생성된다.',
+    ],
+    operationFlow: ['PROJECT 최상위', '새 파일 감지', '확장자 확인', '분류 규칙 확인', '해당 폴더로 이동'],
+    usageSteps: [
+      'Design Project Auto Organizer를 실행한다.',
+      '처음 사용하는 경우 ROOT 폴더를 연결한다.',
+      '“+ 새 프로젝트”를 선택하고 프로젝트 이름을 입력한다.',
+      '새 자료를 ROOT 자체가 아니라 ROOT → 프로젝트명 폴더 최상위에 넣는다.',
+      '자동분류 결과와 98_REVIEW 알림을 확인한다.',
+      '정리된 폴더 안의 파일을 열어 실제 작업을 진행한다.',
+      '사용을 마치면 X 버튼으로 프로그램을 완전히 종료한다.',
+    ],
+    lifecycle: [
+      ['프로그램 실행', '실시간 감시 ON'],
+      ['최소화 (-)', '프로그램 실행·감시 유지'],
+      ['닫기 (X)', '프로그램·watcher 완전 종료'],
+      ['다시 실행', '꺼져 있던 동안 들어온 파일을 한 번 스캔한 뒤 감시 시작'],
+    ],
+    workfileAssetExamples: [
+      ['lobby_scene.max', '04_3D_WORKFILES/3DSMAX', '내가 프로그램에서 열어 계속 수정하는 원본 작업파일'],
+      ['sofa.fbx', '06_ASSETS/MODEL', '다른 작업에 가져다 사용하는 외부 모델·교환 에셋'],
     ],
     extensionRules: [
-      ['DWG / DXF', '01_CAD'], ['SKP', '02_SKETCHUP'], ['RVT / RFA', '03_REVIT'],
-      ['FBX / OBJ / GLB / GLTF / 3DS / BLEND', '04_ASSETS/MODEL'],
-      ['PDF / DOCX / XLSX / PPTX / TXT', '06_DOCUMENT'],
+      ['DWG · DXF · DWT · DWS', '01_CAD/AUTOCAD'],
+      ['DGN', '01_CAD/MICROSTATION'],
+      ['RVT · RFA · RTE · RFT', '02_BIM/REVIT'],
+      ['PLN · PLA · TPL · BPN', '02_BIM/ARCHICAD'],
+      ['VWX', '02_BIM/VECTORWORKS'],
+      ['IFC', '02_BIM/EXCHANGE'],
+      ['SKP', '03_SKETCHUP'],
+      ['MAX', '04_3D_WORKFILES/3DSMAX'],
+      ['MA · MB', '04_3D_WORKFILES/MAYA'],
+      ['BLEND', '04_3D_WORKFILES/BLENDER'],
+      ['3DM', '04_3D_WORKFILES/RHINO'],
+      ['C4D', '04_3D_WORKFILES/CINEMA4D'],
+      ['HIP · HIPLC · HIPNC', '04_3D_WORKFILES/HOUDINI'],
+      ['TM', '04_3D_WORKFILES/TWINMOTION'],
+      ['FBX · OBJ · GLB · GLTF · DAE · 3DS · STL · 3MF · STEP · STP · IGES · IGS · SAT', '06_ASSETS/MODEL'],
+      ['AI · AIT', '05_GRAPHIC/ILLUSTRATOR'],
+      ['PSD · PSB', '05_GRAPHIC/PHOTOSHOP'],
+      ['INDD · INDT · IDML', '05_GRAPHIC/INDESIGN'],
+      ['AEP · AEPX · AET', '05_GRAPHIC/AFTER_EFFECTS'],
+      ['PRPROJ · PPROJ', '05_GRAPHIC/PREMIERE'],
+      ['JPG · JPEG · PNG · WEBP · TIF · TIFF · BMP · GIF · EXR · HDR', '06_ASSETS/IMAGE'],
+      ['MP4 · MOV · AVI · MKV · WEBM · M4V · WMV · MPEG · MPG · MTS · M2TS', '06_ASSETS/VIDEO'],
+      ['PDF · DOC · DOCX · XLS · XLSX · PPT · PPTX · TXT · CSV · HWP · HWPX', '07_DOCUMENT'],
+      ['그 밖의 일반 파일', '06_ASSETS/OTHER'],
     ],
-    imageCategories: ['MATERIAL', 'REFERENCE', 'SITE_PHOTO', 'DRAWING_IMAGE', 'DESIGN_OUTPUT', 'OTHER', 'REVIEW'],
-    geminiModel: '공식 이미지 이해 문서의 현재 예시는 gemini-3.6-flash를 사용한다. 실제 구현에서는 이미지 입력을 지원하는 현재 모델을 공식 문서에서 다시 선택한다.',
-    apiSafety: ['API Key는 처음 한 번만 등록하고 환경변수나 로컬 보안 저장소에서 읽는다.', '소스 코드에 하드코딩하지 않는다.', 'Git commit과 공개 저장소에 넣지 않는다.', '화면과 로그에 키 전체를 표시하지 않는다.'],
-    imagePolicy: [
-      '이미지마다 사용자가 프롬프트를 다시 입력하지 않는다. 분류 지시는 프로그램 내부에 한 번 구현한다.',
-      'Nano Banana, SketchUp 렌더, 인터넷 이미지 같은 출처를 억지로 추정하지 않는다.',
-      '이미지가 프로젝트에서 어떤 용도로 사용되는지를 분류한다.',
-      '판단이 애매하면 98_REVIEW로 보내고 사용자가 버튼으로 최종 분류한다.',
+    safetyRules: [
+      'ROOT 바로 아래 파일과 이미 분류된 하위폴더의 파일은 이동하지 않는다.',
+      '파일 내용·파일명·CAD Xref·Revit Link·SketchUp 및 Houdini 참조 경로를 수정하지 않는다.',
+      '대상 폴더에 같은 이름이 있으면 덮어쓰지 않고 새 파일을 98_REVIEW로 보낸다.',
+      '분류 규칙에 없는 일반 파일은 OTHER로 보내고, 실제 오류·충돌·권한 문제만 REVIEW로 보낸다.',
+      'Unreal Engine의 .uproject처럼 폴더와 함께 작동하는 프로젝트 파일은 자동 이동하지 않는다.',
     ],
-    revision: [
-      'Lobby.skp와 Restaurant.skp처럼 서로 다른 작업파일은 각각 독립 항목이다.',
-      '각 항목에 R01 → R02 → R03 같은 변경 이력 라벨을 기록한다.',
-      '파일명을 바꾸거나 파일을 복제하지 않는다.',
-      'Revision은 백업 기능이 아니다. 과거 파일을 따로 저장하지 않았다면 R01로 복원할 수 없다.',
+    stack: ['Electron', 'Node.js', 'HTML', 'CSS', 'JavaScript', 'chokidar', 'Electron Forge'],
+    excludedStack: ['React', 'Next.js', 'Express', 'Cloud DB', '서버', '회원가입', '로그인', 'Gemini API', 'OpenAI API', 'MCP'],
+    developmentCommands: [
+      ['npm install', '필요한 패키지 설치'],
+      ['npm test', '분류·감시·안전 규칙 자동 검사'],
+      ['npm start', '개발 중 Electron 프로그램 실행'],
+      ['npm run make', 'Windows 설치 프로그램 제작'],
+    ],
+    futureExtensions: [
+      '이미지 내용을 Gemini API로 분석해 MATERIAL·REFERENCE·SITE_PHOTO 등으로 나누는 기능은 API Key와 별도 검증이 필요한 향후 확장 기능이다.',
+      '작업파일 Revision 라벨은 파일 복원이나 백업과 다르므로, 기본 자동분류가 안정된 뒤 별도 기능으로 검토한다.',
     ],
     checks: [
-      'ROOT와 여러 프로젝트를 생성·전환할 수 있는가?',
-      '프로젝트 최상위 파일을 실행 중 감지하고 재실행 시 다시 스캔하는가?',
-      '확장자로 확실한 파일은 Gemini API 없이 분류하는가?',
-      '이미지는 승인된 범주로만 분류하고 애매하면 98_REVIEW로 보내는가?',
-      'API Key가 코드·Git·화면·로그에 노출되지 않는가?',
-      'Revision 라벨이 백업이나 파일 복원으로 오해되지 않는가?',
-      '구조·법규·치수·재료 성능·시공 가능성을 자동 확정하지 않는가?',
+      'ROOT 선택·저장·재로드와 여러 프로젝트 생성이 작동하는가?',
+      'ROOT 바로 아래 파일은 그대로 두고 PROJECT 최상위 파일만 감지하는가?',
+      '분류된 하위폴더를 다시 감시하거나 무한 이동하지 않는가?',
+      'CAD·BIM·SketchUp·3D·Graphic·Image·Video·Document·Other가 지정 폴더로 이동하는가?',
+      '같은 이름 충돌과 폴더형 프로젝트는 덮어쓰지 않고 REVIEW로 안내하는가?',
+      '최소화 중에는 감시하고 X 종료 후에는 watcher와 앱 프로세스가 남지 않는가?',
+      '다시 실행하면 종료 중 들어온 미분류 파일을 스캔하는가?',
+      'npm start와 npm run make가 성공하고 Windows Setup.exe가 만들어지는가?',
     ],
-    geminiSource: 'https://ai.google.dev/gemini-api/docs/image-understanding',
   },
 } as const;
 

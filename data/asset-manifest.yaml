@@ -670,43 +670,19 @@ assets:
     source_type: "template"
     production_owner: "codex"
     lesson_usage: "practice-input"
-    title: "Antigravity 관리 프로그램 제작·승인 요청문"
+    title: "Design Project Auto Organizer 완성형 제작 요청문"
     type: "document"
-    purpose: "계획 검토 후 승인된 범위에서만 로컬 관리 프로그램을 제작하게 하는 공통 요청문"
-    required_files: ["antigravity-manager-build-prompt.txt", "antigravity-manager-approval-prompt.txt"]
+    purpose: "Electron 로컬 자동분류 프로그램 구현, 자동 테스트와 Windows 설치 프로그램 제작까지 요청하는 단일 실습 원문"
+    required_files: ["antigravity-manager-build-prompt.txt"]
     recommended_tool: "codex"
     status: "ready"
     public_use: true
-    alt: "계획 단계와 승인 후 구현 단계를 분리한 Antigravity 프로그램 제작 요청문"
+    alt: "확장자 규칙 기반 설계 프로젝트 자동 정리 프로그램의 완성형 제작 요청문"
     source_note: "사용자가 승인한 제4차시 안전 조건을 Codex가 텍스트 요청문으로 구조화"
     rights_status: "cleared"
     privacy_note: "개인정보·인증정보·실제 경로 없음"
-    verified_at: "2026-07-31"
-    verification_note: "프로젝트 밖 접근, 승인 전 실행, 원본 삭제와 덮어쓰기를 금지하는 조건 포함"
-
-  - id: "l04-ready-manager"
-    lesson: 4
-    priority: "required"
-    source_type: "original"
-    production_owner: "codex"
-    lesson_usage: "practice-input"
-    title: "AI_건축_캠퍼스라운지 관리 프로그램 복구본"
-    type: "document"
-    purpose: "프로그램 제작에 실패한 수강생이 실습을 계속할 수 있게 제공하는 검증된 로컬 복구 패키지"
-    required_files: ["AI_건축_캠퍼스라운지_복구본.zip"]
-    file_path: "src/assets/lessons/04/workspace/AI_건축_캠퍼스라운지_복구본.zip"
-    recommended_tool: "codex"
-    status: "ready"
-    public_use: true
-    alt: "Node.js Express 기반 캠퍼스 라운지 로컬 프로젝트 관리 프로그램 복구본"
-    source_note: "사용자가 승인한 제4차시 범위에 맞춰 Codex가 구현하고 자동 테스트한 로컬 프로그램"
-    rights_status: "cleared"
-    privacy_note: "환경변수·API 키·인증정보·개인정보와 node_modules 미포함"
-    package_version: "1.1.0"
-    baseline_git_sha: "cbc905922019751acbf3cf4736fc97e4eae27515"
-    sha256: "6804d30885047a908dbb6aabaf5cf949e8419d8c4930ac9eba2f966776123d97"
-    verified_at: "2026-08-04"
-    verification_note: "동시 등록 10개, 원자적 등록목록 갱신, 파일 검증, 등록 파일 전용 ZIP, 미등록 민감자료 제외, 원본 유지와 프로젝트 밖 링크 접근 차단 자동 테스트 통과"
+    verified_at: "2026-08-09"
+    verification_note: "ROOT와 PROJECT 범위, 전체 확장자 규칙, 덮어쓰기 방지, watcher 종료, 자동 테스트와 Setup.exe 제작 조건 포함"
 
   - id: "l05-doc-pack"
     lesson: 5

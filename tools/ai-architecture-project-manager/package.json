@@ -1,17 +1,28 @@
 {
-  "name": "ai-architecture-project-manager",
-  "version": "1.1.0",
+  "name": "design-project-auto-organizer",
+  "productName": "Design Project Auto Organizer",
+  "version": "2.0.0",
   "private": true,
-  "type": "module",
-  "description": "제4차시 캠퍼스 라운지 산출물을 로컬에서 정리하는 교육용 프로젝트 관리 프로그램",
+  "description": "여러 설계 프로젝트의 최상위 파일을 확장자 규칙으로 정리하는 Windows 로컬 프로그램",
+  "author": "AI 건축디자인 바이블",
+  "main": "src/main.cjs",
   "engines": {
     "node": ">=22.0.0"
   },
   "scripts": {
-    "start": "node server.mjs",
-    "test": "node --test 검사/project-manager.test.mjs"
+    "start": "electron .",
+    "test": "node --test tests/*.test.cjs",
+    "smoke": "electron . --smoke",
+    "make": ".\\node_modules\\node\\bin\\node.exe node_modules/@electron-forge/cli/dist/electron-forge.js make"
   },
   "dependencies": {
-    "express": "^5.1.0"
+    "chokidar": "^4.0.3",
+    "electron-squirrel-startup": "^1.0.1"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^7.11.2",
+    "@electron-forge/maker-squirrel": "^7.11.2",
+    "electron": "^37.2.6",
+    "node": "22.23.2"
   }
 }
