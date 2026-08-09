@@ -133,7 +133,7 @@ const detailedLessonSections = {
   '01': ['차시 소개', '오늘의 핵심 질문', '학습 목표', '생성형 AI(Generative AI)의 기본 개념', 'AI가 할 일과 디자이너가 판단할 일', '안전하게 사용하기 위한 핵심 용어', '원문·추론·가정·디자인 제안 구분', '북카페 가상 의뢰', 'Gemini 첫 번째 입력', 'Gemini 3.6 Flash 실제 응답', '실제 응답 분석', '개선된 요청문', '수강생 실습', '결과물 작성', 'AI 활용·검증 체크리스트', '차시 마무리'],
   '02': ['오늘의 학습 안내', '제1차시에서 제2차시로', '프롬프트란 무엇인가', '프롬프트를 작성하기 전에 알아야 할 기본 개념', '정보 확인형 질문과 작업지시형 프롬프트', '좋은 프롬프트의 7가지 공통 규칙', '프롬프트 작성 공통 공식', '짧은 요청과 구조화된 요청 비교', '구조화된 프롬프트 문장 분석', '실습 전 예열과 실습 1 · 작업 조건표', '실습 2 · 조건표를 작업지시서로 조립하기', '실습 3~4 · 프롬프트 다듬기와 A/B 테스트', '응용 실습 · 실제 이미지 생성과 수정'],
   '03': ['차시 소개', '제2차시 복습 · 작업지시서를 다시 만들어보기', '복습 실습 1 · 주민 커뮤니티 쉼터 리모델링', '복습 실습 1 결과 샘플', '미니실습 2 · 고령 입주민을 위한 휴게 쉼터', '미니실습 2 결과 샘플', '두 실습의 차이와 제3차시 본론 연결', '제안요청서(RFP)와 디자인 브리프', '정보 분류와 전체 업무 흐름', '실습 1 · 제안요청서(RFP)를 디자인 브리프로 바꾸기', '공통 마무리 · 오류 확인과 핵심 정리'],
-  '04': ['차시 소개', '제3차시 복습 · 제안요청서(RFP)에서 디자인 기준 찾기', '이번 복습에서 한 단계 더 · 재질 참고자료 활용', '복습 실습 · 제안요청서(RFP)를 읽고 디자인 3안 만들기', '복습 실습 결과 정리 · 3안 비교하기', 'Antigravity 2.0 이해와 실습 준비', 'Antigravity 2.0 사용법 · Project, Local Mode, 설정, 단축키, slash command', '무엇을 자동화할 것인가 · 설계 프로젝트 자동 정리 프로그램', '개발 실습 · ROOT와 다중 프로젝트 구조 만들기', '개발 실습 · 파일 감지와 자동 분류', '개발 실습 · Gemini API 이미지 자동 분류', '개발 실습 · 작업파일 Revision 라벨링', '전체 자동화 검증', 'Antigravity 2.0으로 더 만들어볼 수 있는 건축·디자인 업무 도구'],
+  '04': ['차시 소개', '제3차시 복습 · 제안요청서(RFP)에서 디자인 기준 찾기', '이번 복습에서 한 단계 더 · 재질 참고자료 활용', '복습 실습 · 제안요청서(RFP)를 읽고 디자인 3안 만들기', '복습 실습 결과 정리 · 3안 비교하기', 'Antigravity 2.0 이해와 실습 준비', 'Antigravity 2.0 사용법 · Project, Local Mode, 설정, 단축키, slash command', '무엇을 자동화할 것인가 · 설계 프로젝트 자동 정리 프로그램', '개발 실습 · ROOT와 다중 프로젝트 구조 만들기', '개발 실습 · 파일 감지와 프로그램 작동 흐름', '개발 실습 · CAD·BIM·3D·Graphic·Image·Video·Document 분류', '개발 실습 · Windows 설치 프로그램 만들기', '전체 자동화 검증', 'Antigravity 2.0으로 더 만들어볼 수 있는 건축·디자인 업무 도구'],
 };
 const lessonThreeFourOutputs = ['요구조건 매트릭스', '발주기관 추가 질의', '디자인 브리프', '평면도 기반 현황 이미지 생성 결과', '현황 이미지 수정 결과', '평면도와 이미지의 불일치 기록', '제4차시 대안 평가기준'];
 
@@ -595,6 +595,7 @@ for (const fileName of files) {
       { marker: 'campus-lounge-existing-view-01.jpeg', label: '제3차시 공통 현황 이미지 재사용' },
       { marker: 'lesson-03-campus-lounge-rfp-v1.2.pdf', label: '제3차시 공통 RFP 재사용' },
       { marker: "'l04-material-reference-review'", label: 'Material Library 자산 ID' },
+      { marker: 'antigravity-manager-build-prompt.txt', label: '완성형 자동분류 프로그램 제작 요청문' },
     ];
     for (const { marker, label } of requiredLessonFourStructures) {
       if (!source.includes(marker)) {
@@ -634,13 +635,33 @@ for (const fileName of files) {
     for (const auditMarker of ["file: '0번.mp4', duration: '00:22.5', discovered: 10", "file: '1번.mp4', duration: '00:20.1', discovered: 10", "file: '2번.mp4', duration: '00:20.3', discovered: 5", "file: '3번.mp4', duration: '00:21.5', discovered: 10", 'beforeDeduplication: 35', 'afterDeduplication: 33']) {
       if (!lessonFourFinalContent.includes(auditMarker)) errors.push(`제4차시 재질 감사 기록 누락: ${auditMarker}`);
     }
-    for (const marker of ['Always Proceed', '/grill-me', '/goal', 'Ctrl + K', '98_REVIEW', 'gemini-3.6-flash', 'Revision은 백업 기능이 아니다']) {
+    for (const marker of [
+      'Always Proceed',
+      '/grill-me',
+      '/goal',
+      'Ctrl + K',
+      '98_REVIEW',
+      "koreanName: '설계 프로젝트 자동 정리 프로그램'",
+      "stack: ['Electron', 'Node.js', 'HTML', 'CSS', 'JavaScript', 'chokidar', 'Electron Forge']",
+      "excludedStack: ['React', 'Next.js', 'Express'",
+      "['MP4 · MOV · AVI · MKV · WEBM · M4V · WMV · MPEG · MPG · MTS · M2TS', '06_ASSETS/VIDEO']",
+      "['그 밖의 일반 파일', '06_ASSETS/OTHER']",
+      'X 종료 후에는 watcher와 앱 프로세스가 남지 않는가?',
+    ]) {
       if (!lessonFourFinalContent.includes(marker)) errors.push(`제4차시 최종 콘텐츠에 '${marker}'가 없습니다.`);
     }
     if (!lessonFourReviewComponent.includes('재질 이미지 다운로드')) errors.push('제4차시 재질 다운로드 연결이 없습니다.');
     if (lessonFourReviewComponent.includes('lesson04-material-selection')) errors.push('제4차시에서 제거 대상 재질 체크박스가 남아 있습니다.');
     if (!lessonFourReviewComponent.includes('lesson04-review-output-prompt')) errors.push('제4차시 Nano Banana용 출력 프롬프트 샘플이 없습니다.');
     if (!lessonFourReviewComponent.includes('STEP 8')) errors.push('제4차시 복습 Step 1~8이 완성되지 않았습니다.');
+    for (const retiredManagerItem of [
+      'antigravity-manager-approval-prompt.txt',
+      'AI_건축_캠퍼스라운지_복구본.zip?url',
+      "label: 'Gemini API 이미지 용도 분류'",
+      "label: '작업파일 Revision 라벨링'",
+    ]) {
+      if (source.includes(retiredManagerItem)) errors.push(`${fileName}: 제거 대상 이전 관리 프로그램 항목 '${retiredManagerItem}'이 남아 있습니다.`);
+    }
     for (const retiredSection of ['제공 자료와 제3차시 작업물 가져오기', '대안 A·B 운영전략과 조닝 작성']) {
       if (source.includes(retiredSection)) errors.push(`${fileName}: 제거 대상 중복 섹션 '${retiredSection}'이 남아 있습니다.`);
     }

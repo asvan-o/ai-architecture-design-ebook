@@ -252,6 +252,10 @@ try {
     materialCheckboxes: document.querySelectorAll('[name="lesson04-material-selection"]').length,
     programIdeas: document.querySelectorAll('.idea-card').length,
     programPrompts: document.querySelectorAll('prompt-copy-block[data-copy-block-id^="lesson04-program-"]').length,
+    completeManagerPrompts: document.querySelectorAll('prompt-copy-block[data-copy-block-id="lesson04-complete-organizer-prompt"]').length,
+    hasRootScope: document.querySelector('#section-09')?.textContent?.includes('ROOT 바로 아래 파일은 그대로 둔다') ?? false,
+    hasWindowsInstaller: document.querySelector('#section-12')?.textContent?.includes('Design Project Auto Organizer Setup.exe') ?? false,
+    retiredGeminiCore: document.querySelector('#section-11')?.textContent?.includes('Gemini API 이미지 자동 분류') ?? false,
     rfpHref: document.querySelector('.rfp-download-card a[download]')?.getAttribute('href'),
   }));
   const lesson04Downloads = await copyPage.locator('.material-download[download]').evaluateAll((links) => (
@@ -277,6 +281,19 @@ try {
     const record = { id, sourceMatches: normalizeClipboardText(clipboard) === normalizeClipboardText(source), length: clipboard.length };
     report.lesson04ProgramPrompts.push(record);
   }
+  const completeManagerBlock = copyPage.locator('prompt-copy-block[data-copy-block-id="lesson04-complete-organizer-prompt"]');
+  if (await completeManagerBlock.count() === 1) {
+    const source = await completeManagerBlock.locator('[data-copy-source]').inputValue();
+    await copyPage.evaluate(() => navigator.clipboard.writeText('COPY_AUDIT_SENTINEL'));
+    await completeManagerBlock.locator('[data-copy-trigger]').click();
+    const clipboard = await copyPage.evaluate(() => navigator.clipboard.readText());
+    report.lesson04.completeManagerPrompt = {
+      sourceMatches: normalizeClipboardText(clipboard) === normalizeClipboardText(source),
+      includesElectron: source.includes('Electron'),
+      includesSetup: source.includes('Setup.exe'),
+      length: clipboard.length,
+    };
+  }
   if (report.lesson04.sectionCount !== 14
     || report.lesson04.tocCount !== 14
     || report.lesson04.materialCards !== 33
@@ -285,6 +302,13 @@ try {
     || report.lesson04.materialCheckboxes !== 0
     || report.lesson04.programIdeas !== 10
     || report.lesson04.programPrompts !== 10
+    || report.lesson04.completeManagerPrompts !== 1
+    || !report.lesson04.hasRootScope
+    || !report.lesson04.hasWindowsInstaller
+    || report.lesson04.retiredGeminiCore
+    || !report.lesson04.completeManagerPrompt?.sourceMatches
+    || !report.lesson04.completeManagerPrompt?.includesElectron
+    || !report.lesson04.completeManagerPrompt?.includesSetup
     || report.lesson04.rfpStatus !== 200
     || report.lesson04.downloadChecks.some((item) => !item.ok || !item.downloadName)
     || report.lesson04ProgramPrompts.length !== 10

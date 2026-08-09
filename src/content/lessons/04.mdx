@@ -36,13 +36,6 @@ sources:
     accessedAt: "2026-08-08"
     sourceType: "official"
     note: "Terminal Command Auto Execution과 프로젝트 밖 접근 제한 확인"
-  - id: "gemini-image-understanding"
-    title: "Image understanding"
-    publisher: "Google AI for Developers"
-    url: "https://ai.google.dev/gemini-api/docs/image-understanding"
-    accessedAt: "2026-08-08"
-    sourceType: "official"
-    note: "Gemini API의 이미지 입력·이해 지원과 현재 공식 예시 모델 확인"
 sections:
   - { id: "section-01", label: "차시 소개" }
   - { id: "section-02", label: "제3차시 복습 · 제안요청서(RFP)에서 디자인 기준 찾기" }
@@ -53,9 +46,9 @@ sections:
   - { id: "section-07", label: "Antigravity 2.0 사용법 · Project, Local Mode, 설정, 단축키, slash command" }
   - { id: "section-08", label: "무엇을 자동화할 것인가 · 설계 프로젝트 자동 정리 프로그램" }
   - { id: "section-09", label: "개발 실습 · ROOT와 다중 프로젝트 구조 만들기" }
-  - { id: "section-10", label: "개발 실습 · 파일 감지와 자동 분류" }
-  - { id: "section-11", label: "개발 실습 · Gemini API 이미지 자동 분류" }
-  - { id: "section-12", label: "개발 실습 · 작업파일 Revision 라벨링" }
+  - { id: "section-10", label: "개발 실습 · 파일 감지와 프로그램 작동 흐름" }
+  - { id: "section-11", label: "개발 실습 · CAD·BIM·3D·Graphic·Image·Video·Document 분류" }
+  - { id: "section-12", label: "개발 실습 · Windows 설치 프로그램 만들기" }
   - { id: "section-13", label: "전체 자동화 검증" }
   - { id: "section-14", label: "Antigravity 2.0으로 더 만들어볼 수 있는 건축·디자인 업무 도구" }
 ---
@@ -67,9 +60,6 @@ import campusLoungePlan from '../../assets/projects/campus-lounge/reference/camp
 import campusLoungeView from '../../assets/projects/campus-lounge/reference/campus-lounge-existing-view-01.jpeg';
 import managerPrompt from '../../assets/lessons/04/workspace/antigravity-manager-build-prompt.txt?raw';
 import managerPromptUrl from '../../assets/lessons/04/workspace/antigravity-manager-build-prompt.txt?url';
-import approvalPrompt from '../../assets/lessons/04/workspace/antigravity-manager-approval-prompt.txt?raw';
-import approvalPromptUrl from '../../assets/lessons/04/workspace/antigravity-manager-approval-prompt.txt?url';
-import readyManagerUrl from '../../assets/lessons/04/workspace/AI_건축_캠퍼스라운지_복구본.zip?url';
 import zoningPromptUrl from '../../assets/lessons/04/prompts/zoning-alternative-prompt-template.txt?url';
 import imagePromptUrl from '../../assets/lessons/04/prompts/image-generation-prompt-template.txt?url';
 import selectedRevisionPromptUrl from '../../assets/lessons/04/prompts/selected-revision-prompt-template.txt?url';
@@ -91,18 +81,18 @@ import { lesson04FinalContent, lesson04Materials } from '../../lib/lesson04-fina
   intro={[
     { category: '확정된 수업 구성', text: '제3차시는 RFP 분석, 요구조건 매트릭스, 추가 질의, 디자인 브리프와 제4차시 대안 평가기준을 만드는 차시였다.' },
     { category: '확정된 수업 구성', text: '복습 실습에서는 새로운 RFP를 Mini Design Brief와 이미지 제작 프롬프트로 전환하고, 현장·재질 참고자료를 사용한 Option A / B / C를 비교한다.' },
-    { category: '확정된 수업 구성', text: '제4차시의 새로운 본론은 Antigravity를 이용한 설계 프로젝트 지원 프로그램 기획·제작과 파일명·버전·폴더 정리, 제출 패키지 준비이다.' },
+    { category: '확정된 수업 구성', text: '제4차시의 새로운 본론은 Antigravity를 이용해 여러 설계 프로젝트의 CAD·BIM·3D·이미지·영상·문서를 확장자 규칙으로 정리하는 Windows 로컬 프로그램을 제작하는 것이다.' },
   ]}
   questions={[
     { category: '수강생 판단', text: '같은 RFP를 서로 다른 공간 운영전략으로 해결한 두 대안을 어떻게 만들 것인가?' },
     { category: '수강생 판단', text: '어떤 대안이 RFP 목적과 요구조건을 더 설득력 있게 해결하는가?' },
-    { category: '수강생 판단', text: '생성한 파일을 다음 설계 단계까지 추적할 수 있도록 어떻게 정리할 것인가?' },
+    { category: '수강생 판단', text: '서로 다른 설계 프로그램의 파일을 내용과 이름을 바꾸지 않고 어떻게 자동 정리할 것인가?' },
   ]}
   goals={[
     { category: '학습 목표', text: '현장사진·재질 참고 이미지·Mini Design Brief를 역할이 다른 입력자료로 구성한다.' },
     { category: '학습 목표', text: '공통 조건을 유지하면서 디자인 해석이 다른 Option A / B / C를 만들고 비교한다.' },
     { category: '학습 목표', text: 'Antigravity 2.0에서 프로젝트 범위와 권한을 설정하고 다중 프로젝트 ROOT 구조를 설계한다.' },
-    { category: '학습 목표', text: '확장자 규칙, Gemini API 이미지 용도 분류, REVIEW와 Revision 라벨을 구분해 자동화 흐름을 기획한다.' },
+    { category: '학습 목표', text: 'Electron 기반 로컬 프로그램에서 ROOT·PROJECT 범위, 확장자 규칙, REVIEW와 프로그램 생명주기를 구현하고 검증한다.' },
   ]}
   concepts={[
     { category: '확정된 수업 구성', text: '이 강의에서 공간구성 또는 공간 조닝(Spatial Zoning) 대안은 동일한 RFP 요구조건을 서로 다른 공간 운영전략으로 해결해 보는 교육용 작업안이다. 유일하게 정해진 외부 정의나 확정 설계안이 아니다.' },
@@ -147,10 +137,9 @@ import { lesson04FinalContent, lesson04Materials } from '../../lib/lesson04-fina
     ],
   }}
   demo={[
-    { category: '확정된 수업 구성', text: '모든 수강생은 같은 제작 요청문을 사용하고, 첫 요청에서는 계획만 확인한다.' },
-    { category: '추가 검증 필요', text: '계획을 검토할 때 프로젝트 밖 접근, Full Access 기본 사용, 원본 삭제·덮어쓰기 또는 승인 전 명령 실행이 포함되지 않았는지 확인한다.' },
-    { category: '확정된 수업 구성', text: '두 번째 승인 요청문을 보낸 뒤 프로그램 생성과 자동 테스트를 진행한다.' },
-    { category: '추가 검증 필요', text: '프로그램 제작이 실패한 경우 빈 ZIP이나 가짜 결과물을 만들지 않고 READY ZIP 복구본을 사용한다.' },
+    { category: '확정된 수업 구성', text: '완성형 제작 요청문 하나를 사용해 Electron 프로그램, 자동 테스트와 Windows 설치 프로그램까지 만든다.' },
+    { category: '추가 검증 필요', text: '생성된 코드에 ROOT 밖 접근, 파일명·내용 변경, 덮어쓰기, API Key 또는 숨은 백그라운드 실행이 포함되지 않았는지 확인한다.' },
+    { category: '확정된 수업 구성', text: 'npm test로 분류·충돌·재실행 규칙을 검사하고 npm start와 npm run make로 실제 실행과 Setup.exe 제작을 확인한다.' },
   ]}
   practiceGuidance={[
     { category: '수강생 판단', text: '대안 A와 B는 이름이나 스타일이 아니라 사용자·활동·면적 비중·인접 관계·동선·가구 운영과 공간 전환 방식이 달라야 한다.' },
@@ -161,21 +150,21 @@ import { lesson04FinalContent, lesson04Materials } from '../../lib/lesson04-fina
     { id: 'review-brief', title: 'RFP와 Mini Design Brief 정리', minutes: 30, description: 'A~D 중 한 공간을 선택하고 핵심 요구와 확인 불가 항목을 분리한다.' },
     { id: 'review-prompt', title: '재질 참고자료와 이미지 제작 프롬프트', minutes: 40, description: '현장사진·재질 이미지·Brief를 LLM 요청문과 Nano Banana용 최종 프롬프트로 연결한다.' },
     { id: 'review-options', title: 'Option A / B / C 생성·비교', minutes: 80, description: '공통 조건은 고정하고 디자인 해석을 달리해 세 안을 비교한다.' },
-    { id: 'organizer-root', title: 'ROOT와 프로젝트 구조 설계', minutes: 30, description: '여러 프로젝트를 전환할 수 있는 ROOT와 공통 하위 폴더를 만든다.' },
-    { id: 'organizer-rules', title: '파일 감지·규칙 분류·이미지 분류', minutes: 75, description: '확장자 규칙과 Gemini API 이미지 용도 분류를 구분해 구현 흐름을 설계한다.' },
-    { id: 'organizer-revision', title: 'Revision과 전체 검증', minutes: 35, description: '독립 작업파일별 변경 이력 라벨과 REVIEW 흐름을 점검한다.' },
+    { id: 'organizer-root', title: 'ROOT와 프로젝트 구조 설계', minutes: 30, description: '여러 PROJECT를 담는 ROOT와 프로젝트별 표준 하위 폴더를 만든다.' },
+    { id: 'organizer-rules', title: '파일 감지와 확장자 자동분류', minutes: 75, description: 'PROJECT 최상위의 파일만 감지하고 CAD·BIM·3D·Graphic·Image·Video·Document·Other로 이동한다.' },
+    { id: 'organizer-installer', title: '자동 테스트와 Windows 설치 프로그램', minutes: 35, description: '충돌·감시·재실행 안전 규칙을 검사하고 실제 Setup.exe를 만든다.' },
   ]}
   deliverables={[
     { category: '수업 산출물', text: '제안요청서(RFP) 핵심 조건과 Mini Design Brief.' },
     { category: '수업 산출물', text: '현장·재질 참고자료를 반영한 이미지 제작 프롬프트와 Option A / B / C.' },
     { category: '수업 산출물', text: 'RFP와 Mini Design Brief를 기준으로 정리한 3안 비교 결과.' },
-    { category: '수업 산출물', text: '로컬 프로젝트 관리 프로그램.' },
-    { category: '수업 산출물', text: '등록 파일 목록, 누락 점검과 사람이 확인한 등록 파일만 묶은 제출 ZIP.' },
+    { category: '수업 산출물', text: 'API 없이 확장자 규칙으로 작동하는 Electron 로컬 자동분류 프로그램.' },
+    { category: '수업 산출물', text: '프로그램 자동 테스트 결과와 Windows Setup.exe.' },
   ]}
   judgments={[
     { category: '수강생 판단', text: 'Option A / B / C의 차이가 RFP 조건과 Mini Design Brief를 기준으로 읽히는가?' },
     { category: '수강생 판단', text: '현장사진과 재질 참고 이미지의 역할을 구분하고, 확인할 수 없는 실제 조건을 단정하지 않았는가?' },
-    { category: '수강생 판단', text: '자동 파일명과 버전이 기준자료·작업물·제출본의 관계를 추적할 수 있게 하는가?' },
+    { category: '수강생 판단', text: 'ROOT 바로 아래 파일은 그대로 두고 PROJECT 최상위 파일만 지정 폴더로 이동하는가?' },
     { category: '법규·구조·소방 등 해당 전문가 판단', text: '실제 프로젝트에 적용하기 전 법규·구조·소방·전기·기계·접근성·시공성 판단을 해당 전문가에게 분리했는가?' },
   ]}
   errorChecks={[
@@ -183,9 +172,9 @@ import { lesson04FinalContent, lesson04Materials } from '../../lib/lesson04-fina
     { category: '추가 검증 필요', text: 'AI 이미지가 평면도의 기둥·창호·서비스 카운터·제외구역을 임의로 바꾸지 않았는가?' },
     { category: '추가 검증 필요', text: '실제 치수, 전체 좌석 수, 전기 용량과 배선을 이미지에서 추정해 확정하지 않았는가?' },
     { category: '법규·구조·소방 등 해당 전문가 판단', text: '구조 안전, 소방·피난·접근성, 법규 충족과 실제 시공 가능성을 자동 판정하지 않았는가?' },
-    { category: '수강생 판단', text: '원본 삭제·이동·덮어쓰기 없이 새 버전으로 저장했는가?' },
-    { category: '수강생 판단', text: '최종 제출 전에 아직 등록하지 않은 자료와 같은 파일의 중복 등록 여부를 확인했는가?' },
-    { category: '수강생 판단', text: 'ZIP 포함 예정 목록과 제외되는 미등록 파일 수를 확인하고 개인정보·기밀자료가 없는지 직접 검토했는가?' },
+    { category: '수강생 판단', text: '파일 내용·파일명·참조 경로를 수정하지 않고, 같은 이름은 덮어쓰지 않았는가?' },
+    { category: '수강생 판단', text: '분류 오류·이름 충돌·폴더형 프로젝트 파일만 98_REVIEW에서 확인하도록 구분했는가?' },
+    { category: '수강생 판단', text: 'X 종료 뒤 watcher와 Electron 프로세스가 남지 않고, 다시 실행하면 미분류 파일을 스캔하는가?' },
   ]}
   assetIds={[
     'l04-arven-review-rfp',
@@ -196,7 +185,6 @@ import { lesson04FinalContent, lesson04Materials } from '../../lib/lesson04-fina
     'l04-existing-plan',
     'l04-existing-view-01',
     'l04-manager-prompts',
-    'l04-ready-manager',
     'l04-material-reference-review',
   ]}
   assetsTitle="제4차시 실습 자료"
@@ -229,17 +217,9 @@ import { lesson04FinalContent, lesson04Materials } from '../../lib/lesson04-fina
       group: 'manager-build',
       href: managerPromptUrl,
       downloadName: 'antigravity-manager-build-prompt.txt',
-      label: 'Antigravity 관리 프로그램 제작 요청문',
-      description: '첫 응답에서 구현 계획만 작성하도록 제한한 공통 요청문',
-      meta: 'TXT · 승인 전 파일 생성·명령 실행 금지',
-    },
-    {
-      group: 'manager-build',
-      href: approvalPromptUrl,
-      downloadName: 'antigravity-manager-approval-prompt.txt',
-      label: '프로그램 제작 승인 요청문',
-      description: '검토한 계획 범위에서 구현과 테스트를 시작하는 두 번째 요청문',
-      meta: 'TXT · 안전 조건 검토',
+      label: 'Design Project Auto Organizer 완성형 제작 요청문',
+      description: 'Electron 프로그램 구현, 자동 테스트와 Windows Setup.exe 제작까지 한 번에 요청하는 실습 원문',
+      meta: 'TXT · API Key 불필요 · 확장자 규칙 기반',
     },
     {
       group: 'zoning',
@@ -264,14 +244,6 @@ import { lesson04FinalContent, lesson04Materials } from '../../lib/lesson04-fina
       label: '선택안 수정 요청문 템플릿',
       description: '유지·수정·제거·확인 항목과 RFP 근거를 기록하는 구조',
       meta: 'TXT · 실제 수정안 미포함',
-    },
-    {
-      group: 'manager-recovery',
-      href: readyManagerUrl,
-      downloadName: 'AI_건축_캠퍼스라운지_복구본.zip',
-      label: '검증된 관리 프로그램 복구본',
-      description: '프로그램 제작에 실패한 수강생을 위한 Node.js 복구 패키지',
-      meta: 'ZIP · node_modules 미포함',
     },
   ]}
   resourceDownloadNote="공통 RFP·평면도·현황 이미지는 제3차시와 같은 물리 파일을 참조한다. DOCX 원본은 공개하지 않으며, 다운로드 자료는 교육용 프로젝트에만 사용한다."
@@ -652,27 +624,20 @@ npm start`,
       '캠퍼스라운지_04차시_선택안_수정이미지_v02.png',
     ],
     managerRequirements: [
-      '프로젝트 루트: AI_건축_캠퍼스라운지',
-      '프로그램 코드: 관리프로그램 폴더',
-      '프로젝트 밖 접근 금지',
-      'Node.js + Express',
-      'Vanilla HTML/CSS/JavaScript',
-      'React·Electron·데이터베이스 사용 금지',
-      'JSON 파일 저장과 로컬 브라우저 실행',
-      '프로젝트 밖 접근 Ask 또는 Deny·Full Access 기본 사용 금지',
-      '터미널 명령과 수정 예정 파일의 사람 검토',
+      'Electron + Node.js + HTML/CSS/JavaScript',
+      'chokidar 파일 감지와 Electron Forge Windows 설치 프로그램',
+      'ROOT 바로 아래 파일은 제외하고 PROJECT 최상위 파일만 분류',
+      '파일 내용·파일명·참조 경로 수정 금지',
+      'React·Express·클라우드·API·MCP 사용 금지',
+      'X 종료 시 watcher와 Electron 프로세스 완전 종료',
     ],
     managerFeatures: [
-      '파일 드래그앤드롭과 자료 유형 선택',
-      '원본을 이동하지 않고 복사',
-      '자동 파일명과 v01·v02 버전 증가',
-      '같은 파일을 다시 등록하면 알림',
-      '등록 파일 목록을 자동으로 갱신',
-      '동시 등록 직렬화와 원자적 등록목록 갱신',
-      '등록목록의 파일만 ZIP에 포함',
-      'ZIP 전 포함 목록·미등록 제외 수·누락 항목 표시',
-      '허용 확장자·20MB 크기·파일명·실제 바이트 검증',
-      '원본 삭제·덮어쓰기 금지',
+      'ROOT 선택과 여러 프로젝트 생성·전환',
+      'CAD·BIM·SketchUp·3D·Graphic·Image·Video·Document 자동분류',
+      '미등록 일반 파일은 OTHER로 이동',
+      '이름 충돌과 오류는 98_REVIEW에서 확인',
+      '최소화 중 감시 유지, X 종료 후 watcher 완전 종료',
+      '재실행 시 종료 중 들어온 파일 재스캔',
     ],
     carryoverItems: [
       '요구조건 매트릭스',
@@ -822,7 +787,7 @@ npm start`,
     ],
     nextLesson: '다음 차시에서는 선택한 개념을 래피드 콘셉트와 인페인팅으로 발전시킵니다.',
     managerPrompt,
-    approvalPrompt,
+    approvalPrompt: '',
   }}
   timePlan={[
     { label: '차시 소개와 제3차시 복습', minutes: 15, mode: 'guide' },
@@ -834,9 +799,9 @@ npm start`,
     { label: '휴식', minutes: 10, mode: 'guide' },
     { label: 'Antigravity 2.0 Project·권한·명령 확인', minutes: 25, mode: 'guide' },
     { label: 'ROOT와 다중 프로젝트 구조 만들기', minutes: 30, mode: 'practice' },
-    { label: '파일 감지와 확장자 규칙 분류', minutes: 35, mode: 'practice' },
-    { label: 'Gemini API 이미지 용도 분류', minutes: 40, mode: 'practice' },
-    { label: '작업파일 Revision 라벨링', minutes: 25, mode: 'practice' },
+    { label: '파일 감지와 프로그램 작동 흐름', minutes: 35, mode: 'practice' },
+    { label: 'CAD·BIM·3D·Graphic·Image·Video·Document 분류', minutes: 40, mode: 'practice' },
+    { label: '자동 테스트와 Windows Setup.exe 제작', minutes: 25, mode: 'practice' },
     { label: '전체 자동화 검증', minutes: 10, mode: 'review' },
     { label: '추가 업무 도구 10종 살펴보기', minutes: 10, mode: 'guide' },
   ]}

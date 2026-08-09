@@ -78,58 +78,85 @@ const { antigravity, organizer } = finalContent;
 <LessonSection id="section-08" number="08" title="무엇을 자동화할 것인가 · 설계 프로젝트 자동 정리 프로그램" class="outline-section lesson04-final-section" {lessonId}>
   <div class="lead-block lead-block--dark">
     <span>MAIN PROGRAM</span>
-    <h3>{organizer.name}</h3>
-    <p>한 프로젝트 전용 프로그램이 아니라, 하나의 ROOT 아래에서 여러 설계 프로젝트를 만들고 전환하는 로컬 도구를 기획한다.</p>
+    <h3>{organizer.koreanName} · {organizer.name}</h3>
+    <p>{organizer.purpose}</p>
   </div>
   <div class="program-principles">
-    <article><strong>기준</strong><p>실제 Windows 프로젝트 폴더가 항상 원본이다.</p></article>
-    <article><strong>자동화</strong><p>확실한 확장자는 규칙으로, 이미지는 용도 중심으로 분류한다.</p></article>
-    <article><strong>검토</strong><p>애매한 항목과 전문 판단은 사람이 확인한다.</p></article>
+    <article><strong>왜 필요한가</strong><p>CAD·BIM·3D·이미지·영상·문서 파일을 매번 손으로 폴더에 옮기는 반복 작업을 줄인다.</p></article>
+    <article><strong>무엇을 하는가</strong><p>PROJECT 최상위의 새 파일을 감지하고, 확장자 규칙에 따라 지정 폴더로 이동한다.</p></article>
+    <article><strong>무엇을 하지 않는가</strong><p>설계 품질이나 법규를 판단하지 않고, 파일 내용·이름·참조 경로를 수정하지 않는다.</p></article>
   </div>
+  <div class="role-flow role-flow--three" aria-label="AI 에이전트와 완성 프로그램의 역할 구분">
+    <article><strong>Antigravity의 AI Agent</strong><span>프로그램 코드와 테스트 제작을 지원</span></article>
+    <b aria-hidden="true">→</b>
+    <article><strong>완성된 Electron 프로그램</strong><span>API 없이 로컬 확장자 규칙으로 자동분류</span></article>
+  </div>
+  <p class="key-message">{organizer.aiBoundary}</p>
 </LessonSection>
 
 <LessonSection id="section-09" number="09" title="개발 실습 · ROOT와 다중 프로젝트 구조 만들기" class="outline-section lesson04-final-section" {lessonId}>
-  <p>사용자가 ROOT의 위치와 이름을 정한다. 아래 이름은 수업 예시이며 Windows 사용자명이나 절대경로를 직접 입력하지 않는다.</p>
+  <p>사용자가 ROOT의 위치와 이름을 정한다. ROOT는 여러 PROJECT를 담는 상위 폴더이며, 자동분류는 각 PROJECT의 최상위에서만 시작한다.</p>
+  <ol>{organizer.creationMethods.map((item) => <li>{item}</li>)}</ol>
   <div class="tree-grid">
     <article><h3>ROOT와 여러 프로젝트</h3><pre><code>{organizer.rootExample}</code></pre></article>
     <article><h3>프로젝트 생성 시 하위 구조</h3><pre><code>{organizer.projectTree}</code></pre></article>
   </div>
-  <aside class="boundary-note"><code>_INBOX</code>는 만들지 않는다. 프로젝트 폴더 최상위가 미분류 파일을 감지하는 작업 위치다.</aside>
+  <div class="scope-example">
+    <h3>자동분류 범위</h3>
+    <pre><code>{organizer.rootScopeExample}</code></pre>
+  </div>
+  <aside class="boundary-note"><strong>중요</strong> ROOT 바로 아래 파일은 그대로 둔다. <code>ROOT → 프로젝트명</code> 폴더 최상위에 넣은 파일만 분류한다.</aside>
 </LessonSection>
 
-<LessonSection id="section-10" number="10" title="개발 실습 · 파일 감지와 자동 분류" class="outline-section lesson04-final-section" {lessonId}>
+<LessonSection id="section-10" number="10" title="개발 실습 · 파일 감지와 프로그램 작동 흐름" class="outline-section lesson04-final-section" {lessonId}>
+  <div class="operation-flow" aria-label="자동분류 작동 흐름">
+    {organizer.operationFlow.map((item, index) => (
+      <><span>{item}</span>{index < organizer.operationFlow.length - 1 && <b aria-hidden="true">→</b>}</>
+    ))}
+  </div>
   <div class="two-column">
-    <section><h3>파일 투입과 감지</h3><ol>{organizer.intake.map((item) => <li>{item}</li>)}</ol></section>
+    <section><h3>실제 사용 순서</h3><ol>{organizer.usageSteps.map((item) => <li>{item}</li>)}</ol></section>
     <section>
-      <h3>확장자 규칙</h3>
-      <div class="table-scroll" tabindex="0" role="region" aria-label="확장자별 자동 분류 규칙">
-        <table><thead><tr><th>파일 형식</th><th>이동 폴더</th></tr></thead><tbody>{organizer.extensionRules.map(([ext, folder]) => <tr><th scope="row">{ext}</th><td>{folder}</td></tr>)}</tbody></table>
+      <h3>창을 닫으면 어떻게 되는가</h3>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="프로그램 상태별 감시 동작">
+        <table><thead><tr><th>상태</th><th>파일 감시</th></tr></thead><tbody>{organizer.lifecycle.map(([state, behavior]) => <tr><th scope="row">{state}</th><td>{behavior}</td></tr>)}</tbody></table>
       </div>
     </section>
   </div>
-  <p class="key-message">확장자로 확실한 파일은 Gemini API를 호출하지 않는다.</p>
+  <p class="key-message">최소화하면 감시는 계속되고, X 버튼으로 닫으면 watcher와 프로그램이 완전히 종료된다. 다시 실행하면 종료 중 들어온 파일을 먼저 스캔한다.</p>
 </LessonSection>
 
-<LessonSection id="section-11" number="11" title="개발 실습 · Gemini API 이미지 자동 분류" class="outline-section lesson04-final-section" {lessonId}>
-  <p>{organizer.geminiModel}</p>
-  <p>현재 공식 문서는 이미지 분류를 포함한 이미지 이해 작업에 Gemini API를 사용할 수 있다고 안내한다. 결과는 자동 확정이 아니라 프로젝트 용도 분류의 보조 신호로 사용한다.</p>
-  <div class="category-grid" aria-label="이미지 자동 분류 범주">{organizer.imageCategories.map((item) => <span>{item}</span>)}</div>
+<LessonSection id="section-11" number="11" title="개발 실습 · CAD·BIM·3D·Graphic·Image·Video·Document 분류" class="outline-section lesson04-final-section" {lessonId}>
+  <p>내가 직접 열고 계속 수정하는 작업파일과 다른 작업에 가져다 쓰는 에셋을 먼저 구분한다.</p>
+  <div class="table-scroll" tabindex="0" role="region" aria-label="작업파일과 에셋 비교">
+    <table><thead><tr><th>예시</th><th>이동 폴더</th><th>구분 이유</th></tr></thead><tbody>{organizer.workfileAssetExamples.map(([file, folder, reason]) => <tr><th scope="row">{file}</th><td>{folder}</td><td>{reason}</td></tr>)}</tbody></table>
+  </div>
+  <div class="table-scroll table-scroll--spaced" tabindex="0" role="region" aria-label="확장자별 자동 분류 규칙">
+    <table><thead><tr><th>파일 형식</th><th>이동 폴더</th></tr></thead><tbody>{organizer.extensionRules.map(([ext, folder]) => <tr><th scope="row">{ext}</th><td>{folder}</td></tr>)}</tbody></table>
+  </div>
   <div class="two-column">
-    <section><h3>분류 원칙</h3><ul>{organizer.imagePolicy.map((item) => <li>{item}</li>)}</ul></section>
-    <section><h3>API Key 안전</h3><ul>{organizer.apiSafety.map((item) => <li>{item}</li>)}</ul></section>
+    <section><h3>안전한 이동 원칙</h3><ul>{organizer.safetyRules.map((item) => <li>{item}</li>)}</ul></section>
+    <section><h3>REVIEW가 필요한 경우</h3><ul><li>대상 폴더에 같은 이름이 있어 덮어쓸 위험이 있는 파일</li><li>권한 또는 이동 오류가 발생한 파일</li><li><code>.uproject</code>처럼 폴더와 함께 작동해 자동 이동하면 안 되는 프로젝트 파일</li></ul></section>
   </div>
-  <aside class="boundary-note"><strong>핵심 질문</strong> “이 이미지가 프로젝트에서 어떤 용도로 사용되는가?”</aside>
-  <p class="source-list"><a href={organizer.geminiSource} target="_blank" rel="noreferrer">Gemini API 이미지 이해 공식 문서</a> · 확인일 {antigravity.checkedAt}</p>
+  <aside class="boundary-note">분류 규칙에 없는 일반 파일은 <code>06_ASSETS/OTHER</code>로 보낸다. <code>98_REVIEW</code>는 일반 보관 폴더가 아니라 충돌과 오류를 사람이 확인하는 곳이다.</aside>
 </LessonSection>
 
-<LessonSection id="section-12" number="12" title="개발 실습 · 작업파일 Revision 라벨링" class="outline-section lesson04-final-section" {lessonId}>
-  <div class="revision-example">
-    <article><strong>Lobby.skp</strong><span>R01 → R02 → R03</span></article>
-    <article><strong>Restaurant.skp</strong><span>R01 → R02</span></article>
-    <article><strong>Exterior.skp</strong><span>독립 작업파일</span></article>
+<LessonSection id="section-12" number="12" title="개발 실습 · Windows 설치 프로그램 만들기" class="outline-section lesson04-final-section" {lessonId}>
+  <div class="two-column">
+    <section>
+      <h3>수업에서 사용하는 기술</h3>
+      <ul>{organizer.stack.map((item) => <li>{item}</li>)}</ul>
+    </section>
+    <section>
+      <h3>기본 프로그램에서 제외</h3>
+      <ul>{organizer.excludedStack.map((item) => <li>{item}</li>)}</ul>
+    </section>
   </div>
-  <ul>{organizer.revision.map((item) => <li>{item}</li>)}</ul>
-  <aside class="boundary-note">파일명 변경 없음 · 파일 복제 없음 · Revision은 백업 기능이 아님</aside>
+  <div class="table-scroll table-scroll--spaced" tabindex="0" role="region" aria-label="프로그램 개발과 설치 명령">
+    <table><thead><tr><th>명령</th><th>역할</th></tr></thead><tbody>{organizer.developmentCommands.map(([command, purpose]) => <tr><th scope="row"><code>{command}</code></th><td>{purpose}</td></tr>)}</tbody></table>
+  </div>
+  <PromptCopyBlock id="lesson04-complete-organizer-prompt" title="완성형 프로그램 제작 요청문 복사" prompt={workflow.managerPrompt} />
+  <aside class="boundary-note"><strong>최종 산출물</strong> Electron Forge가 만든 <code>Design Project Auto Organizer Setup.exe</code>. 코드 서명이 없는 교육용 설치 파일은 Windows SmartScreen 경고가 표시될 수 있으므로 파일 출처를 확인한 뒤 실행한다.</aside>
 </LessonSection>
 
 <LessonSection id="section-13" number="13" title="전체 자동화 검증" class="outline-section lesson04-final-section" {lessonId}>
@@ -137,7 +164,11 @@ const { antigravity, organizer } = finalContent;
     <legend>사람이 마지막으로 확인할 항목</legend>
     {organizer.checks.map((item) => <label><input type="checkbox" /> <span>{item}</span></label>)}
   </fieldset>
-  <p class="key-message">자동 분류가 끝나도 원본 폴더와 98_REVIEW를 확인한 뒤 다음 작업으로 넘어간다.</p>
+  <div class="future-extension">
+    <h3>기본 프로그램 이후에 검토할 기능</h3>
+    <ul>{organizer.futureExtensions.map((item) => <li>{item}</li>)}</ul>
+  </div>
+  <p class="key-message">기본 프로그램은 API Key 없이 확장자 규칙으로 작동한다. 자동 분류가 끝나도 원본 폴더와 98_REVIEW를 사람이 확인한다.</p>
 </LessonSection>
 
 <LessonSection id="section-14" number="14" title="Antigravity 2.0으로 더 만들어볼 수 있는 건축·디자인 업무 도구" class="outline-section lesson04-final-section" {lessonId}>
@@ -161,6 +192,7 @@ const { antigravity, organizer } = finalContent;
 
 <style>
   :global(.lesson04-final-section) { --l04-ink: #17211d; --l04-paper: #f4f0e7; --l04-accent: #a33c25; }
+  :global(.lesson04-final-section h2) { min-width:0; max-width:100%; overflow-wrap:anywhere; }
   .lead-block { display:grid; gap:.65rem; padding:clamp(1.25rem,3vw,2rem); border-left:5px solid var(--l04-accent); background:var(--l04-paper); }
   .lead-block > span { color:var(--l04-accent); font-size:.75rem; font-weight:800; letter-spacing:.12em; }
   .lead-block h3,.lead-block p { margin:0; }
@@ -168,6 +200,7 @@ const { antigravity, organizer } = finalContent;
   .lead-block p { max-width:54rem; line-height:1.75; }
   .lead-block--dark { color:#fff; background:var(--l04-ink); border-left-color:#d88363; }
   .role-flow,.program-principles,.revision-example { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:.8rem; align-items:center; margin-top:1.25rem; }
+  .role-flow--three { grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); }
   .role-flow article,.program-principles article,.revision-example article { display:grid; gap:.35rem; min-width:0; padding:1rem; border:1px solid var(--line-dark); background:#fff; }
   .role-flow b { text-align:center; color:var(--l04-accent); }
   .program-principles { grid-template-columns:repeat(3,minmax(0,1fr)); }
@@ -191,7 +224,14 @@ const { antigravity, organizer } = finalContent;
   .source-list { margin-top:1.2rem; font-size:.92rem; line-height:1.7; }
   .source-list ul { display:flex; flex-wrap:wrap; gap:.6rem 1.2rem; padding-left:1.2rem; }
   .tree-grid pre { max-width:100%; margin:0; padding:1rem; overflow:auto; color:#f8f5ed; background:var(--l04-ink); font-size:.9rem; line-height:1.6; }
+  .scope-example,.future-extension { margin-top:1.25rem; padding:1.2rem; border:1px solid var(--line-dark); background:#fff; }
+  .scope-example h3,.future-extension h3 { margin-top:0; }
+  .scope-example pre { max-width:100%; margin:0; padding:1rem; overflow:auto; color:#f8f5ed; background:var(--l04-ink); font-size:.9rem; line-height:1.6; }
+  .operation-flow { display:flex; flex-wrap:wrap; gap:.6rem; align-items:center; margin-top:1.25rem; }
+  .operation-flow span { padding:.7rem .85rem; border:1px solid var(--line-dark); background:#fff; font-weight:800; }
+  .operation-flow b { color:var(--l04-accent); }
   .table-scroll { max-width:100%; overflow-x:auto; }
+  .table-scroll--spaced { margin-top:1.25rem; }
   table { width:100%; min-width:32rem; border-collapse:collapse; }
   th,td { padding:.75rem; border:1px solid var(--line); text-align:left; }
   thead th { color:#fff; background:var(--l04-ink); }
@@ -199,9 +239,10 @@ const { antigravity, organizer } = finalContent;
   .category-grid span { padding:.55rem .7rem; border:1px solid var(--line-dark); background:#fff; font-size:.85rem; font-weight:800; }
   .revision-example { grid-template-columns:repeat(3,minmax(0,1fr)); }
   .revision-example span { color:var(--l04-accent); font-weight:800; }
-  .verification-list { display:grid; gap:.65rem; margin:0; padding:1.2rem; border:1px solid var(--line-dark); }
+  .verification-list { display:grid; min-inline-size:0; max-width:100%; box-sizing:border-box; gap:.65rem; margin:0; padding:1.2rem; border:1px solid var(--line-dark); }
   .verification-list legend { padding:0 .5rem; font-family:var(--serif); font-size:1.3rem; font-weight:800; }
-  .verification-list label { display:flex; gap:.7rem; align-items:flex-start; line-height:1.6; }
+  .verification-list label { display:flex; min-width:0; max-width:100%; gap:.7rem; align-items:flex-start; line-height:1.6; }
+  .verification-list label span { min-width:0; overflow-wrap:anywhere; }
   .verification-list input { width:1.15rem; height:1.15rem; margin-top:.25rem; accent-color:var(--l04-accent); }
   .idea-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin-top:1.25rem; }
   .idea-card { min-width:0; padding:1.2rem; border:1px solid var(--line-dark); background:#fff; }
@@ -209,13 +250,15 @@ const { antigravity, organizer } = finalContent;
   .idea-card h3 { margin:.35rem 0; font-family:var(--serif); font-size:1.35rem; text-wrap:balance; }
   .idea-card p,.idea-card li { line-height:1.6; }
   @media (max-width:760px) {
-    .role-flow,.program-principles,.revision-example,.two-column,.tree-grid,.idea-grid { grid-template-columns:minmax(0,1fr); }
+    :global(.time-plan__screen-list) { grid-template-columns:minmax(0,1fr)!important; }
+    :global(.time-plan__screen-list > li) { min-width:0; overflow-wrap:anywhere; }
+    .role-flow,.role-flow--three,.program-principles,.revision-example,.two-column,.tree-grid,.idea-grid { grid-template-columns:minmax(0,1fr); }
     .role-flow b { transform:rotate(90deg); }
     .shortcut-list > div { grid-template-columns:minmax(0,1fr); }
     .tree-grid pre { font-size:.78rem; }
   }
   @media print {
-    .lead-block,.role-flow article,.program-principles article,.two-column > section,.tree-grid > article,.revision-example article,.idea-card,.verification-list { break-inside:avoid; page-break-inside:avoid; }
+    .lead-block,.role-flow article,.program-principles article,.two-column > section,.tree-grid > article,.scope-example,.future-extension,.revision-example article,.idea-card,.verification-list { break-inside:avoid; page-break-inside:avoid; }
     .two-column,.tree-grid,.idea-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
     .tree-grid pre { white-space:pre-wrap; overflow:visible; }
     .idea-card :global(button),.idea-card :global(.copy-button) { display:none!important; }
