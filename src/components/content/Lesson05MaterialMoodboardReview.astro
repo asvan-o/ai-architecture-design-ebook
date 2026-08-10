@@ -1,0 +1,476 @@
+---
+import { Image } from 'astro:assets';
+import PromptCopyBlock from './PromptCopyBlock.astro';
+import emptySpaceImage from '../../assets/lessons/05/material-moodboard-review/empty-space.jpeg';
+import possibleResultImage from '../../assets/lessons/05/material-moodboard-review/possible-result.jpeg';
+import moodBoardImage from '../../assets/lessons/05/material-moodboard-review/mood-board-example.jpeg';
+import rossoLevantoImage from '../../assets/lessons/04/material-reference-review/m-05-rosso-levanto-marble.png';
+import softCreamImage from '../../assets/lessons/04/material-reference-review/m-12-soft-cream-micro-cement.png';
+import darkWalnutImage from '../../assets/lessons/04/material-reference-review/m-21-dark-walnut.png';
+import tajMahalImage from '../../assets/lessons/04/material-reference-review/m-22-taj-mahal.png';
+
+const materialReferences = [
+  {
+    id: 'M-05',
+    name: 'Rosso Levanto Marble',
+    image: rossoLevantoImage,
+    fileName: 'm-05-rosso-levanto-marble.png',
+  },
+  {
+    id: 'M-12',
+    name: 'Soft Cream Micro Cement',
+    image: softCreamImage,
+    fileName: 'm-12-soft-cream-micro-cement.png',
+  },
+  {
+    id: 'M-21',
+    name: 'Dark Walnut',
+    image: darkWalnutImage,
+    fileName: 'm-21-dark-walnut.png',
+  },
+  {
+    id: 'M-22',
+    name: 'Taj Mahal',
+    image: tajMahalImage,
+    fileName: 'm-22-taj-mahal.png',
+  },
+];
+
+const practiceSteps = [
+  {
+    title: '빈 공간 관찰',
+    description: '창과 출입구 위치, 벽면 구조, 바닥 상태, 시점, 공간 비례와 유지할 요소를 기록한다.',
+  },
+  {
+    title: '콘셉트 읽기',
+    description: 'Contemporary Lounge의 따뜻함, 차분함, 절제된 고급감과 자연스러운 재질감을 자신의 말로 해석한다.',
+  },
+  {
+    title: '재질 선택',
+    description: '네 재질 참고자료를 비교해 베이스와 포인트 역할에 적합하다고 판단한 재질 1~2장을 고른다. 정답은 하나가 아니다.',
+  },
+  {
+    title: '완성 공간 이미지 제작',
+    description: '빈 공간 이미지, 선택한 재질 참고자료와 콘셉트를 함께 사용하되 기존 창·문·시점·공간 비례를 가능한 유지한다.',
+  },
+  {
+    title: '선택 이유 정리',
+    description: '선택 이유, 베이스와 포인트의 역할, 콘셉트와 연결되는 지점을 짧게 설명한다.',
+  },
+  {
+    title: '무드보드 제작',
+    description: '완성 공간 이미지, 컬러 팔레트, 선택한 재질, 주요 가구·오브제와 짧은 콘셉트 설명을 한 장에 정리한다.',
+  },
+];
+
+const interiorPrompt = `작업 목적
+첨부한 빈 공간을 Contemporary Lounge 콘셉트의 인테리어 이미지로 발전시킨다.
+
+작업 맥락
+따뜻하고 차분하며, 자연스러운 질감과 절제된 고급감이 느껴지는 편안한 라운지를 제안한다. 과도한 장식은 피한다.
+
+입력자료
+- 이미지 A: 기존 창, 출입구, 벽면, 바닥, 카메라 시점과 공간 비례를 확인하는 빈 공간 기준 이미지
+- 이미지 B와 필요 시 이미지 C: 내가 네 가지 후보 중 직접 선택한 재질 참고 이미지
+
+작업 단계
+1. 이미지 A에서 유지해야 할 공간 요소를 먼저 확인한다.
+2. 내가 선택해 첨부한 재질의 색상·무늬·질감을 시각적 참고로 사용한다.
+3. 부드러운 형태의 가구, 간접조명과 패브릭 요소를 조화롭게 구성한다.
+4. 선택한 재질 가운데 무엇이 베이스이고 무엇이 포인트인지 결과에서 구분되도록 표현한다.
+
+조건·제한
+- 기존 창과 출입구의 위치, 카메라 시점과 공간 비례를 가능한 유지한다.
+- 확인되지 않은 구조를 임의로 크게 변경하지 않는다.
+- 재질 참고 이미지는 시각적 방향에만 사용하고 실제 제품 규격이나 성능을 추정하지 않는다.
+- 특정 재질 조합을 정답으로 전제하지 않는다.
+
+출력 형식
+- 가로형 인테리어 완성 이미지 1장
+
+검토 기준
+- Contemporary Lounge의 따뜻하고 차분한 분위기가 읽히는가?
+- 선택한 재질의 베이스·포인트 역할이 구분되는가?
+- 원본의 창, 출입구, 시점과 공간 비례가 과도하게 바뀌지 않았는가?`;
+
+const moodBoardPrompt = `작업 목적
+방금 만든 Contemporary Lounge 완성 공간 이미지를 발표용 무드보드 한 장으로 정리한다.
+
+입력자료
+- 메인 공간 이미지: 방금 완성한 인테리어 이미지
+- 재질 이미지: 내가 직접 선택해 공간 이미지에 반영한 재질 참고자료
+
+구성 요소
+1. 메인 공간 이미지
+2. 공간 이미지에서 추출한 컬러 팔레트
+3. 선택한 재질 샘플
+4. 주요 가구와 오브제
+5. Contemporary Lounge 방향을 설명하는 짧은 콘셉트 문장
+
+조건·제한
+- 특정 재질 조합을 유일한 정답처럼 표현하지 않는다.
+- 이미지와 설명의 위계를 명확히 하고 과도한 장식을 피한다.
+- 재질의 실제 제품 규격·성능·시공 방법은 추정하지 않는다.
+
+출력 형식
+- 세로형 또는 가로형 무드보드 1장
+- 발표 자료로 읽기 쉬운 정돈된 레이아웃
+
+검토 기준
+- 메인 이미지, 컬러, 재질과 가구가 같은 콘셉트로 연결되는가?
+- 선택한 재질과 선택 이유를 한눈에 이해할 수 있는가?
+- 작은 글자나 불필요한 장식 때문에 핵심 이미지가 가려지지 않는가?`;
+---
+
+<div class="lesson05-review" data-lesson05-material-review>
+  <header class="lesson05-review__intro">
+    <span>LESSON 04 REVIEW EXTENSION</span>
+    <h3>4차시 복습 확장 · 콘셉트에 맞는 재질 선택과 무드보드 제작</h3>
+    <p>
+      지난 차시의 디자인 브리프·재질 참고자료·이미지 제작 흐름을 짧게 확장한다. 이번
+      복습의 핵심은 예쁜 이미지를 만드는 데 그치지 않고, 콘셉트에 맞는 재질을 스스로
+      선택하고 그 근거를 설명하는 것이다.
+    </p>
+  </header>
+
+  <section class="lesson05-review__block" aria-labelledby="lesson05-empty-space-title">
+    <div class="lesson05-review__heading">
+      <span>PRACTICE INPUT 01</span>
+      <h4 id="lesson05-empty-space-title">빈 공간을 먼저 관찰한다</h4>
+    </div>
+    <figure class="lesson05-review__hero-figure">
+      <Image
+        src={emptySpaceImage}
+        alt="큰 창과 출입구, 밝은 벽과 바닥이 보이는 가구 없는 빈 공간"
+        widths={[640, 960, 1440]}
+        sizes="(max-width: 760px) 100vw, 960px"
+        loading="eager"
+      />
+      <figcaption>
+        <strong>빈 공간 기준 이미지</strong>
+        <span>보이는 창·출입구·벽면·바닥·시점과 공간 비례를 관찰한다. 이미지 한 장만으로 실제 치수나 구조를 확정하지 않는다.</span>
+      </figcaption>
+      <a href={emptySpaceImage.src} download="lesson-05-empty-space.jpeg">빈 공간 이미지 다운로드 <span aria-hidden="true">↓</span></a>
+    </figure>
+  </section>
+
+  <section class="lesson05-review__block" aria-labelledby="lesson05-concept-title">
+    <div class="lesson05-review__heading">
+      <span>CONCEPT BRIEF</span>
+      <h4 id="lesson05-concept-title">재질명보다 먼저 콘셉트를 읽는다</h4>
+    </div>
+    <div class="lesson05-review__concept">
+      <strong>Contemporary Lounge</strong>
+      <ul>
+        <li>따뜻한 분위기</li>
+        <li>차분한 고급감</li>
+        <li>자연스러운 질감</li>
+        <li>밝은 베이스와 깊이감 있는 포인트</li>
+        <li>과하지 않은 장식</li>
+        <li>편안하고 세련된 라운지 느낌</li>
+      </ul>
+      <p>이 문장은 방향을 제시할 뿐 재질 조합의 정답을 지정하지 않는다.</p>
+    </div>
+  </section>
+
+  <section class="lesson05-review__block" aria-labelledby="lesson05-materials-title">
+    <div class="lesson05-review__heading">
+      <span>PRACTICE INPUT 02</span>
+      <h4 id="lesson05-materials-title">네 가지 재질 참고자료를 비교한다</h4>
+      <p>
+        어떤 재질이 베이스 또는 포인트에 적합한지 직접 판단한다. 정답은 하나가 아니며,
+        선택한 이유가 콘셉트와 연결되는지가 중요하다.
+      </p>
+    </div>
+    <div class="lesson05-review__materials">
+      {materialReferences.map((material) => (
+        <figure>
+          <Image
+            src={material.image}
+            alt={`${material.name} 재질의 색상과 무늬를 보여주는 참고 이미지`}
+            widths={[360, 640, 960]}
+            sizes="(max-width: 640px) 100vw, 50vw"
+            loading="lazy"
+          />
+          <figcaption><span>{material.id}</span><strong>{material.name}</strong></figcaption>
+          <a href={material.image.src} download={material.fileName}>재질 이미지 다운로드 <span aria-hidden="true">↓</span></a>
+        </figure>
+      ))}
+    </div>
+    <p class="lesson05-review__limit">
+      재질 이미지는 색상·무늬·질감을 비교하는 참고자료다. 실제 제품의 규격, 가격, 두께,
+      내구성, 방수성, 미끄럼 성능, 시공 방법과 수급 가능 여부는 별도로 확인해야 한다.
+    </p>
+  </section>
+
+  <section class="lesson05-review__block" aria-labelledby="lesson05-steps-title">
+    <div class="lesson05-review__heading">
+      <span>PRACTICE FLOW</span>
+      <h4 id="lesson05-steps-title">관찰에서 무드보드까지 6단계</h4>
+    </div>
+    <ol class="lesson05-review__steps">
+      {practiceSteps.map((step, index) => (
+        <li>
+          <span>STEP {String(index + 1).padStart(2, '0')}</span>
+          <div><strong>{step.title}</strong><p>{step.description}</p></div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="lesson05-review__block lesson05-review__prompts" aria-labelledby="lesson05-prompts-title">
+    <div class="lesson05-review__heading">
+      <span>COPY &amp; ADAPT</span>
+      <h4 id="lesson05-prompts-title">선택한 자료로 결과를 만드는 요청문</h4>
+      <p>재질을 먼저 선택한 뒤 해당 이미지만 첨부한다. 아래 요청문은 선택을 대신하는 정답지가 아니라 작업지시의 출발점이다.</p>
+    </div>
+    <PromptCopyBlock
+      id="lesson05-contemporary-lounge-image-prompt"
+      title="공간 완성 이미지 제작 요청문"
+      description="빈 공간과 직접 선택한 재질 참고자료 1~2장을 함께 첨부한 뒤 사용한다."
+      prompt={interiorPrompt}
+    />
+    <PromptCopyBlock
+      id="lesson05-contemporary-lounge-moodboard-prompt"
+      title="무드보드 제작 요청문"
+      description="완성 공간 이미지와 실제로 선택한 재질 이미지를 함께 첨부한 뒤 사용한다."
+      prompt={moodBoardPrompt}
+    />
+  </section>
+
+  <section class="lesson05-review__block" aria-labelledby="lesson05-examples-title">
+    <div class="lesson05-review__heading">
+      <span>AFTER PRACTICE</span>
+      <h4 id="lesson05-examples-title">실습 후 비교하는 가능한 결과 예시</h4>
+      <p>
+        아래 이미지는 유일한 정답이나 그대로 따라야 하는 결과가 아니다. 먼저 자신의 재질 선택과
+        결과를 완성한 뒤, 공간 이미지와 무드보드의 정보 연결 방식을 검토하는 참고 예시로 사용한다.
+      </p>
+    </div>
+    <div class="lesson05-review__examples">
+      <figure>
+        <Image
+          src={possibleResultImage}
+          alt="빈 공간의 창과 출입구 시점을 유지하며 가구와 마감을 적용한 Contemporary Lounge 가능한 결과 예시"
+          widths={[640, 960, 1440]}
+          sizes="(max-width: 760px) 100vw, 50vw"
+          loading="lazy"
+        />
+        <figcaption><strong>가능한 결과 예시</strong><span>콘셉트와 선택한 재질을 공간 이미지로 연결한 여러 방향 중 하나다.</span></figcaption>
+      </figure>
+      <figure>
+        <Image
+          src={moodBoardImage}
+          alt="공간 이미지, 컬러 팔레트, 재질과 가구 요소를 한 장에 정리한 Contemporary Lounge 무드보드 참고 예시"
+          widths={[480, 720, 960]}
+          sizes="(max-width: 760px) 100vw, 40vw"
+          loading="lazy"
+        />
+        <figcaption><strong>무드보드 구성 참고 예시</strong><span>공간 이미지와 선택 근거를 발표 가능한 한 장으로 정리하는 방식을 살펴본다.</span></figcaption>
+      </figure>
+    </div>
+    <p class="lesson05-review__handoff">
+      앞에서는 이미지와 재질을 중심으로 디자인 방향을 정리했다면, 이제는 교육용 평면도에서
+      공간구조를 먼저 읽고 그 구조를 탑뷰와 아이소메트릭 스타일로 해석하는 단계로 넘어간다.
+    </p>
+  </section>
+</div>
+
+<style>
+  .lesson05-review {
+    display: grid;
+    gap: clamp(2rem, 5vw, 4rem);
+    margin-top: clamp(2rem, 5vw, 4rem);
+    padding-top: clamp(2rem, 5vw, 4rem);
+    border-top: 1px solid var(--line-dark);
+    min-width: 0;
+  }
+
+  .lesson05-review :where(section, figure, div) { min-width: 0; }
+  .lesson05-review :where(h3, h4, p, ul, ol, figure) { margin-top: 0; }
+
+  .lesson05-review__intro > span,
+  .lesson05-review__heading > span {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--accent-dark);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+  }
+
+  .lesson05-review__intro h3 {
+    max-width: 20ch;
+    margin-bottom: 0.8rem;
+    font-family: var(--serif);
+    font-size: clamp(1.65rem, 4vw, 2.7rem);
+    line-height: 1.22;
+    text-wrap: balance;
+  }
+
+  .lesson05-review__intro p,
+  .lesson05-review__heading p { max-width: 72ch; }
+
+  .lesson05-review__heading { margin-bottom: 1.25rem; }
+  .lesson05-review__heading h4 {
+    margin-bottom: 0.65rem;
+    font-family: var(--serif);
+    font-size: clamp(1.25rem, 2.5vw, 1.7rem);
+    line-height: 1.35;
+    text-wrap: balance;
+  }
+
+  .lesson05-review figure { margin: 0; }
+  .lesson05-review figure :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    object-fit: contain;
+  }
+
+  .lesson05-review figcaption {
+    display: grid;
+    gap: 0.25rem;
+    padding: 0.85rem 0 0;
+    line-height: 1.55;
+  }
+
+  .lesson05-review figcaption span { color: var(--muted); }
+
+  .lesson05-review figure > a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    width: fit-content;
+    margin-top: 0.8rem;
+    padding: 0.65rem 0.85rem;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    background: #fff;
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .lesson05-review figure > a:hover { color: #fff; background: var(--ink); }
+  .lesson05-review figure > a:focus-visible { outline: 3px solid var(--focus, #1d4ed8); outline-offset: 3px; }
+
+  .lesson05-review__concept {
+    padding: clamp(1.25rem, 3vw, 2rem);
+    border: 1px solid var(--line-dark);
+    background: #f4f0e7;
+  }
+
+  .lesson05-review__concept > strong {
+    display: block;
+    margin-bottom: 1rem;
+    font-family: var(--serif);
+    font-size: clamp(1.35rem, 3vw, 2rem);
+  }
+
+  .lesson05-review__concept ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem 1.5rem;
+    padding-left: 1.2rem;
+  }
+
+  .lesson05-review__concept p { margin: 1rem 0 0; font-weight: 700; }
+
+  .lesson05-review__materials {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  .lesson05-review__examples {
+    display: grid;
+    gap: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .lesson05-review__materials figure,
+  .lesson05-review__examples figure {
+    display: grid;
+    align-content: start;
+  }
+
+  .lesson05-review__materials figure :global(img) { aspect-ratio: 4 / 3; object-fit: cover; }
+  .lesson05-review__materials figcaption > span {
+    color: var(--accent-dark);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+  }
+
+  .lesson05-review__limit {
+    margin: 1.25rem 0 0;
+    padding: 1rem 1.15rem;
+    border-left: 4px solid var(--accent-dark);
+    background: #f7f5ef;
+  }
+
+  .lesson05-review__steps {
+    display: grid;
+    gap: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--line);
+  }
+
+  .lesson05-review__steps li {
+    display: grid;
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .lesson05-review__steps li > span {
+    color: var(--accent-dark);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+  }
+
+  .lesson05-review__steps strong { display: block; margin-bottom: 0.35rem; }
+  .lesson05-review__steps p { margin-bottom: 0; }
+
+  .lesson05-review__prompts { display: grid; gap: 1.25rem; }
+  .lesson05-review__prompts .lesson05-review__heading { margin-bottom: 0; }
+
+  .lesson05-review__examples { align-items: start; }
+  .lesson05-review__examples figure:last-child { width: min(100%, 44rem); }
+  .lesson05-review__examples figure:last-child :global(img) { max-height: 56rem; }
+
+  .lesson05-review__handoff {
+    margin: clamp(1.5rem, 4vw, 3rem) 0 0;
+    padding: 1rem 1.15rem;
+    border-top: 1px solid var(--line-dark);
+    border-bottom: 1px solid var(--line-dark);
+    font-weight: 700;
+  }
+
+  @media (max-width: 680px) {
+    .lesson05-review__concept ul,
+    .lesson05-review__materials { grid-template-columns: minmax(0, 1fr); }
+
+    .lesson05-review__steps li { grid-template-columns: minmax(0, 1fr); gap: 0.35rem; }
+    .lesson05-review figure > a { width: 100%; justify-content: space-between; box-sizing: border-box; }
+  }
+
+  @media print {
+    .lesson05-review { display: block; margin-top: 8mm; padding-top: 8mm; }
+    .lesson05-review__block { margin-top: 9mm; }
+    .lesson05-review__intro,
+    .lesson05-review__heading,
+    .lesson05-review__concept,
+    .lesson05-review__steps li,
+    .lesson05-review figure { break-inside: avoid-page; page-break-inside: avoid; }
+    .lesson05-review figure > a { display: none; }
+    .lesson05-review__materials { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5mm; }
+    .lesson05-review__examples { gap: 7mm; }
+    .lesson05-review__materials figure :global(img) { max-height: 78mm; }
+    .lesson05-review__examples figure :global(img) { max-height: 125mm; }
+  }
+</style>

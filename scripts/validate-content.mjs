@@ -22,6 +22,8 @@ const lessonThreePromptPath = path.resolve(
 );
 const lessonFourFinalContentPath = path.resolve('src/lib/lesson04-final-content.ts');
 const lessonFourReviewComponentPath = path.resolve('src/components/content/Lesson04RfpReviewPractice.astro');
+const lessonFiveContentPath = path.resolve('src/lib/lesson05-plan-to-isometric.ts');
+const lessonFiveComponentPath = path.resolve('src/components/content/Lesson05PlanToIsometric.astro');
 const approvedLessonThreeRfpSha256 =
   '95B9756FD818D8F86847CA72D1E094B9DD6C2E4B9D1DFBC029169D057E638C2E';
 const requiredIds = Array.from({ length: 14 }, (_, index) => String(index + 1).padStart(2, '0'));
@@ -33,7 +35,7 @@ const approvedLessons = [
     title: '제4차시 · RFP 기반 공간구성 대안 개발과 프로젝트 산출물 자동 정리',
     durationMinutes: 360,
   },
-  { title: '제5차시 · AI로 실무 문서와 반복 정리 업무 줄이기', durationMinutes: 180 },
+  { title: '제5차시 · 평면도 기반 AI 공간 입체화와 아이소메트릭', durationMinutes: 180 },
   { title: '제6차시 · 클라이언트 의뢰를 디자인 브리프로 변환하기', durationMinutes: 180 },
   { title: '제7차시 · 공간을 유지하며 재료·조명·가구 수정하기', durationMinutes: 180 },
   { title: '제8차시 · 클라이언트 피드백 대응과 수정 제안서 만들기', durationMinutes: 180 },
@@ -49,7 +51,7 @@ const approvedRoadmapTitles = [
   '제2차시 · 첫 공간 콘셉트 생성과 빈 공간 인테리어 배치',
   '제3차시 · 실무 의뢰와 제안요청서(RFP)를 디자인 브리프로 바꾸기',
   '제4차시 · RFP 기반 공간구성 대안 개발과 프로젝트 산출물 자동 정리',
-  '제5차시 · AI로 실무 문서와 반복 정리 업무 줄이기',
+  '제5차시 · 평면도 기반 AI 공간 입체화와 아이소메트릭',
   '제6차시 · 클라이언트 의뢰를 디자인 브리프로 변환하기',
   '제7차시 · 메인 이미지 설정과 공간 디자인 일관성 관리',
   '제8차시 · 서브 이미지 확장과 고도화 수정',
@@ -134,6 +136,7 @@ const detailedLessonSections = {
   '02': ['오늘의 학습 안내', '제1차시에서 제2차시로', '프롬프트란 무엇인가', '프롬프트를 작성하기 전에 알아야 할 기본 개념', '정보 확인형 질문과 작업지시형 프롬프트', '좋은 프롬프트의 7가지 공통 규칙', '프롬프트 작성 공통 공식', '짧은 요청과 구조화된 요청 비교', '구조화된 프롬프트 문장 분석', '실습 전 예열과 실습 1 · 작업 조건표', '실습 2 · 조건표를 작업지시서로 조립하기', '실습 3~4 · 프롬프트 다듬기와 A/B 테스트', '응용 실습 · 실제 이미지 생성과 수정'],
   '03': ['차시 소개', '제2차시 복습 · 작업지시서를 다시 만들어보기', '복습 실습 1 · 주민 커뮤니티 쉼터 리모델링', '복습 실습 1 결과 샘플', '미니실습 2 · 고령 입주민을 위한 휴게 쉼터', '미니실습 2 결과 샘플', '두 실습의 차이와 제3차시 본론 연결', '제안요청서(RFP)와 디자인 브리프', '정보 분류와 전체 업무 흐름', '실습 1 · 제안요청서(RFP)를 디자인 브리프로 바꾸기', '공통 마무리 · 오류 확인과 핵심 정리'],
   '04': ['차시 소개', '제3차시 복습 · 제안요청서(RFP)에서 디자인 기준 찾기', '이번 복습에서 한 단계 더 · 재질 참고자료 활용', '복습 실습 · 제안요청서(RFP)를 읽고 디자인 3안 만들기', '복습 실습 결과 정리 · 3안 비교하기', 'Antigravity 2.0 이해와 실습 준비', 'Antigravity 2.0 사용법 · Project, Local Mode, 설정, 단축키, slash command', '무엇을 자동화할 것인가 · 설계 프로젝트 자동 정리 프로그램', '개발 실습 · ROOT와 다중 프로젝트 구조 만들기', '개발 실습 · 파일 감지와 프로그램 작동 흐름', '개발 실습 · CAD·BIM·3D·Graphic·Image·Video·Document 분류', '개발 실습 · Windows 설치 프로그램 만들기', '전체 자동화 검증', 'Antigravity 2.0으로 더 만들어볼 수 있는 건축·디자인 업무 도구'],
+  '05': ['차시 소개', '오늘의 학습 흐름', '4차시 복습 확장 · 재질 선택과 무드보드', '평면도는 어떤 정보를 보여주는가', '평면도에서 사람이 먼저 읽을 것', '탑뷰 입체화란 무엇인가', '작은 객실 · 평면도에서 탑뷰 입체화', '아이소메트릭(Isometric)은 무엇인가', '작은 객실 · 탑뷰에서 아이소메트릭으로', '복합 공간 평면도 읽기', '거실·식당·주방 · 인테리어 적용', '원 평면도와 AI 결과 비교', '실습 · 평면도를 입체적으로 읽고 공간 콘셉트까지 확장하기', '결과물 정리와 검토'],
 };
 const lessonThreeFourOutputs = ['요구조건 매트릭스', '발주기관 추가 질의', '디자인 브리프', '평면도 기반 현황 이미지 생성 결과', '현황 이미지 수정 결과', '평면도와 이미지의 불일치 기록', '제4차시 대안 평가기준'];
 
@@ -666,6 +669,80 @@ for (const fileName of files) {
       if (source.includes(retiredSection)) errors.push(`${fileName}: 제거 대상 중복 섹션 '${retiredSection}'이 남아 있습니다.`);
     }
   }
+  if (id === '05') {
+    const requiredLessonFiveSourceMarkers = [
+      { marker: 'lesson05PlanToIsometric', label: '제5차시 전용 평면도 입체화 레이아웃' },
+      { marker: "'l05-material-moodboard-review'", label: '재질 선택·무드보드 복습 자산' },
+      { marker: "'l05-small-room-plan'", label: '작은 객실 교육용 평면도 자산' },
+      { marker: "'l05-small-room-topview'", label: '작은 객실 탑뷰 입체화 자산' },
+      { marker: "'l05-small-room-isometric'", label: '작은 객실 아이소메트릭 자산' },
+      { marker: "'l05-living-kitchen-plan'", label: '복합 공간 교육용 평면도 자산' },
+      { marker: "'l05-living-kitchen-isometric'", label: '복합 공간 인테리어 적용 자산' },
+    ];
+    for (const { marker, label } of requiredLessonFiveSourceMarkers) {
+      if (!source.includes(marker)) errors.push(`${fileName}: ${label} 연결이 없습니다.`);
+    }
+
+    for (const retiredLessonFiveItem of [
+      'l05-doc-pack',
+      'l05-workflow-map',
+      'l05-demo',
+      '회의 메모 분류',
+      '클라이언트 수정 요청표',
+      '원문 대조 및 오류 확인표',
+    ]) {
+      if (source.includes(retiredLessonFiveItem)) {
+        errors.push(`${fileName}: 제거 대상 이전 제5차시 항목 '${retiredLessonFiveItem}'이 남아 있습니다.`);
+      }
+    }
+
+    let lessonFiveContent = '';
+    let lessonFiveComponent = '';
+    try { lessonFiveContent = await readFile(lessonFiveContentPath, 'utf8'); }
+    catch { errors.push('제5차시 평면도 입체화 콘텐츠 데이터를 읽을 수 없습니다.'); }
+    try { lessonFiveComponent = await readFile(lessonFiveComponentPath, 'utf8'); }
+    catch { errors.push('제5차시 평면도 입체화 컴포넌트를 읽을 수 없습니다.'); }
+
+    for (const marker of [
+      'lesson05-plan-to-topview-prompt',
+      'lesson05-topview-to-isometric-prompt',
+      'lesson05-plan-to-interior-isometric-prompt',
+      'lesson05-plan-result-comparison-prompt',
+      'Lesson05MaterialMoodboardReview',
+      '아이소메트릭(Isometric)은 무엇인가',
+      '생성형 AI로 공간구조를 이해하고 설명하기 위한 아이소메트릭 스타일 3D',
+      '먼저 공간구조를 확인하고, 그 다음 디자인을 적용한다.',
+      '평면도 다운로드',
+    ]) {
+      if (!lessonFiveComponent.includes(marker)) {
+        errors.push(`제5차시 평면도 입체화 컴포넌트에 '${marker}'가 없습니다.`);
+      }
+    }
+    for (const marker of [
+      'topviewPrompt',
+      'isometricPrompt',
+      'interiorConceptPrompt',
+      'comparisonPrompt',
+      'AI의 비교 결과도 정답으로 확정하지 않는다.',
+      '정확한 기술도면, 엄밀한 아이소메트릭 투영 또는 BIM 모델',
+    ]) {
+      if (!lessonFiveContent.includes(marker)) {
+        errors.push(`제5차시 평면도 입체화 콘텐츠에 '${marker}'가 없습니다.`);
+      }
+    }
+
+    const lessonFiveFiles = [
+      'src/assets/lessons/05/plan-to-isometric/01-small-room-plan.png',
+      'src/assets/lessons/05/plan-to-isometric/02-small-room-topview-3d.png',
+      'src/assets/lessons/05/plan-to-isometric/03-small-room-isometric.png',
+      'src/assets/lessons/05/plan-to-isometric/04-living-kitchen-plan.png',
+      'src/assets/lessons/05/plan-to-isometric/05-living-kitchen-isometric-interior.png',
+    ];
+    for (const filePath of lessonFiveFiles) {
+      try { await access(path.resolve(filePath)); }
+      catch { errors.push(`${fileName}: 제5차시 필수 파일을 찾을 수 없습니다: ${filePath}`); }
+    }
+  }
   if (source.includes("category: '전문가 판단 필요'")) {
     errors.push(
       `${fileName}: 포괄적인 '전문가 판단 필요' 대신 구체적인 판단·검증 분류를 사용해야 합니다.`,
@@ -690,15 +767,18 @@ for (const fileName of files) {
   }
 
   const expectedSectionCount = detailedLessonSections[id]?.length ?? (isDetailedLessonOne ? 16 : 13);
-  for (let section = 1; section <= expectedSectionCount; section += 1) {
-    const sectionId = `section-${String(section).padStart(2, '0')}`;
+  const expectedSectionIds = Array.from(
+    { length: expectedSectionCount },
+    (_, index) => `section-${String(index + 1).padStart(2, '0')}`,
+  );
+  for (const sectionId of expectedSectionIds) {
     if (!frontmatter.includes(`id: "${sectionId}"`)) {
       errors.push(`${fileName}: 로컬 목차에 ${sectionId}가 없습니다.`);
     }
   }
   if (detailedLessonSections[id]) {
     for (const [index, label] of detailedLessonSections[id].entries()) {
-      const sectionId = `section-${String(index + 1).padStart(2, '0')}`;
+      const sectionId = expectedSectionIds[index];
       if (!frontmatter.includes(`{ id: "${sectionId}", label: "${label}" }`)) {
         errors.push(`${fileName}: ${sectionId} 제목이 실제 상세 섹션과 일치하지 않습니다.`);
       }
@@ -1106,7 +1186,7 @@ console.log('- day: 1–14 누락·중복 없음');
 console.log('- ID/day 일치');
 console.log('- 승인된 제목·수업시간 일치');
 console.log('- 승인된 상위 주제 7개·차시 연결 14개 일치');
-console.log('- 제1차시 16개, 제2차시 13개, 제3차시 11개, 제4차시 14개, 제5–14차시 13개 섹션');
+console.log('- 제1차시 16개, 제2차시 13개, 제3차시 11개, 제4차시 14개, 제5차시 14개, 제6–14차시 13개 섹션');
 console.log('- 모든 차시 실습시간 50% 이상');
 console.log(`- 자산 manifest: ${manifestAssetIds.length}개, 필수 필드·연결 ID·공개 조건 확인`);
 console.log(`- 필수 metadata: ${requiredFields.join(', ')}`);
