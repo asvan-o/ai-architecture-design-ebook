@@ -5,23 +5,52 @@
 - 영문: Design Project Auto Organizer
 - 국문: 설계 프로젝트 자동 정리 프로그램
 
+개발환경 사전 확인
+
+패키지를 설치하거나 코드를 수정하기 전에 프로젝트 루트에서 다음 명령을 먼저 실행하세요.
+
+node --version
+npm --version
+where node
+
+- 이번 수업에서는 설치 환경 차이를 줄이고 같은 결과를 재현하기 위해 Node.js 22.x LTS로 통일합니다.
+- node 버전이 v22.x가 아니면 npm install을 바로 실행하지 마세요.
+- 현재 확인된 버전을 사용자에게 보여 주고 “이번 수업 기준은 Node.js 22.x LTS입니다.”라고 안내하세요.
+- Node.js 22.x LTS 설치 또는 전환 후 위 세 명령을 다시 실행하세요.
+- Node.js 24가 잘못된 버전이거나 항상 실패한다고 단정하지 마세요. 이 프로젝트에서만 수업환경 통일을 위해 22.x를 사용합니다.
+- package.json의 engines는 "node": ">=22 <23"으로 지정하세요.
+
+수업용 고정 버전과 모듈 구조
+
+- Electron 43.3.0
+- @electron-forge/cli 7.11.2
+- @electron-forge/maker-squirrel 7.11.2
+- chokidar 4.0.3
+- CommonJS 구조(.cjs와 require 사용)
+- main.cjs, preload.cjs, organizer.cjs를 사용하세요.
+- 이 프로젝트를 ESM으로 전환하지 말고 CommonJS에서 chokidar 5.x를 사용하지 마세요.
+- package.json과 package-lock.json에 실제 설치 버전을 정확히 고정하세요.
+- Electron 43에서는 npm install이 패키지를 설치하고, 첫 npm start에서 공식 install-electron 절차가 바이너리를 내려받습니다. 이 두 단계를 구분하세요.
+
 목적
 
 - 사용자가 선택한 하나의 ROOT 폴더 아래에서 여러 설계 프로젝트를 관리합니다.
 - 각 PROJECT 폴더 최상위에 새 파일을 넣으면 확장자 규칙에 따라 정해진 하위 폴더로 이동합니다.
+- PROJECT 최상위는 새로 받은 파일 또는 아직 외부 참조 관계를 설정하지 않은 파일을 임시로 넣는 투입 영역입니다.
 - ROOT 바로 아래 파일은 분류하지 않습니다.
 - 이미 분류된 하위 폴더 안의 파일은 다시 이동하지 않습니다.
 - 파일 내용이나 파일명은 변경하지 않습니다.
+- PROJECT 안에 별도의 _INBOX 폴더를 만들지 마세요.
 
 반드시 사용할 기술
 
-- Electron
-- Node.js
+- Electron 43.3.0
+- Node.js 22.x LTS
 - HTML
 - CSS
 - JavaScript
-- chokidar
-- Electron Forge
+- chokidar 4.0.3
+- Electron Forge 7.11.2
 
 사용하지 않을 기술
 
@@ -52,6 +81,21 @@
 
 ROOT 선택값은 로컬 설정에 저장하고 다음 실행 때 복원하세요.
 
+첫 화면 또는 ROOT 연결 화면에 다음 경고문을 눈에 잘 보이게 표시하세요.
+
+[작업파일 주의]
+
+이 프로그램은 파일 확장자를 기준으로
+실제 파일 위치를 이동합니다.
+
+이미 외부 참조가 설정된
+CAD/BIM/3D 작업파일은 이동하지 마세요.
+
+새로 받은 파일이나
+참조 관계가 없는 테스트 파일부터 사용하세요.
+
+이번 수업에서는 교육용 테스트 파일로 먼저 작동을 확인하도록 안내하세요.
+
 2. ROOT와 프로젝트 범위
 
 예시:
@@ -78,11 +122,14 @@ PROJECT 폴더를 만드는 방법은 두 가지입니다.
 
 프로그램 실행 중 ROOT에 새 프로젝트 폴더가 생기면 자동으로 감시 대상에 추가하세요.
 
+PROJECT 최상위는 신규 파일 투입 영역입니다. 외부 참조가 설정된 기존 작업파일 세트를 옮겨 놓는 보관 위치로 사용하지 마세요.
+
 3. 프로젝트 표준 폴더
 
-새 프로젝트를 만들 때 다음 폴더를 생성하세요.
+새 프로젝트를 만들 때 다음 폴더를 생성하세요. _INBOX는 만들지 마세요.
 
 프로젝트명/
+├─ 새로 받은 파일을 임시로 넣는 PROJECT 최상위
 ├─ 01_CAD/
 │  ├─ AUTOCAD/
 │  └─ MICROSTATION/
@@ -148,7 +195,10 @@ PROJECT 폴더를 만드는 방법은 두 가지입니다.
 - ROOT 밖의 파일을 읽거나 이동하지 마세요.
 - junction과 symlink를 따라 ROOT 밖으로 접근하지 마세요.
 - 파일 내용과 파일명은 변경하지 마세요.
-- CAD Xref, Revit Link, SketchUp·Houdini 참조 경로를 수정하지 마세요.
+- 프로그램은 CAD Xref, Revit Link, SketchUp 외부 파일, 3D Texture, Houdini 외부 참조 등의 경로를 수정하지 않습니다.
+- 그러나 DWG, RVT, SKP, MAX, MA, MB, BLEND, 3DM, C4D, HIP 계열 작업파일 자체를 이동하면 상대경로나 링크가 끊어질 수 있습니다.
+- 외부 참조가 연결된 작업파일 세트는 PROJECT 최상위 자동분류 투입 영역에 넣지 마세요.
+- 참조 관계 유지 여부를 프로그램이 자동 보장한다고 표현하지 마세요.
 - 대상 폴더에 같은 이름의 파일이 있으면 덮어쓰지 마세요.
 - 이름 충돌 파일은 원래 이름을 유지한 채 98_REVIEW의 충돌 전용 하위 폴더로 이동하고 화면에 이유를 표시하세요.
 - 일반적인 미등록 확장자는 OTHER로 보내세요.
@@ -156,6 +206,12 @@ PROJECT 폴더를 만드는 방법은 두 가지입니다.
 - Unreal Engine의 .uproject처럼 폴더와 함께 작동하는 프로젝트 파일은 자동 이동하지 말고 REVIEW 안내만 남기세요.
 - 분류된 폴더를 다시 감시해 무한 이동이 발생하지 않게 하세요.
 - 파일 쓰기가 끝나기 전에 이동하지 않도록 chokidar의 안정화 옵션을 사용하세요.
+
+README와 프로그램 화면에 다음 문장을 그대로 표시하세요.
+
+외부 참조(Xref, Link, Texture 등)가 연결된 작업파일 세트는
+자동정리 대상에 넣지 마세요.
+파일 위치가 변경되면 참조 경로가 끊어질 수 있습니다.
 
 6. 프로그램 생명주기
 
@@ -168,14 +224,50 @@ PROJECT 폴더를 만드는 방법은 두 가지입니다.
 7. 구현 구조
 
 - Electron main process와 renderer를 분리하세요.
+- CommonJS 기반의 main.cjs, preload.cjs, organizer.cjs를 유지하세요.
 - contextIsolation을 켜고 preload의 제한된 IPC API만 renderer에 노출하세요.
 - 자동분류 규칙과 파일 이동 로직은 UI와 분리해 자동 테스트가 가능하게 만드세요.
 - 설정 파일 갱신은 임시 파일 작성 후 교체하는 방식으로 안전하게 처리하세요.
 - 오류를 성공으로 보고하지 마세요.
 
-8. 테스트
+8. 의존성 설치와 재현성
+
+package-lock.json을 반드시 생성하고 보존하세요.
+
+최초 설치는 프로젝트 루트에서 다음 순서로 진행하세요.
+
+1. package.json의 Node engines와 의존성 버전을 확인합니다.
+2. npm install을 실행합니다.
+3. package-lock.json에 Electron 43.3.0, Electron Forge 7.11.2, chokidar 4.0.3이 기록됐는지 확인합니다.
+4. npm start를 처음 실행해 Electron의 공식 바이너리 다운로드와 프로그램 시작을 확인합니다.
+5. 첫 실행 후 electron.exe와 path.txt가 생성됐는지 확인합니다.
+6. 가능하면 깨끗한 설치 상태에서 npm ci로 재설치하고, 다시 npm start로 실행 검증합니다.
+
+npm install, npm ci 또는 첫 npm start의 Electron 바이너리 다운로드 중 아무 출력이나 파일 변화 없이 약 5분 이상 명확한 진행이 없으면 계속 기다리기만 하지 마세요. 실행 중인 프로세스, npm 로그와 node_modules 상태를 확인한 뒤 원인을 설명하세요.
+
+특히 다음 파일을 확인하세요.
+
+node_modules/electron/dist/electron.exe
+node_modules/electron/path.txt
+
+Electron 43에서는 npm install 직후 위 두 파일이 아직 없을 수 있습니다. 첫 npm start 또는 Electron이 제공하는 공식 install-electron 명령이 끝난 뒤 확인하세요. 실패를 수동 ZIP 압축 해제나 임의 복사 스크립트로 우회하지 말고, 정상적인 Node/Electron 조합에서 공식 설치 절차가 성공하도록 해결하세요. 실패한 명령을 성공했다고 보고하지 마세요.
+
+9. 자동 테스트
 
 최소한 다음 자동 테스트를 작성하고 모두 통과시키세요.
+
+환경과 문서:
+
+- package.json engines가 Node >=22 <23인지 확인
+- Electron 43.3.0 사용 확인
+- Electron Forge 7.11.2 사용 확인
+- CommonJS 구조에서 chokidar 4.0.3 사용 확인
+- package-lock.json 존재와 고정 버전 확인
+- 외부 참조 작업파일 경고문이 README와 프로그램 화면에 있는지 확인
+- PROJECT 최상위를 신규 파일 투입 영역으로 설명하는지 확인
+- _INBOX 폴더를 생성하지 않는지 확인
+
+분류와 생명주기:
 
 - 모든 지정 확장자의 목표 폴더 확인
 - 프로젝트 생성과 전체 표준 폴더 생성
@@ -186,18 +278,26 @@ PROJECT 폴더를 만드는 방법은 두 가지입니다.
 - 동일 이름 충돌 시 덮어쓰기 방지와 REVIEW 이동
 - .uproject 자동 이동 금지
 - 프로그램 실행 중 새 파일 감지
-- 프로그램 종료 후 watcher 종료
+- 프로그램 종료 후 watcher 0개 확인
 - 다음 실행 시 미분류 파일 재스캔
 - Gemini API, OpenAI API, API Key, MCP가 기본 프로그램 코드에 없는지 확인
 
-9. 실행과 설치 프로그램
+10. 실행과 설치 프로그램
 
-package.json에 다음 명령을 제공하세요.
+[프로젝트 루트에서 다음 명령이 정상 동작해야 한다]
 
-- npm install
-- npm test
-- npm start
-- npm run make
+npm install
+npm test
+npm start
+npm run make
+
+package.json의 scripts에는 최소 다음 세 항목을 정의하세요.
+
+- test
+- start
+- make
+
+npm install은 package.json의 script가 아니라 npm 자체의 의존성 설치 명령입니다.
 
 Electron Forge의 Squirrel.Windows maker를 사용해 Windows 설치 프로그램을 만드세요.
 
@@ -211,25 +311,44 @@ Electron Forge의 Squirrel.Windows maker를 사용해 Windows 설치 프로그�
 
 README에는 다음을 설명하세요.
 
-- Node.js LTS 설치
-- npm install, npm test, npm start, npm run make
+- 이 수업은 Node.js 22.x LTS로 통일한다는 점
+- node --version, npm --version, where node 사전 확인
+- npm install, npm ci, npm test, npm start, npm run make의 차이
 - ROOT와 PROJECT의 차이
+- PROJECT 최상위가 신규 파일 투입 영역이라는 점
+- 외부 참조가 연결된 작업파일을 자동정리 대상에 넣지 않는다는 경고
+- 교육용 테스트 파일로 먼저 확인하는 순서
 - 파일을 넣을 정확한 위치
 - 최소화와 X 종료의 차이
 - Windows에서 서명되지 않은 설치 파일의 SmartScreen 경고가 나타날 수 있다는 점
 - 기본 프로그램은 AI API를 사용하지 않는다는 점
 
-10. 작업 완료 기준
+11. 실행 검증
+
+- npm install 또는 npm ci 성공
+- 첫 npm start에서 Electron 공식 바이너리 다운로드 성공
+- 첫 실행 후 node_modules/electron/dist/electron.exe 존재
+- 첫 실행 후 node_modules/electron/path.txt 존재
+- npm test 성공
+- npm start 성공
+- npm run make 성공
+- Setup.exe 생성
+- 프로그램 종료 후 watcher와 Electron/Node 프로세스가 남지 않음
+
+12. 작업 완료 기준
 
 계획만 제시하고 멈추지 말고 구현, 테스트, 설치 프로그램 제작까지 완료하세요.
 
 완료 후 다음을 보고하세요.
 
 - 생성·수정한 파일
+- 실제 Node.js, Electron, Electron Forge, chokidar 버전
+- CommonJS 구조 유지 여부
 - 자동분류 규칙 수
 - 테스트 명령과 결과
 - npm start 실행 확인 결과
 - npm run make 결과
 - Setup.exe 전체 경로
 - 프로그램 종료 후 watcher와 Electron 프로세스가 남지 않았는지 확인한 결과
+- 외부 참조 작업파일 안전 경고 반영 여부
 - 알려진 제한사항

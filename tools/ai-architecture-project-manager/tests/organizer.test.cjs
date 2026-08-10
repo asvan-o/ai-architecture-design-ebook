@@ -144,3 +144,33 @@ test('기본 프로그램에는 API Key나 외부 AI 호출 구성이 없다', a
   const source = (await Promise.all(sourceFiles.map((file) => fs.readFile(path.join(__dirname, '..', 'src', file), 'utf8')))).join('\n');
   assert.equal(/AIza|API_KEY|Gemini API|OpenAI API|fetch\(['"]https?:\/\//i.test(source), false);
 });
+
+test('수업용 개발환경과 lockfile 버전이 고정되어 있다', async () => {
+  const projectRoot = path.join(__dirname, '..');
+  const packageJson = JSON.parse(await fs.readFile(path.join(projectRoot, 'package.json'), 'utf8'));
+  const packageLock = JSON.parse(await fs.readFile(path.join(projectRoot, 'package-lock.json'), 'utf8'));
+  const lockedProject = packageLock.packages[''];
+
+  assert.equal(packageJson.engines.node, '>=22 <23');
+  assert.equal(packageJson.main, 'src/main.cjs');
+  assert.equal(packageJson.dependencies.chokidar, '4.0.3');
+  assert.equal(packageJson.devDependencies.electron, '43.3.0');
+  assert.equal(packageJson.devDependencies['@electron-forge/cli'], '7.11.2');
+  assert.equal(packageJson.devDependencies['@electron-forge/maker-squirrel'], '7.11.2');
+  assert.equal(lockedProject.dependencies.chokidar, '4.0.3');
+  assert.equal(lockedProject.devDependencies.electron, '43.3.0');
+  assert.equal(lockedProject.devDependencies['@electron-forge/cli'], '7.11.2');
+  assert.equal(lockedProject.devDependencies['@electron-forge/maker-squirrel'], '7.11.2');
+});
+
+test('PROJECT 투입 영역과 외부 참조 안전 경계를 문서와 화면에 표시한다', async () => {
+  const projectRoot = path.join(__dirname, '..');
+  const readme = await fs.readFile(path.join(projectRoot, 'README.md'), 'utf8');
+  const screen = await fs.readFile(path.join(projectRoot, 'src', 'renderer', 'index.html'), 'utf8');
+  const warning = /외부 참조\(Xref, Link, Texture 등\)가 연결된 작업파일 세트는[\s\S]*자동정리 대상에 넣지 마세요[\s\S]*참조 경로가 끊어질 수 있습니다/;
+
+  assert.match(readme, warning);
+  assert.match(screen, warning);
+  assert.match(readme, /PROJECT 최상위.*신규 파일 투입 영역/);
+  assert.equal(PROJECT_STRUCTURE.some((folder) => folder.includes('_INBOX')), false);
+});

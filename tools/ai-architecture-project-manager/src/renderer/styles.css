@@ -22,6 +22,10 @@ button.secondary { color: #17211d; background: transparent; }
 
 main { display: grid; gap: 1.2rem; max-width: 1280px; margin: 0 auto; padding: 2rem 3rem 4rem; }
 section { min-width: 0; }
+.workfile-warning { display: grid; grid-template-columns: minmax(12rem, .35fr) minmax(0, 1fr); gap: 1.5rem; padding: 1.3rem; border: 2px solid #a33c25; background: #fff8f3; }
+.workfile-warning p { margin: 0 0 .55rem; line-height: 1.6; }
+.workfile-warning p:last-child { margin-bottom: 0; }
+.workfile-warning strong { color: #7f2c1d; }
 .root-panel, .create-panel, .section-heading { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; }
 .root-panel, .create-panel { padding: 1.3rem; border: 1px solid #a8aaa4; background: #fff; }
 h2 { margin: 0; font-family: Georgia, "Noto Serif KR", serif; font-size: 1.45rem; }
@@ -45,3 +49,11 @@ h2 { margin: 0; font-family: Georgia, "Noto Serif KR", serif; font-size: 1.45rem
 #message { position: fixed; right: 1rem; bottom: 1rem; max-width: 28rem; padding: .8rem 1rem; color: #fff; background: #17211d; box-shadow: 0 10px 30px #0003; }
 #message:empty { display: none; }
 #message[data-error="true"] { background: #8d2b20; }
+
+@media (max-width: 900px) {
+  body { min-width: 0; }
+  main { padding: 1.25rem; }
+  .app-header, .root-panel, .create-panel, .section-heading { align-items: stretch; flex-direction: column; }
+  .workfile-warning { grid-template-columns: minmax(0, 1fr); }
+  .project-grid { grid-template-columns: minmax(0, 1fr); }
+}
