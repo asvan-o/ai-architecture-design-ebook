@@ -1,5 +1,6 @@
 ---
 import Lesson04RfpReviewPractice from './Lesson04RfpReviewPractice.astro';
+import LessonResourceDownloads from './LessonResourceDownloads.astro';
 import LessonSection from './LessonSection.astro';
 import PromptCopyBlock from './PromptCopyBlock.astro';
 import type { Lesson04WorkflowData } from '../../lib/lesson04-workflow';
@@ -8,12 +9,22 @@ import { lesson04ProgramIdeas } from '../../lib/lesson04-final-content';
 interface Props {
   lessonId: string;
   workflow: Lesson04WorkflowData;
+  resourceDownloads?: Array<{
+    group?: string;
+    href: string;
+    downloadName: string;
+    label: string;
+    description: string;
+    meta: string;
+    note?: string;
+  }>;
   [key: string]: unknown;
 }
 
-const { lessonId, workflow } = Astro.props;
+const { lessonId, workflow, resourceDownloads = [] } = Astro.props;
 const { finalContent } = workflow;
 const { antigravity, organizer } = finalContent;
+const managerBuildDownloads = resourceDownloads.filter((item) => item.group === 'manager-build');
 ---
 
 <Lesson04RfpReviewPractice lessonId={lessonId} review={workflow.reviewPractice} />
@@ -105,7 +116,7 @@ const { antigravity, organizer } = finalContent;
     <h3>자동분류 범위</h3>
     <pre><code>{organizer.rootScopeExample}</code></pre>
   </div>
-  <aside class="boundary-note"><strong>중요</strong> ROOT 바로 아래 파일은 그대로 둔다. <code>ROOT → 프로젝트명</code> 폴더 최상위에 넣은 파일만 분류한다.</aside>
+  <aside class="boundary-note"><strong>중요</strong> ROOT 바로 아래 파일은 그대로 둔다. <code>ROOT → 프로젝트명</code> 폴더 최상위에 넣은 파일만 분류한다. {organizer.intakePrinciple}</aside>
 </LessonSection>
 
 <LessonSection id="section-10" number="10" title="개발 실습 · 파일 감지와 프로그램 작동 흐름" class="outline-section lesson04-final-section" {lessonId}>
@@ -138,6 +149,7 @@ const { antigravity, organizer } = finalContent;
     <section><h3>안전한 이동 원칙</h3><ul>{organizer.safetyRules.map((item) => <li>{item}</li>)}</ul></section>
     <section><h3>REVIEW가 필요한 경우</h3><ul><li>대상 폴더에 같은 이름이 있어 덮어쓸 위험이 있는 파일</li><li>권한 또는 이동 오류가 발생한 파일</li><li><code>.uproject</code>처럼 폴더와 함께 작동해 자동 이동하면 안 되는 프로젝트 파일</li></ul></section>
   </div>
+  <aside class="boundary-note"><strong>작업파일 주의</strong> {organizer.workfileWarning}</aside>
   <aside class="boundary-note">분류 규칙에 없는 일반 파일은 <code>06_ASSETS/OTHER</code>로 보낸다. <code>98_REVIEW</code>는 일반 보관 폴더가 아니라 충돌과 오류를 사람이 확인하는 곳이다.</aside>
 </LessonSection>
 
@@ -152,10 +164,26 @@ const { antigravity, organizer } = finalContent;
       <ul>{organizer.excludedStack.map((item) => <li>{item}</li>)}</ul>
     </section>
   </div>
+  <section class="environment-check" aria-labelledby="lesson04-environment-title">
+    <div>
+      <span>PRE-FLIGHT</span>
+      <h3 id="lesson04-environment-title">실습 전 개발환경 확인</h3>
+      <p>설치 결과를 같은 조건에서 재현하기 위해 버전을 확인한 뒤 시작한다. Node.js 24가 잘못된 버전이라는 뜻은 아니며, 이번 수업만 22.x LTS로 통일한다.</p>
+    </div>
+    <ol>{organizer.labEnvironment.checklist.map((item) => <li>{item}</li>)}</ol>
+    <div class="version-grid" aria-label={`개발환경 고정 버전 · ${organizer.labEnvironment.checkedAt} 확인`}>
+      {organizer.labEnvironment.versions.map(([name, version, reason]) => (
+        <article><strong>{name}</strong><b>{version}</b><span>{reason}</span></article>
+      ))}
+    </div>
+    <p class="module-note"><strong>모듈 구조</strong> {organizer.labEnvironment.moduleSystem}</p>
+    <p class="module-note"><strong>Electron 첫 실행</strong> {organizer.labEnvironment.electronInstallNote}</p>
+  </section>
   <div class="table-scroll table-scroll--spaced" tabindex="0" role="region" aria-label="프로그램 개발과 설치 명령">
     <table><thead><tr><th>명령</th><th>역할</th></tr></thead><tbody>{organizer.developmentCommands.map(([command, purpose]) => <tr><th scope="row"><code>{command}</code></th><td>{purpose}</td></tr>)}</tbody></table>
   </div>
   <PromptCopyBlock id="lesson04-complete-organizer-prompt" title="완성형 프로그램 제작 요청문 복사" prompt={workflow.managerPrompt} />
+  {managerBuildDownloads.length > 0 && <LessonResourceDownloads items={managerBuildDownloads} />}
   <aside class="boundary-note"><strong>최종 산출물</strong> Electron Forge가 만든 <code>Design Project Auto Organizer Setup.exe</code>. 코드 서명이 없는 교육용 설치 파일은 Windows SmartScreen 경고가 표시될 수 있으므로 파일 출처를 확인한 뒤 실행한다.</aside>
 </LessonSection>
 
@@ -237,6 +265,17 @@ const { antigravity, organizer } = finalContent;
   thead th { color:#fff; background:var(--l04-ink); }
   .category-grid { display:flex; flex-wrap:wrap; gap:.55rem; margin:1rem 0; }
   .category-grid span { padding:.55rem .7rem; border:1px solid var(--line-dark); background:#fff; font-size:.85rem; font-weight:800; }
+  .environment-check { display:grid; min-width:0; gap:1rem; margin-top:1.25rem; padding:clamp(1.1rem,3vw,1.6rem); border:1px solid var(--line-dark); background:var(--l04-paper); }
+  .environment-check > div:first-child { display:grid; gap:.35rem; }
+  .environment-check > div:first-child > span { color:var(--l04-accent); font-size:.75rem; font-weight:800; letter-spacing:.12em; }
+  .environment-check h3,.environment-check p { margin:0; }
+  .environment-check ol { margin:0; padding-left:1.35rem; }
+  .environment-check li { margin:.45rem 0; line-height:1.6; }
+  .version-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; }
+  .version-grid article { display:grid; min-width:0; gap:.25rem; padding:.9rem; border:1px solid var(--line); background:#fff; }
+  .version-grid b { color:var(--l04-accent); font-size:1.05rem; }
+  .version-grid span { overflow-wrap:anywhere; line-height:1.5; }
+  .module-note { padding:.8rem 1rem; border-left:4px solid var(--l04-accent); background:#fff; overflow-wrap:anywhere; }
   .revision-example { grid-template-columns:repeat(3,minmax(0,1fr)); }
   .revision-example span { color:var(--l04-accent); font-weight:800; }
   .verification-list { display:grid; min-inline-size:0; max-width:100%; box-sizing:border-box; gap:.65rem; margin:0; padding:1.2rem; border:1px solid var(--line-dark); }
@@ -252,13 +291,13 @@ const { antigravity, organizer } = finalContent;
   @media (max-width:760px) {
     :global(.time-plan__screen-list) { grid-template-columns:minmax(0,1fr)!important; }
     :global(.time-plan__screen-list > li) { min-width:0; overflow-wrap:anywhere; }
-    .role-flow,.role-flow--three,.program-principles,.revision-example,.two-column,.tree-grid,.idea-grid { grid-template-columns:minmax(0,1fr); }
+    .role-flow,.role-flow--three,.program-principles,.revision-example,.two-column,.tree-grid,.idea-grid,.version-grid { grid-template-columns:minmax(0,1fr); }
     .role-flow b { transform:rotate(90deg); }
     .shortcut-list > div { grid-template-columns:minmax(0,1fr); }
     .tree-grid pre { font-size:.78rem; }
   }
   @media print {
-    .lead-block,.role-flow article,.program-principles article,.two-column > section,.tree-grid > article,.scope-example,.future-extension,.revision-example article,.idea-card,.verification-list { break-inside:avoid; page-break-inside:avoid; }
+    .lead-block,.role-flow article,.program-principles article,.two-column > section,.tree-grid > article,.scope-example,.future-extension,.revision-example article,.idea-card,.verification-list,.environment-check,.version-grid article { break-inside:avoid; page-break-inside:avoid; }
     .two-column,.tree-grid,.idea-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
     .tree-grid pre { white-space:pre-wrap; overflow:visible; }
     .idea-card :global(button),.idea-card :global(.copy-button) { display:none!important; }
