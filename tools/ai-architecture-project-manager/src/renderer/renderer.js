@@ -11,8 +11,14 @@ function setMessage(text, isError = false) {
 }
 
 function eventLabel(event) {
-  if (event.status === 'moved') return `${event.file ?? event.source?.split(/[\\/]/).pop()} → ${event.classification?.label}`;
-  if (event.status === 'review') return `${event.file ?? event.source?.split(/[\\/]/).pop()} → REVIEW 확인`;
+  const entryType = event.kind === 'folder' ? '[폴더] ' : '[파일] ';
+  const entryName = event.file ?? event.source?.split(/[\\/]/).pop();
+  if (event.status === 'moved') return `${entryType}${entryName} → ${event.classification?.label}`;
+  if (event.status === 'review') return `${entryType}${entryName} → REVIEW 확인`;
+  if (event.status === 'package-waiting') return `[폴더] ${entryName} → 복사 완료 대기 중`;
+  if (event.status === 'waiting') return `[폴더] ${entryName} → 복사 진행 또는 파일 사용 중`;
+  if (event.status === 'watch-ready') return '실시간 감시 준비 완료';
+  if (event.status === 'watch-error') return '실시간 감시 오류 · 상태 확인';
   if (event.status === 'project-created') return `${event.project} 프로젝트 생성`;
   if (event.status === 'project-detected') return `${event.project} 프로젝트 감지`;
   if (event.status === 'error') return `${event.file ?? event.project ?? '작업'} · 오류 확인`;
@@ -21,8 +27,15 @@ function eventLabel(event) {
 
 function render(snapshot) {
   rootPath.textContent = snapshot.rootPath ?? '아직 ROOT가 연결되지 않았습니다.';
-  watchState.textContent = snapshot.watching ? '파일 감시 ON' : '파일 감시 OFF';
+  const watchLabels = {
+    active: '● 실시간 감시 중',
+    preparing: '감시 준비 중',
+    error: '감시 오류',
+    stopped: '감시 중지',
+  };
+  watchState.textContent = watchLabels[snapshot.watchStatus] ?? (snapshot.watching ? '● 실시간 감시 중' : '감시 중지');
   watchState.dataset.active = String(snapshot.watching);
+  watchState.dataset.status = snapshot.watchStatus ?? 'stopped';
 
   projectList.replaceChildren();
   if (snapshot.projects.length === 0) {

@@ -149,7 +149,7 @@ export const lesson04FinalContent = {
   organizer: {
     name: 'Design Project Auto Organizer',
     koreanName: '설계 프로젝트 자동 정리 프로그램',
-    purpose: '하나의 ROOT 아래에서 여러 설계 프로젝트를 만들고, 각 프로젝트 최상위에 새로 들어온 파일을 확장자 규칙에 따라 정해진 폴더로 이동하는 Windows 로컬 프로그램이다.',
+    purpose: '하나의 ROOT 아래에서 여러 설계 프로젝트를 만들고, 각 프로젝트 최상위에 새로 들어온 파일과 지원되는 자산 폴더 패키지를 정해진 폴더로 이동하는 Windows 로컬 프로그램이다.',
     aiBoundary: 'AI Agent는 프로그램을 만드는 과정을 돕는다. 완성된 기본 프로그램의 자동분류는 Gemini API나 API Key 없이 고정된 확장자 규칙으로 작동한다.',
     labEnvironment: {
       checkedAt: '2026-08-10',
@@ -162,15 +162,15 @@ export const lesson04FinalContent = {
       checklist: [
         '이번 수업은 Node.js 22.x LTS 기준으로 진행한다.',
         'node --version, npm --version, where node로 버전을 확인한 뒤 설치를 시작한다.',
-        'PROJECT 최상위는 새로 받은 파일이나 외부 참조 관계를 아직 설정하지 않은 파일의 투입 영역으로 사용한다.',
-        'Xref, Link, Texture 등 외부 참조가 연결된 CAD·BIM·3D 작업파일은 자동정리 테스트에 사용하지 않는다.',
+        'PROJECT 최상위는 새로 받은 파일이나 지원되는 자산 폴더 패키지의 투입 영역으로 사용한다.',
+        'Xref, Link, Texture 등 외부 참조가 연결된 CAD·BIM·3D 작업파일 세트는 자동정리 전에 확인한다.',
         '먼저 교육용 테스트 파일로 분류와 종료 동작을 확인한다.',
       ],
       moduleSystem: 'CommonJS · main.cjs / preload.cjs / organizer.cjs',
       electronInstallNote: 'Electron 43은 npm install에서 패키지를 설치하고 첫 npm start에서 공식 바이너리를 내려받는다. electron.exe와 path.txt는 첫 실행 뒤 확인한다.',
     },
-    workfileWarning: '외부 참조(Xref, Link, Texture 등)가 연결된 작업파일 세트는 자동정리 대상에 넣지 마세요. 파일 위치가 변경되면 참조 경로가 끊어질 수 있습니다.',
-    intakePrinciple: 'PROJECT 최상위는 새로 받은 파일 또는 아직 외부 참조 관계를 설정하지 않은 파일을 임시로 넣는 투입 영역이다. 별도의 _INBOX 폴더는 만들지 않는다.',
+    workfileWarning: '외부 참조(Xref, Link, Texture 등)가 연결된 작업파일 세트는 자동정리 전에 확인하세요. 파일 위치가 변경되면 참조 경로가 끊어질 수 있습니다.',
+    intakePrinciple: 'PROJECT 최상위는 새로 받은 파일 또는 지원되는 자산 폴더 패키지를 임시로 넣는 투입 영역이다. 별도의 _INBOX 폴더는 만들지 않는다.',
     rootExample: `ROOT/
 ├─ PROJECT_A/
 ├─ PROJECT_B/
@@ -181,7 +181,8 @@ ROOT/image.jpg
 
 자동분류 대상
 ROOT/PROJECT_A/test.dwg
-ROOT/PROJECT_A/image.jpg`,
+ROOT/PROJECT_A/image.jpg
+ROOT/PROJECT_A/Chair_Model/`,
     projectTree: `프로젝트명/
 ├─ 01_CAD/
 │  ├─ AUTOCAD/
@@ -218,25 +219,44 @@ ROOT/PROJECT_A/image.jpg`,
       'Windows 탐색기에서 ROOT 안에 프로젝트 폴더를 직접 만든다.',
       '프로그램의 “+ 새 프로젝트”에서 이름을 입력하면 프로젝트와 표준 하위폴더가 함께 생성된다.',
     ],
-    operationFlow: ['PROJECT 최상위', '새 파일 감지', '확장자 확인', '분류 규칙 확인', '해당 폴더로 이동'],
+    operationFlow: ['PROJECT 최상위', '파일·폴더 감지', '쓰기·복사 완료 확인', '분류 규칙 확인', '파일 또는 폴더 전체 이동'],
     usageSteps: [
       'Design Project Auto Organizer를 실행한다.',
       '처음 사용하는 경우 ROOT 폴더를 연결한다.',
       '“+ 새 프로젝트”를 선택하고 프로젝트 이름을 입력한다.',
-      '새 자료를 ROOT 자체가 아니라 ROOT → 프로젝트명 폴더 최상위에 넣는다. 외부 참조가 연결된 작업파일 세트는 넣지 않는다.',
+      '새 파일이나 지원되는 자산 폴더 패키지를 ROOT 자체가 아니라 ROOT → 프로젝트명 폴더 최상위에 넣는다.',
+      '외부 참조가 연결된 작업파일 세트는 이동 전에 참조 범위와 교육용 테스트 가능 여부를 확인한다.',
       '자동분류 결과와 98_REVIEW 알림을 확인한다.',
       '정리된 폴더 안의 파일을 열어 실제 작업을 진행한다.',
       '사용을 마치면 X 버튼으로 프로그램을 완전히 종료한다.',
     ],
     lifecycle: [
-      ['프로그램 실행', '실시간 감시 ON'],
-      ['최소화 (-)', '프로그램 실행·감시 유지'],
+      ['프로그램 실행', '파일·폴더 패키지 실시간 감시 ON'],
+      ['최소화 (-)', '프로그램 실행·파일·폴더 감시 유지'],
       ['닫기 (X)', '프로그램·watcher 완전 종료'],
-      ['다시 실행', '꺼져 있던 동안 들어온 파일을 한 번 스캔한 뒤 감시 시작'],
+      ['다시 실행', '꺼져 있던 동안 들어온 파일과 폴더 패키지를 스캔한 뒤 감시 시작'],
     ],
     workfileAssetExamples: [
       ['lobby_scene.max', '04_3D_WORKFILES/3DSMAX', '내가 프로그램에서 열어 계속 수정하는 원본 작업파일'],
       ['sofa.fbx', '06_ASSETS/MODEL', '다른 작업에 가져다 사용하는 외부 모델·교환 에셋'],
+      ['MAX + Texture 폴더', '04_3D_WORKFILES/3DSMAX', '계속 편집하는 작업파일이 우선인 패키지'],
+      ['FBX + Texture 폴더', '06_ASSETS/MODEL', '교환 모델과 함께 쓰는 재질 파일을 묶은 자산 패키지'],
+    ],
+    packageExample: `Chair/
+├─ chair.fbx
+├─ basecolor.jpg
+└─ normal.png
+
+↓
+
+06_ASSETS/MODEL/Chair/`,
+    packagePrinciples: [
+      'FBX + Texture, OBJ + MTL + Texture처럼 함께 사용하는 파일은 폴더 내부를 분해하지 않고 하나의 3D 모델 자산으로 정리한다.',
+      'MAX·MAYA·BLEND·RHINO·C4D·HOUDINI 작업파일이 있으면 교환 모델보다 작업파일 판정을 우선한다.',
+      '이미지만 있는 텍스처 폴더는 IMAGE, 영상만 있는 폴더는 VIDEO, 문서만 있는 폴더는 DOCUMENT로 폴더 전체를 이동한다.',
+      '서로 다른 주 작업파일이 섞이거나 구성이 불명확하면 폴더 전체를 REVIEW에서 확인한다.',
+      '폴더 복사가 끝났는지 확인한 뒤 이동하며 파일명·하위 폴더명·Material·Texture·참조 경로를 바꾸지 않는다.',
+      '같은 이름의 대상 폴더가 있으면 덮어쓰기나 병합 없이 새 폴더 전체를 REVIEW 충돌 폴더로 이동한다.',
     ],
     extensionRules: [
       ['DWG · DXF · DWT · DWS', '01_CAD/AUTOCAD'],
@@ -267,10 +287,10 @@ ROOT/PROJECT_A/image.jpg`,
     safetyRules: [
       'ROOT 바로 아래 파일과 이미 분류된 하위폴더의 파일은 이동하지 않는다.',
       '프로그램은 파일 내용·파일명·CAD Xref·Revit Link·SketchUp 및 Houdini 참조 경로를 수정하지 않는다.',
-      '그러나 작업파일 자체를 이동하면 상대경로나 외부 링크가 끊어질 수 있으므로, 외부 참조가 연결된 작업파일 세트는 자동분류 투입 영역에 넣지 않는다.',
+      '폴더 내부 구조를 유지해도 폴더 밖의 파일을 참조하면 링크가 끊어질 수 있으므로, 외부 참조가 연결된 작업파일 세트는 자동정리 전에 확인한다.',
       '참조 관계 유지 여부를 프로그램이 자동으로 보장한다고 표현하지 않는다.',
-      '대상 폴더에 같은 이름이 있으면 덮어쓰지 않고 새 파일을 98_REVIEW로 보낸다.',
-      '분류 규칙에 없는 일반 파일은 OTHER로 보내고, 실제 오류·충돌·권한 문제만 REVIEW로 보낸다.',
+      '대상 위치에 같은 이름이 있으면 덮어쓰거나 폴더를 병합하지 않고 새 파일 또는 폴더를 98_REVIEW로 보낸다.',
+      '분류 규칙에 없는 일반 파일은 OTHER로 보내고, 오류·충돌·혼합 패키지·판단 불명확 폴더는 REVIEW로 보낸다.',
       'Unreal Engine의 .uproject처럼 폴더와 함께 작동하는 프로젝트 파일은 자동 이동하지 않는다.',
     ],
     stack: ['Electron', 'Node.js', 'HTML', 'CSS', 'JavaScript', 'chokidar', 'Electron Forge'],
@@ -287,12 +307,12 @@ ROOT/PROJECT_A/image.jpg`,
     ],
     checks: [
       'ROOT 선택·저장·재로드와 여러 프로젝트 생성이 작동하는가?',
-      'ROOT 바로 아래 파일은 그대로 두고 PROJECT 최상위 파일만 감지하는가?',
+      'ROOT 바로 아래 파일은 그대로 두고 PROJECT 최상위 파일과 지원되는 폴더 패키지만 감지하는가?',
       '분류된 하위폴더를 다시 감시하거나 무한 이동하지 않는가?',
       'CAD·BIM·SketchUp·3D·Graphic·Image·Video·Document·Other가 지정 폴더로 이동하는가?',
-      '같은 이름 충돌과 폴더형 프로젝트는 덮어쓰지 않고 REVIEW로 안내하는가?',
+      'FBX·OBJ·Workfile·Texture 폴더 패키지를 내부 구조 그대로 이동하고 혼합 패키지와 같은 이름 충돌은 REVIEW로 안내하는가?',
       '최소화 중에는 감시하고 X 종료 후에는 watcher와 앱 프로세스가 남지 않는가?',
-      '다시 실행하면 종료 중 들어온 미분류 파일을 스캔하는가?',
+      '다시 실행하면 종료 중 들어온 미분류 파일과 폴더 패키지를 스캔하는가?',
       'npm start와 npm run make가 성공하고 Windows Setup.exe가 만들어지는가?',
       'Node.js 22.x, Electron 43.3.0, Electron Forge 7.11.2, chokidar 4.0.3과 package-lock.json이 확인되는가?',
       '외부 참조 작업파일 경고와 PROJECT 최상위 투입 원칙을 확인했는가?',
