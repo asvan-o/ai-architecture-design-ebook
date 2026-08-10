@@ -1,0 +1,402 @@
+---
+import { Image } from 'astro:assets';
+import LessonSection from './LessonSection.astro';
+import Lesson05MaterialMoodboardReview from './Lesson05MaterialMoodboardReview.astro';
+import PromptCopyBlock from './PromptCopyBlock.astro';
+import smallRoomPlan from '../../assets/lessons/05/plan-to-isometric/01-small-room-plan.png';
+import smallRoomTopview from '../../assets/lessons/05/plan-to-isometric/02-small-room-topview-3d.png';
+import smallRoomIsometric from '../../assets/lessons/05/plan-to-isometric/03-small-room-isometric.png';
+import livingKitchenPlan from '../../assets/lessons/05/plan-to-isometric/04-living-kitchen-plan.png';
+import livingKitchenIsometric from '../../assets/lessons/05/plan-to-isometric/05-living-kitchen-isometric-interior.png';
+import {
+  comparisonPrompt,
+  complexPlanReadingGroups,
+  differenceExamples,
+  interiorConceptPrompt,
+  isometricPrompt,
+  lesson05Deliverables,
+  lesson05LearningFlow,
+  lesson05LearningGoals,
+  lesson05PracticeSteps,
+  planReadingItems,
+  planUnknownItems,
+  representationComparison,
+  resultComparisonRows,
+  smallRoomChecks,
+  topviewPrompt,
+} from '../../lib/lesson05-plan-to-isometric';
+
+interface TimeItem {
+  label: string;
+  minutes: number;
+  mode: 'guide' | 'demo' | 'practice' | 'review';
+}
+
+interface Props {
+  lessonId?: string;
+  timePlan: TimeItem[];
+}
+
+const { lessonId = '05', timePlan } = Astro.props;
+const sectionNumber = (value: number) => String(value).padStart(2, '0');
+---
+
+<LessonSection id="section-01" number="01" title="차시 소개" class="outline-section lesson05-plan-section" {lessonId}>
+  <div class="lesson05-lead" data-presentation-group="single">
+    <span>LESSON 05</span>
+    <h3>평면도에서 아이소메트릭까지 · AI 공간 입체화 실습</h3>
+    <p>
+      이번 차시는 교육용 평면도에서 사람이 먼저 공간구조를 읽고, 생성형 AI로 탑뷰
+      입체화와 아이소메트릭 스타일 시각화를 만든 뒤 인테리어 콘셉트까지 확장한다.
+      결과는 설계 확정안이나 CAD·BIM 자동 변환 결과가 아니라 구조 해석과 디자인
+      방향을 검토하는 교육용 시각자료로 다룬다.
+    </p>
+  </div>
+  <blockquote class="lesson05-key-question">
+    2D 평면도에서 읽은 공간구조를 생성형 AI로 어떻게 입체적으로 해석하고,
+    디자인 콘셉트까지 확장할 수 있을까?
+  </blockquote>
+  <div class="lesson05-time-flow">
+    <span>TODAY'S FLOW</span>
+    <ol>
+      {timePlan.map((item, index) => <li><span>{sectionNumber(index + 1)}</span><strong>{item.label}</strong></li>)}
+    </ol>
+  </div>
+</LessonSection>
+
+<LessonSection id="section-02" number="02" title="오늘의 학습 흐름" class="outline-section lesson05-plan-section" {lessonId}>
+  <ol class="lesson05-process-flow" aria-label="제5차시 학습 흐름">
+    {lesson05LearningFlow.map((item, index) => (
+      <li><span>{sectionNumber(index + 1)}</span><strong>{item}</strong></li>
+    ))}
+  </ol>
+  <div class="lesson05-goals" data-presentation-group="single">
+    <h3>학습 목표</h3>
+    <ul>{lesson05LearningGoals.map((goal) => <li>{goal}</li>)}</ul>
+  </div>
+</LessonSection>
+
+<LessonSection id="section-03" number="03" title="4차시 복습 확장 · 재질 선택과 무드보드" class="outline-section lesson05-plan-section" {lessonId}>
+  <Lesson05MaterialMoodboardReview />
+</LessonSection>
+
+<LessonSection id="section-04" number="04" title="평면도는 어떤 정보를 보여주는가" class="outline-section lesson05-plan-section" {lessonId}>
+  <div class="lesson05-definition-grid">
+    <article>
+      <span>DRAWING</span>
+      <h3>도면</h3>
+      <p>설계정보를 표현하는 여러 종류의 그림과 문서를 포함하는 넓은 표현이다.</p>
+    </article>
+    <article>
+      <span>FLOOR PLAN</span>
+      <h3>평면도</h3>
+      <p>공간을 위에서 내려다본 형태로 벽, 개구부와 공간배치의 관계를 표현한 도면이다.</p>
+    </article>
+  </div>
+  <aside class="lesson05-boundary">
+    <strong>이번 수업의 기준</strong>
+    <p>
+      “교육용 평면도”라는 표현을 사용한다. 외곽 형태, 벽, 문, 창, 개구부와 주요 공간
+      관계를 우선 확인하며, 이미지 안의 문자와 치수는 AI 판독만으로 정확하다고 확정하지 않는다.
+    </p>
+  </aside>
+</LessonSection>
+
+<LessonSection id="section-05" number="05" title="평면도에서 사람이 먼저 읽을 것" class="outline-section lesson05-plan-section" {lessonId}>
+  <div class="lesson05-reading-grid">
+    <article>
+      <h3>평면도에서 먼저 확인</h3>
+      <ol>{planReadingItems.map((item) => <li>{item}</li>)}</ol>
+    </article>
+    <article>
+      <h3>현재 이미지로 직접 확인하기 어려움</h3>
+      <ul>{planUnknownItems.map((item) => <li>{item}</li>)}</ul>
+    </article>
+  </div>
+  <p class="lesson05-principle">
+    AI가 만든 이미지에 보이더라도 원 평면도에서 확인되지 않은 정보는 “확인된 사실”이
+    아니라 AI의 추정 또는 디자인 표현으로 기록한다.
+  </p>
+</LessonSection>
+
+<LessonSection id="section-06" number="06" title="탑뷰 입체화란 무엇인가" class="outline-section lesson05-plan-section" {lessonId}>
+  <div class="lesson05-concept-block" data-presentation-group="single">
+    <span>TOP-VIEW 3D INTERPRETATION</span>
+    <h3>구조 확인을 위한 중간 시각화</h3>
+    <p>
+      탑뷰 입체화는 평면 구조를 높이가 있는 공간으로 해석하되 위쪽에서 공간 전체를
+      내려다보는 방식으로 표현하는 중간 단계다. 이 단계에서는 예쁜 인테리어보다 벽체,
+      평면의 꺾임, 문·창 위치와 전체 비례가 크게 달라지지 않았는지 확인한다.
+    </p>
+  </div>
+  <div class="lesson05-table-wrap" tabindex="0" aria-label="평면도와 공간 시각화 표현 차이 표">
+    <table class="lesson05-comparison-table">
+      <thead><tr><th scope="col">표현</th><th scope="col">역할</th><th scope="col">주요 확인</th></tr></thead>
+      <tbody>
+        {representationComparison.map((item) => (
+          <tr><th scope="row">{item.name}</th><td>{item.role}</td><td>{item.check}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</LessonSection>
+
+<LessonSection id="section-07" number="07" title="작은 객실 · 평면도에서 탑뷰 입체화" class="outline-section lesson05-plan-section" {lessonId}>
+  <div class="lesson05-image-flow lesson05-image-flow--two">
+    <figure class="lesson05-plan-figure">
+      <a class="lesson05-image-link" href={smallRoomPlan.src} target="_blank" rel="noreferrer" aria-label="작은 객실 교육용 평면도 원본 크게 보기">
+        <Image src={smallRoomPlan} alt="외곽 벽, 출입문, 세 개의 창과 치수 표기가 있는 작은 객실 교육용 평면도" widths={[640, 960, 1440]} sizes="(max-width: 760px) 100vw, 50vw" loading="lazy" />
+      </a>
+      <figcaption><strong>교육용 평면도</strong><span>구조 관계를 읽는 기준자료이며 실제 실시설계도나 시공도면으로 사용하지 않는다.</span></figcaption>
+      <a class="lesson05-download" href={smallRoomPlan.src} download="lesson-05-small-room-plan.png">평면도 다운로드 <span aria-hidden="true">↓</span></a>
+    </figure>
+    <div class="lesson05-flow-arrow" aria-hidden="true">→</div>
+    <figure>
+      <Image src={smallRoomTopview} alt="작은 객실 평면 구조를 위에서 내려다본 탑뷰 3D 입체화 예시" widths={[640, 960, 1440]} sizes="(max-width: 760px) 100vw, 50vw" loading="lazy" />
+      <figcaption><strong>공간 입체화 예시</strong><span>벽과 개구부 관계를 확인하는 중간 결과이며 정확한 복원 결과로 단정하지 않는다.</span></figcaption>
+    </figure>
+  </div>
+  <PromptCopyBlock id="lesson05-plan-to-topview-prompt" title="평면도 → 탑뷰 입체화" description="교육용 평면도를 첨부하고 구조 확인을 우선하는 요청문으로 사용한다." prompt={topviewPrompt} />
+</LessonSection>
+
+<LessonSection id="section-08" number="08" title="아이소메트릭(Isometric)은 무엇인가" class="outline-section lesson05-plan-section" {lessonId}>
+  <div class="lesson05-concept-block" data-presentation-group="single">
+    <span>ISOMETRIC-STYLE VISUALIZATION</span>
+    <h3>여러 면과 공간 관계를 한 화면에서 이해하는 표현</h3>
+    <p>
+      아이소메트릭은 3차원 대상을 비스듬한 시점에서 표현해 여러 면과 공간 관계를 한
+      화면에서 이해하기 쉽게 보여주는 방식이다. 이번 수업에서는 공간 전체 구성, 벽의
+      관계, 문과 창, 가구 배치와 공간 연결을 설명하는 3D 시각화로 사용한다.
+    </p>
+  </div>
+  <aside class="lesson05-boundary">
+    <strong>정확성 안내</strong>
+    <p>
+      아이소메트릭을 단순한 “45도 카메라 이미지”로 정의하지 않는다. 엄밀한 제도법에는
+      투영과 축에 관한 기하학적 규칙이 있지만, 이번 실습은 정밀 제도법을 작성하는 수업이
+      아니다. 생성형 AI로 공간구조를 이해하고 설명하기 위한 아이소메트릭 스타일 3D
+      시각화를 제작하며, 결과가 엄밀한 아이소메트릭 투영을 항상 보장하지는 않는다.
+    </p>
+  </aside>
+</LessonSection>
+
+<LessonSection id="section-09" number="09" title="작은 객실 · 탑뷰에서 아이소메트릭으로" class="outline-section lesson05-plan-section" {lessonId}>
+  <div class="lesson05-image-flow lesson05-image-flow--two">
+    <figure>
+      <Image src={smallRoomTopview} alt="작은 객실의 완전 상부 시점 탑뷰 3D 입체화 예시" widths={[640, 960, 1440]} sizes="(max-width: 760px) 100vw, 50vw" loading="lazy" />
+      <figcaption><strong>탑뷰 입체화</strong><span>평면 구조가 높이를 가진 공간으로 해석된 중간 결과다.</span></figcaption>
+    </figure>
+    <div class="lesson05-flow-arrow" aria-hidden="true">→</div>
+    <figure>
+      <Image src={smallRoomIsometric} alt="작은 객실의 여러 벽면과 개구부가 보이는 아이소메트릭 스타일 3D 시각화 예시" widths={[640, 960, 1440]} sizes="(max-width: 760px) 100vw, 50vw" loading="lazy" />
+      <figcaption><strong>아이소메트릭 스타일 시각화 예시</strong><span>공간 관계를 설명하는 이미지이며 기술도면이나 BIM 모델이 아니다.</span></figcaption>
+    </figure>
+  </div>
+  <div class="lesson05-check-grid">
+    {smallRoomChecks.map(([target, question]) => <article><strong>{target}</strong><p>{question}</p></article>)}
+  </div>
+  <PromptCopyBlock id="lesson05-topview-to-isometric-prompt" title="탑뷰 입체화 → 아이소메트릭 스타일 시각화" description="원 평면도와 탑뷰 결과를 함께 첨부해 구조 관계를 다시 확인한다." prompt={isometricPrompt} />
+</LessonSection>
+
+<LessonSection id="section-10" number="10" title="복합 공간 평면도 읽기" class="outline-section lesson05-plan-section" {lessonId}>
+  <figure class="lesson05-plan-figure lesson05-plan-figure--large">
+    <a class="lesson05-image-link" href={livingKitchenPlan.src} target="_blank" rel="noreferrer" aria-label="거실 식당 주방 교육용 복합 공간 평면도 원본 크게 보기">
+      <Image src={livingKitchenPlan} alt="주방과 아일랜드, 식당, 거실, 복도와 엘리베이터 홀이 표시된 교육용 복합 공간 평면도" widths={[640, 960, 1440]} sizes="(max-width: 760px) 100vw, 960px" loading="lazy" />
+    </a>
+    <figcaption><strong>교육용 복합 공간 평면도</strong><span>AI를 실행하기 전에 주방·식당·거실과 출입·개구부의 상대적 관계를 먼저 관찰한다.</span></figcaption>
+    <a class="lesson05-download" href={livingKitchenPlan.src} download="lesson-05-living-kitchen-plan.png">평면도 다운로드 <span aria-hidden="true">↓</span></a>
+  </figure>
+  <div class="lesson05-reading-cards">
+    {complexPlanReadingGroups.map((group) => (
+      <article><h3>{group.title}</h3><ul>{group.items.map((item) => <li>{item}</li>)}</ul></article>
+    ))}
+  </div>
+</LessonSection>
+
+<LessonSection id="section-11" number="11" title="거실·식당·주방 · 인테리어 적용" class="outline-section lesson05-plan-section" {lessonId}>
+  <div class="lesson05-sequence-note">
+    <strong>먼저 공간구조를 확인하고, 그 다음 디자인을 적용한다.</strong>
+    <p>평면도 → 구조 읽기 → 입체화 → 아이소메트릭 → 구조 확인 → 인테리어 적용</p>
+  </div>
+  <div class="lesson05-image-flow lesson05-image-flow--two">
+    <figure>
+      <Image src={livingKitchenPlan} alt="거실 식당 주방의 배치와 출입 관계를 보여주는 교육용 복합 공간 평면도" widths={[640, 960, 1440]} sizes="(max-width: 760px) 100vw, 50vw" loading="lazy" />
+      <figcaption><strong>공간구조 기준</strong><span>주요 공간배치와 출입 관계를 읽는 원자료다.</span></figcaption>
+    </figure>
+    <div class="lesson05-flow-arrow" aria-hidden="true">→</div>
+    <figure>
+      <Image src={livingKitchenIsometric} alt="거실 식당 주방 구조에 가구와 마감을 적용한 아이소메트릭 스타일 인테리어 결과 예시" widths={[640, 960, 1440]} sizes="(max-width: 760px) 100vw, 50vw" loading="lazy" />
+      <figcaption><strong>가능한 결과 예시</strong><span>가구·재질·조명·색채를 적용한 여러 디자인 방향 중 하나이며 정답이 아니다.</span></figcaption>
+    </figure>
+  </div>
+  <p class="lesson05-principle">
+    Warm Minimal, Contemporary, Natural Modern, Soft Luxury 등은 방향을 탐색하는 예시다.
+    특정 스타일·재질·가구·조명을 필수 선택지로 고정하지 않는다.
+  </p>
+  <PromptCopyBlock id="lesson05-plan-to-interior-isometric-prompt" title="평면도 → 아이소메트릭 인테리어 콘셉트" description="자신이 선택한 콘셉트를 입력하되 주요 공간 관계를 먼저 유지한다." prompt={interiorConceptPrompt} />
+  <PromptCopyBlock id="lesson05-plan-result-comparison-prompt" title="평면도와 결과 이미지 비교·수정" description="AI 비교 결과를 사람이 원 평면도와 다시 대조하기 위한 요청문이다." prompt={comparisonPrompt} />
+</LessonSection>
+
+<LessonSection id="section-12" number="12" title="원 평면도와 AI 결과 비교" class="outline-section lesson05-plan-section" {lessonId}>
+  <div class="lesson05-table-wrap" tabindex="0" aria-label="원 평면도와 생성 결과 비교 기록표">
+    <table class="lesson05-comparison-table">
+      <thead><tr><th scope="col">비교 항목</th><th scope="col">판정·기록</th></tr></thead>
+      <tbody>{resultComparisonRows.map(([item, result]) => <tr><th scope="row">{item}</th><td>{result}</td></tr>)}</tbody>
+    </table>
+  </div>
+  <div class="lesson05-difference-cards">
+    {differenceExamples.map((example) => (
+      <article><p><strong>원자료</strong>{example.source}</p><p><strong>생성 결과</strong>{example.result}</p><p><strong>분류</strong>{example.classification}</p></article>
+    ))}
+  </div>
+</LessonSection>
+
+<LessonSection id="section-13" number="13" title="실습 · 평면도를 입체적으로 읽고 공간 콘셉트까지 확장하기" class="outline-section lesson05-plan-section" {lessonId}>
+  <ol class="lesson05-practice-steps">
+    {lesson05PracticeSteps.map((step, index) => <li><span>STEP {sectionNumber(index + 1)}</span><p>{step}</p></li>)}
+  </ol>
+  <aside class="lesson05-boundary">
+    <strong>실습의 목적</strong>
+    <p>
+      평면도 기반 공간구조를 시각적으로 해석하고 콘셉트 이미지로 확장하는 방법을 익힌다.
+      생성 결과를 CAD·BIM 자동 변환이나 실제 설계 확정안으로 사용하지 않는다.
+    </p>
+  </aside>
+</LessonSection>
+
+<LessonSection id="section-14" number="14" title="결과물 정리와 검토" class="outline-section lesson05-plan-section" {lessonId}>
+  <div class="lesson05-output-grid">
+    {lesson05Deliverables.map((item, index) => <article><span>{sectionNumber(index + 1)}</span><strong>{item}</strong></article>)}
+  </div>
+  <ul class="lesson05-final-checks">
+    <li>실제 치수 정확성은 원자료와 별도로 확인한다.</li>
+    <li>구조 안전성, 법규, 소방, 설비와 시공 가능성을 생성 이미지로 확정하지 않는다.</li>
+    <li>실제 재료의 규격·성능·수급과 시공 방법은 관련 자료와 담당자가 별도로 확인한다.</li>
+    <li>평면도와 결과가 다른 요소는 불일치, 디자인 제안, AI의 추정, 추가 확인 필요로 구분한다.</li>
+  </ul>
+</LessonSection>
+
+<style>
+  .lesson05-plan-section :where(article, figure, div, aside) { min-width: 0; }
+  .lesson05-plan-section :where(h3, p, ul, ol, figure, blockquote) { margin-top: 0; }
+  .lesson05-lead,
+  .lesson05-concept-block,
+  .lesson05-sequence-note {
+    padding: clamp(1.25rem, 3vw, 2.25rem);
+    border: 1px solid var(--line);
+    background: color-mix(in srgb, var(--paper) 88%, #d9c6aa);
+  }
+  .lesson05-lead > span,
+  .lesson05-concept-block > span,
+  .lesson05-time-flow > span {
+    color: var(--accent);
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+  }
+  .lesson05-lead h3,
+  .lesson05-concept-block h3 { margin: 0.55rem 0 0.8rem; font-size: clamp(1.35rem, 3vw, 2rem); text-wrap: balance; }
+  .lesson05-lead p,
+  .lesson05-concept-block p,
+  .lesson05-sequence-note p { margin-bottom: 0; max-width: 78ch; }
+  .lesson05-key-question { margin: 1.25rem 0; padding: 1.2rem 1.35rem; border-left: 4px solid var(--accent); background: var(--paper); font-size: clamp(1.05rem, 2vw, 1.32rem); font-weight: 700; }
+  .lesson05-time-flow { margin-top: 1.25rem; }
+  .lesson05-time-flow ol,
+  .lesson05-process-flow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; padding: 0; list-style: none; }
+  .lesson05-time-flow li,
+  .lesson05-process-flow li { display: grid; grid-template-columns: auto 1fr; gap: 0.7rem; align-items: start; padding: 0.9rem; border-top: 1px solid var(--line); }
+  .lesson05-time-flow li > span,
+  .lesson05-process-flow li > span { color: var(--accent); font-weight: 800; }
+  .lesson05-goals { margin-top: 1.5rem; padding: 1.25rem; border: 1px solid var(--line); }
+  .lesson05-goals ul { columns: 2; column-gap: 2.5rem; padding-left: 1.25rem; }
+  .lesson05-goals li { break-inside: avoid; margin-bottom: 0.65rem; }
+  .lesson05-definition-grid,
+  .lesson05-reading-grid,
+  .lesson05-reading-cards,
+  .lesson05-check-grid,
+  .lesson05-difference-cards,
+  .lesson05-output-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .lesson05-definition-grid article,
+  .lesson05-reading-grid article,
+  .lesson05-reading-cards article,
+  .lesson05-check-grid article,
+  .lesson05-difference-cards article,
+  .lesson05-output-grid article { padding: 1.15rem; border: 1px solid var(--line); background: var(--paper); }
+  .lesson05-definition-grid article > span { color: var(--accent); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; }
+  .lesson05-definition-grid h3,
+  .lesson05-reading-grid h3,
+  .lesson05-reading-cards h3 { margin: 0.45rem 0 0.65rem; }
+  .lesson05-definition-grid p,
+  .lesson05-check-grid p,
+  .lesson05-difference-cards p { margin-bottom: 0; }
+  .lesson05-boundary,
+  .lesson05-principle { margin-top: 1.25rem; padding: 1rem 1.15rem; border: 1px solid var(--line); background: color-mix(in srgb, var(--paper) 90%, #f1d6c4); }
+  .lesson05-boundary p { margin: 0.45rem 0 0; }
+  .lesson05-principle { font-weight: 670; }
+  .lesson05-table-wrap { width: 100%; overflow-x: auto; overscroll-behavior-inline: contain; }
+  .lesson05-table-wrap:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .lesson05-comparison-table { width: 100%; min-width: 680px; border-collapse: collapse; }
+  .lesson05-comparison-table :where(th, td) { padding: 0.85rem 0.9rem; border: 1px solid var(--line); text-align: left; vertical-align: top; }
+  .lesson05-comparison-table thead th { background: var(--ink); color: var(--paper); }
+  .lesson05-comparison-table tbody th { width: 24%; background: color-mix(in srgb, var(--paper) 86%, #ded6ca); }
+  .lesson05-image-flow { display: grid; align-items: start; gap: 1rem; margin-bottom: 1.5rem; }
+  .lesson05-image-flow--two { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); }
+  .lesson05-flow-arrow { align-self: center; color: var(--accent); font-size: 2rem; font-weight: 800; }
+  figure { margin: 0; min-width: 0; }
+  figure :global(img) { display: block; width: 100%; max-width: 100%; height: auto; border: 1px solid var(--line); background: #fff; }
+  .lesson05-image-link { display: block; }
+  .lesson05-image-link:focus-visible,
+  .lesson05-download:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  figcaption { display: grid; gap: 0.2rem; padding: 0.8rem 0; }
+  figcaption span { color: var(--muted); }
+  .lesson05-download { display: inline-flex; justify-content: space-between; gap: 1rem; padding: 0.75rem 0.9rem; border: 1px solid var(--ink); color: var(--ink); font-weight: 750; text-decoration: none; }
+  .lesson05-download:hover { background: var(--ink); color: var(--paper); }
+  .lesson05-plan-figure--large { width: min(100%, 58rem); margin-inline: auto !important; }
+  .lesson05-check-grid { margin-bottom: 1.5rem; }
+  .lesson05-reading-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 1.25rem; }
+  .lesson05-reading-cards ul { padding-left: 1.2rem; }
+  .lesson05-sequence-note { margin-bottom: 1.25rem; }
+  .lesson05-sequence-note strong { display: block; font-size: 1.2rem; }
+  .lesson05-difference-cards { margin-top: 1.25rem; }
+  .lesson05-difference-cards p { display: grid; gap: 0.2rem; }
+  .lesson05-difference-cards strong { color: var(--accent); font-size: 0.75rem; letter-spacing: 0.08em; }
+  .lesson05-practice-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; padding: 0; list-style: none; }
+  .lesson05-practice-steps li { padding: 1rem; border: 1px solid var(--line); background: var(--paper); }
+  .lesson05-practice-steps span { color: var(--accent); font-size: 0.74rem; font-weight: 800; letter-spacing: 0.1em; }
+  .lesson05-practice-steps p { margin: 0.45rem 0 0; }
+  .lesson05-output-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .lesson05-output-grid article { display: grid; grid-template-columns: auto 1fr; gap: 0.75rem; align-items: start; }
+  .lesson05-output-grid span { color: var(--accent); font-weight: 800; }
+  .lesson05-final-checks { margin-top: 1.5rem; padding: 1.2rem 1.2rem 1.2rem 2.4rem; border: 1px solid var(--line); }
+  .lesson05-final-checks li + li { margin-top: 0.65rem; }
+
+  @media (max-width: 760px) {
+    .lesson05-time-flow ol,
+    .lesson05-process-flow,
+    .lesson05-practice-steps,
+    .lesson05-output-grid,
+    .lesson05-reading-cards { grid-template-columns: minmax(0, 1fr); }
+    .lesson05-goals ul { columns: 1; }
+    .lesson05-definition-grid,
+    .lesson05-reading-grid,
+    .lesson05-check-grid,
+    .lesson05-difference-cards { grid-template-columns: minmax(0, 1fr); }
+    .lesson05-image-flow--two { grid-template-columns: minmax(0, 1fr); }
+    .lesson05-flow-arrow { transform: rotate(90deg); justify-self: center; }
+    .lesson05-download { width: 100%; box-sizing: border-box; }
+  }
+
+  @media print {
+    :global(.lesson05-plan-section) :where(.lesson05-lead, .lesson05-concept-block, .lesson05-definition-grid article, .lesson05-reading-grid article, .lesson05-reading-cards article, .lesson05-check-grid article, .lesson05-difference-cards article, .lesson05-practice-steps li, .lesson05-output-grid article, figure, aside) { break-inside: avoid-page; page-break-inside: avoid; }
+    :global(.lesson05-plan-section :where(h2, h3, h4)) { break-after: avoid-page; page-break-after: avoid; }
+    .lesson05-image-flow--two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .lesson05-flow-arrow { display: none; }
+    .lesson05-table-wrap { overflow: visible; }
+    .lesson05-comparison-table { min-width: 0; font-size: 9.5pt; }
+    .lesson05-download { display: none; }
+    .lesson05-reading-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    :global(.lesson05-plan-section prompt-copy-block pre) { white-space: pre-wrap; overflow-wrap: anywhere; }
+  }
+
+  :global(.presentation-page) .lesson05-download { display: none; }
+</style>
