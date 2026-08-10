@@ -7,6 +7,11 @@ const { OrganizerService } = require('./organizer.cjs');
 if (require('electron-squirrel-startup')) app.quit();
 
 const smokeMode = process.argv.includes('--smoke');
+const smokeRootArgument = process.argv.find((argument) => argument.startsWith('--smoke-root='));
+const smokeDurationArgument = process.argv.find((argument) => argument.startsWith('--smoke-duration='));
+const smokeRoot = smokeRootArgument ? path.resolve(smokeRootArgument.slice('--smoke-root='.length)) : null;
+const smokeDuration = Math.max(350, Number(smokeDurationArgument?.slice('--smoke-duration='.length)) || 350);
+const smokeMinimized = process.argv.includes('--smoke-minimized');
 if (smokeMode) app.setPath('userData', path.join(os.tmpdir(), `design-project-auto-organizer-smoke-${process.pid}`));
 
 app.setAppUserModelId('com.squirrel.DesignProjectAutoOrganizer.DesignProjectAutoOrganizer');
@@ -24,15 +29,18 @@ async function createWindow() {
     settingsPath: path.join(app.getPath('userData'), 'settings.json'),
     onEvent: sendEvent,
   });
-  await service.loadSavedRoot();
-  await service.start();
+  if (smokeRoot) await service.setRoot(smokeRoot);
+  else {
+    await service.loadSavedRoot();
+    await service.start();
+  }
 
   mainWindow = new BrowserWindow({
     width: 1180,
     height: 780,
     minWidth: 900,
     minHeight: 620,
-    show: !smokeMode,
+    show: !smokeMode || smokeMinimized,
     backgroundColor: '#f4f1e9',
     webPreferences: {
       preload: path.join(__dirname, 'preload.cjs'),
@@ -42,10 +50,11 @@ async function createWindow() {
     },
   });
   await mainWindow.loadFile(path.join(__dirname, 'renderer', 'index.html'));
+  if (smokeMinimized) mainWindow.minimize();
 
   if (smokeMode) {
     console.log('ELECTRON_SMOKE_READY');
-    setTimeout(() => app.quit(), 350);
+    setTimeout(() => app.quit(), smokeDuration);
   }
 }
 

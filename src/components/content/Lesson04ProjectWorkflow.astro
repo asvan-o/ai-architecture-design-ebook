@@ -94,7 +94,7 @@ const managerBuildDownloads = resourceDownloads.filter((item) => item.group === 
   </div>
   <div class="program-principles">
     <article><strong>왜 필요한가</strong><p>CAD·BIM·3D·이미지·영상·문서 파일을 매번 손으로 폴더에 옮기는 반복 작업을 줄인다.</p></article>
-    <article><strong>무엇을 하는가</strong><p>PROJECT 최상위의 새 파일을 감지하고, 확장자 규칙에 따라 지정 폴더로 이동한다.</p></article>
+    <article><strong>무엇을 하는가</strong><p>PROJECT 최상위의 새 파일과 지원되는 자산 폴더 패키지를 감지해 지정 폴더로 이동한다.</p></article>
     <article><strong>무엇을 하지 않는가</strong><p>설계 품질이나 법규를 판단하지 않고, 파일 내용·이름·참조 경로를 수정하지 않는다.</p></article>
   </div>
   <div class="role-flow role-flow--three" aria-label="AI 에이전트와 완성 프로그램의 역할 구분">
@@ -116,7 +116,7 @@ const managerBuildDownloads = resourceDownloads.filter((item) => item.group === 
     <h3>자동분류 범위</h3>
     <pre><code>{organizer.rootScopeExample}</code></pre>
   </div>
-  <aside class="boundary-note"><strong>중요</strong> ROOT 바로 아래 파일은 그대로 둔다. <code>ROOT → 프로젝트명</code> 폴더 최상위에 넣은 파일만 분류한다. {organizer.intakePrinciple}</aside>
+  <aside class="boundary-note"><strong>중요</strong> ROOT 바로 아래 파일은 그대로 둔다. <code>ROOT → 프로젝트명</code> 폴더 최상위에 넣은 파일과 지원되는 폴더 패키지만 분류한다. {organizer.intakePrinciple}</aside>
 </LessonSection>
 
 <LessonSection id="section-10" number="10" title="개발 실습 · 파일 감지와 프로그램 작동 흐름" class="outline-section lesson04-final-section" {lessonId}>
@@ -130,11 +130,11 @@ const managerBuildDownloads = resourceDownloads.filter((item) => item.group === 
     <section>
       <h3>창을 닫으면 어떻게 되는가</h3>
       <div class="table-scroll" tabindex="0" role="region" aria-label="프로그램 상태별 감시 동작">
-        <table><thead><tr><th>상태</th><th>파일 감시</th></tr></thead><tbody>{organizer.lifecycle.map(([state, behavior]) => <tr><th scope="row">{state}</th><td>{behavior}</td></tr>)}</tbody></table>
+        <table><thead><tr><th>상태</th><th>파일·폴더 감시</th></tr></thead><tbody>{organizer.lifecycle.map(([state, behavior]) => <tr><th scope="row">{state}</th><td>{behavior}</td></tr>)}</tbody></table>
       </div>
     </section>
   </div>
-  <p class="key-message">최소화하면 감시는 계속되고, X 버튼으로 닫으면 watcher와 프로그램이 완전히 종료된다. 다시 실행하면 종료 중 들어온 파일을 먼저 스캔한다.</p>
+  <p class="key-message">최소화하면 감시는 계속되고, X 버튼으로 닫으면 watcher와 프로그램이 완전히 종료된다. 다시 실행하면 종료 중 들어온 파일과 폴더 패키지를 먼저 스캔한다.</p>
 </LessonSection>
 
 <LessonSection id="section-11" number="11" title="개발 실습 · CAD·BIM·3D·Graphic·Image·Video·Document 분류" class="outline-section lesson04-final-section" {lessonId}>
@@ -142,12 +142,28 @@ const managerBuildDownloads = resourceDownloads.filter((item) => item.group === 
   <div class="table-scroll" tabindex="0" role="region" aria-label="작업파일과 에셋 비교">
     <table><thead><tr><th>예시</th><th>이동 폴더</th><th>구분 이유</th></tr></thead><tbody>{organizer.workfileAssetExamples.map(([file, folder, reason]) => <tr><th scope="row">{file}</th><td>{folder}</td><td>{reason}</td></tr>)}</tbody></table>
   </div>
+  <div class="two-column table-scroll--spaced">
+    <section>
+      <h3>폴더형 자산도 자동 정리</h3>
+      <p>FBX + Texture, OBJ + MTL + Texture처럼 함께 사용하는 파일은 내부를 분해하지 않고 하나의 3D 모델 자산으로 정리한다.</p>
+      <pre><code>{organizer.packageExample}</code></pre>
+    </section>
+    <section>
+      <h3>Workfile과 Model Asset</h3>
+      <ul>
+        <li><strong>3D 작업파일</strong> · MAX, MAYA, BLEND, RHINO, C4D, HOUDINI처럼 계속 편집하는 원본</li>
+        <li><strong>3D 모델 자산</strong> · FBX, OBJ, GLB처럼 다른 프로그램으로 가져오기 위한 교환·전달용 모델</li>
+      </ul>
+      <p><code>MAX + Texture</code>는 3D WORKFILES, <code>FBX + Texture</code>는 ASSETS / MODEL로 폴더 전체를 이동한다.</p>
+    </section>
+  </div>
+  <ul class="check-list">{organizer.packagePrinciples.map((item) => <li>{item}</li>)}</ul>
   <div class="table-scroll table-scroll--spaced" tabindex="0" role="region" aria-label="확장자별 자동 분류 규칙">
     <table><thead><tr><th>파일 형식</th><th>이동 폴더</th></tr></thead><tbody>{organizer.extensionRules.map(([ext, folder]) => <tr><th scope="row">{ext}</th><td>{folder}</td></tr>)}</tbody></table>
   </div>
   <div class="two-column">
     <section><h3>안전한 이동 원칙</h3><ul>{organizer.safetyRules.map((item) => <li>{item}</li>)}</ul></section>
-    <section><h3>REVIEW가 필요한 경우</h3><ul><li>대상 폴더에 같은 이름이 있어 덮어쓸 위험이 있는 파일</li><li>권한 또는 이동 오류가 발생한 파일</li><li><code>.uproject</code>처럼 폴더와 함께 작동해 자동 이동하면 안 되는 프로젝트 파일</li></ul></section>
+    <section><h3>REVIEW가 필요한 경우</h3><ul><li>대상 위치에 같은 이름이 있어 덮어쓰거나 병합할 위험이 있는 파일·폴더</li><li>서로 다른 주 작업파일이 섞였거나 구성이 불명확한 폴더</li><li>권한 또는 이동 오류가 발생한 파일·폴더</li><li><code>.uproject</code>처럼 폴더와 함께 작동해 자동 이동하면 안 되는 프로젝트</li></ul></section>
   </div>
   <aside class="boundary-note"><strong>작업파일 주의</strong> {organizer.workfileWarning}</aside>
   <aside class="boundary-note">분류 규칙에 없는 일반 파일은 <code>06_ASSETS/OTHER</code>로 보낸다. <code>98_REVIEW</code>는 일반 보관 폴더가 아니라 충돌과 오류를 사람이 확인하는 곳이다.</aside>
