@@ -1,0 +1,469 @@
+---
+import { Image } from 'astro:assets';
+import LessonSection from './LessonSection.astro';
+import PromptCopyBlock from './PromptCopyBlock.astro';
+import originalPlan from '../../assets/lessons/06/dwg-to-exploded/01-original-first-floor-plan.png';
+import editAreaPlan from '../../assets/lessons/06/dwg-to-exploded/02-edit-area-marked-plan.png';
+import modifiedPlan from '../../assets/lessons/06/dwg-to-exploded/03-modified-first-floor-plan.png';
+import topView3d from '../../assets/lessons/06/dwg-to-exploded/04-top-view-3d.png';
+import isometric from '../../assets/lessons/06/dwg-to-exploded/05-isometric.png';
+import explodedIsometric from '../../assets/lessons/06/dwg-to-exploded/06-exploded-isometric.jpeg';
+import dwgUrl from '../../assets/lessons/06/dwg-to-exploded/two-story-house-source.dwg?url';
+import {
+  commonErrors,
+  evidenceCategories,
+  explodedIsometricPrompt,
+  isometricPrompt,
+  lesson06Deliverables,
+  lesson06LearningFlow,
+  lesson06LearningGoals,
+  planEditPrompt,
+  planReadingTargets,
+  resultReviewChecks,
+  topViewPrompt,
+} from '../../lib/lesson06-dwg-workflow';
+
+interface TimeItem {
+  label: string;
+  minutes: number;
+  mode: 'guide' | 'demo' | 'practice' | 'review';
+}
+
+interface Props {
+  lessonId?: string;
+  assetIds?: readonly string[];
+  timePlan: readonly TimeItem[];
+}
+
+const { lessonId = '06', timePlan } = Astro.props;
+const sectionNumber = (value: number) => String(value).padStart(2, '0');
+const totalMinutes = timePlan.reduce((sum, item) => sum + item.minutes, 0);
+const materialDownloads = [
+  { label: '원본 DWG', file: 'lesson-06-two-story-house-source.dwg', href: dwgUrl },
+  { label: '원본 1층 평면도', file: 'lesson-06-original-first-floor-plan.png', href: originalPlan.src },
+  { label: '수정 영역 표시 평면도', file: 'lesson-06-edit-area-marked-plan.png', href: editAreaPlan.src },
+  { label: '수정된 1층 평면도', file: 'lesson-06-modified-first-floor-plan.png', href: modifiedPlan.src },
+  { label: 'Top View 3D', file: 'lesson-06-top-view-3d.png', href: topView3d.src },
+  { label: '아이소메트릭', file: 'lesson-06-isometric.png', href: isometric.src },
+  { label: '아이소메트릭 분해도 참고 이미지', file: 'lesson-06-exploded-isometric.jpeg', href: explodedIsometric.src },
+];
+---
+
+<LessonSection id="section-01" number="01" title="차시 소개" class="lesson06-section" {lessonId}>
+  <div class="lesson06-lead" data-presentation-group="single">
+    <span>LESSON 06</span>
+    <h3>도면을 읽고, 수정하고, 입체화한 뒤 분해도까지 만든다</h3>
+    <p>
+      이번 차시는 원본 DWG와 사람이 확인할 수 있는 평면도 이미지를 함께 기준으로 삼아
+      지정 영역을 수정하고, Top View 3D와 아이소메트릭을 거쳐 Exploded Isometric
+      View까지 발전시키는 실습이다. 생성 결과는 설계 확정안이 아니라 원자료와 비교하며
+      구조와 표현의 차이를 검토하는 교육용 시각자료로 다룬다.
+    </p>
+  </div>
+  <blockquote class="lesson06-key-question">
+    평면도의 구조를 가능한 유지하면서 필요한 부분만 수정하고, 같은 공간을 단계별 3D
+    시각자료로 어떻게 발전시킬 수 있을까?
+  </blockquote>
+</LessonSection>
+
+<LessonSection id="section-02" number="02" title="오늘의 목표와 작업 흐름" class="lesson06-section" {lessonId}>
+  <ol class="lesson06-flow" aria-label="제6차시 학습 흐름">
+    {lesson06LearningFlow.map((item, index) => (
+      <li><span>{sectionNumber(index + 1)}</span><strong>{item}</strong></li>
+    ))}
+  </ol>
+  <div class="lesson06-two-column">
+    <article>
+      <h3>학습 목표</h3>
+      <ul>{lesson06LearningGoals.map((goal) => <li>{goal}</li>)}</ul>
+    </article>
+    <article>
+      <h3>180분 운영</h3>
+      <ol class="lesson06-time-plan">
+        {timePlan.map((item) => <li><span>{item.label}</span><strong>{item.minutes}분</strong></li>)}
+      </ol>
+      <p class="lesson06-total">합계 {totalMinutes}분</p>
+    </article>
+  </div>
+</LessonSection>
+
+<LessonSection id="section-03" number="03" title="준비 자료 확인" class="lesson06-section" {lessonId}>
+  <div class="lesson06-principle">
+    <strong>DWG와 평면도 이미지를 함께 쓰는 이유</strong>
+    <p>
+      DWG는 원본 도면 자료이고, 평면도 이미지는 AI의 판독과 생성 결과를 사람이 화면에서
+      바로 대조하기 위한 기준이다. AI가 DWG의 모든 레이어·문자·치수를 항상 정확하게
+      해석한다고 전제하지 않는다. 중요한 구조와 수치는 원본 DWG와 이미지에서 다시 확인한다.
+    </p>
+  </div>
+  <div class="lesson06-download-grid" aria-label="제6차시 실습자료 다운로드">
+    {materialDownloads.map((item, index) => (
+      <a href={item.href} download={item.file}>
+        <span>{sectionNumber(index + 1)}</span>
+        <strong>{item.label}</strong>
+        <small>{item.file}</small>
+        <b aria-hidden="true">↓</b>
+      </a>
+    ))}
+  </div>
+  <aside class="lesson06-boundary">
+    <strong>자료 사용 경계</strong>
+    <p>
+      제공 파일은 단계별 이미지 생성과 비교를 위한 교육용 자료다. 실제 구조 안전, 법규,
+      설비, 재료 성능과 시공 가능성을 판단하는 도면으로 사용하지 않는다.
+    </p>
+  </aside>
+</LessonSection>
+
+<LessonSection id="section-04" number="04" title="DWG와 평면도 읽기" class="lesson06-section" {lessonId}>
+  <figure class="lesson06-figure lesson06-figure--wide">
+    <Image
+      src={originalPlan}
+      alt="주방, 식당, 거실, 차고, 계단과 여러 실이 보이는 2층 주택의 원본 1층 평면도"
+      widths={[640, 960, 1440]}
+      sizes="(max-width: 760px) 100vw, 80vw"
+      loading="lazy"
+    />
+    <figcaption>
+      <strong>원본 1층 평면도</strong>
+      <span>공간 위치, 벽체, 개구부, 계단과 가구 배치를 읽고 이후 결과를 비교하는 기준자료다.</span>
+    </figcaption>
+  </figure>
+  <div class="lesson06-reading-grid">
+    {planReadingTargets.map(([title, description]) => (
+      <article><h3>{title}</h3><p>{description}</p></article>
+    ))}
+  </div>
+  <div class="lesson06-principle">
+    <strong>AI에게 먼저 요청할 정보</strong>
+    <p>
+      공간명과 위치, 주요 벽체, 문·창호, 계단, 고정설비와 가구 배치를 항목별로 정리하게
+      하되, 결과 옆에 “도면에서 직접 확인”과 “판독 불가·추정”을 구분해 표시하도록 요청한다.
+      AI의 목록은 출발점이며 최종 확인은 사람이 원자료와 대조한다.
+    </p>
+  </div>
+</LessonSection>
+
+<LessonSection id="section-05" number="05" title="확인 정보와 추정 정보 구분하기" class="lesson06-section" {lessonId}>
+  <div class="lesson06-evidence-grid">
+    {evidenceCategories.map((item) => (
+      <article><h3>{item.title}</h3><p>{item.description}</p></article>
+    ))}
+  </div>
+  <aside class="lesson06-boundary lesson06-boundary--strong">
+    <strong>생성 이미지에서 새로 보이는 것은 자동으로 사실이 되지 않는다</strong>
+    <p>
+      도면에 높이·재질·조명·색채 정보가 없다면 생성 결과의 해당 요소는 표현을 위한 보완
+      또는 디자인 제안이다. 실제 치수와 기술 조건은 원자료와 관련 검토를 통해 별도로 확인한다.
+    </p>
+  </aside>
+</LessonSection>
+
+<LessonSection id="section-06" number="06" title="수정 영역 지정과 평면도 인페인팅" class="lesson06-section" {lessonId}>
+  <figure class="lesson06-figure lesson06-figure--wide">
+    <Image
+      src={editAreaPlan}
+      alt="식당 테이블 영역이 붉은 선으로 표시된 1층 평면도"
+      widths={[640, 960, 1440]}
+      sizes="(max-width: 760px) 100vw, 80vw"
+      loading="lazy"
+    />
+    <figcaption>
+      <strong>수정 영역 표시</strong>
+      <span>붉은 표시 안의 식탁만 바꾸고 주변 구조와 다른 요소는 유지하는 부분 수정 실습이다.</span>
+    </figcaption>
+  </figure>
+  <div class="lesson06-step-note">
+    <span>INPAINTING</span>
+    <p>
+      인페인팅은 이미지의 지정 영역을 수정하거나 채우는 방식이다. 이번 실습의 핵심은
+      “무엇을 바꿀지”뿐 아니라 “어디까지 바꾸지 않을지”를 함께 지정하는 것이다.
+    </p>
+  </div>
+  <PromptCopyBlock
+    id="lesson06-plan-edit-prompt"
+    title="프롬프트 1 · 수정 영역 변경 요청"
+    description="수정 대상과 유지 범위를 함께 전달한다."
+    prompt={planEditPrompt}
+  />
+</LessonSection>
+
+<LessonSection id="section-07" number="07" title="수정 결과 검토" class="lesson06-section" {lessonId}>
+  <div class="lesson06-image-flow">
+    <figure class="lesson06-figure">
+      <Image src={originalPlan} alt="수정 전 원본 1층 평면도" widths={[640, 960]} sizes="(max-width: 760px) 100vw, 50vw" loading="lazy" />
+      <figcaption><strong>수정 전</strong><span>원본 구조와 식당 테이블 배치를 비교 기준으로 둔다.</span></figcaption>
+    </figure>
+    <span class="lesson06-arrow" aria-hidden="true">→</span>
+    <figure class="lesson06-figure">
+      <Image src={modifiedPlan} alt="식당 테이블 길이와 의자 배치가 변경된 수정 1층 평면도" widths={[640, 960]} sizes="(max-width: 760px) 100vw, 50vw" loading="lazy" />
+      <figcaption><strong>수정 후</strong><span>식탁 영역 외의 벽체·문·창·계단과 주요 공간이 유지됐는지 확인한다.</span></figcaption>
+    </figure>
+  </div>
+  <div class="lesson06-check-grid">
+    <article><h3>변경 확인</h3><p>식탁의 가로 길이와 의자 배치가 요청에 맞게 바뀌었는가?</p></article>
+    <article><h3>보존 확인</h3><p>식탁 위치, 주변 공간, 벽체, 문·창과 다른 가구가 임의로 바뀌지 않았는가?</p></article>
+  </div>
+</LessonSection>
+
+<LessonSection id="section-08" number="08" title="Top View 3D 입체화" class="lesson06-section" {lessonId}>
+  <div class="lesson06-concept" data-presentation-group="single">
+    <span>TOP VIEW 3D</span>
+    <h3>평면도와 거의 같은 구도에서 높이를 더한 중간 시각화</h3>
+    <p>
+      Top View 3D는 평면도를 가능한 유지하면서 위에서 내려다본 시점으로 만든 3D 입체
+      이미지다. 원 평면도와 구도가 가까워 벽체, 공간 위치, 출입구와 가구 배치가 3D에서
+      어떻게 반영됐는지 비교하기 쉽다.
+    </p>
+  </div>
+  <div class="lesson06-image-flow">
+    <figure class="lesson06-figure">
+      <Image src={modifiedPlan} alt="Top View 3D 제작의 기준이 되는 수정 1층 평면도" widths={[640, 960]} sizes="(max-width: 760px) 100vw, 50vw" loading="lazy" />
+      <figcaption><strong>입력 기준</strong><span>수정 평면도의 외곽, 공간 관계와 주요 가구 위치를 읽는다.</span></figcaption>
+    </figure>
+    <span class="lesson06-arrow" aria-hidden="true">→</span>
+    <figure class="lesson06-figure">
+      <Image src={topView3d} alt="수정 평면도를 위에서 내려다본 Top View 3D 주택 이미지" widths={[640, 960]} sizes="(max-width: 760px) 100vw, 50vw" loading="lazy" />
+      <figcaption><strong>Top View 3D</strong><span>구조 비교용 중간 결과이며 높이·마감·조명은 도면에서 확정된 정보로 보지 않는다.</span></figcaption>
+    </figure>
+  </div>
+  <PromptCopyBlock
+    id="lesson06-top-view-prompt"
+    title="프롬프트 2 · 수정 평면도 기반 3D Top View"
+    description="원본 구조를 유지하고 위에서 비교하기 쉬운 입체 이미지를 요청한다."
+    prompt={topViewPrompt}
+  />
+</LessonSection>
+
+<LessonSection id="section-09" number="09" title="아이소메트릭이란?" class="lesson06-section" {lessonId}>
+  <div class="lesson06-concept" data-presentation-group="single">
+    <span>ISOMETRIC-STYLE VIEW</span>
+    <h3>사선 Bird’s-eye 시점에서 공간의 높이와 측면을 함께 본다</h3>
+    <p>
+      이번 수업에서 말하는 아이소메트릭은 완전한 수직 탑뷰가 아니라 대각선 위쪽에서
+      내려다보는 3D 표현이다. 벽체의 높이와 측면이 보여 공간의 입체감, 가구 배치와
+      동선 관계를 한눈에 이해하기 좋다. 생성 결과는 엄밀한 제도법상의 아이소메트릭
+      투영을 항상 보장하지 않으므로 “아이소메트릭 스타일 시각화”로 검토한다.
+    </p>
+  </div>
+  <div class="lesson06-comparison-grid">
+    <article><span>TOP VIEW</span><h3>정수직에 가까운 상부 시점</h3><p>평면도와 구조·위치 관계를 비교하는 데 유리하다.</p></article>
+    <article><span>ISOMETRIC</span><h3>사선 Bird’s-eye 시점</h3><p>벽체 높이와 측면, 공간의 연결과 입체감을 읽는 데 유리하다.</p></article>
+  </div>
+</LessonSection>
+
+<LessonSection id="section-10" number="10" title="아이소메트릭 제작" class="lesson06-section" {lessonId}>
+  <div class="lesson06-image-flow">
+    <figure class="lesson06-figure">
+      <Image src={topView3d} alt="아이소메트릭 제작 전 Top View 3D 주택 이미지" widths={[640, 960]} sizes="(max-width: 760px) 100vw, 50vw" loading="lazy" />
+      <figcaption><strong>Top View 3D</strong><span>평면 관계를 확인한 중간 결과를 다음 단계의 기준으로 사용한다.</span></figcaption>
+    </figure>
+    <span class="lesson06-arrow" aria-hidden="true">→</span>
+    <figure class="lesson06-figure">
+      <Image src={isometric} alt="벽체 측면과 높이가 보이는 1층 주택 아이소메트릭 스타일 이미지" widths={[640, 960]} sizes="(max-width: 760px) 100vw, 50vw" loading="lazy" />
+      <figcaption><strong>아이소메트릭 스타일</strong><span>대각선 시점에서 벽체, 공간과 가구 관계를 확인한다.</span></figcaption>
+    </figure>
+  </div>
+  <PromptCopyBlock
+    id="lesson06-isometric-prompt"
+    title="프롬프트 3 · 아이소메트릭 제작"
+    description="정수직 탑뷰와 구분되는 사선 시점과 구조 유지 조건을 전달한다."
+    prompt={isometricPrompt}
+  />
+</LessonSection>
+
+<LessonSection id="section-11" number="11" title="Exploded Isometric View란?" class="lesson06-section" {lessonId}>
+  <div class="lesson06-concept" data-presentation-group="single">
+    <span>EXPLODED ISOMETRIC VIEW</span>
+    <h3>기존 요소를 Z축 방향으로 분리해 관계를 설명한다</h3>
+    <p>
+      아이소메트릭 분해도는 새로운 구조를 설계하는 이미지가 아니다. 기존 아이소메트릭의
+      구성요소를 위아래 레이어로 나누되 X·Y 위치, 크기, 방향과 회전은 유지하고 Z축 높이만
+      달리한다. 구조 분석, 요소 설명과 발표용 다이어그램에 활용할 수 있다.
+    </p>
+  </div>
+  <ol class="lesson06-layer-list" aria-label="아이소메트릭 분해도 레이어 순서">
+    {['대지·조경', '바닥·벽체', '문·창호·계단', '주방·욕실 등 고정설비', '가구', '차량·식물·소품'].map((item, index) => (
+      <li><span>{index + 1}</span><strong>{item}</strong></li>
+    ))}
+  </ol>
+</LessonSection>
+
+<LessonSection id="section-12" number="12" title="아이소메트릭 분해도 제작" class="lesson06-section" {lessonId}>
+  <div class="lesson06-image-flow lesson06-image-flow--portrait">
+    <figure class="lesson06-figure">
+      <Image src={isometric} alt="분해도 제작의 구조 기준이 되는 1층 주택 아이소메트릭 스타일 이미지" widths={[640, 960]} sizes="(max-width: 760px) 100vw, 50vw" loading="lazy" />
+      <figcaption><strong>구조 기준</strong><span>원본 아이소메트릭의 X·Y 위치, 크기, 방향과 카메라 구도를 유지한다.</span></figcaption>
+    </figure>
+    <span class="lesson06-arrow" aria-hidden="true">→</span>
+    <figure class="lesson06-figure lesson06-figure--portrait">
+      <Image src={explodedIsometric} alt="대지, 벽체, 고정설비, 가구와 소품이 위아래로 분리된 주택 아이소메트릭 분해도 참고 이미지" widths={[480, 720, 960]} sizes="(max-width: 760px) 100vw, 38vw" loading="lazy" />
+      <figcaption><strong>Exploded Isometric View 참고 이미지</strong><span>레이어 관계를 설명하는 참고 결과이며 원본과의 정확한 겹침 여부는 사람이 비교한다.</span></figcaption>
+    </figure>
+  </div>
+  <PromptCopyBlock
+    id="lesson06-exploded-isometric-prompt"
+    title="프롬프트 4 · 아이소메트릭 분해도 제작"
+    description="새 구조 생성이 아니라 기존 요소의 Z축 분리만 요청한다."
+    prompt={explodedIsometricPrompt}
+  />
+</LessonSection>
+
+<LessonSection id="section-13" number="13" title="결과 검토 체크리스트" class="lesson06-section" {lessonId}>
+  <ul class="lesson06-final-checks">
+    {resultReviewChecks.map((item) => <li>{item}</li>)}
+  </ul>
+  <div class="lesson06-table-wrap" tabindex="0" aria-label="제6차시 자주 발생하는 오류와 대응 표">
+    <table>
+      <thead><tr><th scope="col">자주 발생하는 오류</th><th scope="col">확인과 후속 조치</th></tr></thead>
+      <tbody>
+        {commonErrors.map(([error, action]) => <tr><th scope="row">{error}</th><td>{action}</td></tr>)}
+      </tbody>
+    </table>
+  </div>
+</LessonSection>
+
+<LessonSection id="section-14" number="14" title="마무리 정리" class="lesson06-section" {lessonId}>
+  <div class="lesson06-summary-flow">
+    {lesson06LearningFlow.map((item, index) => (
+      <article><span>{sectionNumber(index + 1)}</span><strong>{item}</strong></article>
+    ))}
+  </div>
+  <div class="lesson06-output-grid">
+    <h3>실습 결과물</h3>
+    <ul>{lesson06Deliverables.map((item) => <li>{item}</li>)}</ul>
+  </div>
+  <p class="lesson06-closing">
+    중요한 것은 한 번에 그럴듯한 이미지를 만드는 것이 아니라, 각 단계의 결과를 앞 단계의
+    원자료와 비교해 구조 보존, 시점, 레이어 분리와 추정 표현을 계속 확인하는 것이다.
+  </p>
+</LessonSection>
+
+<style>
+  .lesson06-section :where(article, figure, div, aside, table) { min-width: 0; }
+  .lesson06-section :where(h3, p, ul, ol, figure, blockquote) { margin-top: 0; }
+  .lesson06-lead,
+  .lesson06-concept,
+  .lesson06-step-note,
+  .lesson06-principle {
+    padding: clamp(1.2rem, 3vw, 2.2rem);
+    border: 1px solid var(--line);
+    background: color-mix(in srgb, var(--paper) 88%, #d9c6aa);
+  }
+  .lesson06-lead > span,
+  .lesson06-concept > span,
+  .lesson06-step-note > span {
+    color: var(--accent);
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+  }
+  .lesson06-lead h3,
+  .lesson06-concept h3 { margin: 0.55rem 0 0.8rem; font-size: clamp(1.35rem, 3vw, 2rem); text-wrap: balance; }
+  .lesson06-lead p,
+  .lesson06-concept p,
+  .lesson06-step-note p,
+  .lesson06-principle p { margin-bottom: 0; max-width: 82ch; }
+  .lesson06-key-question { margin: 1.25rem 0 0; padding: 1.2rem 1.35rem; border-left: 4px solid var(--accent); background: var(--paper); font-size: clamp(1.05rem, 2vw, 1.32rem); font-weight: 700; }
+  .lesson06-flow,
+  .lesson06-summary-flow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; padding: 0; list-style: none; }
+  .lesson06-flow li,
+  .lesson06-summary-flow article { display: grid; grid-template-columns: auto 1fr; gap: 0.7rem; align-items: start; padding: 1rem; border: 1px solid var(--line); background: var(--paper); }
+  .lesson06-flow span,
+  .lesson06-summary-flow span { color: var(--accent); font-weight: 800; }
+  .lesson06-two-column,
+  .lesson06-reading-grid,
+  .lesson06-evidence-grid,
+  .lesson06-check-grid,
+  .lesson06-comparison-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 1.25rem; }
+  .lesson06-two-column article,
+  .lesson06-reading-grid article,
+  .lesson06-evidence-grid article,
+  .lesson06-check-grid article,
+  .lesson06-comparison-grid article { padding: 1.15rem; border: 1px solid var(--line); background: var(--paper); }
+  .lesson06-two-column h3,
+  .lesson06-reading-grid h3,
+  .lesson06-evidence-grid h3,
+  .lesson06-check-grid h3,
+  .lesson06-comparison-grid h3 { margin-bottom: 0.65rem; }
+  .lesson06-two-column ul { padding-left: 1.25rem; }
+  .lesson06-two-column li + li { margin-top: 0.55rem; }
+  .lesson06-time-plan { padding: 0; list-style: none; }
+  .lesson06-time-plan li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.55rem 0; border-bottom: 1px solid var(--line); }
+  .lesson06-total { margin: 0.8rem 0 0; text-align: right; font-weight: 800; }
+  .lesson06-principle { margin-bottom: 1.25rem; }
+  .lesson06-download-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+  .lesson06-download-grid a { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 0.3rem 0.8rem; align-items: center; padding: 1rem; border: 1px solid var(--ink); color: var(--ink); text-decoration: none; }
+  .lesson06-download-grid a > span { grid-row: 1 / 3; color: var(--accent); font-weight: 800; }
+  .lesson06-download-grid a > small { grid-column: 2; color: var(--muted); overflow-wrap: anywhere; }
+  .lesson06-download-grid a > b { grid-column: 3; grid-row: 1 / 3; font-size: 1.25rem; }
+  .lesson06-download-grid a:hover { color: var(--paper); background: var(--ink); }
+  .lesson06-download-grid a:hover small { color: var(--paper); }
+  .lesson06-download-grid a:focus-visible { outline: 3px solid var(--focus, #1d4ed8); outline-offset: 3px; }
+  .lesson06-boundary { margin-top: 1.25rem; padding: 1rem 1.15rem; border: 1px solid var(--line); background: color-mix(in srgb, var(--paper) 90%, #f1d6c4); }
+  .lesson06-boundary p { margin: 0.45rem 0 0; }
+  .lesson06-boundary--strong { border-left: 4px solid var(--accent); }
+  .lesson06-figure { margin: 0; }
+  .lesson06-figure--wide { width: min(100%, 68rem); margin-inline: auto; }
+  .lesson06-figure--portrait { width: min(100%, 38rem); justify-self: center; }
+  .lesson06-figure :global(img) { display: block; width: 100%; max-width: 100%; height: auto; border: 1px solid var(--line); background: #fff; }
+  .lesson06-figure figcaption { display: grid; gap: 0.2rem; padding: 0.8rem 0; }
+  .lesson06-figure figcaption span { color: var(--muted); }
+  .lesson06-reading-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .lesson06-reading-grid p,
+  .lesson06-evidence-grid p,
+  .lesson06-check-grid p,
+  .lesson06-comparison-grid p { margin-bottom: 0; }
+  .lesson06-step-note { margin: 0 0 1.25rem; }
+  .lesson06-image-flow { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 1rem; align-items: start; margin-bottom: 1.5rem; }
+  .lesson06-image-flow--portrait { grid-template-columns: minmax(0, 1.15fr) auto minmax(0, 0.85fr); }
+  .lesson06-arrow { align-self: center; color: var(--accent); font-size: 2rem; font-weight: 800; }
+  .lesson06-comparison-grid article > span { color: var(--accent); font-size: 0.74rem; font-weight: 800; letter-spacing: 0.12em; }
+  .lesson06-comparison-grid h3 { margin-top: 0.45rem; }
+  .lesson06-layer-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; margin-top: 1.25rem; padding: 0; list-style: none; }
+  .lesson06-layer-list li { display: grid; grid-template-columns: auto 1fr; gap: 0.75rem; padding: 1rem; border: 1px solid var(--line); background: var(--paper); }
+  .lesson06-layer-list span { color: var(--accent); font-weight: 800; }
+  .lesson06-final-checks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; padding: 0; list-style: none; }
+  .lesson06-final-checks li { padding: 1rem 1rem 1rem 2.5rem; border: 1px solid var(--line); background: var(--paper); position: relative; }
+  .lesson06-final-checks li::before { content: '□'; position: absolute; left: 1rem; color: var(--accent); font-weight: 800; }
+  .lesson06-table-wrap { width: 100%; margin-top: 1.25rem; overflow-x: auto; overscroll-behavior-inline: contain; }
+  .lesson06-table-wrap:focus-visible { outline: 3px solid var(--focus, #1d4ed8); outline-offset: 3px; }
+  .lesson06-table-wrap table { width: 100%; min-width: 680px; border-collapse: collapse; }
+  .lesson06-table-wrap :where(th, td) { padding: 0.85rem 0.9rem; border: 1px solid var(--line); text-align: left; vertical-align: top; }
+  .lesson06-table-wrap thead th { color: var(--paper); background: var(--ink); }
+  .lesson06-table-wrap tbody th { width: 30%; background: color-mix(in srgb, var(--paper) 86%, #ded6ca); }
+  .lesson06-output-grid { margin-top: 1.25rem; padding: 1.25rem; border: 1px solid var(--line); }
+  .lesson06-output-grid ul { columns: 2; column-gap: 2.5rem; padding-left: 1.25rem; }
+  .lesson06-output-grid li { break-inside: avoid; margin-bottom: 0.55rem; }
+  .lesson06-closing { margin-top: 1.25rem; padding: 1.15rem; border-left: 4px solid var(--accent); background: var(--paper); font-weight: 700; }
+
+  @media (max-width: 760px) {
+    .lesson06-flow,
+    .lesson06-summary-flow,
+    .lesson06-two-column,
+    .lesson06-reading-grid,
+    .lesson06-evidence-grid,
+    .lesson06-check-grid,
+    .lesson06-comparison-grid,
+    .lesson06-download-grid,
+    .lesson06-layer-list,
+    .lesson06-final-checks,
+    .lesson06-image-flow,
+    .lesson06-image-flow--portrait { grid-template-columns: minmax(0, 1fr); }
+    .lesson06-arrow { justify-self: center; transform: rotate(90deg); }
+    .lesson06-output-grid ul { columns: 1; }
+  }
+
+  @media print {
+    :global(.lesson06-section) :where(.lesson06-lead, .lesson06-concept, .lesson06-principle, .lesson06-step-note, .lesson06-boundary, .lesson06-flow li, .lesson06-summary-flow article, .lesson06-two-column article, .lesson06-reading-grid article, .lesson06-evidence-grid article, .lesson06-check-grid article, .lesson06-comparison-grid article, .lesson06-layer-list li, .lesson06-final-checks li, figure) { break-inside: avoid-page; page-break-inside: avoid; }
+    :global(.lesson06-section :where(h2, h3, h4)) { break-after: avoid-page; page-break-after: avoid; }
+    .lesson06-download-grid { display: none; }
+    .lesson06-image-flow,
+    .lesson06-image-flow--portrait { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .lesson06-arrow { display: none; }
+    .lesson06-table-wrap { overflow: visible; }
+    .lesson06-table-wrap table { min-width: 0; font-size: 9.5pt; }
+  }
+
+  :global(.presentation-page) .lesson06-download-grid { display: none; }
+</style>
