@@ -996,69 +996,69 @@ assets:
     verified_at: "2026-08-11"
     verification_note: "참고 결과로만 표시하며 원본과 정확히 겹치는지와 구조 보존 여부는 사람이 비교함"
 
-  - id: "l07-doc-pack"
-    lesson: 7
-    priority: "required"
-    source_type: "template"
-    production_owner: "codex"
-    lesson_usage: "checklist"
-    title: "고정·변경 요소 및 전후 비교 양식"
-    type: "document"
-    purpose: "이미지 수정 범위와 오류를 기록하는 문서"
-    required_files: ["고정·변경 요소표", "수정 기록표", "전후 비교판"]
-    recommended_tool: "codex"
-    status: "not-created"
-    public_use: false
-    alt: "공간 이미지의 고정 요소와 변경 요소를 기록하는 양식"
-    verification_note: "재료·조명 성능을 단정하는 항목이 없는지 검토"
-
-  - id: "l07-image-set"
+  - id: "l07-pdf-private-practice"
     lesson: 7
     priority: "required"
     source_type: "original"
-    production_owner: "nano-banana"
-    lesson_usage: "result-sample"
-    title: "기준 공간과 수정 대안 이미지 세트"
-    type: "image"
-    purpose: "재료·조명·가구·식재 변경을 비교하는 이미지"
-    required_files: ["기준 공간 이미지", "재료·조명 대안", "가구·식재 수정안", "생성 기록"]
-    recommended_tool: "nano-banana"
-    status: "not-created"
+    production_owner: "instructor"
+    lesson_usage: "practice-input"
+    title: "현장 제공 PDF 도면 수정 실습자료"
+    type: "document"
+    purpose: "PDF 전체 분석, 특정 공간 부분 수정과 전체 도면 재반영 실습"
+    required_files: ["현장 제공 전체 평면도", "부분 수정 전후 자료", "수정 반영 전체 도면", "Top View 3D 참고자료"]
+    recommended_tool: "user-upload"
+    status: "ready"
     public_use: false
-    alt: "동일 공간의 재료 조명 가구 식재 수정 전후 이미지"
-    verification_note: "구조 변화, 자재명·성능 추정, 공개 사용 상태 확인"
+    alt: "현장에서만 제공하는 PDF 평면도 분석과 부분 수정 실습자료"
+    verification_note: "개인 식별 정보와 비공개 도면을 Git·학생용 e-book·공개 PDF·다운로드에 포함하지 않음"
 
-  - id: "l07-demo"
+  - id: "l07-gaussian-workflow"
+    lesson: 7
+    priority: "required"
+    source_type: "original"
+    production_owner: "instructor"
+    lesson_usage: "result-sample"
+    title: "Gaussian 기반 공간 표현 현장자료"
+    type: "image"
+    purpose: "기준 Top View 3D에서 Gaussian 기반 결과와 여러 시점 오류를 검토"
+    required_files: ["Gaussian 기반 공간 결과", "현실형 렌더", "재조명 비교 결과"]
+    recommended_tool: "user-upload"
+    status: "ready"
+    public_use: false
+    alt: "Gaussian 기반 공간 표현과 현실형 렌더 비교자료"
+    verification_note: "정확한 Gaussian 처리 JSON이 없어 확인되지 않은 모델·노드·파라미터를 단정하지 않으며 공개 권리 확인 전 배포하지 않음"
+
+  - id: "l07-upscale-review"
     lesson: 7
     priority: "optional"
     source_type: "original"
     production_owner: "instructor"
     lesson_usage: "demonstration"
-    title: "공간 유지 이미지 수정 시연"
-    type: "video"
-    purpose: "변경 범위를 통제하고 전후 오류를 확인하는 작업 녹화"
-    required_files: ["작업 화면 녹화", "자막 또는 대본"]
+    title: "업스케일 적용 비교자료"
+    type: "image"
+    purpose: "기본 리샘플링과 AI 업스케일 결과의 변화와 한계 비교"
+    required_files: ["업스케일 전 결과", "Lanczos 결과", "Real-ESRGAN 결과", "UltraSharp 결과"]
     recommended_tool: "user-upload"
-    status: "not-created"
+    status: "ready"
     public_use: false
-    alt: "공간을 유지하며 재료·조명·가구를 수정하는 과정 안내"
-    verification_note: "실제 도구 조작과 기준 이미지 권리 확인"
+    alt: "같은 공간 렌더의 업스케일 전후 비교자료"
+    verification_note: "업스케일이 실제 설계 정보나 원본에 없던 디테일을 복원한다고 설명하지 않으며 공개 권리 확인 전 배포하지 않음"
 
-  - id: "l07-external-reference"
+  - id: "l07-gaussian-external-reference"
     lesson: 7
     priority: "reference-only"
     source_type: "external-reference"
     production_owner: "instructor"
     lesson_usage: "demonstration"
-    title: "미추적 재료·조명·합성 참고 영상 모음"
-    type: "video"
-    purpose: "강의실 분석용 참고자료"
-    required_files: ["건축영상/라이트 보정/1.mp4", "건축영상/텍스처 활용/1번.mp4", "건축영상/텍스처 활용/2번.mp4", "건축영상/텍스처 활용/3번.mp4", "건축영상/텍스처 활용/4번.mp4", "건축영상/합성/1번.mp4", "건축영상/합성/2번.mp4"]
+    title: "Gaussian·렌더·업스케일 로컬 참고자료"
+    type: "image"
+    purpose: "강의실에서 Gaussian 기반 공간 표현, 렌더와 업스케일 결과를 분석"
+    required_files: ["Gaussian 결과", "현실형 렌더", "업스케일 비교 결과"]
     recommended_tool: "user-upload"
     status: "reference-only-unverified"
     public_use: false
-    alt: "사용 권한이 확인되지 않은 재료 조명 합성 참고 영상 모음"
-    verification_note: "출처·권리 확인 전 public 복사 및 학생 배포 금지"
+    alt: "사용 권한이 확인되지 않은 Gaussian과 렌더 비교자료"
+    verification_note: "소유·권리 근거 확인 전 public 복사, 학생용 자산 등록 및 배포 금지"
 
   - id: "l08-doc-pack"
     lesson: 8
