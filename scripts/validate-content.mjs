@@ -26,6 +26,7 @@ const lessonFiveContentPath = path.resolve('src/lib/lesson05-plan-to-isometric.t
 const lessonFiveComponentPath = path.resolve('src/components/content/Lesson05PlanToIsometric.astro');
 const lessonSixContentPath = path.resolve('src/lib/lesson06-dwg-workflow.ts');
 const lessonSixComponentPath = path.resolve('src/components/content/Lesson06DwgToExploded.astro');
+const lessonSevenComponentPath = path.resolve('src/components/content/Lesson07PdfToGaussian.astro');
 const approvedLessonThreeRfpSha256 =
   '95B9756FD818D8F86847CA72D1E094B9DD6C2E4B9D1DFBC029169D057E638C2E';
 const requiredIds = Array.from({ length: 14 }, (_, index) => String(index + 1).padStart(2, '0'));
@@ -39,7 +40,7 @@ const approvedLessons = [
   },
   { title: '제5차시 · 평면도 기반 AI 공간 입체화와 아이소메트릭', durationMinutes: 180 },
   { title: '제6차시 · DWG·평면도 기반 공간 수정과 3D·아이소메트릭 분해도', durationMinutes: 180 },
-  { title: '제7차시 · 공간을 유지하며 재료·조명·가구 수정하기', durationMinutes: 180 },
+  { title: '제7차시 · PDF 도면 기반 공간 수정과 Gaussian Splatting 3D 시각화', durationMinutes: 180 },
   { title: '제8차시 · 클라이언트 피드백 대응과 수정 제안서 만들기', durationMinutes: 180 },
   { title: '제9차시 · 여러 공간 이미지의 디자인 일관성 관리', durationMinutes: 180 },
   { title: '제10차시 · 도면·PDF에서 정보 찾기와 AI 오독 확인', durationMinutes: 180 },
@@ -55,7 +56,7 @@ const approvedRoadmapTitles = [
   '제4차시 · RFP 기반 공간구성 대안 개발과 프로젝트 산출물 자동 정리',
   '제5차시 · 평면도 기반 AI 공간 입체화와 아이소메트릭',
   '제6차시 · DWG·평면도 기반 공간 수정과 3D·아이소메트릭 분해도',
-  '제7차시 · 메인 이미지 설정과 공간 디자인 일관성 관리',
+  '제7차시 · PDF 도면 기반 공간 수정과 Gaussian Splatting 3D 시각화',
   '제8차시 · 서브 이미지 확장과 고도화 수정',
   '제9차시 · 3D 콘셉트 이미지에서 2D 개념 조닝 역추출',
   '제10차시 · 실무 데이터 비식별화와 도면·PDF 전처리',
@@ -140,6 +141,7 @@ const detailedLessonSections = {
   '04': ['차시 소개', '제3차시 복습 · 제안요청서(RFP)에서 디자인 기준 찾기', '이번 복습에서 한 단계 더 · 재질 참고자료 활용', '복습 실습 · 제안요청서(RFP)를 읽고 디자인 3안 만들기', '복습 실습 결과 정리 · 3안 비교하기', 'Antigravity 2.0 이해와 실습 준비', 'Antigravity 2.0 사용법 · Project, Local Mode, 설정, 단축키, slash command', '무엇을 자동화할 것인가 · 설계 프로젝트 자동 정리 프로그램', '개발 실습 · ROOT와 다중 프로젝트 구조 만들기', '개발 실습 · 파일 감지와 프로그램 작동 흐름', '개발 실습 · CAD·BIM·3D·Graphic·Image·Video·Document 분류', '개발 실습 · Windows 설치 프로그램 만들기', '전체 자동화 검증', 'Antigravity 2.0으로 더 만들어볼 수 있는 건축·디자인 업무 도구'],
   '05': ['차시 소개', '오늘의 학습 흐름', '4차시 복습 확장 · 재질 선택과 무드보드', '평면도는 어떤 정보를 보여주는가', '평면도에서 사람이 먼저 읽을 것', '탑뷰 입체화란 무엇인가', '작은 객실 · 평면도에서 탑뷰 입체화', '아이소메트릭(Isometric)은 무엇인가', '작은 객실 · 탑뷰에서 아이소메트릭으로', '복합 공간 평면도 읽기', '거실·식당·주방 · 인테리어 적용', '원 평면도와 AI 결과 비교', '실습 · 평면도를 입체적으로 읽고 공간 콘셉트까지 확장하기', '결과물 정리와 검토'],
   '06': ['차시 소개', '오늘의 목표와 작업 흐름', '준비 자료 확인', 'DWG와 평면도 읽기', '확인 정보와 추정 정보 구분하기', '수정 영역 지정과 평면도 인페인팅', '수정 결과 검토', 'Top View 3D 입체화', '아이소메트릭이란?', '아이소메트릭 제작', 'Exploded Isometric View란?', '아이소메트릭 분해도 제작', '결과 검토 체크리스트', '마무리 정리'],
+  '07': ['차시 소개', '오늘의 목표와 전체 워크플로우', '현장 실습자료 사용 안내', 'PDF 전체 평면도 분석', '확인 정보와 추정 정보', '특정 공간 찾기', '부분 공간 수정', '수정 결과 검토', '전체 PDF에 부분 수정 반영', '전체 평면도 Top View 3D', '기준 3D 이미지 설정', 'Gaussian Splatting이란?', 'Mesh와 Gaussian 비교', 'Gaussian Splatting의 한계', 'ComfyUI 워크플로우 준비', 'Gaussian 기반 결과 확인', '시점 변화와 오류 검토', '현실형 그래픽 렌더', '업스케일 적용 예시', '결과 비교와 마무리'],
 };
 const lessonThreeFourOutputs = ['요구조건 매트릭스', '발주기관 추가 질의', '디자인 브리프', '평면도 기반 현황 이미지 생성 결과', '현황 이미지 수정 결과', '평면도와 이미지의 불일치 기록', '제4차시 대안 평가기준'];
 
@@ -489,6 +491,10 @@ for (const fileName of files) {
     if (!source.includes('<Lesson06DwgToExploded')) {
       errors.push(`${fileName}: 제6차시 전용 DWG·아이소메트릭 레이아웃이 없습니다.`);
     }
+  } else if (id === '07') {
+    if (!source.includes('<Lesson07PdfToGaussian')) {
+      errors.push(`${fileName}: 제7차시 전용 PDF·Gaussian 레이아웃이 없습니다.`);
+    }
   } else if (!source.includes('<LessonOutline')) {
     errors.push(`${fileName}: LessonOutline 골격이 없습니다.`);
   }
@@ -833,13 +839,45 @@ for (const fileName of files) {
       catch { errors.push(`${fileName}: 제6차시 필수 파일을 찾을 수 없습니다: ${filePath}`); }
     }
   }
+  if (id === '07') {
+    let lessonSevenComponent = '';
+    try { lessonSevenComponent = await readFile(lessonSevenComponentPath, 'utf8'); }
+    catch { errors.push('제7차시 PDF·Gaussian 컴포넌트를 읽을 수 없습니다.'); }
+
+    for (const marker of [
+      '현장 제공 실습자료 · 공개 e-book 미수록',
+      '회사·프로젝트 도면 사용 주의',
+      'AI에 업로드할 수 있는 파일과 업로드해도 되는 파일은 같은 의미가 아닙니다.',
+      'lesson07-pdf-analysis',
+      'lesson07-local-edit',
+      'lesson07-composite',
+      '원래 3DGS와 이번 실습의 구분',
+      'Gaussian 결과는 CAD/BIM 모델이나 정확한 실측 3D 모델과 같지 않다.',
+      'RealESRGAN_x2.pth',
+      '4x-UltraSharp.pth',
+      '업스케일은 실제 설계 정보를 복원하지 않는다.',
+    ]) {
+      if (!lessonSevenComponent.includes(marker)) {
+        errors.push(`제7차시 PDF·Gaussian 컴포넌트에 '${marker}'가 없습니다.`);
+      }
+    }
+    const lessonSevenPromptCount = (lessonSevenComponent.match(/<PromptCopyBlock\b/g) ?? []).length;
+    if (lessonSevenPromptCount !== 3) {
+      errors.push(`제7차시 PromptCopyBlock 수: 예상 3개, 실제 ${lessonSevenPromptCount}개`);
+    }
+    for (const privateMarker of ['(수강)', 'C:\\Users\\', '소장실']) {
+      if (source.includes(privateMarker) || lessonSevenComponent.includes(privateMarker)) {
+        errors.push(`제7차시 학생용 콘텐츠에 비공개 식별 정보 '${privateMarker}'가 있습니다.`);
+      }
+    }
+  }
   if (source.includes("category: '전문가 판단 필요'")) {
     errors.push(
       `${fileName}: 포괄적인 '전문가 판단 필요' 대신 구체적인 판단·검증 분류를 사용해야 합니다.`,
     );
   }
 
-  if (!isDetailedLessonOne && id !== '06') {
+  if (!isDetailedLessonOne && !['06', '07'].includes(id)) {
     const structuralCategoryChecks = [
       { property: 'goals', nextProperty: 'concepts', expected: '학습 목표' },
       { property: 'deliverables', nextProperty: 'judgments', expected: '수업 산출물' },
@@ -1276,7 +1314,7 @@ console.log('- day: 1–14 누락·중복 없음');
 console.log('- ID/day 일치');
 console.log('- 승인된 제목·수업시간 일치');
 console.log('- 승인된 상위 주제 7개·차시 연결 14개 일치');
-console.log('- 제1차시 16개, 제2차시 13개, 제3차시 11개, 제4–6차시 14개, 제7–14차시 13개 섹션');
+console.log('- 제1차시 16개, 제2차시 13개, 제3차시 11개, 제4–6차시 14개, 제7차시 20개, 제8–14차시 13개 섹션');
 console.log('- 모든 차시 실습시간 50% 이상');
 console.log(`- 자산 manifest: ${manifestAssetIds.length}개, 필수 필드·연결 ID·공개 조건 확인`);
 console.log(`- 필수 metadata: ${requiredFields.join(', ')}`);
