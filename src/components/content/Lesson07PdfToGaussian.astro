@@ -1,6 +1,13 @@
 ---
+import { Image } from 'astro:assets';
 import LessonSection from './LessonSection.astro';
 import PromptCopyBlock from './PromptCopyBlock.astro';
+
+import floorPlanOriginal from '../../assets/lessons/07/floor-plan-edit-example/01-floor-plan-original-example.png';
+import storageRoomOriginal from '../../assets/lessons/07/floor-plan-edit-example/02-storage-room-original.png';
+import storageRoomEditArea from '../../assets/lessons/07/floor-plan-edit-example/03-storage-room-edit-area.png';
+import storageRoomEdited from '../../assets/lessons/07/floor-plan-edit-example/04-storage-room-edited.png';
+import floorPlanIntegrated from '../../assets/lessons/07/floor-plan-edit-example/05-floor-plan-integrated.png';
 
 interface TimeItem {
   label: string;
@@ -16,240 +23,566 @@ interface Props {
 const { lessonId = '07', timePlan } = Astro.props;
 const totalMinutes = timePlan.reduce((sum, item) => sum + item.minutes, 0);
 
-const analysisPrompt = `첨부한 PDF 전체 평면도를 먼저 분석해 주세요.
+const analysisPrompt = [
+  '첨부한 PDF 또는 이미지 전체 평면도를 먼저 분석해 주세요.',
+  '',
+  '다음 항목을 표로 정리해 주세요.',
+  '- 공간명과 위치',
+  '- 공간 간 인접 관계',
+  '- 외곽 벽체와 내부 벽체',
+  '- 출입구, 창호, 계단',
+  '- 고정설비와 가구',
+  '- 도면에 직접 표시된 치수와 문자',
+  '',
+  '각 항목은 반드시 다음 세 범주로 나눠 주세요.',
+  '1. 도면에서 직접 확인되는 정보',
+  '2. AI가 분석·해석한 정보',
+  '3. 현재 자료로 확인할 수 없는 정보',
+  '',
+  '문자·치수·기호가 불분명하면 추정하지 말고 확인 불가로 표시해 주세요. 실제 치수, 구조, 법규, 설비와 시공 가능성은 확정하지 마세요.',
+].join('\n');
 
-다음 항목을 표로 정리해 주세요.
-- 공간명과 위치
-- 공간 간 인접 관계
-- 외곽 벽체와 내부 벽체
-- 출입구, 창호, 계단
-- 고정설비와 가구
-- 도면에 직접 표시된 치수와 문자
+const localEditPrompt = [
+  '## 원본 보존 규칙',
+  '',
+  '첨부 이미지를 원본 기준으로 사용하고, 표시된 수정 대상과 수정 영역만 변경해 주세요.',
+  '',
+  '요청에 포함되지 않은 다음 요소는 수정·이동·삭제·추가하거나 재해석하지 마세요.',
+  '- 전체 이미지 크기와 비율',
+  '- 카메라 시점과 구도',
+  '- 벽체와 구조물',
+  '- 문·창호·가구·설비',
+  '- 텍스트·숫자·치수선·도면 기호',
+  '- 색상·선 굵기·선 스타일',
+  '- 배경과 주변 영역',
+  '',
+  '수정 대상과 직접 연결되어 변경이 불가피한 부분만 최소 범위에서 함께 수정할 수 있습니다.',
+  '',
+  '## 수정 요청',
+  '',
+  '표시된 수정 영역 안에서 지정한 요소만 변경해 주세요. 지정 영역을 제외한 나머지 도면은 원본과 최대한 동일하게 유지해 주세요.',
+].join('\n');
 
-각 항목은 반드시 다음 세 범주로 나눠 주세요.
-1. 도면에서 직접 확인되는 정보
-2. AI가 분석·해석한 정보
-3. 현재 자료로 확인할 수 없는 정보
+const compositePrompt = [
+  '현재 대화에서 기준으로 사용한 원본 전체 평면도를 베이스로 사용해 주세요.',
+  '',
+  '방금 수정한 부분 공간만 원본 전체 평면도의 동일 위치·크기·비율·방향으로 반영해 주세요. 나머지 영역은 새로 생성하거나 다시 그리지 마세요.',
+  '',
+  '다음을 유지해 주세요.',
+  '- 건물 외곽선과 벽체',
+  '- 문·창호·계단·엘리베이터',
+  '- 공간 위치와 크기',
+  '- 가구와 설비',
+  '- 문자·숫자·치수선·도면 기호',
+  '- 도면 비율과 배치',
+  '',
+  '수정된 영역이 반영된 전체 평면도 화면을 원본과 동일한 비율로 출력해 주세요. 결과를 원본과 겹쳐 비교하여 지정 영역 밖의 변화가 없는지도 확인해 주세요.',
+].join('\n');
 
-문자·치수·기호가 불분명하면 추정하지 말고 확인 불가로 표시해 주세요. 실제 치수, 구조, 법규, 설비와 시공 가능성은 확정하지 마세요.`;
-
-const localEditPrompt = `## 원본 보존 규칙
-
-첨부 이미지를 원본 기준으로 사용하고, 표시된 수정 대상과 수정 영역만 변경해 주세요.
-
-요청에 포함되지 않은 다음 요소는 수정·이동·삭제·추가하거나 재해석하지 마세요.
-- 전체 이미지 크기와 비율
-- 카메라 시점과 구도
-- 벽체와 구조물
-- 문·창호·가구·설비
-- 텍스트·숫자·치수선·도면 기호
-- 색상·선 굵기·선 스타일
-- 배경과 주변 영역
-
-수정 대상과 직접 연결되어 변경이 불가피한 부분만 최소 범위에서 함께 수정할 수 있습니다.
-
-## 수정 요청
-
-표시된 문을 화살표가 가리키는 위치로 옮겨 주세요. 지정 영역을 제외한 나머지 도면은 원본과 최대한 동일하게 유지해 주세요.`;
-
-const compositePrompt = `현재 대화에서 기준으로 사용한 원본 전체 평면도를 베이스로 사용해 주세요.
-
-방금 수정한 부분 공간만 원본 전체 평면도의 동일 위치·크기·비율·방향으로 반영해 주세요. 나머지 영역은 새로 생성하거나 다시 그리지 마세요.
-
-다음을 유지해 주세요.
-- 건물 외곽선과 벽체
-- 문·창호·계단·엘리베이터
-- 공간 위치와 크기
-- 가구와 설비
-- 문자·숫자·치수선·도면 기호
-- 도면 비율과 배치
-
-수정된 영역이 반영된 전체 평면도 화면을 원본과 동일한 비율로 출력해 주세요. 결과를 원본과 겹쳐 비교하여 지정 영역 밖의 변화가 없는지도 확인해 주세요.`;
+const planExamples = [
+  {
+    src: floorPlanOriginal,
+    alt: '수업 예시용 전체 평면도 화면',
+    label: 'STEP 1 · 전체 평면도',
+    caption: '수업 예시 화면 · 원본 도면 파일은 제공하지 않습니다.',
+  },
+  {
+    src: storageRoomOriginal,
+    alt: '전체 평면도에서 확대해 확인하는 소장실 부분 화면',
+    label: 'STEP 2 · 원하는 공간 확대',
+    caption: '수업 예시 · 부분 수정 과정을 설명하기 위한 화면입니다.',
+  },
+  {
+    src: storageRoomEditArea,
+    alt: '소장실 평면에서 수정할 영역을 표시한 화면',
+    label: 'STEP 3 · 수정 영역 지정',
+    caption: '수업 예시 · 수정할 곳과 유지할 곳을 구분한 화면입니다.',
+  },
+  {
+    src: storageRoomEdited,
+    alt: '지정 영역을 부분 수정한 소장실 평면 결과 화면',
+    label: 'STEP 4 · 부분 수정 결과',
+    caption: '수업 예시 · 지정 영역 밖의 변화 여부를 함께 검토합니다.',
+  },
+  {
+    src: floorPlanIntegrated,
+    alt: '부분 수정 결과를 전체 평면도에 다시 반영한 화면',
+    label: 'STEP 5 · 전체 평면도 반영',
+    caption: '수업 예시 화면 · 원본 도면 파일은 제공하지 않습니다.',
+  },
+] as const;
 
 const reviewItems = [
-  '수정 대상만 바뀌었는가?',
-  '벽체와 출입문이 지정대로 유지되었는가?',
+  '수정 대상으로 지정한 요소만 바뀌었는가?',
+  '벽체와 출입문 등 유지 조건이 보존되었는가?',
   '주변 공간과 가구가 임의로 바뀌지 않았는가?',
   '문자·숫자·치수선·도면 기호가 임의 변경되지 않았는가?',
 ];
 
-const limits = [
-  '보이지 않는 공간과 가려진 가구', '뒤쪽 벽과 실제 벽체 두께', '천장 높이와 정확한 치수',
-  '구조와 설비', '재료 성능과 법규', '실제 시공 가능성',
+const installationSteps = [
+  'Stability Matrix 공식 배포처에서 Windows 설치 파일을 확인한다.',
+  '설치 파일을 실행하고 수업용 저장 위치를 정한다.',
+  'Stability Matrix를 실행한다.',
+  'Packages 화면에서 ComfyUI를 선택한다.',
+  'Install을 실행하고 설치가 끝날 때까지 기다린다.',
+  'ComfyUI를 Launch하여 브라우저 화면이 열리는지 확인한다.',
+  'Workflow 메뉴에서 수업용 TripoSplat 템플릿을 불러온다.',
+  '누락된 모델·사용자 노드 안내가 있으면 수업에서 지정한 항목만 준비한다.',
+  '기준 이미지를 넣고 낮은 설정으로 먼저 Queue하여 결과를 확인한다.',
 ];
 ---
 
 <LessonSection id="section-01" number="01" title="차시 소개" class="lesson07-section" {lessonId}>
   <div class="lesson07-lead" data-presentation-group="single">
     <span>LESSON 07</span>
-    <h3>도면에서 시작한 결과를 다음 시각화 단계로 이어 간다</h3>
-    <p>PDF 평면도를 분석하고 필요한 부분만 수정한 뒤 Top View 3D와 Gaussian 기반 공간 표현으로 연결한다. 각 단계는 이전 원자료와 비교하며, 현실적인 표현과 설계 정확도를 구분한다.</p>
+    <h3>도면의 한 부분을 안전하게 수정하고, 한 장의 3D 이미지에서 시점을 확장한다</h3>
+    <p>PDF·이미지 평면도에서 원하는 공간을 찾아 부분 수정하고 전체 도면에 다시 반영한다. 이어서 Top View 3D 한 장을 Gaussian 기반 3D 표현으로 확장하며, 보이는 결과와 정확한 설계정보의 차이를 구분한다.</p>
   </div>
 </LessonSection>
 
 <LessonSection id="section-02" number="02" title="오늘의 목표와 전체 워크플로우" class="lesson07-section" {lessonId}>
   <div class="lesson07-workflows">
-    <article><span>PART A · 복습</span><p>PDF 전체 도면 분석 → 특정 공간 찾기 → 부분 수정 → 전체 PDF 재반영 → Top View 3D</p></article>
-    <article><span>PART B · 본수업</span><p>기준 Top View 3D → Gaussian 개념 → ComfyUI 결과 확인 → 시점 검토 → 현실형 렌더 → 업스케일 예시</p></article>
+    <article><span>PART A · 도면 복습</span><p>전체 평면도 → 공간 확대 → 수정 영역 → 부분 수정 → 전체 도면 반영 → Top View 3D</p></article>
+    <article><span>PART B · Gaussian 개념</span><p>Point → Gaussian → 많은 Gaussian → 카메라 투영 → 하나의 장면</p></article>
+    <article><span>PART C · 실습</span><p>Stability Matrix → ComfyUI → TripoSplat 템플릿 → Orbit 확인 → 결과 비교</p></article>
   </div>
   <ol class="lesson07-time-plan">{timePlan.map((item) => <li><span>{item.label}</span><strong>{item.minutes}분</strong></li>)}</ol>
   <p class="lesson07-total">합계 {totalMinutes}분</p>
 </LessonSection>
 
-<LessonSection id="section-03" number="03" title="현장 실습자료 사용 안내" class="lesson07-section" {lessonId}>
+<LessonSection id="section-03" number="03" title="STEP 1 · 전체 평면도 확인" class="lesson07-section" {lessonId}>
   <aside class="lesson07-private" aria-labelledby="lesson07-company-plan-notice">
-    <p class="lesson07-private__label">현장 제공 실습자료 · 공개 e-book 미수록</p>
+    <p class="lesson07-private__label">현장 제공 원본자료 · 공개 e-book 미수록</p>
     <h3 id="lesson07-company-plan-notice">회사·프로젝트 도면 사용 주의</h3>
-    <p>이번 실습에서 사용하는 평면도는 수강생이 교육 실습을 위해 현장에서 제공한 회사 업무자료입니다.</p>
-    <p>해당 자료는 이번 수업의 도면 분석 및 실습을 위한 제한된 범위에서만 사용합니다.</p>
-    <ul>
-      <li>회사명, 프로젝트명, 주소, 발주처 등 식별정보가 포함된 도면을 외부에 임의로 공유하지 않습니다.</li>
-      <li>PDF에서 캡처하거나 잘라낸 이미지도 원본 도면의 파생자료로 취급합니다.</li>
-      <li>원본 PDF와 파생 이미지를 공개 e-book, GitHub, 웹사이트, SNS, 포트폴리오 등에 임의로 게시하지 않습니다.</li>
-      <li>다른 AI 서비스나 다른 프로젝트에 다시 사용하기 전 회사 내부 규정과 자료 사용 권한을 확인합니다.</li>
-      <li>원본 도면을 이용해 만든 수정 이미지, 3D 시각화 결과, 파생 결과물도 공개 가능 여부를 별도로 확인합니다.</li>
-      <li>실제 업무자료는 기술적으로 AI에 업로드할 수 있는지보다 먼저 외부 반출과 AI 서비스 업로드가 허용된 자료인지 확인해야 합니다.</li>
-    </ul>
+    <p>업무자료는 허가된 수업 범위에서만 사용한다. PDF 캡처와 파생 이미지, 수정 결과와 3D 시각화도 원자료의 사용 조건을 이어받을 수 있으므로 공개·재사용 전 권한을 별도로 확인한다.</p>
     <p class="lesson07-private__emphasis"><strong>“AI에 업로드할 수 있는 파일과 업로드해도 되는 파일은 같은 의미가 아닙니다.”</strong></p>
   </aside>
-  <p>수업에서는 전체 도면, 부분 캡처, 수정영역 표시, 수정 결과, 전체 도면 반영본과 Top View 3D 참고자료를 순서대로 확인한다.</p>
+  <figure class="lesson07-figure lesson07-figure--plan">
+    <Image src={planExamples[0].src} alt={planExamples[0].alt} widths={[720, 1080, 1440]} sizes="(max-width: 900px) 100vw, 1100px" loading="eager" />
+    <figcaption><strong>{planExamples[0].label}</strong><span>{planExamples[0].caption}</span></figcaption>
+  </figure>
+  <p>먼저 전체 평면도를 기준자료로 확인한다. 공간 이름, 배치 관계, 벽체, 출입구, 창호, 계단, 고정설비와 직접 표시된 치수·문자를 순서대로 읽는다.</p>
 </LessonSection>
 
-<LessonSection id="section-04" number="04" title="PDF 전체 평면도 분석" class="lesson07-section" {lessonId}>
-  <div class="lesson07-grid lesson07-grid--four">{['공간명·위치·인접 관계','외곽·내부 벽체와 개구부','계단·고정설비·가구','직접 표시된 치수·문자·기호'].map((item) => <article><strong>{item}</strong></article>)}</div>
-  <PromptCopyBlock id="lesson07-pdf-analysis" title="프롬프트 1 · PDF 전체 평면도 분석" description="이미지 생성보다 도면 정보 분류를 먼저 요청한다." prompt={analysisPrompt} />
-</LessonSection>
-
-<LessonSection id="section-05" number="05" title="확인 정보와 추정 정보" class="lesson07-section" {lessonId}>
+<LessonSection id="section-04" number="04" title="PDF·이미지 기반 도면 분석" class="lesson07-section" {lessonId}>
   <div class="lesson07-grid lesson07-grid--three">
-    <article><h3>도면에서 직접 확인</h3><p>읽을 수 있는 공간명, 선, 기호, 표기 치수처럼 원자료에서 대조 가능한 정보</p></article>
-    <article><h3>AI의 분석·해석</h3><p>선과 배치 관계를 바탕으로 정리했지만 사람이 원자료와 다시 비교해야 하는 내용</p></article>
-    <article><h3>현재 자료로 확인 불가</h3><p>불분명한 문자·치수와 구조·법규·설비·시공 가능성처럼 별도 확인이 필요한 내용</p></article>
+    <article><h3>직접 확인</h3><p>읽을 수 있는 공간명, 선, 기호와 표기 치수처럼 원자료에서 대조 가능한 정보</p></article>
+    <article><h3>분석·해석</h3><p>선과 배치 관계를 바탕으로 정리했지만 사람이 원자료와 다시 비교할 내용</p></article>
+    <article><h3>확인 불가</h3><p>불분명한 문자·치수와 구조·법규·설비·시공 가능성처럼 별도 확인할 내용</p></article>
+  </div>
+  <PromptCopyBlock id="lesson07-pdf-analysis" title="프롬프트 1 · PDF 전체 평면도 분석" description="이미지 생성보다 도면 정보 분류를 먼저 요청한다." prompt={analysisPrompt} />
+  <aside class="lesson07-boundary"><strong>파일 형식 안내</strong><p>PDF·PNG·JPEG를 이번 공통 실습의 입력으로 사용한다. DWG 같은 전문 파일의 직접 처리 가능 여부는 계정·서비스·도구 환경에 따라 달라질 수 있으므로, 항상 지원된다고 단정하지 않는다.</p></aside>
+</LessonSection>
+
+<LessonSection id="section-05" number="05" title="STEP 2 · 원하는 공간 확대" class="lesson07-section" {lessonId}>
+  <figure class="lesson07-figure lesson07-figure--detail">
+    <Image src={planExamples[1].src} alt={planExamples[1].alt} widths={[640, 960, 1280]} sizes="(max-width: 900px) 100vw, 920px" loading="eager" />
+    <figcaption><strong>{planExamples[1].label}</strong><span>{planExamples[1].caption}</span></figcaption>
+  </figure>
+  <p>전체 평면도를 한 번에 수정하지 않는다. 바꾸려는 공간만 확대하고 인접 공간, 벽체, 문, 기존 가구와 도면 표기를 다시 확인한다.</p>
+</LessonSection>
+
+<LessonSection id="section-06" number="06" title="STEP 3 · 수정 영역 지정" class="lesson07-section" {lessonId}>
+  <figure class="lesson07-figure lesson07-figure--detail">
+    <Image src={planExamples[2].src} alt={planExamples[2].alt} widths={[640, 960, 1280]} sizes="(max-width: 900px) 100vw, 920px" loading="eager" />
+    <figcaption><strong>{planExamples[2].label}</strong><span>{planExamples[2].caption}</span></figcaption>
+  </figure>
+  <div class="lesson07-flow"><strong>바꿀 위치</strong><span>+</span><strong>바꿀 요소</strong><span>+</span><strong>유지할 요소</strong><span>→</span><strong>최소 수정 범위</strong></div>
+  <PromptCopyBlock id="lesson07-local-edit" title="프롬프트 2 · 지정 영역 부분 수정" description="현장 프롬프트의 원본 보존 원칙을 일반화하고 식별정보는 제외했다." prompt={localEditPrompt} />
+</LessonSection>
+
+<LessonSection id="section-07" number="07" title="STEP 4 · 부분 수정 결과 확인" class="lesson07-section" {lessonId}>
+  <figure class="lesson07-figure lesson07-figure--detail">
+    <Image src={planExamples[3].src} alt={planExamples[3].alt} widths={[640, 960, 1280]} sizes="(max-width: 900px) 100vw, 920px" loading="eager" />
+    <figcaption><strong>{planExamples[3].label}</strong><span>{planExamples[3].caption}</span></figcaption>
+  </figure>
+  <ul class="lesson07-checklist">{reviewItems.map((item) => <li>{item}</li>)}</ul>
+  <p class="lesson07-emphasis">첫 수정 결과를 바로 확정하지 않는다. 지정 영역 밖의 변화가 0에 가까운지를 원본과 다시 비교한다.</p>
+</LessonSection>
+
+<LessonSection id="section-08" number="08" title="STEP 5 · 전체 평면도에 다시 적용" class="lesson07-section" {lessonId}>
+  <figure class="lesson07-figure lesson07-figure--plan">
+    <Image src={planExamples[4].src} alt={planExamples[4].alt} widths={[720, 1080, 1440]} sizes="(max-width: 900px) 100vw, 1100px" loading="eager" />
+    <figcaption><strong>{planExamples[4].label}</strong><span>{planExamples[4].caption}</span></figcaption>
+  </figure>
+  <PromptCopyBlock id="lesson07-composite" title="프롬프트 3 · 수정 영역 전체 도면 재반영" description="전체 도면을 새로 그리지 않고 지정 영역만 교체하도록 요청한다." prompt={compositePrompt} />
+  <aside class="lesson07-boundary"><strong>하이브리드 PDF</strong><p>원본 벡터 PDF를 유지한 채 일부 영역만 래스터 이미지로 합성했다면, 수정하지 않은 원본 객체는 벡터 상태를 유지할 수 있다. 다시 PDF로 저장했다는 이유만으로 AI가 만든 이미지 영역까지 벡터가 되는 것은 아니다.</p></aside>
+</LessonSection>
+
+<LessonSection id="section-09" number="09" title="Top View 3D로 연결" class="lesson07-section" {lessonId}>
+  <p>부분 수정이 반영된 전체 평면도를 기준으로 외곽 형태, 벽체, 출입구, 주요 공간 관계와 가구 배치를 읽을 수 있는 Top View 3D를 만든다. 이 단계는 제6차시의 평면도 입체화를 짧게 복습하는 연결 구간이다.</p>
+  <aside class="lesson07-boundary"><strong>도면 기반 3D 시각화</strong><p>Top View 3D는 정확한 CAD/BIM 변환 결과가 아니다. 원 평면도와 비교하며 공간 관계를 검토하는 중간 시각화다.</p></aside>
+</LessonSection>
+
+<LessonSection id="section-10" number="10" title="한 장의 Top View 3D에서 다음 단계로" class="lesson07-section" {lessonId}>
+  <p>Top View 3D는 공간을 입체적으로 읽기 좋지만 여전히 한 카메라에서 만든 이미지다. 이제 한 장의 기준 이미지를 다른 각도에서도 둘러볼 수 있는 3D 표현으로 확장한다.</p>
+  <blockquote>한 방향에서 만든 3D 렌더 이미지를 다른 방향에서도 볼 수 있게 만들 수 있을까?</blockquote>
+</LessonSection>
+
+<LessonSection id="section-11" number="11" title="Mesh와 Gaussian의 아주 짧은 차이" class="lesson07-section" {lessonId}>
+  <div class="lesson07-compare">
+    <article><span>MESH</span><h3>연결된 면으로 표면 구성</h3><p>일반적인 3D 모델링에서 점과 선을 연결한 면으로 물체의 표면을 만든다.</p></article>
+    <article><span>GAUSSIAN SPLATTING</span><h3>많은 Gaussian으로 장면 표현</h3><p>다수의 부드러운 3D 요소를 공간에 배치하고 겹쳐 장면을 보이게 한다.</p></article>
+  </div>
+  <p class="lesson07-emphasis">Mesh는 연결된 면으로 표면을 만들고, Gaussian Splatting은 많은 Gaussian을 이용해 장면을 표현한다.</p>
+  <aside class="lesson07-boundary"><strong>보이는 3D와 설계정보는 다르다</strong><p>Gaussian 결과가 입체적으로 보여도 정확한 치수·객체·구조·설비·법규 정보를 가진 CAD/BIM 모델이 되는 것은 아니다.</p></aside>
+</LessonSection>
+
+<LessonSection id="section-12" number="12" title="Point에서 Gaussian 느낌 이해하기" class="lesson07-section" {lessonId}>
+  <div class="lesson07-concept-row">
+    <article><span class="lesson07-point" aria-hidden="true">●</span><h3>Point</h3><p>공간의 한 위치를 가리키는 작은 점</p></article>
+    <span class="lesson07-arrow" aria-hidden="true">→</span>
+    <article><span class="lesson07-gaussian-dot" aria-hidden="true"></span><h3>Gaussian</h3><p>중심은 진하고 바깥으로 갈수록 부드럽게 희미해지는 작은 입자</p></article>
+  </div>
+  <p>3D Gaussian은 둥근 점 하나로만 머물지 않는다. 길쭉하거나 납작한 타원형이 될 수 있고, 공간 안에서 방향을 가진다.</p>
+</LessonSection>
+
+<LessonSection id="section-13" number="13" title="Gaussian 하나와 많은 Gaussian" class="lesson07-section" {lessonId}>
+  <div class="lesson07-grid lesson07-grid--five">
+    {['위치', '크기', '회전·방향', '색상', '투명도'].map((item) => <article><strong>{item}</strong></article>)}
+  </div>
+  <p><strong>Point</strong>는 위치 중심의 점으로 이해하고, <strong>3D Gaussian</strong>은 위치뿐 아니라 크기·방향·색상·투명도를 가진 부드러운 3D 요소로 이해한다.</p>
+  <div class="lesson07-gaussian-cloud" aria-label="서로 다른 크기와 방향의 Gaussian이 모여 장면을 이루는 개념도">
+    {
+      Array.from({ length: 18 }, (_, index) => (
+        <i
+          style={`--x:${8 + (index % 6) * 16}%;--y:${10 + (index % 4) * 22}%;--size:${2.2 + (index % 5) * 0.45}rem;--rotate:${(index - 9) * 11}deg`}
+        ></i>
+      ))
+    }
+  </div>
+  <p>수천·수만 개의 Gaussian이 서로 다른 위치와 모양으로 모이면 벽, 바닥, 가구처럼 하나의 장면으로 보일 수 있다.</p>
+</LessonSection>
+
+<LessonSection id="section-14" number="14" title="Splatting이란?" class="lesson07-section" {lessonId}>
+  <p>Splatting은 3D 공간의 Gaussian을 현재 카메라 화면으로 투영하고, 앞뒤 순서와 투명도를 고려해 서로 겹쳐 그리는 과정으로 이해할 수 있다.</p>
+  <div class="lesson07-flow"><strong>3D 공간의 Gaussian</strong><span>→</span><strong>카메라 화면으로 투영</strong><span>→</span><strong>겹쳐 합성</strong><span>→</span><strong>최종 이미지</strong></div>
+</LessonSection>
+
+<LessonSection id="section-15" number="15" title="Gaussian + Splatting" class="lesson07-section" {lessonId}>
+  <div class="lesson07-equation">
+    <article><span>GAUSSIAN</span><p>크기·방향·색상·투명도를 가진 부드러운 3D 요소</p></article>
+    <b>+</b>
+    <article><span>SPLATTING</span><p>그 요소를 카메라 화면에 투영하고 겹쳐 그리는 과정</p></article>
+  </div>
+  <blockquote>수많은 3D Gaussian을 공간에 배치하고, 카메라에서 이들을 겹쳐 렌더링해 하나의 3D 장면처럼 표현하는 방식이다.</blockquote>
+</LessonSection>
+
+<LessonSection id="section-16" number="16" title="Gaussian Splatting 작동 흐름" class="lesson07-section" {lessonId}>
+  <div class="lesson07-process" role="img" aria-label="Point에서 Gaussian, 많은 Gaussian, 카메라, 장면으로 이어지는 흐름">
+    <article><span>01</span><strong>POINT</strong><small>위치</small></article>
+    <i>→</i>
+    <article><span>02</span><strong>GAUSSIAN</strong><small>부드러운 3D 요소</small></article>
+    <i>→</i>
+    <article><span>03</span><strong>MANY</strong><small>많은 Gaussian</small></article>
+    <i>→</i>
+    <article><span>04</span><strong>CAMERA</strong><small>투영·합성</small></article>
+    <i>→</i>
+    <article><span>05</span><strong>SCENE</strong><small>최종 장면</small></article>
   </div>
 </LessonSection>
 
-<LessonSection id="section-06" number="06" title="특정 공간 찾기" class="lesson07-section" {lessonId}>
-  <p>전체 분석 결과에서 수업 중 지정된 공간을 찾고 위치, 인접 공간, 벽체, 출입문, 기존 가구와 주요 도면 정보를 확인한다. 그 공간만 확대·캡처하여 다음 단계의 입력으로 사용한다.</p>
-  <ol class="lesson07-steps"><li>전체 도면에서 공간명 찾기</li><li>인접 관계와 출입구 확인</li><li>수정 범위를 포함해 부분 캡처</li></ol>
+<LessonSection id="section-17" number="17" title="왜 이번 수업에서 Gaussian을 사용하는가?" class="lesson07-section" {lessonId}>
+  <div class="lesson07-flow"><strong>Top View 3D 한 장</strong><span>→</span><strong>Gaussian 기반 3D 표현</strong><span>→</span><strong>카메라 회전</strong><span>→</span><strong>다른 시점 관찰</strong></div>
+  <p>목적은 정확한 CAD 3D 모델을 만드는 것이 아니다. 한 장의 공간 이미지를 여러 시점에서 둘러보며 공간 표현이 어떻게 확장되고 어디서 오류가 생기는지 확인하는 것이다.</p>
 </LessonSection>
 
-<LessonSection id="section-07" number="07" title="부분 공간 수정" class="lesson07-section" {lessonId}>
-  <div class="lesson07-flow"><strong>전체 PDF</strong><span>→</span><strong>특정 공간 검색</strong><span>→</span><strong>부분 캡처</strong><span>→</span><strong>수정 영역 표시</strong><span>→</span><strong>인페인팅</strong></div>
-  <PromptCopyBlock id="lesson07-local-edit" title="프롬프트 2 · 지정 영역 부분 수정" description="현장 프롬프트의 원본 보존 의미를 유지하고 파일명·개인 식별 정보는 제외했다." prompt={localEditPrompt} />
+<LessonSection id="section-18" number="18" title="일반 3DGS와 Single Image TripoSplat" class="lesson07-section" {lessonId}>
+  <div class="lesson07-compare">
+    <article><span>CLASSIC 3DGS</span><h3>여러 시점 + 카메라 정보</h3><p>대표적인 3DGS는 여러 사진이나 영상 프레임과 카메라 정보를 바탕으로 장면을 최적화한다.</p></article>
+    <article><span>TRIPOSPLAT</span><h3>Single 2D Image → 3D Gaussian Splat</h3><p>이번 수업은 Top View 3D 한 장에서 3D Gaussian 표현을 예측하는 TripoSplat 흐름을 사용한다.</p></article>
+  </div>
+  <p class="lesson07-emphasis">두 방식은 입력 조건이 다르다. 단일 이미지 결과의 보이지 않는 면은 관측된 사실이 아니라 모델의 추정이 포함된다.</p>
 </LessonSection>
 
-<LessonSection id="section-08" number="08" title="수정 결과 검토" class="lesson07-section" {lessonId}>
-  <ul class="lesson07-checklist">{reviewItems.map((item) => <li>{item}</li>)}</ul>
-  <p class="lesson07-emphasis">한 부분만 자연스럽게 보이는지보다 지정 영역 밖의 변화가 0에 가까운지를 먼저 비교한다.</p>
+<LessonSection id="section-19" number="19" title="단일 이미지 기반 3D의 추정과 오류" class="lesson07-section" {lessonId}>
+  <div class="lesson07-grid lesson07-grid--three">
+    {['벽이 끊기거나 얇아짐', '가구 뒤쪽 형태 변형', '바닥·벽 경계가 녹아 보임', '빈 공간을 임의로 채움', '카메라를 돌리면 형태 변화', '입력에 없던 구조가 생김'].map((item) => <article><strong>{item}</strong></article>)}
+  </div>
+  <blockquote>한 방향에서 자연스럽게 보인다는 사실만으로 모든 방향의 공간이 정확하다고 볼 수 없다.</blockquote>
 </LessonSection>
 
-<LessonSection id="section-09" number="09" title="전체 PDF에 부분 수정 반영" class="lesson07-section" {lessonId}>
-  <PromptCopyBlock id="lesson07-composite" title="프롬프트 3 · 수정 영역 전체 도면 재반영" description="전체 도면을 새로 그리지 않고 지정 영역만 교체하도록 요청한다." prompt={compositePrompt} />
-  <aside class="lesson07-boundary"><strong>하이브리드 PDF</strong><p>원본 벡터 PDF를 래스터화하지 않고 유지한 채 일부 이미지 영역만 합성하면, 수정하지 않은 원본 객체는 벡터 상태가 보존될 수 있다. 합성한 PNG 영역까지 자동으로 벡터가 되는 것은 아니다.</p></aside>
+<LessonSection id="section-20" number="20" title="Stability Matrix란?" class="lesson07-section" {lessonId}>
+  <p>Stability Matrix는 Windows에서 ComfyUI 같은 생성형 AI 패키지를 설치·업데이트·실행·관리할 수 있도록 돕는 데스크톱 패키지 관리자다. 수업에서는 ComfyUI 환경을 준비하고 실행하는 용도로 사용한다.</p>
+  <div class="lesson07-grid lesson07-grid--four">
+    {['패키지 설치·업데이트', '각 패키지 환경 분리', '공유 모델 폴더 관리', 'ComfyUI 실행 관리'].map((item) => <article><strong>{item}</strong></article>)}
+  </div>
+  <p class="lesson07-note">버전 업데이트에 따라 버튼 이름과 화면 배치는 달라질 수 있다. 특정 메뉴 이름보다 ComfyUI를 설치하고 실행하는 목적을 기준으로 따라간다.</p>
 </LessonSection>
 
-<LessonSection id="section-10" number="10" title="전체 평면도 Top View 3D" class="lesson07-section" {lessonId}>
-  <p>부분 수정이 적용된 전체 평면도를 기준으로 외곽 형태, 벽체, 출입구, 주요 공간 관계와 가구 배치를 읽을 수 있는 Top View 3D를 제작한다.</p>
-  <aside class="lesson07-boundary"><strong>도면 기반 3D 시각화</strong><p>Top View 3D는 정확한 CAD/BIM 변환 결과가 아니다. 도면과 비교하며 구조 관계를 검토하는 중간 시각화다.</p></aside>
+<LessonSection id="section-21" number="21" title="ComfyUI란?" class="lesson07-section" {lessonId}>
+  <p>ComfyUI는 이미지 입력, 모델 처리, 미리보기와 저장 같은 작업 단계를 <strong>Node</strong>로 만들고 선으로 연결하는 인터페이스다.</p>
+  <div class="lesson07-process lesson07-process--short">
+    <article><strong>INPUT</strong><small>이미지</small></article><i>→</i>
+    <article><strong>MODEL</strong><small>TripoSplat</small></article><i>→</i>
+    <article><strong>OUTPUT</strong><small>미리보기·파일</small></article>
+  </div>
+  <ul class="lesson07-checklist"><li>노드 연결을 보면 작업 순서를 확인할 수 있다.</li><li>워크플로우는 JSON으로 저장·공유할 수 있다.</li><li>처음부터 모든 노드를 만들지 않고 준비된 템플릿을 불러와 사용한다.</li></ul>
 </LessonSection>
 
-<LessonSection id="section-11" number="11" title="기준 3D 이미지 설정" class="lesson07-section" {lessonId}>
-  <p>복습 결과 Top View 3D를 본수업의 기준 이미지로 설정한다. 외곽 형태, 공간 관계, 벽체, 주요 가구와 카메라 방향을 기록하고 이후 결과마다 같은 항목을 비교한다.</p>
-  <p class="lesson07-emphasis">기준 이미지는 가장 예쁜 결과를 고르는 용도가 아니라 후속 작업에서 변화와 오류를 추적하는 기준이다.</p>
+<LessonSection id="section-22" number="22" title="설치와 권장 사양" class="lesson07-section" {lessonId}>
+  <ol class="lesson07-install">{installationSteps.map((step, index) => <li><span>{String(index + 1).padStart(2, '0')}</span><p>{step}</p></li>)}</ol>
+  <div class="lesson07-specs">
+    <article><span>OS</span><strong>Windows + NVIDIA GPU 환경이 비교적 편리</strong></article>
+    <article><span>GPU</span><strong>NVIDIA RTX 권장</strong></article>
+    <article><span>VRAM</span><strong>8GB급은 제한적 · 12GB 이상은 비교적 여유</strong></article>
+    <article><span>RAM</span><strong>16GB 이상 권장 · 가능하면 32GB</strong></article>
+    <article><span>STORAGE</span><strong>모델 저장과 실행을 위해 SSD 권장</strong></article>
+  </div>
+  <p class="lesson07-note">이는 수업 준비를 위한 경험 기반 권장값이며 실행 보장이 아니다. 모델·해상도·Gaussian 개수·워크플로우에 따라 필요한 메모리와 시간이 달라진다.</p>
 </LessonSection>
 
-<LessonSection id="section-12" number="12" title="Gaussian Splatting이란?" class="lesson07-section" {lessonId}>
-  <p>3D Gaussian Splatting은 장면을 전통적인 폴리곤 면만으로 표현하는 대신 다수의 3차원 Gaussian 요소로 표현하고, 새로운 카메라 시점에서 렌더링할 수 있게 하는 3D 장면 표현 방식이다.</p>
-  <blockquote>3D 공간에 수많은 반투명한 작은 타원형 입자를 배치하여 하나의 장면을 구성한다고 생각할 수 있다.</blockquote>
-  <div class="lesson07-grid lesson07-grid--three">{['위치 Position','크기·형태 Scale·Shape','회전 Rotation','투명도 Opacity','색상·시각 정보 Appearance','카메라 화면 투영·합성'].map((item) => <article><strong>{item}</strong></article>)}</div>
+<LessonSection id="section-23" number="23" title="TripoSplat 템플릿 읽기" class="lesson07-section" {lessonId}>
+  <p>수업 준비 폴더에서는 결과 이미지들을 확인했지만 독립된 TripoSplat JSON 템플릿은 확인되지 않았다. 따라서 아래 구조는 현재 Comfy-Org의 공식 템플릿을 기준으로 설명한다.</p>
+  <div class="lesson07-template">
+    <article><span>INPUT</span><h3>LoadImage</h3><p>Gaussian으로 변환할 기준 이미지</p></article>
+    <article><span>OPTION</span><h3>auto_remove_background</h3><p>배경 자동 제거 여부를 정한다. 입력 배경이 이미 정리되어 있다면 끌 수 있다.</p></article>
+    <article><span>CORE</span><h3>Image to Gaussian Splat</h3><p>TripoSplat으로 단일 이미지를 Gaussian 표현으로 변환</p></article>
+    <article><span>PREVIEW</span><h3>Create Video</h3><p>Orbit 회전 영상으로 빠르게 형태 확인</p></article>
+    <article><span>OUTPUT</span><h3>SPZ / GLB 저장</h3><p>Gaussian 파일 저장 경로와 Mesh 변환 경로의 상태를 각각 확인한다.</p></article>
+  </div>
+  <p class="lesson07-note">현재 공식 템플릿에서는 <code>SplatToFile3D</code>의 SPZ 저장 경로는 활성화되어 있고, <code>SplatToMesh</code>를 거치는 별도 Mesh 변환 경로는 우회 상태다. 템플릿 버전이 달라졌다면 실제 노드 상태를 우선 확인한다.</p>
 </LessonSection>
 
-<LessonSection id="section-13" number="13" title="Mesh와 Gaussian 비교" class="lesson07-section" {lessonId}>
-  <div class="lesson07-table-wrap" tabindex="0"><table><thead><tr><th>방식</th><th>기본 표현</th><th>수업에서의 의미</th></tr></thead><tbody><tr><th>CAD/BIM</th><td>선·면·객체·치수</td><td>설계정보 기준자료</td></tr><tr><th>Polygon Mesh</th><td>Vertex·Edge·Face</td><td>일반적인 3D 모델링</td></tr><tr><th>Gaussian Splatting</th><td>다수의 3D Gaussian</td><td>장면의 시각적·공간적 표현</td></tr><tr><th>AI 생성 이미지</th><td>2D Pixel</td><td>콘셉트 시각화</td></tr></tbody></table></div>
-  <p class="lesson07-emphasis">Gaussian 결과는 CAD/BIM 모델이나 정확한 실측 3D 모델과 같지 않다.</p>
+<LessonSection id="section-24" number="24" title="Gaussian 개수 등 핵심 설정" class="lesson07-section" {lessonId}>
+  <div class="lesson07-table-wrap" tabindex="0">
+    <table>
+      <thead><tr><th>설정</th><th>초보자 설명</th><th>확인할 점</th></tr></thead>
+      <tbody>
+        <tr><th>num_gaussians</th><td>최종 장면에 사용할 Gaussian 수</td><td>현재 공식 템플릿의 표시명이다. 구현 버전에 따라 <code>sampling_num_gaussians</code>로 보일 수 있으며, 값을 늘리면 GPU 메모리와 처리 시간이 증가한다.</td></tr>
+        <tr><th>seed</th><td>생성 변화를 재현하거나 바꾸는 값</td><td>다른 seed는 다른 추정 결과를 만들 수 있다.</td></tr>
+        <tr><th>auto_remove_background</th><td>입력 이미지의 배경 자동 제거</td><td>배경이 이미 정리된 이미지는 끌 수 있다.</td></tr>
+        <tr><th>model selector</th><td>사용할 모델 파일 선택</td><td>수업에서 제공한 템플릿의 기본 선택을 먼저 유지한다.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="lesson07-emphasis">Gaussian 수를 늘려도 입력 이미지에 없던 실제 디테일이 복원되는 것은 아니다.</p>
 </LessonSection>
 
-<LessonSection id="section-14" number="14" title="Gaussian Splatting의 한계" class="lesson07-section" {lessonId}>
-  <div class="lesson07-grid lesson07-grid--three">{limits.map((item) => <article><strong>{item}</strong><p>입력 이미지 하나만으로 확정하지 않는다.</p></article>)}</div>
-  <p>시점을 바꾸면 벽체 끊김, 가구 변형·소실, 공간 왜곡, 바닥·벽 경계 오류와 원본에 없던 구조가 나타날 수 있다.</p>
+<LessonSection id="section-25" number="25" title="Gaussian 결과 생성과 출력 이해" class="lesson07-section" {lessonId}>
+  <div class="lesson07-flow"><strong>기준 이미지</strong><span>→</span><strong>Queue</strong><span>→</span><strong>Gaussian 결과</strong><span>→</span><strong>Orbit 확인</strong><span>→</span><strong>파일 저장</strong></div>
+  <div class="lesson07-grid lesson07-grid--three">
+    <article><h3>Orbit Preview</h3><p>카메라가 결과 주변을 회전하는 영상으로 큰 형태 오류를 빠르게 확인한다.</p></article>
+    <article><h3>SPZ</h3><p>Gaussian Splat 데이터를 저장하는 출력 형식 중 하나다.</p></article>
+    <article><h3>GLB</h3><p>일반적인 3D 교환 형식 계열이다. 공식 템플릿에는 Gaussian 파일을 GLB 컨테이너로 저장하는 활성 경로와, Mesh로 변환하는 별도 우회 경로가 있으며 두 경로를 같은 결과로 해석하지 않는다.</p></article>
+  </div>
+  <ul class="lesson07-checklist"><li>기준 이미지의 외곽과 공간 관계가 유지되는가?</li><li>새 시점에서 벽과 가구가 무너지지 않는가?</li><li>입력에 없던 영역을 사실로 오해하고 있지 않은가?</li></ul>
 </LessonSection>
 
-<LessonSection id="section-15" number="15" title="ComfyUI 워크플로우 준비" class="lesson07-section" {lessonId}>
-  <p>ComfyUI 워크플로우는 노드와 연결로 구성된 그래프다. 현재 자료에는 Gaussian 처리용 독립 JSON과 해당 결과의 워크플로우 메타데이터가 없어 정확한 Gaussian 노드명·모델·파라미터는 e-book에서 단정하지 않는다.</p>
-  <aside class="lesson07-boundary"><strong>원래 3DGS와 이번 실습의 구분</strong><p>대표적인 3D Gaussian Splatting 구현과 현재 제공된 ComfyUI 작업을 같은 내부 구현이라고 간주하지 않는다. 이번 수업은 3DGS의 표현 개념을 이해한 뒤, 현장에서 제공되는 실제 ComfyUI 그래프와 결과를 열어 Gaussian 기반 공간 표현의 활용 과정을 확인한다.</p></aside>
-  <ol class="lesson07-steps"><li>현장에서 제공되는 실제 워크플로우 또는 메타데이터가 포함된 생성 이미지를 연다.</li><li>누락 모델·사용자 노드 경고를 확인한다.</li><li>입력 이미지와 출력 위치를 확인한다.</li><li>변경 전 워크플로우를 별도 저장한다.</li></ol>
+<LessonSection id="section-26" number="26" title="로컬 실행이 어려울 때 · TripoSplat Web Demo" class="lesson07-section" {lessonId}>
+  <div class="lesson07-web-demo">
+    <div><span>FALLBACK</span><h3>TripoSplat Web Demo</h3><p>로컬 GPU 사양이 부족하거나 ComfyUI 설치가 어려울 때 개념과 결과를 체험하는 대안이다.</p></div>
+    <a href="https://huggingface.co/spaces/VAST-AI/TripoSplat" target="_blank" rel="noreferrer">Hugging Face 데모 열기</a>
+  </div>
+  <ul class="lesson07-checklist"><li>항상 무료이거나 항상 실행된다고 보장하지 않는다.</li><li>대기시간·서버 상태·기능·UI는 변경될 수 있다.</li><li>현재 웹 데모의 출력 범위는 로컬 ComfyUI 템플릿과 다를 수 있다.</li><li>업무자료 업로드 전 외부 반출과 서비스 이용 조건을 확인한다.</li></ul>
 </LessonSection>
 
-<LessonSection id="section-16" number="16" title="Gaussian 기반 결과 확인" class="lesson07-section" {lessonId}>
-  <div class="lesson07-flow"><strong>기준 Top View 3D</strong><span>→</span><strong>현장 ComfyUI 워크플로우</strong><span>→</span><strong>Gaussian 기반 결과</strong><span>→</span><strong>시점 확인</strong></div>
-  <p>현재 로컬 자료의 번호와 파일명으로는 Gaussian 결과, 현실형 렌더, 추가 렌더·재조명과 업스케일 비교 순서를 확인할 수 있다. 그러나 Gaussian 처리 JSON이 없으므로 내부 처리 방식과 노드 순서는 현장에서 실제 그래프를 열어 확인한다.</p>
-</LessonSection>
-
-<LessonSection id="section-17" number="17" title="시점 변화와 오류 검토" class="lesson07-section" {lessonId}>
-  <ul class="lesson07-checklist"><li>같은 공간처럼 보이는가?</li><li>벽체 관계와 가구 위치가 유지되는가?</li><li>새 시점의 뒤쪽 공간은 어떻게 나타나는가?</li><li>입력에 없던 영역에서 어떤 오류가 발생하는가?</li></ul>
-  <blockquote>한 방향에서 자연스러워 보인다고 해서 다른 방향의 공간도 정확하다고 볼 수 있는가?</blockquote>
-</LessonSection>
-
-<LessonSection id="section-18" number="18" title="현실형 그래픽 렌더" class="lesson07-section" {lessonId}>
-  <div class="lesson07-flow"><strong>기준 Top View 3D</strong><span>→</span><strong>Gaussian 기반 결과</strong><span>→</span><strong>현실형 그래픽 결과</strong></div>
-  <p>현실감을 높인 결과에서도 원본과 공간 관계, 벽체와 가구 위치를 비교한다. 조명과 재질이 자연스러워졌다는 사실은 설계 정확도가 향상됐다는 뜻이 아니다.</p>
-</LessonSection>
-
-<LessonSection id="section-19" number="19" title="업스케일 적용 예시" class="lesson07-section" {lessonId}>
-  <p>업스케일은 필수 제작 단계가 아니라 적용 예시다. 원본과 Lanczos, Real-ESRGAN, UltraSharp로 명명된 결과의 해상도·선명도·작은 디테일·텍스처 변화를 비교한다.</p>
-  <div class="lesson07-table-wrap" tabindex="0"><table><thead><tr><th>메타데이터에서 확인된 항목</th><th>역할</th></tr></thead><tbody><tr><th>VHS_LoadImages</th><td>폴더의 입력 이미지를 불러온다.</td></tr><tr><th>ImageScale · Lanczos</th><td>지정 크기로 기본 리샘플링한다.</td></tr><tr><th>RealESRGAN_x2.pth</th><td>확인된 업스케일 모델을 적용한다.</td></tr><tr><th>4x-UltraSharp.pth</th><td>확인된 별도 업스케일 모델을 적용한다.</td></tr><tr><th>SaveImage</th><td>각 비교 결과를 저장한다.</td></tr></tbody></table></div>
-  <aside class="lesson07-boundary"><strong>업스케일의 경계</strong><p>업스케일은 실제 설계 정보를 복원하지 않는다. AI 기반 방식은 원본에 없던 디테일을 만들 수 있으므로 구조와 재료 표현을 다시 대조한다.</p></aside>
-</LessonSection>
-
-<LessonSection id="section-20" number="20" title="결과 비교와 마무리" class="lesson07-section" {lessonId}>
-  <ol class="lesson07-results"><li>PDF 도면 분석 기록</li><li>부분 공간 수정 결과</li><li>수정 반영 전체 도면</li><li>Top View 3D</li><li>Gaussian 또는 Gaussian 기반 3D 결과</li><li>현실형 그래픽 렌더</li></ol>
-  <p class="lesson07-emphasis">다음 차시에서는 기준 이미지와 검토 기록을 유지한 채 피드백에 따라 수정 제안과 후속 결과를 관리한다.</p>
+<LessonSection id="section-27" number="27" title="결과 비교와 마무리" class="lesson07-section" {lessonId}>
+  <div class="lesson07-table-wrap" tabindex="0">
+    <table>
+      <thead><tr><th>단계</th><th>확인하는 것</th><th>확정할 수 없는 것</th></tr></thead>
+      <tbody>
+        <tr><th>평면도 부분 수정</th><td>지정 영역과 원본 보존</td><td>실제 설계 승인·시공 가능성</td></tr>
+        <tr><th>Top View 3D</th><td>공간 관계의 입체적 이해</td><td>정확한 CAD/BIM 객체와 치수</td></tr>
+        <tr><th>Gaussian 결과</th><td>다른 시점의 공간 표현과 오류</td><td>보이지 않던 실제 구조와 성능</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="lesson07-emphasis">도면의 근거는 원본에서, 수정의 안전성은 전후 비교에서, Gaussian의 가치는 여러 시점의 표현과 오류 검토에서 확인한다.</p>
+  <blockquote>다음 차시에서는 생성된 이미지 결과를 후처리하고 해상도와 디테일을 보완하는 작업으로 확장합니다.</blockquote>
 </LessonSection>
 
 <style>
-  .lesson07-section :where(article, div, aside, table) { min-width: 0; }
-  .lesson07-section :where(h3, p, ul, ol, blockquote) { margin-top: 0; }
-  .lesson07-lead, .lesson07-private, .lesson07-boundary, .lesson07-emphasis { padding: clamp(1rem, 3vw, 1.8rem); border: 1px solid var(--line); background: var(--paper); }
-  .lesson07-lead > span, .lesson07-workflows article > span { color: var(--accent); font-size: .75rem; font-weight: 800; letter-spacing: .12em; }
-  .lesson07-lead h3 { margin: .5rem 0 .75rem; font-size: clamp(1.4rem, 3vw, 2rem); text-wrap: balance; }
-  .lesson07-lead p, .lesson07-boundary p { margin-bottom: 0; }
-  .lesson07-private { border-left: 4px solid var(--accent); }
-  .lesson07-private__label { margin-bottom: .45rem; color: var(--accent); font-size: .78rem; font-weight: 800; letter-spacing: .08em; }
-  .lesson07-private h3 { margin: 0 0 1rem; font-size: clamp(1.3rem, 3vw, 1.8rem); text-wrap: balance; }
-  .lesson07-private ul { display: grid; gap: .55rem; margin: 1rem 0; padding-left: 1.25rem; }
-  .lesson07-private li { padding-left: .2rem; overflow-wrap: anywhere; }
-  .lesson07-private__emphasis { margin: 1.15rem 0 0; padding: 1rem; border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line)); background: color-mix(in srgb, var(--accent) 8%, var(--paper)); line-height: 1.65; }
-  .lesson07-workflows, .lesson07-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem; }
-  .lesson07-workflows article, .lesson07-grid article { padding: 1rem; border: 1px solid var(--line); background: var(--paper); }
-  .lesson07-workflows article p, .lesson07-grid article p { margin: .5rem 0 0; }
-  .lesson07-grid--three { grid-template-columns: repeat(3,minmax(0,1fr)); }
-  .lesson07-grid--four { grid-template-columns: repeat(4,minmax(0,1fr)); }
-  .lesson07-time-plan { padding: 0; margin: 1rem 0 0; list-style: none; }
-  .lesson07-time-plan li { display: flex; justify-content: space-between; gap: 1rem; padding: .6rem 0; border-bottom: 1px solid var(--line); }
-  .lesson07-total { text-align: right; font-weight: 800; }
-  .lesson07-flow { display: flex; flex-wrap: wrap; gap: .65rem; align-items: center; padding: 1rem; border: 1px solid var(--line); background: var(--paper); }
-  .lesson07-flow span { color: var(--accent); font-weight: 800; }
-  .lesson07-steps { display: grid; gap: .6rem; padding-left: 1.4rem; }
-  .lesson07-checklist { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .75rem; padding: 0; list-style: none; }
-  .lesson07-checklist li { padding: 1rem 1rem 1rem 2.5rem; border: 1px solid var(--line); background: var(--paper); position: relative; }
-  .lesson07-checklist li::before { content: '□'; position: absolute; left: 1rem; color: var(--accent); font-weight: 800; }
-  .lesson07-emphasis { border-left: 4px solid var(--accent); font-weight: 700; }
-  .lesson07-table-wrap { width: 100%; overflow-x: auto; }
-  .lesson07-table-wrap:focus-visible { outline: 3px solid var(--focus,#1d4ed8); outline-offset: 3px; }
-  .lesson07-table-wrap table { width: 100%; min-width: 680px; border-collapse: collapse; }
-  .lesson07-table-wrap :where(th,td) { padding: .85rem; border: 1px solid var(--line); text-align: left; vertical-align: top; }
-  .lesson07-table-wrap thead th { color: var(--paper); background: var(--ink); }
-  .lesson07-results { columns: 2; column-gap: 2rem; padding-left: 1.4rem; }
-  .lesson07-results li { margin-bottom: .55rem; break-inside: avoid; }
-  @media (max-width:760px) {
-    .lesson07-workflows, .lesson07-grid, .lesson07-grid--three, .lesson07-grid--four, .lesson07-checklist { grid-template-columns:minmax(0,1fr); }
-    .lesson07-flow { display:grid; grid-template-columns:minmax(0,1fr); text-align:center; }
-    .lesson07-flow span { transform:rotate(90deg); }
-    .lesson07-results { columns:1; }
+  :global(.lesson07-section) {
+    --lesson07-ink: #17221f;
+    --lesson07-accent: #a63d24;
+    --lesson07-blue: #235a76;
+    --lesson07-line: rgba(23, 34, 31, 0.2);
   }
+
+  .lesson07-lead,
+  .lesson07-private,
+  .lesson07-boundary,
+  .lesson07-note,
+  .lesson07-emphasis,
+  .lesson07-web-demo {
+    break-inside: avoid;
+  }
+
+  .lesson07-lead {
+    padding: clamp(1.5rem, 3vw, 3rem);
+    background: var(--lesson07-ink);
+    color: #f5f1e8;
+  }
+
+  .lesson07-lead span,
+  .lesson07-workflows span,
+  .lesson07-compare span,
+  .lesson07-equation span,
+  .lesson07-template span,
+  .lesson07-web-demo span {
+    color: #c85d3c;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+  }
+
+  .lesson07-lead h3 {
+    max-width: 20ch;
+    margin: 0.8rem 0 1rem;
+    color: inherit;
+    font-size: clamp(1.8rem, 4vw, 3.6rem);
+    line-height: 1.12;
+    word-break: keep-all;
+  }
+
+  .lesson07-lead p { max-width: 64ch; margin: 0; color: rgba(245, 241, 232, 0.82); }
+
+  .lesson07-workflows,
+  .lesson07-grid,
+  .lesson07-compare,
+  .lesson07-template,
+  .lesson07-specs {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .lesson07-workflows { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .lesson07-grid--three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .lesson07-grid--four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .lesson07-grid--five { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .lesson07-compare { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lesson07-template { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .lesson07-specs { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+
+  .lesson07-workflows article,
+  .lesson07-grid article,
+  .lesson07-compare article,
+  .lesson07-template article,
+  .lesson07-specs article {
+    min-width: 0;
+    padding: 1rem;
+    border: 1px solid var(--lesson07-line);
+    background: rgba(255, 255, 255, 0.68);
+    break-inside: avoid;
+  }
+
+  .lesson07-workflows p,
+  .lesson07-grid p,
+  .lesson07-compare p,
+  .lesson07-template p { margin-bottom: 0; }
+
+  .lesson07-time-plan { display: grid; gap: 0; margin: 1.5rem 0 0; padding: 0; list-style: none; border-top: 1px solid var(--lesson07-line); }
+  .lesson07-time-plan li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.65rem 0; border-bottom: 1px solid var(--lesson07-line); }
+  .lesson07-total { text-align: right; font-weight: 800; }
+
+  .lesson07-private { padding: 1.4rem; border: 2px solid #b55730; background: #fff4e9; }
+  .lesson07-private__label { display: inline-block; margin: 0 0 0.75rem; padding: 0.25rem 0.55rem; background: #b55730; color: #fff; font-size: 0.78rem; font-weight: 800; }
+  .lesson07-private h3 { margin-top: 0; }
+  .lesson07-private__emphasis { margin-bottom: 0; padding: 0.9rem; background: #31211d; color: #fff; }
+
+  .lesson07-figure { margin: 1.5rem 0; padding: 0.75rem; border: 1px solid var(--lesson07-line); background: #f8f6f1; break-inside: avoid; }
+  .lesson07-figure :global(img) { display: block; width: 100%; max-height: 68rem; object-fit: contain; background: #fff; }
+  .lesson07-figure--detail :global(img) { max-height: 54rem; }
+  .lesson07-figure figcaption { display: grid; gap: 0.2rem; padding: 0.8rem 0.25rem 0.15rem; }
+  .lesson07-figure figcaption span { color: #5a6560; font-size: 0.88rem; }
+
+  .lesson07-boundary { margin: 1rem 0; padding: 1rem; border-left: 4px solid var(--lesson07-blue); background: #edf5f8; }
+  .lesson07-boundary p { margin: 0.35rem 0 0; }
+  .lesson07-note { padding: 0.9rem 1rem; border: 1px dashed #7b7f75; background: #f5f3eb; }
+  .lesson07-emphasis { padding: 1rem; border-left: 4px solid var(--lesson07-accent); background: #fff3ed; font-weight: 700; }
+
+  .lesson07-flow,
+  .lesson07-process,
+  .lesson07-concept-row,
+  .lesson07-equation {
+    display: flex;
+    align-items: stretch;
+    gap: 0.7rem;
+    margin: 1.2rem 0;
+    break-inside: avoid;
+  }
+
+  .lesson07-flow { flex-wrap: wrap; align-items: center; }
+  .lesson07-flow strong { flex: 1 1 9rem; padding: 0.85rem; border: 1px solid var(--lesson07-line); text-align: center; }
+  .lesson07-flow span { color: var(--lesson07-accent); font-weight: 900; }
+
+  .lesson07-checklist { display: grid; gap: 0.55rem; padding: 0; list-style: none; }
+  .lesson07-checklist li { position: relative; padding: 0.75rem 0.75rem 0.75rem 2.35rem; border: 1px solid var(--lesson07-line); background: rgba(255,255,255,.65); break-inside: avoid; }
+  .lesson07-checklist li::before { content: '□'; position: absolute; left: 0.75rem; top: 0.66rem; color: var(--lesson07-accent); font-size: 1.2rem; font-weight: 800; }
+
+  .lesson07-concept-row article { flex: 1 1 0; padding: 1.2rem; border: 1px solid var(--lesson07-line); text-align: center; }
+  .lesson07-arrow { align-self: center; color: var(--lesson07-accent); font-size: 1.8rem; }
+  .lesson07-point { display: block; color: var(--lesson07-ink); font-size: 2.4rem; line-height: 1; }
+  .lesson07-gaussian-dot { display: block; width: 5.5rem; height: 3.5rem; margin: 0 auto; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(166,61,36,.95), rgba(166,61,36,.38) 45%, rgba(166,61,36,0) 74%); transform: rotate(-18deg); }
+
+  .lesson07-gaussian-cloud { position: relative; width: min(100%, 32rem); height: 14rem; margin: 1rem auto; overflow: hidden; border: 1px solid var(--lesson07-line); background: linear-gradient(145deg, #f6efe8, #dbe7e3); break-inside: avoid; }
+  .lesson07-gaussian-cloud i { position: absolute; left: var(--x); top: var(--y); width: var(--size); height: calc(var(--size) * .62); border-radius: 50%; background: radial-gradient(ellipse, rgba(35,90,118,.72), rgba(35,90,118,0) 72%); transform: rotate(var(--rotate)); }
+
+  .lesson07-equation article { flex: 1 1 0; padding: 1.25rem; border: 1px solid var(--lesson07-line); }
+  .lesson07-equation b { align-self: center; color: var(--lesson07-accent); font-size: 1.8rem; }
+
+  .lesson07-process { align-items: center; }
+  .lesson07-process article { flex: 1 1 0; display: grid; gap: 0.25rem; min-width: 0; padding: 0.9rem 0.55rem; border: 1px solid var(--lesson07-line); text-align: center; background: #f4f0e8; }
+  .lesson07-process article span { color: var(--lesson07-accent); font-size: 0.7rem; font-weight: 800; }
+  .lesson07-process i { color: var(--lesson07-accent); font-style: normal; font-weight: 900; }
+  .lesson07-process--short { max-width: 50rem; margin-inline: auto; }
+
+  .lesson07-install { display: grid; gap: 0; padding: 0; list-style: none; border-top: 1px solid var(--lesson07-line); }
+  .lesson07-install li { display: grid; grid-template-columns: 3.2rem minmax(0, 1fr); align-items: center; border-bottom: 1px solid var(--lesson07-line); break-inside: avoid; }
+  .lesson07-install span { color: var(--lesson07-accent); font-weight: 900; }
+
+  .lesson07-specs article { display: grid; gap: 0.4rem; }
+  .lesson07-specs span { color: var(--lesson07-blue); font-size: 0.72rem; font-weight: 900; letter-spacing: .12em; }
+
+  .lesson07-table-wrap { max-width: 100%; overflow-x: auto; border: 1px solid var(--lesson07-line); break-inside: avoid; }
+  .lesson07-table-wrap table { width: 100%; min-width: 42rem; border-collapse: collapse; }
+  .lesson07-table-wrap th, .lesson07-table-wrap td { padding: 0.8rem; border-bottom: 1px solid var(--lesson07-line); text-align: left; vertical-align: top; }
+  .lesson07-table-wrap thead th { background: var(--lesson07-ink); color: #fff; }
+
+  .lesson07-web-demo { display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; padding: 1.25rem; border: 2px solid var(--lesson07-blue); background: #edf5f8; }
+  .lesson07-web-demo h3 { margin: .3rem 0; }
+  .lesson07-web-demo p { margin: 0; }
+  .lesson07-web-demo a { flex: 0 0 auto; padding: .8rem 1rem; background: var(--lesson07-blue); color: #fff; font-weight: 800; text-decoration: none; }
+
+  @media (max-width: 900px) {
+    .lesson07-workflows,
+    .lesson07-grid--four,
+    .lesson07-grid--five,
+    .lesson07-template,
+    .lesson07-specs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .lesson07-process { flex-wrap: wrap; }
+    .lesson07-process article { flex-basis: 8rem; }
+  }
+
+  @media (max-width: 560px) {
+    .lesson07-workflows,
+    .lesson07-grid--three,
+    .lesson07-grid--four,
+    .lesson07-grid--five,
+    .lesson07-compare,
+    .lesson07-template,
+    .lesson07-specs { grid-template-columns: minmax(0, 1fr); }
+    .lesson07-concept-row,
+    .lesson07-equation,
+    .lesson07-web-demo { flex-direction: column; }
+    .lesson07-arrow { transform: rotate(90deg); }
+    .lesson07-flow span { display: none; }
+    .lesson07-process i { transform: rotate(90deg); }
+    .lesson07-web-demo a { width: 100%; text-align: center; }
+  }
+
   @media print {
-    :global(.lesson07-section) :where(.lesson07-lead,.lesson07-private,.lesson07-boundary,.lesson07-emphasis,.lesson07-workflows article,.lesson07-grid article,.lesson07-checklist li,blockquote) { break-inside:avoid-page; page-break-inside:avoid; }
-    .lesson07-table-wrap { overflow:visible; }
-    .lesson07-table-wrap table { min-width:0; font-size:9pt; }
+    .lesson07-figure :global(img) { max-height: 210mm; }
+    .lesson07-workflows,
+    .lesson07-grid--three,
+    .lesson07-grid--four,
+    .lesson07-grid--five,
+    .lesson07-compare,
+    .lesson07-template,
+    .lesson07-specs { gap: 5mm; }
+    .lesson07-web-demo a { display: none; }
+    .lesson07-table-wrap { overflow: visible; }
+    .lesson07-table-wrap table { min-width: 0; }
   }
 </style>

@@ -1028,21 +1028,110 @@ assets:
     alt: "Gaussian 기반 공간 표현과 현실형 렌더 비교자료"
     verification_note: "정확한 Gaussian 처리 JSON이 없어 확인되지 않은 모델·노드·파라미터를 단정하지 않으며 공개 권리 확인 전 배포하지 않음"
 
-  - id: "l07-upscale-review"
+  - id: "l07-floor-plan-original-example"
     lesson: 7
-    priority: "optional"
+    priority: "required"
     source_type: "original"
     production_owner: "instructor"
-    lesson_usage: "demonstration"
-    title: "업스케일 적용 비교자료"
+    lesson_usage: "practice-input"
+    title: "전체 평면도 수업 예시 화면"
     type: "image"
-    purpose: "기본 리샘플링과 AI 업스케일 결과의 변화와 한계 비교"
-    required_files: ["업스케일 전 결과", "Lanczos 결과", "Real-ESRGAN 결과", "UltraSharp 결과"]
+    purpose: "전체 평면도에서 공간 관계와 직접 확인 가능한 정보를 읽는 예시"
+    required_files: ["01-floor-plan-original-example.png"]
+    file_path: "src/assets/lessons/07/floor-plan-edit-example/01-floor-plan-original-example.png"
     recommended_tool: "user-upload"
     status: "ready"
-    public_use: false
-    alt: "같은 공간 렌더의 업스케일 전후 비교자료"
-    verification_note: "업스케일이 실제 설계 정보나 원본에 없던 디테일을 복원한다고 설명하지 않으며 공개 권리 확인 전 배포하지 않음"
+    public_use: true
+    alt: "수업 예시용 전체 평면도 화면"
+    source_note: "사용자가 제7차시 e-book 수업 예시 화면으로 공개 사용을 명시적으로 허락함"
+    rights_status: "cleared"
+    privacy_note: "수업 예시 이미지로 허가된 화면이며 검색 가능한 본문에는 회사명·프로젝트명·수강생 이름·로컬 경로를 기록하지 않음"
+    verified_at: "2026-08-13"
+    verification_note: "원본 PDF·DWG는 제공하지 않고 본문 예시 화면으로만 표시하며 다운로드 UI를 만들지 않음"
+
+  - id: "l07-storage-room-original"
+    lesson: 7
+    priority: "required"
+    source_type: "original"
+    production_owner: "instructor"
+    lesson_usage: "practice-input"
+    title: "부분 공간 확대 수업 예시"
+    type: "image"
+    purpose: "전체 평면도에서 수정 대상 공간을 확대해 확인하는 예시"
+    required_files: ["02-storage-room-original.png"]
+    file_path: "src/assets/lessons/07/floor-plan-edit-example/02-storage-room-original.png"
+    recommended_tool: "user-upload"
+    status: "ready"
+    public_use: true
+    alt: "전체 평면도에서 확대해 확인하는 부분 공간 화면"
+    source_note: "사용자가 제7차시 e-book 수업 예시 화면으로 공개 사용을 명시적으로 허락함"
+    rights_status: "cleared"
+    privacy_note: "수업 예시 이미지로 허가된 화면이며 검색 가능한 본문에는 회사명·프로젝트명·수강생 이름·로컬 경로를 기록하지 않음"
+    verified_at: "2026-08-13"
+    verification_note: "부분 수정 과정을 설명하는 본문 예시로만 표시하며 다운로드 UI를 만들지 않음"
+
+  - id: "l07-storage-room-edit-area"
+    lesson: 7
+    priority: "required"
+    source_type: "original"
+    production_owner: "instructor"
+    lesson_usage: "practice-input"
+    title: "부분 공간 수정영역 수업 예시"
+    type: "image"
+    purpose: "바꿀 위치와 유지할 범위를 시각적으로 구분하는 예시"
+    required_files: ["03-storage-room-edit-area.png"]
+    file_path: "src/assets/lessons/07/floor-plan-edit-example/03-storage-room-edit-area.png"
+    recommended_tool: "user-upload"
+    status: "ready"
+    public_use: true
+    alt: "부분 공간에서 수정할 영역을 표시한 화면"
+    source_note: "사용자가 제7차시 e-book 수업 예시 화면으로 공개 사용을 명시적으로 허락함"
+    rights_status: "cleared"
+    privacy_note: "수업 예시 이미지로 허가된 화면이며 검색 가능한 본문에는 회사명·프로젝트명·수강생 이름·로컬 경로를 기록하지 않음"
+    verified_at: "2026-08-13"
+    verification_note: "지정 영역과 원본 보존 원칙을 설명하는 본문 예시로만 표시하며 다운로드 UI를 만들지 않음"
+
+  - id: "l07-storage-room-edited"
+    lesson: 7
+    priority: "required"
+    source_type: "original"
+    production_owner: "instructor"
+    lesson_usage: "result-sample"
+    title: "부분 공간 수정결과 수업 예시"
+    type: "image"
+    purpose: "지정 영역만 변경됐는지 원본과 비교하는 결과 예시"
+    required_files: ["04-storage-room-edited.png"]
+    file_path: "src/assets/lessons/07/floor-plan-edit-example/04-storage-room-edited.png"
+    recommended_tool: "user-upload"
+    status: "ready"
+    public_use: true
+    alt: "지정 영역을 부분 수정한 평면 결과 화면"
+    source_note: "사용자가 제7차시 e-book 수업 예시 화면으로 공개 사용을 명시적으로 허락함"
+    rights_status: "cleared"
+    privacy_note: "수업 예시 이미지로 허가된 화면이며 검색 가능한 본문에는 회사명·프로젝트명·수강생 이름·로컬 경로를 기록하지 않음"
+    verified_at: "2026-08-13"
+    verification_note: "수정 정확도를 보장하는 정답이 아니라 전후 비교용 수업 예시로 표시하며 다운로드 UI를 만들지 않음"
+
+  - id: "l07-floor-plan-integrated"
+    lesson: 7
+    priority: "required"
+    source_type: "original"
+    production_owner: "instructor"
+    lesson_usage: "result-sample"
+    title: "전체 평면도 수정 반영 수업 예시"
+    type: "image"
+    purpose: "부분 수정 결과를 전체 평면도 맥락에서 다시 검토하는 예시"
+    required_files: ["05-floor-plan-integrated.png"]
+    file_path: "src/assets/lessons/07/floor-plan-edit-example/05-floor-plan-integrated.png"
+    recommended_tool: "user-upload"
+    status: "ready"
+    public_use: true
+    alt: "부분 수정 결과를 전체 평면도에 다시 반영한 화면"
+    source_note: "사용자가 제7차시 e-book 수업 예시 화면으로 공개 사용을 명시적으로 허락함"
+    rights_status: "cleared"
+    privacy_note: "수업 예시 이미지로 허가된 화면이며 검색 가능한 본문에는 회사명·프로젝트명·수강생 이름·로컬 경로를 기록하지 않음"
+    verified_at: "2026-08-13"
+    verification_note: "원본 PDF·DWG는 제공하지 않고 본문 예시 화면으로만 표시하며 다운로드 UI를 만들지 않음"
 
   - id: "l07-gaussian-external-reference"
     lesson: 7
@@ -1050,10 +1139,10 @@ assets:
     source_type: "external-reference"
     production_owner: "instructor"
     lesson_usage: "demonstration"
-    title: "Gaussian·렌더·업스케일 로컬 참고자료"
+    title: "Gaussian·렌더 로컬 참고자료"
     type: "image"
-    purpose: "강의실에서 Gaussian 기반 공간 표현, 렌더와 업스케일 결과를 분석"
-    required_files: ["Gaussian 결과", "현실형 렌더", "업스케일 비교 결과"]
+    purpose: "강의실에서 Gaussian 기반 공간 표현과 렌더 결과를 분석"
+    required_files: ["Gaussian 결과", "현실형 렌더", "재조명 비교 결과"]
     recommended_tool: "user-upload"
     status: "reference-only-unverified"
     public_use: false

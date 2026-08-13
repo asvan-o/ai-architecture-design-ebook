@@ -141,7 +141,7 @@ const detailedLessonSections = {
   '04': ['차시 소개', '제3차시 복습 · 제안요청서(RFP)에서 디자인 기준 찾기', '이번 복습에서 한 단계 더 · 재질 참고자료 활용', '복습 실습 · 제안요청서(RFP)를 읽고 디자인 3안 만들기', '복습 실습 결과 정리 · 3안 비교하기', 'Antigravity 2.0 이해와 실습 준비', 'Antigravity 2.0 사용법 · Project, Local Mode, 설정, 단축키, slash command', '무엇을 자동화할 것인가 · 설계 프로젝트 자동 정리 프로그램', '개발 실습 · ROOT와 다중 프로젝트 구조 만들기', '개발 실습 · 파일 감지와 프로그램 작동 흐름', '개발 실습 · CAD·BIM·3D·Graphic·Image·Video·Document 분류', '개발 실습 · Windows 설치 프로그램 만들기', '전체 자동화 검증', 'Antigravity 2.0으로 더 만들어볼 수 있는 건축·디자인 업무 도구'],
   '05': ['차시 소개', '오늘의 학습 흐름', '4차시 복습 확장 · 재질 선택과 무드보드', '평면도는 어떤 정보를 보여주는가', '평면도에서 사람이 먼저 읽을 것', '탑뷰 입체화란 무엇인가', '작은 객실 · 평면도에서 탑뷰 입체화', '아이소메트릭(Isometric)은 무엇인가', '작은 객실 · 탑뷰에서 아이소메트릭으로', '복합 공간 평면도 읽기', '거실·식당·주방 · 인테리어 적용', '원 평면도와 AI 결과 비교', '실습 · 평면도를 입체적으로 읽고 공간 콘셉트까지 확장하기', '결과물 정리와 검토'],
   '06': ['차시 소개', '오늘의 목표와 작업 흐름', '준비 자료 확인', 'DWG와 평면도 읽기', '확인 정보와 추정 정보 구분하기', '수정 영역 지정과 평면도 인페인팅', '수정 결과 검토', 'Top View 3D 입체화', '아이소메트릭이란?', '아이소메트릭 제작', 'Exploded Isometric View란?', '아이소메트릭 분해도 제작', '결과 검토 체크리스트', '마무리 정리'],
-  '07': ['차시 소개', '오늘의 목표와 전체 워크플로우', '현장 실습자료 사용 안내', 'PDF 전체 평면도 분석', '확인 정보와 추정 정보', '특정 공간 찾기', '부분 공간 수정', '수정 결과 검토', '전체 PDF에 부분 수정 반영', '전체 평면도 Top View 3D', '기준 3D 이미지 설정', 'Gaussian Splatting이란?', 'Mesh와 Gaussian 비교', 'Gaussian Splatting의 한계', 'ComfyUI 워크플로우 준비', 'Gaussian 기반 결과 확인', '시점 변화와 오류 검토', '현실형 그래픽 렌더', '업스케일 적용 예시', '결과 비교와 마무리'],
+  '07': ['차시 소개', '오늘의 목표와 전체 워크플로우', 'STEP 1 · 전체 평면도 확인', 'PDF·이미지 기반 도면 분석', 'STEP 2 · 원하는 공간 확대', 'STEP 3 · 수정 영역 지정', 'STEP 4 · 부분 수정 결과 확인', 'STEP 5 · 전체 평면도에 다시 적용', 'Top View 3D로 연결', '한 장의 Top View 3D에서 다음 단계로', 'Mesh와 Gaussian의 아주 짧은 차이', 'Point에서 Gaussian 느낌 이해하기', 'Gaussian 하나와 많은 Gaussian', 'Splatting이란?', 'Gaussian + Splatting', 'Gaussian Splatting 작동 흐름', '왜 이번 수업에서 Gaussian을 사용하는가?', '일반 3DGS와 Single Image TripoSplat', '단일 이미지 기반 3D의 추정과 오류', 'Stability Matrix란?', 'ComfyUI란?', '설치와 권장 사양', 'TripoSplat 템플릿 읽기', 'Gaussian 개수 등 핵심 설정', 'Gaussian 결과 생성과 출력 이해', '로컬 실행이 어려울 때 · TripoSplat Web Demo', '결과 비교와 마무리'],
 };
 const lessonThreeFourOutputs = ['요구조건 매트릭스', '발주기관 추가 질의', '디자인 브리프', '평면도 기반 현황 이미지 생성 결과', '현황 이미지 수정 결과', '평면도와 이미지의 불일치 기록', '제4차시 대안 평가기준'];
 
@@ -845,17 +845,17 @@ for (const fileName of files) {
     catch { errors.push('제7차시 PDF·Gaussian 컴포넌트를 읽을 수 없습니다.'); }
 
     for (const marker of [
-      '현장 제공 실습자료 · 공개 e-book 미수록',
+      '현장 제공 원본자료 · 공개 e-book 미수록',
       '회사·프로젝트 도면 사용 주의',
       'AI에 업로드할 수 있는 파일과 업로드해도 되는 파일은 같은 의미가 아닙니다.',
       'lesson07-pdf-analysis',
       'lesson07-local-edit',
       'lesson07-composite',
-      '원래 3DGS와 이번 실습의 구분',
-      'Gaussian 결과는 CAD/BIM 모델이나 정확한 실측 3D 모델과 같지 않다.',
-      'RealESRGAN_x2.pth',
-      '4x-UltraSharp.pth',
-      '업스케일은 실제 설계 정보를 복원하지 않는다.',
+      'Point에서 Gaussian 느낌 이해하기',
+      'Single 2D Image → 3D Gaussian Splat',
+      'sampling_num_gaussians',
+      'https://huggingface.co/spaces/VAST-AI/TripoSplat',
+      '다음 차시에서는 생성된 이미지 결과를 후처리하고 해상도와 디테일을 보완하는 작업으로 확장합니다.',
     ]) {
       if (!lessonSevenComponent.includes(marker)) {
         errors.push(`제7차시 PDF·Gaussian 컴포넌트에 '${marker}'가 없습니다.`);
@@ -865,10 +865,21 @@ for (const fileName of files) {
     if (lessonSevenPromptCount !== 3) {
       errors.push(`제7차시 PromptCopyBlock 수: 예상 3개, 실제 ${lessonSevenPromptCount}개`);
     }
-    for (const privateMarker of ['(수강)', 'C:\\Users\\', '소장실']) {
+    for (const privateMarker of ['(수강)', 'C:\\Users\\', '7차시_00_', '7차시_02_', '7차시_03_', '7차시_04_', '7차시_05_']) {
       if (source.includes(privateMarker) || lessonSevenComponent.includes(privateMarker)) {
         errors.push(`제7차시 학생용 콘텐츠에 비공개 식별 정보 '${privateMarker}'가 있습니다.`);
       }
+    }
+    const lessonSevenFiles = [
+      'src/assets/lessons/07/floor-plan-edit-example/01-floor-plan-original-example.png',
+      'src/assets/lessons/07/floor-plan-edit-example/02-storage-room-original.png',
+      'src/assets/lessons/07/floor-plan-edit-example/03-storage-room-edit-area.png',
+      'src/assets/lessons/07/floor-plan-edit-example/04-storage-room-edited.png',
+      'src/assets/lessons/07/floor-plan-edit-example/05-floor-plan-integrated.png',
+    ];
+    for (const filePath of lessonSevenFiles) {
+      try { await access(path.resolve(filePath)); }
+      catch { errors.push(fileName + ': 제7차시 공개 예시 파일을 찾을 수 없습니다: ' + filePath); }
     }
   }
   if (source.includes("category: '전문가 판단 필요'")) {

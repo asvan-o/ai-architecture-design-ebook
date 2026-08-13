@@ -3,7 +3,7 @@ title: "제7차시 · PDF 도면 기반 공간 수정과 Gaussian Splatting 3D �
 day: 7
 date: "pending"
 durationMinutes: 180
-lastVerified: "2026-08-12"
+lastVerified: "2026-08-13"
 draft: true
 publicationStatus: "detailed"
 contentType: "instruction"
@@ -24,30 +24,61 @@ sources:
   - id: "lesson-07-comfyui-workflow"
     title: "ComfyUI Workflow"
     publisher: "ComfyUI Official Documentation"
-    url: "https://docs.comfy.org/development/core-concepts/workflow"
+    url: "https://docs.comfy.org/basic-concepts/workflow"
     sourceType: "official"
     note: "ComfyUI 워크플로우가 노드와 연결로 이루어진 그래프이며 JSON 또는 생성 이미지 메타데이터로 저장될 수 있음을 확인"
+  - id: "lesson-07-stability-matrix"
+    title: "Stability Matrix Package Manager Overview"
+    publisher: "LykosAI"
+    url: "https://github.com/LykosAI/StabilityMatrix/blob/main/docs/package-manager/overview.md"
+    sourceType: "official"
+    note: "Stability Matrix가 ComfyUI 등 생성형 AI 패키지를 설치·업데이트·실행·관리하는 데스크톱 패키지 관리자임을 확인"
+  - id: "lesson-07-triposplat"
+    title: "TripoSplat"
+    publisher: "VAST-AI Research"
+    url: "https://github.com/VAST-AI-Research/TripoSplat"
+    sourceType: "official"
+    note: "단일 2D 이미지에서 3D Gaussian 표현을 생성하는 공식 구현과 ComfyUI 지원 범위를 확인"
+  - id: "lesson-07-triposplat-template"
+    title: "3D TripoSplat Image to Gaussian Splat Workflow"
+    publisher: "Comfy-Org"
+    url: "https://github.com/Comfy-Org/workflow_templates/blob/main/templates/3d_triposplat_image_to_gaussian_splat.json"
+    sourceType: "official"
+    note: "공식 ComfyUI 템플릿의 입력·TripoSplat·배경 제거·Gaussian 개수·Orbit·SPZ·GLB 분기 구성을 확인"
+  - id: "lesson-07-triposplat-web"
+    title: "TripoSplat Web Demo"
+    publisher: "VAST-AI Research · Hugging Face"
+    url: "https://huggingface.co/spaces/VAST-AI/TripoSplat"
+    sourceType: "official"
+    note: "로컬 실행이 어려울 때 사용할 수 있는 웹 데모 주소와 현재 출력 범위를 확인"
 sections:
   - { id: "section-01", label: "차시 소개" }
   - { id: "section-02", label: "오늘의 목표와 전체 워크플로우" }
-  - { id: "section-03", label: "현장 실습자료 사용 안내" }
-  - { id: "section-04", label: "PDF 전체 평면도 분석" }
-  - { id: "section-05", label: "확인 정보와 추정 정보" }
-  - { id: "section-06", label: "특정 공간 찾기" }
-  - { id: "section-07", label: "부분 공간 수정" }
-  - { id: "section-08", label: "수정 결과 검토" }
-  - { id: "section-09", label: "전체 PDF에 부분 수정 반영" }
-  - { id: "section-10", label: "전체 평면도 Top View 3D" }
-  - { id: "section-11", label: "기준 3D 이미지 설정" }
-  - { id: "section-12", label: "Gaussian Splatting이란?" }
-  - { id: "section-13", label: "Mesh와 Gaussian 비교" }
-  - { id: "section-14", label: "Gaussian Splatting의 한계" }
-  - { id: "section-15", label: "ComfyUI 워크플로우 준비" }
-  - { id: "section-16", label: "Gaussian 기반 결과 확인" }
-  - { id: "section-17", label: "시점 변화와 오류 검토" }
-  - { id: "section-18", label: "현실형 그래픽 렌더" }
-  - { id: "section-19", label: "업스케일 적용 예시" }
-  - { id: "section-20", label: "결과 비교와 마무리" }
+  - { id: "section-03", label: "STEP 1 · 전체 평면도 확인" }
+  - { id: "section-04", label: "PDF·이미지 기반 도면 분석" }
+  - { id: "section-05", label: "STEP 2 · 원하는 공간 확대" }
+  - { id: "section-06", label: "STEP 3 · 수정 영역 지정" }
+  - { id: "section-07", label: "STEP 4 · 부분 수정 결과 확인" }
+  - { id: "section-08", label: "STEP 5 · 전체 평면도에 다시 적용" }
+  - { id: "section-09", label: "Top View 3D로 연결" }
+  - { id: "section-10", label: "한 장의 Top View 3D에서 다음 단계로" }
+  - { id: "section-11", label: "Mesh와 Gaussian의 아주 짧은 차이" }
+  - { id: "section-12", label: "Point에서 Gaussian 느낌 이해하기" }
+  - { id: "section-13", label: "Gaussian 하나와 많은 Gaussian" }
+  - { id: "section-14", label: "Splatting이란?" }
+  - { id: "section-15", label: "Gaussian + Splatting" }
+  - { id: "section-16", label: "Gaussian Splatting 작동 흐름" }
+  - { id: "section-17", label: "왜 이번 수업에서 Gaussian을 사용하는가?" }
+  - { id: "section-18", label: "일반 3DGS와 Single Image TripoSplat" }
+  - { id: "section-19", label: "단일 이미지 기반 3D의 추정과 오류" }
+  - { id: "section-20", label: "Stability Matrix란?" }
+  - { id: "section-21", label: "ComfyUI란?" }
+  - { id: "section-22", label: "설치와 권장 사양" }
+  - { id: "section-23", label: "TripoSplat 템플릿 읽기" }
+  - { id: "section-24", label: "Gaussian 개수 등 핵심 설정" }
+  - { id: "section-25", label: "Gaussian 결과 생성과 출력 이해" }
+  - { id: "section-26", label: "로컬 실행이 어려울 때 · TripoSplat Web Demo" }
+  - { id: "section-27", label: "결과 비교와 마무리" }
 ---
 
 import Lesson07PdfToGaussian from '../../components/content/Lesson07PdfToGaussian.astro';
@@ -55,18 +86,22 @@ import Lesson07PdfToGaussian from '../../components/content/Lesson07PdfToGaussia
 export const lessonAssetIds = [
   'l07-pdf-private-practice',
   'l07-gaussian-workflow',
-  'l07-upscale-review',
+  'l07-floor-plan-original-example',
+  'l07-storage-room-original',
+  'l07-storage-room-edit-area',
+  'l07-storage-room-edited',
+  'l07-floor-plan-integrated',
 ];
 
 <Lesson07PdfToGaussian
   lessonId="07"
   timePlan={[
     { label: '차시 소개와 자료 경계', minutes: 10, mode: 'guide' },
-    { label: 'PDF 전체 분석과 특정 공간 찾기', minutes: 30, mode: 'practice' },
-    { label: '부분 수정과 전체 PDF 재반영', minutes: 35, mode: 'practice' },
-    { label: 'Top View 3D와 기준 이미지 설정', minutes: 20, mode: 'practice' },
-    { label: 'Gaussian Splatting 개념', minutes: 25, mode: 'guide' },
-    { label: 'ComfyUI 결과 확인과 시점 검토', minutes: 40, mode: 'practice' },
-    { label: '현실형 렌더·업스케일 비교와 정리', minutes: 20, mode: 'review' },
+    { label: '도면 분석과 부분 수정', minutes: 45, mode: 'practice' },
+    { label: '전체 도면 반영과 Top View 3D', minutes: 20, mode: 'practice' },
+    { label: 'Gaussian 기본 개념', minutes: 35, mode: 'guide' },
+    { label: 'Stability Matrix·ComfyUI 준비', minutes: 25, mode: 'demo' },
+    { label: 'TripoSplat 실행과 결과 비교', minutes: 35, mode: 'practice' },
+    { label: '결과 점검과 다음 차시 연결', minutes: 10, mode: 'review' },
   ]}
 />
