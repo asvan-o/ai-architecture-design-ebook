@@ -1,102 +1,82 @@
 ---
-title: "제8차시 · 클라이언트 피드백 대응과 수정 제안서 만들기"
+title: "제8차시 · Gaussian 결과 현실화와 AI 업스케일"
 day: 8
 date: "pending"
 durationMinutes: 180
-lastVerified: null
+lastVerified: "2026-08-13"
 draft: true
+publicationStatus: "detailed"
 contentType: "instruction"
 authorship: "ai-assisted"
-verificationStatus: "pending"
-freshness: "pending"
-riskLevel: "pending"
-professionalReviewStatus: "pending"
-professionalReviewScope: []
-sources: []
+verificationStatus: "mixed-verification"
+freshness: "update-sensitive"
+riskLevel: "high"
+professionalReviewStatus: "required"
+professionalReviewScope:
+  - "AI 현실화·부분 보정·업스케일 결과의 원본 보존, 도면 문자·치수·벽선 정확성, 구조·법규·시공성 판단 경계"
+sources:
+  - id: "lesson-08-comfyui-upscale"
+    title: "ComfyUI Image Upscale Workflow"
+    publisher: "ComfyUI Official Documentation"
+    url: "https://docs.comfy.org/tutorials/basic/upscale"
+    accessedAt: "2026-08-13"
+    sourceType: "official"
+    note: "Load Upscale Model, Upscale Image (Using Model), 이미지 입력·Queue·저장으로 이어지는 기본 업스케일 흐름 확인"
+  - id: "lesson-08-comfyui-image-scale"
+    title: "ImageScale Built-in Node Documentation"
+    publisher: "ComfyUI Official Documentation"
+    url: "https://docs.comfy.org/built-in-nodes/ImageScale"
+    accessedAt: "2026-08-13"
+    sourceType: "official"
+    note: "일반 리사이즈의 보간 방식, 목표 폭·높이와 crop 입력 확인"
+  - id: "lesson-08-huggingface-upscale-space"
+    title: "Image Upscaling Playground"
+    publisher: "Hugging Face Spaces · bookbot"
+    url: "https://huggingface.co/spaces/bookbot/Image-Upscaling-Playground"
+    accessedAt: "2026-08-13"
+    sourceType: "reference"
+    note: "저사양 환경을 위한 웹 대안 주소와 현재 Running 표시 확인. 서비스 상태·제공 범위는 변경될 수 있음"
+  - id: "lesson-08-local-upscale-workflow"
+    title: "업스케일러(수정).json"
+    publisher: "사용자 제공 수업자료"
+    sourceType: "other"
+    note: "VHS_LoadImages, Lanczos ImageScale 1120×1074, RealESRGAN_x2, 4x-UltraSharp, ImageUpscaleWithModel, SaveImage의 실제 연결 확인"
 sections:
   - { id: "section-01", label: "차시 소개" }
-  - { id: "section-02", label: "핵심 질문" }
-  - { id: "section-03", label: "학습 목표" }
-  - { id: "section-04", label: "핵심 개념" }
-  - { id: "section-05", label: "가상 문제" }
-  - { id: "section-06", label: "제공 자료" }
-  - { id: "section-07", label: "강사 시연" }
-  - { id: "section-08", label: "수강생 실습" }
-  - { id: "section-09", label: "제출 결과물" }
-  - { id: "section-10", label: "판단 항목" }
-  - { id: "section-11", label: "오류 체크" }
-  - { id: "section-12", label: "필요 자산" }
-  - { id: "section-13", label: "검증 필요" }
+  - { id: "section-02", label: "제7차시 결과와 오늘의 목표" }
+  - { id: "section-03", label: "오늘의 전체 워크플로우" }
+  - { id: "section-04", label: "Gaussian 결과에서 이미지 시점 선택" }
+  - { id: "section-05", label: "Gaussian 결과를 현실적인 건축 이미지로 변환" }
+  - { id: "section-06", label: "GPT · Gemini · 유료 보조 도구 결과 비교" }
+  - { id: "section-07", label: "결과 비교 기준과 최종 후보 선택" }
+  - { id: "section-08", label: "선택 결과 부분 보정" }
+  - { id: "section-09", label: "Upscale이란?" }
+  - { id: "section-10", label: "일반 확대와 AI Upscale" }
+  - { id: "section-11", label: "AI Upscale의 장점과 한계" }
+  - { id: "section-12", label: "평면도 Before · After 실제 비교" }
+  - { id: "section-13", label: "ComfyUI Upscale 실습" }
+  - { id: "section-14", label: "저사양 PC 대안 · Hugging Face Web Upscale" }
+  - { id: "section-15", label: "Upscale 결과 검토" }
+  - { id: "section-16", label: "최종 결과 정리와 다음 차시 연결" }
 ---
 
-import LessonOutline from '../../components/content/LessonOutline.astro';
+import Lesson08GaussianUpscale from '../../components/content/Lesson08GaussianUpscale.astro';
 
-<LessonOutline
+export const lessonAssetIds = [
+  'l08-gaussian-render-comparison',
+  'l08-floor-plan-upscale-comparison',
+  'l08-comfyui-upscale-workflow',
+];
+
+<Lesson08GaussianUpscale
   lessonId="08"
-  totalMinutes={180}
-  intro={[
-    { category: '확정된 수업 구성', text: '클라이언트 코멘트를 분류하고 수정 지시서, 전후 이미지, 변경 이력, 수정 제안판을 만드는 차시다.' },
-    { category: '수강생 판단', text: '모호한 피드백은 추정으로 채우지 않고 추가 질문으로 되돌린다.' },
-  ]}
-  questions={[
-    { category: '교육용 가정', text: '서로 다른 클라이언트 코멘트가 충돌할 때 무엇을 먼저 확인해야 하는가?' },
-    { category: '수강생 판단', text: '피드백을 그대로 실행할 항목, 유지할 항목, 다시 질문할 항목을 어떻게 구분할 것인가?' },
-  ]}
-  goals={[
-    { category: '학습 목표', text: '클라이언트 코멘트를 변경, 유지, 모호한 요청으로 분류한다.' },
-    { category: '학습 목표', text: '추가 확인 질문과 수정 우선순위를 정한다.' },
-    { category: '학습 목표', text: '이미지 수정과 변경 이력을 연결해 수정 제안판을 만든다.' },
-  ]}
-  concepts={[
-    { category: '교육용 가정', text: '피드백 분류와 우선순위표는 가상 실습용 틀이며 계약·승인 절차를 대신하지 않는다.' },
-    { category: '수강생 판단', text: '요청의 의도, 영향 범위, 충돌, 추가 질문을 확인한 뒤 수정한다.' },
-    { category: '디자인 제안', text: '수정 전후 이미지에 변경 내용과 유지 내용을 함께 표시한다.' },
-  ]}
-  scenario={[
-    { category: '교육용 가정', text: '가상의 클라이언트가 일부는 명확하고 일부는 모호하며 서로 충돌하는 수정 코멘트를 보냈다. 수강생은 확인 질문을 만들고 우선순위를 정해 수정 제안판을 준비한다.' },
-  ]}
-  materials={[
-    { category: '교육용 가정', text: '개인정보가 없는 가상 클라이언트 코멘트와 기준 이미지.' },
-    { category: '디자인 제안', text: '코멘트 분석표, 수정 지시서, 변경 이력표, 수정 제안판 템플릿.' },
-    { category: '추가 출처 확인', text: '수정 전후 이미지와 시연 화면은 제작·권리 확인 후 제공한다.' },
-  ]}
-  demo={[
-    { category: '디자인 제안', text: '강사는 코멘트를 분류하고 수정 범위와 추가 질문을 연결한 뒤 한 항목의 이미지 수정을 시연한다.' },
-    { category: '수강생 판단', text: '수정 결과가 원 요청과 충돌하는지 변경 이력으로 되짚는 과정을 보여 준다.' },
-  ]}
-  practice={[
-    { id: 'comment-analysis', title: '클라이언트 코멘트 분류', minutes: 20, description: '변경, 유지, 모호함, 충돌 항목으로 나눈다.' },
-    { id: 'questions-priority', title: '확인 질문과 우선순위 작성', minutes: 20, description: '추정하지 않고 질문과 작업 순서를 정리한다.' },
-    { id: 'revision-work', title: '이미지 수정안 제작', minutes: 40, description: '승인된 가상 조건 안에서 수정 후보를 만들고 오류를 표시한다.' },
-    { id: 'proposal-board', title: '변경 이력과 수정 제안판 정리', minutes: 20, description: '전후 이미지, 변경 이유, 유지 항목, 추가 확인을 한 판에 정리한다.' },
-  ]}
-  deliverables={[
-    { category: '수업 산출물', text: '클라이언트 코멘트 분석표.' },
-    { category: '수업 산출물', text: '수정 지시서.' },
-    { category: '수업 산출물', text: '수정 전후 이미지.' },
-    { category: '수업 산출물', text: '변경 이력표와 수정 제안판.' },
-  ]}
-  judgments={[
-    { category: '수강생 판단', text: '모호한 요청을 임의로 해석하지 않고 질문으로 남겼는가?' },
-    { category: '수강생 판단', text: '수정 우선순위가 변경 영향과 요청 관계를 반영하는가?' },
-    { category: '법규·구조·소방 등 해당 전문가 판단', text: '수정안의 실제 적용 가능성과 계약 범위는 별도 전문 판단으로 남겼는가?' },
-  ]}
-  errorChecks={[
-    { category: '추가 검증 필요', text: 'AI가 코멘트에 없는 수정 항목이나 우선순위를 추가하지 않았는지 확인한다.' },
-    { category: '수강생 판단', text: '한 항목을 수정하면서 유지하기로 한 공간 요소가 바뀌지 않았는지 확인한다.' },
-    { category: '추가 검증 필요', text: '변경 이력에 입력, 결과, 선택·제외 이유가 빠지지 않았는지 확인한다.' },
-  ]}
-  assetIds={['l08-doc-pack', 'l08-revision-set', 'l08-demo']}
-  verification={[
-    { category: '추가 검증 필요', text: '가상 피드백 문구가 실제 인물·프로젝트를 식별하지 않는지 확인한다.' },
-    { category: '추가 출처 확인', text: '수정 이미지와 템플릿의 공개 사용 권한을 확인한다.' },
-    { category: '강의 전 사실 검증', text: '피드백 우선순위 예시가 보편적 실무 규칙으로 오해되지 않도록 강의 전에 검토한다.' },
-  ]}
   timePlan={[
-    { label: '차시 안내', minutes: 20, mode: 'guide' },
-    { label: '핵심 개념', minutes: 25, mode: 'guide' },
-    { label: '강사 시연', minutes: 25, mode: 'demo' },
-    { label: '수강생 실습', minutes: 100, mode: 'practice' },
-    { label: '검토·정리', minutes: 10, mode: 'review' },
+    { label: '차시 연결과 시점 선택', minutes: 20, mode: 'guide' },
+    { label: '현실형 이미지 후보 생성', minutes: 30, mode: 'practice' },
+    { label: '도구별 결과 비교와 선택', minutes: 30, mode: 'practice' },
+    { label: '선택 결과 부분 보정', minutes: 20, mode: 'practice' },
+    { label: 'Upscale 개념과 한계', minutes: 20, mode: 'guide' },
+    { label: 'ComfyUI 또는 웹 대안 Upscale', minutes: 40, mode: 'practice' },
+    { label: 'Before · After 검토와 정리', minutes: 20, mode: 'practice' },
   ]}
 />

@@ -1149,53 +1149,62 @@ assets:
     alt: "사용 권한이 확인되지 않은 Gaussian과 렌더 비교자료"
     verification_note: "소유·권리 근거 확인 전 public 복사, 학생용 자산 등록 및 배포 금지"
 
-  - id: "l08-doc-pack"
+  - id: "l08-gaussian-render-comparison"
     lesson: 8
     priority: "required"
-    source_type: "template"
-    production_owner: "codex"
-    lesson_usage: "checklist"
-    title: "코멘트 분석·수정 지시·변경 이력 양식"
-    type: "document"
-    purpose: "피드백 분류와 수정 기록에 사용하는 문서"
-    required_files: ["코멘트 분석표", "수정 지시서", "변경 이력표", "수정 제안판"]
-    recommended_tool: "codex"
-    status: "not-created"
-    public_use: false
-    alt: "클라이언트 코멘트 분석과 수정 기록 양식"
-    verification_note: "가상 피드백과 실무 승인 절차의 경계 검토"
-
-  - id: "l08-revision-set"
-    lesson: 8
-    priority: "required"
-    source_type: "original"
-    production_owner: "nano-banana"
-    lesson_usage: "result-sample"
-    title: "수정 전후 이미지 세트"
-    type: "image"
-    purpose: "클라이언트 피드백 반영 전후를 비교하는 이미지"
-    required_files: ["수정 전 이미지", "수정 후 이미지", "이미지 생성·수정 기록"]
-    recommended_tool: "nano-banana"
-    status: "not-created"
-    public_use: false
-    alt: "가상 클라이언트 피드백 반영 전후 공간 이미지"
-    verification_note: "의도하지 않은 구조 변화와 공개 사용 상태 확인"
-
-  - id: "l08-demo"
-    lesson: 8
-    priority: "optional"
     source_type: "original"
     production_owner: "instructor"
-    lesson_usage: "demonstration"
-    title: "피드백 분류와 수정 제안 시연"
-    type: "video"
-    purpose: "코멘트 분석부터 수정 제안판까지 보여 주는 녹화"
-    required_files: ["작업 화면 녹화", "자막 또는 대본"]
+    lesson_usage: "result-sample"
+    title: "Gaussian 현실화 경로 비교 이미지"
+    type: "image"
+    purpose: "Gaussian 시점 캡처와 ChatGPT·Gemini/Nano Banana·VIBE3D 계열 수업 예시를 구조 보존·재질·조명 기준으로 비교"
+    required_files: ["01-gaussian-source.png", "02-chatgpt-render.png", "03-gemini-nano-banana-prompt.jpeg", "04-gemini-nano-banana-agent.jpeg", "05-vibe3d-render.png", "06-vibe3d-relight-render.png"]
     recommended_tool: "user-upload"
-    status: "not-created"
+    status: "ready"
+    public_use: true
+    alt: "Gaussian 시점 캡처와 여러 현실화 경로의 건축 이미지 비교"
+    source_note: "사용자가 제8차시 실제 수업 결과 비교용으로 제공하고 e-book 반영을 지시한 이미지"
+    rights_status: "cleared"
+    rights_reviewer: "asset-owner"
+    rights_reviewed_at: "2026-08-13"
+    rights_review_note: "자산 제작자 본인이 6개 Gaussian 비교 이미지의 직접 제작 사실과 학생용 공개 e-book·GitHub Pages 게시 허용을 확인함"
+    verified_at: "2026-08-13"
+    verification_note: "사용자 제공 수업자료의 실제 파일 표기를 기준으로 경로를 구분했으며 도구 우열 또는 실제 설계 정확성을 뜻하지 않음"
+
+  - id: "l08-floor-plan-upscale-comparison"
+    lesson: 8
+    priority: "required"
+    source_type: "original"
+    production_owner: "instructor"
+    lesson_usage: "result-sample"
+    title: "평면도 AI Upscale 전후 비교"
+    type: "image"
+    purpose: "평면도 원본과 2배 업스케일 결과의 문자·치수선·벽선·가구선 변화 검토"
+    required_files: ["01-floor-plan-before-upscale.png", "02-floor-plan-after-upscale-2x.png"]
+    recommended_tool: "user-upload"
+    status: "ready"
+    public_use: true
+    alt: "업스케일 전후 평면도 비교"
+    source_note: "사용자가 제8차시 실제 업스케일 비교용으로 제공하고 개인 식별 파일명을 제거해 e-book 반영하도록 지시한 이미지"
+    rights_status: "cleared"
+    verified_at: "2026-08-13"
+    verification_note: "공개 파일명을 중립화했고 다운로드 기능을 제공하지 않음; 문자·치수·벽선 정확성은 원본 대조 필요"
+
+  - id: "l08-comfyui-upscale-workflow"
+    lesson: 8
+    priority: "required"
+    source_type: "original"
+    production_owner: "instructor"
+    lesson_usage: "practice-input"
+    title: "ComfyUI Upscale 실제 수업 워크플로"
+    type: "json"
+    purpose: "Lanczos 기준 확대와 RealESRGAN_x2·4x-UltraSharp 모델 결과를 비교하는 로컬 실습"
+    required_files: ["lesson-08-upscale-workflow.json"]
+    recommended_tool: "comfyui"
+    status: "ready"
     public_use: false
-    alt: "클라이언트 피드백을 분류해 수정 제안서를 만드는 과정 안내"
-    verification_note: "실습 자료의 개인정보와 권리 상태 확인"
+    alt: "ComfyUI 업스케일 노드 워크플로"
+    verification_note: "VHS_LoadImages 사용자 노드와 로컬 모델 파일이 필요하므로 e-book에서는 실제 구조만 설명하고 파일 다운로드는 제공하지 않음"
 
   - id: "l09-doc-pack"
     lesson: 9

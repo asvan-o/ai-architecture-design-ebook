@@ -1,0 +1,337 @@
+---
+import { Image } from 'astro:assets';
+import LessonSection from './LessonSection.astro';
+
+import gaussianSource from '../../assets/lessons/08/gaussian-render-comparison/01-gaussian-source.png';
+import chatgptRender from '../../assets/lessons/08/gaussian-render-comparison/02-chatgpt-render.png';
+import geminiPromptRender from '../../assets/lessons/08/gaussian-render-comparison/03-gemini-nano-banana-prompt.jpeg';
+import geminiAgentRender from '../../assets/lessons/08/gaussian-render-comparison/04-gemini-nano-banana-agent.jpeg';
+import vibe3dRender from '../../assets/lessons/08/gaussian-render-comparison/05-vibe3d-render.png';
+import vibe3dRelightRender from '../../assets/lessons/08/gaussian-render-comparison/06-vibe3d-relight-render.png';
+import floorPlanBefore from '../../assets/lessons/08/floor-plan-upscale/01-floor-plan-before-upscale.png';
+import floorPlanAfter from '../../assets/lessons/08/floor-plan-upscale/02-floor-plan-after-upscale-2x.png';
+
+interface TimeItem {
+  label: string;
+  minutes: number;
+  mode: 'guide' | 'demo' | 'practice' | 'review';
+}
+
+interface Props {
+  lessonId?: string;
+  timePlan: readonly TimeItem[];
+}
+
+const { lessonId = '08', timePlan } = Astro.props;
+const totalMinutes = timePlan.reduce((sum, item) => sum + item.minutes, 0);
+
+const workflowSteps = [
+  'Gaussian 결과에서 활용할 시점 선택',
+  '현실형 건축·인테리어 이미지 후보 생성',
+  '도구별 결과를 같은 기준으로 비교',
+  '최종 후보 선택과 필요한 영역만 보정',
+  'AI Upscale 실행',
+  '원본과 대조해 최종 고해상도 이미지 정리',
+];
+
+const renderExamples = [
+  {
+    src: gaussianSource,
+    label: 'INPUT',
+    title: 'Gaussian 시점 캡처',
+    caption: '현실화 작업의 기준 입력이다. 화면에 보이는 공간 관계를 기준으로 후속 결과를 비교한다.',
+  },
+  {
+    src: chatgptRender,
+    label: 'ROUTE 01',
+    title: 'ChatGPT 이미지 경로 결과',
+    caption: '사용자 제공 수업 예시에서 ChatGPT 렌더 결과로 구분된 이미지다.',
+  },
+  {
+    src: geminiPromptRender,
+    label: 'ROUTE 02',
+    title: 'Gemini · Nano Banana 프롬프트 경로',
+    caption: '구조화한 이미지 작업지시를 사용한 수업 예시다.',
+  },
+  {
+    src: geminiAgentRender,
+    label: 'ROUTE 03',
+    title: 'Gemini · Nano Banana 에이전트 경로',
+    caption: '에이전트형 작업 흐름을 거친 수업 예시다. 다른 경로와 결과 차이를 관찰한다.',
+  },
+  {
+    src: vibe3dRender,
+    label: 'ROUTE 04',
+    title: 'VIBE3D 렌더 경로',
+    caption: '전문·유료 보조 도구에서 만든 수업 예시다. 서비스 우열이 아니라 결과 특성을 비교한다.',
+  },
+  {
+    src: vibe3dRelightRender,
+    label: 'ROUTE 05',
+    title: 'VIBE3D Relight 경로',
+    caption: '같은 공간의 조명 재해석 예시다. 밝기 변화와 함께 구조·재질 변화 여부도 확인한다.',
+  },
+] as const;
+
+const comparisonCriteria = [
+  ['구조 보존', '벽체·개구부·공간 관계가 입력과 얼마나 일치하는가?'],
+  ['가구', '위치·수량·형태가 의도 없이 달라지지 않았는가?'],
+  ['재질', '표현이 자연스럽고 반복 무늬나 경계 오류가 없는가?'],
+  ['조명', '공간을 과도하게 재해석하거나 정보 확인을 방해하지 않는가?'],
+  ['추가 오브젝트', '원본에 없던 가구·창·문·장식이 생기지 않았는가?'],
+  ['후속 활용', '수정·크롭·발표자료 제작에 사용할 만큼 안정적인가?'],
+] as const;
+
+const reviewItems = ['외곽선', '내부 벽', '창호', '문', '계단', '가구', '문자', '치수', '재질 패턴'];
+---
+
+<LessonSection id="section-01" number="01" title="차시 소개" class="lesson08-section" {lessonId}>
+  <div class="lesson08-hero" data-presentation-group="single">
+    <span>LESSON 08</span>
+    <h3>Gaussian 결과를 현실적인 제안 이미지로 발전시키고, 정확성을 확인하며 해상도를 높인다</h3>
+    <p>제7차시에서 만든 3D 표현을 다시 설명하지 않고, 필요한 시점을 골라 현실화·비교·보정·업스케일하는 후처리 과정에 집중한다.</p>
+  </div>
+</LessonSection>
+
+<LessonSection id="section-02" number="02" title="제7차시 결과와 오늘의 목표" class="lesson08-section" {lessonId}>
+  <div class="lesson08-bridge">
+    <p>제7차시에서는 Top View 3D 이미지를 Gaussian Splatting으로 변환하여 여러 시점에서 확인할 수 있는 3D 표현을 만들었다. 이번 차시에서는 그 결과 중 필요한 시점을 선택하고, 실제 건축·인테리어 제안 이미지로 활용할 수 있도록 현실화·보정·업스케일하는 과정을 진행한다.</p>
+  </div>
+  <div class="lesson08-goals">
+    <article><span>01</span><h3>현실화</h3><p>Gaussian 시점 캡처를 현실적인 공간 이미지 후보로 변환한다.</p></article>
+    <article><span>02</span><h3>검토</h3><p>여러 도구 결과를 같은 기준으로 비교해 후보를 선택한다.</p></article>
+    <article><span>03</span><h3>고해상도화</h3><p>업스케일 결과를 원본과 대조하고 변화가 생긴 부분을 기록한다.</p></article>
+  </div>
+</LessonSection>
+
+<LessonSection id="section-03" number="03" title="오늘의 전체 워크플로우" class="lesson08-section" {lessonId}>
+  <ol class="lesson08-process">
+    {workflowSteps.map((step, index) => <li><span>{String(index + 1).padStart(2, '0')}</span><strong>{step}</strong></li>)}
+  </ol>
+  <ol class="lesson08-time-plan">
+    {timePlan.map((item) => <li><span>{item.label}</span><strong>{item.minutes}분</strong></li>)}
+  </ol>
+  <p class="lesson08-total">총 {totalMinutes}분</p>
+</LessonSection>
+
+<LessonSection id="section-04" number="04" title="Gaussian 결과에서 이미지 시점 선택" class="lesson08-section" {lessonId}>
+  <figure class="lesson08-figure lesson08-figure--wide">
+    <Image src={gaussianSource} alt="Gaussian Splatting 결과에서 선택한 실내 공간 시점" widths={[720, 1080, 1440, 1920]} sizes="(max-width: 900px) 100vw, 1120px" loading="eager" />
+    <figcaption><strong>Gaussian 원본 · 선택 시점</strong><span>가구와 벽체가 비교적 잘 읽히고, 화면 가장자리의 깨짐이 핵심 공간을 가리지 않는 시점을 고른다.</span></figcaption>
+  </figure>
+  <ul class="lesson08-checklist">
+    <li>공간의 중심 관계와 주요 벽체가 읽히는가?</li>
+    <li>가구·개구부가 심하게 무너지지 않은 시점인가?</li>
+    <li>발표 이미지로 사용할 구도가 확보되는가?</li>
+    <li>가장자리의 비어 있는 영역이나 부유물이 후속 작업을 방해하지 않는가?</li>
+  </ul>
+  <p class="lesson08-boundary">시점 선택은 설계 정보를 새로 확정하는 단계가 아니다. 보이는 결과 중 후처리에 적합한 화면을 고르는 단계다.</p>
+</LessonSection>
+
+<LessonSection id="section-05" number="05" title="Gaussian 결과를 현실적인 건축 이미지로 변환" class="lesson08-section" {lessonId}>
+  <div class="lesson08-flow"><strong>Gaussian 시점 캡처</strong><i>→</i><strong>구조·시점 유지 조건</strong><i>→</i><strong>현실형 이미지 후보</strong></div>
+  <div class="lesson08-rules">
+    <article><h3>유지</h3><p>카메라 시점, 벽체와 개구부, 주요 가구 위치, 공간 비례를 기준으로 지정한다.</p></article>
+    <article><h3>현실화</h3><p>재질의 표면감, 자연스러운 빛, 그림자와 경계 표현을 개선 대상으로 둔다.</p></article>
+    <article><h3>금지</h3><p>새 창·문·가구·구조를 임의로 추가하거나 실제 조건을 확정한 것처럼 표현하지 않는다.</p></article>
+  </div>
+  <p class="lesson08-key"><strong>현실적으로 보인다는 것과 실제 설계가 정확하다는 것은 같은 의미가 아니다.</strong></p>
+</LessonSection>
+
+<LessonSection id="section-06" number="06" title="GPT · Gemini · 유료 보조 도구 결과 비교" class="lesson08-section" {lessonId}>
+  <p>아래 이미지는 사용자 제공 수업 예시 파일의 표기를 기준으로 경로를 구분했다. 도구의 성능 순위를 정하는 자료가 아니라, 같은 공간을 서로 다른 서비스와 작업 방식으로 처리했을 때 무엇이 달라지는지 관찰하는 자료다.</p>
+  <div class="lesson08-render-grid">
+    {renderExamples.map((item) => (
+      <figure class:list={['lesson08-render-card', { 'lesson08-render-card--source': item.label === 'INPUT' }]}>
+        <Image src={item.src} alt={`${item.title} 공간 이미지 예시`} widths={[480, 720, 1080]} sizes="(max-width: 720px) 100vw, 50vw" loading="lazy" />
+        <figcaption><span>{item.label}</span><strong>{item.title}</strong><p>{item.caption}</p></figcaption>
+      </figure>
+    ))}
+  </div>
+  <p class="lesson08-key"><strong>같은 입력 이미지를 사용해도 AI 서비스와 모델에 따라 구조 보존, 재질, 조명과 디테일 표현이 달라질 수 있다.</strong></p>
+</LessonSection>
+
+<LessonSection id="section-07" number="07" title="결과 비교 기준과 최종 후보 선택" class="lesson08-section" {lessonId}>
+  <div class="lesson08-criteria">
+    {comparisonCriteria.map(([title, description]) => <article><h3>{title}</h3><p>{description}</p><span>관찰 기록</span></article>)}
+  </div>
+  <div class="lesson08-selection">
+    <h3>최종 후보 선택 순서</h3>
+    <ol><li>구조 보존이 우선 기준을 통과하는지 확인한다.</li><li>전체 현실감·재질·조명을 함께 본다.</li><li>추가 오류의 수와 수정 난이도를 기록한다.</li><li>후속 크롭·보드·제안 이미지에 활용하기 좋은 한 장을 선택한다.</li></ol>
+  </div>
+</LessonSection>
+
+<LessonSection id="section-08" number="08" title="선택 결과 부분 보정" class="lesson08-section" {lessonId}>
+  <div class="lesson08-flow"><strong>오류 위치 표시</strong><i>→</i><strong>유지 영역 지정</strong><i>→</i><strong>필요한 영역만 수정</strong><i>→</i><strong>수정 전후 비교</strong></div>
+  <p>후보 전체를 다시 생성하면 이미 잘 유지된 구조와 구도가 함께 달라질 수 있다. 이전 차시에서 사용한 부분 수정 또는 인페인팅 방식으로 오류 영역만 좁게 보정한다.</p>
+  <ul class="lesson08-checklist"><li>수정 영역 밖의 벽·창·문·가구가 바뀌지 않았는가?</li><li>오류를 없애면서 새로운 오브젝트를 만들지 않았는가?</li><li>수정 경계의 재질·조명·원근이 자연스럽게 이어지는가?</li></ul>
+</LessonSection>
+
+<LessonSection id="section-09" number="09" title="Upscale이란?" class="lesson08-section" {lessonId}>
+  <div class="lesson08-concept">
+    <span>LOW RESOLUTION</span><strong>작은 이미지</strong><i>→</i><span>UPSCALE</span><strong>더 큰 해상도로 사용할 수 있게 확대·재구성</strong>
+  </div>
+  <p>업스케일은 작은 이미지를 큰 화면, 발표자료, 상세 크롭 등에 사용할 수 있도록 더 높은 해상도로 확대하거나 재구성하는 과정이다.</p>
+  <p class="lesson08-key"><strong>업스케일은 원본에 숨어 있던 실제 정보를 되찾는 과정이 아니다.</strong></p>
+</LessonSection>
+
+<LessonSection id="section-10" number="10" title="일반 확대와 AI Upscale" class="lesson08-section" {lessonId}>
+  <div class="lesson08-compare">
+    <article><span>일반 확대</span><h3>기존 픽셀 사이 계산</h3><p>보간 방식으로 이미지 크기를 늘린다. 구성은 비교적 보수적으로 유지되지만 흐림이나 계단 현상이 남을 수 있다.</p></article>
+    <article><span>AI Upscale</span><h3>패턴을 바탕으로 픽셀 재구성</h3><p>주변 특징을 분석해 높은 해상도로 보이도록 경계와 디테일을 재구성한다. 대신 원본에 없던 표현이 더해질 수 있다.</p></article>
+  </div>
+  <p class="lesson08-key"><strong>선명해진 것과 정확해진 것은 같은 의미가 아니다.</strong></p>
+</LessonSection>
+
+<LessonSection id="section-11" number="11" title="AI Upscale의 장점과 한계" class="lesson08-section" {lessonId}>
+  <div class="lesson08-compare">
+    <article><span>활용 가능성</span><ul><li>큰 화면과 발표자료 활용성 향상</li><li>확대 시 픽셀 깨짐 감소</li><li>재질과 경계가 더 선명하게 보일 수 있음</li><li>크롭·상세 이미지와 후속 편집에 유리</li></ul></article>
+    <article><span>확인해야 할 변화</span><ul><li>원본에 없던 디테일 생성</li><li>벽선·창호 경계와 가구 형상 변화</li><li>재질 패턴 변화</li><li>작은 문자·숫자·치수 왜곡</li></ul></article>
+  </div>
+  <p class="lesson08-warning"><strong>평면도에서는 문자, 숫자, 치수선, 벽선의 정확성을 반드시 원본과 비교한다.</strong></p>
+</LessonSection>
+
+<LessonSection id="section-12" number="12" title="평면도 Before · After 실제 비교" class="lesson08-section" {lessonId}>
+  <p>동일한 평면도 원본과 2배 업스케일 결과를 나란히 본다. 이미지는 학습용 비교 화면으로만 표시하며 다운로드 기능을 제공하지 않는다.</p>
+  <div class="lesson08-plan-compare">
+    <figure><span>BEFORE · Original</span><Image src={floorPlanBefore} alt="업스케일 전 전체 평면도 원본" widths={[520, 780, 1040]} sizes="(max-width: 720px) 100vw, 50vw" loading="lazy" /><figcaption>원본 · 876 × 1414 px</figcaption></figure>
+    <figure><span>AFTER · AI Upscale ×2</span><Image src={floorPlanAfter} alt="2배 AI 업스케일 후 전체 평면도" widths={[520, 780, 1040]} sizes="(max-width: 720px) 100vw, 50vw" loading="lazy" /><figcaption>2배 결과 · 1752 × 2828 px</figcaption></figure>
+  </div>
+  <div class="lesson08-zoom-check">
+    <h3>같은 영역을 확대해 확인</h3>
+    <ul>{['작은 문자 획이 다른 글자로 바뀌지 않았는가?', '벽선 두께와 끊김이 달라지지 않았는가?', '가구선이 합쳐지거나 새 선이 생기지 않았는가?', '치수 숫자·기호가 원본과 같은가?'].map((item) => <li>{item}</li>)}</ul>
+  </div>
+</LessonSection>
+
+<LessonSection id="section-13" number="13" title="ComfyUI Upscale 실습" class="lesson08-section" {lessonId}>
+  <p>수업 자료에서 확인한 실제 워크플로 JSON을 사용한다. 이 파일은 여러 이미지를 한 폴더에서 불러오는 <code>VHS_LoadImages</code> 노드를 사용하므로 Video Helper Suite 사용자 노드가 필요하다.</p>
+  <ol class="lesson08-node-flow">
+    <li><span>01</span><strong>VHS_LoadImages</strong><p>지정 폴더의 이미지를 입력한다.</p></li>
+    <li><span>02</span><strong>ImageScale</strong><p>Lanczos, 1120 × 1074, crop disabled로 기준 크기를 맞춘다.</p></li>
+    <li><span>03A</span><strong>RealESRGAN_x2.pth</strong><p><code>UpscaleModelLoader → ImageUpscaleWithModel</code> 경로로 2배 결과를 만든다.</p></li>
+    <li><span>03B</span><strong>4x-UltraSharp.pth</strong><p>같은 입력을 별도 모델 경로로 처리해 비교 결과를 만든다.</p></li>
+    <li><span>04</span><strong>SaveImage</strong><p>Lanczos 기준 결과와 두 모델 결과를 각각 저장한다.</p></li>
+  </ol>
+  <p class="lesson08-boundary">모델 파일이 로컬의 <code>models/upscale_models</code>에 없으면 실행되지 않는다. 수업 JSON에 기록된 모델명과 노드만 설명하며, 다른 환경에서 같은 결과를 보장하지 않는다.</p>
+</LessonSection>
+
+<LessonSection id="section-14" number="14" title="저사양 PC 대안 · Hugging Face Web Upscale" class="lesson08-section" {lessonId}>
+  <div class="lesson08-web-option">
+    <div><span>WEB FALLBACK</span><h3>Image Upscaling Playground</h3><p>로컬 GPU 환경이 어려울 때 결과 비교를 진행할 수 있는 웹 기반 대안이다.</p></div>
+    <a href="https://huggingface.co/spaces/bookbot/Image-Upscaling-Playground" target="_blank" rel="noreferrer">Hugging Face Space 열기</a>
+  </div>
+  <ul class="lesson08-checklist"><li>무료 사용 범위와 제공 기능은 변경될 수 있다.</li><li>ZeroGPU 등 서버 자원은 사용량 제한이 있을 수 있다.</li><li>서버 상태에 따라 대기하거나 실행되지 않을 수 있다.</li><li>항상 실행 가능하다고 보장하지 않으며, 실행 시점의 서비스 상태를 확인한다.</li><li>업로드 전 자료의 외부 반출·서비스 이용 조건을 확인한다.</li></ul>
+</LessonSection>
+
+<LessonSection id="section-15" number="15" title="Upscale 결과 검토" class="lesson08-section" {lessonId}>
+  <div class="lesson08-review-table" tabindex="0">
+    <table><thead><tr><th>검토 항목</th><th>유지됨</th><th>변화 있음</th><th>확인 필요</th></tr></thead><tbody>{reviewItems.map((item) => <tr><th>{item}</th><td>□</td><td>□</td><td>□</td></tr>)}</tbody></table>
+  </div>
+  <p>변화가 있는 항목은 원본과 비교해 사용할 수 있는 변화인지, 다시 보정해야 하는 오류인지 판단한다. 문자·치수·벽선처럼 정확성이 필요한 정보는 선명도만 보고 승인하지 않는다.</p>
+</LessonSection>
+
+<LessonSection id="section-16" number="16" title="최종 결과 정리와 다음 차시 연결" class="lesson08-section" {lessonId}>
+  <div class="lesson08-deliverables">
+    <article><span>01</span><p>Gaussian 기반 현실형 렌더 후보</p></article>
+    <article><span>02</span><p>도구별 결과 비교 기록</p></article>
+    <article><span>03</span><p>선택한 최종 렌더</p></article>
+    <article><span>04</span><p>Upscale 결과</p></article>
+    <article><span>05</span><p>Before · After 검토 기록</p></article>
+  </div>
+  <ul class="lesson08-final-boundary"><li>AI가 원본에 없는 구조·재질·디테일을 만들 수 있다.</li><li>Upscale은 실제 디테일 복원을 보장하지 않는다.</li><li>실제 치수·구조·법규·설비·시공성은 별도로 확인한다.</li><li>서비스·모델·요금제·UI는 변경될 수 있다.</li></ul>
+  <blockquote>다음 차시에서는 여러 시점과 공간 이미지의 관계를 정리하고, 결과 사이의 일관성을 검토하는 흐름으로 확장한다.</blockquote>
+</LessonSection>
+
+<style>
+  :global(.lesson08-section) { --l08-ink: #18221f; --l08-accent: #a84227; --l08-blue: #245a72; --l08-line: rgba(24,34,31,.2); }
+  .lesson08-hero, .lesson08-bridge, .lesson08-key, .lesson08-warning, .lesson08-boundary, .lesson08-web-option, .lesson08-selection { break-inside: avoid; }
+  .lesson08-hero { padding: clamp(1.5rem,4vw,3.4rem); background: var(--l08-ink); color: #f7f2e8; }
+  .lesson08-hero > span, .lesson08-render-card figcaption > span, .lesson08-compare article > span, .lesson08-web-option span { color: #d86b49; font-size: .76rem; font-weight: 900; letter-spacing: .13em; }
+  .lesson08-hero h3 { max-width: 22ch; margin: .8rem 0 1rem; color: inherit; font-size: clamp(1.9rem,4.3vw,3.8rem); line-height: 1.12; word-break: keep-all; }
+  .lesson08-hero p { max-width: 68ch; margin: 0; color: rgba(247,242,232,.8); }
+  .lesson08-bridge { padding: 1.3rem; border-left: 5px solid var(--l08-accent); background: #fff2e9; font-size: 1.08rem; }
+  .lesson08-goals, .lesson08-rules, .lesson08-render-grid, .lesson08-criteria, .lesson08-compare, .lesson08-plan-compare, .lesson08-deliverables { display: grid; gap: 1rem; }
+  .lesson08-goals, .lesson08-rules { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  .lesson08-goals article, .lesson08-rules article, .lesson08-criteria article, .lesson08-compare article, .lesson08-deliverables article { min-width: 0; padding: 1rem; border: 1px solid var(--l08-line); background: rgba(255,255,255,.72); break-inside: avoid; }
+  .lesson08-goals span, .lesson08-deliverables span { color: var(--l08-accent); font-size: .78rem; font-weight: 900; }
+  .lesson08-goals h3, .lesson08-rules h3, .lesson08-criteria h3 { margin: .35rem 0; }
+  .lesson08-goals p, .lesson08-rules p, .lesson08-criteria p, .lesson08-deliverables p { margin: 0; }
+  .lesson08-process { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: .6rem; padding: 0; list-style: none; }
+  .lesson08-process li { min-width: 0; padding: .85rem; border-top: 3px solid var(--l08-accent); background: #f3eee5; break-inside: avoid; }
+  .lesson08-process span, .lesson08-node-flow span { display: block; color: var(--l08-accent); font-size: .7rem; font-weight: 900; }
+  .lesson08-time-plan { display: grid; gap: 0; margin: 1.5rem 0 0; padding: 0; border-top: 1px solid var(--l08-line); list-style: none; }
+  .lesson08-time-plan li { display: flex; justify-content: space-between; gap: 1rem; padding: .6rem 0; border-bottom: 1px solid var(--l08-line); }
+  .lesson08-total { text-align: right; font-weight: 900; }
+  .lesson08-figure { margin: 1.2rem 0; padding: .7rem; border: 1px solid var(--l08-line); background: #f7f5f0; break-inside: avoid; }
+  .lesson08-figure :global(img) { display: block; width: 100%; height: auto; object-fit: contain; background: #fff; }
+  .lesson08-figure figcaption { display: grid; gap: .2rem; padding: .8rem .2rem .1rem; }
+  .lesson08-figure figcaption span { color: #5a625e; font-size: .88rem; }
+  .lesson08-checklist { display: grid; gap: .55rem; padding: 0; list-style: none; }
+  .lesson08-checklist li { padding: .8rem 1rem; border: 1px solid var(--l08-line); background: rgba(255,255,255,.7); break-inside: avoid; }
+  .lesson08-checklist li::before { content: '□'; margin-right: .65rem; color: var(--l08-accent); font-weight: 900; }
+  .lesson08-boundary { padding: 1rem; border-left: 4px solid var(--l08-blue); background: #edf5f7; }
+  .lesson08-flow { display: flex; align-items: center; gap: .6rem; margin: 1.2rem 0; break-inside: avoid; }
+  .lesson08-flow strong { flex: 1 1 0; padding: .9rem; border: 1px solid var(--l08-line); text-align: center; }
+  .lesson08-flow i { color: var(--l08-accent); font-size: 1.4rem; font-style: normal; }
+  .lesson08-key { padding: 1.1rem; border-left: 5px solid var(--l08-accent); background: #fff1e9; font-size: 1.08rem; }
+  .lesson08-render-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .lesson08-render-card { margin: 0; padding: .65rem; border: 1px solid var(--l08-line); background: #f6f3ed; break-inside: avoid; }
+  .lesson08-render-card--source { grid-column: 1 / -1; }
+  .lesson08-render-card :global(img) { display: block; width: 100%; aspect-ratio: 2 / 1; object-fit: contain; background: #e6e2db; }
+  .lesson08-render-card figcaption { display: grid; gap: .25rem; padding: .75rem .25rem .2rem; }
+  .lesson08-render-card figcaption p { margin: 0; color: #59625e; font-size: .87rem; }
+  .lesson08-criteria { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  .lesson08-criteria article > span { display: block; margin-top: .8rem; padding-top: .55rem; border-top: 1px dashed var(--l08-line); color: #67706b; font-size: .78rem; }
+  .lesson08-selection { margin-top: 1rem; padding: 1.1rem; border: 2px solid var(--l08-ink); }
+  .lesson08-selection h3 { margin-top: 0; }
+  .lesson08-selection ol { margin-bottom: 0; }
+  .lesson08-concept { display: grid; grid-template-columns: auto minmax(0,1fr) auto auto minmax(0,1.5fr); gap: .7rem; align-items: center; padding: 1rem; border: 1px solid var(--l08-line); background: #f4f0e8; break-inside: avoid; }
+  .lesson08-concept span { color: var(--l08-accent); font-size: .7rem; font-weight: 900; }
+  .lesson08-concept i { color: var(--l08-accent); font-size: 1.4rem; font-style: normal; }
+  .lesson08-compare, .lesson08-plan-compare { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .lesson08-compare ul { margin-bottom: 0; }
+  .lesson08-warning { padding: 1rem; border: 2px solid #a43a28; background: #fff0e9; }
+  .lesson08-plan-compare figure { min-width: 0; margin: 0; padding: .65rem; border: 1px solid var(--l08-line); background: #f7f5f0; break-inside: avoid; }
+  .lesson08-plan-compare figure > span { display: block; margin-bottom: .6rem; color: var(--l08-accent); font-size: .76rem; font-weight: 900; letter-spacing: .1em; }
+  .lesson08-plan-compare :global(img) { display: block; width: 100%; max-height: 58rem; object-fit: contain; background: #fff; }
+  .lesson08-plan-compare figcaption { padding-top: .5rem; color: #5c645f; font-size: .82rem; }
+  .lesson08-zoom-check { margin-top: 1rem; padding: 1rem; border: 1px solid var(--l08-line); }
+  .lesson08-zoom-check h3 { margin-top: 0; }
+  .lesson08-node-flow { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: .7rem; padding: 0; list-style: none; }
+  .lesson08-node-flow li { min-width: 0; padding: .8rem; border: 1px solid var(--l08-line); background: #f4f0e8; break-inside: avoid; }
+  .lesson08-node-flow p { margin-bottom: 0; font-size: .88rem; }
+  .lesson08-web-option { display: flex; align-items: center; justify-content: space-between; gap: 1.2rem; padding: 1.2rem; border: 2px solid var(--l08-blue); background: #edf5f7; }
+  .lesson08-web-option h3 { margin: .25rem 0; }
+  .lesson08-web-option p { margin: 0; }
+  .lesson08-web-option a { flex: 0 0 auto; padding: .8rem 1rem; background: var(--l08-blue); color: #fff; font-weight: 900; text-decoration: none; }
+  .lesson08-review-table { max-width: 100%; overflow-x: auto; border: 1px solid var(--l08-line); break-inside: avoid; }
+  .lesson08-review-table table { width: 100%; min-width: 40rem; border-collapse: collapse; }
+  .lesson08-review-table th, .lesson08-review-table td { padding: .75rem; border-bottom: 1px solid var(--l08-line); text-align: center; }
+  .lesson08-review-table th:first-child { text-align: left; }
+  .lesson08-review-table thead th { background: var(--l08-ink); color: #fff; }
+  .lesson08-deliverables { grid-template-columns: repeat(5,minmax(0,1fr)); }
+  .lesson08-final-boundary { display: grid; gap: .5rem; padding: 1rem 1rem 1rem 2rem; border: 2px solid var(--l08-ink); background: #f7f3eb; }
+  code { overflow-wrap: anywhere; }
+  @media (max-width: 1000px) { .lesson08-process, .lesson08-node-flow, .lesson08-deliverables { grid-template-columns: repeat(3,minmax(0,1fr)); } }
+  @media (max-width: 720px) {
+    .lesson08-goals, .lesson08-rules, .lesson08-render-grid, .lesson08-criteria, .lesson08-compare, .lesson08-plan-compare { grid-template-columns: minmax(0,1fr); }
+    .lesson08-render-card--source { grid-column: auto; }
+    .lesson08-process, .lesson08-node-flow, .lesson08-deliverables { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .lesson08-flow { flex-direction: column; }
+    .lesson08-flow strong { width: 100%; }
+    .lesson08-flow i { transform: rotate(90deg); }
+    .lesson08-concept { grid-template-columns: minmax(0,1fr); }
+    .lesson08-concept i { transform: rotate(90deg); justify-self: center; }
+    .lesson08-web-option { align-items: stretch; flex-direction: column; }
+    .lesson08-web-option a { width: 100%; text-align: center; }
+  }
+  @media (max-width: 430px) { .lesson08-process, .lesson08-node-flow, .lesson08-deliverables { grid-template-columns: minmax(0,1fr); } }
+  @media print {
+    .lesson08-render-grid, .lesson08-plan-compare { gap: 5mm; }
+    .lesson08-render-card :global(img) { max-height: 96mm; }
+    .lesson08-plan-compare :global(img) { max-height: 210mm; }
+    .lesson08-review-table { overflow: visible; }
+    .lesson08-review-table table { min-width: 0; }
+    .lesson08-web-option a { display: none; }
+  }
+</style>
