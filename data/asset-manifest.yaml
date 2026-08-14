@@ -1206,53 +1206,77 @@ assets:
     alt: "ComfyUI 업스케일 노드 워크플로"
     verification_note: "VHS_LoadImages 사용자 노드와 로컬 모델 파일이 필요하므로 e-book에서는 실제 구조만 설명하고 파일 다운로드는 제공하지 않음"
 
-  - id: "l09-doc-pack"
+  - id: "l09-human-cleaned-floor-plan"
     lesson: 9
     priority: "required"
-    source_type: "template"
-    production_owner: "codex"
-    lesson_usage: "checklist"
-    title: "디자인 기준·일관성 검사 양식"
-    type: "document"
-    purpose: "고정 기준, 불일치, 수정·제외 판단을 기록하는 문서"
-    required_files: ["프로젝트 디자인 기준표", "일관성 검사표", "실패 이미지 제외 기록표"]
-    recommended_tool: "codex"
-    status: "not-created"
-    public_use: false
-    alt: "여러 공간 이미지의 디자인 일관성 검사 양식"
-    verification_note: "시각적 일관성과 실제 설계 동일성의 경계 검토"
-
-  - id: "l09-space-set"
-    lesson: 9
-    priority: "required"
-    source_type: "original"
-    production_owner: "nano-banana"
-    lesson_usage: "result-sample"
-    title: "외관·실내·상세 이미지 세트"
-    type: "image"
-    purpose: "하나의 프로젝트 발표 묶음으로 비교할 3~5개 이미지"
-    required_files: ["외관 이미지", "실내 이미지", "상세 이미지", "생성 기록"]
-    recommended_tool: "nano-banana"
-    status: "not-created"
-    public_use: false
-    alt: "하나의 가상 프로젝트로 비교할 외관 실내 상세 이미지 세트"
-    verification_note: "이미지 간 불일치, 권리 상태, 비정밀 시각화 표시 확인"
-
-  - id: "l09-demo"
-    lesson: 9
-    priority: "optional"
     source_type: "original"
     production_owner: "instructor"
-    lesson_usage: "demonstration"
-    title: "이미지 일관성 점검 시연"
-    type: "video"
-    purpose: "기준표 적용과 수정·제외 판단을 보여 주는 작업 녹화"
-    required_files: ["작업 화면 녹화", "자막 또는 대본"]
+    lesson_usage: "practice-input"
+    title: "사람이 정리한 AI 입력용 평면도 선화"
+    type: "image"
+    purpose: "원본 도면에서 불필요한 선을 사람이 판단해 정리한 입력자료와 Human-in-the-Loop 역할 설명"
+    required_files: ["01-floor-plan-cleaned.jpg"]
+    file_path: "src/assets/lessons/09/spatial-zoning/01-floor-plan-cleaned.jpg"
     recommended_tool: "user-upload"
-    status: "not-created"
-    public_use: false
-    alt: "여러 공간 이미지의 디자인 일관성을 점검하는 과정 안내"
-    verification_note: "완전한 동일성 보장으로 오해되지 않는지 검토"
+    status: "ready"
+    public_use: true
+    alt: "사람이 원본 도면에서 불필요한 선을 정리한 평면도 수업 예시"
+    source_note: "사용자가 제9차시 수업자료로 제공하고 e-book 구현에 사용하도록 지시한 이미지"
+    rights_status: "review-required"
+    public_scope: "student-web-and-pdf"
+    provenance_note: "사용자 제공 로컬 수업자료에서 중립적 공개 파일명으로 복사했으며 원본 PDF는 포함하지 않음"
+    rights_review_note: "수업자료 제공자의 공개 범위 최종 확인 전에는 제9차시 학생 공개 전환을 별도로 검토"
+    privacy_note: "로컬 경로·사용자 계정명·수강생 이름을 파일명과 검색 가능한 본문에 기록하지 않음"
+    verified_at: "2026-08-14"
+    verification_note: "AI 자동 전처리 결과가 아닌 사람이 직접 정리한 예시이며 원본 도면을 대체하지 않음"
+
+  - id: "l09-top-view-3d"
+    lesson: 9
+    priority: "required"
+    source_type: "original"
+    production_owner: "instructor"
+    lesson_usage: "result-sample"
+    title: "GPT Top View 3D 검토 결과"
+    type: "image"
+    purpose: "원도면과 비교해 공간명·벽체·문·창·계단·코어의 해석 오류를 찾는 수업 예시"
+    required_files: ["02-floor-plan-top-view-3d.jpeg"]
+    file_path: "src/assets/lessons/09/spatial-zoning/02-floor-plan-top-view-3d.jpeg"
+    recommended_tool: "user-upload"
+    status: "ready"
+    public_use: true
+    alt: "정리된 평면도를 기준으로 GPT가 생성한 Top View 3D 수업 결과"
+    source_note: "사용자가 제9차시 수업자료로 제공하고 e-book 구현에 사용하도록 지시한 이미지"
+    rights_status: "review-required"
+    public_scope: "student-web-and-pdf"
+    provenance_note: "사용자 제공 로컬 수업자료에서 중립적 공개 파일명으로 복사함"
+    rights_review_note: "수업자료 제공자의 공개 범위 최종 확인 전에는 제9차시 학생 공개 전환을 별도로 검토"
+    privacy_note: "로컬 경로·사용자 계정명·수강생 이름을 파일명과 검색 가능한 본문에 기록하지 않음"
+    verified_at: "2026-08-14"
+    verification_note: "CAD·BIM 모델이나 정확한 설계 복원이 아니라 원본 대조가 필요한 AI 시각화 결과로 표시"
+
+  - id: "l09-spatial-relationship-diagram"
+    lesson: 9
+    priority: "required"
+    source_type: "original"
+    production_owner: "instructor"
+    lesson_usage: "result-sample"
+    title: "Graphviz 2D 공간 관계 다이어그램"
+    type: "image"
+    purpose: "검증된 공간 기능·인접 관계·동선을 노드와 연결선으로 단순화한 관계도 설명"
+    required_files: ["03-spatial-relationship-diagram.png"]
+    file_path: "src/assets/lessons/09/spatial-zoning/03-spatial-relationship-diagram.png"
+    recommended_tool: "user-upload"
+    status: "ready"
+    public_use: true
+    alt: "공간 기능과 인접 관계 및 주요 동선을 표시한 2D 공간 관계 다이어그램"
+    source_note: "사용자가 제9차시 실제 Graphviz 수업 결과로 제공하고 e-book 구현에 사용하도록 지시한 이미지"
+    rights_status: "review-required"
+    public_scope: "student-web-and-pdf"
+    provenance_note: "Graphviz 편집기 화면과 오류 화면은 제외하고 최종 관계도 이미지만 중립적 파일명으로 복사함"
+    rights_review_note: "수업자료 제공자의 공개 범위 최종 확인 전에는 제9차시 학생 공개 전환을 별도로 검토"
+    privacy_note: "로컬 경로·사용자 계정명·수강생 이름을 파일명과 검색 가능한 본문에 기록하지 않음"
+    verified_at: "2026-08-14"
+    verification_note: "실제 평면 형상·치수 도면이 아니며 관계와 수치 표기는 원본 검증본에 다시 대조해야 함"
 
   - id: "l10-plan-pack"
     lesson: 10

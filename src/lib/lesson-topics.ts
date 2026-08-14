@@ -21,7 +21,7 @@ export const lessonRoadmap: readonly LessonRoadmapItem[] = [
   { id: '06', day: 6, title: '제6차시 · DWG·평면도 기반 공간 수정과 3D·아이소메트릭 분해도' },
   { id: '07', day: 7, title: '제7차시 · PDF 도면 기반 공간 수정과 Gaussian Splatting 3D 시각화' },
   { id: '08', day: 8, title: '제8차시 · Gaussian 결과 현실화와 AI 업스케일' },
-  { id: '09', day: 9, title: '제9차시 · 3D 콘셉트 이미지에서 2D 개념 조닝 역추출' },
+  { id: '09', day: 9, title: '제9차시 · 3D 콘셉트 이미지에서 공간 관계 읽기와 2D 개념 조닝' },
   { id: '10', day: 10, title: '제10차시 · 실무 데이터 비식별화와 도면·PDF 전처리' },
   { id: '11', day: 11, title: '제11차시 · 2D 도면 기반 3D 콘셉트 시각화와 오류 탐지' },
   { id: '12', day: 12, title: '제12차시 · 다차원 검증 체크리스트와 교차검증' },
@@ -50,7 +50,7 @@ export const lessonTopics: readonly LessonTopicSummary[] = [
   },
   {
     number: '4',
-    title: '메인–서브 통합 워크플로우 및 2D 역추출 브릿지 실습',
+    title: '3D 시각화 결과 검토와 공간 관계·개념 조닝 실습',
     subtitle: '(이미지 일관성과 공간 관계 확장)',
     lessonIds: ['07', '08', '09'],
     lessonCount: 3,

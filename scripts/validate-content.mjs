@@ -28,6 +28,7 @@ const lessonSixContentPath = path.resolve('src/lib/lesson06-dwg-workflow.ts');
 const lessonSixComponentPath = path.resolve('src/components/content/Lesson06DwgToExploded.astro');
 const lessonSevenComponentPath = path.resolve('src/components/content/Lesson07PdfToGaussian.astro');
 const lessonEightComponentPath = path.resolve('src/components/content/Lesson08GaussianUpscale.astro');
+const lessonNineComponentPath = path.resolve('src/components/content/Lesson09SpatialZoning.astro');
 const approvedLessonThreeRfpSha256 =
   '95B9756FD818D8F86847CA72D1E094B9DD6C2E4B9D1DFBC029169D057E638C2E';
 const requiredIds = Array.from({ length: 14 }, (_, index) => String(index + 1).padStart(2, '0'));
@@ -43,7 +44,7 @@ const approvedLessons = [
   { title: '제6차시 · DWG·평면도 기반 공간 수정과 3D·아이소메트릭 분해도', durationMinutes: 180 },
   { title: '제7차시 · PDF 도면 기반 공간 수정과 Gaussian Splatting 3D 시각화', durationMinutes: 180 },
   { title: '제8차시 · Gaussian 결과 현실화와 AI 업스케일', durationMinutes: 180 },
-  { title: '제9차시 · 여러 공간 이미지의 디자인 일관성 관리', durationMinutes: 180 },
+  { title: '제9차시 · 3D 콘셉트 이미지에서 공간 관계 읽기와 2D 개념 조닝', durationMinutes: 180 },
   { title: '제10차시 · 도면·PDF에서 정보 찾기와 AI 오독 확인', durationMinutes: 180 },
   { title: '제11차시 · 공간 이미지를 짧은 영상으로 만들기', durationMinutes: 180 },
   { title: '제12차시 · AGY로 프로젝트 자료 구조 만들기', durationMinutes: 180 },
@@ -59,7 +60,7 @@ const approvedRoadmapTitles = [
   '제6차시 · DWG·평면도 기반 공간 수정과 3D·아이소메트릭 분해도',
   '제7차시 · PDF 도면 기반 공간 수정과 Gaussian Splatting 3D 시각화',
   '제8차시 · Gaussian 결과 현실화와 AI 업스케일',
-  '제9차시 · 3D 콘셉트 이미지에서 2D 개념 조닝 역추출',
+  '제9차시 · 3D 콘셉트 이미지에서 공간 관계 읽기와 2D 개념 조닝',
   '제10차시 · 실무 데이터 비식별화와 도면·PDF 전처리',
   '제11차시 · 2D 도면 기반 3D 콘셉트 시각화와 오류 탐지',
   '제12차시 · 다차원 검증 체크리스트와 교차검증',
@@ -84,7 +85,7 @@ const approvedTopics = [
   },
   {
     number: '4',
-    title: '메인–서브 통합 워크플로우 및 2D 역추출 브릿지 실습',
+    title: '3D 시각화 결과 검토와 공간 관계·개념 조닝 실습',
     subtitle: '(이미지 일관성과 공간 관계 확장)',
     lessonIds: ['07', '08', '09'],
   },
@@ -144,6 +145,7 @@ const detailedLessonSections = {
   '06': ['차시 소개', '오늘의 목표와 작업 흐름', '준비 자료 확인', 'DWG와 평면도 읽기', '확인 정보와 추정 정보 구분하기', '수정 영역 지정과 평면도 인페인팅', '수정 결과 검토', 'Top View 3D 입체화', '아이소메트릭이란?', '아이소메트릭 제작', 'Exploded Isometric View란?', '아이소메트릭 분해도 제작', '결과 검토 체크리스트', '마무리 정리'],
   '07': ['차시 소개', '오늘의 목표와 전체 워크플로우', 'STEP 1 · 전체 평면도 확인', 'PDF·이미지 기반 도면 분석', 'STEP 2 · 원하는 공간 확대', 'STEP 3 · 수정 영역 지정', 'STEP 4 · 부분 수정 결과 확인', 'STEP 5 · 전체 평면도에 다시 적용', 'Top View 3D로 연결', '한 장의 Top View 3D에서 다음 단계로', 'Mesh와 Gaussian의 아주 짧은 차이', 'Point에서 Gaussian 느낌 이해하기', 'Gaussian 하나와 많은 Gaussian', 'Splatting이란?', 'Gaussian + Splatting', 'Gaussian Splatting 작동 흐름', '왜 이번 수업에서 Gaussian을 사용하는가?', '일반 3DGS와 Single Image TripoSplat', '단일 이미지 기반 3D의 추정과 오류', 'Stability Matrix란?', 'ComfyUI란?', '설치와 권장 사양', 'TripoSplat 템플릿 읽기', 'Gaussian 개수 등 핵심 설정', 'Gaussian 결과 생성과 출력 이해', '로컬 실행이 어려울 때 · TripoSplat Web Demo', '결과 비교와 마무리'],
   '08': ['차시 소개', '제7차시 결과와 오늘의 목표', '오늘의 전체 워크플로우', 'Gaussian 결과에서 이미지 시점 선택', 'Gaussian 결과를 현실적인 건축 이미지로 변환', 'GPT · Gemini · 유료 보조 도구 결과 비교', '결과 비교 기준과 최종 후보 선택', '선택 결과 부분 보정', 'Upscale이란?', '일반 확대와 AI Upscale', 'AI Upscale의 장점과 한계', '평면도 Before · After 실제 비교', 'ComfyUI Upscale 실습', '저사양 PC 대안 · Hugging Face Web Upscale', 'Upscale 결과 검토', '최종 결과 정리와 다음 차시 연결'],
+  '09': ['차시 소개', '제8차시 복습과 오늘의 질문', '오늘의 전체 워크플로우', '원자료를 먼저 분석하는 이유', 'NotebookLM 원본 평면도 분석', '도면 기준표와 사람이 정리한 입력자료', 'GPT Top View 3D 생성', '원도면과 Top View 3D 검토', '공간 기능·공간 인접 관계·주요 동선 분석', 'NotebookLM 분석 결과 검증', 'Graphviz(DOT) 구조화 데이터 만들기', '2D 공간 관계 다이어그램 시각화', '공간 관계 다이어그램 읽기', '공간 관계에서 개념 조닝으로', 'GPT 개념 조닝 · 구조 확인 후 제작', '결과 정리와 제10차시 연결'],
 };
 const lessonThreeFourOutputs = ['요구조건 매트릭스', '발주기관 추가 질의', '디자인 브리프', '평면도 기반 현황 이미지 생성 결과', '현황 이미지 수정 결과', '평면도와 이미지의 불일치 기록', '제4차시 대안 평가기준'];
 
@@ -500,6 +502,10 @@ for (const fileName of files) {
   } else if (id === '08') {
     if (!source.includes('<Lesson08GaussianUpscale')) {
       errors.push(`${fileName}: 제8차시 전용 Gaussian 현실화·업스케일 레이아웃이 없습니다.`);
+    }
+  } else if (id === '09') {
+    if (!source.includes('<Lesson09SpatialZoning')) {
+      errors.push(`${fileName}: 제9차시 전용 공간 관계·개념 조닝 레이아웃이 없습니다.`);
     }
   } else if (!source.includes('<LessonOutline')) {
     errors.push(`${fileName}: LessonOutline 골격이 없습니다.`);
@@ -931,13 +937,66 @@ for (const fileName of files) {
       catch { errors.push(`${fileName}: 제8차시 필수 파일을 찾을 수 없습니다: ${filePath}`); }
     }
   }
+  if (id === '09') {
+    let lessonNineComponent = '';
+    try { lessonNineComponent = await readFile(lessonNineComponentPath, 'utf8'); }
+    catch { errors.push('제9차시 공간 관계·개념 조닝 컴포넌트를 읽을 수 없습니다.'); }
+
+    for (const marker of [
+      '원본 도면에서 AI 입력에 불필요하다고 판단한 선을 사람이 직접 정리한 수업 예시입니다.',
+      'Grounding은 오류를 줄이는 방법이지 이미지 생성 정확도를 보장하는 기능이 아니다.',
+      'Graphviz(DOT)는 이번 실습에서 검증된 공간 관계를 노드와 연결선으로 표현하기 위한 텍스트 기반 그래프 정의 방식이다.',
+      '개념 설명용 도식 · 실제 AI 생성 결과가 아님',
+      'https://viz-js.com/',
+      'http://webgraphviz.com/',
+      'Lesson09SpatialZoning',
+      "'l09-human-cleaned-floor-plan'",
+      "'l09-top-view-3d'",
+      "'l09-spatial-relationship-diagram'",
+    ]) {
+      if (!source.includes(marker) && !lessonNineComponent.includes(marker)) {
+        errors.push(`제9차시 공간 관계·개념 조닝 콘텐츠에 '${marker}'가 없습니다.`);
+      }
+    }
+
+    const lessonNinePromptCount = (lessonNineComponent.match(/<PromptCopyBlock\b/g) ?? []).length;
+    if (lessonNinePromptCount !== 8) {
+      errors.push(`제9차시 PromptCopyBlock 수: 예상 8개, 실제 ${lessonNinePromptCount}개`);
+    }
+    for (const promptIndex of Array.from({ length: 8 }, (_, index) => String(index + 1).padStart(2, '0'))) {
+      if (!lessonNineComponent.includes(`lesson09-prompt-${promptIndex}`)) {
+        errors.push(`제9차시 PromptCopyBlock lesson09-prompt-${promptIndex}가 없습니다.`);
+      }
+    }
+
+    for (const forbiddenMarker of [
+      'Bridge 단계',
+      '브릿지 단계',
+      '공식적인 3D→2D 역추출 단계',
+      'C:\\Users\\',
+    ]) {
+      if (source.includes(forbiddenMarker) || lessonNineComponent.includes(forbiddenMarker)) {
+        errors.push(`제9차시 학생용 콘텐츠에 금지 표현 또는 로컬 경로 '${forbiddenMarker}'가 있습니다.`);
+      }
+    }
+
+    const lessonNineFiles = [
+      'src/assets/lessons/09/spatial-zoning/01-floor-plan-cleaned.jpg',
+      'src/assets/lessons/09/spatial-zoning/02-floor-plan-top-view-3d.jpeg',
+      'src/assets/lessons/09/spatial-zoning/03-spatial-relationship-diagram.png',
+    ];
+    for (const filePath of lessonNineFiles) {
+      try { await access(path.resolve(filePath)); }
+      catch { errors.push(`${fileName}: 제9차시 필수 공개 이미지를 찾을 수 없습니다: ${filePath}`); }
+    }
+  }
   if (source.includes("category: '전문가 판단 필요'")) {
     errors.push(
       `${fileName}: 포괄적인 '전문가 판단 필요' 대신 구체적인 판단·검증 분류를 사용해야 합니다.`,
     );
   }
 
-  if (!isDetailedLessonOne && !['06', '07', '08'].includes(id)) {
+  if (!isDetailedLessonOne && !['06', '07', '08', '09'].includes(id)) {
     const structuralCategoryChecks = [
       { property: 'goals', nextProperty: 'concepts', expected: '학습 목표' },
       { property: 'deliverables', nextProperty: 'judgments', expected: '수업 산출물' },
@@ -1374,7 +1433,7 @@ console.log('- day: 1–14 누락·중복 없음');
 console.log('- ID/day 일치');
 console.log('- 승인된 제목·수업시간 일치');
 console.log('- 승인된 상위 주제 7개·차시 연결 14개 일치');
-console.log('- 제1차시 16개, 제2차시 13개, 제3차시 11개, 제4–6차시 14개, 제7차시 27개, 제8차시 16개, 제9–14차시 13개 섹션');
+console.log('- 제1차시 16개, 제2차시 13개, 제3차시 11개, 제4–6차시 14개, 제7차시 27개, 제8·9차시 16개, 제10–14차시 13개 섹션');
 console.log('- 모든 차시 실습시간 50% 이상');
 console.log(`- 자산 manifest: ${manifestAssetIds.length}개, 필수 필드·연결 ID·공개 조건 확인`);
 console.log(`- 필수 metadata: ${requiredFields.join(', ')}`);
