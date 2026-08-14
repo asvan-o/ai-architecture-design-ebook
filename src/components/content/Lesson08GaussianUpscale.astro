@@ -217,10 +217,13 @@ const reviewItems = ['외곽선', '내부 벽', '창호', '문', '계단', '가�
 
 <LessonSection id="section-14" number="14" title="저사양 PC 대안 · Hugging Face Web Upscale" class="lesson08-section" {lessonId}>
   <div class="lesson08-web-option">
-    <div><span>WEB FALLBACK</span><h3>Image Upscaling Playground</h3><p>로컬 GPU 환경이 어려울 때 결과 비교를 진행할 수 있는 웹 기반 대안이다.</p></div>
-    <a href="https://huggingface.co/spaces/bookbot/Image-Upscaling-Playground" target="_blank" rel="noreferrer">Hugging Face Space 열기</a>
+    <div><span>WEB FALLBACK</span><h3>Hugging Face Image Upscaling</h3><p>로컬 GPU 환경이 어려울 때 바로 실습하거나 다른 웹 기반 업스케일 도구를 찾아볼 수 있다.</p></div>
+    <div class="lesson08-web-links">
+      <a href="https://huggingface.co/spaces/bookbot/Image-Upscaling-Playground" target="_blank" rel="noreferrer">빠른 실습 · Image Upscaling Playground</a>
+      <a href="https://huggingface.co/spaces?category=image-upscaling" target="_blank" rel="noreferrer">다른 도구 찾기 · Image Upscaling 목록</a>
+    </div>
   </div>
-  <ul class="lesson08-checklist"><li>무료 사용 범위와 제공 기능은 변경될 수 있다.</li><li>ZeroGPU 등 서버 자원은 사용량 제한이 있을 수 있다.</li><li>서버 상태에 따라 대기하거나 실행되지 않을 수 있다.</li><li>항상 실행 가능하다고 보장하지 않으며, 실행 시점의 서비스 상태를 확인한다.</li><li>업로드 전 자료의 외부 반출·서비스 이용 조건을 확인한다.</li></ul>
+  <ul class="lesson08-checklist"><li>Space 실행 상태는 수시로 바뀔 수 있으며, 일부 Space는 Sleeping·Paused·Runtime Error 상태일 수 있다.</li><li>무료 사용량과 GPU 자원은 Space별로 다를 수 있다.</li><li>업로드 전 민감정보 포함 여부와 공개·외부 전송 권한을 확인한다.</li><li>평면도·도면은 업스케일 후에도 문자·치수·벽선이 변형됐는지 원본과 비교한다.</li></ul>
 </LessonSection>
 
 <LessonSection id="section-15" number="15" title="Upscale 결과 검토" class="lesson08-section" {lessonId}>
@@ -277,7 +280,7 @@ const reviewItems = ['외곽선', '내부 벽', '창호', '문', '계단', '가�
   .lesson08-render-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .lesson08-render-card { margin: 0; padding: .65rem; border: 1px solid var(--l08-line); background: #f6f3ed; break-inside: avoid; }
   .lesson08-render-card--source { grid-column: 1 / -1; }
-  .lesson08-render-card :global(img) { display: block; width: 100%; aspect-ratio: 2 / 1; object-fit: contain; background: #e6e2db; }
+  .lesson08-render-card :global(img) { display: block; width: 100%; height: auto; aspect-ratio: 2 / 1; object-fit: contain; background: #e6e2db; }
   .lesson08-render-card figcaption { display: grid; gap: .25rem; padding: .75rem .25rem .2rem; }
   .lesson08-render-card figcaption p { margin: 0; color: #59625e; font-size: .87rem; }
   .lesson08-criteria { grid-template-columns: repeat(3,minmax(0,1fr)); }
@@ -293,7 +296,7 @@ const reviewItems = ['외곽선', '내부 벽', '창호', '문', '계단', '가�
   .lesson08-warning { padding: 1rem; border: 2px solid #a43a28; background: #fff0e9; }
   .lesson08-plan-compare figure { min-width: 0; margin: 0; padding: .65rem; border: 1px solid var(--l08-line); background: #f7f5f0; break-inside: avoid; }
   .lesson08-plan-compare figure > span { display: block; margin-bottom: .6rem; color: var(--l08-accent); font-size: .76rem; font-weight: 900; letter-spacing: .1em; }
-  .lesson08-plan-compare :global(img) { display: block; width: 100%; max-height: 58rem; object-fit: contain; background: #fff; }
+  .lesson08-plan-compare :global(img) { display: block; width: 100%; height: clamp(28rem, 38vw, 32rem); object-fit: contain; object-position: center; background: #fff; }
   .lesson08-plan-compare figcaption { padding-top: .5rem; color: #5c645f; font-size: .82rem; }
   .lesson08-zoom-check { margin-top: 1rem; padding: 1rem; border: 1px solid var(--l08-line); }
   .lesson08-zoom-check h3 { margin-top: 0; }
@@ -303,6 +306,7 @@ const reviewItems = ['외곽선', '내부 벽', '창호', '문', '계단', '가�
   .lesson08-web-option { display: flex; align-items: center; justify-content: space-between; gap: 1.2rem; padding: 1.2rem; border: 2px solid var(--l08-blue); background: #edf5f7; }
   .lesson08-web-option h3 { margin: .25rem 0; }
   .lesson08-web-option p { margin: 0; }
+  .lesson08-web-links { display: grid; flex: 0 1 25rem; gap: .55rem; }
   .lesson08-web-option a { flex: 0 0 auto; padding: .8rem 1rem; background: var(--l08-blue); color: #fff; font-weight: 900; text-decoration: none; }
   .lesson08-review-table { max-width: 100%; overflow-x: auto; border: 1px solid var(--l08-line); break-inside: avoid; }
   .lesson08-review-table table { width: 100%; min-width: 40rem; border-collapse: collapse; }
@@ -324,12 +328,13 @@ const reviewItems = ['외곽선', '내부 벽', '창호', '문', '계단', '가�
     .lesson08-concept i { transform: rotate(90deg); justify-self: center; }
     .lesson08-web-option { align-items: stretch; flex-direction: column; }
     .lesson08-web-option a { width: 100%; text-align: center; }
+    .lesson08-plan-compare :global(img) { height: 24rem; }
   }
   @media (max-width: 430px) { .lesson08-process, .lesson08-node-flow, .lesson08-deliverables { grid-template-columns: minmax(0,1fr); } }
   @media print {
     .lesson08-render-grid, .lesson08-plan-compare { gap: 5mm; }
     .lesson08-render-card :global(img) { max-height: 96mm; }
-    .lesson08-plan-compare :global(img) { max-height: 210mm; }
+    .lesson08-plan-compare :global(img) { height: auto; max-height: 210mm; }
     .lesson08-review-table { overflow: visible; }
     .lesson08-review-table table { min-width: 0; }
     .lesson08-web-option a { display: none; }

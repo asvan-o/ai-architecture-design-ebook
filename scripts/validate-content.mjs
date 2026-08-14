@@ -901,6 +901,7 @@ for (const fileName of files) {
       'RealESRGAN_x2.pth',
       '4x-UltraSharp.pth',
       'https://huggingface.co/spaces/bookbot/Image-Upscaling-Playground',
+      'https://huggingface.co/spaces?category=image-upscaling',
       '유지됨',
       '변화 있음',
       '확인 필요',
