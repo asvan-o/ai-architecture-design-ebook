@@ -947,12 +947,18 @@ for (const fileName of files) {
       'Grounding은 오류를 줄이는 방법이지 이미지 생성 정확도를 보장하는 기능이 아니다.',
       'Graphviz(DOT)는 이번 실습에서 검증된 공간 관계를 노드와 연결선으로 표현하기 위한 텍스트 기반 그래프 정의 방식이다.',
       '개념 설명용 도식 · 실제 AI 생성 결과가 아님',
+      'data-lesson09-validation="keep-review-unknown"',
+      'data-lesson09-relation-set="final-criteria"',
+      '원자료에 근거한 AI 분석도 오독할 수 있으므로, 첫 분석 결과를 바로 확정하지 않고 원본 도면과 다시 대조합니다.',
+      '최종 확정 기준표는 후속 AI 작업을 위한 보조 기준이며, 충돌 시 원본 평면도가 우선입니다.',
+      '공간 관계 다이어그램은 평면도 분석 내용을 모두 복사하는 것이 아니라, 관계와 동선을 이해하는 데 필요한 정보만 선택해 단순화합니다.',
       'https://viz-js.com/',
       'http://webgraphviz.com/',
       'Lesson09SpatialZoning',
       "'l09-human-cleaned-floor-plan'",
       "'l09-top-view-3d'",
-      "'l09-spatial-relationship-diagram'",
+      "'l09-spatial-relationship-diagram-notebooklm'",
+      "'l09-spatial-relationship-diagram-chatgpt'",
     ]) {
       if (!source.includes(marker) && !lessonNineComponent.includes(marker)) {
         errors.push(`제9차시 공간 관계·개념 조닝 콘텐츠에 '${marker}'가 없습니다.`);
@@ -974,6 +980,12 @@ for (const fileName of files) {
       '브릿지 단계',
       '공식적인 3D→2D 역추출 단계',
       'C:\\Users\\',
+      '* 수정 대상(CHANGE)',
+      '계단참 +2,200',
+      '(업무 / -30mm)',
+      'Deck1 -> Meeting',
+      'Deck3 -> Stairs',
+      'Office -> Pantry [dir=both',
     ]) {
       if (source.includes(forbiddenMarker) || lessonNineComponent.includes(forbiddenMarker)) {
         errors.push(`제9차시 학생용 콘텐츠에 금지 표현 또는 로컬 경로 '${forbiddenMarker}'가 있습니다.`);
@@ -983,7 +995,8 @@ for (const fileName of files) {
     const lessonNineFiles = [
       'src/assets/lessons/09/spatial-zoning/01-floor-plan-cleaned.jpg',
       'src/assets/lessons/09/spatial-zoning/02-floor-plan-top-view-3d.jpeg',
-      'src/assets/lessons/09/spatial-zoning/03-spatial-relationship-diagram.png',
+      'src/assets/lessons/09/spatial-zoning/03-spatial-relationship-diagram-notebooklm.png',
+      'src/assets/lessons/09/spatial-zoning/04-spatial-relationship-diagram-chatgpt.png',
     ];
     for (const filePath of lessonNineFiles) {
       try { await access(path.resolve(filePath)); }

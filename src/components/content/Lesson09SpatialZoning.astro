@@ -5,7 +5,8 @@ import PromptCopyBlock from './PromptCopyBlock.astro';
 
 import cleanedFloorPlan from '../../assets/lessons/09/spatial-zoning/01-floor-plan-cleaned.jpg';
 import topView3d from '../../assets/lessons/09/spatial-zoning/02-floor-plan-top-view-3d.jpeg';
-import relationshipDiagram from '../../assets/lessons/09/spatial-zoning/03-spatial-relationship-diagram.png';
+import notebookRelationshipDiagram from '../../assets/lessons/09/spatial-zoning/03-spatial-relationship-diagram-notebooklm.png';
+import chatgptRelationshipDiagram from '../../assets/lessons/09/spatial-zoning/04-spatial-relationship-diagram-chatgpt.png';
 
 interface TimeItem {
   label: string;
@@ -23,15 +24,16 @@ const totalMinutes = timePlan.reduce((sum, item) => sum + item.minutes, 0);
 
 const workflowSteps = [
   '원본 평면도',
-  'NotebookLM 분석',
-  '도면 기준표',
+  'NotebookLM 1차 분석',
+  '원도면 재확인',
+  '오류 발견',
+  'GPT·사람 교차검수',
+  '최종 확정 기준표',
   '사람이 정리한 선화',
   'GPT Top View 3D',
-  '원도면 비교',
-  '공간 기능·인접 관계·동선 분석',
-  '분석 결과 검증',
+  '공간 관계 분석·검증',
   'Graphviz(DOT)',
-  '공간 관계 다이어그램',
+  '다이어그램 비교',
   '개념 조닝',
 ] as const;
 
@@ -55,70 +57,54 @@ const notebookPlanAnalysisPrompt = `첨부된 평면도 PDF만을 기준으로 �
 
 각 정보에는 가능하면 해당 내용을 확인한 원본 위치 또는 근거를 함께 표시해 주세요.
 
-최종 결과는 이후 3D 이미지 제작에 사용할 수 있도록
-‘변경하면 안 되는 도면 기준정보’와
-‘확인 불가 정보’로 나누어 정리해 주세요.`;
+이번 출력은 확정본이 아니라 원도면 재검수가 필요한 1차 분석 초안입니다.
+각 항목을 KEEP 후보 / REVIEW / UNKNOWN으로 구분하고,
+원도면과 교차검수하기 전에는 직접 연결이나 높이를 확정하지 마세요.`;
 
-const floorPlanCriteriaPrompt = `방금 분석한 1층 평면도 PDF의 분석 결과를 바탕으로,
-이후 GPT/Gemini 이미지 생성 단계에 그대로 전달할 수 있는
-「3D 이미지 생성용 도면 기준표」를 작성해 주세요.
+const floorPlanCriteriaPrompt = `첨부한 원본 1층 평면도 PDF와 NotebookLM 1차 분석 결과를 다시 대조하여,
+후속 3D·관계도·조닝 작업에 사용할 「최종 확정 도면 기준표」를 작성해 주세요.
 
-새로운 설계안을 제안하거나 정보를 추가로 추정하지 마세요.
+NotebookLM 1차 분석은 검토가 필요한 초안입니다.
+두 자료가 충돌하면 원본 평면도의 선·문·실명·치수·레벨 표기를 우선하세요.
+새로운 설계안을 제안하거나 원본에 없는 정보를 추정하지 마세요.
 
 기준표:
 
-| 구분 | 항목 | 원본 도면에서 확인된 내용 | 상태 | 이미지 생성 시 지시사항 | 원본 근거 |
+| 구분 | 항목 | 원본 도면에서 확인된 내용 | 상태 | 후속 작업 지시 | 원본 근거 |
 
 상태:
 
-* 고정(KEEP)
-* 확인 불가(UNKNOWN)
-* 수정 대상(CHANGE)
+* KEEP: 원본에서 직접 확인되어 유지할 정보
+* REVIEW: 흔적이나 표기는 있으나 이 한 장의 평면도만으로 경계·의미·접근 방식 등을 하나로 확정하기 어려운 정보
+* UNKNOWN: 현재 평면도에서 확인할 수 없는 정보
 
 반드시 포함:
 
-* 건물 전체 외곽 형태
-* 주요 내부 벽체와 공간 구획
-* 각 공간 명칭과 위치
-* 공간 간 인접 관계
-* 출입구
-* 창호
-* 계단 위치
-* 계단 UP/DN 진행 방향
-* 계단참 및 확인되는 레벨
-* 엘리베이터
-* P.S
-* 화장실
-* 소장실
-* 회의실
-* 모형실
-* 사무소
-* 탕비실
-* 창고
-* 휴게데크
-* 확인 가능한 가구·고정설비
-* 바닥 레벨·단차
-* 확인 가능한 벽체·마감 표기
+* 건물 외곽과 주요 내부 벽체·공간 구획
+* 각 공간 명칭·위치·직접문·개구부·창호
+* 사무소↔소장실, 사무소↔계단실, 사무소↔휴게데크-1
+* 소장실↔휴게데크-2, 회의실↔휴게데크-3, 모형실↔창고
+* TO.W↔중앙 공용통로, TO.M↔중앙 공용통로, 중앙 공용통로↔계단실
+* 회의실↔모형실과 사무소↔탕비실은 직접문이 확인되지 않는다는 사실
+* 탕비실↔창고 경계, 좌측 개방영역, P.S 접근, 복도 전체 경계, 계단참 실제 높이 관계는 REVIEW
+* 계단 UP/DN과 엘리베이터 상·하층 이동은 별도 수직동선
+* 엘리베이터↔계단실/공용홀은 승강기 출입면을 통한 수평 접근
+* 마감레벨 ±0과 구조레벨 일반 실 -30·화장실 -60의 구분
 
 규칙:
 
-* 확인되지 않는 천장고·벽 높이·문 높이·창 높이·가구 높이·재질 색상·조명·시공 디테일을 임의 설정하지 않음
-* 일반적인 수치를 임의 적용하지 않음
-* 명확하지 않은 치수를 계산하지 않음
-* 읽을 수 없는 항목은 확인 불가로 표시
-* KEEP 항목은 가능한 범위에서 원본 근거 기록
+* -30/-60을 완성바닥 문턱 단차로 해석하지 않음
+* 계단참 EL+2,200 표기를 1층 기준 확정 높이로 해석하지 않음
+* 복도를 모든 실을 잇는 확정 허브로 확대하지 않음
+* 확인되지 않는 높이·재질·조명·성능·시공 디테일을 임의 설정하지 않음
+* KEEP에는 원본 근거를 기록하고 REVIEW와 UNKNOWN은 확정 표현을 사용하지 않음
 
-마지막에:
-
-A. GPT 이미지 생성 시 절대 변경 금지 조건
-B. GPT가 임의로 생성하면 안 되는 정보
-
-를 별도로 정리합니다.`;
+마지막에 절대 변경 금지 조건, 사람의 추가 검토 항목, 현재 자료에서 확인할 수 없는 정보를 분리해 주세요.`;
 
 const topViewPrompt = `첨부한 자료를 다음 우선순위로 사용해 구조 검토용 Top View Cutaway 3D 이미지를 제작해 주세요.
 
 1. 원본 평면도 PDF: 사실 확인의 최우선 기준
-2. 3D 이미지 생성용 도면 기준표: 유지·확인 불가 조건
+2. 최종 확정 도면 기준표: KEEP·REVIEW·UNKNOWN 조건
 3. 사람이 정리한 선화 이미지: 선을 읽기 쉽게 만든 입력 보조자료
 
 목적:
@@ -128,100 +114,76 @@ const topViewPrompt = `첨부한 자료를 다음 우선순위로 사용해 구�
 * 건물 외곽 형태와 주요 내부 벽체
 * 공간 구획과 주요 공간 위치
 * 출입구와 창호
-* 계단 위치와 UP/DN 방향
+* 계단 위치와 UP/DN 방향, 엘리베이터의 별도 수직동선
 * 엘리베이터와 P.S 위치
 
 금지:
 * 새 공간·문·창·계단 추가
 * 임의 구조 변경
+* REVIEW·UNKNOWN 관계를 확정 연결이나 확정 수치로 표현
 * 도면에서 확인되지 않는 높이·재질·조명·시공 정보를 실제 정보처럼 확정
 
 확인할 수 없는 높이는 일반값을 임의 적용하지 말고, 개념 시각화에 필요한 최소 표현으로만 처리해 주세요.
 결과와 함께 원본과 다시 비교해야 할 항목을 짧게 정리해 주세요.`;
 
-const spatialAnalysisPrompt = `앞서 분석한 원본 1층 평면도
-\`7차시_01_전체평면도_분석용.pdf\`
-와 작성한 도면 기준표
-\`3d-image-generation-guidelines-ko.docx\`
-만을 근거로,
-후속 2D 공간 관계 다이어그램 제작에 필요한 정보를 정리해 주세요.
+const spatialAnalysisPrompt = `첨부한 원본 1층 평면도와 최종 확정 기준표만을 사실 기준으로 사용하여,
+후속 2D 공간 관계 다이어그램에 필요한 공간 기능·인접 관계·동선을 정리해 주세요.
 
-이번 작업에서는 3D 이미지를 기준자료로 사용하지 않습니다.
-원본 평면도와 기존 기준표를 사실 기준으로 사용하세요.
+3D 이미지는 사실 기준에서 제외합니다.
+최종 확정 기준표는 보조 기준이며 충돌하면 원본 평면도가 우선입니다.
 
-다음 3개 항목으로 나누어 작성해 주세요.
+상태는 KEEP / REVIEW / UNKNOWN으로 구분하세요.
+KEEP만 실선 직접 연결로 확정하고, REVIEW는 점선 또는 주석으로 남기며, UNKNOWN은 만들지 마세요.
 
-### 1. 공간 기능 분석
+1. 공간 기능 분석
+* 업무: 사무소, 소장실
+* 회의·협업: 회의실, 모형실
+* 이동·공용: 복도, 중앙 공용통로, 계단실, 엘리베이터
+* 지원·서비스: 탕비실, 창고, P.S
+* 위생: TO.W, TO.M
+* 외부·휴게: 휴게데크-1, 휴게데크-2, 휴게데크-3
 
-| 공간명 | 주요 기능 | 기능 분류 | 원본 근거 |
+이 기능 분류는 원본의 공식 조닝이 아니라 후속 분석을 위한 기능 분석 레이어입니다.
 
-기능 분류:
+2. 공간 인접 관계
+다음 KEEP 직접 관계를 원본 문·개구부 근거와 함께 기록하세요.
+* 사무소↔소장실, 사무소↔계단실, 사무소↔휴게데크-1
+* 소장실↔휴게데크-2, 회의실↔휴게데크-3, 모형실↔창고
+* TO.W↔중앙 공용통로, TO.M↔중앙 공용통로, 중앙 공용통로↔계단실
 
-* 업무
-* 회의·협업
-* 지원·서비스
-* 이동·공용
-* 위생
-* 외부·휴게
+다음은 직접 연결선 금지로 기록하세요.
+* 회의실↔모형실, 사무소↔탕비실, 휴게데크-1↔회의실, 휴게데크-3↔계단실
 
-원본에서 확인되지 않는 용도는 임의 추가하지 마세요.
+다음은 REVIEW로 기록하세요.
+* 탕비실↔창고의 정확한 경계·연속 방식
+* 모형실·회의실 좌측 출입문 바깥 개방영역의 정확한 실명·경계
+* P.S 일반 보행 접근, 복도의 정확한 전체 경계
 
-### 2. 공간 인접 관계(Adjacency) 분석
+3. 주요 동선
+* 계단의 UP/DN 수직동선과 엘리베이터의 상·하층 수직동선을 별도로 표시
+* 엘리베이터↔계단실/공용홀은 승강기 출입면을 통한 수평 접근으로 표시
+* 중앙 공용통로는 확인된 범위만 사용하고 전체 복도 허브로 확대하지 않음
 
-| 공간 A | 공간 B | 관계 | 연결 방식 | 원본 근거 |
-
-관계:
-
-* 직접 연결
-* 인접하지만 직접 연결되지 않음
-* 복도·공용공간을 통해 연결
-* 확인 불가
-
-도면에서 확인되지 않는 관계는 추정하지 마세요.
-
-### 3. 주요 동선(Circulation) 분석
-
-정리:
-
-* 주요 출입 동선
-* 복도를 통한 공간 연결
-* 계단을 통한 수직동선
-* 엘리베이터를 통한 수직동선
-* 외부 휴게데크와 실내공간의 연결
-
-이동거리, 보행시간, 통로폭 등 확인되지 않는 값은 추정하지 않습니다.
-
-마지막에는:
-
-[공간 관계 데이터]
-
-공간 A ↔ 공간 B
-
-* 관계:
-* 연결 방식:
-
-[주요 동선 데이터]
-
-시작 공간 → 경유 공간 → 도착 공간
-
-형식으로 정리합니다.`;
+이동거리·보행시간·통로폭·계단참 실제 높이는 추정하지 마세요.
+마지막에 공간 관계 데이터와 주요 동선 데이터를 상태·원본 근거와 함께 표로 정리해 주세요.`;
 
 const validationPrompt = `방금 작성한 공간 기능·인접관계·동선 분석 결과를
-원본 1층 평면도 PDF와 기존 도면 기준표에 다시 대조하여 검증해 주세요.
+원본 1층 평면도 PDF와 최종 확정 기준표에 다시 대조하여 검증해 주세요.
 
 이번 단계에서는 후속 2D 공간 관계 다이어그램 제작에 사용할
 “최종 검증본 1개”만 작성합니다.
 
 원칙:
 
-1. 원본 평면도 또는 기존 기준표에서 직접 확인할 수 있는 정보만 유지
+1. 원본 평면도를 최우선으로 사용하고 최종 확정 기준표는 보조 기준으로 사용
 2. 사용자 수·활동 방식·자연환기·접근성·관리 방식 등 원본 근거 없는 해석 삭제 또는 해석 표시
 3. 위치·인접관계·직접 연결 여부가 충돌하면 원본 재확인
-4. 확정할 수 없으면 확인 불가
+4. 확정할 수 없으면 REVIEW 또는 UNKNOWN
 5. 새로운 관계·동선 추가 금지
 6. 휴게데크-1·2·3 위치와 실내 연결 여부 재확인
-7. 사무소↔탕비실, 탕비실↔창고 직접 연결 여부 재확인
-8. 계단실·엘리베이터·P.S 관계 재확인
+7. 사무소↔탕비실은 직접문 없음, 탕비실↔창고 경계는 REVIEW인지 재확인
+8. 계단 UP/DN과 엘리베이터 상·하층 이동을 분리하고 두 요소 사이는 수평 접근인지 재확인
+9. 복도 전체 경계를 확정 허브로 확대하지 않았는지 재확인
 
 출력:
 
@@ -231,9 +193,9 @@ const validationPrompt = `방금 작성한 공간 기능·인접관계·동선 �
 
 근거 상태:
 
-* 직접 확인
-* 명칭 기반 해석
-* 확인 불가
+* KEEP
+* REVIEW
+* UNKNOWN
 
 ### 최종 공간 인접 관계
 
@@ -257,12 +219,16 @@ Graphviz DOT 코드를 작성해 주세요.
 
 규칙:
 
-* 검증 완료된 공간명만 사용
+* 원본 평면도와 최종 확정 기준표에서 검증한 공간명만 사용
 * 새로운 공간 또는 관계 추가 금지
-* 직접 연결은 실선
-* 인접하지만 직접 연결되지 않음은 점선
+* KEEP 직접 연결은 실선
+* REVIEW와 인접하지만 직접 연결되지 않음은 점선과 상태 라벨
+* UNKNOWN 관계는 생성하지 않음
 * 주요 이동 관계는 화살표
-* 계단·엘리베이터 수직동선은 구분
+* 계단 UP/DN과 엘리베이터 상·하층 수직동선을 별도 표시
+* 엘리베이터↔계단실/공용홀은 수평 접근으로 표시
+* 중앙 공용통로만 확인된 동선으로 사용하고 복도 전체 경계를 확정하지 않음
+* 계단참 높이와 -30/-60 구조레벨을 관계 노드에 넣지 않음
 * 실제 치수·면적·벽 형상 표현 금지
 * 모든 노드명은 한글 공간명 유지
 
@@ -276,8 +242,9 @@ const zoningStructurePrompt = `첨부한 원본 평면도와 검증 완료된 �
 자료 우선순위:
 
 1. 원본 평면도
-2. 검증 완료 공간 관계 분석표
-3. Graphviz 공간 관계 다이어그램
+2. 최종 확정 기준표
+3. 검증 완료 공간 관계 분석표
+4. Graphviz 공간 관계 다이어그램
 
 기능 영역:
 
@@ -293,7 +260,8 @@ const zoningStructurePrompt = `첨부한 원본 평면도와 검증 완료된 �
 
 ### 이동·공용 영역
 
-* 복도
+* 복도 기능(정확한 전체 경계는 REVIEW)
+* 중앙 공용통로
 * 계단실
 * 엘리베이터
 
@@ -314,14 +282,20 @@ const zoningStructurePrompt = `첨부한 원본 평면도와 검증 완료된 �
 * 휴게데크-2
 * 휴게데크-3
 
+이 기능 분류는 원본 평면도에 공식 표기된 조닝이 아니라 후속 분석을 위한 기능 분석 레이어입니다.
 새로운 공간명이나 기능 영역을 임의로 추가하지 마세요.
 
 공간 관계 규칙:
 
-* 확인된 연결 관계만 유지
+* KEEP 직접 연결만 실선으로 유지
+* REVIEW는 점선 또는 확인 필요 주석으로 표시
+* UNKNOWN은 임의 생성하지 않음
 * 인접하지만 직접 연결되지 않는 공간에 새 출입 관계 생성 금지
-* 계단과 엘리베이터는 수직동선으로 구분
+* 복도를 모든 공간을 연결하는 확정 허브로 만들지 않음
+* 계단 UP/DN과 엘리베이터 상·하층 수직동선을 구분
+* 엘리베이터↔계단실/공용홀은 수평 접근으로 표시
 * 외부 휴게데크에 원본에서 확인되지 않는 출입 동선 생성 금지
+* 기능 그룹을 이유로 벽·문·실 경계를 합치거나 이동하지 않음
 
 아직 다이어그램을 생성하지 마세요.
 
@@ -340,15 +314,20 @@ const zoningFinalPrompt = `방금 정리한 기능 영역, 공간 관계, 주요
 
 중요:
 
-* 방금 확정한 공간 분류와 관계 변경 금지
+* 원본 평면도를 최우선 기준으로 사용하고 최종 확정 기준표는 보조 기준으로 사용
+* 방금 확인한 공간 분류와 관계 변경 금지
 * 새로운 공간·연결 관계 추가 금지
 * 실제 건축 평면도를 정밀하게 재현하지 않음
 * 정확한 치수·면적·벽 길이·문 크기 임의 생성 금지
 * 가구·재질·조명·인테리어 장식 제외
 * 기능 영역과 주요 동선 중심으로 단순화
 * 공간명과 영역명은 한국어 사용
-* 계단·엘리베이터는 수직동선으로 구분
+* KEEP 직접 연결은 실선, REVIEW는 점선·주석, UNKNOWN은 생성하지 않음
+* 중앙 공용통로를 전체 복도 허브로 확대하지 않음
+* 계단 UP/DN과 엘리베이터 상·하층 수직동선을 별도로 구분
+* 엘리베이터↔계단실/공용홀은 수평 접근으로 표시
 * 외부·휴게 영역은 원본에서 확인된 관계만 표현
+* 기능 분석 레이어를 이유로 원본 벽·문·실 경계를 변경하지 않음
 
 결과는 e-book과 발표자료에서 확인할 수 있는
 깔끔한 2D 개념 조닝 다이어그램으로 제작합니다.`;
@@ -359,44 +338,50 @@ const actualDotCode = `digraph G {
     node [fontname="Malgun Gothic, Apple SD Gothic Neo, DejaVu Sans", fontsize=10, style=filled, shape=box, penwidth=1.5];
     edge [fontname="Malgun Gothic, Apple SD Gothic Neo, DejaVu Sans", fontsize=8, color="#595959", penwidth=1.2];
 
-    Office [label="사무소\\n(업무 / -30mm)", fillcolor="#D9E1F2", color="#1F4E79"];
-    Director [label="소장실\\n(업무 / -30mm)", fillcolor="#D9E1F2", color="#1F4E79"];
-    Meeting [label="회의실\\n(회의·협업 / -30mm)", fillcolor="#E2F0D9", color="#385723"];
-    Model [label="모형실\\n(회의·협업 / -30mm)", fillcolor="#E2F0D9", color="#385723"];
-    Corridor [label="복도\\n(이동·공용 / ±0)", fillcolor="#F2F2F2", color="#7F7F7F", penwidth=2.5];
-    Stairs [label="계단실\\n(이동·공용 / 계단참 +2,200)", fillcolor="#F2F2F2", color="#7F7F7F"];
-    Elevator [label="엘리베이터\\n(이동·공용 / 13인승)", fillcolor="#F2F2F2", color="#7F7F7F"];
+    Office [label="사무소\\n(업무)", fillcolor="#D9EAD3", color="#38761D"];
+    Director [label="소장실\\n(업무)", fillcolor="#D9EAD3", color="#38761D"];
+    Meeting [label="회의실\\n(회의·협업)", fillcolor="#D9EAF7", color="#0B5394"];
+    Model [label="모형실\\n(회의·협업)", fillcolor="#D9EAF7", color="#0B5394"];
+    CentralPassage [label="중앙 공용통로\\n(전체 복도 경계 REVIEW)", fillcolor="#EEF3F5", color="#455A64", style="filled,dashed"];
+    OpenFlow [label="공용동선\\n(좌측 개방영역·경계 REVIEW)", fillcolor="#FFF7E6", color="#CC7A00", style="filled,dashed"];
+    Stairs [label="계단실\\nUP / DN", fillcolor="#EEF3F5", color="#455A64"];
+    Elevator [label="엘리베이터\\n상·하층", fillcolor="#EEF3F5", color="#455A64"];
     Pantry [label="탕비실\\n(지원·서비스)", fillcolor="#FCE4D6", color="#C65911"];
-    Storage [label="창고\\n(지원·서비스 / -30mm)", fillcolor="#FCE4D6", color="#C65911"];
-    PS [label="P.S\\n(설비 / 밀폐)", fillcolor="#FCE4D6", color="#C65911", style="filled,dashed"];
-    TOM [label="남자 화장실 (TO.M)\\n(위생 / -60mm)", fillcolor="#E8D9F2", color="#7030A0"];
-    TOW [label="여자 화장실 (TO.W)\\n(위생 / -60mm)", fillcolor="#E8D9F2", color="#7030A0"];
-    Deck1 [label="휴게데크-1\\n(외부·휴게)", fillcolor="#FFF2CC", color="#D5A6BD", style="filled,dotted"];
-    Deck2 [label="휴게데크-2\\n(외부·휴게)", fillcolor="#FFF2CC", color="#D5A6BD", style="filled,dotted"];
-    Deck3 [label="휴게데크-3\\n(외부·휴게)", fillcolor="#FFF2CC", color="#D5A6BD", style="filled,dotted"];
+    Storage [label="창고\\n(지원·서비스)", fillcolor="#FCE4D6", color="#C65911"];
+    PS [label="P.S\\n(일반 보행 접근 REVIEW)", fillcolor="#FCE4D6", color="#C65911", style="filled,dashed"];
+    TOM [label="TO.M\\n(위생)", fillcolor="#E8D9F2", color="#7030A0"];
+    TOW [label="TO.W\\n(위생)", fillcolor="#E8D9F2", color="#7030A0"];
+    Deck1 [label="휴게데크-1\\n(외부·휴게)", fillcolor="#FFF2CC", color="#E65100"];
+    Deck2 [label="휴게데크-2\\n(외부·휴게)", fillcolor="#FFF2CC", color="#E65100"];
+    Deck3 [label="휴게데크-3\\n(외부·휴게)", fillcolor="#FFF2CC", color="#E65100"];
+    Upper [label="상부 층", shape=ellipse, fillcolor="#FCE5CD", color="#CC0000"];
+    Lower [label="하부 층", shape=ellipse, fillcolor="#FCE5CD", color="#CC0000"];
 
-    Corridor -> Meeting [dir=both, label="문 통과"];
-    Corridor -> Model [dir=both, label="문 통과"];
-    Corridor -> Director [dir=both, label="문 통과"];
-    Corridor -> Office [dir=both, label="문 통과"];
-    Corridor -> Storage [dir=both, label="LW개구부"];
-    Corridor -> TOM [dir=both, label="문 통과"];
-    Corridor -> TOW [dir=both, label="문 통과"];
-    Corridor -> Elevator [dir=both, label="슬라이딩 도어"];
-    Corridor -> Stairs [dir=both, label="출입구"];
-    Office -> Pantry [dir=both, label="내부 연결"];
+    Office -> Director [dir=both, label="직접문 / KEEP"];
+    Office -> Stairs [dir=both, label="직접문 / KEEP"];
+    Office -> Deck1 [dir=both, label="직접문 / KEEP"];
+    Director -> Deck2 [dir=both, label="직접문 / KEEP"];
+    Meeting -> Deck3 [dir=both, label="직접문 / KEEP"];
+    Model -> Storage [dir=both, label="직접문 / KEEP"];
+    TOW -> CentralPassage [dir=both, label="직접문 / KEEP"];
+    TOM -> CentralPassage [dir=both, label="직접문 / KEEP"];
+    CentralPassage -> Stairs [dir=both, label="개방 연속 / KEEP"];
+    Elevator -> Stairs [dir=both, label="출입면을 통한 수평 접근 / KEEP"];
 
-    edge [style=dashed, color="#A6A6A6", arrowhead=none];
-    Meeting -> Model [label="벽체 공유"];
-    Model -> Director [label="벽체 공유"];
-    Director -> Office [label="벽체 공유"];
-    Pantry -> Storage [label="인접"];
-    Elevator -> PS [label="밀폐 구조벽"];
+    Stairs -> Upper [label="UP"];
+    Stairs -> Lower [label="DN"];
+    Elevator -> Upper [label="상층 이동"];
+    Elevator -> Lower [label="하층 이동"];
 
-    edge [style=dotted, color="#D9D9D9", arrowhead=none];
-    Deck1 -> Meeting [label="외벽 접합"];
-    Deck2 -> Office [label="외벽 접합"];
-    Deck3 -> Stairs [label="외벽 접합"];
+    edge [style=dashed, color="#CC7A00", arrowhead=none];
+    Pantry -> Storage [label="경계·연속 방식 REVIEW"];
+    Model -> OpenFlow [label="좌측 문 바깥 영역 REVIEW"];
+    Meeting -> OpenFlow [label="좌측 문 바깥 영역 REVIEW"];
+    CentralPassage -> PS [label="일반 보행 접근 REVIEW"];
+
+    edge [style=dotted, color="#777777", arrowhead=none];
+    Meeting -> Model [label="벽 공유 · 직접문 없음"];
+    Office -> Pantry [label="직접문 없음"];
 }`;
 
 const reviewRows = [
@@ -406,17 +391,18 @@ const reviewRows = [
   '공간 위치',
   '출입구',
   '창호',
-  '계단 위치',
-  '계단 방향',
-  '엘리베이터',
-  'P.S',
-  '주요 공간 관계',
+  'KEEP 직접 연결 9개',
+  '휴게데크 1·2·3 연결 실',
+  '중앙 공용통로와 복도 경계',
+  '계단 UP/DN과 엘리베이터',
+  '계단참·구조레벨 해석',
+  'P.S와 REVIEW 관계',
 ] as const;
 
 const functionGroups = [
   ['업무 영역', '사무소 · 소장실'],
   ['회의·협업 영역', '회의실 · 모형실'],
-  ['이동·공용 영역', '복도 · 계단실 · 엘리베이터'],
+  ['이동·공용 영역', '중앙 공용통로 · 복도 기능(경계 REVIEW) · 계단실 · 엘리베이터'],
   ['지원·서비스 영역', '탕비실 · 창고 · P.S'],
   ['위생 영역', 'TO.M · TO.W'],
   ['외부·휴게 영역', '휴게데크-1 · 휴게데크-2 · 휴게데크-3'],
@@ -464,11 +450,21 @@ const functionGroups = [
     <h3>원본 평면도는 사실 확인의 최우선 기준자료</h3>
     <p>공간명, 구획, 벽체, 출입구, 창호, 계단, 엘리베이터와 P.S를 확인한다. 원본 PDF에는 프로젝트 식별정보가 포함될 수 있어 공개 e-book에서 파일·미리보기·다운로드를 제공하지 않는다.</p>
   </div>
+  <p class="lesson09-key"><strong>원자료에 근거한 AI 분석도 오독할 수 있으므로, 첫 분석 결과를 바로 확정하지 않고 원본 도면과 다시 대조합니다.</strong></p>
+  <div class="lesson09-review-flow" aria-label="NotebookLM 1차 분석부터 최종 확정 기준표까지의 검수 흐름">
+    <strong>NotebookLM 1차 분석</strong><i>→</i><strong>원도면 재확인</strong><i>→</i><strong>오류 발견</strong><i>→</i><strong>GPT·사람 교차검수</strong><i>→</i><strong>최종 확정 기준표</strong>
+  </div>
   <PromptCopyBlock id="lesson09-prompt-01" title="원본 평면도 정보 분석" description="NotebookLM에서 원본 PDF만을 근거로 확인 정보와 확인 불가 정보를 나눈다." prompt={notebookPlanAnalysisPrompt} />
 </LessonSection>
 
 <LessonSection id="section-06" number="06" title="도면 기준표와 사람이 정리한 입력자료" class="lesson09-section" {lessonId}>
-  <PromptCopyBlock id="lesson09-prompt-02" title="후속 AI용 3D 이미지 생성 도면 기준표" description="NotebookLM 분석을 후속 이미지 작업에 전달할 KEEP·UNKNOWN·CHANGE 기준표로 정리한다." prompt={floorPlanCriteriaPrompt} />
+  <div class="lesson09-state-grid" data-lesson09-validation="keep-review-unknown">
+    <article><strong>KEEP</strong><p>원본에서 직접 확인되어 유지할 정보</p></article>
+    <article><strong>REVIEW</strong><p>표기나 흔적은 있으나 경계·의미·접근 방식을 하나로 확정하기 어려운 정보</p></article>
+    <article><strong>UNKNOWN</strong><p>현재 평면도에서 확인할 수 없어 임의로 만들면 안 되는 정보</p></article>
+  </div>
+  <p class="lesson09-key"><strong>최종 확정 기준표는 후속 AI 작업을 위한 보조 기준이며, 충돌 시 원본 평면도가 우선입니다.</strong></p>
+  <PromptCopyBlock id="lesson09-prompt-02" title="후속 AI용 최종 확정 도면 기준표" description="1차 분석을 원도면과 교차검수해 KEEP·REVIEW·UNKNOWN 기준표로 정리한다." prompt={floorPlanCriteriaPrompt} />
   <figure class="lesson09-figure lesson09-figure--wide">
     <Image src={cleanedFloorPlan} alt="사람이 원본 도면에서 불필요한 선을 정리한 평면도 수업 예시" widths={[720, 1080, 1440]} sizes="(max-width: 900px) 100vw, 1120px" loading="eager" />
     <figcaption><strong>사람이 정리한 AI 입력용 선화</strong><span>원본 도면에서 AI 입력에 불필요하다고 판단한 선을 사람이 직접 정리한 수업 예시입니다.</span></figcaption>
@@ -490,8 +486,8 @@ const functionGroups = [
     <figure><span>AI OUTPUT</span><Image src={topView3d} alt="원도면과 비교하여 검토할 GPT Top View 3D 결과" widths={[520, 780, 1040]} sizes="(max-width: 760px) 100vw, 50vw" loading="lazy" /><figcaption>GPT Top View 3D · 해석 오류 검토 대상</figcaption></figure>
   </div>
   <div class="lesson09-observations">
-    <h3>이 결과에서 실제로 확인할 오류 후보</h3>
-    <ul><li>일부 공간명이 원본과 다른 단어로 표현되어 있다.</li><li>계단·코어·개구부의 위치와 연결을 원도면에서 다시 확인해야 한다.</li><li>원도면이 확정하지 않은 가구·높이·마감이 시각적으로 추가되어 있다.</li></ul>
+    <h3>최종 확정 기준표로 다시 볼 핵심 항목</h3>
+    <ul><li>휴게데크-1·2·3이 각각 사무소·소장실·회의실에 연결되는가?</li><li>계단 UP/DN과 엘리베이터 상·하층 이동이 서로 다른 수직동선으로 표현됐는가?</li><li>중앙 공용통로를 넘어 복도 경계를 임의 확장하지 않았는가?</li><li>계단참 높이와 구조레벨 -30/-60을 완성바닥 단차로 확정하지 않았는가?</li></ul>
   </div>
   <div class="lesson09-table" tabindex="0">
     <table><thead><tr><th>검토 항목</th><th>일치</th><th>불일치</th><th>확인 불가</th><th>원본 근거</th></tr></thead><tbody>{reviewRows.map((row) => <tr><th>{row}</th><td>□</td><td>□</td><td>□</td><td>페이지·도면 위치 기록</td></tr>)}</tbody></table>
@@ -501,24 +497,39 @@ const functionGroups = [
 
 <LessonSection id="section-09" number="09" title="공간 기능·공간 인접 관계·주요 동선 분석" class="lesson09-section" {lessonId}>
   <div class="lesson09-terms">
-    <article><h3>공간 기능</h3><p>업무, 회의·협업, 지원·서비스, 이동·공용, 위생, 외부·휴게로 원도면의 공간을 분류한다.</p></article>
-    <article><h3>공간 인접 관계(Adjacency)</h3><p>직접 연결, 인접하지만 비연결, 공용공간을 통한 연결, 확인 불가를 구분한다.</p></article>
-    <article><h3>주요 동선(Circulation)</h3><p>출입, 복도 연결, 계단·엘리베이터 수직동선과 외부 접합을 원도면 근거로 정리한다.</p></article>
+    <article><h3>공간 기능</h3><p>업무, 회의·협업, 이동·공용, 지원·서비스, 위생, 외부·휴게로 묶되 원본의 공식 조닝이 아닌 기능 분석 레이어로 사용한다.</p></article>
+    <article><h3>공간 인접 관계(Adjacency)</h3><p>KEEP 직접 연결, 직접문 없는 인접, REVIEW 관계와 UNKNOWN을 구분한다.</p></article>
+    <article><h3>주요 동선(Circulation)</h3><p>중앙 공용통로, 계단 UP/DN, 엘리베이터 상·하층 이동과 수평 접근을 분리해 기록한다.</p></article>
   </div>
-  <PromptCopyBlock id="lesson09-prompt-04" title="공간 기능·공간 인접 관계·주요 동선 분석" description="3D 이미지는 기준에서 제외하고 원본 평면도와 기준표만 사용한다." prompt={spatialAnalysisPrompt} />
+  <div class="lesson09-table" tabindex="0" data-lesson09-relation-set="final-criteria">
+    <table>
+      <thead><tr><th>구분</th><th>최종 관계</th><th>표현 규칙</th></tr></thead>
+      <tbody>
+        <tr><th>KEEP 직접 연결</th><td>사무소↔소장실 · 사무소↔계단실 · 사무소↔휴게데크-1 · 소장실↔휴게데크-2 · 회의실↔휴게데크-3 · 모형실↔창고 · TO.W/TO.M↔중앙 공용통로 · 중앙 공용통로↔계단실</td><td>원본 문·개구부 근거가 있는 관계만 실선</td></tr>
+        <tr><th>직접 연결 금지</th><td>회의실↔모형실 · 사무소↔탕비실 · 휴게데크-1↔회의실 · 휴게데크-3↔계단실</td><td>벽 공유·인접을 직접문으로 바꾸지 않음</td></tr>
+        <tr><th>REVIEW</th><td>탕비실↔창고 경계 · 모형실/회의실 좌측 개방영역 · P.S 접근 · 복도 전체 경계 · 계단참 실제 높이</td><td>점선·주석 또는 사람 확인 전 보류</td></tr>
+        <tr><th>별도 동선</th><td>계단은 UP/DN, 엘리베이터는 상·하층 이동</td><td>엘리베이터↔계단실/공용홀은 수평 접근</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <PromptCopyBlock id="lesson09-prompt-04" title="공간 기능·공간 인접 관계·주요 동선 분석" description="3D 이미지는 기준에서 제외하고 원본 평면도와 최종 확정 기준표만 사용한다." prompt={spatialAnalysisPrompt} />
 </LessonSection>
 
 <LessonSection id="section-10" number="10" title="NotebookLM 분석 결과 검증" class="lesson09-section" {lessonId}>
-  <p>NotebookLM의 답변도 원자료 자체가 아니다. 공간 목록, 직접 연결 여부, 데크 접합, 계단·엘리베이터·P.S 관계를 원본에 다시 대조하고 최종 검증본 한 개만 남긴다.</p>
-  <PromptCopyBlock id="lesson09-prompt-05" title="분석 결과 검증 및 최종 인계본 정리" description="원본 근거가 없는 해석을 제거하거나 해석·확인 불가로 표시한다." prompt={validationPrompt} />
+  <p>NotebookLM의 답변도 원자료 자체가 아니다. 1차 분석을 원도면과 다시 대조하고 GPT·사람 교차검수를 거쳐 최종 확정 기준표 한 개를 후속 작업에 사용한다.</p>
+  <div class="lesson09-correction-grid">
+    <article><span>초기 분석</span><strong>사무소 ↔ 탕비실 직접 연결</strong><i>→</i><span>원본 재검수</span><strong>직접문 확인되지 않음</strong><i>→</i><span>최종 기준</span><strong>직접 연결선 금지</strong></article>
+    <article><span>초기 분석</span><strong>휴게데크 연결 관계 오류</strong><i>→</i><span>원본 재검수</span><strong>1↔사무소 · 2↔소장실 · 3↔회의실</strong><i>→</i><span>최종 기준</span><strong>세 직접문 관계를 KEEP</strong></article>
+  </div>
+  <PromptCopyBlock id="lesson09-prompt-05" title="분석 결과 검증 및 최종 인계본 정리" description="원본 근거가 없는 해석을 제거하고 KEEP·REVIEW·UNKNOWN으로 재분류한다." prompt={validationPrompt} />
 </LessonSection>
 
 <LessonSection id="section-11" number="11" title="Graphviz(DOT) 구조화 데이터 만들기" class="lesson09-section" {lessonId}>
-  <p>Graphviz(DOT)는 이번 실습에서 검증된 공간 관계를 노드와 연결선으로 표현하기 위한 텍스트 기반 그래프 정의 방식이다. 건축 표준 설계도구나 공식 설계 절차가 아니다.</p>
+  <p>Graphviz(DOT)는 이번 실습에서 검증된 공간 관계를 노드와 연결선으로 표현하기 위한 텍스트 기반 그래프 정의 방식이다. 건축 표준 설계도구나 공식 설계 절차가 아니며, 같은 데이터도 코드 구조와 배치 방식에 따라 다른 형태로 시각화될 수 있다.</p>
   <PromptCopyBlock id="lesson09-prompt-06" title="Graphviz(DOT) 코드 생성" description="검증된 공간·관계·동선만 DOT 코드로 변환한다." prompt={graphvizPrompt} />
   <details class="lesson09-code">
     <summary>실제 수업에서 사용한 DOT 코드 전체 보기</summary>
-    <p>아래 코드는 제공된 실제 수업 실행본이다. 공간 관계와 숫자 표기를 그대로 사실로 승인하지 말고, 원도면 검증본과 대조한 뒤 사용한다.</p>
+    <p>아래 코드는 최종 확정 기준표에 맞춰 관계를 다시 정리한 수업용 예시다. KEEP 직접 관계는 실선, REVIEW는 점선으로 구분하고 계단참 높이와 -30/-60 구조레벨은 관계 노드에서 제외했다.</p>
     <pre><code>{actualDotCode}</code></pre>
   </details>
 </LessonSection>
@@ -529,19 +540,30 @@ const functionGroups = [
     <a href="https://viz-js.com/" target="_blank" rel="noreferrer"><span>WEB TOOL</span><strong>Viz.js</strong><small>브라우저에서 그래프 렌더링</small></a>
   </div>
   <p class="lesson09-service-note">외부 서비스의 실행 상태와 화면은 변경될 수 있으므로 사용 시점에 확인한다.</p>
-  <figure class="lesson09-figure lesson09-figure--diagram">
-    <Image src={relationshipDiagram} alt="검증된 공간 관계 데이터를 노드와 연결선으로 시각화한 2D 공간 관계 다이어그램" widths={[720, 1080, 1440, 1896]} sizes="(max-width: 900px) 100vw, 1120px" loading="lazy" />
-    <figcaption><strong>검증된 공간 관계 데이터를 시각화한 2D 공간 관계 다이어그램</strong><span>기능별 공간, 직접 연결, 인접 관계, 주요 동선과 외부 공간 접합을 보는 관계도다. 실제 평면도와 같은 형상·치수를 표현하는 도면이 아니다.</span></figcaption>
-  </figure>
+  <p class="lesson09-key"><strong>같은 검증 기준을 사용하더라도 AI가 관계 데이터를 구조화하고 배치하는 방식에 따라 다이어그램의 구성과 표현은 달라질 수 있습니다. 두 결과 모두 원본 평면도와 최종 확정 기준표보다 우선하지 않습니다.</strong></p>
+  <div class="lesson09-diagram-compare">
+    <figure class="lesson09-figure lesson09-diagram-card lesson09-diagram-card--portrait">
+      <span>방법 A · NotebookLM 기반 관계 구조화</span>
+      <Image src={notebookRelationshipDiagram} alt="NotebookLM에서 최종 기준 데이터를 관계 중심으로 구조화해 Viz.js로 시각화한 다이어그램" widths={[720, 1080, 1332]} sizes="(max-width: 900px) 100vw, 1120px" loading="lazy" />
+      <figcaption><strong>관계 묶음과 수직동선을 세로로 배치한 예시</strong><span>이미지 안의 계단참 EL+2,200 표기는 원도면 표기에서 가져온 참고값이며, 실제 수직 높이 관계는 REVIEW다. 확정 높이로 사용하지 않는다.</span></figcaption>
+    </figure>
+    <figure class="lesson09-figure lesson09-diagram-card lesson09-diagram-card--landscape">
+      <span>방법 B · ChatGPT 기반 관계 구조화</span>
+      <Image src={chatgptRelationshipDiagram} alt="ChatGPT에서 동일한 최종 기준 데이터를 기능 조닝과 관계선 중심으로 구조화한 다이어그램" widths={[720, 1200, 1800, 2458]} sizes="(max-width: 900px) 100vw, 1120px" loading="lazy" />
+      <figcaption><strong>기능 그룹과 관계선을 가로로 펼친 예시</strong><span>입력 사실 기준은 같지만 노드 배치와 REVIEW 표현이 다르다. 어느 한쪽도 자동으로 정답이 되지 않으며 원본 A-302와 사람이 다시 대조한다.</span></figcaption>
+    </figure>
+  </div>
 </LessonSection>
 
 <LessonSection id="section-13" number="13" title="공간 관계 다이어그램 읽기" class="lesson09-section" {lessonId}>
   <div class="lesson09-legend">
-    <article><span class="line line--solid"></span><h3>직접 연결</h3><p>문·개구부처럼 원도면에서 확인한 연결만 표시한다.</p></article>
-    <article><span class="line line--dash"></span><h3>인접</h3><p>경계를 공유해도 직접 출입 관계가 확인되지 않으면 구분한다.</p></article>
-    <article><span class="line line--arrow"></span><h3>주요 이동</h3><p>시작·경유·도착이 검증된 동선만 방향 관계로 표시한다.</p></article>
+    <article><span class="line line--solid"></span><h3>KEEP · 직접 연결</h3><p>문·개구부처럼 원도면에서 직접 확인한 연결만 실선으로 표시한다.</p></article>
+    <article><span class="line line--dash"></span><h3>REVIEW · 보류</h3><p>경계·의미·접근 방식이 하나로 확정되지 않으면 점선이나 주석으로 구분한다.</p></article>
+    <article><span class="line line--muted"></span><h3>UNKNOWN · 생성 금지</h3><p>현재 도면에서 확인할 수 없는 관계와 수치는 임의로 만들지 않는다.</p></article>
+    <article><span class="line line--arrow"></span><h3>주요 이동</h3><p>계단 UP/DN과 엘리베이터 상·하층 이동을 별도 수직동선으로 표시한다.</p></article>
   </div>
-  <p>공간 인접 관계 다이어그램(Adjacency Diagram)은 공간 사이의 연결을 단순화한다. 노드 위치는 실제 평면 위치나 거리, 면적을 의미하지 않는다.</p>
+  <p class="lesson09-key"><strong>공간 관계 다이어그램은 평면도 분석 내용을 모두 복사하는 것이 아니라, 관계와 동선을 이해하는 데 필요한 정보만 선택해 단순화합니다.</strong></p>
+  <p>공간 인접 관계 다이어그램(Adjacency Diagram)의 노드 위치는 실제 평면 위치·거리·면적을 의미하지 않는다. 상세 마감, RGB, 조명, 천장고, 창호·문 높이, 제품과 전체 치수표는 관계도에서 생략한다.</p>
 </LessonSection>
 
 <LessonSection id="section-14" number="14" title="공간 관계에서 개념 조닝으로" class="lesson09-section" {lessonId}>
@@ -549,14 +571,14 @@ const functionGroups = [
     <article><span>RELATIONSHIP DIAGRAM</span><h3>공간 관계 다이어그램</h3><p><strong>어떤 공간이 어떤 공간과 연결되거나 인접하는가?</strong></p><ul><li>개별 공간</li><li>직접 연결</li><li>인접</li><li>동선</li></ul></article>
     <article><span>CONCEPT ZONING</span><h3>개념 조닝(Concept Zoning)</h3><p><strong>각 공간을 어떤 기능 영역으로 묶을 수 있는가?</strong></p><ul><li>기능 그룹</li><li>영역 사이 관계</li><li>주요 이동</li><li>확인 필요 조건</li></ul></article>
   </div>
-  <p class="lesson09-key"><strong>분석 결과를 그대로 이미지 생성 AI에 전달하지 않고, 작업 목적에 필요한 정보만 골라 생성 규칙으로 다시 정리한다.</strong></p>
+  <p class="lesson09-key"><strong>기능 분류는 원본 A-302에 공식 표기된 조닝이 아니라, 공간 관계 분석과 2D 개념 조닝을 위한 기능 분석 레이어다.</strong></p>
   <ol class="lesson09-filter-flow"><li>분석 결과</li><li>조닝 정보 선택</li><li>기능 그룹 확정</li><li>관계를 조닝 규칙으로 변환</li><li>확인 불가 정리</li><li>GPT 전달</li></ol>
-  <p>상세 바닥 단차, 계단참 레벨, 엘리베이터 정원, 벽체 마감, 가구, 재질과 조명은 원도면 검증에는 필요할 수 있지만 이번 조닝 입력에서는 제외한다.</p>
+  <p>기능 그룹을 이유로 원본 벽을 이동하거나 공간을 합치거나 새 문·연결 관계를 만들지 않는다. 상세 구조레벨, 계단참 레벨, 엘리베이터 정원, 벽체 마감, 가구, 재질과 조명은 이번 조닝 입력에서 제외한다.</p>
 </LessonSection>
 
 <LessonSection id="section-15" number="15" title="GPT 개념 조닝 · 구조 확인 후 제작" class="lesson09-section" {lessonId}>
   <PromptCopyBlock id="lesson09-prompt-07" title="GPT 개념 조닝 사전 구조 확인" description="다이어그램 생성 전에 기능 영역·관계·동선 표를 먼저 검토한다." prompt={zoningStructurePrompt} />
-  <div class="lesson09-human-check"><span>HUMAN CHECK</span><strong>기능 분류와 관계를 사람이 확인</strong><i>→</i><strong>승인 후 최종 제작</strong></div>
+  <div class="lesson09-human-check"><span>HUMAN CHECK</span><strong>원본 평면도</strong><i>→</i><strong>최종 확정 기준표</strong><i>→</i><strong>기능 분류와 관계 확인</strong><i>→</i><strong>승인 후 제작</strong></div>
   <PromptCopyBlock id="lesson09-prompt-08" title="확인된 구조로 개념 조닝 제작" description="사람이 확인한 구조를 변경하지 않는 최종 제작 지시다." prompt={zoningFinalPrompt} />
   <div class="lesson09-schematic" role="img" aria-label="업무, 회의 협업, 이동 공용, 지원 서비스, 위생, 외부 휴게 기능 영역을 단순화한 개념 설명용 도식">
     <p>개념 설명용 도식 · 실제 AI 생성 결과가 아님</p>
@@ -579,14 +601,15 @@ const functionGroups = [
 
 <style>
   :global(.lesson09-section) { --l09-ink: #172521; --l09-accent: #a94326; --l09-blue: #295e72; --l09-line: rgba(23,37,33,.2); }
-  .lesson09-hero, .lesson09-source-boundary, .lesson09-key, .lesson09-boundary, .lesson09-observations, .lesson09-human-check, .lesson09-schematic { break-inside: avoid; }
+  .lesson09-hero, .lesson09-source-boundary, .lesson09-key, .lesson09-boundary, .lesson09-observations, .lesson09-human-check, .lesson09-schematic, .lesson09-review-flow, .lesson09-state-grid, .lesson09-correction-grid { break-inside: avoid; }
   .lesson09-hero { padding: clamp(1.5rem,4vw,3.4rem); color: #f8f3e8; background: var(--l09-ink); }
   .lesson09-hero > span, .lesson09-source-boundary > span, .lesson09-image-compare figure > span, .lesson09-tools span, .lesson09-difference article > span, .lesson09-human-check > span { color: #e07855; font-size: .76rem; font-weight: 900; letter-spacing: .13em; }
   .lesson09-hero h3 { max-width: 22ch; margin: .8rem 0 1rem; color: inherit; font-size: clamp(1.9rem,4.3vw,3.7rem); line-height: 1.13; word-break: keep-all; }
   .lesson09-hero p { max-width: 68ch; margin: 0; color: rgba(248,243,232,.8); }
-  .lesson09-recap, .lesson09-human-check { display: flex; flex-wrap: wrap; gap: .7rem; align-items: center; padding: 1.2rem; border: 1px solid var(--l09-line); background: #fff; }
+  .lesson09-recap, .lesson09-human-check, .lesson09-review-flow { display: flex; flex-wrap: wrap; gap: .7rem; align-items: center; padding: 1.2rem; border: 1px solid var(--l09-line); background: #fff; }
   .lesson09-recap span { color: var(--l09-accent); font-weight: 900; }
-  .lesson09-recap i, .lesson09-human-check i { color: var(--l09-accent); font-style: normal; }
+  .lesson09-recap i, .lesson09-human-check i, .lesson09-review-flow i { color: var(--l09-accent); font-style: normal; }
+  .lesson09-review-flow { margin: 1rem 0; background: #eef4f1; }
   .lesson09-section blockquote { margin: 1.2rem 0; padding: 1.25rem; border-left: 5px solid var(--l09-accent); background: #fff1e8; font: 700 clamp(1.05rem,2vw,1.3rem)/1.6 var(--serif); word-break: keep-all; }
   .lesson09-workflow { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: .75rem; padding: 0; list-style: none; counter-reset: flow; }
   .lesson09-workflow li { min-width: 0; padding: 1rem; border: 1px solid var(--l09-line); background: rgba(255,255,255,.8); }
@@ -595,10 +618,13 @@ const functionGroups = [
   .lesson09-time-plan { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 0; margin: 1.2rem 0 0; padding: 0; border: 1px solid var(--l09-line); list-style: none; }
   .lesson09-time-plan li { display: flex; justify-content: space-between; gap: .7rem; padding: .8rem; border: 1px solid var(--l09-line); }
   .lesson09-total { margin: .6rem 0 0; text-align: right; font-weight: 900; }
-  .lesson09-principles, .lesson09-terms, .lesson09-legend, .lesson09-deliverables { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1rem; }
-  .lesson09-principles article, .lesson09-terms article, .lesson09-legend article, .lesson09-deliverables article { min-width: 0; padding: 1rem; border: 1px solid var(--l09-line); background: rgba(255,255,255,.78); break-inside: avoid; }
+  .lesson09-principles, .lesson09-terms, .lesson09-legend, .lesson09-deliverables, .lesson09-state-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1rem; }
+  .lesson09-principles article, .lesson09-terms article, .lesson09-legend article, .lesson09-deliverables article, .lesson09-state-grid article { min-width: 0; padding: 1rem; border: 1px solid var(--l09-line); background: rgba(255,255,255,.78); break-inside: avoid; }
   .lesson09-principles h3, .lesson09-terms h3, .lesson09-legend h3 { margin: .25rem 0 .5rem; }
   .lesson09-principles p, .lesson09-terms p, .lesson09-legend p, .lesson09-deliverables p { margin: 0; }
+  .lesson09-state-grid { margin: 1rem 0; }
+  .lesson09-state-grid strong { color: var(--l09-blue); letter-spacing: .08em; }
+  .lesson09-state-grid p { margin-bottom: 0; }
   .lesson09-key, .lesson09-boundary { padding: 1.1rem 1.25rem; border-left: 5px solid var(--l09-accent); background: #fff1e8; }
   .lesson09-source-boundary { margin-bottom: 1.2rem; padding: 1.25rem; border: 1px solid #b98a71; background: #fff8f1; }
   .lesson09-source-boundary h3 { margin: .45rem 0; }
@@ -613,6 +639,11 @@ const functionGroups = [
   .lesson09-image-compare figure { margin: 0; padding: .8rem; border: 1px solid var(--l09-line); background: #fff; break-inside: avoid; }
   .lesson09-image-compare :global(img) { display: block; width: 100%; height: clamp(18rem,32vw,30rem); margin: .6rem 0; object-fit: contain; background: #f3f1eb; }
   .lesson09-image-compare figcaption { color: var(--muted); font-weight: 700; }
+  .lesson09-correction-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem; margin: 1rem 0; }
+  .lesson09-correction-grid article { display: grid; grid-template-columns: auto minmax(0,1fr); gap: .55rem .8rem; align-items: start; min-width: 0; padding: 1rem; border: 1px solid var(--l09-line); background: #fff; }
+  .lesson09-correction-grid span { color: var(--l09-accent); font-size: .78rem; font-weight: 900; }
+  .lesson09-correction-grid strong { line-height: 1.5; word-break: keep-all; }
+  .lesson09-correction-grid i { grid-column: 1 / -1; color: var(--l09-accent); font-style: normal; text-align: center; }
   .lesson09-observations { margin: 1rem 0; padding: 1rem; border: 1px solid #d0ab97; background: #fff7f1; }
   .lesson09-observations h3 { margin-top: 0; }
   .lesson09-table { max-width: 100%; margin: 1rem 0; overflow-x: auto; border: 1px solid var(--l09-line); }
@@ -631,8 +662,15 @@ const functionGroups = [
   .lesson09-tools small { color: var(--muted); }
   .lesson09-tools a:hover small { color: inherit; }
   .lesson09-service-note { color: var(--muted); font-size: .9rem; }
+  .lesson09-diagram-compare { display: grid; gap: 1.2rem; }
+  .lesson09-diagram-card { margin: 0; padding: .85rem; }
+  .lesson09-diagram-card > span { display: block; margin-bottom: .7rem; color: var(--l09-accent); font-size: .78rem; font-weight: 900; letter-spacing: .08em; }
+  .lesson09-diagram-card :global(img) { margin-inline: auto; border: 1px solid rgba(23,37,33,.12); }
+  .lesson09-diagram-card--portrait :global(img) { width: auto; max-width: 100%; max-height: 48rem; }
+  .lesson09-diagram-card--landscape :global(img) { width: 100%; max-height: 34rem; }
   .line { display: block; width: 4rem; margin-bottom: .8rem; border-top: 3px solid var(--l09-blue); }
   .line--dash { border-top-style: dashed; }
+  .line--muted { border-top-style: dotted; border-top-color: #8a8a8a; }
   .line--arrow { position: relative; }
   .line--arrow::after { position: absolute; top: -.37rem; right: -.1rem; border: .33rem solid transparent; border-left-color: var(--l09-blue); content: ''; }
   .lesson09-difference { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem; }
@@ -651,18 +689,19 @@ const functionGroups = [
 
   @media (max-width: 900px) {
     .lesson09-workflow { grid-template-columns: repeat(2,minmax(0,1fr)); }
-    .lesson09-time-plan, .lesson09-principles, .lesson09-terms, .lesson09-legend, .lesson09-deliverables, .lesson09-schematic > div { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .lesson09-time-plan, .lesson09-principles, .lesson09-terms, .lesson09-legend, .lesson09-deliverables, .lesson09-state-grid, .lesson09-schematic > div { grid-template-columns: repeat(2,minmax(0,1fr)); }
     .lesson09-filter-flow { grid-template-columns: repeat(3,minmax(0,1fr)); }
   }
   @media (max-width: 640px) {
-    .lesson09-workflow, .lesson09-time-plan, .lesson09-principles, .lesson09-terms, .lesson09-legend, .lesson09-deliverables, .lesson09-image-compare, .lesson09-tools, .lesson09-difference, .lesson09-schematic > div { grid-template-columns: minmax(0,1fr); }
+    .lesson09-workflow, .lesson09-time-plan, .lesson09-principles, .lesson09-terms, .lesson09-legend, .lesson09-deliverables, .lesson09-state-grid, .lesson09-image-compare, .lesson09-tools, .lesson09-difference, .lesson09-correction-grid, .lesson09-schematic > div { grid-template-columns: minmax(0,1fr); }
     .lesson09-filter-flow { grid-template-columns: repeat(2,minmax(0,1fr)); }
     .lesson09-image-compare :global(img) { height: 20rem; }
+    .lesson09-diagram-card--portrait :global(img), .lesson09-diagram-card--landscape :global(img) { max-height: 30rem; }
     .lesson09-code pre { font-size: .78rem; }
   }
   @media print {
     .lesson09-workflow { grid-template-columns: repeat(4,minmax(0,1fr)); }
-    .lesson09-time-plan, .lesson09-principles, .lesson09-terms, .lesson09-legend, .lesson09-deliverables, .lesson09-schematic > div { grid-template-columns: repeat(3,minmax(0,1fr)); }
+    .lesson09-time-plan, .lesson09-principles, .lesson09-terms, .lesson09-legend, .lesson09-deliverables, .lesson09-state-grid, .lesson09-schematic > div { grid-template-columns: repeat(3,minmax(0,1fr)); }
     .lesson09-image-compare, .lesson09-tools, .lesson09-difference { grid-template-columns: repeat(2,minmax(0,1fr)); }
     .lesson09-filter-flow { grid-template-columns: repeat(6,minmax(0,1fr)); }
     .lesson09-code { break-inside: auto; }
