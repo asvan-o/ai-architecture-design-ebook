@@ -322,6 +322,34 @@ const installationSteps = [
 
 <LessonSection id="section-22" number="22" title="설치와 권장 사양" class="lesson07-section" {lessonId}>
   <ol class="lesson07-install">{installationSteps.map((step, index) => <li><span>{String(index + 1).padStart(2, '0')}</span><p>{step}</p></li>)}</ol>
+  <aside class="lesson07-runtime-tip" data-lesson07-practice-tip="server-browser-ui">
+    <span>실습 TIP 01</span>
+    <h3>브라우저 화면과 로컬 서버는 서로 다른 역할을 한다</h3>
+    <div class="lesson07-runtime-flow" aria-label="Stability Matrix에서 ComfyUI 브라우저 화면까지의 실행 흐름">
+      <strong>Stability Matrix 실행</strong><i>→</i><strong>ComfyUI 선택</strong><i>→</i><strong>Launch</strong><i>→</i><strong>로컬 서버 실행</strong><i>→</i><strong>브라우저 접속</strong>
+    </div>
+    <p>호스트·포트를 따로 바꾸지 않은 일반적인 환경에서는 <code>http://127.0.0.1:8188</code>로 연결된다. 설정이나 실행 환경에 따라 포트가 달라질 수 있으므로, 접속되지 않으면 Stability Matrix의 실행 로그에 표시된 실제 주소를 확인한다.</p>
+  </aside>
+  <aside class="lesson07-runtime-tip" data-lesson07-practice-tip="desktop-shortcut">
+    <span>실습 TIP 02</span>
+    <h3>바탕화면 바로가기는 화면을 열고, 서버가 실제 연산을 한다</h3>
+    <div class="lesson07-role-grid">
+      <article><strong>ComfyUI 웹 바로가기</strong><p>브라우저의 ComfyUI 화면을 빠르게 연다.</p></article>
+      <article><strong>ComfyUI 로컬 서버</strong><p>모델을 불러오고 AI 워크플로우를 실제로 실행한다.</p></article>
+    </div>
+    <div class="lesson07-offline-flow"><strong>ComfyUI 서버 OFF</strong><i>→</i><strong>웹 바로가기 실행</strong><i>→</i><strong>127.0.0.1 접속 실패 가능</strong></div>
+    <ol class="lesson07-shortcut-steps">
+      <li>ComfyUI 서버를 먼저 실행하고 브라우저에서 현재 접속 주소를 연다.</li>
+      <li>Chrome 메뉴에서 웹페이지 바로가기 만들기 또는 앱 설치 기능을 찾는다.</li>
+      <li>바탕화면이나 시작 메뉴에 만든 아이콘은 서버 실행 후 사용하는 빠른 화면 진입점으로 이해한다.</li>
+    </ol>
+    <p class="lesson07-note">Chrome 버전에 따라 <strong>전송, 저장 및 공유 → 바로가기 만들기</strong> 또는 <strong>페이지를 앱으로 설치</strong>처럼 메뉴명이 다르게 보일 수 있다.</p>
+    <div class="lesson07-command-tip">
+      <strong>선택 TIP · Stability Matrix에서 ComfyUI 함께 실행</strong>
+      <code>&quot;StabilityMatrix.exe&quot; --launch-package ComfyUI</code>
+      <p>Stability Matrix 공식 GitHub Q&amp;A에서 확인된 실행 옵션이며 Stability Matrix 창도 함께 열린다. 설치 위치에 맞춰 실행 파일 바로가기의 대상에 옵션을 붙일 수 있다. <code>C:\StabilityMatrix</code>는 경로 형식의 예일 뿐이며, 버전에 따라 동작이 달라지면 Packages 화면의 Launch를 사용한다.</p>
+    </div>
+  </aside>
   <div class="lesson07-specs">
     <article><span>OS</span><strong>Windows + NVIDIA GPU 환경이 비교적 편리</strong></article>
     <article><span>GPU</span><strong>NVIDIA RTX 권장</strong></article>
@@ -492,6 +520,20 @@ const installationSteps = [
   .lesson07-note { padding: 0.9rem 1rem; border: 1px dashed #7b7f75; background: #f5f3eb; }
   .lesson07-emphasis { padding: 1rem; border-left: 4px solid var(--lesson07-accent); background: #fff3ed; font-weight: 700; }
 
+  .lesson07-runtime-tip { margin: 1.2rem 0; padding: 1.2rem; border: 2px solid var(--lesson07-blue); background: #edf5f8; break-inside: avoid; }
+  .lesson07-runtime-tip > span { color: var(--lesson07-blue); font-size: .76rem; font-weight: 900; letter-spacing: .12em; }
+  .lesson07-runtime-tip h3 { margin: .35rem 0 .9rem; }
+  .lesson07-runtime-flow, .lesson07-offline-flow { display: flex; align-items: center; gap: .55rem; margin: 1rem 0; }
+  .lesson07-runtime-flow strong, .lesson07-offline-flow strong { flex: 1 1 0; min-width: 0; padding: .75rem; border: 1px solid var(--lesson07-line); background: #fff; text-align: center; }
+  .lesson07-runtime-flow i, .lesson07-offline-flow i { color: var(--lesson07-accent); font-style: normal; font-weight: 900; }
+  .lesson07-role-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; }
+  .lesson07-role-grid article { min-width: 0; padding: 1rem; border: 1px solid var(--lesson07-line); background: #fff; }
+  .lesson07-role-grid p { margin: .35rem 0 0; }
+  .lesson07-shortcut-steps { margin-bottom: 1rem; }
+  .lesson07-command-tip { display: grid; gap: .55rem; margin-top: 1rem; padding: 1rem; border-left: 4px solid var(--lesson07-accent); background: #fff; }
+  .lesson07-command-tip code { display: block; max-width: 100%; padding: .75rem; overflow-x: auto; background: #1f2926; color: #fff; white-space: pre; }
+  .lesson07-command-tip p { margin: 0; }
+
   .lesson07-flow,
   .lesson07-process,
   .lesson07-concept-row,
@@ -570,6 +612,9 @@ const installationSteps = [
     .lesson07-flow span { display: none; }
     .lesson07-process i { transform: rotate(90deg); }
     .lesson07-web-demo a { width: 100%; text-align: center; }
+    .lesson07-runtime-flow, .lesson07-offline-flow { flex-direction: column; align-items: stretch; }
+    .lesson07-runtime-flow i, .lesson07-offline-flow i { align-self: center; transform: rotate(90deg); }
+    .lesson07-role-grid { grid-template-columns: minmax(0, 1fr); }
   }
 
   @media print {

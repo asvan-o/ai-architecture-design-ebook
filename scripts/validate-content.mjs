@@ -144,7 +144,7 @@ const detailedLessonSections = {
   '05': ['차시 소개', '오늘의 학습 흐름', '4차시 복습 확장 · 재질 선택과 무드보드', '평면도는 어떤 정보를 보여주는가', '평면도에서 사람이 먼저 읽을 것', '탑뷰 입체화란 무엇인가', '작은 객실 · 평면도에서 탑뷰 입체화', '아이소메트릭(Isometric)은 무엇인가', '작은 객실 · 탑뷰에서 아이소메트릭으로', '복합 공간 평면도 읽기', '거실·식당·주방 · 인테리어 적용', '원 평면도와 AI 결과 비교', '실습 · 평면도를 입체적으로 읽고 공간 콘셉트까지 확장하기', '결과물 정리와 검토'],
   '06': ['차시 소개', '오늘의 목표와 작업 흐름', '준비 자료 확인', 'DWG와 평면도 읽기', '확인 정보와 추정 정보 구분하기', '수정 영역 지정과 평면도 인페인팅', '수정 결과 검토', 'Top View 3D 입체화', '아이소메트릭이란?', '아이소메트릭 제작', 'Exploded Isometric View란?', '아이소메트릭 분해도 제작', '결과 검토 체크리스트', '마무리 정리'],
   '07': ['차시 소개', '오늘의 목표와 전체 워크플로우', 'STEP 1 · 전체 평면도 확인', 'PDF·이미지 기반 도면 분석', 'STEP 2 · 원하는 공간 확대', 'STEP 3 · 수정 영역 지정', 'STEP 4 · 부분 수정 결과 확인', 'STEP 5 · 전체 평면도에 다시 적용', 'Top View 3D로 연결', '한 장의 Top View 3D에서 다음 단계로', 'Mesh와 Gaussian의 아주 짧은 차이', 'Point에서 Gaussian 느낌 이해하기', 'Gaussian 하나와 많은 Gaussian', 'Splatting이란?', 'Gaussian + Splatting', 'Gaussian Splatting 작동 흐름', '왜 이번 수업에서 Gaussian을 사용하는가?', '일반 3DGS와 Single Image TripoSplat', '단일 이미지 기반 3D의 추정과 오류', 'Stability Matrix란?', 'ComfyUI란?', '설치와 권장 사양', 'TripoSplat 템플릿 읽기', 'Gaussian 개수 등 핵심 설정', 'Gaussian 결과 생성과 출력 이해', '로컬 실행이 어려울 때 · TripoSplat Web Demo', '결과 비교와 마무리'],
-  '08': ['차시 소개', '제7차시 결과와 오늘의 목표', '오늘의 전체 워크플로우', 'Gaussian 결과에서 이미지 시점 선택', 'Gaussian 결과를 현실적인 건축 이미지로 변환', 'GPT · Gemini · 유료 보조 도구 결과 비교', '결과 비교 기준과 최종 후보 선택', '선택 결과 부분 보정', 'Upscale이란?', '일반 확대와 AI Upscale', 'AI Upscale의 장점과 한계', '평면도 Before · After 실제 비교', 'ComfyUI Upscale 실습', '저사양 PC 대안 · Hugging Face Web Upscale', 'Upscale 결과 검토', '최종 결과 정리와 다음 차시 연결'],
+  '08': ['차시 소개', '제7차시 결과와 오늘의 목표', '오늘의 전체 워크플로우', 'Gaussian 결과에서 이미지 시점 선택', 'Gaussian 결과를 현실적인 건축 이미지로 변환', 'GPT · Gemini · 유료 보조 도구 결과 비교', '결과 비교 기준과 최종 후보 선택', '선택 결과 부분 보정', 'Upscale이란?', 'Resize · 일반 AI SR · Text-aware SR', 'Upscale의 장점·한계와 Hallucination', '평면도 Before · After 실제 비교', 'ComfyUI Upscale 실습', 'OpenVINO Text SR 개념과 적용 대상', '선택 실습 · OpenVINO CPU 경량 실행', '저사양 PC 대안 · Hugging Face Web Upscale', '동일 원본 비교와 HITL 검수', '최종 결과 정리와 다음 차시 연결'],
   '09': ['차시 소개', '제8차시 복습과 오늘의 질문', '오늘의 전체 워크플로우', '원자료를 먼저 분석하는 이유', 'NotebookLM 원본 평면도 분석', '도면 기준표와 사람이 정리한 입력자료', 'GPT Top View 3D 생성', '원도면과 Top View 3D 검토', '공간 기능·공간 인접 관계·주요 동선 분석', 'NotebookLM 분석 결과 검증', 'Graphviz(DOT) 구조화 데이터 만들기', '2D 공간 관계 다이어그램 시각화', '공간 관계 다이어그램 읽기', '공간 관계에서 개념 조닝으로', 'GPT 개념 조닝 · 구조 확인 후 제작', '결과 정리와 제10차시 연결'],
 };
 const lessonThreeFourOutputs = ['요구조건 매트릭스', '발주기관 추가 질의', '디자인 브리프', '평면도 기반 현황 이미지 생성 결과', '현황 이미지 수정 결과', '평면도와 이미지의 불일치 기록', '제4차시 대안 평가기준'];
@@ -867,6 +867,10 @@ for (const fileName of files) {
       'Single 2D Image → 3D Gaussian Splat',
       'sampling_num_gaussians',
       'https://huggingface.co/spaces/VAST-AI/TripoSplat',
+      'data-lesson07-practice-tip="server-browser-ui"',
+      'data-lesson07-practice-tip="desktop-shortcut"',
+      'http://127.0.0.1:8188',
+      '--launch-package ComfyUI',
       '다음 차시에서는 생성된 이미지 결과를 후처리하고 해상도와 디테일을 보완하는 작업으로 확장합니다.',
     ]) {
       if (!lessonSevenComponent.includes(marker)) {
@@ -908,6 +912,15 @@ for (const fileName of files) {
       '4x-UltraSharp.pth',
       'https://huggingface.co/spaces/bookbot/Image-Upscaling-Playground',
       'https://huggingface.co/spaces?category=image-upscaling',
+      'text-image-super-resolution-0001',
+      'data-lesson08-openvino-model="text-image-super-resolution-0001"',
+      '선명해진 것과 정확해진 것은 같은 의미가 아니다.',
+      '도면에서는 보기 좋은 결과보다 원본 정보 보존이 우선이다.',
+      'lesson08-openvino-setup',
+      'lesson08-openvino-model-download',
+      'lesson08-openvino-python',
+      'model.reshape({model.input(0): [1, 1, height, width]})',
+      'compiled_model = core.compile_model(model=model, device_name="CPU")',
       '유지됨',
       '변화 있음',
       '확인 필요',
@@ -915,6 +928,10 @@ for (const fileName of files) {
       if (!lessonEightComponent.includes(marker)) {
         errors.push(`제8차시 Gaussian 현실화·업스케일 컴포넌트에 '${marker}'가 없습니다.`);
       }
+    }
+    const lessonEightPromptCount = (lessonEightComponent.match(/<PromptCopyBlock\b/g) ?? []).length;
+    if (lessonEightPromptCount !== 3) {
+      errors.push(`제8차시 PromptCopyBlock 수: 예상 3개, 실제 ${lessonEightPromptCount}개`);
     }
     for (const privateMarker of ['(수강)', 'C:\\Users\\', '7차시_00_', '7차시_07_', '3D가우시안']) {
       if (source.includes(privateMarker) || lessonEightComponent.includes(privateMarker)) {
@@ -1446,7 +1463,7 @@ console.log('- day: 1–14 누락·중복 없음');
 console.log('- ID/day 일치');
 console.log('- 승인된 제목·수업시간 일치');
 console.log('- 승인된 상위 주제 7개·차시 연결 14개 일치');
-console.log('- 제1차시 16개, 제2차시 13개, 제3차시 11개, 제4–6차시 14개, 제7차시 27개, 제8·9차시 16개, 제10–14차시 13개 섹션');
+console.log('- 제1차시 16개, 제2차시 13개, 제3차시 11개, 제4–6차시 14개, 제7차시 27개, 제8차시 18개, 제9차시 16개, 제10–14차시 13개 섹션');
 console.log('- 모든 차시 실습시간 50% 이상');
 console.log(`- 자산 manifest: ${manifestAssetIds.length}개, 필수 필드·연결 ID·공개 조건 확인`);
 console.log(`- 필수 metadata: ${requiredFields.join(', ')}`);

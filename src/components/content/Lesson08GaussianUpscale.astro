@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import LessonSection from './LessonSection.astro';
+import PromptCopyBlock from './PromptCopyBlock.astro';
 
 import gaussianSource from '../../assets/lessons/08/gaussian-render-comparison/01-gaussian-source.png';
 import chatgptRender from '../../assets/lessons/08/gaussian-render-comparison/02-chatgpt-render.png';
@@ -83,6 +84,57 @@ const comparisonCriteria = [
 ] as const;
 
 const reviewItems = ['외곽선', '내부 벽', '창호', '문', '계단', '가구', '문자', '치수', '재질 패턴'];
+
+const openVinoSetupCommands = [
+  'cd C:\\OpenVINO_TextSR',
+  'py -m venv venv',
+  'venv\\Scripts\\activate',
+  'python -m pip install --upgrade pip',
+  'pip install openvino opencv-python numpy',
+  'python -c "import openvino; import cv2; import numpy; print(\'OpenVINO OK\')"',
+  'mkdir model',
+].join('\n');
+
+const openVinoDownloadCommands = [
+  '$baseUrl = "https://storage.openvinotoolkit.org/repositories/open_model_zoo/2023.0/models_bin/1/text-image-super-resolution-0001/FP32"',
+  'Invoke-WebRequest -Uri "$baseUrl/text-image-super-resolution-0001.xml" -OutFile ".\\model\\text-image-super-resolution-0001.xml"',
+  'Invoke-WebRequest -Uri "$baseUrl/text-image-super-resolution-0001.bin" -OutFile ".\\model\\text-image-super-resolution-0001.bin"',
+].join('\n');
+
+const openVinoPythonCode = [
+  'from pathlib import Path',
+  '',
+  'import cv2',
+  'import numpy as np',
+  'import openvino as ov',
+  '',
+  'ROOT = Path(__file__).resolve().parent',
+  'MODEL_XML = ROOT / "model" / "text-image-super-resolution-0001.xml"',
+  'INPUT_IMAGE = ROOT / "input.png"',
+  'OUTPUT_IMAGE = ROOT / "output_3x.png"',
+  '',
+  'image = cv2.imread(str(INPUT_IMAGE), cv2.IMREAD_GRAYSCALE)',
+  'if image is None:',
+  '    raise FileNotFoundError(f"입력 이미지를 읽을 수 없습니다: {INPUT_IMAGE}")',
+  '',
+  'height, width = image.shape',
+  'core = ov.Core()',
+  'model = core.read_model(model=str(MODEL_XML))',
+  'model.reshape({model.input(0): [1, 1, height, width]})',
+  'compiled_model = core.compile_model(model=model, device_name="CPU")',
+  '',
+  'input_tensor = image.astype(np.float32)[None, None, :, :]',
+  'result = compiled_model([input_tensor])[compiled_model.output(0)]',
+  'super_resolved = np.squeeze(result)',
+  '',
+  '# Open Model Zoo 텍스트 SR 데모와 같은 이진화 후처리',
+  'output = (super_resolved > 0.5).astype(np.uint8) * 255',
+  'if not cv2.imwrite(str(OUTPUT_IMAGE), output):',
+  '    raise RuntimeError(f"결과 이미지를 저장하지 못했습니다: {OUTPUT_IMAGE}")',
+  '',
+  'print(f"저장 완료: {OUTPUT_IMAGE}")',
+  'print(f"입력: {width} x {height} / 출력: {output.shape[1]} x {output.shape[0]}")',
+].join('\n');
 ---
 
 <LessonSection id="section-01" number="01" title="차시 소개" class="lesson08-section" {lessonId}>
@@ -175,20 +227,24 @@ const reviewItems = ['외곽선', '내부 벽', '창호', '문', '계단', '가�
   <p class="lesson08-key"><strong>업스케일은 원본에 숨어 있던 실제 정보를 되찾는 과정이 아니다.</strong></p>
 </LessonSection>
 
-<LessonSection id="section-10" number="10" title="일반 확대와 AI Upscale" class="lesson08-section" {lessonId}>
-  <div class="lesson08-compare">
-    <article><span>일반 확대</span><h3>기존 픽셀 사이 계산</h3><p>보간 방식으로 이미지 크기를 늘린다. 구성은 비교적 보수적으로 유지되지만 흐림이나 계단 현상이 남을 수 있다.</p></article>
-    <article><span>AI Upscale</span><h3>패턴을 바탕으로 픽셀 재구성</h3><p>주변 특징을 분석해 높은 해상도로 보이도록 경계와 디테일을 재구성한다. 대신 원본에 없던 표현이 더해질 수 있다.</p></article>
+<LessonSection id="section-10" number="10" title="Resize · 일반 AI SR · Text-aware SR" class="lesson08-section" {lessonId}>
+  <div class="lesson08-sr-types">
+    <article><span>RESIZE</span><h3>Bicubic · Lanczos</h3><p>기존 픽셀 사이를 계산해 크기를 늘린다. 새로운 의미를 생성하는 방식은 아니지만 흐림과 계단 현상이 남을 수 있다.</p></article>
+    <article><span>GENERAL AI SR</span><h3>RealESRGAN · ESRGAN 계열</h3><p>사진과 렌더처럼 일반 이미지의 경계와 질감을 재구성한다. 원본에 없던 세부 표현이 생길 수 있다.</p></article>
+    <article><span>TEXT-AWARE SR</span><h3>OpenVINO Text SR</h3><p>스캔 텍스트 이미지의 작은 문자와 선을 3배 확대하는 용도의 모델이다. 흑백 도면·문서 실습 후보로 사용한다.</p></article>
+    <article><span>GENERATIVE SR</span><h3>생성형 재구성 방식</h3><p>고해상도처럼 보이는 세부를 적극적으로 재구성할 수 있다. 시각적 품질과 원본 정보 보존을 따로 검토한다.</p></article>
   </div>
   <p class="lesson08-key"><strong>선명해진 것과 정확해진 것은 같은 의미가 아니다.</strong></p>
 </LessonSection>
 
-<LessonSection id="section-11" number="11" title="AI Upscale의 장점과 한계" class="lesson08-section" {lessonId}>
+<LessonSection id="section-11" number="11" title="Upscale의 장점·한계와 Hallucination" class="lesson08-section" {lessonId}>
   <div class="lesson08-compare">
     <article><span>활용 가능성</span><ul><li>큰 화면과 발표자료 활용성 향상</li><li>확대 시 픽셀 깨짐 감소</li><li>재질과 경계가 더 선명하게 보일 수 있음</li><li>크롭·상세 이미지와 후속 편집에 유리</li></ul></article>
     <article><span>확인해야 할 변화</span><ul><li>원본에 없던 디테일 생성</li><li>벽선·창호 경계와 가구 형상 변화</li><li>재질 패턴 변화</li><li>작은 문자·숫자·치수 왜곡</li></ul></article>
   </div>
-  <p class="lesson08-warning"><strong>평면도에서는 문자, 숫자, 치수선, 벽선의 정확성을 반드시 원본과 비교한다.</strong></p>
+  <p class="lesson08-warning"><strong>도면에서는 보기 좋은 결과보다 원본 정보 보존이 우선이다.</strong> 작은 숫자 <code>3600</code>이 <code>3800</code>처럼 달라질 가능성도 있으므로 공간명·치수·기호·선·표를 원본과 반드시 대조한다.</p>
+  <div class="lesson08-hitl-flow"><strong>AI 결과</strong><i>→</i><strong>원본 확대 대조</strong><i>→</i><strong>변경 항목 표시</strong><i>→</i><strong>사람이 사용 여부 결정</strong></div>
+  <p class="lesson08-boundary">업스케일 과정에서 원본에 없는 획·숫자·경계가 생기는 현상도 Hallucination의 한 형태로 볼 수 있다. 최종 승인은 사람이 원본과 비교하는 HITL(Human-in-the-loop) 절차로 마무리한다.</p>
 </LessonSection>
 
 <LessonSection id="section-12" number="12" title="평면도 Before · After 실제 비교" class="lesson08-section" {lessonId}>
@@ -215,7 +271,40 @@ const reviewItems = ['외곽선', '내부 벽', '창호', '문', '계단', '가�
   <p class="lesson08-boundary">모델 파일이 로컬의 <code>models/upscale_models</code>에 없으면 실행되지 않는다. 수업 JSON에 기록된 모델명과 노드만 설명하며, 다른 환경에서 같은 결과를 보장하지 않는다.</p>
 </LessonSection>
 
-<LessonSection id="section-14" number="14" title="저사양 PC 대안 · Hugging Face Web Upscale" class="lesson08-section" {lessonId}>
+<LessonSection id="section-14" number="14" title="OpenVINO Text SR 개념과 적용 대상" class="lesson08-section" {lessonId}>
+  <p>Intel Open Model Zoo의 <code>text-image-super-resolution-0001</code>은 스캔 텍스트 이미지를 위한 작은 3배 초해상도 모델이다. 프롬프트로 새 이미지를 생성하는 모델이 아니며, NVIDIA CUDA GPU가 없는 환경에서도 CPU 실습 후보로 사용할 수 있다.</p>
+  <div class="lesson08-model-facts" data-lesson08-openvino-model="text-image-super-resolution-0001">
+    <article><span>FORMAT</span><strong>OpenVINO IR</strong><p><code>.xml</code> 네트워크 정의와 <code>.bin</code> 가중치를 함께 사용한다.</p></article>
+    <article><span>INPUT</span><strong>1 × 1 × 360 × 640</strong><p>공식 기본 입력은 단일 채널 NCHW이며, 모델은 공간 크기 reshape를 지원한다.</p></article>
+    <article><span>OUTPUT</span><strong>1 × 1 × 1080 × 1920</strong><p>기본 입력 기준 가로·세로 3배 출력이다.</p></article>
+    <article><span>DEVICE</span><strong>CPU 실습 후보</strong><p>속도는 CPU·RAM·입력 크기에 따라 달라지며 모든 저사양 PC에서 빠르다고 보장하지 않는다.</p></article>
+  </div>
+  <div class="lesson08-suitability">
+    <article><span>적합한 후보</span><ul><li>흑백 건축 평면도와 CAD 캡처</li><li>PDF 도면 캡처와 스캔 문서</li><li>표·숫자·작은 문자 중심 이미지</li></ul></article>
+    <article><span>다른 모델 우선 검토</span><ul><li>컬러 실사 사진과 인테리어 렌더</li><li>컬러 일러스트와 재질 이미지</li><li>자연스러운 사진 질감 복원이 중요한 결과</li></ul><p>일반 이미지에는 RealESRGAN 같은 일반 SR 모델이 더 적절할 수 있다.</p></article>
+  </div>
+  <div class="lesson08-compatibility">
+    <strong>ComfyUI <code>.pth</code> 모델과 직접 호환되지 않는다</strong>
+    <p><code>.xml + .bin</code>을 <code>models/upscale_models</code>에 복사하는 것만으로 <code>Upscale Model Loader</code>에서 사용할 수 없다. 전용 사용자 노드로 연결하는 방식은 심화 확장 가능성일 뿐, 이번 필수 실습은 독립 Python 실행으로 구성한다.</p>
+    <div><span>Load Image</span><i>→</i><span>OpenVINO Text SR</span><i>→</i><span>Preview</span><i>→</i><span>Save</span></div>
+  </div>
+</LessonSection>
+
+<LessonSection id="section-15" number="15" title="선택 실습 · OpenVINO CPU 경량 실행" class="lesson08-section" {lessonId}>
+  <p>Python 문법을 배우는 실습이 아니라, 검증된 명령과 코드를 순서대로 실행해 도면·문자 중심 SR의 역할을 확인하는 선택 실습이다. 작업 폴더 예시는 개인 사용자명이 없는 <code>C:\OpenVINO_TextSR</code>를 사용한다.</p>
+  <PromptCopyBlock id="lesson08-openvino-setup" title="선택 실습 1 · 환경과 패키지 준비" description="PowerShell에서 작업 폴더로 이동한 뒤 줄 순서대로 실행한다." prompt={openVinoSetupCommands} />
+  <PromptCopyBlock id="lesson08-openvino-model-download" title="선택 실습 2 · 공식 FP32 모델 다운로드" description="XML과 BIN은 한 쌍이며 같은 model 폴더에 둔다." prompt={openVinoDownloadCommands} />
+  <PromptCopyBlock id="lesson08-openvino-python" title="선택 실습 3 · upscale.py" description="작업 폴더에 input.png와 이 코드를 둔 뒤 python upscale.py로 실행한다." prompt={openVinoPythonCode} />
+  <ol class="lesson08-openvino-steps">
+    <li><strong>01</strong><p><code>input.png</code>에 흑백 도면·문서 이미지를 준비한다.</p></li>
+    <li><strong>02</strong><p><code>python upscale.py</code>를 실행한다.</p></li>
+    <li><strong>03</strong><p><code>output_3x.png</code>가 생성되면 원본과 같은 영역을 확대해 대조한다.</p></li>
+    <li><strong>04</strong><p>문자·숫자·선이 바뀌었다면 선명해 보여도 정확한 결과로 승인하지 않는다.</p></li>
+  </ol>
+  <p class="lesson08-boundary"><strong>검증 범위</strong> · 공식 모델 URL의 HTTP 200, 현재 OpenVINO Python API, 임시 흑백 테스트 이미지의 3배 출력 경로를 확인했다. 강사가 준비한 실제 <code>input.png</code>, 수업 도면 결과, 처리시간과 모델 간 품질 비교는 아직 검증되지 않았으므로 결과 이미지나 수치를 교안에 넣지 않았다.</p>
+</LessonSection>
+
+<LessonSection id="section-16" number="16" title="저사양 PC 대안 · Hugging Face Web Upscale" class="lesson08-section" {lessonId}>
   <div class="lesson08-web-option">
     <div><span>WEB FALLBACK</span><h3>Hugging Face Image Upscaling</h3><p>로컬 GPU 환경이 어려울 때 바로 실습하거나 다른 웹 기반 업스케일 도구를 찾아볼 수 있다.</p></div>
     <div class="lesson08-web-links">
@@ -226,14 +315,21 @@ const reviewItems = ['외곽선', '내부 벽', '창호', '문', '계단', '가�
   <ul class="lesson08-checklist"><li>Space 실행 상태는 수시로 바뀔 수 있으며, 일부 Space는 Sleeping·Paused·Runtime Error 상태일 수 있다.</li><li>무료 사용량과 GPU 자원은 Space별로 다를 수 있다.</li><li>업로드 전 민감정보 포함 여부와 공개·외부 전송 권한을 확인한다.</li><li>평면도·도면은 업스케일 후에도 문자·치수·벽선이 변형됐는지 원본과 비교한다.</li></ul>
 </LessonSection>
 
-<LessonSection id="section-15" number="15" title="Upscale 결과 검토" class="lesson08-section" {lessonId}>
+<LessonSection id="section-17" number="17" title="동일 원본 비교와 HITL 검수" class="lesson08-section" {lessonId}>
+  <div class="lesson08-method-grid">
+    <article><span>A</span><h3>원본</h3><p>판단 기준. 확대 결과보다 항상 우선한다.</p></article>
+    <article><span>B</span><h3>Bicubic · Lanczos</h3><p>일반 Resize의 흐림과 선 보존 상태를 본다.</p></article>
+    <article><span>C</span><h3>일반 AI SR</h3><p>RealESRGAN·4x-UltraSharp 결과의 질감과 왜곡을 본다.</p></article>
+    <article><span>D</span><h3>OpenVINO Text-aware SR</h3><p>흑백 문자·숫자·선의 획과 원본 보존을 본다.</p></article>
+  </div>
+  <p class="lesson08-note">동일한 실제 원본의 OpenVINO 결과와 처리시간이 아직 제공되지 않았으므로, 이 단계는 비교 항목과 실행 방법만 제시한다. 결과가 있는 것처럼 가상의 Before·After를 만들지 않는다.</p>
   <div class="lesson08-review-table" tabindex="0">
     <table><thead><tr><th>검토 항목</th><th>유지됨</th><th>변화 있음</th><th>확인 필요</th></tr></thead><tbody>{reviewItems.map((item) => <tr><th>{item}</th><td>□</td><td>□</td><td>□</td></tr>)}</tbody></table>
   </div>
-  <p>변화가 있는 항목은 원본과 비교해 사용할 수 있는 변화인지, 다시 보정해야 하는 오류인지 판단한다. 문자·치수·벽선처럼 정확성이 필요한 정보는 선명도만 보고 승인하지 않는다.</p>
+  <p>변화가 있는 항목은 원본과 비교해 사용할 수 있는 변화인지, 다시 보정해야 하는 오류인지 사람이 판단한다. 문자·치수·벽선처럼 정확성이 필요한 정보는 선명도만 보고 승인하지 않는다.</p>
 </LessonSection>
 
-<LessonSection id="section-16" number="16" title="최종 결과 정리와 다음 차시 연결" class="lesson08-section" {lessonId}>
+<LessonSection id="section-18" number="18" title="최종 결과 정리와 다음 차시 연결" class="lesson08-section" {lessonId}>
   <div class="lesson08-deliverables">
     <article><span>01</span><p>Gaussian 기반 현실형 렌더 후보</p></article>
     <article><span>02</span><p>도구별 결과 비교 기록</p></article>
@@ -247,13 +343,13 @@ const reviewItems = ['외곽선', '내부 벽', '창호', '문', '계단', '가�
 
 <style>
   :global(.lesson08-section) { --l08-ink: #18221f; --l08-accent: #a84227; --l08-blue: #245a72; --l08-line: rgba(24,34,31,.2); }
-  .lesson08-hero, .lesson08-bridge, .lesson08-key, .lesson08-warning, .lesson08-boundary, .lesson08-web-option, .lesson08-selection { break-inside: avoid; }
+  .lesson08-hero, .lesson08-bridge, .lesson08-key, .lesson08-warning, .lesson08-boundary, .lesson08-web-option, .lesson08-selection, .lesson08-compatibility, .lesson08-note { break-inside: avoid; }
   .lesson08-hero { padding: clamp(1.5rem,4vw,3.4rem); background: var(--l08-ink); color: #f7f2e8; }
   .lesson08-hero > span, .lesson08-render-card figcaption > span, .lesson08-compare article > span, .lesson08-web-option span { color: #d86b49; font-size: .76rem; font-weight: 900; letter-spacing: .13em; }
   .lesson08-hero h3 { max-width: 22ch; margin: .8rem 0 1rem; color: inherit; font-size: clamp(1.9rem,4.3vw,3.8rem); line-height: 1.12; word-break: keep-all; }
   .lesson08-hero p { max-width: 68ch; margin: 0; color: rgba(247,242,232,.8); }
   .lesson08-bridge { padding: 1.3rem; border-left: 5px solid var(--l08-accent); background: #fff2e9; font-size: 1.08rem; }
-  .lesson08-goals, .lesson08-rules, .lesson08-render-grid, .lesson08-criteria, .lesson08-compare, .lesson08-plan-compare, .lesson08-deliverables { display: grid; gap: 1rem; }
+  .lesson08-goals, .lesson08-rules, .lesson08-render-grid, .lesson08-criteria, .lesson08-compare, .lesson08-plan-compare, .lesson08-deliverables, .lesson08-sr-types, .lesson08-model-facts, .lesson08-suitability, .lesson08-method-grid { display: grid; gap: 1rem; }
   .lesson08-goals, .lesson08-rules { grid-template-columns: repeat(3,minmax(0,1fr)); }
   .lesson08-goals article, .lesson08-rules article, .lesson08-criteria article, .lesson08-compare article, .lesson08-deliverables article { min-width: 0; padding: 1rem; border: 1px solid var(--l08-line); background: rgba(255,255,255,.72); break-inside: avoid; }
   .lesson08-goals span, .lesson08-deliverables span { color: var(--l08-accent); font-size: .78rem; font-weight: 900; }
@@ -294,6 +390,26 @@ const reviewItems = ['외곽선', '내부 벽', '창호', '문', '계단', '가�
   .lesson08-compare, .lesson08-plan-compare { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .lesson08-compare ul { margin-bottom: 0; }
   .lesson08-warning { padding: 1rem; border: 2px solid #a43a28; background: #fff0e9; }
+  .lesson08-sr-types, .lesson08-model-facts, .lesson08-method-grid { grid-template-columns: repeat(4,minmax(0,1fr)); }
+  .lesson08-suitability { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .lesson08-sr-types article, .lesson08-model-facts article, .lesson08-suitability article, .lesson08-method-grid article { min-width: 0; padding: 1rem; border: 1px solid var(--l08-line); background: rgba(255,255,255,.72); break-inside: avoid; }
+  .lesson08-sr-types span, .lesson08-model-facts span, .lesson08-suitability span, .lesson08-method-grid span { color: var(--l08-accent); font-size: .72rem; font-weight: 900; letter-spacing: .08em; }
+  .lesson08-sr-types h3, .lesson08-method-grid h3 { margin: .35rem 0; }
+  .lesson08-model-facts strong { display: block; margin: .4rem 0; }
+  .lesson08-sr-types p, .lesson08-model-facts p, .lesson08-method-grid p { margin-bottom: 0; }
+  .lesson08-hitl-flow { display: flex; align-items: center; gap: .55rem; margin: 1rem 0; break-inside: avoid; }
+  .lesson08-hitl-flow strong { flex: 1 1 0; min-width: 0; padding: .75rem; border: 1px solid var(--l08-line); background: #f4f0e8; text-align: center; }
+  .lesson08-hitl-flow i { color: var(--l08-accent); font-style: normal; font-weight: 900; }
+  .lesson08-compatibility { margin: 1rem 0; padding: 1rem; border: 2px solid var(--l08-blue); background: #edf5f7; }
+  .lesson08-compatibility > p { margin: .5rem 0; }
+  .lesson08-compatibility > div { display: flex; align-items: center; gap: .6rem; margin-top: .9rem; }
+  .lesson08-compatibility > div span { flex: 1 1 0; min-width: 0; padding: .7rem; border: 1px solid var(--l08-line); background: #fff; text-align: center; }
+  .lesson08-compatibility > div i { color: var(--l08-accent); font-style: normal; font-weight: 900; }
+  .lesson08-openvino-steps { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: .8rem; margin: 1rem 0; padding: 0; list-style: none; }
+  .lesson08-openvino-steps li { min-width: 0; padding: 1rem; border-top: 3px solid var(--l08-accent); background: #f4f0e8; break-inside: avoid; }
+  .lesson08-openvino-steps strong { color: var(--l08-accent); }
+  .lesson08-openvino-steps p { margin-bottom: 0; }
+  .lesson08-note { padding: 1rem; border: 1px dashed #707a75; background: #f5f3ec; }
   .lesson08-plan-compare figure { min-width: 0; margin: 0; padding: .65rem; border: 1px solid var(--l08-line); background: #f7f5f0; break-inside: avoid; }
   .lesson08-plan-compare figure > span { display: block; margin-bottom: .6rem; color: var(--l08-accent); font-size: .76rem; font-weight: 900; letter-spacing: .1em; }
   .lesson08-plan-compare :global(img) { display: block; width: 100%; height: clamp(28rem, 38vw, 32rem); object-fit: contain; object-position: center; background: #fff; }
@@ -316,9 +432,12 @@ const reviewItems = ['외곽선', '내부 벽', '창호', '문', '계단', '가�
   .lesson08-deliverables { grid-template-columns: repeat(5,minmax(0,1fr)); }
   .lesson08-final-boundary { display: grid; gap: .5rem; padding: 1rem 1rem 1rem 2rem; border: 2px solid var(--l08-ink); background: #f7f3eb; }
   code { overflow-wrap: anywhere; }
-  @media (max-width: 1000px) { .lesson08-process, .lesson08-node-flow, .lesson08-deliverables { grid-template-columns: repeat(3,minmax(0,1fr)); } }
+  @media (max-width: 1000px) {
+    .lesson08-process, .lesson08-node-flow, .lesson08-deliverables { grid-template-columns: repeat(3,minmax(0,1fr)); }
+    .lesson08-sr-types, .lesson08-model-facts, .lesson08-method-grid, .lesson08-openvino-steps { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  }
   @media (max-width: 720px) {
-    .lesson08-goals, .lesson08-rules, .lesson08-render-grid, .lesson08-criteria, .lesson08-compare, .lesson08-plan-compare { grid-template-columns: minmax(0,1fr); }
+    .lesson08-goals, .lesson08-rules, .lesson08-render-grid, .lesson08-criteria, .lesson08-compare, .lesson08-plan-compare, .lesson08-suitability { grid-template-columns: minmax(0,1fr); }
     .lesson08-render-card--source { grid-column: auto; }
     .lesson08-process, .lesson08-node-flow, .lesson08-deliverables { grid-template-columns: repeat(2,minmax(0,1fr)); }
     .lesson08-flow { flex-direction: column; }
@@ -329,8 +448,12 @@ const reviewItems = ['외곽선', '내부 벽', '창호', '문', '계단', '가�
     .lesson08-web-option { align-items: stretch; flex-direction: column; }
     .lesson08-web-option a { width: 100%; text-align: center; }
     .lesson08-plan-compare :global(img) { height: 24rem; }
+    .lesson08-hitl-flow, .lesson08-compatibility > div { flex-direction: column; align-items: stretch; }
+    .lesson08-hitl-flow i, .lesson08-compatibility > div i { align-self: center; transform: rotate(90deg); }
   }
-  @media (max-width: 430px) { .lesson08-process, .lesson08-node-flow, .lesson08-deliverables { grid-template-columns: minmax(0,1fr); } }
+  @media (max-width: 430px) {
+    .lesson08-process, .lesson08-node-flow, .lesson08-deliverables, .lesson08-sr-types, .lesson08-model-facts, .lesson08-method-grid, .lesson08-openvino-steps { grid-template-columns: minmax(0,1fr); }
+  }
   @media print {
     .lesson08-render-grid, .lesson08-plan-compare { gap: 5mm; }
     .lesson08-render-card :global(img) { max-height: 96mm; }
