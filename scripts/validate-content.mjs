@@ -29,6 +29,8 @@ const lessonSixComponentPath = path.resolve('src/components/content/Lesson06DwgT
 const lessonSevenComponentPath = path.resolve('src/components/content/Lesson07PdfToGaussian.astro');
 const lessonEightComponentPath = path.resolve('src/components/content/Lesson08GaussianUpscale.astro');
 const lessonNineComponentPath = path.resolve('src/components/content/Lesson09SpatialZoning.astro');
+const lessonTenComponentPath = path.resolve('src/components/content/Lesson10GroundedLegalReview.astro');
+const lessonTenContentPath = path.resolve('src/lib/lesson10-grounded-legal-review.ts');
 const approvedLessonThreeRfpSha256 =
   '95B9756FD818D8F86847CA72D1E094B9DD6C2E4B9D1DFBC029169D057E638C2E';
 const requiredIds = Array.from({ length: 14 }, (_, index) => String(index + 1).padStart(2, '0'));
@@ -45,7 +47,7 @@ const approvedLessons = [
   { title: '제7차시 · PDF 도면 기반 공간 수정과 Gaussian Splatting 3D 시각화', durationMinutes: 180 },
   { title: '제8차시 · Gaussian 결과 현실화와 AI 업스케일', durationMinutes: 180 },
   { title: '제9차시 · 3D 콘셉트 이미지에서 공간 관계 읽기와 2D 개념 조닝', durationMinutes: 180 },
-  { title: '제10차시 · 도면·PDF에서 정보 찾기와 AI 오독 확인', durationMinutes: 180 },
+  { title: '제10차시 · 프로젝트 Grounding과 AI 법규검토 준비', durationMinutes: 180 },
   { title: '제11차시 · 공간 이미지를 짧은 영상으로 만들기', durationMinutes: 180 },
   { title: '제12차시 · AGY로 프로젝트 자료 구조 만들기', durationMinutes: 180 },
   { title: '제13차시 · AGY 기반 반복 점검과 제출 패키지 만들기', durationMinutes: 180 },
@@ -61,7 +63,7 @@ const approvedRoadmapTitles = [
   '제7차시 · PDF 도면 기반 공간 수정과 Gaussian Splatting 3D 시각화',
   '제8차시 · Gaussian 결과 현실화와 AI 업스케일',
   '제9차시 · 3D 콘셉트 이미지에서 공간 관계 읽기와 2D 개념 조닝',
-  '제10차시 · 실무 데이터 비식별화와 도면·PDF 전처리',
+  '제10차시 · 프로젝트 Grounding과 AI 법규검토 준비',
   '제11차시 · 2D 도면 기반 3D 콘셉트 시각화와 오류 탐지',
   '제12차시 · 다차원 검증 체크리스트와 교차검증',
   '제13차시 · 제안서 고도화와 KPI·제출 패키지',
@@ -146,6 +148,7 @@ const detailedLessonSections = {
   '07': ['차시 소개', '오늘의 목표와 전체 워크플로우', 'STEP 1 · 전체 평면도 확인', 'PDF·이미지 기반 도면 분석', 'STEP 2 · 원하는 공간 확대', 'STEP 3 · 수정 영역 지정', 'STEP 4 · 부분 수정 결과 확인', 'STEP 5 · 전체 평면도에 다시 적용', 'Top View 3D로 연결', '한 장의 Top View 3D에서 다음 단계로', 'Mesh와 Gaussian의 아주 짧은 차이', 'Point에서 Gaussian 느낌 이해하기', 'Gaussian 하나와 많은 Gaussian', 'Splatting이란?', 'Gaussian + Splatting', 'Gaussian Splatting 작동 흐름', '왜 이번 수업에서 Gaussian을 사용하는가?', '일반 3DGS와 Single Image TripoSplat', '단일 이미지 기반 3D의 추정과 오류', 'Stability Matrix란?', 'ComfyUI란?', '설치와 권장 사양', 'TripoSplat 템플릿 읽기', 'Gaussian 개수 등 핵심 설정', 'Gaussian 결과 생성과 출력 이해', '로컬 실행이 어려울 때 · TripoSplat Web Demo', '결과 비교와 마무리'],
   '08': ['차시 소개', '제7차시 결과와 오늘의 목표', '오늘의 전체 워크플로우', 'Gaussian 결과에서 이미지 시점 선택', 'Gaussian 결과를 현실적인 건축 이미지로 변환', 'GPT · Gemini · 유료 보조 도구 결과 비교', '결과 비교 기준과 최종 후보 선택', '선택 결과 부분 보정', 'Upscale이란?', 'Resize · 일반 AI SR · Text-aware SR', 'Upscale의 장점·한계와 Hallucination', '평면도 Before · After 실제 비교', 'ComfyUI Upscale 실습', 'OpenVINO Text SR 개념과 적용 대상', '선택 실습 · OpenVINO CPU 경량 실행', '저사양 PC 대안 · Hugging Face Web Upscale', '동일 원본 비교와 HITL 검수', '최종 결과 정리와 다음 차시 연결'],
   '09': ['차시 소개', '제8차시 복습과 오늘의 질문', '오늘의 전체 워크플로우', '원자료를 먼저 분석하는 이유', 'NotebookLM 원본 평면도 분석', '도면 기준표와 사람이 정리한 입력자료', 'GPT Top View 3D 생성', '원도면과 Top View 3D 검토', '공간 기능·공간 인접 관계·주요 동선 분석', 'NotebookLM 분석 결과 검증', 'Graphviz(DOT) 구조화 데이터 만들기', '2D 공간 관계 다이어그램 시각화', '공간 관계 다이어그램 읽기', '공간 관계에서 개념 조닝으로', 'GPT 개념 조닝 · 구조 확인 후 제작', '결과 정리와 제10차시 연결'],
+  '10': ['차시 소개', '실습 프로젝트와 정보 혼합 위험', '왜 NotebookLM을 A와 B로 나누는가', '이번 차시의 두 결과물', 'Notebook A · 프로젝트 원자료의 역할 확인', 'Notebook A · 프로젝트 조건 기준서 만들기', '반드시 잡아야 할 오류와 과도한 해석', 'Project Grounded Reference 결과 예시', 'Notebook B · 현재 자료로 가능한 검토 범위 묻기', 'NotebookLM 분석을 ChatGPT로 교차검증', '공식 Source를 단계적으로 보강하기', 'AI 법규검토 체크리스트 결과 예시', '다음 차시 · 실제 설계자료와 대조'],
 };
 const lessonThreeFourOutputs = ['요구조건 매트릭스', '발주기관 추가 질의', '디자인 브리프', '평면도 기반 현황 이미지 생성 결과', '현황 이미지 수정 결과', '평면도와 이미지의 불일치 기록', '제4차시 대안 평가기준'];
 
@@ -506,6 +509,10 @@ for (const fileName of files) {
   } else if (id === '09') {
     if (!source.includes('<Lesson09SpatialZoning')) {
       errors.push(`${fileName}: 제9차시 전용 공간 관계·개념 조닝 레이아웃이 없습니다.`);
+    }
+  } else if (id === '10') {
+    if (!source.includes('<Lesson10GroundedLegalReview')) {
+      errors.push(`${fileName}: 제10차시 전용 프로젝트 Grounding·법규검토 준비 레이아웃이 없습니다.`);
     }
   } else if (!source.includes('<LessonOutline')) {
     errors.push(`${fileName}: LessonOutline 골격이 없습니다.`);
@@ -1020,13 +1027,84 @@ for (const fileName of files) {
       catch { errors.push(`${fileName}: 제9차시 필수 공개 이미지를 찾을 수 없습니다: ${filePath}`); }
     }
   }
+  if (id === '10') {
+    let lessonTenComponent = '';
+    let lessonTenContent = '';
+    try { lessonTenComponent = await readFile(lessonTenComponentPath, 'utf8'); }
+    catch { errors.push('제10차시 프로젝트 Grounding·법규검토 컴포넌트를 읽을 수 없습니다.'); }
+    try { lessonTenContent = await readFile(lessonTenContentPath, 'utf8'); }
+    catch { errors.push('제10차시 프로젝트 Grounding·법규검토 콘텐츠 데이터를 읽을 수 없습니다.'); }
+
+    for (const marker of [
+      'AI에게 프로젝트 문서와 법규를 한꺼번에 넣으면 정확한 설계 검토가 가능할까?',
+      '이번 실습의 목표는 AI로 법규 적합 여부를 자동 판정하는 것이 아닙니다.',
+      'data-lesson10-workflow',
+      'data-lesson10-source-pack="a01-a07"',
+      'data-lesson10-normalized-table',
+      'data-lesson10-result-sample="a99"',
+      'data-lesson10-result-sample="b99"',
+      'NotebookLM은 현재 가진 자료 안에서 분석하고, ChatGPT는 그 분석을 외부 정보와 교차검증하는 데 활용합니다.',
+      '최종 근거는 AI의 답변이 아니라 사람이 확인한 공식 원문입니다.',
+      '현행 법령의 대체 근거로 사용하지 않는다.',
+      '저장소와 공개 e-book에 포함하지 않는다.',
+    ]) {
+      if (!source.includes(marker) && !lessonTenComponent.includes(marker) && !lessonTenContent.includes(marker)) {
+        errors.push(`제10차시 프로젝트 Grounding·법규검토 콘텐츠에 '${marker}'가 없습니다.`);
+      }
+    }
+
+    const projectSourceCodes = [...lessonTenContent.matchAll(/code: 'A0[1-7]'/g)].length;
+    if (projectSourceCodes !== 7) {
+      errors.push(`제10차시 프로젝트 원자료 Source: 예상 7개, 실제 ${projectSourceCodes}개`);
+    }
+    for (const sourceCode of ['B03', 'B06', 'B07', 'B08', 'B08-1', 'B05-1', 'B90']) {
+      if (!lessonTenContent.includes(`code: '${sourceCode}'`)) {
+        errors.push(`제10차시 법규 Source ${sourceCode}가 없습니다.`);
+      }
+    }
+    for (const promptId of [
+      'lesson10-prompt-a00',
+      'lesson10-prompt-a01',
+      'lesson10-prompt-a02',
+      'lesson10-prompt-a025',
+      'lesson10-prompt-b01',
+      'lesson10-prompt-x01',
+      'lesson10-prompt-b02',
+    ]) {
+      if (!lessonTenContent.includes(`id: '${promptId}'`) || !lessonTenComponent.includes(`'${promptId}'`)) {
+        errors.push(`제10차시 PromptCopyBlock 데이터 또는 연결 ${promptId}가 없습니다.`);
+      }
+    }
+    for (const column of ['구분', '항목', '최종 확인 내용', '상태', 'Source', '후속 검증 필요 여부']) {
+      if (!lessonTenComponent.includes(`<th>${column}</th>`) && !lessonTenContent.includes(column)) {
+        errors.push(`제10차시 프로젝트 조건 표 열 '${column}'이 없습니다.`);
+      }
+    }
+    for (const status of ['확정', '계획조건', '예시', '추가 확인 필요']) {
+      if (!lessonTenContent.includes(status)) errors.push(`제10차시 프로젝트 상태 '${status}'가 없습니다.`);
+    }
+    for (const status of ['기준 확인 완료', '적용 여부 확인 필요', '설계자료 필요', '추가 공식 Source 필요']) {
+      if (!lessonTenContent.includes(status)) errors.push(`제10차시 법규검토 상태 '${status}'가 없습니다.`);
+    }
+    for (const forbiddenMarker of [
+      'C:\\Users\\',
+      'file://',
+      '<a download',
+      '법규 적합 여부를 자동 판정합니다',
+      '법규 적합 판정 결과',
+    ]) {
+      if (source.includes(forbiddenMarker) || lessonTenComponent.includes(forbiddenMarker) || lessonTenContent.includes(forbiddenMarker)) {
+        errors.push(`제10차시 학생용 콘텐츠에 금지 표현·경로·다운로드 '${forbiddenMarker}'가 있습니다.`);
+      }
+    }
+  }
   if (source.includes("category: '전문가 판단 필요'")) {
     errors.push(
       `${fileName}: 포괄적인 '전문가 판단 필요' 대신 구체적인 판단·검증 분류를 사용해야 합니다.`,
     );
   }
 
-  if (!isDetailedLessonOne && !['06', '07', '08', '09'].includes(id)) {
+  if (!isDetailedLessonOne && !['06', '07', '08', '09', '10'].includes(id)) {
     const structuralCategoryChecks = [
       { property: 'goals', nextProperty: 'concepts', expected: '학습 목표' },
       { property: 'deliverables', nextProperty: 'judgments', expected: '수업 산출물' },
