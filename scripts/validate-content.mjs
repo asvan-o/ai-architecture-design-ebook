@@ -28,6 +28,7 @@ const lessonSixContentPath = path.resolve('src/lib/lesson06-dwg-workflow.ts');
 const lessonSixComponentPath = path.resolve('src/components/content/Lesson06DwgToExploded.astro');
 const lessonSevenComponentPath = path.resolve('src/components/content/Lesson07PdfToGaussian.astro');
 const lessonEightComponentPath = path.resolve('src/components/content/Lesson08GaussianUpscale.astro');
+const lessonEightSr1033ScriptPath = path.resolve('src/assets/lessons/08/openvino-sr1033/run_sr1033.py');
 const lessonNineComponentPath = path.resolve('src/components/content/Lesson09SpatialZoning.astro');
 const lessonTenComponentPath = path.resolve('src/components/content/Lesson10GroundedLegalReview.astro');
 const lessonTenContentPath = path.resolve('src/lib/lesson10-grounded-legal-review.ts');
@@ -146,7 +147,7 @@ const detailedLessonSections = {
   '05': ['차시 소개', '오늘의 학습 흐름', '4차시 복습 확장 · 재질 선택과 무드보드', '평면도는 어떤 정보를 보여주는가', '평면도에서 사람이 먼저 읽을 것', '탑뷰 입체화란 무엇인가', '작은 객실 · 평면도에서 탑뷰 입체화', '아이소메트릭(Isometric)은 무엇인가', '작은 객실 · 탑뷰에서 아이소메트릭으로', '복합 공간 평면도 읽기', '거실·식당·주방 · 인테리어 적용', '원 평면도와 AI 결과 비교', '실습 · 평면도를 입체적으로 읽고 공간 콘셉트까지 확장하기', '결과물 정리와 검토'],
   '06': ['차시 소개', '오늘의 목표와 작업 흐름', '준비 자료 확인', 'DWG와 평면도 읽기', '확인 정보와 추정 정보 구분하기', '수정 영역 지정과 평면도 인페인팅', '수정 결과 검토', 'Top View 3D 입체화', '아이소메트릭이란?', '아이소메트릭 제작', 'Exploded Isometric View란?', '아이소메트릭 분해도 제작', '결과 검토 체크리스트', '마무리 정리'],
   '07': ['차시 소개', '오늘의 목표와 전체 워크플로우', 'STEP 1 · 전체 평면도 확인', 'PDF·이미지 기반 도면 분석', 'STEP 2 · 원하는 공간 확대', 'STEP 3 · 수정 영역 지정', 'STEP 4 · 부분 수정 결과 확인', 'STEP 5 · 전체 평면도에 다시 적용', 'Top View 3D로 연결', '한 장의 Top View 3D에서 다음 단계로', 'Mesh와 Gaussian의 아주 짧은 차이', 'Point에서 Gaussian 느낌 이해하기', 'Gaussian 하나와 많은 Gaussian', 'Splatting이란?', 'Gaussian + Splatting', 'Gaussian Splatting 작동 흐름', '왜 이번 수업에서 Gaussian을 사용하는가?', '일반 3DGS와 Single Image TripoSplat', '단일 이미지 기반 3D의 추정과 오류', 'Stability Matrix란?', 'ComfyUI란?', '설치와 권장 사양', 'TripoSplat 템플릿 읽기', 'Gaussian 개수 등 핵심 설정', 'Gaussian 결과 생성과 출력 이해', '로컬 실행이 어려울 때 · TripoSplat Web Demo', '결과 비교와 마무리'],
-  '08': ['차시 소개', '제7차시 결과와 오늘의 목표', '오늘의 전체 워크플로우', 'Gaussian 결과에서 이미지 시점 선택', 'Gaussian 결과를 현실적인 건축 이미지로 변환', 'GPT · Gemini · 유료 보조 도구 결과 비교', '결과 비교 기준과 최종 후보 선택', '선택 결과 부분 보정', 'Upscale이란?', 'Resize · 일반 AI SR · Text-aware SR', 'Upscale의 장점·한계와 Hallucination', '평면도 Before · After 실제 비교', 'ComfyUI Upscale 실습', 'OpenVINO Text SR 개념과 적용 대상', '선택 실습 · OpenVINO CPU 경량 실행', '저사양 PC 대안 · Hugging Face Web Upscale', '동일 원본 비교와 HITL 검수', '최종 결과 정리와 다음 차시 연결'],
+  '08': ['차시 소개', '제7차시 결과와 오늘의 목표', '오늘의 전체 워크플로우', 'Gaussian 결과에서 이미지 시점 선택', 'Gaussian 결과를 현실적인 건축 이미지로 변환', 'GPT · Gemini · 유료 보조 도구 결과 비교', '결과 비교 기준과 최종 후보 선택', '선택 결과 부분 보정', 'Upscale이란?', 'Resize · 일반 AI SR · OpenVINO SR1033', 'Upscale의 장점·한계와 Hallucination', '평면도 Before · After 실제 비교', 'ComfyUI Upscale 실습', 'OpenVINO CPU 기반 AI 업스케일', '실습 · SR1033 CPU 환경 구축과 실행', '저사양 PC 대안 · Hugging Face Web Upscale', '동일 원본 비교와 HITL 검수', '최종 결과 정리와 다음 차시 연결'],
   '09': ['차시 소개', '제8차시 복습과 오늘의 질문', '오늘의 전체 워크플로우', '원자료를 먼저 분석하는 이유', 'NotebookLM 원본 평면도 분석', '도면 기준표와 사람이 정리한 입력자료', 'GPT Top View 3D 생성', '원도면과 Top View 3D 검토', '공간 기능·공간 인접 관계·주요 동선 분석', 'NotebookLM 분석 결과 검증', 'Graphviz(DOT) 구조화 데이터 만들기', '2D 공간 관계 다이어그램 시각화', '공간 관계 다이어그램 읽기', '공간 관계에서 개념 조닝으로', 'GPT 개념 조닝 · 구조 확인 후 제작', '결과 정리와 제10차시 연결'],
   '10': ['차시 소개', '실습 프로젝트와 정보 혼합 위험', '왜 NotebookLM을 A와 B로 나누는가', '이번 차시의 두 결과물', 'Notebook A · 프로젝트 원자료의 역할 확인', 'Notebook A · 프로젝트 조건 기준서 만들기', '반드시 잡아야 할 오류와 과도한 해석', 'Project Grounded Reference 결과 예시', 'Notebook B · 현재 자료로 가능한 검토 범위 묻기', 'NotebookLM 분석을 ChatGPT로 교차검증', '공식 Source를 단계적으로 보강하기', 'AI 법규검토 체크리스트 결과 예시', '다음 차시 · 실제 설계자료와 대조'],
 };
@@ -907,8 +908,11 @@ for (const fileName of files) {
   }
   if (id === '08') {
     let lessonEightComponent = '';
+    let lessonEightSr1033Script = '';
     try { lessonEightComponent = await readFile(lessonEightComponentPath, 'utf8'); }
     catch { errors.push('제8차시 Gaussian 현실화·업스케일 컴포넌트를 읽을 수 없습니다.'); }
+    try { lessonEightSr1033Script = await readFile(lessonEightSr1033ScriptPath, 'utf8'); }
+    catch { errors.push('제8차시 OpenVINO SR1033 실행 스크립트를 읽을 수 없습니다.'); }
 
     for (const marker of [
       '같은 입력 이미지를 사용해도 AI 서비스와 모델에 따라',
@@ -919,15 +923,21 @@ for (const fileName of files) {
       '4x-UltraSharp.pth',
       'https://huggingface.co/spaces/bookbot/Image-Upscaling-Playground',
       'https://huggingface.co/spaces?category=image-upscaling',
-      'text-image-super-resolution-0001',
-      'data-lesson08-openvino-model="text-image-super-resolution-0001"',
+      'single-image-super-resolution-1033',
+      'data-lesson08-openvino-model="single-image-super-resolution-1033"',
+      '저사양 PC에서도 실행하는 SR1033 3× Super Resolution',
+      'Python 설치 완료 후 현재 PowerShell 창을 완전히 닫고 새 PowerShell을 다시 실행한다.',
+      '[Environment+SpecialFolder]::DesktopDirectory',
+      '.\\.venv\\Scripts\\python.exe',
+      'lesson08-openvino-winget-check',
+      'lesson08-openvino-python-install',
+      'lesson08-openvino-project-setup',
+      'lesson08-openvino-model-download',
+      'lesson08-openvino-create-script',
+      'lesson08-openvino-run',
+      'lesson08-openvino-reuse',
       '선명해진 것과 정확해진 것은 같은 의미가 아니다.',
       '도면에서는 보기 좋은 결과보다 원본 정보 보존이 우선이다.',
-      'lesson08-openvino-setup',
-      'lesson08-openvino-model-download',
-      'lesson08-openvino-python',
-      'model.reshape({model.input(0): [1, 1, height, width]})',
-      'compiled_model = core.compile_model(model=model, device_name="CPU")',
       '유지됨',
       '변화 있음',
       '확인 필요',
@@ -937,8 +947,35 @@ for (const fileName of files) {
       }
     }
     const lessonEightPromptCount = (lessonEightComponent.match(/<PromptCopyBlock\b/g) ?? []).length;
-    if (lessonEightPromptCount !== 3) {
-      errors.push(`제8차시 PromptCopyBlock 수: 예상 3개, 실제 ${lessonEightPromptCount}개`);
+    if (lessonEightPromptCount !== 15) {
+      errors.push(`제8차시 PromptCopyBlock 수: 예상 15개, 실제 ${lessonEightPromptCount}개`);
+    }
+    for (const scriptMarker of [
+      'MODEL_PATH = ROOT / "model" / "single-image-super-resolution-1033.xml"',
+      'TILE_W = 640',
+      'TILE_H = 360',
+      'SCALE = 3',
+      'MARGIN = 10',
+      'cv2.INTER_CUBIC',
+      'core.compile_model(',
+      '"CPU"',
+      '_SR1033_3x.png',
+      '_Bicubic_3x.png',
+    ]) {
+      if (!lessonEightSr1033Script.includes(scriptMarker)) {
+        errors.push(`제8차시 SR1033 실행 스크립트에 '${scriptMarker}'가 없습니다.`);
+      }
+    }
+    for (const removedMarker of [
+      'text-image-super-resolution-0001',
+      'C:\\OpenVINO_TextSR',
+      '$HOME',
+      'py -3.12',
+      'Activate.ps1',
+    ]) {
+      if (source.includes(removedMarker) || lessonEightComponent.includes(removedMarker) || lessonEightSr1033Script.includes(removedMarker)) {
+        errors.push(`제8차시 OpenVINO 실습에 제거 대상 '${removedMarker}'가 남아 있습니다.`);
+      }
     }
     for (const privateMarker of ['(수강)', 'C:\\Users\\', '7차시_00_', '7차시_07_', '3D가우시안']) {
       if (source.includes(privateMarker) || lessonEightComponent.includes(privateMarker)) {
@@ -955,6 +992,7 @@ for (const fileName of files) {
       'src/assets/lessons/08/floor-plan-upscale/01-floor-plan-before-upscale.png',
       'src/assets/lessons/08/floor-plan-upscale/02-floor-plan-after-upscale-2x.png',
       'src/assets/lessons/08/upscale-workflow/lesson-08-upscale-workflow.json',
+      'src/assets/lessons/08/openvino-sr1033/run_sr1033.py',
     ];
     for (const filePath of lessonEightFiles) {
       try { await access(path.resolve(filePath)); }

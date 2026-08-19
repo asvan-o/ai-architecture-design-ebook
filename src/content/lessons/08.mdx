@@ -3,7 +3,7 @@ title: "제8차시 · Gaussian 결과 현실화와 AI 업스케일"
 day: 8
 date: "pending"
 durationMinutes: 180
-lastVerified: "2026-08-18"
+lastVerified: "2026-08-19"
 draft: true
 publicationStatus: "detailed"
 contentType: "instruction"
@@ -48,41 +48,41 @@ sources:
     publisher: "사용자 제공 수업자료"
     sourceType: "other"
     note: "VHS_LoadImages, Lanczos ImageScale 1120×1074, RealESRGAN_x2, 4x-UltraSharp, ImageUpscaleWithModel, SaveImage의 실제 연결 확인"
-  - id: "lesson-08-openvino-text-sr-model"
-    title: "text-image-super-resolution-0001"
+  - id: "lesson-08-openvino-sr1033-model"
+    title: "single-image-super-resolution-1033"
     publisher: "Intel OpenVINO · Open Model Zoo"
-    url: "https://docs.openvino.ai/2023.3/omz_models_model_text_image_super_resolution_0001.html"
-    accessedAt: "2026-08-18"
+    url: "https://docs.openvino.ai/2023.3/omz_models_model_single_image_super_resolution_1033.html"
+    accessedAt: "2026-08-19"
     sourceType: "official"
-    note: "스캔 텍스트 이미지용 3배 초해상도 모델, 기본 입력 1×1×360×640, 기본 출력 1×1×1080×1920, reshape 지원 범위를 확인"
-  - id: "lesson-08-openvino-python-api"
-    title: "Integrate OpenVINO with Your Application"
+    note: "3배 Super Resolution, BGR 원본 입력 1×3×360×640, Bicubic 입력 1×3×1080×1920과 출력 사양 확인"
+  - id: "lesson-08-openvino-python-install"
+    title: "Install OpenVINO from PyPI"
     publisher: "Intel OpenVINO"
-    url: "https://docs.openvino.ai/2024/openvino-workflow/running-inference/integrate-openvino-with-your-application.html"
-    accessedAt: "2026-08-18"
+    url: "https://docs.openvino.ai/2026/get-started/install-openvino/install-openvino-pip.html"
+    accessedAt: "2026-08-19"
     sourceType: "official"
-    note: "ov.Core, read_model, reshape, compile_model과 Python 추론 API 사용 방식을 확인"
-  - id: "lesson-08-openvino-text-sr-demo"
-    title: "Image Processing C++ Demo"
-    publisher: "Intel Open Model Zoo"
-    url: "https://github.com/openvinotoolkit/open_model_zoo/blob/master/demos/common/cpp/models/src/super_resolution_model.cpp"
-    accessedAt: "2026-08-18"
+    note: "Python 가상환경, pip 업데이트, openvino 패키지 설치와 Core().available_devices 확인 절차를 확인"
+  - id: "lesson-08-openvino-system-requirements"
+    title: "OpenVINO System Requirements"
+    publisher: "Intel OpenVINO"
+    url: "https://docs.openvino.ai/2026/about-openvino/release-notes-openvino/system-requirements.html"
+    accessedAt: "2026-08-19"
     sourceType: "official"
-    note: "텍스트 초해상도 모델의 단일 채널 입력과 0.5 임계값 이진화 후처리 구현을 확인"
-  - id: "lesson-08-openvino-text-sr-xml"
-    title: "text-image-super-resolution-0001 FP32 XML"
+    note: "Windows와 Python 3.12 64-bit가 현재 지원 범위에 포함되는지 확인"
+  - id: "lesson-08-openvino-sr1033-xml"
+    title: "single-image-super-resolution-1033 FP16 XML"
     publisher: "Intel Open Model Zoo Storage"
-    url: "https://storage.openvinotoolkit.org/repositories/open_model_zoo/2023.0/models_bin/1/text-image-super-resolution-0001/FP32/text-image-super-resolution-0001.xml"
-    accessedAt: "2026-08-18"
+    url: "https://storage.openvinotoolkit.org/repositories/open_model_zoo/2023.0/models_bin/1/single-image-super-resolution-1033/FP16/single-image-super-resolution-1033.xml"
+    accessedAt: "2026-08-19"
     sourceType: "official"
-    note: "HTTP 200과 OpenVINO IR 네트워크 정의 파일 접근을 확인"
-  - id: "lesson-08-openvino-text-sr-bin"
-    title: "text-image-super-resolution-0001 FP32 BIN"
+    note: "SR1033 FP16 OpenVINO IR 네트워크 정의 파일 접근 확인"
+  - id: "lesson-08-openvino-sr1033-bin"
+    title: "single-image-super-resolution-1033 FP16 BIN"
     publisher: "Intel Open Model Zoo Storage"
-    url: "https://storage.openvinotoolkit.org/repositories/open_model_zoo/2023.0/models_bin/1/text-image-super-resolution-0001/FP32/text-image-super-resolution-0001.bin"
-    accessedAt: "2026-08-18"
+    url: "https://storage.openvinotoolkit.org/repositories/open_model_zoo/2023.0/models_bin/1/single-image-super-resolution-1033/FP16/single-image-super-resolution-1033.bin"
+    accessedAt: "2026-08-19"
     sourceType: "official"
-    note: "HTTP 200과 OpenVINO IR 가중치 파일 접근을 확인"
+    note: "SR1033 FP16 OpenVINO IR 가중치 파일 접근 확인"
 sections:
   - { id: "section-01", label: "차시 소개" }
   - { id: "section-02", label: "제7차시 결과와 오늘의 목표" }
@@ -93,12 +93,12 @@ sections:
   - { id: "section-07", label: "결과 비교 기준과 최종 후보 선택" }
   - { id: "section-08", label: "선택 결과 부분 보정" }
   - { id: "section-09", label: "Upscale이란?" }
-  - { id: "section-10", label: "Resize · 일반 AI SR · Text-aware SR" }
+  - { id: "section-10", label: "Resize · 일반 AI SR · OpenVINO SR1033" }
   - { id: "section-11", label: "Upscale의 장점·한계와 Hallucination" }
   - { id: "section-12", label: "평면도 Before · After 실제 비교" }
   - { id: "section-13", label: "ComfyUI Upscale 실습" }
-  - { id: "section-14", label: "OpenVINO Text SR 개념과 적용 대상" }
-  - { id: "section-15", label: "선택 실습 · OpenVINO CPU 경량 실행" }
+  - { id: "section-14", label: "OpenVINO CPU 기반 AI 업스케일" }
+  - { id: "section-15", label: "실습 · SR1033 CPU 환경 구축과 실행" }
   - { id: "section-16", label: "저사양 PC 대안 · Hugging Face Web Upscale" }
   - { id: "section-17", label: "동일 원본 비교와 HITL 검수" }
   - { id: "section-18", label: "최종 결과 정리와 다음 차시 연결" }
