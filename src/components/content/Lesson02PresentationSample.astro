@@ -1,0 +1,200 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+type ReviewGroup = {
+  label: string;
+  items: string[];
+};
+
+interface Props {
+  originalPrompt: string;
+  originalImage: ImageMetadata;
+  originalAlt: string;
+  originalCaption: string;
+  designerJudgment: string;
+  revisionPrompt: string;
+  revisedImage: ImageMetadata;
+  revisedAlt: string;
+  revisedCaption: string;
+  comparison: string;
+  caution: string;
+  reviewFramework: {
+    originalReview: ReviewGroup[];
+  };
+}
+
+const {
+  originalPrompt,
+  originalImage,
+  originalAlt,
+  originalCaption,
+  designerJudgment,
+  revisionPrompt,
+  revisedImage,
+  revisedAlt,
+  revisedCaption,
+  comparison,
+  caution,
+  reviewFramework,
+} = Astro.props;
+
+const observedItems = reviewFramework.originalReview[0]?.items.slice(0, 4) ?? [];
+const unknownItems = reviewFramework.originalReview[1]?.items ?? [];
+---
+
+<div class="lesson02-presentation-sample">
+  <div
+    class="lesson02-sample-slide lesson02-sample-slide--original"
+    data-presentation-group="single"
+    data-presentation-layout="lesson02-flower-original"
+  >
+    <div class="lesson02-sample-copy">
+      <section>
+        <span>01 · 최초 요청문</span>
+        <blockquote>{originalPrompt.trim()}</blockquote>
+      </section>
+      <section>
+        <span>02 · 관찰된 문제</span>
+        <ul>{observedItems.map((item) => <li>{item}</li>)}</ul>
+      </section>
+    </div>
+    <figure>
+      <Image src={originalImage} alt={originalAlt} loading="eager" decoding="async" />
+      <figcaption>{originalCaption}</figcaption>
+    </figure>
+    <section class="lesson02-sample-judgment">
+      <span>03 · 디자인 판단</span>
+      <p>{designerJudgment}</p>
+    </section>
+    <aside>
+      <strong>확인할 수 없는 실제 조건</strong>
+      <ul>{unknownItems.map((item) => <li>{item}</li>)}</ul>
+    </aside>
+  </div>
+
+  <div
+    class="lesson02-sample-slide lesson02-sample-slide--revised"
+    data-presentation-group="single"
+    data-presentation-layout="lesson02-flower-revised"
+  >
+    <section class="lesson02-revision-prompt">
+      <span>04 · 수정 요청문</span>
+      <p>{revisionPrompt.trim()}</p>
+    </section>
+    <figure>
+      <Image src={revisedImage} alt={revisedAlt} loading="eager" decoding="async" />
+      <figcaption>{revisedCaption}</figcaption>
+    </figure>
+    <section class="lesson02-sample-comparison">
+      <span>05 · 전후 비교</span>
+      <p>{comparison}</p>
+      <strong>해석 범위</strong>
+      <p>{caution}</p>
+    </section>
+  </div>
+</div>
+
+<style>
+  .lesson02-presentation-sample {
+    min-width: 0;
+  }
+
+  .lesson02-sample-slide {
+    min-width: 0;
+  }
+
+  .lesson02-sample-slide span {
+    color: var(--accent-dark);
+    font-size: 0.72em;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+  }
+
+  .lesson02-sample-slide blockquote,
+  .lesson02-sample-slide p,
+  .lesson02-sample-slide ul {
+    margin: 0;
+  }
+
+  .lesson02-sample-slide blockquote {
+    margin-top: 0.45em;
+    padding: 0.7em 0.85em;
+    border-left: 0.25em solid var(--accent);
+    background: #f0ece3;
+    font-family: var(--serif);
+    font-size: 0.9em;
+  }
+
+  .lesson02-sample-slide ul {
+    padding-left: 1.1em;
+  }
+
+  .lesson02-sample-slide figure {
+    overflow: hidden;
+    border: 1px solid var(--line-dark);
+    background: #fff;
+  }
+
+  .lesson02-sample-slide figure :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    object-fit: cover;
+  }
+
+  .lesson02-sample-slide figcaption {
+    font-size: 0.62em;
+    line-height: 1.35;
+  }
+
+  .lesson02-sample-copy {
+    display: grid;
+    gap: 0.65em;
+    min-width: 0;
+  }
+
+  .lesson02-sample-copy section,
+  .lesson02-sample-judgment,
+  .lesson02-sample-slide aside,
+  .lesson02-revision-prompt,
+  .lesson02-sample-comparison {
+    min-width: 0;
+    padding: 0.75em;
+    border: 1px solid var(--line-dark);
+    background: rgba(255, 255, 255, 0.7);
+  }
+
+  .lesson02-sample-copy :is(p, li),
+  .lesson02-sample-judgment p,
+  .lesson02-sample-slide aside li {
+    font-size: 0.65em;
+    line-height: 1.4;
+  }
+
+  .lesson02-sample-slide aside strong,
+  .lesson02-sample-comparison strong {
+    display: block;
+    margin-bottom: 0.35em;
+    color: #7b2f1f;
+    font-size: 0.72em;
+  }
+
+  .lesson02-revision-prompt p {
+    margin-top: 0.45em;
+    font-size: 0.61em;
+    line-height: 1.36;
+    white-space: pre-line;
+  }
+
+  .lesson02-sample-comparison {
+    display: grid;
+    gap: 0.35em;
+  }
+
+  .lesson02-sample-comparison p {
+    font-size: 0.61em;
+    line-height: 1.35;
+  }
+</style>

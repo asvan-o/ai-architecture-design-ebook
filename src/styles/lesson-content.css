@@ -332,14 +332,9 @@
 .time-plan__detailed-list strong { display: block; }
 .time-plan__detailed-list p { margin: 0.25rem 0 0; color: var(--muted); font-size: 0.86rem; line-height: 1.55; }
 
-/* 제2차시 프로젝터 도입은 핵심 원칙과 시간 배분 요약만 한 화면에 보인다. */
+/* 제2차시 프로젝터 도입은 핵심 원칙과 네 단계 수업 흐름을 고정 슬라이드로 보인다. */
 .presentation-page[data-lesson-id='02'] #section-01 {
   padding-block: 2.5rem;
-}
-
-.presentation-page[data-lesson-id='02'] #section-01 > .classified-list,
-.presentation-page[data-lesson-id='02'] #section-01 .time-plan__screen-list {
-  display: none;
 }
 
 .presentation-page[data-lesson-id='02'] #section-01 .lesson-opening-message {

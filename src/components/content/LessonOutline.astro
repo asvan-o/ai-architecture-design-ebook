@@ -3,6 +3,7 @@ import LessonSection from './LessonSection.astro';
 import LessonAsset from './LessonAsset.astro';
 import ClassifiedList from './ClassifiedList.astro';
 import IterativeImageSample from './IterativeImageSample.astro';
+import Lesson02PresentationSample from './Lesson02PresentationSample.astro';
 import Lesson02Ebook, {
   type ContentCategory,
   type OutlineItem as Lesson02OutlineItem,
@@ -234,6 +235,7 @@ const displayedAssets = showOnlyReadyAssets
   : assets;
 const isPresentation = Astro.url.pathname.includes('/presentation/');
 const isInstructorConsole = Astro.url.pathname.includes('/instructor-console/');
+const isLesson02Presentation = isPresentation && lessonId === '02';
 const isLesson02Ebook = lessonId === '02' && !isPresentation && !isInstructorConsole;
 const isLesson03Ebook = lessonId === '03' && !isPresentation && !isInstructorConsole;
 const isLesson05PlanToIsometric = lessonId === '05' && lesson05PlanToIsometric;
@@ -264,6 +266,42 @@ const visualEvidenceSteps = practice.filter((step) => [
 const alternativeCriteriaSteps = practice.filter(
   (step) => step.id === 'define-alternative-criteria',
 );
+const getRfpSection = (number: number, title: string) => {
+  const renderedNumber = isLesson03Ebook ? number + 6 : number;
+  const label = String(renderedNumber).padStart(2, '0');
+  return { id: `section-${label}`, number: label, title };
+};
+const rfpSections = {
+  project: getRfpSection(2, '오늘의 프로젝트와 제출 결과물'),
+  materials: getRfpSection(3, '실습자료 다운로드 및 현황자료'),
+  concepts: getRfpSection(4, 'RFP와 디자인 브리프 핵심 개념'),
+  questions: getRfpSection(5, 'RFP를 읽을 때 확인할 핵심 질문'),
+  reading: getRfpSection(6, 'RFP 구조 함께 확인하기'),
+  matrix: getRfpSection(7, '요구조건 매트릭스 작성'),
+  clientQuestions: getRfpSection(8, '발주기관 추가 질의 작성'),
+  gemini: getRfpSection(9, 'Gemini 분석 및 사람 분석과 비교'),
+  brief: getRfpSection(10, '디자인 브리프 작성'),
+  criteria: getRfpSection(11, '현황 이미지 검토와 제4차시 평가기준'),
+  deliverables: getRfpSection(12, '제출 결과물 점검'),
+  verification: getRfpSection(13, '검증 필요와 정리'),
+};
+const lesson02FlowItems = [
+  '이미지 생성 원리와 안전 기준',
+  '플라워 카페 사례 분석',
+  '빈 공간 이미지 생성과 수정',
+  '전후 비교와 결과 검토',
+];
+const lesson02PracticeGroups = [
+  { title: '빈 공간 선택과 사용 조건', items: practice.slice(0, 3) },
+  { title: '요청문 작성과 첫 결과', items: practice.slice(3, 7) },
+  { title: '결과 검토와 수정', items: practice.slice(7, 10) },
+  { title: '전후 비교와 결과 정리', items: practice.slice(10) },
+];
+const lesson02ErrorGroups = [
+  { title: '공간 보존', items: errorChecks.slice(0, 2) },
+  { title: '시각적 오류', items: errorChecks.slice(2, 6) },
+  { title: '확인과 후속 조치', items: errorChecks.slice(6) },
+];
 ---
 
 {isInstructorConsole && (
@@ -279,29 +317,47 @@ const alternativeCriteriaSteps = practice.filter(
     </aside>
   )}
   <ClassifiedList items={intro} />
-  <div class="time-plan">
-    <header>
-      <div>
+  {isLesson02Presentation ? (
+    <div
+      class="lesson02-flow"
+      data-presentation-group="single"
+      data-presentation-layout="lesson02-flow"
+    >
+      <header>
         <span>TODAY'S FLOW</span>
         <strong>오늘의 수업 흐름</strong>
-      </div>
-    </header>
-    <ol class="time-plan__screen-list">
-      {displayedTimePlan.map((item, index) => (
-        <li><span>{String(index + 1).padStart(2, '0')}</span><strong>{item.label}</strong></li>
-      ))}
-    </ol>
-    <table class="time-plan__print-table">
-      <thead>
-        <tr><th scope="col">오늘의 수업 흐름</th></tr>
-      </thead>
-      <tbody>
-        {displayedTimePlan.map((item, index) => (
-          <tr><th scope="row">{String(index + 1).padStart(2, '0')} · {item.label}</th></tr>
+      </header>
+      <ol>
+        {lesson02FlowItems.map((item, index) => (
+          <li><span>{String(index + 1).padStart(2, '0')}</span><strong>{item}</strong></li>
         ))}
-      </tbody>
-    </table>
-  </div>
+      </ol>
+    </div>
+  ) : (
+    <div class="time-plan">
+      <header>
+        <div>
+          <span>TODAY'S FLOW</span>
+          <strong>오늘의 수업 흐름</strong>
+        </div>
+      </header>
+      <ol class="time-plan__screen-list">
+        {displayedTimePlan.map((item, index) => (
+          <li><span>{String(index + 1).padStart(2, '0')}</span><strong>{item.label}</strong></li>
+        ))}
+      </ol>
+      <table class="time-plan__print-table">
+        <thead>
+          <tr><th scope="col">오늘의 수업 흐름</th></tr>
+        </thead>
+        <tbody>
+          {displayedTimePlan.map((item, index) => (
+            <tr><th scope="row">{String(index + 1).padStart(2, '0')} · {item.label}</th></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )}
 </LessonSection>}
 
 {isLesson03Ebook && lesson03Review && <Lesson03ReviewPractice {...lesson03Review} />}
@@ -331,9 +387,9 @@ const alternativeCriteriaSteps = practice.filter(
 ) : isRfpAnalysisLayout ? (
   <>
     <LessonSection
-      id="section-02"
-      number="02"
-      title="오늘의 프로젝트와 제출 결과물"
+      id={rfpSections.project.id}
+      number={rfpSections.project.number}
+      title={rfpSections.project.title}
       class="outline-section"
       lessonId={lessonId}
     >
@@ -352,9 +408,9 @@ const alternativeCriteriaSteps = practice.filter(
     </LessonSection>
 
     <LessonSection
-      id="section-03"
-      number="03"
-      title="실습자료 다운로드 및 현황자료"
+      id={rfpSections.materials.id}
+      number={rfpSections.materials.number}
+      title={rfpSections.materials.title}
       class="outline-section"
       lessonId={lessonId}
     >
@@ -368,9 +424,9 @@ const alternativeCriteriaSteps = practice.filter(
     </LessonSection>
 
     <LessonSection
-      id="section-04"
-      number="04"
-      title="RFP와 디자인 브리프 핵심 개념"
+      id={rfpSections.concepts.id}
+      number={rfpSections.concepts.number}
+      title={rfpSections.concepts.title}
       class="outline-section"
       lessonId={lessonId}
     >
@@ -378,9 +434,9 @@ const alternativeCriteriaSteps = practice.filter(
     </LessonSection>
 
     <LessonSection
-      id="section-05"
-      number="05"
-      title="RFP를 읽을 때 확인할 핵심 질문"
+      id={rfpSections.questions.id}
+      number={rfpSections.questions.number}
+      title={rfpSections.questions.title}
       class="outline-section"
       lessonId={lessonId}
     >
@@ -388,9 +444,9 @@ const alternativeCriteriaSteps = practice.filter(
     </LessonSection>
 
     <LessonSection
-      id="section-06"
-      number="06"
-      title="RFP 구조 함께 확인하기"
+      id={rfpSections.reading.id}
+      number={rfpSections.reading.number}
+      title={rfpSections.reading.title}
       class="outline-section"
       lessonId={lessonId}
     >
@@ -409,9 +465,9 @@ const alternativeCriteriaSteps = practice.filter(
     </LessonSection>
 
     <LessonSection
-      id="section-07"
-      number="07"
-      title="요구조건 매트릭스 작성"
+      id={rfpSections.matrix.id}
+      number={rfpSections.matrix.number}
+      title={rfpSections.matrix.title}
       class="outline-section"
       lessonId={lessonId}
     >
@@ -421,7 +477,7 @@ const alternativeCriteriaSteps = practice.filter(
           tables={structuredPractice.tables.slice(0, 1)}
           evidenceCategories={structuredPractice.evidenceCategories}
           evidenceNote={structuredPractice.evidenceNote}
-          idPrefix="section-07"
+          idPrefix={rfpSections.matrix.id}
         />
       )}
       <ol class="practice-list">
@@ -438,16 +494,16 @@ const alternativeCriteriaSteps = practice.filter(
     </LessonSection>
 
     <LessonSection
-      id="section-08"
-      number="08"
-      title="발주기관 추가 질의 작성"
+      id={rfpSections.clientQuestions.id}
+      number={rfpSections.clientQuestions.number}
+      title={rfpSections.clientQuestions.title}
       class="outline-section"
       lessonId={lessonId}
     >
       {structuredPractice && (
         <StructuredPracticeTemplates
           tables={structuredPractice.tables.slice(1, 2)}
-          idPrefix="section-08"
+          idPrefix={rfpSections.clientQuestions.id}
           tableLabelOffset={1}
         />
       )}
@@ -465,9 +521,9 @@ const alternativeCriteriaSteps = practice.filter(
     </LessonSection>
 
     <LessonSection
-      id="section-09"
-      number="09"
-      title="Gemini 분석 및 사람 분석과 비교"
+      id={rfpSections.gemini.id}
+      number={rfpSections.gemini.number}
+      title={rfpSections.gemini.title}
       class="outline-section"
       lessonId={lessonId}
     >
@@ -486,9 +542,9 @@ const alternativeCriteriaSteps = practice.filter(
     </LessonSection>
 
     <LessonSection
-      id="section-10"
-      number="10"
-      title="디자인 브리프 작성"
+      id={rfpSections.brief.id}
+      number={rfpSections.brief.number}
+      title={rfpSections.brief.title}
       class="outline-section"
       lessonId={lessonId}
     >
@@ -498,7 +554,7 @@ const alternativeCriteriaSteps = practice.filter(
           briefDescription={structuredPractice.briefDescription}
           briefFields={structuredPractice.briefFields}
           closingNote={structuredPractice.closingNote}
-          idPrefix="section-10"
+          idPrefix={rfpSections.brief.id}
         />
       )}
       <ol class="practice-list">
@@ -515,9 +571,9 @@ const alternativeCriteriaSteps = practice.filter(
     </LessonSection>
 
     <LessonSection
-      id="section-11"
-      number="11"
-      title="현황 이미지 검토와 제4차시 평가기준"
+      id={rfpSections.criteria.id}
+      number={rfpSections.criteria.number}
+      title={rfpSections.criteria.title}
       class="outline-section"
       lessonId={lessonId}
     >
@@ -542,7 +598,7 @@ const alternativeCriteriaSteps = practice.filter(
       {structuredPractice && (
         <StructuredPracticeTemplates
           tables={structuredPractice.tables.slice(2, 3)}
-          idPrefix="section-11"
+          idPrefix={rfpSections.criteria.id}
           tableLabelOffset={2}
         />
       )}
@@ -563,16 +619,16 @@ const alternativeCriteriaSteps = practice.filter(
       {structuredPractice && (
         <StructuredPracticeTemplates
           tables={structuredPractice.tables.slice(3, 4)}
-          idPrefix="section-11-handoff"
+          idPrefix={`${rfpSections.criteria.id}-handoff`}
           tableLabelOffset={3}
         />
       )}
     </LessonSection>
 
     <LessonSection
-      id="section-12"
-      number="12"
-      title="제출 결과물 점검"
+      id={rfpSections.deliverables.id}
+      number={rfpSections.deliverables.number}
+      title={rfpSections.deliverables.title}
       class="outline-section"
       lessonId={lessonId}
     >
@@ -587,9 +643,9 @@ const alternativeCriteriaSteps = practice.filter(
     </LessonSection>
 
     <LessonSection
-      id="section-13"
-      number="13"
-      title="검증 필요와 정리"
+      id={rfpSections.verification.id}
+      number={rfpSections.verification.number}
+      title={rfpSections.verification.title}
       class="outline-section"
       lessonId={lessonId}
     >
@@ -620,11 +676,19 @@ const alternativeCriteriaSteps = practice.filter(
 ) : (
   <>
     <LessonSection id="section-02" number="02" title={questionsTitle} class="outline-section" lessonId={lessonId}>
-      <ClassifiedList items={questions} />
+      {isLesson02Presentation ? (
+        <div data-presentation-group="single" data-presentation-layout="lesson02-questions">
+          <ClassifiedList items={questions} />
+        </div>
+      ) : <ClassifiedList items={questions} />}
     </LessonSection>
 
     <LessonSection id="section-03" number="03" title="학습 목표" class="outline-section" lessonId={lessonId}>
-      <ClassifiedList items={goals} />
+      {isLesson02Presentation ? (
+        <div data-presentation-group="single" data-presentation-layout="lesson02-goals">
+          <ClassifiedList items={goals} />
+        </div>
+      ) : <ClassifiedList items={goals} />}
     </LessonSection>
 
     <LessonSection id="section-04" number="04" title="핵심 개념" class="outline-section" lessonId={lessonId}>
@@ -643,63 +707,119 @@ const alternativeCriteriaSteps = practice.filter(
 
     <LessonSection id="section-07" number="07" title={demoTitle} class="outline-section" lessonId={lessonId}>
       {iterationSample
-        ? <IterativeImageSample {...iterationSample} />
+        ? isLesson02Presentation
+          ? <Lesson02PresentationSample {...iterationSample} />
+          : <IterativeImageSample {...iterationSample} />
         : <ClassifiedList items={demo} />}
-      {practiceKit && lessonId === '02' && <EmptySpacePracticeKit {...practiceKit} />}
+      {practiceKit && lessonId === '02' && !isPresentation && <EmptySpacePracticeKit {...practiceKit} />}
     </LessonSection>
 
-    <LessonSection id="section-08" number="08" title="수강생 실습" class="outline-section" lessonId={lessonId}>
-      {practiceGuidance && <ClassifiedList items={practiceGuidance} />}
-      {structuredPractice && <StructuredPracticeTemplates {...structuredPractice} />}
-      <ol class="practice-list">
-        {practice.map((step, index) => (
-          <li data-step-id={step.id}>
-            <span>STEP {String(index + 1).padStart(2, '0')}</span>
-            <div>
-              <h3>{step.title}</h3>
-              <p>{step.description}</p>
-            </div>
-          </li>
-        ))}
-      </ol>
+    <LessonSection id="section-08" number="08" title={lessonId === '02' ? '이미지 생성·수정 실습' : '수강생 실습'} class="outline-section" lessonId={lessonId}>
+      {isLesson02Presentation ? (
+        <div class="lesson02-practice-groups">
+          {lesson02PracticeGroups.map((group, groupIndex) => (
+            <section
+              data-presentation-group="single"
+              data-presentation-layout="lesson02-practice-group"
+            >
+              <h3>{group.title}</h3>
+              {groupIndex === 0 && practiceGuidance && <ClassifiedList items={practiceGuidance} />}
+              <ol class="practice-list">
+                {group.items.map((step) => (
+                  <li data-step-id={step.id}>
+                    <span>STEP {String(practice.indexOf(step) + 1).padStart(2, '0')}</span>
+                    <div>
+                      <h3>{step.title}</h3>
+                      <p>{step.description}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          ))}
+        </div>
+      ) : (
+        <>
+          {practiceGuidance && <ClassifiedList items={practiceGuidance} />}
+          {structuredPractice && <StructuredPracticeTemplates {...structuredPractice} />}
+          <ol class="practice-list">
+            {practice.map((step, index) => (
+              <li data-step-id={step.id}>
+                <span>STEP {String(index + 1).padStart(2, '0')}</span>
+                <div>
+                  <h3>{step.title}</h3>
+                  <p>{step.description}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </>
+      )}
     </LessonSection>
 
-    <LessonSection id="section-09" number="09" title="제출 결과물" class="outline-section" lessonId={lessonId}>
-      <ClassifiedList items={deliverables} />
+    <LessonSection id="section-09" number="09" title={lessonId === '02' ? '실습 결과물' : '제출 결과물'} class="outline-section" lessonId={lessonId}>
+      {isLesson02Presentation ? (
+        <div data-presentation-group="single" data-presentation-layout="lesson02-deliverables">
+          <ClassifiedList items={deliverables} />
+        </div>
+      ) : <ClassifiedList items={deliverables} />}
     </LessonSection>
 
-    <LessonSection id="section-10" number="10" title="수강생이 판단할 항목" class="outline-section" lessonId={lessonId}>
-      <ClassifiedList items={judgments} />
+    <LessonSection id="section-10" number="10" title={lessonId === '02' ? '결과 검토 기준' : '수강생이 판단할 항목'} class="outline-section" lessonId={lessonId}>
+      {isLesson02Presentation ? (
+        <div data-presentation-group="single" data-presentation-layout="lesson02-review-criteria">
+          <ClassifiedList items={judgments} />
+        </div>
+      ) : <ClassifiedList items={judgments} />}
     </LessonSection>
 
     <LessonSection id="section-11" number="11" title="AI 오류 확인 체크리스트" class="outline-section" lessonId={lessonId}>
-      <ClassifiedList items={errorChecks} checks />
-      {errorCheckDetails && (
-        <details class="lesson-reference-checks">
-          <summary>e-book 상세 참고 체크리스트</summary>
-          <ClassifiedList items={errorCheckDetails} checks />
-        </details>
+      {isLesson02Presentation ? (
+        <div
+          class="lesson02-error-groups"
+          data-presentation-group="single"
+          data-presentation-layout="lesson02-error-groups"
+        >
+          {lesson02ErrorGroups.map((group) => (
+            <section>
+              <h3>{group.title}</h3>
+              <ClassifiedList items={group.items} checks />
+            </section>
+          ))}
+        </div>
+      ) : (
+        <>
+          <ClassifiedList items={errorChecks} checks />
+          {errorCheckDetails && (
+            <details class="lesson-reference-checks">
+              <summary>e-book 상세 참고 체크리스트</summary>
+              <ClassifiedList items={errorCheckDetails} checks />
+            </details>
+          )}
+        </>
       )}
     </LessonSection>
 
-    <LessonSection id="section-12" number="12" title={assetsTitle} class="outline-section" lessonId={lessonId}>
-      {assetNotes ? (
-        <ClassifiedList items={assetNotes} />
-      ) : !isPresentation ? (
-        <>
-          <p class="asset-policy">
-            아래는 실제 이미지나 영상을 대신하지 않는 자산 슬롯입니다. 파일은 제작·권리·검증
-            상태가 확인되기 전까지 <code>public/</code>에 넣지 않습니다.
-          </p>
-          <div class="lesson-assets">
-            {displayedAssets.map((asset) => <LessonAsset {...asset} />)}
-          </div>
-        </>
-      ) : null}
-      {resourceDownloads && (
-        <LessonResourceDownloads items={resourceDownloads} note={resourceDownloadNote} />
-      )}
-    </LessonSection>
+    {!isLesson02Presentation && (
+      <LessonSection id="section-12" number="12" title={assetsTitle} class="outline-section" lessonId={lessonId}>
+        {assetNotes ? (
+          <ClassifiedList items={assetNotes} />
+        ) : !isPresentation ? (
+          <>
+            <p class="asset-policy">
+              아래는 실제 이미지나 영상을 대신하지 않는 자산 슬롯입니다. 파일은 제작·권리·검증
+              상태가 확인되기 전까지 <code>public/</code>에 넣지 않습니다.
+            </p>
+            <div class="lesson-assets">
+              {displayedAssets.map((asset) => <LessonAsset {...asset} />)}
+            </div>
+          </>
+        ) : null}
+        {resourceDownloads && (
+          <LessonResourceDownloads items={resourceDownloads} note={resourceDownloadNote} />
+        )}
+      </LessonSection>
+    )}
 
     <LessonSection
       id="section-13"
@@ -708,7 +828,19 @@ const alternativeCriteriaSteps = practice.filter(
       class="outline-section"
       lessonId={lessonId}
     >
-      <ClassifiedList items={verification} />
+      {isLesson02Presentation ? (
+        <div
+          class="lesson02-final-summary"
+          data-presentation-group="single"
+          data-presentation-layout="lesson02-final-summary"
+        >
+          <ul>
+            <li>생성 이미지는 실제 설계 확정안이 아니다.</li>
+            <li>실제 치수·구조·동선·법규·설비·시공성은 별도 확인한다.</li>
+            <li>다음 차시에서는 문서 요구조건과 근거를 구조화한다.</li>
+          </ul>
+        </div>
+      ) : <ClassifiedList items={verification} />}
       {!isPresentation && reviewPending && (
         <p class="review-state">LESSON {lessonId} · 상세 원고 작성 전 검토 요청 상태</p>
       )}
