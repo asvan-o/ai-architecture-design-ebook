@@ -1,0 +1,259 @@
+---
+import LessonSection from './LessonSection.astro';
+import PromptCopyBlock from './PromptCopyBlock.astro';
+import {
+  b00ReviewChecks,
+  crossValidationRisks,
+  humanReviewChecks,
+  lesson11Prompts,
+  lesson11TimePlan,
+  lesson11Workflow,
+  loopStopChecks,
+} from '../../lib/lesson11-legal-cross-validation';
+
+interface Props {
+  lessonId: string;
+  timePlan?: readonly {
+    label: string;
+    minutes: number;
+    mode: 'guide' | 'practice' | 'review';
+  }[];
+}
+
+const { lessonId, timePlan = lesson11TimePlan } = Astro.props;
+const promptById = new Map(lesson11Prompts.map((prompt) => [prompt.id, prompt]));
+const getPrompt = (id: string) => {
+  const prompt = promptById.get(id);
+  if (!prompt) throw new Error(`Lesson 11 prompt not found: ${id}`);
+  return prompt;
+};
+const promptContextLabels = [
+  ['now', '지금 무엇을 하는가'],
+  ['why', '왜 하는가'],
+  ['inputs', '사용할 파일·Source'],
+  ['output', '결과를 어디에 쓰는가'],
+  ['caution', '주의할 점'],
+] as const;
+const rolePrompt = getPrompt('lesson11-prompt-01');
+const researchPrompt = getPrompt('lesson11-prompt-02');
+const checklistPrompt = getPrompt('lesson11-prompt-03');
+const crossCheckPrompt = getPrompt('lesson11-prompt-04');
+const revisePrompt = getPrompt('lesson11-prompt-05');
+const recheckPrompt = getPrompt('lesson11-prompt-06');
+---
+
+<div class="lesson11-cross-validation" data-lesson11-cross-validation>
+  <LessonSection id="section-01" number="01" title="지난 시간 워크플로우 복습" lessonId={lessonId}>
+    <div class="hero-card">
+      <p class="eyebrow">REPRODUCE · CROSS-VALIDATE · HUMAN REVIEW</p>
+      <h3>제10차시의 법규검토 준비 과정을 처음부터 다시 따라 해본다.</h3>
+      <p>새로운 AI 기능을 배우는 차시가 아니다. 프로젝트 사실과 공식 근거를 분리하고 서로 다른 경로로 반복 검증하는 순서를 혼자 재현하는 실습이다.</p>
+    </div>
+    <blockquote class="key-message">
+      자료를 정리하고, 근거를 찾고, 서로 다른 AI로 반복 검증하되 최종 판단은 사람이 한다.
+    </blockquote>
+    <ol class="workflow" aria-label="제11차시 전체 법규검토 워크플로우">
+      {lesson11Workflow.map((step, index) => (
+        <li><span>{String(index + 1).padStart(2, '0')}</span><strong>{step}</strong></li>
+      ))}
+    </ol>
+  </LessonSection>
+
+  <LessonSection id="section-02" number="02" title="NotebookLM A 역할 복습" lessonId={lessonId}>
+    <div class="role-grid">
+      <article class="role-card role-card--a">
+        <span>NOTEBOOK A</span>
+        <h3>우리 프로젝트의 조건은 무엇인가?</h3>
+        <ul>
+          <li>프로젝트 원자료의 역할과 우선순위 분류</li>
+          <li>확정 · 계획조건 · 미확정 · 추가 확인 필요 구분</li>
+          <li>자료 간 충돌과 누락 확인</li>
+          <li>B00 프로젝트 조건 기준서 제작</li>
+        </ul>
+      </article>
+      <article class="role-card">
+        <span>NOT THIS</span>
+        <h3>NotebookLM A는 법규 판단용 Notebook이 아니다.</h3>
+        <p>법규 결론을 만들기 전에 프로젝트 원자료의 사실관계를 정리하는 공간이다. 이번 차시에서는 제10차시에서 만든 B00의 상태만 짧게 다시 확인한다.</p>
+      </article>
+    </div>
+  </LessonSection>
+
+  <LessonSection id="section-03" number="03" title="B00 상태 확인" lessonId={lessonId}>
+    <div class="definition-card">
+      <span>PROJECT GROUNDED REFERENCE</span>
+      <h3>B00은 법규가 아니라 프로젝트 조건의 기준점이다.</h3>
+      <p>원자료를 검증·정리하여 이후 법규 조사와 검토에 사용하는 문서다. AI가 확정·계획조건·미확정·추가 확인 필요 상태를 임의로 바꾸면 안 된다.</p>
+    </div>
+    <ul class="check-grid" data-lesson11-b00-checks>
+      {b00ReviewChecks.map((item) => <li><span aria-hidden="true">□</span><strong>{item}</strong></li>)}
+    </ul>
+  </LessonSection>
+
+  <LessonSection id="section-04" number="04" title="GPT 법규검토 프로젝트 준비" lessonId={lessonId}>
+    <div class="prep-grid">
+      <article><span>01</span><h3>작업 공간</h3><p>ChatGPT에서 <strong>건축 프로젝트 법규검토</strong>라는 프로젝트 또는 동일 목적의 대화를 준비한다.</p></article>
+      <article><span>02</span><h3>핵심 파일</h3><p>처음에는 프로젝트 원자료 전체가 아니라 <strong>B00 프로젝트 조건 기준서</strong>를 핵심 파일로 사용한다.</p></article>
+      <article><span>03</span><h3>지속할 맥락</h3><p>역할 설정, 공식 Source 후보, 체크리스트 검증과 재검증 기록을 한 작업 맥락에서 이어간다.</p></article>
+    </div>
+    <aside class="service-note">
+      <strong>무료 환경 안내</strong>
+      <p>무료 계정은 파일 업로드 및 사용량에 제한이 있을 수 있으므로 핵심 파일 중심으로 작업합니다. 프로젝트 기능이나 파일 업로드 가능 여부는 계정과 서비스 환경에 따라 다를 수 있으며, 특정 메뉴 이름보다 필요한 기능의 사용 가능 여부를 기준으로 진행합니다.</p>
+    </aside>
+  </LessonSection>
+
+  <LessonSection id="section-05" number="05" title="GPT 역할 설정 프롬프트" lessonId={lessonId}>
+    <p class="section-lead">GPT에게 단순히 “법규를 검토해줘”라고 명령하면 프로젝트 분석, 법규 조사, 적합성 판단을 한 번에 수행하려 할 수 있다. 이번 워크플로우에서는 GPT를 외부 법규 조사 및 검증 보조자로 제한한다.</p>
+    <dl class="prompt-context" data-lesson11-prompt-context={rolePrompt.id}>
+      {promptContextLabels.map(([key, label]) => <div><dt>{label}</dt><dd>{rolePrompt.context[key]}</dd></div>)}
+    </dl>
+    <PromptCopyBlock {...rolePrompt} />
+  </LessonSection>
+
+  <LessonSection id="section-06" number="06" title="B00 기반 법규 Research" lessonId={lessonId}>
+    <div class="stage-banner"><span>RESEARCH FIRST</span><strong>이 단계에서는 아직 체크리스트를 만들지 않는다.</strong><p>목적은 “이 프로젝트를 검토하기 위해 어떤 공식 법규 Source가 필요한지 찾기”다.</p></div>
+    <dl class="prompt-context" data-lesson11-prompt-context={researchPrompt.id}>
+      {promptContextLabels.map(([key, label]) => <div><dt>{label}</dt><dd>{researchPrompt.context[key]}</dd></div>)}
+    </dl>
+    <PromptCopyBlock {...researchPrompt} />
+  </LessonSection>
+
+  <LessonSection id="section-07" number="07" title="공식 Source 확보" lessonId={lessonId}>
+    <blockquote class="source-warning">GPT 답변 ≠ 법적 근거 Source</blockquote>
+    <div class="flow-strip" aria-label="공식 법규 Source 확보 흐름">
+      <strong>GPT가 필요한 법규를 찾음</strong><span>→</span><strong>공식 페이지 확인</strong><span>→</span><strong>공식 원문 Source 확보</strong><span>→</span><strong>NotebookLM B에 추가</strong>
+    </div>
+    <div class="official-grid">
+      <article><h3>우선 확인할 곳</h3><p>국가법령정보센터, 해당 지방자치단체의 공식 자치법규, 정부·공공기관의 공식 원문을 우선한다.</p></article>
+      <article><h3>사람이 기록할 것</h3><p>법령명, 관련 조항, 시행 상태, 적용 이유, 확인 날짜와 공식 URL을 남긴다.</p></article>
+      <article><h3>근거로 쓰지 않을 것</h3><p>GPT의 요약 문장, 블로그·카페·홍보성 게시글을 최종 법적 근거로 사용하지 않는다.</p></article>
+      <article class="official-links">
+        <h3>공식 원문 확인</h3>
+        <a href="https://www.law.go.kr/" target="_blank" rel="noreferrer">국가법령정보센터</a>
+        <a href="https://www.elis.go.kr/" target="_blank" rel="noreferrer">자치법규정보시스템</a>
+        <p>검색 결과의 법령명·시행일·소관기관과 자치단체를 다시 확인한다.</p>
+      </article>
+    </div>
+  </LessonSection>
+
+  <LessonSection id="section-08" number="08" title="NotebookLM B Source 구성" lessonId={lessonId}>
+    <div class="source-equation" aria-label="NotebookLM B 기본 Source 구성">
+      <article><span>PROJECT CONDITION</span><strong>B00 프로젝트 조건 기준서</strong></article><b>+</b><article><span>LEGAL EVIDENCE</span><strong>확인한 공식 법규 Source</strong></article>
+    </div>
+    <aside class="boundary-box">
+      <h3>왜 원자료 전체를 다시 넣지 않는가</h3>
+      <p>NotebookLM A에서 원자료의 역할·우선순위·충돌·확정 여부를 이미 분석해 B00으로 정리했다. 원자료 전체를 NotebookLM B에 다시 넣으면 프로젝트 조건을 다시 해석해 NotebookLM A와 다른 판단을 만들 수 있다.</p>
+      <div class="mini-flow"><span>원자료</span><i>→</i><span>NotebookLM A</span><i>→</i><span>B00</span><i>→</i><span>NotebookLM B</span></div>
+    </aside>
+  </LessonSection>
+
+  <LessonSection id="section-09" number="09" title="NotebookLM B 1차 체크리스트 생성 프롬프트" lessonId={lessonId}>
+    <div class="role-legend"><span><b>B00</b> 프로젝트 조건</span><span><b>공식 Source</b> 법규 판단 근거</span></div>
+    <dl class="prompt-context" data-lesson11-prompt-context={checklistPrompt.id}>
+      {promptContextLabels.map(([key, label]) => <div><dt>{label}</dt><dd>{checklistPrompt.context[key]}</dd></div>)}
+    </dl>
+    <PromptCopyBlock {...checklistPrompt} />
+  </LessonSection>
+
+  <LessonSection id="section-10" number="10" title="왜 다시 GPT로 검증하는가" lessonId={lessonId}>
+    <p class="section-lead">NotebookLM B가 만든 체크리스트는 최종 정답이 아니다. Source 안에서 잘 정리했더라도 적용 범위·현행성·누락을 다른 조사 경로로 다시 확인해야 한다.</p>
+    <div class="risk-grid">
+      {crossValidationRisks.map((item, index) => <article><span>{String(index + 1).padStart(2, '0')}</span><strong>{item}</strong></article>)}
+    </div>
+    <p class="loop-entry">여기서부터 <strong>반복형 교차검증 루프</strong>를 시작한다.</p>
+  </LessonSection>
+
+  <LessonSection id="section-11" number="11" title="GPT 독립 교차검증" lessonId={lessonId}>
+    <div class="input-pair"><span>B00 기준서</span><b>+</b><span>NotebookLM B 체크리스트</span></div>
+    <p class="plain-note">NotebookLM B에 넣은 모든 법규 Source를 GPT에 그대로 다시 제공해 같은 자료를 요약시키지 않는다. GPT는 웹에서 공식 근거를 독립적으로 다시 조사하는 검증자다.</p>
+    <dl class="prompt-context" data-lesson11-prompt-context={crossCheckPrompt.id}>
+      {promptContextLabels.map(([key, label]) => <div><dt>{label}</dt><dd>{crossCheckPrompt.context[key]}</dd></div>)}
+    </dl>
+    <PromptCopyBlock {...crossCheckPrompt} />
+  </LessonSection>
+
+  <LessonSection id="section-12" number="12" title="교차검증 결과 분기" lessonId={lessonId}>
+    <div class="branch-grid">
+      <article class="branch-card branch-card--legal">
+        <span>법규 문제</span><h3>공식 법규 Source를 보강한다.</h3>
+        <p>적용 법령 누락, 잘못된 조항, 최신 조례·BF·소방 Source 부족처럼 법규 근거에 문제가 있는 경우다.</p>
+        <ol><li>GPT 문제 발견</li><li>공식 법규 Source 확인</li><li>NotebookLM B Source 보완</li><li>체크리스트 수정</li></ol>
+      </article>
+      <article class="branch-card branch-card--project">
+        <span>프로젝트 사실 문제</span><h3>NotebookLM A와 B00으로 돌아간다.</h3>
+        <p>대지면적·용도·발주처 조건처럼 프로젝트 원자료의 사실관계가 부족하거나 충돌하는 경우다.</p>
+        <ol><li>문제 발견</li><li>NotebookLM A에서 원자료 확인</li><li>B00 수정</li><li>수정 B00을 NotebookLM B에 반영</li></ol>
+      </article>
+    </div>
+  </LessonSection>
+
+  <LessonSection id="section-13" number="13" title="NotebookLM B 보완 프롬프트" lessonId={lessonId}>
+    <blockquote class="source-warning source-warning--small">GPT 답변은 새로운 공식 Source가 아니라 검토 요청사항이다.</blockquote>
+    <dl class="prompt-context" data-lesson11-prompt-context={revisePrompt.id}>
+      {promptContextLabels.map(([key, label]) => <div><dt>{label}</dt><dd>{revisePrompt.context[key]}</dd></div>)}
+    </dl>
+    <PromptCopyBlock {...revisePrompt} />
+  </LessonSection>
+
+  <LessonSection id="section-14" number="14" title="GPT 재검증 프롬프트" lessonId={lessonId}>
+    <p class="section-lead">NotebookLM B 수정 결과를 같은 GPT 작업 맥락에서 다시 검증한다. 매번 파일을 새로 업로드하기보다 최신 수정 결과나 변경 항목을 복사해 사용할 수 있다.</p>
+    <dl class="prompt-context" data-lesson11-prompt-context={recheckPrompt.id}>
+      {promptContextLabels.map(([key, label]) => <div><dt>{label}</dt><dd>{recheckPrompt.context[key]}</dd></div>)}
+    </dl>
+    <PromptCopyBlock {...recheckPrompt} />
+  </LessonSection>
+
+  <LessonSection id="section-15" number="15" title="반복형 교차검증 루프" lessonId={lessonId}>
+    <ol class="loop-flow" aria-label="NotebookLM B와 GPT 반복 교차검증 루프">
+      {['NotebookLM B · 체크리스트 작성', 'GPT · 독립 검증', '오류·누락 발견', '공식 Source 보완', 'NotebookLM B · 체크리스트 수정', 'GPT · 재검증', '필요하면 반복', '사람 최종검수'].map((step, index) => <li><span>{String(index + 1).padStart(2, '0')}</span><strong>{step}</strong></li>)}
+    </ol>
+  </LessonSection>
+
+  <LessonSection id="section-16" number="16" title="반복 종료 기준" lessonId={lessonId}>
+    <blockquote class="boundary-box boundary-box--plain">AI가 “완벽합니다”라고 말하는 것을 종료조건으로 사용하지 않는다.</blockquote>
+    <ul class="check-grid check-grid--stop" data-lesson11-loop-stop>
+      {loopStopChecks.map((item) => <li><span aria-hidden="true">□</span><strong>{item}</strong></li>)}
+    </ul>
+  </LessonSection>
+
+  <LessonSection id="section-17" number="17" title="사람의 최종 검수" lessonId={lessonId}>
+    <div class="human-grid">
+      <ul>{humanReviewChecks.map((item) => <li>{item}</li>)}</ul>
+      <aside><span>FINAL HANDOFF</span><h3>필요한 사람에게 넘긴다.</h3><p>건축사, 관련 기술자, 발주처, 인허가 담당기관 등 실제 권한과 전문성을 가진 사람이 적용 여부와 최종 판단을 확인한다.</p></aside>
+    </div>
+  </LessonSection>
+
+  <LessonSection id="section-18" number="18" title="교차검증 개념 설명" lessonId={lessonId}>
+    <blockquote class="key-message">AI 두 개가 같은 답을 했다고 해서 사실이 되는 것이 아니다.</blockquote>
+    <div class="role-grid">
+      <article class="role-card role-card--a"><span>NOTEBOOKLM B</span><h3>첨부 Source 안에서 연결</h3><p>B00 + 공식 Source → 체크리스트 작성</p></article>
+      <article class="role-card"><span>GPT</span><h3>다른 경로로 독립 조사</h3><p>B00 + 체크리스트 → 공식 법규를 웹에서 다시 조사 → 오류·누락 검증</p></article>
+    </div>
+    <p class="final-boundary">교차검증은 AI끼리 답을 투표하는 과정이 아니다. 서로 다른 경로에서 근거를 확인하고, 최종 판단은 사람이 한다.</p>
+  </LessonSection>
+
+  <LessonSection id="section-19" number="19" title="3시간 수업 흐름과 마무리" lessonId={lessonId}>
+    <p class="section-lead">시간표보다 실습 순서 이해가 우선이다. 아래 시간은 180분 수업을 운영하기 위한 기준이며 실제 진행 상황에 맞게 조정할 수 있다.</p>
+    <div class="time-grid" aria-label="제11차시 180분 시간표">
+      {timePlan.map(({ label, minutes, mode }, index) => (
+        <article class:list={['time-card', `time-card--${mode}`]}><span>{String(index + 1).padStart(2, '0')}</span><strong>{label}</strong><small>{minutes}분</small></article>
+      ))}
+    </div>
+    <blockquote class="closing-message">자료를 정리하고, 근거를 찾고, 서로 다른 AI로 반복 검증하되 최종 판단은 사람이 한다.</blockquote>
+  </LessonSection>
+</div>
+
+<style>
+  .lesson11-cross-validation{--l11-ink:#23302b;--l11-accent:#b94f31;--l11-warm:#f5eee2;--l11-green:#eaf1ed;display:grid;min-width:0;max-width:100%;gap:0}.lesson11-cross-validation>:global(.lesson-section){min-width:0;max-width:100%}
+  .hero-card,.role-card,.definition-card,.prep-grid article,.official-grid article,.branch-card,.human-grid aside,.stage-banner{box-sizing:border-box;border:1px solid var(--line-dark);background:#fff;padding:clamp(1rem,2.5vw,1.6rem)}.hero-card{display:grid;gap:.8rem;background:linear-gradient(135deg,var(--l11-warm),#fff)}.hero-card h3,.hero-card p,.role-card h3,.role-card p,.definition-card h3,.definition-card p,.prep-grid h3,.prep-grid p,.official-grid h3,.official-grid p,.branch-card h3,.branch-card p,.human-grid h3,.human-grid p,.stage-banner p{margin:0}.hero-card h3{max-width:25ch;font-family:var(--serif);font-size:clamp(1.8rem,4vw,3rem);line-height:1.18;text-wrap:balance}.eyebrow,.role-card>span,.definition-card>span,.prep-grid article>span,.branch-card>span,.human-grid aside>span,.stage-banner>span{color:var(--l11-accent);font-size:.74rem;font-weight:900;letter-spacing:.12em}.key-message,.source-warning,.closing-message{margin:1.2rem 0;padding:1.15rem 1.35rem;border-left:5px solid var(--l11-accent);background:#fff0e8;font-size:clamp(1.05rem,2vw,1.28rem);font-weight:800;line-height:1.65}.source-warning{border:2px solid var(--l11-accent);text-align:center}.source-warning--small{font-size:1.05rem;text-align:left}.closing-message{margin-top:1.2rem;background:var(--l11-green)}
+  .workflow,.loop-flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.75rem;margin:1.2rem 0 0;padding:0;list-style:none}.workflow li,.loop-flow li{position:relative;display:grid;align-content:start;gap:.35rem;min-width:0;padding:1rem;border:1px solid var(--line-dark);background:#fff}.workflow li:not(:last-child)::after,.loop-flow li:not(:last-child)::after{content:'→';position:absolute;right:-.72rem;top:50%;z-index:1;padding:.1rem;color:var(--l11-accent);font-weight:900;background:var(--paper)}.workflow span,.loop-flow span,.risk-grid span{color:var(--l11-accent);font-size:.74rem;font-weight:900}.workflow strong,.loop-flow strong{line-height:1.45;word-break:keep-all}
+  .role-grid,.prep-grid,.official-grid,.branch-grid,.source-equation,.human-grid,.time-grid,.risk-grid{display:grid;gap:1rem;margin-top:1.2rem}.role-grid,.branch-grid,.source-equation,.human-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.prep-grid,.official-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.role-card,.definition-card,.prep-grid article,.official-grid article,.branch-card{display:grid;gap:.65rem}.role-card--a{background:var(--l11-green)}.role-card ul,.branch-card ol,.human-grid ul{margin:.3rem 0 0;padding-left:1.3rem;line-height:1.75}.definition-card{display:grid;gap:.6rem;background:var(--l11-warm)}
+  .check-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem;margin:1rem 0 0;padding:0;list-style:none}.check-grid li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.6rem;padding:1rem;border:1px solid var(--line-dark);background:#fff;line-height:1.55}.check-grid li span{color:var(--l11-accent);font-size:1.2rem}.check-grid--stop li{background:#f8f5ee}.service-note,.boundary-box,.plain-note,.section-lead,.loop-entry,.final-boundary{line-height:1.72}.service-note{margin-top:1rem;padding:1rem 1.2rem;border-left:4px solid var(--l11-ink);background:#eef3f0}.service-note p{margin:.35rem 0 0}.section-lead,.plain-note{margin:0 0 1rem;color:var(--muted)}
+  .prompt-context{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem;margin:1rem 0;padding:0}.prompt-context div{min-width:0;padding:.9rem;border:1px solid var(--line);background:#faf8f2}.prompt-context div:last-child{grid-column:1/-1;background:#fff0e8}.prompt-context dt{margin:0 0 .35rem;color:var(--l11-accent);font-size:.78rem;font-weight:900}.prompt-context dd{margin:0;line-height:1.65}.stage-banner{display:grid;gap:.45rem;margin-bottom:1rem;background:var(--l11-green)}
+  .flow-strip,.mini-flow,.input-pair,.role-legend{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.7rem;padding:1rem;border:1px solid var(--line-dark);background:#faf8f2;text-align:center}.official-grid{margin-bottom:0}.source-equation{align-items:stretch}.source-equation article{display:grid;align-content:center;gap:.4rem;padding:1.2rem;border:1px solid var(--line-dark);background:#fff;text-align:center}.source-equation article span{color:var(--l11-accent);font-size:.74rem;font-weight:900;letter-spacing:.1em}.source-equation>b{align-self:center;justify-self:center;font-size:1.5rem}.boundary-box{margin:1rem 0 0;padding:1.15rem 1.25rem;border-left:5px solid var(--l11-ink);background:var(--l11-green)}.boundary-box h3,.boundary-box p{margin:0}.boundary-box p{margin-top:.4rem}.boundary-box--plain{font-weight:800}.mini-flow{margin-top:.9rem;background:#fff}.role-legend{margin-bottom:1rem;justify-content:flex-start}.role-legend span{padding:.5rem .7rem;background:#fff}.input-pair{margin-bottom:1rem}.input-pair span{font-weight:800}
+  .risk-grid{grid-template-columns:repeat(auto-fit,minmax(11rem,1fr))}.risk-grid article{display:grid;gap:.4rem;padding:1rem;border-top:3px solid var(--l11-accent);background:#f8f5ee}.loop-entry{margin:1rem 0 0;padding:1rem;background:var(--l11-green)}.branch-card--legal{background:#fff0e8}.branch-card--project{background:var(--l11-green)}.loop-flow{grid-template-columns:repeat(4,minmax(0,1fr))}.human-grid ul{columns:2;column-gap:2rem;padding:1.2rem 1.2rem 1.2rem 2.4rem;border:1px solid var(--line-dark);background:#fff}.human-grid li{break-inside:avoid;margin-bottom:.5rem}.human-grid aside{display:grid;align-content:start;gap:.55rem;background:var(--l11-warm)}.final-boundary{margin:1rem 0 0;padding:1rem;border:1px dashed var(--line-dark);font-weight:800}
+  .time-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.time-card{display:grid;gap:.3rem;padding:1rem;border-top:3px solid var(--line-dark);background:#f8f5ee}.time-card span,.time-card small{color:var(--muted)}.time-card--practice{border-color:var(--l11-accent)}.time-card--review{border-color:#527064}
+  @media(max-width:980px){.workflow{grid-template-columns:repeat(2,minmax(0,1fr))}.workflow li::after{display:none}.prep-grid,.official-grid,.time-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.loop-flow{grid-template-columns:repeat(2,minmax(0,1fr))}.loop-flow li::after{display:none}}
+  @media(max-width:680px){.role-grid,.prep-grid,.official-grid,.branch-grid,.source-equation,.human-grid,.check-grid,.prompt-context,.time-grid,.loop-flow{grid-template-columns:minmax(0,1fr)}.workflow{grid-template-columns:minmax(0,1fr)}.source-equation>b{transform:rotate(90deg)}.flow-strip,.mini-flow,.input-pair{align-items:stretch;flex-direction:column}.flow-strip>span,.mini-flow>i{transform:rotate(90deg)}.prompt-context div:last-child{grid-column:auto}.human-grid ul{columns:1}.hero-card,.role-card,.definition-card,.prep-grid article,.official-grid article,.branch-card,.human-grid aside,.stage-banner{padding:1rem}}
+  @media print{.hero-card,.role-card,.definition-card,.prep-grid article,.official-grid article,.branch-card,.human-grid aside,.stage-banner,.prompt-context div,.workflow li,.loop-flow li,.check-grid li{break-inside:avoid;page-break-inside:avoid}.workflow{grid-template-columns:repeat(5,minmax(0,1fr))}.loop-flow,.time-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.workflow li::after,.loop-flow li::after{display:none}.prompt-context{grid-template-columns:repeat(2,minmax(0,1fr))}.source-equation>b{transform:none}}
+</style>

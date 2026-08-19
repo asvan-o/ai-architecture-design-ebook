@@ -23,7 +23,7 @@ export const lessonRoadmap: readonly LessonRoadmapItem[] = [
   { id: '08', day: 8, title: '제8차시 · Gaussian 결과 현실화와 AI 업스케일' },
   { id: '09', day: 9, title: '제9차시 · 3D 콘셉트 이미지에서 공간 관계 읽기와 2D 개념 조닝' },
   { id: '10', day: 10, title: '제10차시 · 프로젝트 Grounding과 AI 법규검토 준비' },
-  { id: '11', day: 11, title: '제11차시 · 2D 도면 기반 3D 콘셉트 시각화와 오류 탐지' },
+  { id: '11', day: 11, title: '제11차시 · AI 법규검토 반복 교차검증 실습' },
   { id: '12', day: 12, title: '제12차시 · 다차원 검증 체크리스트와 교차검증' },
   { id: '13', day: 13, title: '제13차시 · 제안서 고도화와 KPI·제출 패키지' },
   { id: '14', day: 14, title: '제14차시 · AI 공간디자인 콘셉트 제안서 롤플레잉 최종 발표' },

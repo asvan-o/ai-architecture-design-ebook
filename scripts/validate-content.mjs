@@ -32,6 +32,8 @@ const lessonEightSr1033ScriptPath = path.resolve('src/assets/lessons/08/openvino
 const lessonNineComponentPath = path.resolve('src/components/content/Lesson09SpatialZoning.astro');
 const lessonTenComponentPath = path.resolve('src/components/content/Lesson10GroundedLegalReview.astro');
 const lessonTenContentPath = path.resolve('src/lib/lesson10-grounded-legal-review.ts');
+const lessonElevenComponentPath = path.resolve('src/components/content/Lesson11LegalCrossValidation.astro');
+const lessonElevenContentPath = path.resolve('src/lib/lesson11-legal-cross-validation.ts');
 const approvedLessonThreeRfpSha256 =
   '95B9756FD818D8F86847CA72D1E094B9DD6C2E4B9D1DFBC029169D057E638C2E';
 const requiredIds = Array.from({ length: 14 }, (_, index) => String(index + 1).padStart(2, '0'));
@@ -49,7 +51,7 @@ const approvedLessons = [
   { title: '제8차시 · Gaussian 결과 현실화와 AI 업스케일', durationMinutes: 180 },
   { title: '제9차시 · 3D 콘셉트 이미지에서 공간 관계 읽기와 2D 개념 조닝', durationMinutes: 180 },
   { title: '제10차시 · 프로젝트 Grounding과 AI 법규검토 준비', durationMinutes: 180 },
-  { title: '제11차시 · 공간 이미지를 짧은 영상으로 만들기', durationMinutes: 180 },
+  { title: '제11차시 · AI 법규검토 반복 교차검증 실습', durationMinutes: 180 },
   { title: '제12차시 · AGY로 프로젝트 자료 구조 만들기', durationMinutes: 180 },
   { title: '제13차시 · AGY 기반 반복 점검과 제출 패키지 만들기', durationMinutes: 180 },
   { title: '제14차시 · AI 공간디자인 콘셉트 패키지 완성', durationMinutes: 360 },
@@ -65,7 +67,7 @@ const approvedRoadmapTitles = [
   '제8차시 · Gaussian 결과 현실화와 AI 업스케일',
   '제9차시 · 3D 콘셉트 이미지에서 공간 관계 읽기와 2D 개념 조닝',
   '제10차시 · 프로젝트 Grounding과 AI 법규검토 준비',
-  '제11차시 · 2D 도면 기반 3D 콘셉트 시각화와 오류 탐지',
+  '제11차시 · AI 법규검토 반복 교차검증 실습',
   '제12차시 · 다차원 검증 체크리스트와 교차검증',
   '제13차시 · 제안서 고도화와 KPI·제출 패키지',
   '제14차시 · AI 공간디자인 콘셉트 제안서 롤플레잉 최종 발표',
@@ -150,6 +152,7 @@ const detailedLessonSections = {
   '08': ['차시 소개', '제7차시 결과와 오늘의 목표', '오늘의 전체 워크플로우', 'Gaussian 결과에서 이미지 시점 선택', 'Gaussian 결과를 현실적인 건축 이미지로 변환', 'GPT · Gemini · 유료 보조 도구 결과 비교', '결과 비교 기준과 최종 후보 선택', '선택 결과 부분 보정', 'Upscale이란?', 'Resize · 일반 AI SR · OpenVINO SR1033', 'Upscale의 장점·한계와 Hallucination', '평면도 Before · After 실제 비교', 'ComfyUI Upscale 실습', 'OpenVINO CPU 기반 AI 업스케일', '실습 · SR1033 CPU 환경 구축과 실행', '저사양 PC 대안 · Hugging Face Web Upscale', '동일 원본 비교와 HITL 검수', '최종 결과 정리와 다음 차시 연결'],
   '09': ['차시 소개', '제8차시 복습과 오늘의 질문', '오늘의 전체 워크플로우', '원자료를 먼저 분석하는 이유', 'NotebookLM 원본 평면도 분석', '도면 기준표와 사람이 정리한 입력자료', 'GPT Top View 3D 생성', '원도면과 Top View 3D 검토', '공간 기능·공간 인접 관계·주요 동선 분석', 'NotebookLM 분석 결과 검증', 'Graphviz(DOT) 구조화 데이터 만들기', '2D 공간 관계 다이어그램 시각화', '공간 관계 다이어그램 읽기', '공간 관계에서 개념 조닝으로', 'GPT 개념 조닝 · 구조 확인 후 제작', '결과 정리와 제10차시 연결'],
   '10': ['차시 소개', '실습 프로젝트와 정보 혼합 위험', '왜 NotebookLM을 A와 B로 나누는가', '이번 차시의 두 결과물', 'Notebook A · 프로젝트 원자료의 역할 확인', 'Notebook A · 프로젝트 조건 기준서 만들기', '반드시 잡아야 할 오류와 과도한 해석', 'Project Grounded Reference 결과 예시', 'Notebook B · 현재 자료로 가능한 검토 범위 묻기', 'NotebookLM 분석을 ChatGPT로 교차검증', '공식 Source를 단계적으로 보강하기', 'AI 법규검토 체크리스트 결과 예시', '다음 차시 · 실제 설계자료와 대조'],
+  '11': ['지난 시간 워크플로우 복습', 'NotebookLM A 역할 복습', 'B00 상태 확인', 'GPT 법규검토 프로젝트 준비', 'GPT 역할 설정 프롬프트', 'B00 기반 법규 Research', '공식 Source 확보', 'NotebookLM B Source 구성', 'NotebookLM B 1차 체크리스트 생성 프롬프트', '왜 다시 GPT로 검증하는가', 'GPT 독립 교차검증', '교차검증 결과 분기', 'NotebookLM B 보완 프롬프트', 'GPT 재검증 프롬프트', '반복형 교차검증 루프', '반복 종료 기준', '사람의 최종 검수', '교차검증 개념 설명', '3시간 수업 흐름과 마무리'],
 };
 const lessonThreeFourOutputs = ['요구조건 매트릭스', '발주기관 추가 질의', '디자인 브리프', '평면도 기반 현황 이미지 생성 결과', '현황 이미지 수정 결과', '평면도와 이미지의 불일치 기록', '제4차시 대안 평가기준'];
 
@@ -514,6 +517,10 @@ for (const fileName of files) {
   } else if (id === '10') {
     if (!source.includes('<Lesson10GroundedLegalReview')) {
       errors.push(`${fileName}: 제10차시 전용 프로젝트 Grounding·법규검토 준비 레이아웃이 없습니다.`);
+    }
+  } else if (id === '11') {
+    if (!source.includes('<Lesson11LegalCrossValidation')) {
+      errors.push(`${fileName}: 제11차시 전용 법규검토 반복 교차검증 레이아웃이 없습니다.`);
     }
   } else if (!source.includes('<LessonOutline')) {
     errors.push(`${fileName}: LessonOutline 골격이 없습니다.`);
@@ -1136,13 +1143,79 @@ for (const fileName of files) {
       }
     }
   }
+  if (id === '11') {
+    let lessonElevenComponent = '';
+    let lessonElevenContent = '';
+    try { lessonElevenComponent = await readFile(lessonElevenComponentPath, 'utf8'); }
+    catch { errors.push('제11차시 법규검토 반복 교차검증 컴포넌트를 읽을 수 없습니다.'); }
+    try { lessonElevenContent = await readFile(lessonElevenContentPath, 'utf8'); }
+    catch { errors.push('제11차시 법규검토 반복 교차검증 콘텐츠 데이터를 읽을 수 없습니다.'); }
+
+    for (const marker of [
+      'data-lesson11-cross-validation',
+      '자료를 정리하고, 근거를 찾고, 서로 다른 AI로 반복 검증하되 최종 판단은 사람이 한다.',
+      'NotebookLM A는 법규 판단용 Notebook이 아니다.',
+      'B00은 법규가 아니라 프로젝트 조건의 기준점이다.',
+      'GPT 답변 ≠ 법적 근거 Source',
+      '왜 원자료 전체를 다시 넣지 않는가',
+      '법규 문제',
+      '프로젝트 사실 문제',
+      'AI 두 개가 같은 답을 했다고 해서 사실이 되는 것이 아니다.',
+      '무료 계정은 파일 업로드 및 사용량에 제한이 있을 수 있으므로 핵심 파일 중심으로 작업합니다.',
+      'data-lesson11-b00-checks',
+      'data-lesson11-loop-stop',
+    ]) {
+      if (!source.includes(marker) && !lessonElevenComponent.includes(marker) && !lessonElevenContent.includes(marker)) {
+        errors.push(`제11차시 법규검토 반복 교차검증 콘텐츠에 '${marker}'가 없습니다.`);
+      }
+    }
+
+    const lessonElevenPromptIds = [
+      'lesson11-prompt-01',
+      'lesson11-prompt-02',
+      'lesson11-prompt-03',
+      'lesson11-prompt-04',
+      'lesson11-prompt-05',
+      'lesson11-prompt-06',
+    ];
+    for (const promptId of lessonElevenPromptIds) {
+      if (!lessonElevenContent.includes(`id: '${promptId}'`) || !lessonElevenComponent.includes(`'${promptId}'`)) {
+        errors.push(`제11차시 PromptCopyBlock 데이터 또는 연결 ${promptId}가 없습니다.`);
+      }
+    }
+    const lessonElevenPromptCount = [...lessonElevenContent.matchAll(/id: 'lesson11-prompt-\d{2}'/g)].length;
+    if (lessonElevenPromptCount !== 6) {
+      errors.push(`제11차시 PromptCopyBlock: 예상 6개, 실제 ${lessonElevenPromptCount}개`);
+    }
+    const lessonElevenTimeTotal = [...lessonElevenContent.matchAll(/minutes:\s*(\d+)/g)]
+      .reduce((total, match) => total + Number(match[1]), 0);
+    if (lessonElevenTimeTotal !== 180) {
+      errors.push(`제11차시 시간표: 예상 180분, 실제 ${lessonElevenTimeTotal}분`);
+    }
+    for (const status of ['확정', '계획조건', '미확정', '추가 확인 필요']) {
+      if (!lessonElevenComponent.includes(status) && !lessonElevenContent.includes(status)) {
+        errors.push(`제11차시 B00 상태 '${status}'가 없습니다.`);
+      }
+    }
+    for (const forbiddenMarker of [
+      'C:\\Users\\',
+      'file://',
+      '<a download',
+      '법적 적합성을 자동 판정',
+      '최종 법적 적합성을 확정합니다',
+    ]) {
+      if (source.includes(forbiddenMarker) || lessonElevenComponent.includes(forbiddenMarker) || lessonElevenContent.includes(forbiddenMarker)) {
+        errors.push(`제11차시 학생용 콘텐츠에 금지 표현·경로·다운로드 '${forbiddenMarker}'가 있습니다.`);
+      }
+    }
+  }
   if (source.includes("category: '전문가 판단 필요'")) {
     errors.push(
       `${fileName}: 포괄적인 '전문가 판단 필요' 대신 구체적인 판단·검증 분류를 사용해야 합니다.`,
     );
   }
 
-  if (!isDetailedLessonOne && !['06', '07', '08', '09', '10'].includes(id)) {
+  if (!isDetailedLessonOne && !['06', '07', '08', '09', '10', '11'].includes(id)) {
     const structuralCategoryChecks = [
       { property: 'goals', nextProperty: 'concepts', expected: '학습 목표' },
       { property: 'deliverables', nextProperty: 'judgments', expected: '수업 산출물' },
@@ -1579,7 +1652,7 @@ console.log('- day: 1–14 누락·중복 없음');
 console.log('- ID/day 일치');
 console.log('- 승인된 제목·수업시간 일치');
 console.log('- 승인된 상위 주제 7개·차시 연결 14개 일치');
-console.log('- 제1차시 16개, 제2차시 13개, 제3차시 11개, 제4–6차시 14개, 제7차시 27개, 제8차시 18개, 제9차시 16개, 제10–14차시 13개 섹션');
+console.log('- 제1차시 16개, 제2차시 13개, 제3차시 11개, 제4–6차시 14개, 제7차시 27개, 제8차시 18개, 제9차시 16개, 제10차시 13개, 제11차시 19개, 제12–14차시 13개 섹션');
 console.log('- 모든 차시 실습시간 50% 이상');
 console.log(`- 자산 manifest: ${manifestAssetIds.length}개, 필수 필드·연결 ID·공개 조건 확인`);
 console.log(`- 필수 metadata: ${requiredFields.join(', ')}`);
