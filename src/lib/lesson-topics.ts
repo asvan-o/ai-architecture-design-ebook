@@ -24,9 +24,9 @@ export const lessonRoadmap: readonly LessonRoadmapItem[] = [
   { id: '09', day: 9, title: '제9차시 · 3D 콘셉트 이미지에서 공간 관계 읽기와 2D 개념 조닝' },
   { id: '10', day: 10, title: '제10차시 · 프로젝트 Grounding과 AI 법규검토 준비' },
   { id: '11', day: 11, title: '제11차시 · AI 법규검토 반복 교차검증 실습' },
-  { id: '12', day: 12, title: '제12차시 · 다차원 검증 체크리스트와 교차검증' },
-  { id: '13', day: 13, title: '제13차시 · 제안서 고도화와 KPI·제출 패키지' },
-  { id: '14', day: 14, title: '제14차시 · AI 공간디자인 콘셉트 제안서 롤플레잉 최종 발표' },
+  { id: '12', day: 12, title: '제12차시 · 실무 프로젝트 정의와 포트폴리오 자료 구성' },
+  { id: '13', day: 13, title: '제13차시 · AI 포트폴리오 표지 페이지 제작 실습' },
+  { id: '14', day: 14, title: '제14차시 · 결과보고서와 최종 제출 패키지 완성' },
 ] as const;
 
 export const lessonTopics: readonly LessonTopicSummary[] = [
@@ -64,15 +64,15 @@ export const lessonTopics: readonly LessonTopicSummary[] = [
   },
   {
     number: '6',
-    title: 'AI 생성 결과물 다차원 실무 검증 및 제안서 고도화',
-    subtitle: '(결과물 검증과 제안서 완성)',
+    title: '실무 데이터 기반 AI 포트폴리오 프로젝트 정의 및 제작',
+    subtitle: '(프로젝트 자료 구성과 포트폴리오 제작)',
     lessonIds: ['12', '13'],
     lessonCount: 2,
   },
   {
     number: '7',
-    title: '실무 검증형 설계 제안서 롤플레잉 최종 발표 및 수료',
-    subtitle: '(최종 제안과 발표)',
+    title: '결과보고서·최종 제출 패키지 완성 및 발표',
+    subtitle: '(과정 기록과 최종 발표)',
     lessonIds: ['14'],
     lessonCount: 1,
   },

@@ -1,0 +1,118 @@
+---
+import { Image } from 'astro:assets';
+import PromptCopyBlock from './PromptCopyBlock.astro';
+import {
+  commonGeometryPrompt,
+  furnitureChangePrompt,
+  materialChangePrompt,
+  materialKeywordGroups,
+  promptCompositionFormula,
+} from '../../lib/lesson12-14-portfolio-project';
+
+import original from '../../assets/lessons/12-14/material-furniture/house-front/house-front-00-original.jpeg';
+import corten from '../../assets/lessons/12-14/material-furniture/house-front/house-front-01-corten.jpeg';
+import suvMailbox from '../../assets/lessons/12-14/material-furniture/house-front/house-front-02-suv-mailbox.jpeg';
+import autumn from '../../assets/lessons/12-14/material-furniture/house-front/house-front-03-autumn.jpeg';
+import winter from '../../assets/lessons/12-14/material-furniture/house-front/house-front-04-winter.jpeg';
+import cameraShift from '../../assets/lessons/12-14/material-furniture/house-front/house-front-05-camera.jpeg';
+import pencil from '../../assets/lessons/12-14/material-furniture/house-front/house-front-06-pencil.jpeg';
+import houseFrontPrompts from '../../assets/lessons/12-14/material-furniture/house-front/house-front-prompts.txt?raw';
+
+interface Props {
+  headingLevel?: 'h2' | 'h3';
+  showExampleGallery?: boolean;
+}
+
+const { headingLevel = 'h3', showExampleGallery = true } = Astro.props;
+const Heading = headingLevel;
+const exampleImages = [
+  { src: original, step: 'SOURCE', title: '주택 정면 원본', caption: '건축 구조와 시점의 기준 이미지' },
+  { src: corten, step: '01', title: '외벽 재질 변경', caption: '정면 목재 영역을 코르텐강 재질로 변경' },
+  { src: suvMailbox, step: '02', title: '차량·우편함 변경', caption: '오른쪽 차량을 SUV로 바꾸고 흰색 우편함 추가' },
+  { src: autumn, step: '03', title: '가을 골든아워', caption: '환경 조건만 가을 골든아워로 변경' },
+  { src: winter, step: '04', title: '겨울 이른 아침', caption: '약 3cm 적설을 포함한 겨울 이른 아침으로 변경' },
+  { src: cameraShift, step: '04→05', title: '카메라 위치 변경', caption: '겨울 결과를 기준으로 우편함 뒤 아이레벨·50mm 시점 적용' },
+  { src: pencil, step: '04→06', title: '표현 방식 변경', caption: '겨울 결과를 기준으로 연필 스케치 표현 적용' },
+] as const;
+---
+
+<div class="material-prompt-library" data-material-furniture-prompt-library>
+  <header class="library-head">
+    <p>VERIFIED SOURCE · MATERIAL · FURNITURE · CAMERA · RENDERING</p>
+    <Heading>재질 및 가구 프롬프트 라이브러리</Heading>
+    <span>원본을 고정하고 한 번에 1~3개의 변경 요소만 선택하는 실무용 구성이다.</span>
+  </header>
+
+  <div class="purpose-grid">
+    {['재질 표현', '가구 스타일 표현', '공간 분위기 강화', '렌더링 디테일 변경'].map((item, index) => <article><span>{String(index + 1).padStart(2, '0')}</span><strong>{item}</strong></article>)}
+  </div>
+
+  <section class="formula-card" aria-label="프롬프트 조합 공식">
+    <span>BASIC FORMULA</span>
+    <strong>{promptCompositionFormula}</strong>
+    <p>네 개 이상을 한 번에 바꾸기보다 작업을 나누고, 카메라 변경은 다른 디자인 변경과 분리한다.</p>
+  </section>
+
+  <div class="keyword-groups">
+    {materialKeywordGroups.map((group) => (
+      <section><h4>{group.label}</h4><ul>{group.items.map((item) => <li>{item}</li>)}</ul></section>
+    ))}
+  </div>
+
+  <div class="prompt-stack">
+    <PromptCopyBlock
+      id="material-library-common-geometry"
+      title="원본 구조 고정 명령"
+      description="변경 명령 앞뒤에 두어 원본 구조와 명시하지 않은 영역을 보호한다."
+      prompt={commonGeometryPrompt}
+    />
+    <PromptCopyBlock
+      id="material-library-material-change"
+      title="재질 변경 범용 명령"
+      description="대상 영역과 목표 재질을 구체적으로 붙여 사용한다."
+      prompt={materialChangePrompt}
+    />
+    <PromptCopyBlock
+      id="material-library-furniture-change"
+      title="가구·스타일링 범용 명령"
+      description="가구 종류·스타일·재질·배치 목적 중 필요한 조건을 조합한다."
+      prompt={furnitureChangePrompt}
+    />
+    <PromptCopyBlock
+      id="material-library-house-front-sequence"
+      title="실제 주택 정면 단계별 프롬프트"
+      description="재질, 차량·우편함, 계절·시간, 카메라와 표현 방식을 나누어 적용한 실제 예시 원문이다."
+      prompt={houseFrontPrompts}
+      showBody={false}
+      label="전체 원문 복사"
+    />
+  </div>
+
+  {showExampleGallery && (
+    <section class="example-section" aria-label="주택 정면 프롬프트 실제 결과">
+      <h4>주택 정면 · 실제 단계별 시각 예시</h4>
+      <p>05와 06은 서로 이어지는 단계가 아니라 04 겨울 결과에서 갈라진 두 개의 별도 실험이다.</p>
+      <div class="example-gallery">
+        {exampleImages.map((item) => (
+          <figure>
+            <Image src={item.src} alt={`${item.title} 수업 예시`} widths={[420, 720]} sizes="(max-width: 700px) 92vw, 30vw" loading="lazy" />
+            <figcaption><span>{item.step}</span><strong>{item.title}</strong><small>{item.caption}</small></figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <aside class="library-boundary">
+    <strong>결과 검토</strong>
+    <p>프롬프트에 “유지”를 적어도 결과가 완전히 보장되지는 않는다. 창호·벽체·차량·조경처럼 변경하지 않은 요소도 원본과 다시 비교한다.</p>
+  </aside>
+</div>
+
+<style>
+  .material-prompt-library{--mpl-ink:#26322e;--mpl-accent:#a84930;--mpl-warm:#f4eadc;display:grid;gap:1.2rem;min-width:0;max-width:100%}.library-head{display:grid;gap:.55rem;padding:clamp(1.1rem,3vw,1.8rem);border:1px solid var(--line-dark);background:linear-gradient(135deg,var(--mpl-warm),#fff)}.library-head p,.library-head h2,.library-head h3,.library-head span{margin:0}.library-head p{color:var(--mpl-accent);font-size:.74rem;font-weight:900;letter-spacing:.12em}.library-head h2,.library-head h3{font-family:var(--serif);font-size:clamp(1.7rem,3.5vw,2.7rem);line-height:1.2}.library-head span{color:var(--muted);line-height:1.7}
+  .purpose-grid,.keyword-groups,.example-gallery{display:grid;gap:1rem}.purpose-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.purpose-grid article{display:grid;gap:.35rem;padding:1rem;border-top:3px solid var(--mpl-accent);background:#fff}.purpose-grid span{color:var(--mpl-accent);font-size:.74rem;font-weight:900}.formula-card{display:grid;gap:.45rem;padding:1.2rem;border:1px solid var(--line-dark);background:var(--mpl-ink);color:#fff}.formula-card span{color:#f1b29f;font-size:.74rem;font-weight:900;letter-spacing:.1em}.formula-card strong{font-size:clamp(1.05rem,2vw,1.3rem)}.formula-card p{margin:0;color:#dce3df;line-height:1.65}
+  .keyword-groups{grid-template-columns:repeat(2,minmax(0,1fr))}.keyword-groups section{padding:1rem;border:1px solid var(--line-dark);background:#fff}.keyword-groups h4{margin:0 0 .75rem;font-family:var(--serif);font-size:1.25rem}.keyword-groups ul{display:flex;flex-wrap:wrap;gap:.45rem;margin:0;padding:0;list-style:none}.keyword-groups li{padding:.4rem .55rem;border:1px solid var(--line);background:#faf8f2;font-size:.9rem}.prompt-stack{display:grid;gap:1rem}.example-section>h4,.example-section>p{margin:0}.example-section>h4{font-family:var(--serif);font-size:1.4rem}.example-section>p{margin-top:.4rem;color:var(--muted);line-height:1.6}.example-gallery{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:1rem}.example-gallery figure{display:grid;min-width:0;margin:0;border:1px solid var(--line-dark);background:#fff;overflow:hidden}.example-gallery :global(img){display:block;width:100%;height:clamp(18rem,34vw,30rem);object-fit:contain;background:#f5f3ed}.example-gallery figcaption{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.3rem .6rem;padding:.85rem}.example-gallery figcaption span{grid-row:1/3;color:var(--mpl-accent);font-size:.72rem;font-weight:900}.example-gallery figcaption small{color:var(--muted);line-height:1.5}.library-boundary{padding:1rem 1.2rem;border-left:5px solid var(--mpl-accent);background:#fff0e8}.library-boundary p{margin:.35rem 0 0;line-height:1.7}
+  @media(max-width:760px){.purpose-grid,.keyword-groups,.example-gallery{grid-template-columns:minmax(0,1fr)}.example-gallery :global(img){height:auto;max-height:30rem}}
+  @media print{.library-head,.purpose-grid article,.formula-card,.keyword-groups section,.example-gallery figure,.library-boundary{break-inside:avoid;page-break-inside:avoid}.purpose-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.keyword-groups{grid-template-columns:repeat(2,minmax(0,1fr))}.example-gallery{grid-template-columns:repeat(3,minmax(0,1fr))}.example-gallery :global(img){height:54mm}}
+</style>

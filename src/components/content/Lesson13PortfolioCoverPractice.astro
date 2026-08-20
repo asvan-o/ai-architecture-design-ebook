@@ -1,0 +1,199 @@
+---
+import { Image } from 'astro:assets';
+import LessonSection from './LessonSection.astro';
+import MaterialFurniturePromptLibrary from './MaterialFurniturePromptLibrary.astro';
+import PromptCopyBlock from './PromptCopyBlock.astro';
+import {
+  coverReviewChecks,
+  coverTextFields,
+  lesson13TimePlan,
+} from '../../lib/lesson12-14-portfolio-project';
+
+import logo from '../../assets/lessons/12-14/portfolio-cover/inputs/01-logo.png';
+import house from '../../assets/lessons/12-14/portfolio-cover/inputs/02-house.png';
+import kitchenSection from '../../assets/lessons/12-14/portfolio-cover/inputs/03-kitchen-section.jpeg';
+import kitchenDining from '../../assets/lessons/12-14/portfolio-cover/inputs/04-kitchen-dining.jpeg';
+import cover01 from '../../assets/lessons/12-14/portfolio-cover/results/cover-result-01.jpeg';
+import cover02 from '../../assets/lessons/12-14/portfolio-cover/results/cover-result-02.jpeg';
+import cover03 from '../../assets/lessons/12-14/portfolio-cover/results/cover-result-03.jpeg';
+import cover04 from '../../assets/lessons/12-14/portfolio-cover/results/cover-result-04.jpeg';
+import cover05 from '../../assets/lessons/12-14/portfolio-cover/results/cover-result-05.jpeg';
+import cover06 from '../../assets/lessons/12-14/portfolio-cover/results/cover-result-06.jpeg';
+import cover07 from '../../assets/lessons/12-14/portfolio-cover/results/cover-result-07.jpeg';
+import cover08 from '../../assets/lessons/12-14/portfolio-cover/results/cover-result-08.jpeg';
+import cover09 from '../../assets/lessons/12-14/portfolio-cover/results/cover-result-09.jpeg';
+import cover10 from '../../assets/lessons/12-14/portfolio-cover/results/cover-result-10.jpeg';
+import coverTemplatePrompt from '../../assets/lessons/12-14/portfolio-cover/prompts/nano-banana-cover-template.txt?raw';
+import coverUsedPrompt from '../../assets/lessons/12-14/portfolio-cover/prompts/nano-banana-cover-used.txt?raw';
+import coverTextReviewPrompt from '../../assets/lessons/12-14/portfolio-cover/prompts/gpt-cover-text-review.txt?raw';
+
+interface Props {
+  lessonId?: string;
+  timePlan?: typeof lesson13TimePlan;
+}
+
+const { lessonId = '13', timePlan = lesson13TimePlan } = Astro.props;
+const totalMinutes = timePlan.reduce((sum, item) => sum + item.minutes, 0);
+const inputImages = [
+  { src: logo, label: 'LOGO', title: '01_LOGO.png', caption: '브랜드·디자이너 식별용 로고 원본' },
+  { src: house, label: 'PROJECT IMAGE', title: 'house.png', caption: '주택 외관 대표 이미지' },
+  { src: kitchenSection, label: 'PROJECT IMAGE', title: '주방 단독 이미지', caption: '수직형 주방·아일랜드 이미지' },
+  { src: kitchenDining, label: 'PROJECT IMAGE', title: '주방·다이닝 이미지', caption: '수직형 주방·다이닝 공간 이미지' },
+] as const;
+const coverResults = [cover01, cover02, cover03, cover04, cover05, cover06, cover07, cover08, cover09, cover10];
+---
+
+<div class="lesson13-cover" data-lesson13-cover-practice>
+  <LessonSection id="section-01" number="01" title="차시 소개 · 실제 Source로 표지 한 페이지를 만든다" {lessonId}>
+    <div class="cover-hero">
+      <p>LESSON 13 · PORTFOLIO COVER · REAL SOURCE</p>
+      <h3>페이지의 목적과 입력자료를 정한 뒤 이미지 생성과 텍스트 검증을 분리한다.</h3>
+      <span>이번 차시의 실제 예시는 디자인 포트폴리오의 표지 1페이지다. 준비되지 않은 후속 페이지나 다른 분야의 결과물을 실제 예시처럼 만들지 않는다.</span>
+    </div>
+  </LessonSection>
+
+  <LessonSection id="section-02" number="02" title="오늘 만들 결과와 전체 흐름" {lessonId}>
+    <div class="flow-strip" aria-label="디자인 포트폴리오 표지 제작 흐름">
+      {['정보·이미지 준비', 'Nano Banana 페이지 생성', '결과 확인', 'GPT 텍스트 검수', '최종 페이지 선택'].map((item, index) => <><span>{item}</span>{index < 4 && <b>→</b>}</>)}
+    </div>
+    <blockquote class="key-message">포트폴리오 페이지 제작은 이미지 생성과 텍스트 교정을 분리해서 진행합니다.</blockquote>
+  </LessonSection>
+
+  <LessonSection id="section-03" number="03" title="STEP 1 · 이 페이지의 목적" {lessonId}>
+    <div class="purpose-grid">
+      {[
+        ['첫인상', '프로젝트의 성격과 분위기를 첫 화면에서 전달한다.'],
+        ['프로젝트명', '가장 먼저 읽어야 할 제목을 분명하게 배치한다.'],
+        ['로고·정보', '로고와 디자이너·회사 정보를 원본 형태로 표시한다.'],
+        ['대표 이미지', '프로젝트를 설명하는 실제 입력 이미지의 비중을 결정한다.'],
+      ].map(([title, description], index) => <article><span>{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{description}</p></article>)}
+    </div>
+  </LessonSection>
+
+  <LessonSection id="section-04" number="04" title="STEP 2 · 준비할 입력자료" {lessonId}>
+    <div class="input-gallery">
+      {inputImages.map((item) => (
+        <figure>
+          <Image src={item.src} alt={item.caption} widths={[480, 800]} sizes="(max-width: 720px) 92vw, 42vw" loading="lazy" />
+          <figcaption><span>{item.label}</span><strong>{item.title}</strong><small>{item.caption}</small></figcaption>
+        </figure>
+      ))}
+    </div>
+    <p class="source-note">입력자료 폴더에는 위 4개 이미지가 있다. 프롬프트가 각 이미지에 부여한 역할과 실제 파일을 함께 확인하고, 파일 이름만 보고 역할을 추정하지 않는다.</p>
+  </LessonSection>
+
+  <LessonSection id="section-05" number="05" title="STEP 3 · 페이지에 들어갈 실제 문구" {lessonId}>
+    <div class="text-source-note"><strong>텍스트 폴더 확인 결과 · 파일 0개</strong><p>별도 텍스트 파일은 없었다. 아래 네 문구는 실제 사용 프롬프트에서 직접 확인한 값이며, 없는 설명 문구나 키워드를 추가하지 않는다.</p></div>
+    <dl class="text-fields">
+      {coverTextFields.map(([label, value]) => <div><dt>{label}</dt><dd>{value}</dd></div>)}
+    </dl>
+  </LessonSection>
+
+  <LessonSection id="section-06" number="06" title="STEP 4 · Nano Banana 예시 프롬프트" {lessonId}>
+    <p class="section-lead">프로젝트 유형·제목·부제·디자이너 정보를 바꾸어 쓸 수 있는 9:16 세로형 표지 템플릿이다. 공통 디자인 시스템, 배경, 타이포그래피, 색상, 그리드, 이미지와 로고 보호 조건을 한 번에 정의한다.</p>
+    <PromptCopyBlock
+      id="lesson13-cover-template-prompt"
+      title="디자인 포트폴리오 표지 · 범용 템플릿"
+      description="실제 Source의 예시_프롬프트.txt 전체 원문"
+      prompt={coverTemplatePrompt}
+      showBody={false}
+      label="템플릿 전체 복사"
+    />
+  </LessonSection>
+
+  <LessonSection id="section-07" number="07" title="STEP 5 · Nano Banana 실제 사용 프롬프트" {lessonId}>
+    <p class="section-lead">범용 템플릿의 자리표시자를 실제 프로젝트 정보로 바꾸고, K-PROJECT 표지의 제목 위계와 최종 목적을 구체화한 버전이다.</p>
+    <div class="prompt-diff">
+      <article><span>범용</span><strong>[프로젝트 유형]</strong><strong>[프로젝트명]</strong><strong>[부제]</strong><strong>[디자이너·회사]</strong></article>
+      <b>→</b>
+      <article><span>실제 사용</span><strong>ARCHITECTURE DESIGN</strong><strong>K-PROJECT</strong><strong>Architecture, Interior</strong><strong>KS / ASVAN</strong></article>
+    </div>
+    <PromptCopyBlock
+      id="lesson13-cover-used-prompt"
+      title="K-PROJECT 표지 · 실제 사용 프롬프트"
+      description="실제 Source의 사용한 프롬프트.txt 전체 원문"
+      prompt={coverUsedPrompt}
+      showBody={false}
+      label="실제 원문 전체 복사"
+    />
+  </LessonSection>
+
+  <LessonSection id="section-08" number="08" title="STEP 6 · 실제 생성 결과" {lessonId}>
+    <div class="result-boundary"><strong>실제 생성 시안 10개</strong><p>파일명과 생성 시각만으로 특정 프롬프트 실행이나 수정 순서를 1:1로 확정할 수 없어, 전후 단계가 아닌 후보 시안으로 비교한다.</p></div>
+    <div class="cover-gallery">
+      {coverResults.map((src, index) => (
+        <figure>
+          <Image src={src} alt={`디자인 포트폴리오 표지 실제 생성 시안 ${index + 1}`} widths={[360, 560]} sizes="(max-width: 720px) 78vw, 24vw" loading="lazy" />
+          <figcaption>실제 생성 시안 {String(index + 1).padStart(2, '0')}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </LessonSection>
+
+  <LessonSection id="section-09" number="09" title="STEP 7 · 생성 결과 확인 포인트" {lessonId}>
+    <ul class="review-grid">
+      {coverReviewChecks.map((item) => <li><span aria-hidden="true">□</span><strong>{item}</strong></li>)}
+    </ul>
+    <p class="source-note">시안 선택은 취향 투표가 아니다. 동일한 입력자료와 실제 문구를 기준으로 이미지 비중, 위계, 여백, 로고·텍스트 오류를 함께 비교한다.</p>
+  </LessonSection>
+
+  <LessonSection id="section-10" number="10" title="STEP 8 · GPT 텍스트 검증" {lessonId}>
+    <div class="gpt-boundary">
+      <article><span>INPUT</span><strong>표지 결과 이미지 + 실제 사용 프롬프트</strong></article>
+      <b>→</b>
+      <article><span>CHECK</span><strong>네 문구·이상 문자·로고·대표 이미지 변경 의심</strong></article>
+      <b>→</b>
+      <article><span>OUTPUT</span><strong>PASS / REVIEW / FAIL + 수정 지시</strong></article>
+    </div>
+    <p class="section-lead">Source 폴더에는 예시·사용 프롬프트 쌍이 아니라 검증용 프롬프트 1개만 있다. 이 프롬프트는 이미지를 다시 만들지 않고 원본 제작 프롬프트와 결과 이미지를 교차검증한다.</p>
+    <PromptCopyBlock
+      id="lesson13-cover-text-review-prompt"
+      title="GPT 표지 텍스트 검증 프롬프트"
+      description="검증용 프롬프트.txt 전체 원문 · 이미지 수정이 아닌 검토 단계"
+      prompt={coverTextReviewPrompt}
+      showBody={false}
+      label="검증 원문 전체 복사"
+    />
+  </LessonSection>
+
+  <LessonSection id="section-11" number="11" title="STEP 9 · 표지 제작 Workflow 정리" {lessonId}>
+    <ol class="workflow" aria-label="표지 제작 최종 워크플로우">
+      {['페이지에 들어갈 정보 및 이미지 준비', 'Nano Banana · 페이지 이미지 생성', '생성 결과 확인', 'GPT · 텍스트 검수·교정', '최종 포트폴리오 페이지'].map((item, index) => <li><span>{String(index + 1).padStart(2, '0')}</span><strong>{item}</strong></li>)}
+    </ol>
+    <p class="source-note">GPT 검증에서 오류를 찾았더라도 결과 전체를 무조건 다시 만들지 않는다. 수정할 문구나 영역을 먼저 특정하고, 로고와 프로젝트 이미지를 보호한다.</p>
+  </LessonSection>
+
+  <LessonSection id="section-12" number="12" title="재질 및 가구 프롬프트 라이브러리" {lessonId}>
+    <MaterialFurniturePromptLibrary headingLevel="h3" />
+  </LessonSection>
+
+  <LessonSection id="section-13" number="13" title="분야별 적용 방향과 Source 경계" {lessonId}>
+    <div class="application-grid">
+      <article><span>디자인·인테리어</span><p>표지 이후 공간 이미지·무드보드·재질·평면도·아이소메트릭을 프로젝트 Source가 준비된 순서로 확장한다.</p></article>
+      <article><span>설계사무소</span><p>디자인 브리프·분석·조닝·법규 요약·도면·투시도를 실제 근거와 공개 범위에 맞춰 선별한다.</p></article>
+      <article><span>기타 제안·전문건설</span><p>현황·문제·대안·Before·After·재료·적용 결과를 확인된 자료로 구성한다.</p></article>
+    </div>
+    <blockquote class="key-message key-message--small">현재 실제 페이지 예시는 디자인 포트폴리오 표지 하나뿐이다. 다른 분야는 구조 참고이며 실제 예제 페이지로 가장하지 않는다.</blockquote>
+  </LessonSection>
+
+  <LessonSection id="section-14" number="14" title="결과 정리와 180분 운영" {lessonId}>
+    <div class="deliverable-grid">
+      {['표지 후보와 선택 이유', '실제 사용 프롬프트', 'GPT 텍스트 검증 결과', '오류·수정·보류 기록', '결과보고서에 옮길 AI 활용 기록'].map((item) => <div><span aria-hidden="true">□</span><strong>{item}</strong></div>)}
+    </div>
+    <div class="time-grid" data-lesson13-time-total={totalMinutes}>
+      {timePlan.map(({ label, minutes, mode }, index) => <article class={`time-card time-card--${mode}`}><span>{String(index + 1).padStart(2, '0')}</span><strong>{label}</strong><small>{minutes}분</small></article>)}
+    </div>
+    <p class="time-total">총 {totalMinutes}분</p>
+  </LessonSection>
+</div>
+
+<style>
+  .lesson13-cover{--l13-ink:#26322e;--l13-accent:#a84930;--l13-warm:#f4eadc;--l13-green:#e9f0eb;display:grid;min-width:0;max-width:100%}.lesson13-cover>:global(.lesson-section){min-width:0;max-width:100%}.cover-hero{display:grid;gap:.75rem;padding:clamp(1.2rem,3vw,2rem);border:1px solid var(--line-dark);background:linear-gradient(135deg,var(--l13-warm),#fff)}.cover-hero p,.cover-hero h3,.cover-hero span{margin:0}.cover-hero p{color:var(--l13-accent);font-size:.74rem;font-weight:900;letter-spacing:.12em}.cover-hero h3{max-width:23ch;font-family:var(--serif);font-size:clamp(2rem,4vw,3.3rem);line-height:1.15}.cover-hero span{color:var(--muted);line-height:1.72}
+  .flow-strip,.prompt-diff,.gpt-boundary{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.75rem;padding:1rem;border:1px solid var(--line-dark);background:#faf8f2;text-align:center}.flow-strip span{font-weight:800}.flow-strip b,.prompt-diff>b,.gpt-boundary>b{color:var(--l13-accent)}.key-message{margin:1rem 0 0;padding:1.1rem 1.3rem;border-left:5px solid var(--l13-accent);background:#fff0e8;font-size:clamp(1.05rem,2vw,1.25rem);font-weight:800;line-height:1.65}.key-message--small{font-size:1.05rem}.purpose-grid,.input-gallery,.cover-gallery,.review-grid,.application-grid,.deliverable-grid,.time-grid{display:grid;gap:1rem}.purpose-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.purpose-grid article{display:grid;gap:.35rem;padding:1rem;border-top:3px solid var(--l13-accent);background:#fff}.purpose-grid span{color:var(--l13-accent);font-size:.74rem;font-weight:900}.purpose-grid h3,.purpose-grid p{margin:0}.purpose-grid p{color:var(--muted);line-height:1.55}
+  .input-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.input-gallery figure,.cover-gallery figure{display:grid;min-width:0;margin:0;border:1px solid var(--line-dark);background:#fff;overflow:hidden}.input-gallery :global(img){display:block;width:100%;height:clamp(17rem,34vw,29rem);object-fit:contain;background:#f4f1ea}.input-gallery figcaption{display:grid;gap:.25rem;padding:.8rem}.input-gallery figcaption span{color:var(--l13-accent);font-size:.72rem;font-weight:900}.input-gallery figcaption small{color:var(--muted)}.source-note,.section-lead,.result-boundary,.text-source-note{line-height:1.72}.source-note,.result-boundary,.text-source-note{margin:1rem 0 0;padding:1rem;border-left:5px solid var(--l13-accent);background:#fff0e8}.source-note p,.result-boundary p,.text-source-note p{margin:.3rem 0 0}.section-lead{margin:0 0 1rem}
+  .text-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem;margin:1rem 0 0}.text-fields div{padding:1rem;border:1px solid var(--line-dark);background:#fff}.text-fields dt{color:var(--l13-accent);font-size:.75rem;font-weight:900}.text-fields dd{margin:.35rem 0 0;font-size:1.1rem;font-weight:800}.prompt-diff{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);margin-bottom:1rem}.prompt-diff article{display:grid;gap:.35rem;padding:.8rem;background:#fff}.prompt-diff article span{color:var(--l13-accent);font-size:.74rem;font-weight:900}
+  .cover-gallery{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:1rem}.cover-gallery :global(img){display:block;width:100%;height:clamp(25rem,46vw,42rem);object-fit:contain;background:#f4f1ea}.cover-gallery figcaption{padding:.7rem;text-align:center;font-size:.85rem;font-weight:800}.review-grid{grid-template-columns:repeat(2,minmax(0,1fr));margin:0;padding:0;list-style:none}.review-grid li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.6rem;padding:1rem;border:1px solid var(--line-dark);background:#fff;line-height:1.55}.review-grid span{color:var(--l13-accent)}.gpt-boundary{display:grid;grid-template-columns:repeat(5,auto);margin-bottom:1rem}.gpt-boundary article{display:grid;gap:.35rem;padding:.8rem;background:#fff}.gpt-boundary article span{color:var(--l13-accent);font-size:.72rem;font-weight:900}
+  .workflow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.75rem;margin:0;padding:0;list-style:none}.workflow li{display:grid;gap:.45rem;padding:1rem;border-top:3px solid var(--l13-accent);background:#fff}.workflow span{color:var(--l13-accent);font-size:.74rem;font-weight:900}.application-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.application-grid article{padding:1rem;border:1px solid var(--line-dark);background:#fff}.application-grid span{font-weight:900}.application-grid p{margin:.4rem 0 0;color:var(--muted);line-height:1.65}.deliverable-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.deliverable-grid div{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.55rem;padding:.9rem;border:1px solid var(--line-dark);background:#fff}.deliverable-grid span{color:var(--l13-accent)}.time-grid{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:1.2rem}.time-card{display:grid;gap:.3rem;padding:1rem;border-top:3px solid var(--l13-ink);background:#f8f5ee}.time-card--practice{border-color:var(--l13-accent)}.time-card--review{border-color:#527064}.time-card span,.time-card small{color:var(--muted)}.time-total{text-align:right;font-weight:900}
+  @media(max-width:760px){.purpose-grid,.input-gallery,.cover-gallery,.review-grid,.application-grid,.deliverable-grid,.time-grid,.text-fields,.workflow{grid-template-columns:minmax(0,1fr)}.flow-strip,.gpt-boundary{align-items:stretch;grid-template-columns:minmax(0,1fr);flex-direction:column}.flow-strip b,.gpt-boundary>b{transform:rotate(90deg)}.prompt-diff{grid-template-columns:minmax(0,1fr)}.prompt-diff>b{transform:rotate(90deg)}.input-gallery :global(img){height:auto;max-height:30rem}.cover-gallery :global(img){height:auto;max-height:42rem}}
+  @media print{.cover-hero,.purpose-grid article,.input-gallery figure,.cover-gallery figure,.review-grid li,.application-grid article,.deliverable-grid div,.time-card{break-inside:avoid;page-break-inside:avoid}.purpose-grid,.time-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.input-gallery,.review-grid,.deliverable-grid,.text-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.cover-gallery,.application-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.cover-gallery :global(img){height:86mm}.workflow{grid-template-columns:repeat(5,minmax(0,1fr))}}
+</style>

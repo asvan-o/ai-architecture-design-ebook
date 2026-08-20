@@ -1,0 +1,139 @@
+---
+import LessonSection from './LessonSection.astro';
+import {
+  commonPortfolioStructure,
+  lesson12TimePlan,
+  portfolioFieldExamples,
+  projectDataRoles,
+} from '../../lib/lesson12-14-portfolio-project';
+
+interface Props {
+  lessonId?: string;
+  timePlan?: typeof lesson12TimePlan;
+}
+
+const { lessonId = '12', timePlan = lesson12TimePlan } = Astro.props;
+const totalMinutes = timePlan.reduce((sum, item) => sum + item.minutes, 0);
+---
+
+<div class="portfolio-project portfolio-project--setup" data-lesson12-project-setup>
+  <LessonSection id="section-01" number="01" title="차시 소개 · 하나의 실무 프로젝트를 시작한다" {lessonId}>
+    <div class="project-hero">
+      <p class="eyebrow">LESSON 12 · DEFINE · ORGANIZE</p>
+      <h3>실무 데이터를 정리해 포트폴리오와 결과보고서를 함께 만드는 3차시 프로젝트</h3>
+      <p>제12차시는 결과 이미지를 바로 만드는 시간이 아니다. 어떤 프로젝트를 다룰지 정하고, 사용할 수 있는 자료와 공개하면 안 되는 자료를 나누며, 다음 두 차시에서 사용할 제작팩을 준비한다.</p>
+    </div>
+    <blockquote class="key-message">포트폴리오는 결과를 보여주는 문서이고, 결과보고서는 작업 과정을 설명하는 문서입니다.</blockquote>
+  </LessonSection>
+
+  <LessonSection id="section-02" number="02" title="통합 프로젝트와 두 산출물" {lessonId}>
+    <div class="output-pair">
+      <article><span>OUTPUT 01</span><h3>포트폴리오</h3><strong>무엇을 만들었는가</strong><p>시각적 설득을 통해 프로젝트의 핵심과 완성도를 보여준다.</p></article>
+      <article><span>OUTPUT 02</span><h3>결과보고서</h3><strong>어떻게 만들었는가</strong><p>사용 자료, AI 활용, 프롬프트, 판단과 수정 과정을 설명한다.</p></article>
+    </div>
+    <div class="flow-strip" aria-label="제12차시부터 제14차시까지의 통합 프로젝트 흐름">
+      <span>12차시 · 프로젝트 정의와 자료 구성</span><b>→</b><span>13차시 · 포트폴리오 페이지 제작</span><b>→</b><span>14차시 · 결과보고서와 제출 패키지</span>
+    </div>
+  </LessonSection>
+
+  <LessonSection id="section-03" number="03" title="프로젝트 선정" {lessonId}>
+    <p class="section-lead">가장 화려한 프로젝트보다 <strong>사용할 수 있는 원자료와 본인의 작업 과정이 확인되는 프로젝트</strong>를 우선한다.</p>
+    <ol class="number-grid">
+      <li><span>01</span><strong>목적</strong><p>취업·발표·내부 공유 등 포트폴리오를 사용할 상황을 적는다.</p></li>
+      <li><span>02</span><strong>범위</strong><p>프로젝트 전체인지, 특정 공간·업무 단계인지 정한다.</p></li>
+      <li><span>03</span><strong>본인 역할</strong><p>직접 수행한 작업과 팀·외부 작업을 구분한다.</p></li>
+      <li><span>04</span><strong>자료 상태</strong><p>원자료, 결과 이미지, 프롬프트와 수정 기록이 남아 있는지 확인한다.</p></li>
+    </ol>
+  </LessonSection>
+
+  <LessonSection id="section-04" number="04" title="실무 데이터의 공개·사용 범위 점검" {lessonId}>
+    <div class="boundary-card">
+      <h3>기술적으로 업로드할 수 있어도, 사용 권한이 확인되지 않았다면 넣지 않는다.</h3>
+      <ul>
+        <li>회사명·주소·발주처·사용자 정보 등 식별정보가 있는가?</li>
+        <li>회사 업무자료를 외부 AI 서비스에 올릴 권한이 있는가?</li>
+        <li>도면·사진·브랜드·이미지의 공개 및 포트폴리오 사용이 허용됐는가?</li>
+        <li>파생 이미지와 AI 결과도 외부 공개가 가능한가?</li>
+      </ul>
+    </div>
+    <div class="status-grid">
+      <article><span>사용 가능</span><p>목적과 범위가 확인된 자료</p></article>
+      <article><span>비식별 후 사용</span><p>식별정보 제거가 필요한 자료</p></article>
+      <article><span>내부 참고만</span><p>수업 중 제한된 범위에서만 보는 자료</p></article>
+      <article><span>제외</span><p>권리·보안·출처를 확인할 수 없는 자료</p></article>
+    </div>
+  </LessonSection>
+
+  <LessonSection id="section-05" number="05" title="실무 데이터 수집과 역할 분류" {lessonId}>
+    <div class="role-list">
+      {projectDataRoles.map(([label, description], index) => (
+        <article><span>{String(index + 1).padStart(2, '0')}</span><div><h3>{label}</h3><p>{description}</p></div></article>
+      ))}
+    </div>
+    <p class="plain-note">같은 이미지라도 원자료인지, 생성 결과인지, 최종 산출물인지 역할이 다르다. 파일이 존재한다는 사실만으로 용도를 정하지 않는다.</p>
+  </LessonSection>
+
+  <LessonSection id="section-06" number="06" title="포트폴리오와 결과보고서의 역할 구분" {lessonId}>
+    <div class="comparison-table" role="table" aria-label="포트폴리오와 결과보고서 비교">
+      <div role="row"><strong role="columnheader">구분</strong><strong role="columnheader">포트폴리오</strong><strong role="columnheader">결과보고서</strong></div>
+      <div role="row"><span role="rowheader">질문</span><span>무엇을 만들었는가?</span><span>어떻게 만들었는가?</span></div>
+      <div role="row"><span role="rowheader">중심</span><span>결과와 시각적 위계</span><span>자료·AI·프롬프트·판단 기록</span></div>
+      <div role="row"><span role="rowheader">분량</span><span>선별하여 간결하게</span><span>재현·검토에 필요한 만큼</span></div>
+      <div role="row"><span role="rowheader">검토</span><span>메시지와 완성도</span><span>근거·과정·한계의 명확성</span></div>
+    </div>
+  </LessonSection>
+
+  <LessonSection id="section-07" number="07" title="모든 분야에 적용하는 포트폴리오 공통 구조" {lessonId}>
+    <ol class="structure-list">
+      {commonPortfolioStructure.map(([label, description], index) => (
+        <li><span>{String(index + 1).padStart(2, '0')}</span><div><strong>{label}</strong><p>{description}</p></div></li>
+      ))}
+    </ol>
+  </LessonSection>
+
+  <LessonSection id="section-08" number="08" title="디자인형·인테리어형 참고 구성" {lessonId}>
+    <div class="field-example"><h3>{portfolioFieldExamples[0].label}</h3><ul>{portfolioFieldExamples[0].items.map((item) => <li>{item}</li>)}</ul></div>
+    <p class="source-boundary">현재 실제 Source로 구현된 예시는 <strong>디자인 포트폴리오 표지 1페이지</strong>뿐이다. 이 목록은 구성 참고이며, 존재하지 않는 후속 예제 페이지를 뜻하지 않는다.</p>
+  </LessonSection>
+
+  <LessonSection id="section-09" number="09" title="설계사무소형 참고 구성" {lessonId}>
+    <div class="field-example"><h3>{portfolioFieldExamples[1].label}</h3><ul>{portfolioFieldExamples[1].items.map((item) => <li>{item}</li>)}</ul></div>
+    <p class="source-boundary">법규 검토 요약과 도면은 공식 원문·실제 설계자료·전문가 판단을 대신하지 않는다. 공개 권한이 없는 프로젝트 원자료는 포트폴리오에 넣지 않는다.</p>
+  </LessonSection>
+
+  <LessonSection id="section-10" number="10" title="기타 제안형·전문건설형 참고 구성" {lessonId}>
+    <div class="field-example"><h3>{portfolioFieldExamples[2].label}</h3><ul>{portfolioFieldExamples[2].items.map((item) => <li>{item}</li>)}</ul></div>
+    <p class="source-boundary">Before·After와 재료·사양은 확인된 자료만 사용한다. AI 이미지로 실제 시공 결과나 제품 성능을 대신 설명하지 않는다.</p>
+  </LessonSection>
+
+  <LessonSection id="section-11" number="11" title="포트폴리오 페이지를 AI로 제작하는 기본 Workflow" {lessonId}>
+    <ol class="workflow" aria-label="AI 포트폴리오 페이지 기본 제작 흐름">
+      {['페이지 목적 정하기', '표시할 문구·이미지 준비', '범용 프롬프트를 프로젝트에 맞게 수정', '페이지 이미지 후보 생성', '결과 비교와 오류 확인', '텍스트 별도 검증', '선택 결과와 과정 기록'].map((item, index) => (
+        <li><span>{String(index + 1).padStart(2, '0')}</span><strong>{item}</strong></li>
+      ))}
+    </ol>
+    <blockquote class="key-message key-message--small">AI가 한 번에 완성한 이미지가 아니라, 입력자료와 문구를 준비하고 결과를 검토한 과정까지 프로젝트 기록으로 남긴다.</blockquote>
+  </LessonSection>
+
+  <LessonSection id="section-12" number="12" title="제13차시 제작팩과 180분 정리" {lessonId}>
+    <div class="pack-grid">
+      {['프로젝트 목적·범위', '공개·사용 범위가 확인된 입력자료', '표지에 넣을 정확한 문구', '대표 이미지 후보', '로고 원본', 'AI 활용·수정 기록을 적을 문서'].map((item) => <div><span aria-hidden="true">□</span><strong>{item}</strong></div>)}
+    </div>
+    <div class="time-grid" data-lesson12-time-total={totalMinutes}>
+      {timePlan.map(({ label, minutes, mode }, index) => <article class={`time-card time-card--${mode}`}><span>{String(index + 1).padStart(2, '0')}</span><strong>{label}</strong><small>{minutes}분</small></article>)}
+    </div>
+    <p class="time-total">총 {totalMinutes}분</p>
+  </LessonSection>
+</div>
+
+<style>
+  .portfolio-project{--pp-ink:#25312d;--pp-accent:#aa462e;--pp-warm:#f4eadc;--pp-green:#e9f0eb;display:grid;min-width:0;max-width:100%}.portfolio-project>:global(.lesson-section){min-width:0;max-width:100%}
+  .project-hero,.output-pair article,.boundary-card,.status-grid article,.role-list article,.field-example,.source-boundary,.plain-note{box-sizing:border-box;border:1px solid var(--line-dark);background:#fff}.project-hero{display:grid;gap:.8rem;padding:clamp(1.2rem,3vw,2rem);background:linear-gradient(135deg,var(--pp-warm),#fff)}.project-hero h3,.project-hero p,.output-pair h3,.output-pair p,.field-example h3{margin:0}.project-hero h3{max-width:24ch;font-family:var(--serif);font-size:clamp(2rem,4vw,3.4rem);line-height:1.15;text-wrap:balance}.eyebrow,.output-pair article>span{color:var(--pp-accent);font-size:.74rem;font-weight:900;letter-spacing:.12em}.key-message{margin:1rem 0 0;padding:1.1rem 1.3rem;border-left:5px solid var(--pp-accent);background:#fff0e8;font-size:clamp(1.05rem,2vw,1.3rem);font-weight:800;line-height:1.65}.key-message--small{font-size:1.05rem}
+  .output-pair,.number-grid,.status-grid,.pack-grid,.time-grid{display:grid;gap:1rem;margin-top:1rem}.output-pair{grid-template-columns:repeat(2,minmax(0,1fr))}.output-pair article{display:grid;gap:.55rem;padding:1.2rem}.output-pair article:first-child{background:var(--pp-warm)}.output-pair article:last-child{background:var(--pp-green)}.flow-strip{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.7rem;margin-top:1rem;padding:1rem;border:1px solid var(--line-dark);background:#faf8f2;text-align:center}.flow-strip span{font-weight:800}.flow-strip b{color:var(--pp-accent)}
+  .section-lead,.plain-note,.source-boundary{line-height:1.72}.section-lead{margin:0 0 1rem}.number-grid{grid-template-columns:repeat(2,minmax(0,1fr));margin:0;padding:0;list-style:none}.number-grid li{display:grid;gap:.4rem;padding:1rem;border-top:3px solid var(--pp-accent);background:#fff}.number-grid p{margin:0}.number-grid span{color:var(--pp-accent);font-size:.75rem;font-weight:900}.boundary-card{padding:1.2rem;background:#fff2eb}.boundary-card h3{margin:0}.boundary-card ul{margin:.8rem 0 0;padding-left:1.25rem;line-height:1.75}.status-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.status-grid article{padding:1rem}.status-grid span{font-weight:900}.status-grid p{margin:.35rem 0 0;color:var(--muted);line-height:1.55}
+  .role-list{display:grid;gap:.7rem}.role-list article{display:grid;grid-template-columns:auto minmax(0,1fr);gap:1rem;padding:1rem}.role-list article>span{color:var(--pp-accent);font-weight:900}.role-list h3,.role-list p{margin:0}.role-list p{margin-top:.3rem;color:var(--muted)}.plain-note,.source-boundary{margin:1rem 0 0;padding:1rem;background:var(--pp-green)}.comparison-table{display:grid;max-width:100%;overflow-x:auto;border:1px solid var(--line-dark)}.comparison-table>div{display:grid;grid-template-columns:9rem repeat(2,minmax(0,1fr));min-width:42rem;border-bottom:1px solid var(--line)}.comparison-table>div:last-child{border-bottom:0}.comparison-table span,.comparison-table strong{padding:.8rem}.comparison-table>div:first-child{background:var(--pp-ink);color:#fff}
+  .structure-list,.workflow{display:grid;gap:.75rem;margin:0;padding:0;list-style:none}.structure-list{grid-template-columns:repeat(2,minmax(0,1fr))}.structure-list li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.8rem;padding:1rem;border:1px solid var(--line-dark);background:#fff}.structure-list span,.workflow span{color:var(--pp-accent);font-size:.75rem;font-weight:900}.structure-list p{margin:.25rem 0 0;color:var(--muted)}.field-example{padding:1.2rem;background:var(--pp-warm)}.field-example ul{display:flex;flex-wrap:wrap;gap:.55rem;margin:.8rem 0 0;padding:0;list-style:none}.field-example li{padding:.55rem .75rem;border:1px solid var(--line-dark);background:#fff}.workflow{grid-template-columns:repeat(auto-fit,minmax(9rem,1fr))}.workflow li{display:grid;gap:.4rem;padding:1rem;border-top:3px solid var(--pp-accent);background:#fff}
+  .pack-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pack-grid div{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.55rem;padding:.9rem;border:1px solid var(--line-dark);background:#fff}.pack-grid span{color:var(--pp-accent)}.time-grid{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:1.2rem}.time-card{display:grid;gap:.3rem;padding:1rem;border-top:3px solid var(--pp-ink);background:#f8f5ee}.time-card--practice{border-color:var(--pp-accent)}.time-card--review{border-color:#527064}.time-card span,.time-card small{color:var(--muted)}.time-total{text-align:right;font-weight:900}
+  @media(max-width:760px){.output-pair,.number-grid,.status-grid,.structure-list,.pack-grid,.time-grid{grid-template-columns:minmax(0,1fr)}.flow-strip{align-items:stretch;flex-direction:column}.flow-strip b{transform:rotate(90deg)}.comparison-table>div{min-width:38rem}}
+  @media print{.project-hero,.output-pair article,.boundary-card,.status-grid article,.role-list article,.field-example,.structure-list li,.workflow li,.pack-grid div,.time-card{break-inside:avoid;page-break-inside:avoid}.output-pair,.number-grid,.structure-list,.pack-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.status-grid,.time-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+</style>

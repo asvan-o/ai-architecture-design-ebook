@@ -1398,162 +1398,122 @@ assets:
     alt: "사용 권한이 확인되지 않은 조감도와 합성 애니메이션 참고자료"
     verification_note: "출처·권리·프롬프트 사용 범위 확인 전 public 복사 및 배포 금지"
 
-  - id: "l12-structure-pack"
+  - id: "l12-project-input-checklist"
     lesson: 12
     priority: "required"
     source_type: "template"
     production_owner: "codex"
     lesson_usage: "practice-input"
-    title: "프로젝트 폴더·규칙·인덱스 양식"
+    title: "실무 프로젝트 정의와 입력자료 역할 점검표"
     type: "document"
-    purpose: "폴더 구조, 파일명, 출처, 변경 이력을 설계하는 문서"
-    required_files: ["폴더 구조표", "파일명·버전 규칙표", "자료 인덱스", "출처 목록", "변경 이력", "제출 체크리스트"]
-    recommended_tool: "gpt-and-codex"
-    status: "not-created"
-    public_use: false
-    alt: "프로젝트 폴더 구조와 자료 인덱스 양식"
-    verification_note: "운영체제·조직 규칙·보안 정책과의 적합성 확인"
+    purpose: "프로젝트 선정, 자료 사용 권한, 입력자료 역할과 공개 범위를 정리하는 웹 기반 점검표"
+    required_files: ["프로젝트 정의 카드", "자료 사용 권한 점검표", "입력자료 역할표", "포트폴리오 공통 구성안"]
+    recommended_tool: "codex"
+    status: "ready"
+    public_use: true
+    source_note: "사용자 승인 제12~14차시 수업 설계에 따라 제작한 웹 기반 교육용 점검표"
+    rights_status: "cleared"
+    verified_at: "2026-08-20"
+    privacy_note: "실제 회사명·프로젝트명·주소·개인정보는 공개 e-book에 입력하지 않음"
+    alt: "실무 프로젝트와 입력자료 역할을 정리하는 체크리스트"
+    verification_note: "웹 본문에만 제공하며 실제 회사 자료의 외부 반출·AI 업로드·공개 권한은 사용자가 별도로 확인"
 
-  - id: "l12-structure-map"
-    lesson: 12
-    priority: "optional"
-    source_type: "template"
-    production_owner: "codex"
-    lesson_usage: "demonstration"
-    title: "프로젝트 자료 연결도"
+  - id: "l13-portfolio-cover-inputs"
+    lesson: 13
+    priority: "required"
+    source_type: "original"
+    production_owner: "instructor"
+    lesson_usage: "practice-input"
+    title: "디자인 포트폴리오 표지 입력 이미지"
     type: "image"
-    purpose: "프롬프트, 이미지, 영상, 출처, 변경 이력의 연결을 보여 주는 도식"
-    required_files: ["자료 연결도 이미지", "텍스트 대체 설명"]
-    recommended_tool: "codex"
-    status: "not-created"
-    public_use: false
-    alt: "프롬프트 이미지 영상 출처 변경 이력의 연결도"
-    verification_note: "AGY 실제 기능처럼 오해될 요소가 없는지 검토"
-
-  - id: "l12-agy-demo"
-    lesson: 12
-    priority: "optional"
-    source_type: "original"
-    production_owner: "instructor"
-    lesson_usage: "demonstration"
-    title: "AGY 자료 구조 시연"
-    type: "video"
-    purpose: "검증된 실제 환경에서만 제작할 폴더·인덱스 구성 시연"
-    required_files: ["실제 환경 검증 기록", "작업 화면 녹화", "자막 또는 대본"]
+    purpose: "표지 이미지 제작에 사용된 로고와 프로젝트 대표 이미지의 역할을 비교"
+    required_files: ["src/assets/lessons/12-14/portfolio-cover/inputs/01-logo.png", "src/assets/lessons/12-14/portfolio-cover/inputs/02-house.png", "src/assets/lessons/12-14/portfolio-cover/inputs/03-kitchen-section.jpeg", "src/assets/lessons/12-14/portfolio-cover/inputs/04-kitchen-dining.jpeg"]
     recommended_tool: "user-upload"
-    status: "actual-environment-validation-required"
-    public_use: false
-    alt: "AGY로 프로젝트 자료 구조를 구성하는 과정 안내"
-    verification_note: "명령어·지원 기능·권한 범위 검증 전 제작 금지"
+    status: "ready"
+    public_use: true
+    source_note: "사용자가 제공한 디자인 포트폴리오 표지 Source pack의 실제 입력 이미지"
+    rights_status: "cleared"
+    verified_at: "2026-08-20"
+    privacy_note: "사용자가 수업용 Source로 제공한 파일만 복사했고 로컬 절대경로를 포함하지 않음"
+    alt: "포트폴리오 표지 제작에 사용한 로고와 건축·인테리어 이미지 4개"
+    verification_note: "원본 파일을 이동·수정하지 않고 repo 자산 사본으로 사용"
 
-  - id: "l13-audit-pack"
+  - id: "l13-portfolio-cover-results"
     lesson: 13
     priority: "required"
-    source_type: "template"
-    production_owner: "codex"
-    lesson_usage: "checklist"
-    title: "검사 프로세스·누락·상태 보고 양식"
-    type: "document"
-    purpose: "반복 점검과 제출 상태를 기록하는 문서"
-    required_files: ["검사 프로세스", "누락 파일 보고서", "프로젝트 상태 보고서", "제출 체크리스트"]
-    recommended_tool: "gpt-and-codex"
-    status: "not-created"
-    public_use: false
-    alt: "프로젝트 반복 점검과 상태 보고 양식"
-    verification_note: "실제 조직 품질관리 표준으로 오해되지 않도록 검토"
-
-  - id: "l13-sample-package"
-    lesson: 13
-    priority: "required"
-    source_type: "template"
-    production_owner: "codex"
-    lesson_usage: "practice-input"
-    title: "누락이 포함된 가상 프로젝트 패키지"
-    type: "document"
-    purpose: "파일명·프롬프트·출처·결과물 누락을 찾는 교육용 파일 목록"
-    required_files: ["가상 프로젝트 폴더", "가상 파일 목록", "정답이 아닌 검토 메모"]
-    recommended_tool: "codex"
-    status: "not-created"
-    public_use: false
-    alt: "일부 기록과 결과물이 누락된 가상 프로젝트 패키지"
-    verification_note: "개인정보·기밀·외부 권리 자료가 없는지 확인"
-
-  - id: "l13-agy-demo"
-    lesson: 13
-    priority: "optional"
-    source_type: "original"
-    production_owner: "instructor"
-    lesson_usage: "demonstration"
-    title: "AGY 반복 점검 과정 살펴보기"
-    type: "video"
-    purpose: "검증된 실제 환경에서만 제작할 점검 과정 녹화"
-    required_files: ["실제 환경 검증 기록", "작업 화면 녹화", "자막 또는 대본"]
-    recommended_tool: "user-upload"
-    status: "actual-environment-validation-required"
-    public_use: false
-    alt: "AGY 기반 반복 점검과 제출 패키지 제작 과정 안내"
-    verification_note: "명령어·지원 기능·권한 범위 검증 전 제작 금지"
-
-  - id: "l14-final-pack"
-    lesson: 14
-    priority: "required"
-    source_type: "template"
-    production_owner: "codex"
-    lesson_usage: "checklist"
-    title: "최종 패키지·포트폴리오·점검 양식"
-    type: "document"
-    purpose: "결과물 선별, 편집, 발표, 제출 점검에 사용하는 문서"
-    required_files: ["최종 결과물 인덱스", "포트폴리오 페이지 템플릿", "발표·피드백표", "최종 제출 체크리스트"]
-    recommended_tool: "gpt-and-codex"
-    status: "not-created"
-    public_use: false
-    alt: "최종 콘셉트 패키지와 포트폴리오 페이지 양식"
-    verification_note: "수강생 전문 판단: 설계·시공 도서로 오해되지 않는 표현인지 확인"
-
-  - id: "l14-image-gaps"
-    lesson: 14
-    priority: "optional"
     source_type: "original"
     production_owner: "nano-banana"
     lesson_usage: "result-sample"
-    title: "누락 보완용 공간 이미지 세트"
+    title: "디자인 포트폴리오 표지 실제 생성 결과"
     type: "image"
-    purpose: "최종 패키지에 필요한 경우에만 제작할 추가 이미지"
-    required_files: ["필요 이미지 목록", "보완 이미지", "이미지 생성 기록"]
+    purpose: "동일 Source로 생성한 실제 표지 후보의 이미지 비중·로고·텍스트 위계·여백을 비교"
+    required_files: ["src/assets/lessons/12-14/portfolio-cover/results/cover-result-01.jpeg", "src/assets/lessons/12-14/portfolio-cover/results/cover-result-02.jpeg", "src/assets/lessons/12-14/portfolio-cover/results/cover-result-03.jpeg", "src/assets/lessons/12-14/portfolio-cover/results/cover-result-04.jpeg", "src/assets/lessons/12-14/portfolio-cover/results/cover-result-05.jpeg", "src/assets/lessons/12-14/portfolio-cover/results/cover-result-06.jpeg", "src/assets/lessons/12-14/portfolio-cover/results/cover-result-07.jpeg", "src/assets/lessons/12-14/portfolio-cover/results/cover-result-08.jpeg", "src/assets/lessons/12-14/portfolio-cover/results/cover-result-09.jpeg", "src/assets/lessons/12-14/portfolio-cover/results/cover-result-10.jpeg"]
     recommended_tool: "nano-banana"
-    status: "not-created"
-    public_use: false
-    alt: "최종 패키지의 누락을 보완하는 공간 콘셉트 이미지"
-    verification_note: "필요성, 공간 오류, 공개 사용 상태 확인 후 제작"
+    status: "ready"
+    public_use: true
+    source_note: "사용자가 제공한 디자인 포트폴리오 표지 Source pack의 실제 생성 결과"
+    rights_status: "cleared"
+    verified_at: "2026-08-20"
+    privacy_note: "실제 결과 이미지에 표시된 승인된 표지 문구만 수업 사례로 사용"
+    alt: "Nano Banana로 생성한 디자인 포트폴리오 표지 후보 10개"
+    verification_note: "파일명과 수정 시점만으로 생성 순서를 단정하지 않고 후보 갤러리로 표시"
 
-  - id: "l14-video-gap"
-    lesson: 14
-    priority: "optional"
-    source_type: "original"
-    production_owner: "veo"
-    lesson_usage: "result-sample"
-    title: "최종 공간 콘셉트 영상"
-    type: "video"
-    purpose: "검토된 대표 이미지와 장면표로 보완할 영상"
-    required_files: ["15~30초 영상", "영상 생성 기록", "오류 확인표"]
-    recommended_tool: "veo"
-    status: "not-created"
-    public_use: false
-    alt: "최종 포트폴리오에 포함할 짧은 공간 콘셉트 영상"
-    verification_note: "영상 오류, 워터마크, 출처·이용 조건 확인"
-
-  - id: "l14-presentation"
-    lesson: 14
-    priority: "optional"
+  - id: "l13-portfolio-cover-prompts"
+    lesson: 13
+    priority: "required"
     source_type: "original"
     production_owner: "instructor"
-    lesson_usage: "demonstration"
-    title: "최종 발표와 피드백 기록"
-    type: "video"
-    purpose: "수강생 발표와 피드백을 기록하는 선택 자산"
-    required_files: ["촬영 동의", "발표 녹화", "자막 또는 요약"]
-    recommended_tool: "user-upload"
-    status: "not-created"
-    public_use: false
-    alt: "최종 프로젝트 발표와 피드백 기록 영상"
-    verification_note: "수강생 동의·개인정보·공개 범위를 확인한 경우에만 사용"
+    lesson_usage: "practice-input"
+    title: "표지 이미지 생성과 텍스트 검증 프롬프트"
+    type: "document"
+    purpose: "범용 Nano Banana 템플릿, 실제 사용 프롬프트와 GPT 텍스트 검증을 분리해 실습"
+    required_files: ["src/assets/lessons/12-14/portfolio-cover/prompts/nano-banana-cover-template.txt", "src/assets/lessons/12-14/portfolio-cover/prompts/nano-banana-cover-used.txt", "src/assets/lessons/12-14/portfolio-cover/prompts/gpt-cover-text-review.txt"]
+    recommended_tool: "nano-banana-and-gpt"
+    status: "ready"
+    public_use: true
+    source_note: "사용자가 제공한 Nano Banana 표지 프롬프트와 GPT 텍스트 검증 프롬프트"
+    rights_status: "cleared"
+    verified_at: "2026-08-20"
+    privacy_note: "사용자 로컬 경로와 개인 식별정보를 포함하지 않음"
+    alt: "포트폴리오 표지 이미지 생성과 텍스트 검증에 사용하는 프롬프트"
+    verification_note: "GPT 프롬프트는 이미지 자체를 편집하는 도구가 아니라 네 개 표지 문구와 시각 오류를 검토하는 단계로 설명"
+
+  - id: "l13-material-furniture-library"
+    lesson: 13
+    priority: "required"
+    source_type: "original"
+    production_owner: "instructor"
+    lesson_usage: "result-sample"
+    title: "재질 및 가구 프롬프트 라이브러리와 주택 정면 사례"
+    type: "image"
+    purpose: "재질·가구·환경·카메라·표현 방식을 1~3개씩 조합하는 프롬프트 구조를 실제 이미지로 확인"
+    required_files: ["src/assets/lessons/12-14/material-furniture/house-front/house-front-00-original.jpeg", "src/assets/lessons/12-14/material-furniture/house-front/house-front-01-corten.jpeg", "src/assets/lessons/12-14/material-furniture/house-front/house-front-02-suv-mailbox.jpeg", "src/assets/lessons/12-14/material-furniture/house-front/house-front-03-autumn.jpeg", "src/assets/lessons/12-14/material-furniture/house-front/house-front-04-winter.jpeg", "src/assets/lessons/12-14/material-furniture/house-front/house-front-05-camera.jpeg", "src/assets/lessons/12-14/material-furniture/house-front/house-front-06-pencil.jpeg", "src/assets/lessons/12-14/material-furniture/house-front/house-front-prompts.txt"]
+    recommended_tool: "image-generation-tool"
+    status: "ready"
+    public_use: true
+    source_note: "사용자가 제공한 재질 및 가구 프롬프트 정리 문서와 주택 정면 실습 결과"
+    rights_status: "cleared"
+    verified_at: "2026-08-20"
+    privacy_note: "사용자 제공 수업자료의 repo 사본이며 로컬 경로를 공개하지 않음"
+    alt: "같은 주택 정면 이미지에 재질, 가구, 계절, 카메라, 표현 방식을 바꾼 결과"
+    verification_note: "카메라 변경과 연필 스케치 결과는 겨울 결과에서 각각 분기한 독립 사례로 표시"
+
+  - id: "l14-result-report-checklist"
+    lesson: 14
+    priority: "required"
+    source_type: "template"
+    production_owner: "codex"
+    lesson_usage: "checklist"
+    title: "결과보고서와 최종 제출 패키지 점검표"
+    type: "document"
+    purpose: "사용 Source, AI 활용 과정, 프롬프트, 선택·수정·검증 기록과 최종 제출 구성을 확인"
+    required_files: ["결과보고서 최소 기록 구조", "포트폴리오 점검표", "최종 제출 패키지 목록", "발표 준비표"]
+    recommended_tool: "codex"
+    status: "ready"
+    public_use: true
+    source_note: "사용자 승인 제12~14차시 수업 설계에 따라 제작한 웹 기반 교육용 점검표"
+    rights_status: "cleared"
+    verified_at: "2026-08-20"
+    privacy_note: "웹 기반 빈 양식으로 제공하며 실제 회사·프로젝트 자료를 포함하지 않음"
+    alt: "결과보고서와 최종 제출 패키지를 완성하기 위한 점검표"
+    verification_note: "기존 결과보고서 양식 파일을 확인하지 못했으므로 기관 공식 양식으로 단정하지 않고 승인 지시서의 최소 기록 항목만 사용"

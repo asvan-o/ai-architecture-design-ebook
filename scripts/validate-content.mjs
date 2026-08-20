@@ -34,6 +34,11 @@ const lessonTenComponentPath = path.resolve('src/components/content/Lesson10Grou
 const lessonTenContentPath = path.resolve('src/lib/lesson10-grounded-legal-review.ts');
 const lessonElevenComponentPath = path.resolve('src/components/content/Lesson11LegalCrossValidation.astro');
 const lessonElevenContentPath = path.resolve('src/lib/lesson11-legal-cross-validation.ts');
+const lessonTwelveComponentPath = path.resolve('src/components/content/Lesson12PortfolioProjectSetup.astro');
+const lessonThirteenComponentPath = path.resolve('src/components/content/Lesson13PortfolioCoverPractice.astro');
+const lessonFourteenComponentPath = path.resolve('src/components/content/Lesson14ResultReportPackage.astro');
+const materialFurnitureLibraryPath = path.resolve('src/components/content/MaterialFurniturePromptLibrary.astro');
+const lessonTwelveToFourteenContentPath = path.resolve('src/lib/lesson12-14-portfolio-project.ts');
 const approvedLessonThreeRfpSha256 =
   '95B9756FD818D8F86847CA72D1E094B9DD6C2E4B9D1DFBC029169D057E638C2E';
 const requiredIds = Array.from({ length: 14 }, (_, index) => String(index + 1).padStart(2, '0'));
@@ -52,9 +57,9 @@ const approvedLessons = [
   { title: '제9차시 · 3D 콘셉트 이미지에서 공간 관계 읽기와 2D 개념 조닝', durationMinutes: 180 },
   { title: '제10차시 · 프로젝트 Grounding과 AI 법규검토 준비', durationMinutes: 180 },
   { title: '제11차시 · AI 법규검토 반복 교차검증 실습', durationMinutes: 180 },
-  { title: '제12차시 · AGY로 프로젝트 자료 구조 만들기', durationMinutes: 180 },
-  { title: '제13차시 · AGY 기반 반복 점검과 제출 패키지 만들기', durationMinutes: 180 },
-  { title: '제14차시 · AI 공간디자인 콘셉트 패키지 완성', durationMinutes: 360 },
+  { title: '제12차시 · 실무 프로젝트 정의와 포트폴리오 자료 구성', durationMinutes: 180 },
+  { title: '제13차시 · AI 포트폴리오 표지 페이지 제작 실습', durationMinutes: 180 },
+  { title: '제14차시 · 결과보고서와 최종 제출 패키지 완성', durationMinutes: 360 },
 ];
 const approvedRoadmapTitles = [
   '제1차시 · AI가 할 일과 디자이너가 판단할 일',
@@ -68,9 +73,9 @@ const approvedRoadmapTitles = [
   '제9차시 · 3D 콘셉트 이미지에서 공간 관계 읽기와 2D 개념 조닝',
   '제10차시 · 프로젝트 Grounding과 AI 법규검토 준비',
   '제11차시 · AI 법규검토 반복 교차검증 실습',
-  '제12차시 · 다차원 검증 체크리스트와 교차검증',
-  '제13차시 · 제안서 고도화와 KPI·제출 패키지',
-  '제14차시 · AI 공간디자인 콘셉트 제안서 롤플레잉 최종 발표',
+  '제12차시 · 실무 프로젝트 정의와 포트폴리오 자료 구성',
+  '제13차시 · AI 포트폴리오 표지 페이지 제작 실습',
+  '제14차시 · 결과보고서와 최종 제출 패키지 완성',
 ];
 const approvedTopics = [
   {
@@ -102,14 +107,14 @@ const approvedTopics = [
   },
   {
     number: '6',
-    title: 'AI 생성 결과물 다차원 실무 검증 및 제안서 고도화',
-    subtitle: '(결과물 검증과 제안서 완성)',
+    title: '실무 데이터 기반 AI 포트폴리오 프로젝트 정의 및 제작',
+    subtitle: '(프로젝트 자료 구성과 포트폴리오 제작)',
     lessonIds: ['12', '13'],
   },
   {
     number: '7',
-    title: '실무 검증형 설계 제안서 롤플레잉 최종 발표 및 수료',
-    subtitle: '(최종 제안과 발표)',
+    title: '결과보고서·최종 제출 패키지 완성 및 발표',
+    subtitle: '(과정 기록과 최종 발표)',
     lessonIds: ['14'],
   },
 ];
@@ -153,6 +158,9 @@ const detailedLessonSections = {
   '09': ['차시 소개', '제8차시 복습과 오늘의 질문', '오늘의 전체 워크플로우', '원자료를 먼저 분석하는 이유', 'NotebookLM 원본 평면도 분석', '도면 기준표와 사람이 정리한 입력자료', 'GPT Top View 3D 생성', '원도면과 Top View 3D 검토', '공간 기능·공간 인접 관계·주요 동선 분석', 'NotebookLM 분석 결과 검증', 'Graphviz(DOT) 구조화 데이터 만들기', '2D 공간 관계 다이어그램 시각화', '공간 관계 다이어그램 읽기', '공간 관계에서 개념 조닝으로', 'GPT 개념 조닝 · 구조 확인 후 제작', '결과 정리와 제10차시 연결'],
   '10': ['차시 소개', '실습 프로젝트와 정보 혼합 위험', '왜 NotebookLM을 A와 B로 나누는가', '이번 차시의 두 결과물', 'Notebook A · 프로젝트 원자료의 역할 확인', 'Notebook A · 프로젝트 조건 기준서 만들기', '반드시 잡아야 할 오류와 과도한 해석', 'Project Grounded Reference 결과 예시', 'Notebook B · 현재 자료로 가능한 검토 범위 묻기', 'NotebookLM 분석을 ChatGPT로 교차검증', '공식 Source를 단계적으로 보강하기', 'AI 법규검토 체크리스트 결과 예시', '다음 차시 · 실제 설계자료와 대조'],
   '11': ['지난 시간 워크플로우 복습', 'NotebookLM A 역할 복습', 'B00 상태 확인', 'GPT 법규검토 프로젝트 준비', 'GPT 역할 설정 프롬프트', 'B00 기반 법규 Research', '공식 Source 확보', 'NotebookLM B Source 구성', 'NotebookLM B 1차 체크리스트 생성 프롬프트', '왜 다시 GPT로 검증하는가', 'GPT 독립 교차검증', '교차검증 결과 분기', 'NotebookLM B 보완 프롬프트', 'GPT 재검증 프롬프트', '반복형 교차검증 루프', '반복 종료 기준', '사람의 최종 검수', '교차검증 개념 설명', '3시간 수업 흐름과 마무리'],
+  '12': ['차시 소개 · 하나의 실무 프로젝트를 시작한다', '통합 프로젝트와 두 산출물', '프로젝트 선정', '실무 데이터의 공개·사용 범위 점검', '실무 데이터 수집과 역할 분류', '포트폴리오와 결과보고서의 역할 구분', '모든 분야에 적용하는 포트폴리오 공통 구조', '디자인형·인테리어형 참고 구성', '설계사무소형 참고 구성', '기타 제안형·전문건설형 참고 구성', '포트폴리오 페이지를 AI로 제작하는 기본 Workflow', '제13차시 제작팩과 180분 정리'],
+  '13': ['차시 소개 · 실제 Source로 표지 한 페이지를 만든다', '오늘 만들 결과와 전체 흐름', 'STEP 1 · 이 페이지의 목적', 'STEP 2 · 준비할 입력자료', 'STEP 3 · 페이지에 들어갈 실제 문구', 'STEP 4 · Nano Banana 예시 프롬프트', 'STEP 5 · Nano Banana 실제 사용 프롬프트', 'STEP 6 · 실제 생성 결과', 'STEP 7 · 생성 결과 확인 포인트', 'STEP 8 · GPT 텍스트 검증', 'STEP 9 · 표지 제작 Workflow 정리', '재질 및 가구 프롬프트 라이브러리', '분야별 적용 방향과 Source 경계', '결과 정리와 180분 운영'],
+  '14': ['차시 소개 · 결과와 과정을 하나의 제출 패키지로 묶는다', '최종 산출물 2종과 역할', '프로젝트 결과보고서 · 공식 구조와 작성 가이드', '사용한 실무 데이터 정리', 'AI 활용 과정 정리', '사용 프롬프트 정리', '결과 선택·수정·검증 기록', '포트폴리오 최종 점검', '결과보고서 최종 점검', '최종 제출 패키지 구성', '제출 전 권리·보안·사실성 경계', '발표 준비', '최종 제출 Gate', '360분 운영과 과정 마무리'],
 };
 const lessonThreeFourOutputs = ['요구조건 매트릭스', '발주기관 추가 질의', '디자인 브리프', '평면도 기반 현황 이미지 생성 결과', '현황 이미지 수정 결과', '평면도와 이미지의 불일치 기록', '제4차시 대안 평가기준'];
 
@@ -521,6 +529,18 @@ for (const fileName of files) {
   } else if (id === '11') {
     if (!source.includes('<Lesson11LegalCrossValidation')) {
       errors.push(`${fileName}: 제11차시 전용 법규검토 반복 교차검증 레이아웃이 없습니다.`);
+    }
+  } else if (id === '12') {
+    if (!source.includes('<Lesson12PortfolioProjectSetup')) {
+      errors.push(`${fileName}: 제12차시 전용 실무 프로젝트·자료 구성 레이아웃이 없습니다.`);
+    }
+  } else if (id === '13') {
+    if (!source.includes('<Lesson13PortfolioCoverPractice')) {
+      errors.push(`${fileName}: 제13차시 전용 포트폴리오 표지 제작 레이아웃이 없습니다.`);
+    }
+  } else if (id === '14') {
+    if (!source.includes('<Lesson14ResultReportPackage')) {
+      errors.push(`${fileName}: 제14차시 전용 결과보고서·제출 패키지 레이아웃이 없습니다.`);
     }
   } else if (!source.includes('<LessonOutline')) {
     errors.push(`${fileName}: LessonOutline 골격이 없습니다.`);
@@ -1209,13 +1229,154 @@ for (const fileName of files) {
       }
     }
   }
+  if (id === '12') {
+    let lessonTwelveComponent = '';
+    let portfolioProjectContent = '';
+    try { lessonTwelveComponent = await readFile(lessonTwelveComponentPath, 'utf8'); }
+    catch { errors.push('제12차시 실무 프로젝트·자료 구성 컴포넌트를 읽을 수 없습니다.'); }
+    try { portfolioProjectContent = await readFile(lessonTwelveToFourteenContentPath, 'utf8'); }
+    catch { errors.push('제12~14차시 통합 프로젝트 콘텐츠 데이터를 읽을 수 없습니다.'); }
+    for (const marker of [
+      'data-lesson12-project-setup',
+      '포트폴리오는 결과를 보여주는 문서이고, 결과보고서는 작업 과정을 설명하는 문서입니다.',
+      '사용 권한이 확인되지 않았다면 넣지 않는다.',
+      '외부 AI 서비스에 올릴 권한이 있는가?',
+      '제13차시 제작팩',
+      'data-lesson12-time-total',
+    ]) {
+      if (!lessonTwelveComponent.includes(marker) && !portfolioProjectContent.includes(marker)) {
+        errors.push(`제12차시 실무 프로젝트 콘텐츠에 구조 '${marker}'가 없습니다.`);
+      }
+    }
+    const lessonTwelveTimeBlock = portfolioProjectContent.match(/lesson12TimePlan[\s\S]*?lesson13TimePlan/)?.[0] ?? '';
+    const lessonTwelveTimeTotal = [...lessonTwelveTimeBlock.matchAll(/minutes:\s*(\d+)/g)]
+      .reduce((total, match) => total + Number(match[1]), 0);
+    if (lessonTwelveTimeTotal !== 180) {
+      errors.push(`제12차시 시간표: 예상 180분, 실제 ${lessonTwelveTimeTotal}분`);
+    }
+  }
+  if (id === '13') {
+    let lessonThirteenComponent = '';
+    let materialFurnitureLibrary = '';
+    let portfolioProjectContent = '';
+    try { lessonThirteenComponent = await readFile(lessonThirteenComponentPath, 'utf8'); }
+    catch { errors.push('제13차시 포트폴리오 표지 제작 컴포넌트를 읽을 수 없습니다.'); }
+    try { materialFurnitureLibrary = await readFile(materialFurnitureLibraryPath, 'utf8'); }
+    catch { errors.push('재질 및 가구 프롬프트 라이브러리 컴포넌트를 읽을 수 없습니다.'); }
+    try { portfolioProjectContent = await readFile(lessonTwelveToFourteenContentPath, 'utf8'); }
+    catch { errors.push('제12~14차시 통합 프로젝트 콘텐츠 데이터를 읽을 수 없습니다.'); }
+    for (const marker of [
+      'data-lesson13-cover-practice',
+      'data-material-furniture-prompt-library',
+      '텍스트 폴더 확인 결과 · 파일 0개',
+      '실제 생성 시안 10개',
+      '04→05',
+      '04→06',
+      'data-lesson13-time-total',
+    ]) {
+      if (!lessonThirteenComponent.includes(marker) && !materialFurnitureLibrary.includes(marker)) {
+        errors.push(`제13차시 표지·프롬프트 라이브러리에 구조 '${marker}'가 없습니다.`);
+      }
+    }
+    const promptIds = [
+      'lesson13-cover-template-prompt',
+      'lesson13-cover-used-prompt',
+      'lesson13-cover-text-review-prompt',
+      'material-library-common-geometry',
+      'material-library-material-change',
+      'material-library-furniture-change',
+      'material-library-house-front-sequence',
+    ];
+    for (const promptId of promptIds) {
+      if (!lessonThirteenComponent.includes(promptId) && !materialFurnitureLibrary.includes(promptId)) {
+        errors.push(`제13차시 PromptCopyBlock '${promptId}'가 없습니다.`);
+      }
+    }
+    for (const textValue of ['ARCHITECTURE DESIGN', 'K-PROJECT', 'Architecture, Interior', 'KS / ASVAN']) {
+      if (!portfolioProjectContent.includes(textValue) && !lessonThirteenComponent.includes(textValue)) {
+        errors.push(`제13차시 실제 표지 문구 '${textValue}'가 없습니다.`);
+      }
+    }
+    const coverResultImports = [...lessonThirteenComponent.matchAll(/cover-result-\d{2}\.jpeg/g)].length;
+    if (coverResultImports !== 10) {
+      errors.push(`제13차시 실제 표지 결과 이미지: 예상 10개, 실제 ${coverResultImports}개`);
+    }
+    const inputImageImports = [...lessonThirteenComponent.matchAll(/portfolio-cover\/inputs\//g)].length;
+    if (inputImageImports !== 4) {
+      errors.push(`제13차시 표지 입력 이미지: 예상 4개, 실제 ${inputImageImports}개`);
+    }
+    const lessonThirteenTimeBlock = portfolioProjectContent.match(/lesson13TimePlan[\s\S]*?lesson14TimePlan/)?.[0] ?? '';
+    const lessonThirteenTimeTotal = [...lessonThirteenTimeBlock.matchAll(/minutes:\s*(\d+)/g)]
+      .reduce((total, match) => total + Number(match[1]), 0);
+    if (lessonThirteenTimeTotal !== 180) {
+      errors.push(`제13차시 시간표: 예상 180분, 실제 ${lessonThirteenTimeTotal}분`);
+    }
+    const requiredLessonThirteenFiles = [
+      'src/assets/lessons/12-14/portfolio-cover/inputs/01-logo.png',
+      'src/assets/lessons/12-14/portfolio-cover/inputs/02-house.png',
+      'src/assets/lessons/12-14/portfolio-cover/inputs/03-kitchen-section.jpeg',
+      'src/assets/lessons/12-14/portfolio-cover/inputs/04-kitchen-dining.jpeg',
+      'src/assets/lessons/12-14/portfolio-cover/prompts/nano-banana-cover-template.txt',
+      'src/assets/lessons/12-14/portfolio-cover/prompts/nano-banana-cover-used.txt',
+      'src/assets/lessons/12-14/portfolio-cover/prompts/gpt-cover-text-review.txt',
+      'src/assets/lessons/12-14/material-furniture/house-front/house-front-prompts.txt',
+    ];
+    for (const filePath of requiredLessonThirteenFiles) {
+      try { await access(path.resolve(filePath)); }
+      catch { errors.push(`제13차시 필수 Source 자산을 찾을 수 없습니다: ${filePath}`); }
+    }
+  }
+  if (id === '14') {
+    let lessonFourteenComponent = '';
+    let portfolioProjectContent = '';
+    try { lessonFourteenComponent = await readFile(lessonFourteenComponentPath, 'utf8'); }
+    catch { errors.push('제14차시 결과보고서·제출 패키지 컴포넌트를 읽을 수 없습니다.'); }
+    try { portfolioProjectContent = await readFile(lessonTwelveToFourteenContentPath, 'utf8'); }
+    catch { errors.push('제12~14차시 통합 프로젝트 콘텐츠 데이터를 읽을 수 없습니다.'); }
+    for (const marker of [
+      'data-lesson14-result-report',
+      '프로젝트 결과보고서',
+      'reportBasicInformation',
+      'reportSections',
+      'reportWritingGuides',
+      'finalPackageStructure',
+      '과정명',
+      '팀(개인)',
+      '소속',
+      '성명',
+      '기간',
+      '주강사',
+      '멘토',
+      '목적 및 배경',
+      '방법 및 내용',
+      '활용 도구 및 데이터',
+      '프로젝트 수행 단계별 사진',
+      '계획 → 진행 → 결과',
+      'data-lesson14-time-total',
+    ]) {
+      if (!lessonFourteenComponent.includes(marker) && !portfolioProjectContent.includes(marker)) {
+        errors.push(`제14차시 결과보고서·제출 패키지에 구조 '${marker}'가 없습니다.`);
+      }
+    }
+    const lessonFourteenTimeBlock = portfolioProjectContent.match(/lesson14TimePlan[\s\S]*?commonPortfolioStructure/)?.[0] ?? '';
+    const lessonFourteenTimeTotal = [...lessonFourteenTimeBlock.matchAll(/minutes:\s*(\d+)/g)]
+      .reduce((total, match) => total + Number(match[1]), 0);
+    if (lessonFourteenTimeTotal !== 360) {
+      errors.push(`제14차시 시간표: 예상 360분, 실제 ${lessonFourteenTimeTotal}분`);
+    }
+    for (const falseClaim of ['기관 공식 결과보고서 양식', '기존 양식과 동일한 최종 서식']) {
+      if (lessonFourteenComponent.includes(falseClaim)) {
+        errors.push(`제14차시에서 확인되지 않은 양식 주장 '${falseClaim}'을 사용했습니다.`);
+      }
+    }
+  }
   if (source.includes("category: '전문가 판단 필요'")) {
     errors.push(
       `${fileName}: 포괄적인 '전문가 판단 필요' 대신 구체적인 판단·검증 분류를 사용해야 합니다.`,
     );
   }
 
-  if (!isDetailedLessonOne && !['06', '07', '08', '09', '10', '11'].includes(id)) {
+  if (!isDetailedLessonOne && !['06', '07', '08', '09', '10', '11', '12', '13', '14'].includes(id)) {
     const structuralCategoryChecks = [
       { property: 'goals', nextProperty: 'concepts', expected: '학습 목표' },
       { property: 'deliverables', nextProperty: 'judgments', expected: '수업 산출물' },
@@ -1652,7 +1813,7 @@ console.log('- day: 1–14 누락·중복 없음');
 console.log('- ID/day 일치');
 console.log('- 승인된 제목·수업시간 일치');
 console.log('- 승인된 상위 주제 7개·차시 연결 14개 일치');
-console.log('- 제1차시 16개, 제2차시 13개, 제3차시 11개, 제4–6차시 14개, 제7차시 27개, 제8차시 18개, 제9차시 16개, 제10차시 13개, 제11차시 19개, 제12–14차시 13개 섹션');
+console.log('- 제1차시 16개, 제2차시 13개, 제3차시 11개, 제4–6차시 14개, 제7차시 27개, 제8차시 18개, 제9차시 16개, 제10차시 13개, 제11차시 19개, 제12차시 12개, 제13·14차시 14개 섹션');
 console.log('- 모든 차시 실습시간 50% 이상');
 console.log(`- 자산 manifest: ${manifestAssetIds.length}개, 필수 필드·연결 ID·공개 조건 확인`);
 console.log(`- 필수 metadata: ${requiredFields.join(', ')}`);
