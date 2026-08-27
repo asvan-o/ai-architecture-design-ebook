@@ -1484,19 +1484,39 @@ assets:
     source_type: "original"
     production_owner: "instructor"
     lesson_usage: "result-sample"
-    title: "재질 및 가구 프롬프트 라이브러리와 주택 정면 사례"
+    title: "건축 AI 이미지 수정 프롬프트 라이브러리와 주택 정면 사례"
     type: "image"
-    purpose: "재질·가구·환경·카메라·표현 방식을 1~3개씩 조합하는 프롬프트 구조를 실제 이미지로 확인"
+    purpose: "재질·색상·조명·환경·조경·스타일링·카메라·렌더링 표현을 1~3개씩 조합하는 프롬프트 구조를 실제 이미지로 확인"
     required_files: ["src/assets/lessons/12-14/material-furniture/house-front/house-front-00-original.jpeg", "src/assets/lessons/12-14/material-furniture/house-front/house-front-01-corten.jpeg", "src/assets/lessons/12-14/material-furniture/house-front/house-front-02-suv-mailbox.jpeg", "src/assets/lessons/12-14/material-furniture/house-front/house-front-03-autumn.jpeg", "src/assets/lessons/12-14/material-furniture/house-front/house-front-04-winter.jpeg", "src/assets/lessons/12-14/material-furniture/house-front/house-front-05-camera.jpeg", "src/assets/lessons/12-14/material-furniture/house-front/house-front-06-pencil.jpeg", "src/assets/lessons/12-14/material-furniture/house-front/house-front-prompts.txt"]
     recommended_tool: "image-generation-tool"
     status: "ready"
     public_use: true
-    source_note: "사용자가 제공한 재질 및 가구 프롬프트 정리 문서와 주택 정면 실습 결과"
+    source_note: "사용자가 제공한 AI 활용 건축 디자인 프롬프트 정리 문서와 주택 정면 실습 결과"
     rights_status: "cleared"
     verified_at: "2026-08-20"
     privacy_note: "사용자 제공 수업자료의 repo 사본이며 로컬 경로를 공개하지 않음"
     alt: "같은 주택 정면 이미지에 재질, 가구, 계절, 카메라, 표현 방식을 바꾼 결과"
     verification_note: "카메라 변경과 연필 스케치 결과는 겨울 결과에서 각각 분기한 독립 사례로 표시"
+
+  - id: "l13-portfolio-follow-up-reference"
+    lesson: 13
+    priority: "required"
+    source_type: "original"
+    production_owner: "instructor"
+    lesson_usage: "result-sample"
+    title: "표지 이후 포트폴리오 페이지 레이아웃 참고"
+    type: "image"
+    purpose: "Intro·Overview 페이지에서 대표 이미지, 제목, 설명, 다이어그램과 보조 이미지의 시각적 위계를 관찰"
+    required_files: ["src/assets/lessons/12-14/portfolio-follow-up-reference/01-intro-layout-reference.jpeg", "src/assets/lessons/12-14/portfolio-follow-up-reference/02-overview-layout-reference.jpeg", "src/assets/lessons/12-14/portfolio-follow-up-reference/03-overview-trajectory-reference.jpeg"]
+    recommended_tool: "visual-reference"
+    status: "ready"
+    public_use: true
+    source_note: "사용자가 지정한 D 드라이브 공식 수업자료 루트에서 복사한 포트폴리오 후속 페이지 참고 이미지"
+    rights_status: "cleared"
+    verified_at: "2026-08-27"
+    privacy_note: "공개를 승인받은 수업용 포트폴리오 예시이며 로컬 절대경로를 공개하지 않음"
+    alt: "대표 이미지와 다이어그램, 재질, 보조 이미지를 조합한 포트폴리오 Intro·Overview 페이지 참고 3장"
+    verification_note: "보이는 레이아웃 특성만 설명하며 실제 제작 순서·분석 과정·Before/After를 증명하는 자료로 표현하지 않음"
 
   - id: "l14-result-report-checklist"
     lesson: 14

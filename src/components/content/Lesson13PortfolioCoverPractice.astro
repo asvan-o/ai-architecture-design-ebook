@@ -23,6 +23,9 @@ import cover07 from '../../assets/lessons/12-14/portfolio-cover/results/cover-re
 import cover08 from '../../assets/lessons/12-14/portfolio-cover/results/cover-result-08.jpeg';
 import cover09 from '../../assets/lessons/12-14/portfolio-cover/results/cover-result-09.jpeg';
 import cover10 from '../../assets/lessons/12-14/portfolio-cover/results/cover-result-10.jpeg';
+import introLayoutReference from '../../assets/lessons/12-14/portfolio-follow-up-reference/01-intro-layout-reference.jpeg';
+import overviewLayoutReference from '../../assets/lessons/12-14/portfolio-follow-up-reference/02-overview-layout-reference.jpeg';
+import trajectoryLayoutReference from '../../assets/lessons/12-14/portfolio-follow-up-reference/03-overview-trajectory-reference.jpeg';
 import coverTemplatePrompt from '../../assets/lessons/12-14/portfolio-cover/prompts/nano-banana-cover-template.txt?raw';
 import coverUsedPrompt from '../../assets/lessons/12-14/portfolio-cover/prompts/nano-banana-cover-used.txt?raw';
 import coverTextReviewPrompt from '../../assets/lessons/12-14/portfolio-cover/prompts/gpt-cover-text-review.txt?raw';
@@ -41,6 +44,11 @@ const inputImages = [
   { src: kitchenDining, label: 'PROJECT IMAGE', title: '주방·다이닝 이미지', caption: '수직형 주방·다이닝 공간 이미지' },
 ] as const;
 const coverResults = [cover01, cover02, cover03, cover04, cover05, cover06, cover07, cover08, cover09, cover10];
+const followUpReferences = [
+  { src: introLayoutReference, title: 'Intro 구성 참고', caption: '큰 대표 이미지 아래에 아이소메트릭·재질·평면 정보를 나눈 페이지 구성' },
+  { src: overviewLayoutReference, title: 'Overview 구성 참고', caption: '상단 설명, 큰 공간 이미지, 관계 다이어그램과 재질·디테일 이미지를 조합한 구성' },
+  { src: trajectoryLayoutReference, title: 'Overview 변형 참고', caption: '넓은 여백과 큰 제목, 중심 이미지, 하단 보조 이미지·다이어그램의 위계를 참고하는 구성' },
+] as const;
 ---
 
 <div class="lesson13-cover" data-lesson13-cover-practice>
@@ -48,7 +56,7 @@ const coverResults = [cover01, cover02, cover03, cover04, cover05, cover06, cove
     <div class="cover-hero">
       <p>LESSON 13 · PORTFOLIO COVER · REAL SOURCE</p>
       <h3>페이지의 목적과 입력자료를 정한 뒤 이미지 생성과 텍스트 검증을 분리한다.</h3>
-      <span>이번 차시의 실제 예시는 디자인 포트폴리오의 표지 1페이지다. 준비되지 않은 후속 페이지나 다른 분야의 결과물을 실제 예시처럼 만들지 않는다.</span>
+      <span>이번 차시의 실제 예시는 페이지 제작 흐름을 익히기 위한 디자인 포트폴리오 표지 1페이지다. 표지가 포트폴리오 전체를 대신하지 않으며, 준비되지 않은 후속 결과를 실제 예시처럼 만들지 않는다.</span>
     </div>
   </LessonSection>
 
@@ -163,7 +171,7 @@ const coverResults = [cover01, cover02, cover03, cover04, cover05, cover06, cove
     <p class="source-note">GPT 검증에서 오류를 찾았더라도 결과 전체를 무조건 다시 만들지 않는다. 수정할 문구나 영역을 먼저 특정하고, 로고와 프로젝트 이미지를 보호한다.</p>
   </LessonSection>
 
-  <LessonSection id="section-12" number="12" title="재질 및 가구 프롬프트 라이브러리" {lessonId}>
+  <LessonSection id="section-12" number="12" title="건축 AI 이미지 수정 프롬프트 라이브러리" {lessonId}>
     <MaterialFurniturePromptLibrary headingLevel="h3" />
   </LessonSection>
 
@@ -174,16 +182,28 @@ const coverResults = [cover01, cover02, cover03, cover04, cover05, cover06, cove
       <article><span>기타 제안·전문건설</span><p>현황·문제·대안·Before·After·재료·적용 결과를 확인된 자료로 구성한다.</p></article>
     </div>
     <blockquote class="key-message key-message--small">현재 실제 페이지 예시는 디자인 포트폴리오 표지 하나뿐이다. 다른 분야는 구조 참고이며 실제 예제 페이지로 가장하지 않는다.</blockquote>
+    <h3 class="reference-heading">표지 이후 페이지 레이아웃 참고</h3>
+    <p class="section-lead">아래 이미지는 후속 페이지를 어떻게 나눌지 살펴보는 시각적 참고자료다. 표시된 배치와 위계만 관찰하며, 실제 프로젝트의 제작 순서·분석 과정·Before/After를 증명하는 자료로 해석하지 않는다.</p>
+    <div class="reference-gallery">
+      {followUpReferences.map((item) => (
+        <figure>
+          <Image src={item.src} alt={`${item.title} 수업용 참고 이미지`} widths={[420, 720]} sizes="(max-width: 760px) 92vw, 29vw" loading="lazy" />
+          <figcaption><strong>{item.title}</strong><small>{item.caption}</small></figcaption>
+        </figure>
+      ))}
+    </div>
   </LessonSection>
 
   <LessonSection id="section-14" number="14" title="결과 정리와 180분 운영" {lessonId}>
     <div class="deliverable-grid">
       {['표지 후보와 선택 이유', '실제 사용 프롬프트', 'GPT 텍스트 검증 결과', '오류·수정·보류 기록', '결과보고서에 옮길 AI 활용 기록'].map((item) => <div><span aria-hidden="true">□</span><strong>{item}</strong></div>)}
     </div>
-    <div class="time-grid" data-lesson13-time-total={totalMinutes}>
-      {timePlan.map(({ label, minutes, mode }, index) => <article class={`time-card time-card--${mode}`}><span>{String(index + 1).padStart(2, '0')}</span><strong>{label}</strong><small>{minutes}분</small></article>)}
+    <div class="time-summary">
+      <div class="time-grid" data-lesson13-time-total={totalMinutes}>
+        {timePlan.map(({ label, minutes, mode }, index) => <article class={`time-card time-card--${mode}`}><span>{String(index + 1).padStart(2, '0')}</span><strong>{label}</strong><small>{minutes}분</small></article>)}
+      </div>
+      <p class="time-total">총 {totalMinutes}분</p>
     </div>
-    <p class="time-total">총 {totalMinutes}분</p>
   </LessonSection>
 </div>
 
@@ -193,7 +213,9 @@ const coverResults = [cover01, cover02, cover03, cover04, cover05, cover06, cove
   .input-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.input-gallery figure,.cover-gallery figure{display:grid;min-width:0;margin:0;border:1px solid var(--line-dark);background:#fff;overflow:hidden}.input-gallery :global(img){display:block;width:100%;height:clamp(17rem,34vw,29rem);object-fit:contain;background:#f4f1ea}.input-gallery figcaption{display:grid;gap:.25rem;padding:.8rem}.input-gallery figcaption span{color:var(--l13-accent);font-size:.72rem;font-weight:900}.input-gallery figcaption small{color:var(--muted)}.source-note,.section-lead,.result-boundary,.text-source-note{line-height:1.72}.source-note,.result-boundary,.text-source-note{margin:1rem 0 0;padding:1rem;border-left:5px solid var(--l13-accent);background:#fff0e8}.source-note p,.result-boundary p,.text-source-note p{margin:.3rem 0 0}.section-lead{margin:0 0 1rem}
   .text-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem;margin:1rem 0 0}.text-fields div{padding:1rem;border:1px solid var(--line-dark);background:#fff}.text-fields dt{color:var(--l13-accent);font-size:.75rem;font-weight:900}.text-fields dd{margin:.35rem 0 0;font-size:1.1rem;font-weight:800}.prompt-diff{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);margin-bottom:1rem}.prompt-diff article{display:grid;gap:.35rem;padding:.8rem;background:#fff}.prompt-diff article span{color:var(--l13-accent);font-size:.74rem;font-weight:900}
   .cover-gallery{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:1rem}.cover-gallery :global(img){display:block;width:100%;height:clamp(25rem,46vw,42rem);object-fit:contain;background:#f4f1ea}.cover-gallery figcaption{padding:.7rem;text-align:center;font-size:.85rem;font-weight:800}.review-grid{grid-template-columns:repeat(2,minmax(0,1fr));margin:0;padding:0;list-style:none}.review-grid li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.6rem;padding:1rem;border:1px solid var(--line-dark);background:#fff;line-height:1.55}.review-grid span{color:var(--l13-accent)}.gpt-boundary{display:grid;grid-template-columns:repeat(5,auto);margin-bottom:1rem}.gpt-boundary article{display:grid;gap:.35rem;padding:.8rem;background:#fff}.gpt-boundary article span{color:var(--l13-accent);font-size:.72rem;font-weight:900}
+  .reference-heading{margin:1.6rem 0 .6rem;font-family:var(--serif);font-size:1.35rem}.reference-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}.reference-gallery figure{display:grid;min-width:0;margin:0;border:1px solid var(--line-dark);background:#fff;overflow:hidden}.reference-gallery :global(img){display:block;width:100%;height:clamp(22rem,32vw,34rem);object-fit:contain;background:#f4f1ea}.reference-gallery figcaption{display:grid;gap:.3rem;padding:.85rem}.reference-gallery figcaption small{color:var(--muted);line-height:1.5}
   .workflow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.75rem;margin:0;padding:0;list-style:none}.workflow li{display:grid;gap:.45rem;padding:1rem;border-top:3px solid var(--l13-accent);background:#fff}.workflow span{color:var(--l13-accent);font-size:.74rem;font-weight:900}.application-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.application-grid article{padding:1rem;border:1px solid var(--line-dark);background:#fff}.application-grid span{font-weight:900}.application-grid p{margin:.4rem 0 0;color:var(--muted);line-height:1.65}.deliverable-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.deliverable-grid div{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.55rem;padding:.9rem;border:1px solid var(--line-dark);background:#fff}.deliverable-grid span{color:var(--l13-accent)}.time-grid{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:1.2rem}.time-card{display:grid;gap:.3rem;padding:1rem;border-top:3px solid var(--l13-ink);background:#f8f5ee}.time-card--practice{border-color:var(--l13-accent)}.time-card--review{border-color:#527064}.time-card span,.time-card small{color:var(--muted)}.time-total{text-align:right;font-weight:900}
-  @media(max-width:760px){.purpose-grid,.input-gallery,.cover-gallery,.review-grid,.application-grid,.deliverable-grid,.time-grid,.text-fields,.workflow{grid-template-columns:minmax(0,1fr)}.flow-strip,.gpt-boundary{align-items:stretch;grid-template-columns:minmax(0,1fr);flex-direction:column}.flow-strip b,.gpt-boundary>b{transform:rotate(90deg)}.prompt-diff{grid-template-columns:minmax(0,1fr)}.prompt-diff>b{transform:rotate(90deg)}.input-gallery :global(img){height:auto;max-height:30rem}.cover-gallery :global(img){height:auto;max-height:42rem}}
-  @media print{.cover-hero,.purpose-grid article,.input-gallery figure,.cover-gallery figure,.review-grid li,.application-grid article,.deliverable-grid div,.time-card{break-inside:avoid;page-break-inside:avoid}.purpose-grid,.time-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.input-gallery,.review-grid,.deliverable-grid,.text-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.cover-gallery,.application-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.cover-gallery :global(img){height:86mm}.workflow{grid-template-columns:repeat(5,minmax(0,1fr))}}
+  @media(max-width:760px){.purpose-grid,.input-gallery,.cover-gallery,.review-grid,.application-grid,.reference-gallery,.deliverable-grid,.time-grid,.text-fields,.workflow{grid-template-columns:minmax(0,1fr)}.flow-strip,.gpt-boundary{align-items:stretch;grid-template-columns:minmax(0,1fr);flex-direction:column}.flow-strip b,.gpt-boundary>b{transform:rotate(90deg)}.prompt-diff{grid-template-columns:minmax(0,1fr)}.prompt-diff>b{transform:rotate(90deg)}.input-gallery :global(img){height:auto;max-height:30rem}.cover-gallery :global(img){height:auto;max-height:42rem}.reference-gallery :global(img){height:auto;max-height:34rem}}
+  @media print{.reference-gallery{grid-template-columns:repeat(3,minmax(0,1fr))}.reference-gallery figure{break-inside:avoid}.reference-gallery :global(img){height:68mm}}
+  @media print{.cover-hero,.purpose-grid article,.input-gallery figure,.cover-gallery figure,.review-grid li,.application-grid article,.deliverable-grid div,.time-card,.time-summary{break-inside:avoid;page-break-inside:avoid}.purpose-grid,.time-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.input-gallery,.review-grid,.deliverable-grid,.text-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.cover-gallery,.application-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.cover-gallery :global(img){height:86mm}.workflow{grid-template-columns:repeat(5,minmax(0,1fr))}}
 </style>

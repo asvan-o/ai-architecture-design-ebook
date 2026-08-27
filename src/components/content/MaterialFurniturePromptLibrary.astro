@@ -6,7 +6,11 @@ import {
   furnitureChangePrompt,
   materialChangePrompt,
   materialKeywordGroups,
+  photorealismKeywords,
+  photorealismPrompts,
   promptCompositionFormula,
+  threeElementPrompt,
+  twoElementPrompt,
 } from '../../lib/lesson12-14-portfolio-project';
 
 import original from '../../assets/lessons/12-14/material-furniture/house-front/house-front-00-original.jpeg';
@@ -34,13 +38,18 @@ const exampleImages = [
   { src: cameraShift, step: '04→05', title: '카메라 위치 변경', caption: '겨울 결과를 기준으로 우편함 뒤 아이레벨·50mm 시점 적용' },
   { src: pencil, step: '04→06', title: '표현 방식 변경', caption: '겨울 결과를 기준으로 연필 스케치 표현 적용' },
 ] as const;
+const photorealismPromptItems = [
+  { id: 'material-library-photorealism-1', prompt: photorealismPrompts[0] },
+  { id: 'material-library-photorealism-2', prompt: photorealismPrompts[1] },
+  { id: 'material-library-photorealism-3', prompt: photorealismPrompts[2] },
+] as const;
 ---
 
 <div class="material-prompt-library" data-material-furniture-prompt-library>
   <header class="library-head">
     <p>VERIFIED SOURCE · MATERIAL · FURNITURE · CAMERA · RENDERING</p>
-    <Heading>재질 및 가구 프롬프트 라이브러리</Heading>
-    <span>원본을 고정하고 한 번에 1~3개의 변경 요소만 선택하는 실무용 구성이다.</span>
+    <Heading>건축 AI 이미지 수정 프롬프트 라이브러리</Heading>
+    <span>원본을 고정하고 재질·색상·조명·환경·조경·스타일링·카메라·표현 중 필요한 3~6개 키워드와 1~3개의 변경 요소만 선택하는 실무용 구성이다.</span>
   </header>
 
   <div class="purpose-grid">
@@ -58,6 +67,11 @@ const exampleImages = [
       <section><h4>{group.label}</h4><ul>{group.items.map((item) => <li>{item}</li>)}</ul></section>
     ))}
   </div>
+
+  <aside class="library-boundary">
+    <strong>키워드는 많이 넣는 것보다 역할을 분명히 한다.</strong>
+    <p>한 작업에는 3~6개의 핵심 키워드를 우선 사용한다. 카메라·시점 변경은 공간과 형태가 달라 보일 수 있으므로 재질·가구 변경과 분리해 실행하고 원본과 다시 대조한다.</p>
+  </aside>
 
   <div class="prompt-stack">
     <PromptCopyBlock
@@ -79,6 +93,18 @@ const exampleImages = [
       prompt={furnitureChangePrompt}
     />
     <PromptCopyBlock
+      id="material-library-two-element"
+      title="2요소 변경 템플릿"
+      description="두 변경의 대상과 역할을 나누고 나머지 영역을 보호한다."
+      prompt={twoElementPrompt}
+    />
+    <PromptCopyBlock
+      id="material-library-three-element"
+      title="3요소 변경 템플릿"
+      description="세 번째 변경까지 필요한 경우에만 사용하고, 네 개 이상은 작업을 분리한다."
+      prompt={threeElementPrompt}
+    />
+    <PromptCopyBlock
       id="material-library-house-front-sequence"
       title="실제 주택 정면 단계별 프롬프트"
       description="재질, 차량·우편함, 계절·시간, 카메라와 표현 방식을 나누어 적용한 실제 예시 원문이다."
@@ -87,6 +113,22 @@ const exampleImages = [
       label="전체 원문 복사"
     />
   </div>
+
+  <section class="photorealism-section" aria-label="Photorealism 프롬프트 참고">
+    <h4>Photorealism · 사실적인 건축 시각화</h4>
+    <p>PBR, Global Illumination, Ray Tracing은 이미지 생성 모델이 물리 계산을 실제로 수행한다는 보장이 아니라, 재질·간접광·반사의 시각적 단서를 요청하는 표현으로 사용한다.</p>
+    <ul>{photorealismKeywords.map((item) => <li>{item}</li>)}</ul>
+    <div class="prompt-stack">
+      {photorealismPromptItems.map((item, index) => (
+        <PromptCopyBlock
+          id={item.id}
+          title={`Photorealism 예시 ${index + 1}`}
+          description="원본 보호 조건과 필요한 시각적 단서를 함께 사용한다."
+          prompt={item.prompt}
+        />
+      ))}
+    </div>
+  </section>
 
   {showExampleGallery && (
     <section class="example-section" aria-label="주택 정면 프롬프트 실제 결과">
@@ -112,7 +154,7 @@ const exampleImages = [
 <style>
   .material-prompt-library{--mpl-ink:#26322e;--mpl-accent:#a84930;--mpl-warm:#f4eadc;display:grid;gap:1.2rem;min-width:0;max-width:100%}.library-head{display:grid;gap:.55rem;padding:clamp(1.1rem,3vw,1.8rem);border:1px solid var(--line-dark);background:linear-gradient(135deg,var(--mpl-warm),#fff)}.library-head p,.library-head h2,.library-head h3,.library-head span{margin:0}.library-head p{color:var(--mpl-accent);font-size:.74rem;font-weight:900;letter-spacing:.12em}.library-head h2,.library-head h3{font-family:var(--serif);font-size:clamp(1.7rem,3.5vw,2.7rem);line-height:1.2}.library-head span{color:var(--muted);line-height:1.7}
   .purpose-grid,.keyword-groups,.example-gallery{display:grid;gap:1rem}.purpose-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.purpose-grid article{display:grid;gap:.35rem;padding:1rem;border-top:3px solid var(--mpl-accent);background:#fff}.purpose-grid span{color:var(--mpl-accent);font-size:.74rem;font-weight:900}.formula-card{display:grid;gap:.45rem;padding:1.2rem;border:1px solid var(--line-dark);background:var(--mpl-ink);color:#fff}.formula-card span{color:#f1b29f;font-size:.74rem;font-weight:900;letter-spacing:.1em}.formula-card strong{font-size:clamp(1.05rem,2vw,1.3rem)}.formula-card p{margin:0;color:#dce3df;line-height:1.65}
-  .keyword-groups{grid-template-columns:repeat(2,minmax(0,1fr))}.keyword-groups section{padding:1rem;border:1px solid var(--line-dark);background:#fff}.keyword-groups h4{margin:0 0 .75rem;font-family:var(--serif);font-size:1.25rem}.keyword-groups ul{display:flex;flex-wrap:wrap;gap:.45rem;margin:0;padding:0;list-style:none}.keyword-groups li{padding:.4rem .55rem;border:1px solid var(--line);background:#faf8f2;font-size:.9rem}.prompt-stack{display:grid;gap:1rem}.example-section>h4,.example-section>p{margin:0}.example-section>h4{font-family:var(--serif);font-size:1.4rem}.example-section>p{margin-top:.4rem;color:var(--muted);line-height:1.6}.example-gallery{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:1rem}.example-gallery figure{display:grid;min-width:0;margin:0;border:1px solid var(--line-dark);background:#fff;overflow:hidden}.example-gallery :global(img){display:block;width:100%;height:clamp(18rem,34vw,30rem);object-fit:contain;background:#f5f3ed}.example-gallery figcaption{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.3rem .6rem;padding:.85rem}.example-gallery figcaption span{grid-row:1/3;color:var(--mpl-accent);font-size:.72rem;font-weight:900}.example-gallery figcaption small{color:var(--muted);line-height:1.5}.library-boundary{padding:1rem 1.2rem;border-left:5px solid var(--mpl-accent);background:#fff0e8}.library-boundary p{margin:.35rem 0 0;line-height:1.7}
+  .keyword-groups{grid-template-columns:repeat(2,minmax(0,1fr))}.keyword-groups section{padding:1rem;border:1px solid var(--line-dark);background:#fff}.keyword-groups h4{margin:0 0 .75rem;font-family:var(--serif);font-size:1.25rem}.keyword-groups ul,.photorealism-section ul{display:flex;flex-wrap:wrap;gap:.45rem;margin:0;padding:0;list-style:none}.keyword-groups li,.photorealism-section li{padding:.4rem .55rem;border:1px solid var(--line);background:#faf8f2;font-size:.9rem}.prompt-stack{display:grid;gap:1rem}.photorealism-section{display:grid;gap:1rem;padding:1.2rem;border:1px solid var(--line-dark);background:#fff}.photorealism-section h4,.photorealism-section p{margin:0}.photorealism-section h4{font-family:var(--serif);font-size:1.4rem}.photorealism-section p{color:var(--muted);line-height:1.7}.example-section>h4,.example-section>p{margin:0}.example-section>h4{font-family:var(--serif);font-size:1.4rem}.example-section>p{margin-top:.4rem;color:var(--muted);line-height:1.6}.example-gallery{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:1rem}.example-gallery figure{display:grid;min-width:0;margin:0;border:1px solid var(--line-dark);background:#fff;overflow:hidden}.example-gallery :global(img){display:block;width:100%;height:clamp(18rem,34vw,30rem);object-fit:contain;background:#f5f3ed}.example-gallery figcaption{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.3rem .6rem;padding:.85rem}.example-gallery figcaption span{grid-row:1/3;color:var(--mpl-accent);font-size:.72rem;font-weight:900}.example-gallery figcaption small{color:var(--muted);line-height:1.5}.library-boundary{padding:1rem 1.2rem;border-left:5px solid var(--mpl-accent);background:#fff0e8}.library-boundary p{margin:.35rem 0 0;line-height:1.7}
   @media(max-width:760px){.purpose-grid,.keyword-groups,.example-gallery{grid-template-columns:minmax(0,1fr)}.example-gallery :global(img){height:auto;max-height:30rem}}
   @media print{.library-head,.purpose-grid article,.formula-card,.keyword-groups section,.example-gallery figure,.library-boundary{break-inside:avoid;page-break-inside:avoid}.purpose-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.keyword-groups{grid-template-columns:repeat(2,minmax(0,1fr))}.example-gallery{grid-template-columns:repeat(3,minmax(0,1fr))}.example-gallery :global(img){height:54mm}}
 </style>
