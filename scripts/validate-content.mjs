@@ -12,6 +12,10 @@ const glossaryPath = path.resolve('src/content/glossary/index.mdx');
 const toolCatalogPath = path.resolve('data/tool-catalog.yaml');
 const instructorNoteMapPath = path.resolve('src/lib/instructor-notes.ts');
 const printStylePath = path.resolve('src/styles/print.css');
+const accessConfigPath = path.resolve('src/config/access.json');
+const accessGateComponentPath = path.resolve('src/components/EbookAccessGate.astro');
+const siteLayoutPath = path.resolve('src/layouts/SiteLayout.astro');
+const robotsPath = path.resolve('public/robots.txt');
 const lessonTwoPromptPath = path.resolve(
   'src/assets/lessons/02/empty-space-sample/01-generation-prompts/prompt-02.txt',
 );
@@ -1854,6 +1858,45 @@ for (const block of manifestBlocks) {
   }
 }
 
+try {
+  const accessConfig = JSON.parse(await readFile(accessConfigPath, 'utf8'));
+  const accessGateComponent = await readFile(accessGateComponentPath, 'utf8');
+  const siteLayout = await readFile(siteLayoutPath, 'utf8');
+  const robots = await readFile(robotsPath, 'utf8');
+
+  if (!/^[-a-z0-9]+$/i.test(accessConfig.sessionStorageKey ?? '')) {
+    errors.push('전자서적 접근 설정의 sessionStorageKey가 올바르지 않습니다.');
+  }
+  if (!/^[a-f0-9]{64}$/.test(accessConfig.passwordHash ?? '')) {
+    errors.push('전자서적 접근 설정의 passwordHash는 SHA-256 소문자 64자리여야 합니다.');
+  }
+  for (const marker of [
+    'type="password"',
+    'data-ebook-access-form',
+    "crypto.subtle.digest('SHA-256'",
+    'sessionStorage.setItem(sessionStorageKey, expectedPasswordHash)',
+  ]) {
+    if (!accessGateComponent.includes(marker)) {
+      errors.push(`전자서적 접근 게이트 필수 구현이 없습니다: ${marker}`);
+    }
+  }
+  for (const marker of [
+    "data-ebook-access={accessGateEnabled ? 'locked' : 'disabled'}",
+    'noindex, nofollow, noarchive',
+    'data-ebook-protected',
+    'sessionStorage.getItem(sessionStorageKey) === expectedPasswordHash',
+  ]) {
+    if (!siteLayout.includes(marker)) {
+      errors.push(`학생 공통 Layout 접근 제한 구현이 없습니다: ${marker}`);
+    }
+  }
+  if (!/User-agent:\s*\*\s*[\r\n]+Disallow:\s*\//i.test(robots)) {
+    errors.push('robots.txt가 전체 학생 사이트의 검색 수집을 억제하지 않습니다.');
+  }
+} catch {
+  errors.push('전자서적 접근 제한 설정·컴포넌트·Layout·robots.txt를 읽을 수 없습니다.');
+}
+
 if (errors.length > 0) {
   console.error('콘텐츠 무결성 검사 실패');
   for (const error of errors) console.error(`- ${error}`);
@@ -1871,3 +1914,4 @@ console.log('- 제1차시 16개, 제2차시 13개, 제3차시 11개, 제4–6차
 console.log('- 모든 차시 실습시간 50% 이상');
 console.log(`- 자산 manifest: ${manifestAssetIds.length}개, 필수 필드·연결 ID·공개 조건 확인`);
 console.log(`- 필수 metadata: ${requiredFields.join(', ')}`);
+console.log('- 학생 e-book 공통 접근 게이트: SHA-256 중앙 설정·sessionStorage·noindex 확인');

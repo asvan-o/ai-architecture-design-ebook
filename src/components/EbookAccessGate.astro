@@ -1,0 +1,196 @@
+---
+import accessConfig from '../config/access.json';
+---
+
+<section class="ebook-access-gate" data-ebook-access-gate aria-labelledby="ebook-access-title">
+  <div class="ebook-access-card">
+    <p class="ebook-access-eyebrow">AI ARCHITECTURE DESIGN</p>
+    <h1 id="ebook-access-title">수강생 전용 강의자료</h1>
+    <p>이 강의자료는 수강생용 자료입니다.<br />안내받은 비밀번호를 입력해 주세요.</p>
+
+    <form data-ebook-access-form novalidate>
+      <label for="ebook-access-password">비밀번호</label>
+      <input
+        id="ebook-access-password"
+        name="password"
+        type="password"
+        autocomplete="current-password"
+        required
+        aria-describedby="ebook-access-error"
+        data-ebook-access-input
+      />
+      <button type="submit" data-ebook-access-submit>강의자료 열기</button>
+      <p id="ebook-access-error" class="ebook-access-error" role="alert" aria-live="assertive" hidden data-ebook-access-error>
+        비밀번호가 올바르지 않습니다.
+      </p>
+    </form>
+
+    <noscript>강의자료를 열려면 브라우저에서 JavaScript를 활성화해 주세요.</noscript>
+  </div>
+</section>
+
+<script is:inline define:vars={{
+  sessionStorageKey: accessConfig.sessionStorageKey,
+  expectedPasswordHash: accessConfig.passwordHash,
+}}>
+  (() => {
+    const form = document.querySelector('[data-ebook-access-form]');
+    const input = document.querySelector('[data-ebook-access-input]');
+    const submitButton = document.querySelector('[data-ebook-access-submit]');
+    const errorMessage = document.querySelector('[data-ebook-access-error]');
+
+    if (!(form instanceof HTMLFormElement)
+      || !(input instanceof HTMLInputElement)
+      || !(submitButton instanceof HTMLButtonElement)
+      || !(errorMessage instanceof HTMLElement)) return;
+
+    const toSha256 = async (value) => {
+      const bytes = new TextEncoder().encode(value);
+      const digest = await crypto.subtle.digest('SHA-256', bytes);
+      return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, '0')).join('');
+    };
+
+    const showError = (message = '비밀번호가 올바르지 않습니다.') => {
+      errorMessage.textContent = message;
+      errorMessage.hidden = false;
+      input.value = '';
+      input.setAttribute('aria-invalid', 'true');
+      input.focus();
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      errorMessage.hidden = true;
+      input.removeAttribute('aria-invalid');
+      submitButton.disabled = true;
+
+      try {
+        const submittedHash = await toSha256(input.value);
+        if (submittedHash !== expectedPasswordHash) {
+          showError();
+          return;
+        }
+        sessionStorage.setItem(sessionStorageKey, expectedPasswordHash);
+        input.value = '';
+        document.documentElement.dataset.ebookAccess = 'unlocked';
+        document.querySelector('#main-content h1, #main-content [tabindex="-1"], #main-content')?.focus({ preventScroll: true });
+      } catch {
+        showError('이 브라우저에서 인증을 처리하지 못했습니다. 페이지를 새로고침한 뒤 다시 시도해 주세요.');
+      } finally {
+        submitButton.disabled = false;
+      }
+    });
+
+    if (document.documentElement.dataset.ebookAccess === 'locked') {
+      window.requestAnimationFrame(() => input.focus());
+    }
+  })();
+</script>
+
+<style>
+  .ebook-access-gate {
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    display: grid;
+    min-height: 100dvh;
+    place-items: center;
+    overflow-y: auto;
+    padding: clamp(1.25rem, 5vw, 4rem);
+    background:
+      linear-gradient(rgba(244, 241, 234, 0.94), rgba(233, 229, 220, 0.98)),
+      repeating-linear-gradient(90deg, transparent 0 7.45rem, rgba(24, 32, 29, 0.055) 7.45rem 7.5rem);
+  }
+
+  .ebook-access-card {
+    width: min(100%, 34rem);
+    padding: clamp(2rem, 7vw, 4.25rem);
+    border: 1px solid var(--line-dark);
+    background: var(--surface);
+    box-shadow: 0 1.5rem 4rem rgba(24, 32, 29, 0.12);
+  }
+
+  .ebook-access-eyebrow {
+    margin: 0 0 0.8rem;
+    color: var(--accent);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+  }
+
+  .ebook-access-card h1 {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: clamp(2rem, 7vw, 3.35rem);
+    line-height: 1.16;
+    word-break: keep-all;
+  }
+
+  .ebook-access-card > p:not(.ebook-access-eyebrow) {
+    margin: 1.15rem 0 2rem;
+    color: var(--muted);
+  }
+
+  .ebook-access-card form {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .ebook-access-card label {
+    font-size: 0.82rem;
+    font-weight: 750;
+  }
+
+  .ebook-access-card input {
+    width: 100%;
+    min-height: 3.35rem;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid var(--line-dark);
+    border-radius: 0;
+    color: var(--ink);
+    background: #fff;
+  }
+
+  .ebook-access-card input[aria-invalid="true"] {
+    border-color: var(--accent);
+  }
+
+  .ebook-access-card button {
+    min-height: 3.35rem;
+    margin-top: 0.2rem;
+    border: 1px solid var(--ink);
+    color: #fff;
+    background: var(--ink);
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .ebook-access-card button:hover,
+  .ebook-access-card button:focus-visible {
+    background: var(--accent-dark);
+  }
+
+  .ebook-access-card button:disabled {
+    cursor: wait;
+    opacity: 0.65;
+  }
+
+  .ebook-access-error {
+    margin: 0.35rem 0 0;
+    color: var(--accent-dark);
+    font-size: 0.86rem;
+    font-weight: 700;
+  }
+
+  .ebook-access-card noscript {
+    display: block;
+    margin-top: 1rem;
+    color: var(--accent-dark);
+    font-size: 0.82rem;
+  }
+
+  @media (max-width: 480px) {
+    .ebook-access-gate { align-items: start; padding-top: 8vh; }
+    .ebook-access-card { padding: 1.75rem 1.35rem 2rem; }
+  }
+</style>

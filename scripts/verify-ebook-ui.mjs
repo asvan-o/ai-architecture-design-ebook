@@ -1,5 +1,15 @@
 import process from 'node:process';
+import { readFileSync } from 'node:fs';
 import { chromium } from 'playwright';
+
+const accessConfig = JSON.parse(readFileSync(new URL('../src/config/access.json', import.meta.url), 'utf8'));
+const authorizeContext = (context) => context.addInitScript(({ sessionStorageKey, passwordHash }) => {
+  try {
+    window.sessionStorage.setItem(sessionStorageKey, passwordHash);
+  } catch {
+    // 실제 인증 화면은 별도 브라우저 검수에서 확인하고, 여기서는 기존 e-book UI 회귀를 계속 검사한다.
+  }
+}, accessConfig);
 
 const argumentsMap = Object.fromEntries(process.argv.slice(2).map((argument) => {
   const [key, ...value] = argument.replace(/^--/, '').split('=');
@@ -40,6 +50,7 @@ const browser = await chromium.launch({ headless: true });
 try {
   for (const viewport of desktopViewports) {
     const context = await browser.newContext({ viewport });
+    await authorizeContext(context);
     const page = await context.newPage();
     watchRuntimeErrors(page, `desktop-${viewport.width}x${viewport.height}`);
 
@@ -90,6 +101,7 @@ try {
   }
 
   const copyContext = await browser.newContext({ viewport: desktopViewports[0] });
+  await authorizeContext(copyContext);
   await copyContext.grantPermissions(['clipboard-read', 'clipboard-write'], { origin: new URL(baseUrl).origin });
   const copyPage = await copyContext.newPage();
   watchRuntimeErrors(copyPage, 'desktop-copy-and-lesson04');
@@ -318,6 +330,7 @@ try {
   await copyContext.close();
 
   const mobileContext = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  await authorizeContext(mobileContext);
   const mobilePage = await mobileContext.newPage();
   watchRuntimeErrors(mobilePage, 'mobile-390x844');
   await mobilePage.goto(`${baseUrl}/lessons/02/`, { waitUntil: 'networkidle' });
