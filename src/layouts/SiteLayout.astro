@@ -86,7 +86,7 @@ const isCurrent = (href: string) =>
       <nav class="primary-nav" aria-label="주요 메뉴">
         {mainNav.map((item) => (
           <a href={withBase(item.href)} aria-current={isCurrent(item.href) ? 'page' : undefined}>
-            <span>{item.marker}</span>{item.label}
+            <span>{item.marker}</span><span class="primary-nav__copy"><strong>{item.label}</strong>{'meta' in item && <small>{item.meta}</small>}</span>
           </a>
         ))}
       </nav>
@@ -137,7 +137,7 @@ const isCurrent = (href: string) =>
       <nav aria-label="모바일 주요 메뉴">
         {mainNav.map((item) => (
           <a href={withBase(item.href)} aria-current={isCurrent(item.href) ? 'page' : undefined}>
-            <span>{item.marker}</span>{item.label}
+            <span>{item.marker}</span><span class="primary-nav__copy"><strong>{item.label}</strong>{'meta' in item && <small>{item.meta}</small>}</span>
           </a>
         ))}
       </nav>

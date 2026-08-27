@@ -9,6 +9,12 @@ const pdfScope = process.argv[3] ?? 'student';
 const releaseConfig = JSON.parse(
   await readFile(path.resolve('data', 'student-release.json'), 'utf8'),
 );
+const pdfVersionManifest = JSON.parse(
+  await readFile(path.resolve('data', 'lesson-pdf-manifest.json'), 'utf8'),
+);
+const lessonPdfMetadata = new Map(
+  pdfVersionManifest.lessons.map((item) => [item.lessonId, item]),
+);
 const allLessonIds = Array.from({ length: 14 }, (_, index) =>
   String(index + 1).padStart(2, '0'));
 const expectedLessonIds = pdfScope === 'instructor'
@@ -17,9 +23,9 @@ const expectedLessonIds = pdfScope === 'instructor'
 const expectedLessonIdSet = new Set(expectedLessonIds);
 const downloadsDirectory = path.join(outputDirectory, 'downloads');
 const expectedPdfNames = [
-  ...expectedLessonIds.map((lessonId) => `ai-architecture-design-lesson-${lessonId}.pdf`),
-  'ai-architecture-design-course.pdf',
-].sort();
+  ...expectedLessonIds.map((lessonId) => lessonPdfMetadata.get(lessonId)?.pdfFilename),
+  pdfVersionManifest.course.pdfFilename,
+].filter(Boolean).sort();
 
 if (!['student', 'instructor'].includes(pdfScope)) {
   throw new Error(`지원하지 않는 PDF 검증 범위입니다: ${pdfScope}`);
@@ -66,6 +72,9 @@ for (const file of manifest.files) {
   if (file.sha256 !== actualHash) {
     throw new Error(`PDF SHA-256 불일치: ${file.fileName}`);
   }
+  if (!Number.isInteger(file.pageCount) || file.pageCount < 1) {
+    throw new Error(`PDF 페이지 수가 유효하지 않습니다: ${file.fileName}`);
+  }
   if (file.kind === 'lesson') {
     if (!file.lessonId || !expectedLessonIdSet.has(file.lessonId)) {
       throw new Error(`PDF manifest에 승인되지 않은 차시가 있습니다: ${file.lessonId}`);
@@ -73,9 +82,19 @@ for (const file of manifest.files) {
     if (file.lessonIds.join(',') !== file.lessonId) {
       throw new Error(`차시 PDF manifest lessonId/lessonIds 불일치: ${file.fileName}`);
     }
+    const metadata = lessonPdfMetadata.get(file.lessonId);
+    if (!metadata || metadata.pdfFilename !== file.fileName || metadata.pdfUpdatedAt !== file.pdfUpdatedAt) {
+      throw new Error(`차시 PDF 버전 메타데이터 불일치: ${file.fileName}`);
+    }
   }
   if (file.kind === 'course' && file.lessonIds.join(',') !== expectedLessonIds.join(',')) {
     throw new Error('전체 교안 PDF의 포함 차시가 승인 목록과 다릅니다.');
+  }
+  if (file.kind === 'course' && (
+    file.fileName !== pdfVersionManifest.course.pdfFilename
+    || file.pdfUpdatedAt !== pdfVersionManifest.course.pdfUpdatedAt
+  )) {
+    throw new Error('전체 교안 PDF 버전 메타데이터가 중앙 설정과 다릅니다.');
   }
 }
 
@@ -85,7 +104,8 @@ if (pdfScope === 'student') {
     const lessonHtmlPath = path.join(outputDirectory, 'lessons', lessonId, 'index.html');
     const html = await readFile(lessonHtmlPath, 'utf8');
     studentHtml.push(html);
-    const pdfPath = `ai-architecture-design-lesson-${lessonId}.pdf`;
+    const pdfPath = lessonPdfMetadata.get(lessonId)?.pdfFilename;
+    if (!pdfPath) throw new Error(`학생 PDF 메타데이터가 없습니다: ${lessonId}`);
     const hasPdfReference = html.includes(pdfPath);
     if (hasPdfReference !== expectedLessonIdSet.has(lessonId)) {
       throw new Error(`학생 e-book PDF 링크 상태가 중앙 설정과 다릅니다: ${lessonId}`);
@@ -95,7 +115,8 @@ if (pdfScope === 'student') {
   const combinedStudentHtml = studentHtml.join('\n');
   for (const lessonId of allLessonIds) {
     if (expectedLessonIdSet.has(lessonId)) continue;
-    const forbiddenPath = `ai-architecture-design-lesson-${lessonId}.pdf`;
+    const forbiddenPath = lessonPdfMetadata.get(lessonId)?.pdfFilename;
+    if (!forbiddenPath) throw new Error(`PDF 메타데이터가 없습니다: ${lessonId}`);
     if (combinedStudentHtml.includes(forbiddenPath)) {
       throw new Error(`비공개 PDF 경로가 학생 HTML에 노출되었습니다: ${forbiddenPath}`);
     }

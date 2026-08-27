@@ -6,6 +6,7 @@ import { getLessonRoadmap, getLessonTopics } from '../lib/lesson-topics';
 import { releasedPdfLessonIds } from '../lib/student-release';
 import { withBase } from '../lib/site';
 import { formatCourseDuration } from '../lib/duration';
+import { coursePdfMetadata, formatPdfUpdatedAt } from '../lib/lesson-pdfs';
 
 const lessons = await getVisibleLessons();
 const lessonsById = new Map(lessons.map((lesson) => [lesson.id, lesson]));
@@ -43,9 +44,9 @@ const durationLabel = (durationMinutes: number | null) =>
     <PdfDownloadPanel
       eyebrow="COURSE PDF"
       items={[{
-        href: '/downloads/ai-architecture-design-course.pdf',
+        href: `/downloads/${coursePdfMetadata.pdfFilename}`,
         label: '전체 교안 PDF 다운로드',
-        meta: `현재 PDF 공개 ${releasedPdfLessonIds.length}개 차시 · A4`,
+        meta: `현재 PDF 공개 ${releasedPdfLessonIds.length}개 차시 · PDF 업데이트 ${formatPdfUpdatedAt(coursePdfMetadata.pdfUpdatedAt)} · A4`,
       }]}
     />
 

@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "lessons": [
+    { "lessonId": "01", "pdfUpdatedAt": "2026-08-27", "pdfFilename": "ai-architecture-design-lesson-01_2026-08-27.pdf" },
+    { "lessonId": "02", "pdfUpdatedAt": "2026-08-27", "pdfFilename": "ai-architecture-design-lesson-02_2026-08-27.pdf" },
+    { "lessonId": "03", "pdfUpdatedAt": "2026-08-27", "pdfFilename": "ai-architecture-design-lesson-03_2026-08-27.pdf" },
+    { "lessonId": "04", "pdfUpdatedAt": "2026-08-27", "pdfFilename": "ai-architecture-design-lesson-04_2026-08-27.pdf" },
+    { "lessonId": "05", "pdfUpdatedAt": "2026-08-27", "pdfFilename": "ai-architecture-design-lesson-05_2026-08-27.pdf" },
+    { "lessonId": "06", "pdfUpdatedAt": "2026-08-27", "pdfFilename": "ai-architecture-design-lesson-06_2026-08-27.pdf" },
+    { "lessonId": "07", "pdfUpdatedAt": "2026-08-27", "pdfFilename": "ai-architecture-design-lesson-07_2026-08-27.pdf" },
+    { "lessonId": "08", "pdfUpdatedAt": "2026-08-27", "pdfFilename": "ai-architecture-design-lesson-08_2026-08-27.pdf" },
+    { "lessonId": "09", "pdfUpdatedAt": "2026-08-27", "pdfFilename": "ai-architecture-design-lesson-09_2026-08-27.pdf" },
+    { "lessonId": "10", "pdfUpdatedAt": "2026-08-27", "pdfFilename": "ai-architecture-design-lesson-10_2026-08-27.pdf" },
+    { "lessonId": "11", "pdfUpdatedAt": "2026-08-27", "pdfFilename": "ai-architecture-design-lesson-11_2026-08-27.pdf" },
+    { "lessonId": "12", "pdfUpdatedAt": "2026-08-27", "pdfFilename": "ai-architecture-design-lesson-12_2026-08-27.pdf" },
+    { "lessonId": "13", "pdfUpdatedAt": "2026-08-27", "pdfFilename": "ai-architecture-design-lesson-13_2026-08-27.pdf" },
+    { "lessonId": "14", "pdfUpdatedAt": "2026-08-27", "pdfFilename": "ai-architecture-design-lesson-14_2026-08-27.pdf" }
+  ],
+  "course": {
+    "pdfUpdatedAt": "2026-08-27",
+    "pdfFilename": "ai-architecture-design-course_2026-08-27.pdf"
+  }
+}

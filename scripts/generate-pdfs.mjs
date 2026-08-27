@@ -14,6 +14,12 @@ if (!['student', 'instructor'].includes(pdfScope)) {
 }
 const manifestPath = path.resolve('data', 'pdf-exports.json');
 const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
+const pdfVersionManifest = JSON.parse(
+  readFileSync(path.resolve('data', 'lesson-pdf-manifest.json'), 'utf8'),
+);
+const lessonPdfMetadata = new Map(
+  pdfVersionManifest.lessons.map((item) => [item.lessonId, item]),
+);
 const studentReleasePath = path.resolve('data', 'student-release.json');
 const studentRelease = JSON.parse(readFileSync(studentReleasePath, 'utf8'));
 const allLessonIds = manifest.targets
@@ -27,12 +33,16 @@ const targets = manifest.targets
   .filter((target) =>
     target.kind === 'course' || target.lessonIds.every((lessonId) => releasedLessonIds.has(lessonId)),
   )
-  .map((target) => target.kind === 'course'
-    ? {
-        ...target,
-        lessonIds: target.lessonIds.filter((lessonId) => releasedLessonIds.has(lessonId)),
-      }
-    : target);
+  .map((target) => {
+    const lessonIds = target.kind === 'course'
+      ? target.lessonIds.filter((lessonId) => releasedLessonIds.has(lessonId))
+      : target.lessonIds;
+    const pdfMetadata = target.kind === 'course'
+      ? pdfVersionManifest.course
+      : lessonPdfMetadata.get(target.lessonIds[0]);
+    if (!pdfMetadata) throw new Error(`${target.id}: PDF 버전 메타데이터가 없습니다.`);
+    return { ...target, lessonIds, output: pdfMetadata.pdfFilename, pdfUpdatedAt: pdfMetadata.pdfUpdatedAt };
+  });
 const downloadsDirectory = path.join(outputDirectory, 'downloads');
 const basePath = normalizeBasePath(process.env.BASE_PATH);
 const sourceGitSha = (process.env.GITHUB_SHA || execFileSync('git', ['rev-parse', 'HEAD'], {
@@ -48,6 +58,11 @@ const generatedFiles = [];
 const hashFile = async (filePath) => {
   const source = await readFile(filePath);
   return createHash('sha256').update(source).digest('hex');
+};
+
+const getPdfPageCount = async (filePath) => {
+  const source = (await readFile(filePath)).toString('latin1');
+  return source.match(/\/Type\s*\/Page\b/g)?.length ?? 0;
 };
 
 const contentTypes = new Map([
@@ -180,6 +195,32 @@ try {
       });
     }, target);
 
+    const imageAudit = await page.evaluate(async () => {
+      const images = [...document.images].filter((image) => !image.closest('[hidden]'));
+      images.forEach((image) => {
+        image.loading = 'eager';
+      });
+      await Promise.all(images.map(async (image) => {
+        if (!image.complete) {
+          await new Promise((resolve) => {
+            image.addEventListener('load', resolve, { once: true });
+            image.addEventListener('error', resolve, { once: true });
+          });
+        }
+        try {
+          await image.decode();
+        } catch {
+          // naturalWidth 검사에서 실제 실패를 보고한다.
+        }
+      }));
+      return images
+        .filter((image) => image.naturalWidth < 1)
+        .map((image) => image.currentSrc || image.src || image.alt || 'unknown image');
+    });
+    if (imageAudit.length > 0) {
+      throw new Error(`${target.id}: PDF 이미지 로드 실패 (${imageAudit.join(', ')})`);
+    }
+
     const audit = await page.evaluate((forbiddenText) => {
       const visibleText = document.body.innerText;
       return {
@@ -219,6 +260,7 @@ try {
     const footerLabel = target.kind === 'course'
       ? 'AI 건축디자인 바이블 · 전체 교안'
       : audit.footerLabel;
+    const footerVersion = `PDF 업데이트 ${target.pdfUpdatedAt.replaceAll('-', '.')}`;
     const outputPath = path.join(downloadsDirectory, target.output);
 
     await page.pdf({
@@ -228,12 +270,12 @@ try {
       displayHeaderFooter: true,
       headerTemplate: `
         <div style="box-sizing:border-box;width:100%;padding:0 15mm;color:#5f6762;font-family:'Noto Sans CJK KR','Malgun Gothic',sans-serif;font-size:8px;">
-          AI 건축디자인 바이블
+          AI 건축디자인 바이블 · ${escapeHtml(footerVersion)}
         </div>
       `,
       footerTemplate: `
         <div style="box-sizing:border-box;display:flex;width:100%;gap:8px;justify-content:space-between;padding:0 15mm;color:#5f6762;font-family:'Noto Sans CJK KR','Malgun Gothic',sans-serif;font-size:8px;">
-          <span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(footerLabel)}</span>
+          <span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(footerLabel)} · ${escapeHtml(footerVersion)}</span>
           <span style="display:inline-flex;flex:0 0 10ch;justify-content:flex-end;white-space:nowrap;">
             <span class="pageNumber" style="display:inline-block;min-width:3ch;text-align:right;"></span>
             <span>&nbsp;/&nbsp;</span>
@@ -256,15 +298,21 @@ try {
     if (fileStats.size < 1024) {
       throw new Error(`${target.id}: PDF 파일 크기가 비정상적으로 작습니다 (${fileStats.size} bytes).`);
     }
+    const pageCount = await getPdfPageCount(outputPath);
+    if (pageCount < 1) {
+      throw new Error(`${target.id}: PDF 페이지 수를 확인할 수 없습니다.`);
+    }
     generatedFiles.push({
       kind: target.kind,
       lessonId: target.kind === 'lesson' ? target.lessonIds[0] : null,
       lessonIds: target.lessonIds,
       fileName: target.output,
+      pdfUpdatedAt: target.pdfUpdatedAt,
+      pageCount,
       sha256: await hashFile(outputPath),
       sizeBytes: fileStats.size,
     });
-    console.log(`PDF 생성: ${target.output} (${fileStats.size} bytes)`);
+    console.log(`PDF 생성: ${target.output} (${pageCount}쪽, ${fileStats.size} bytes)`);
     await page.close();
   }
 

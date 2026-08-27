@@ -73,6 +73,15 @@ try {
   const instructorOrigin = `http://127.0.0.1:${state.ports.instructor}`;
   const buildInfo = JSON.parse(await readFile(path.join(kitRoot, 'BUILD_INFO.json'), 'utf8'));
   const releasedPdfLessonIdSet = new Set(buildInfo.releasedPdfLessonIds);
+  const pdfManifest = JSON.parse(
+    await readFile(path.join(kitRoot, 'sites', 'student', 'downloads', 'pdf-manifest.json'), 'utf8'),
+  );
+  const coursePdfFile = pdfManifest.files.find((entry) => entry.kind === 'course')?.fileName;
+  const lessonPdfFiles = new Map(
+    pdfManifest.files
+      .filter((entry) => entry.kind === 'lesson')
+      .map((entry) => [entry.lessonId, entry.fileName]),
+  );
 
   await requireHttp(`${hubOrigin}/`);
   await requireHttp(`${hubOrigin}/hub/style.css`);
@@ -97,12 +106,12 @@ try {
     await requireHttp(`${instructorOrigin}/instructor-console/lessons/${lesson}/`);
     await requireHttp(`${instructorOrigin}/presentation/lessons/${lesson}/`);
   }
-  await requireHttp(`${studentOrigin}/downloads/ai-architecture-design-course.pdf`);
+  await requireHttp(`${studentOrigin}/downloads/${coursePdfFile}`);
   await requireHttp(`${studentOrigin}/downloads/pdf-manifest.json`);
   for (let day = 1; day <= 14; day += 1) {
     const lesson = String(day).padStart(2, '0');
     await requireHttp(
-      `${studentOrigin}/downloads/ai-architecture-design-lesson-${lesson}.pdf`,
+      `${studentOrigin}/downloads/${lessonPdfFiles.get(lesson)}`,
       releasedPdfLessonIdSet.has(lesson) ? 200 : 404,
     );
   }
@@ -111,20 +120,13 @@ try {
   await requireHttp(`${instructorOrigin}/instructor-content/lessons/01.yaml`, 403);
 
   const studentSource = await collectText(path.join(kitRoot, 'sites', 'student'));
-  const pdfManifest = JSON.parse(
-    await readFile(path.join(kitRoot, 'sites', 'student', 'downloads', 'pdf-manifest.json'), 'utf8'),
-  );
   if (pdfManifest.scope !== 'student' || pdfManifest.sourceGitSha !== buildInfo.gitHead) {
     throw new Error('포터블 키트의 학생 PDF manifest와 BUILD_INFO Git SHA가 일치하지 않습니다.');
   }
   if (pdfManifest.releasedLessonIds.join(',') !== buildInfo.releasedPdfLessonIds.join(',')) {
     throw new Error(`포터블 키트 PDF 공개 범위가 예상과 다릅니다: ${pdfManifest.releasedLessonIds.join(',')}`);
   }
-  const expectedPdfFiles = [
-    'ai-architecture-design-course.pdf',
-    ...buildInfo.releasedPdfLessonIds.map((lessonId) =>
-      `ai-architecture-design-lesson-${lessonId}.pdf`),
-  ].sort();
+  const expectedPdfFiles = pdfManifest.files.map((entry) => entry.fileName).sort();
   const actualPdfFiles = (await readdir(path.join(kitRoot, 'pdf')))
     .filter((name) => name.toLowerCase().endsWith('.pdf'))
     .sort();

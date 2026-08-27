@@ -133,9 +133,11 @@ export const buildInfoFromOutputs = async ({ rootDirectory, studentRoot, instruc
   let coursePdfPageCount = 0;
   for (const filePath of pdfFiles) {
     const name = path.basename(filePath);
-    const lessonMatch = name.match(/lesson-(\d{2})\.pdf$/);
+    const lessonMatch = name.match(/lesson-(\d{2})_\d{4}-\d{2}-\d{2}\.pdf$/);
     if (lessonMatch) lessonPdfPageCounts[lessonMatch[1]] = await countPdfPages(filePath);
-    if (name === 'ai-architecture-design-course.pdf') coursePdfPageCount = await countPdfPages(filePath);
+    if (name === pdfManifest.files.find((entry) => entry.kind === 'course')?.fileName) {
+      coursePdfPageCount = await countPdfPages(filePath);
+    }
   }
   const status = gitText(['status', '--porcelain'], rootDirectory);
   const gitHead = gitText(['rev-parse', 'HEAD'], rootDirectory);

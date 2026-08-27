@@ -6,6 +6,7 @@ import process from 'node:process';
 const lessonsDirectory = path.resolve('src/content/lessons');
 const assetManifestPath = path.resolve('data/asset-manifest.yaml');
 const studentReleaseConfigPath = path.resolve('data/student-release.json');
+const lessonPdfManifestPath = path.resolve('data/lesson-pdf-manifest.json');
 const lessonTopicsPath = path.resolve('src/lib/lesson-topics.ts');
 const glossaryPath = path.resolve('src/content/glossary/index.mdx');
 const toolCatalogPath = path.resolve('data/tool-catalog.yaml');
@@ -159,7 +160,7 @@ const detailedLessonSections = {
   '10': ['차시 소개', '실습 프로젝트와 정보 혼합 위험', '왜 NotebookLM을 A와 B로 나누는가', '이번 차시의 두 결과물', 'Notebook A · 프로젝트 원자료의 역할 확인', 'Notebook A · 프로젝트 조건 기준서 만들기', '반드시 잡아야 할 오류와 과도한 해석', 'Project Grounded Reference 결과 예시', 'Notebook B · 현재 자료로 가능한 검토 범위 묻기', 'NotebookLM 분석을 ChatGPT로 교차검증', '공식 Source를 단계적으로 보강하기', 'AI 법규검토 체크리스트 결과 예시', '다음 차시 · 실제 설계자료와 대조'],
   '11': ['지난 시간 워크플로우 복습', 'NotebookLM A 역할 복습', 'B00 상태 확인', 'GPT 법규검토 프로젝트 준비', 'GPT 역할 설정 프롬프트', 'B00 기반 법규 Research', '공식 Source 확보', 'NotebookLM B Source 구성', 'NotebookLM B 1차 체크리스트 생성 프롬프트', '왜 다시 GPT로 검증하는가', 'GPT 독립 교차검증', '교차검증 결과 분기', 'NotebookLM B 보완 프롬프트', 'GPT 재검증 프롬프트', '반복형 교차검증 루프', '반복 종료 기준', '사람의 최종 검수', '교차검증 개념 설명', '3시간 수업 흐름과 마무리'],
   '12': ['차시 소개 · 하나의 실무 프로젝트를 시작한다', '통합 프로젝트와 두 산출물', '프로젝트 선정', '실무 데이터의 공개·사용 범위 점검', '실무 데이터 수집과 역할 분류', '포트폴리오와 결과보고서의 역할 구분', '모든 분야에 적용하는 포트폴리오 공통 구조', '디자인형·인테리어형 참고 구성', '설계사무소형 참고 구성', '기타 제안형·전문건설형 참고 구성', '포트폴리오 페이지를 AI로 제작하는 기본 Workflow', '제13차시 제작팩과 180분 정리'],
-  '13': ['차시 소개 · 실제 Source로 표지 한 페이지를 만든다', '오늘 만들 결과와 전체 흐름', 'STEP 1 · 이 페이지의 목적', 'STEP 2 · 준비할 입력자료', 'STEP 3 · 페이지에 들어갈 실제 문구', 'STEP 4 · Nano Banana 예시 프롬프트', 'STEP 5 · Nano Banana 실제 사용 프롬프트', 'STEP 6 · 실제 생성 결과', 'STEP 7 · 생성 결과 확인 포인트', 'STEP 8 · GPT 텍스트 검증', 'STEP 9 · 표지 제작 Workflow 정리', '재질 및 가구 프롬프트 라이브러리', '분야별 적용 방향과 Source 경계', '결과 정리와 180분 운영'],
+  '13': ['차시 소개 · 실제 Source로 표지 한 페이지를 만든다', '오늘 만들 결과와 전체 흐름', 'STEP 1 · 이 페이지의 목적', 'STEP 2 · 준비할 입력자료', 'STEP 3 · 페이지에 들어갈 실제 문구', 'STEP 4 · Nano Banana 예시 프롬프트', 'STEP 5 · Nano Banana 실제 사용 프롬프트', 'STEP 6 · 실제 생성 결과', 'STEP 7 · 생성 결과 확인 포인트', 'STEP 8 · GPT 텍스트 검증', 'STEP 9 · 표지 제작 Workflow 정리', '건축 AI 이미지 수정 프롬프트 라이브러리', '분야별 적용 방향과 Source 경계', '결과 정리와 180분 운영'],
   '14': ['차시 소개 · 결과와 과정을 하나의 제출 패키지로 묶는다', '최종 산출물 2종과 역할', '프로젝트 결과보고서 · 공식 구조와 작성 가이드', '사용한 실무 데이터 정리', 'AI 활용 과정 정리', '사용 프롬프트 정리', '결과 선택·수정·검증 기록', '포트폴리오 최종 점검', '결과보고서 최종 점검', '최종 제출 패키지 구성', '제출 전 권리·보안·사실성 경계', '발표 준비', '최종 제출 Gate', '360분 운영과 과정 마무리'],
 };
 const lessonThreeFourOutputs = ['요구조건 매트릭스', '발주기관 추가 질의', '디자인 브리프', '평면도 기반 현황 이미지 생성 결과', '현황 이미지 수정 결과', '평면도와 이미지의 불일치 기록', '제4차시 대안 평가기준'];
@@ -348,6 +349,42 @@ try {
   }
 } catch {
   errors.push('data/student-release.json을 읽거나 해석할 수 없습니다.');
+}
+
+try {
+  const studentRelease = JSON.parse(await readFile(studentReleaseConfigPath, 'utf8'));
+  const pdfManifest = JSON.parse(await readFile(lessonPdfManifestPath, 'utf8'));
+  const lessonEntries = pdfManifest.lessons;
+  if (!Array.isArray(lessonEntries) || lessonEntries.length !== 14) {
+    errors.push(`차시 PDF 메타데이터 수: 예상 14개, 실제 ${lessonEntries?.length ?? 0}개`);
+  } else {
+    const ids = lessonEntries.map((item) => item.lessonId);
+    if (ids.join(',') !== requiredIds.join(',')) {
+      errors.push('차시 PDF 메타데이터는 01~14 순서로 중복·누락 없이 구성해야 합니다.');
+    }
+    const fileNames = new Set();
+    for (const item of lessonEntries) {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(item.pdfUpdatedAt)) {
+        errors.push(`제${item.lessonId}차시 PDF 업데이트 날짜 형식이 올바르지 않습니다.`);
+      }
+      const expectedName = `ai-architecture-design-lesson-${item.lessonId}_${item.pdfUpdatedAt}.pdf`;
+      if (item.pdfFilename !== expectedName) {
+        errors.push(`제${item.lessonId}차시 PDF 파일명이 중앙 날짜와 일치하지 않습니다.`);
+      }
+      if (fileNames.has(item.pdfFilename)) errors.push(`중복 PDF 파일명: ${item.pdfFilename}`);
+      fileNames.add(item.pdfFilename);
+    }
+    for (const lessonId of studentRelease.releasedPdfLessonIds ?? []) {
+      if (!ids.includes(lessonId)) errors.push(`공개 PDF 차시의 메타데이터가 없습니다: ${lessonId}`);
+    }
+  }
+  if (!pdfManifest.course || !/^\d{4}-\d{2}-\d{2}$/.test(pdfManifest.course.pdfUpdatedAt)) {
+    errors.push('전체 교안 PDF 업데이트 날짜가 없습니다.');
+  } else if (pdfManifest.course.pdfFilename !== `ai-architecture-design-course_${pdfManifest.course.pdfUpdatedAt}.pdf`) {
+    errors.push('전체 교안 PDF 파일명이 중앙 날짜와 일치하지 않습니다.');
+  }
+} catch {
+  errors.push('data/lesson-pdf-manifest.json을 읽거나 해석할 수 없습니다.');
 }
 
 if (parsedTopics.length !== 7) {
@@ -1242,6 +1279,8 @@ for (const fileName of files) {
       '사용 권한이 확인되지 않았다면 넣지 않는다.',
       '외부 AI 서비스에 올릴 권한이 있는가?',
       '제13차시 제작팩',
+      'projectApplicationDesignColumns',
+      '모든 단계를 AI로 처리하는 것이 목표가 아니다.',
       'data-lesson12-time-total',
     ]) {
       if (!lessonTwelveComponent.includes(marker) && !portfolioProjectContent.includes(marker)) {
@@ -1272,6 +1311,10 @@ for (const fileName of files) {
       '실제 생성 시안 10개',
       '04→05',
       '04→06',
+      'portfolio-follow-up-reference',
+      'material-library-two-element',
+      'material-library-three-element',
+      'material-library-photorealism-1',
       'data-lesson13-time-total',
     ]) {
       if (!lessonThirteenComponent.includes(marker) && !materialFurnitureLibrary.includes(marker)) {
@@ -1285,6 +1328,11 @@ for (const fileName of files) {
       'material-library-common-geometry',
       'material-library-material-change',
       'material-library-furniture-change',
+      'material-library-two-element',
+      'material-library-three-element',
+      'material-library-photorealism-1',
+      'material-library-photorealism-2',
+      'material-library-photorealism-3',
       'material-library-house-front-sequence',
     ];
     for (const promptId of promptIds) {
@@ -1320,6 +1368,9 @@ for (const fileName of files) {
       'src/assets/lessons/12-14/portfolio-cover/prompts/nano-banana-cover-used.txt',
       'src/assets/lessons/12-14/portfolio-cover/prompts/gpt-cover-text-review.txt',
       'src/assets/lessons/12-14/material-furniture/house-front/house-front-prompts.txt',
+      'src/assets/lessons/12-14/portfolio-follow-up-reference/01-intro-layout-reference.jpeg',
+      'src/assets/lessons/12-14/portfolio-follow-up-reference/02-overview-layout-reference.jpeg',
+      'src/assets/lessons/12-14/portfolio-follow-up-reference/03-overview-trajectory-reference.jpeg',
     ];
     for (const filePath of requiredLessonThirteenFiles) {
       try { await access(path.resolve(filePath)); }
@@ -1352,6 +1403,9 @@ for (const fileName of files) {
       '활용 도구 및 데이터',
       '프로젝트 수행 단계별 사진',
       '계획 → 진행 → 결과',
+      'practicalKpiItems',
+      'presentationReviewQuestions',
+      'commonEvaluationCriteria',
       'data-lesson14-time-total',
     ]) {
       if (!lessonFourteenComponent.includes(marker) && !portfolioProjectContent.includes(marker)) {

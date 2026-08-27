@@ -15,6 +15,7 @@ export const mainNav = [
   { href: '/troubleshooting/', label: '오류 해결 가이드', marker: '05' },
   { href: '/updates/', label: '업데이트 및 정정', marker: '06' },
   { href: '/guide/', label: '전자서적 이용 안내', marker: '07' },
+  { href: '/ebook-downloads/', label: '전자서적 다운로드', marker: '08', meta: `PDF ${formatPdfUpdatedAt(latestPdfUpdatedAt)}` },
 ] as const;
 
 export const lessonHref = (id: string) => withBase(`/lessons/${id}/`);
@@ -34,3 +35,4 @@ export const pageSections = [
   '확인 문제',
   '실습 파일',
 ] as const;
+import { formatPdfUpdatedAt, latestPdfUpdatedAt } from './lesson-pdfs';

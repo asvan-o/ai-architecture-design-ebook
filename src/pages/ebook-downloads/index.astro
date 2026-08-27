@@ -1,0 +1,45 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { getVisibleLessons } from '../../lib/lessons';
+import { formatPdfUpdatedAt, getLessonPdfMetadata } from '../../lib/lesson-pdfs';
+import { releasedPdfLessonIds } from '../../lib/student-release';
+import { withBase } from '../../lib/site';
+
+const lessons = await getVisibleLessons();
+const releasedPdfSet = new Set(releasedPdfLessonIds);
+const downloads = lessons.flatMap((lesson) => {
+  const lessonId = String(lesson.data.day).padStart(2, '0');
+  const pdf = getLessonPdfMetadata(lessonId);
+  return releasedPdfSet.has(lessonId) && pdf ? [{ lesson, lessonId, pdf }] : [];
+});
+---
+
+<SiteLayout title="전자서적 다운로드" section="PDF DOWNLOADS">
+  <main class="page-shell pdf-download-page">
+    <header class="page-intro">
+      <p class="page-kicker">E-BOOK · LESSON PDF · VERSIONED</p>
+      <h1 class="page-title">전자서적<br />다운로드</h1>
+      <p class="lead">공개된 차시별 학생용 교안을 PDF로 내려받을 수 있습니다. 표시 날짜는 빌드 날짜가 아니라 해당 PDF 콘텐츠가 마지막으로 갱신된 날짜입니다.</p>
+      <p class="pdf-note">온라인 e-book은 PDF 발행 이후에도 정정·보완될 수 있습니다. 수업 전에는 웹의 최신 안내도 함께 확인하세요.</p>
+    </header>
+
+    <ol class="pdf-download-list">
+      {downloads.map(({ lesson, lessonId, pdf }) => (
+        <li>
+          <span class="pdf-download-list__number">{lessonId}</span>
+          <div>
+            <small>LESSON {lessonId}</small>
+            <h2>{lesson.data.title}</h2>
+            <p>PDF 업데이트 {formatPdfUpdatedAt(pdf.pdfUpdatedAt)}</p>
+          </div>
+          <a href={withBase(`/downloads/${pdf.pdfFilename}`)} download>PDF 다운로드</a>
+        </li>
+      ))}
+    </ol>
+  </main>
+</SiteLayout>
+
+<style>
+  .page-intro{margin-bottom:3rem}.pdf-note{max-width:54rem;margin:1.2rem 0 0;padding:1rem 1.2rem;border-left:5px solid var(--accent);background:#fff0e8;line-height:1.7}.pdf-download-list{margin:0;padding:0;border-top:2px solid var(--ink);list-style:none}.pdf-download-list li{display:grid;grid-template-columns:5rem minmax(0,1fr) auto;gap:1.2rem;align-items:center;min-height:8rem;padding:1rem .7rem;border-bottom:1px solid var(--line-dark)}.pdf-download-list__number{color:var(--accent);font-family:var(--serif);font-size:2.8rem}.pdf-download-list h2,.pdf-download-list p{margin:0}.pdf-download-list h2{margin-top:.25rem;font-family:var(--serif);font-size:1.2rem}.pdf-download-list small,.pdf-download-list p{color:var(--muted)}.pdf-download-list p{margin-top:.35rem;font-size:.82rem}.pdf-download-list a{padding:.8rem 1rem;border:1px solid var(--ink);background:#fff;font-weight:800;text-decoration:none}.pdf-download-list a:hover{color:#fff;background:var(--ink)}
+  @media(max-width:620px){.pdf-download-list li{grid-template-columns:3rem minmax(0,1fr);gap:.8rem}.pdf-download-list__number{font-size:2rem}.pdf-download-list a{grid-column:2;width:fit-content}}
+</style>

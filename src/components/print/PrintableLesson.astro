@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { getLessonTopicSummary } from '../../lib/lesson-topics';
 import { formatCourseDuration } from '../../lib/duration';
+import { formatPdfUpdatedAt, getLessonPdfMetadata } from '../../lib/lesson-pdfs';
 
 interface Props {
   lesson: CollectionEntry<'lessons'>;
@@ -17,6 +18,7 @@ const dateLabel = lesson.data.date === 'pending'
 const durationLabel = lesson.data.durationMinutes === null
   ? '수업시간 확인 예정'
   : formatCourseDuration(lesson.data.durationMinutes);
+const pdfMetadata = getLessonPdfMetadata(dayLabel);
 ---
 
 <article
@@ -35,7 +37,9 @@ const durationLabel = lesson.data.durationMinutes === null
     <dl>
       <div><dt>날짜</dt><dd>{dateLabel}</dd></div>
       <div><dt>수업시간</dt><dd>{durationLabel}</dd></div>
+      {pdfMetadata && <div><dt>PDF 업데이트</dt><dd>{formatPdfUpdatedAt(pdfMetadata.pdfUpdatedAt)}</dd></div>}
     </dl>
+    <p class="print-lesson__version-note">온라인 e-book은 이 PDF 이후에도 업데이트될 수 있습니다.</p>
   </header>
   <div class="print-lesson__content">
     <slot />
