@@ -1,0 +1,817 @@
+{
+  "baselineCommit": "cdc99d788b9506344872c865730cd9cf002f16ec",
+  "files": [
+    {
+      "path": "data/asset-manifest.yaml",
+      "blobId": "d1fbd695c734060696bd5ee4fb242033258f1985"
+    },
+    {
+      "path": "data/lesson-pdf-manifest.json",
+      "blobId": "cc513dad398d8a2405fb89a9519a90d0abea614a"
+    },
+    {
+      "path": "data/pdf-exports.json",
+      "blobId": "d22b0002b8645b415615990bbe64c4efa1c81606"
+    },
+    {
+      "path": "data/student-release.json",
+      "blobId": "39417c9ac20d12276afe96a45df121cfa1931e75"
+    },
+    {
+      "path": "data/tool-catalog.yaml",
+      "blobId": "ccc81223721657eab929bbd773f329e432f97051"
+    },
+    {
+      "path": "source/.gitkeep",
+      "blobId": "8b137891791fe96927ad78e64b0aad7bded08bdc"
+    },
+    {
+      "path": "source/approved-curriculum.md",
+      "blobId": "ce1e1882fcf9b951890795c9d278ee439bf25c95"
+    },
+    {
+      "path": "src/assets/lessons/02/empty-space-sample/01-generation-prompts/prompt-01.txt",
+      "blobId": "ed8c1caa4d17bd4a21697aff58d93550acbb707f"
+    },
+    {
+      "path": "src/assets/lessons/02/empty-space-sample/01-generation-prompts/prompt-02.txt",
+      "blobId": "a26b505d7cf80fed6160c63a13509934e3cfffdb"
+    },
+    {
+      "path": "src/assets/lessons/02/empty-space-sample/01-generation-prompts/prompt-03.txt",
+      "blobId": "616cfdb20a6bbffbc6f74c67379040ee3c2d2f67"
+    },
+    {
+      "path": "src/assets/lessons/02/empty-space-sample/02-base-images/base-01.jpeg",
+      "blobId": "3b0c8cf727642078cb48e7ead3951f40ebe7098d"
+    },
+    {
+      "path": "src/assets/lessons/02/empty-space-sample/02-base-images/base-02.jpeg",
+      "blobId": "9481f2a2baa5e9b7bd984aad44d7ac4bc0d2ee7a"
+    },
+    {
+      "path": "src/assets/lessons/02/empty-space-sample/02-base-images/base-03.jpeg",
+      "blobId": "3e27e4578eeb44220781b8f5afbadc6dc09aa995"
+    },
+    {
+      "path": "src/assets/lessons/02/empty-space-sample/02-base-images/base-04.jpeg",
+      "blobId": "3e1bb4de600fd040ed3297e61334f9d12343da4f"
+    },
+    {
+      "path": "src/assets/lessons/02/empty-space-sample/02-base-images/base-05.jpeg",
+      "blobId": "e20cefcf9591a6cb9355736f5531e377cde18b64"
+    },
+    {
+      "path": "src/assets/lessons/02/flower-cafe-sample/01-original-prompt.txt",
+      "blobId": "a7e9865edf5564c320c557bf5281d2861f867fe5"
+    },
+    {
+      "path": "src/assets/lessons/02/flower-cafe-sample/02-original-result.jpeg",
+      "blobId": "3c209989ba91721ceb563dd6c31f2c040dc19dc0"
+    },
+    {
+      "path": "src/assets/lessons/02/flower-cafe-sample/03-revision-prompt.txt",
+      "blobId": "d86f427ac4fb0b58b4ccbd5a3f2a8c6302b945b7"
+    },
+    {
+      "path": "src/assets/lessons/02/flower-cafe-sample/04-revised-result.jpeg",
+      "blobId": "d74f5b578eed4b8492e119f89c71d1085ab0f58a"
+    },
+    {
+      "path": "src/assets/lessons/03/rfp/gemini-rfp-analysis-prompt-v1.2.txt",
+      "blobId": "a69f1f1a7d3c1fe4a9ec60fc25e38f42263fde71"
+    },
+    {
+      "path": "src/assets/lessons/03/rfp/lesson-03-campus-lounge-rfp-v1.2.pdf",
+      "blobId": "1c8f83a2708cf2654dde850e8d020f6ec84804e1"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-01-oyster-quartzite.png",
+      "blobId": "6eeb7cceb6188fa0c386497f43ff047b5fb9bbec"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-02-almond-limestone.png",
+      "blobId": "dc35896941cace4f2f36ad789adb55fb2db766c9"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-03-azul-blue-marble.png",
+      "blobId": "e02cd6438b4dd5c3482a5c01915f767f904149aa"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-04-pearl-white-porcelain.png",
+      "blobId": "671bdaef04cc8d6e6f251c944686b019035c5a41"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-05-rosso-levanto-marble.png",
+      "blobId": "5f7830cdf9774f356b90ef52aa2de00e55238daa"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-06-sand-beige-porcelain.png",
+      "blobId": "45b7dfd827be9871c6d4f8413caa73694eb01485"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-07-silver-travertine.png",
+      "blobId": "4a76e332481d7b0e056cfab248ffd7159880d031"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-08-taupe-microcement.png",
+      "blobId": "aa8518dd6e7b63f3377d0073907f3a6b37fa6986"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-09-verde-alpi-marble.png",
+      "blobId": "f828d35506d5505abf62fcee87746a0f1a28a212"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-10-charcoal-microcement.png",
+      "blobId": "9d44dfeca677e6ab58f6022599b9f6ea2bc68685"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-11-travertine-beige.png",
+      "blobId": "edac411c7f330d48683a4c86bd90944586f004f4"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-12-soft-cream-micro-cement.png",
+      "blobId": "daa740ec50d00231958930e86f33942c91336b64"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-13-dark-grey-marble.png",
+      "blobId": "c359746ac38d55fa8de5b2d02af1131d028e0576"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-14-ivory-travertine.png",
+      "blobId": "5797fce0eb4a0b7c6b528c052b30229d20bfcb5d"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-15-light-grey-marble.png",
+      "blobId": "1937ce8f6fc5d374e3b0d428398f38a33d4503f7"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-16-warm-beige-porcelain.png",
+      "blobId": "63644c7e0893893abd6521b82413a03e2485ffbe"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-17-dark-grey-slate.png",
+      "blobId": "9063ea9a545082c853b83ee0d0bd7bc6dc730b22"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-18-green-marble.png",
+      "blobId": "761f5c1f6b34e758fe9c12c57c9ad9ea1d1b0ad6"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-19-walnut-wood.png",
+      "blobId": "fe170b2e9be7ced7f8b8e08453ac74b624538947"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-20-light-grey-microcement.png",
+      "blobId": "8daecb939cadcf796b3b08941ac79cc7c2853bd9"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-21-dark-walnut.png",
+      "blobId": "2e82df28c6500af20293dcd30a4082c300162df2"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-22-taj-mahal.png",
+      "blobId": "8e589d6e1adfa0b1c543b01d2c5c8dc464770e5f"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-23-white-oak.png",
+      "blobId": "db18bf06395743c0cb98f4bb0369142e5614eb41"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-24-natural-oak.png",
+      "blobId": "d87b2efa4f70635e37b545563ee0cbe2c77577f4"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-25-taupe.png",
+      "blobId": "d609e6bdddac3e902957418714012fba157d99c1"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-26-calacatta-viola-marble.png",
+      "blobId": "d1d906e2a52fa3d1c73a52f89fec10b12ed74490"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-27-warm-ivory-porcelain.png",
+      "blobId": "979d3ed8b8c56778de76ad4d11368d28d55c0e29"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-28-light-taupe-porcelain.png",
+      "blobId": "fb84dd0b6c046c6a5df8ddb4ea0cf99f6f5e1985"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-29-matte-black-porcelain.png",
+      "blobId": "b0d4dc39bab36edf6332dc9738af2cc528497e74"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-30-breccia-capraia-marble.png",
+      "blobId": "090c9be4a25293da4e7bea4c04b5346af680fdec"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-31-champagne-porcelain.png",
+      "blobId": "9baf5093f1ceba69153d34f8624ff78bd6770011"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-32-lilac-marble.png",
+      "blobId": "51a19a2792718abfa307c85edb8ee93d3eb86f2c"
+    },
+    {
+      "path": "src/assets/lessons/04/material-reference-review/m-33-pearl-grey-porcelain.png",
+      "blobId": "e41398d8ede10e9ad2dcc19da4ecab678ba29cf6"
+    },
+    {
+      "path": "src/assets/lessons/04/prompts/image-generation-prompt-template.txt",
+      "blobId": "67405845fc7d0f465518fd0e88e17b7b7342bb6e"
+    },
+    {
+      "path": "src/assets/lessons/04/prompts/selected-revision-prompt-template.txt",
+      "blobId": "4dc2c03ed635479fa4786f06d0c8b38586405ba5"
+    },
+    {
+      "path": "src/assets/lessons/04/prompts/zoning-alternative-prompt-template.txt",
+      "blobId": "520bdd4921467814678e8d94e119a68c8aa8070c"
+    },
+    {
+      "path": "src/assets/lessons/04/review-rfp/ARVEN_Headquarters_Interior_RFP_v1.2.pdf",
+      "blobId": "c5783f9a862435d0e6d55bacaf6148253f5b2b5a"
+    },
+    {
+      "path": "src/assets/lessons/04/workspace/antigravity-manager-build-prompt.txt",
+      "blobId": "6e8782a849010dddde4c83a1227d5be3cef8c658"
+    },
+    {
+      "path": "src/assets/lessons/05/material-moodboard-review/empty-space.jpeg",
+      "blobId": "3e1bb4de600fd040ed3297e61334f9d12343da4f"
+    },
+    {
+      "path": "src/assets/lessons/05/material-moodboard-review/mood-board-example.jpeg",
+      "blobId": "bcdf03c9e766a5fe8884120a689c0ca461f2326d"
+    },
+    {
+      "path": "src/assets/lessons/05/material-moodboard-review/possible-result.jpeg",
+      "blobId": "d6c27eb0a79403afa42ef2b914fb4d837213fae5"
+    },
+    {
+      "path": "src/assets/lessons/05/plan-to-isometric/01-small-room-plan.png",
+      "blobId": "00afbcad19a491568b0306383d590c0152a8d372"
+    },
+    {
+      "path": "src/assets/lessons/05/plan-to-isometric/02-small-room-topview-3d.png",
+      "blobId": "65be9d636ba1000daa93c4e65c16bd2ff5835c2c"
+    },
+    {
+      "path": "src/assets/lessons/05/plan-to-isometric/03-small-room-isometric.png",
+      "blobId": "5c370b4dd6af9f736977733100673c52197c6c3a"
+    },
+    {
+      "path": "src/assets/lessons/05/plan-to-isometric/04-living-kitchen-plan.png",
+      "blobId": "1c720f128beda4d3384ea096f8faffa4ba601c5c"
+    },
+    {
+      "path": "src/assets/lessons/05/plan-to-isometric/05-living-kitchen-isometric-interior.png",
+      "blobId": "2c006d527c551df1dfe1cd89eef173ee17bcc6f0"
+    },
+    {
+      "path": "src/assets/lessons/06/dwg-to-exploded/01-original-first-floor-plan.png",
+      "blobId": "f2ff465e09471f90fdc457a09cba87de2928b7c9"
+    },
+    {
+      "path": "src/assets/lessons/06/dwg-to-exploded/02-edit-area-marked-plan.png",
+      "blobId": "86498fe7113d2a4bee45b11a0dbd30aa07d5d778"
+    },
+    {
+      "path": "src/assets/lessons/06/dwg-to-exploded/03-modified-first-floor-plan.png",
+      "blobId": "f38158565f927691e22f8c33d36996810e63444b"
+    },
+    {
+      "path": "src/assets/lessons/06/dwg-to-exploded/04-top-view-3d.png",
+      "blobId": "fac15e596a4ceaecb85b40d2f82240461f814db8"
+    },
+    {
+      "path": "src/assets/lessons/06/dwg-to-exploded/05-isometric.png",
+      "blobId": "a6280a548862e80207448dfd2be836ae4203f3b3"
+    },
+    {
+      "path": "src/assets/lessons/06/dwg-to-exploded/06-exploded-isometric.jpeg",
+      "blobId": "a954d748b213d68fce06a682ee8f2477bb6276fc"
+    },
+    {
+      "path": "src/assets/lessons/06/dwg-to-exploded/two-story-house-source.dwg",
+      "blobId": "00f469f653d84559d87e06d3e3000b024df82447"
+    },
+    {
+      "path": "src/assets/lessons/07/floor-plan-edit-example/01-floor-plan-original-example.png",
+      "blobId": "7bd52c3251e0c9ee2d2cf772c36b2be7282c1416"
+    },
+    {
+      "path": "src/assets/lessons/07/floor-plan-edit-example/02-storage-room-original.png",
+      "blobId": "0a6a89248b989a3b01e8724d3dff2b4c31504a9c"
+    },
+    {
+      "path": "src/assets/lessons/07/floor-plan-edit-example/03-storage-room-edit-area.png",
+      "blobId": "69d6ab310b12698e47be1bbdcab1fd5e16280ddc"
+    },
+    {
+      "path": "src/assets/lessons/07/floor-plan-edit-example/04-storage-room-edited.png",
+      "blobId": "2f716bd7da2c195c836608dbd97a8a5d9c0e827f"
+    },
+    {
+      "path": "src/assets/lessons/07/floor-plan-edit-example/05-floor-plan-integrated.png",
+      "blobId": "8e82702af09a1f0ea7dc2b8b0f4280d92b6a9501"
+    },
+    {
+      "path": "src/assets/lessons/08/floor-plan-upscale/01-floor-plan-before-upscale.png",
+      "blobId": "7bd52c3251e0c9ee2d2cf772c36b2be7282c1416"
+    },
+    {
+      "path": "src/assets/lessons/08/floor-plan-upscale/02-floor-plan-after-upscale-2x.png",
+      "blobId": "daff53fda3aa2146328152c96ab4741926f04297"
+    },
+    {
+      "path": "src/assets/lessons/08/gaussian-render-comparison/01-gaussian-source.png",
+      "blobId": "3b53f0a9c27f26da518e64f1b8fbd62c42c72895"
+    },
+    {
+      "path": "src/assets/lessons/08/gaussian-render-comparison/02-chatgpt-render.png",
+      "blobId": "1d4c67a89e1f20d734298b49cca44c369c455544"
+    },
+    {
+      "path": "src/assets/lessons/08/gaussian-render-comparison/03-gemini-nano-banana-prompt.jpeg",
+      "blobId": "527d4b578deae6bb5c20d634f2eef35dd8e83cdc"
+    },
+    {
+      "path": "src/assets/lessons/08/gaussian-render-comparison/04-gemini-nano-banana-agent.jpeg",
+      "blobId": "b559c2d1d41b4dfa71559d6fbd5983ec249d8a95"
+    },
+    {
+      "path": "src/assets/lessons/08/gaussian-render-comparison/05-vibe3d-render.png",
+      "blobId": "09a04728ccce446e995b23ddbfb1766e918f71f8"
+    },
+    {
+      "path": "src/assets/lessons/08/gaussian-render-comparison/06-vibe3d-relight-render.png",
+      "blobId": "3b25c1913339432d76fe9a5e9deafcb4908b3af9"
+    },
+    {
+      "path": "src/assets/lessons/08/openvino-sr1033/run_sr1033.py",
+      "blobId": "1f96b9d3a36faf674a0a31aa022843d6a2f50d2c"
+    },
+    {
+      "path": "src/assets/lessons/08/upscale-workflow/lesson-08-upscale-workflow.json",
+      "blobId": "35fc2f7de9db3b3980772a5c908117470d8e2007"
+    },
+    {
+      "path": "src/assets/lessons/09/spatial-zoning/01-floor-plan-cleaned.jpg",
+      "blobId": "ab75a1119fa6420c562007c078d626b578aafe67"
+    },
+    {
+      "path": "src/assets/lessons/09/spatial-zoning/02-floor-plan-top-view-3d.jpeg",
+      "blobId": "2894b95f0bc37063be00341171812804285fc2ce"
+    },
+    {
+      "path": "src/assets/lessons/09/spatial-zoning/03-spatial-relationship-diagram-notebooklm.png",
+      "blobId": "3e6e86946dc6956b798f8868c11543be5bbf9f85"
+    },
+    {
+      "path": "src/assets/lessons/09/spatial-zoning/03-spatial-relationship-diagram.png",
+      "blobId": "e3aeb3a23b33dbff2dff799b20eebdf9106b5ba7"
+    },
+    {
+      "path": "src/assets/lessons/09/spatial-zoning/04-spatial-relationship-diagram-chatgpt.png",
+      "blobId": "00ef40590b231a5fda6f84e826ddd6bceed84164"
+    },
+    {
+      "path": "src/assets/lessons/12-14/material-furniture/house-front/house-front-00-original.jpeg",
+      "blobId": "dd2fcc7b1259348184009bb463b5d27cab41acd9"
+    },
+    {
+      "path": "src/assets/lessons/12-14/material-furniture/house-front/house-front-01-corten.jpeg",
+      "blobId": "01068bded398dd32e54447569eae00068a5d817d"
+    },
+    {
+      "path": "src/assets/lessons/12-14/material-furniture/house-front/house-front-02-suv-mailbox.jpeg",
+      "blobId": "120a1848b397d7011f6ee30076e06c819df55c20"
+    },
+    {
+      "path": "src/assets/lessons/12-14/material-furniture/house-front/house-front-03-autumn.jpeg",
+      "blobId": "cb5da3106c08f46e3c141a92718983b2c5b06174"
+    },
+    {
+      "path": "src/assets/lessons/12-14/material-furniture/house-front/house-front-04-winter.jpeg",
+      "blobId": "c1912993e09fb9906a6e9c31f29b7452227155bb"
+    },
+    {
+      "path": "src/assets/lessons/12-14/material-furniture/house-front/house-front-05-camera.jpeg",
+      "blobId": "42657df6be5f444a77dfed62a6306b397f039853"
+    },
+    {
+      "path": "src/assets/lessons/12-14/material-furniture/house-front/house-front-06-pencil.jpeg",
+      "blobId": "2f6e905d13a25bbad6a79a22896f8e904fc06f77"
+    },
+    {
+      "path": "src/assets/lessons/12-14/material-furniture/house-front/house-front-prompts.txt",
+      "blobId": "a98a4c5e7febcb7ac78e9fb8198289cf7add109a"
+    },
+    {
+      "path": "src/assets/lessons/12-14/portfolio-cover/inputs/01-logo.png",
+      "blobId": "ef5867ca5ac9fd6cad609cc0622e44680e3e5480"
+    },
+    {
+      "path": "src/assets/lessons/12-14/portfolio-cover/inputs/02-house.png",
+      "blobId": "ef79f13218abb5b14aea78c1794362047adac6ea"
+    },
+    {
+      "path": "src/assets/lessons/12-14/portfolio-cover/inputs/03-kitchen-section.jpeg",
+      "blobId": "a5dd96c71bdeaf3e985f5508634bfe756362cb54"
+    },
+    {
+      "path": "src/assets/lessons/12-14/portfolio-cover/inputs/04-kitchen-dining.jpeg",
+      "blobId": "318ed09b6aaf53703dd494512d3b61ae56488412"
+    },
+    {
+      "path": "src/assets/lessons/12-14/portfolio-cover/prompts/gpt-cover-text-review.txt",
+      "blobId": "541dd355704adad53541148cdb0c44c0fdf12dcd"
+    },
+    {
+      "path": "src/assets/lessons/12-14/portfolio-cover/prompts/nano-banana-cover-template.txt",
+      "blobId": "434a5a26a9e07418ed3df58885798966c6efd0c8"
+    },
+    {
+      "path": "src/assets/lessons/12-14/portfolio-cover/prompts/nano-banana-cover-used.txt",
+      "blobId": "3a977732ad532fc0f77fd1d8f544dd1858ae7c86"
+    },
+    {
+      "path": "src/assets/lessons/12-14/portfolio-cover/results/cover-result-01.jpeg",
+      "blobId": "1b67e9163506443e5a8d31edfbedd7c787047bbf"
+    },
+    {
+      "path": "src/assets/lessons/12-14/portfolio-cover/results/cover-result-02.jpeg",
+      "blobId": "a0e274bc9b175b399ca9a8282f955ea73fb76713"
+    },
+    {
+      "path": "src/assets/lessons/12-14/portfolio-cover/results/cover-result-03.jpeg",
+      "blobId": "5790912127e471b959a587920e0fa49fc7eef182"
+    },
+    {
+      "path": "src/assets/lessons/12-14/portfolio-cover/results/cover-result-04.jpeg",
+      "blobId": "44dc31ba28d42c41784a675f22614b6ad2f3db42"
+    },
+    {
+      "path": "src/assets/lessons/12-14/portfolio-cover/results/cover-result-05.jpeg",
+      "blobId": "b9f4e84630e678c870ad6a0179975b6d32017e35"
+    },
+    {
+      "path": "src/assets/lessons/12-14/portfolio-cover/results/cover-result-06.jpeg",
+      "blobId": "4f009fdfaf5e18eb918ad6ee389449c9c72007c3"
+    },
+    {
+      "path": "src/assets/lessons/12-14/portfolio-cover/results/cover-result-07.jpeg",
+      "blobId": "3fd8e61323906a947507df6540e5a83f85387847"
+    },
+    {
+      "path": "src/assets/lessons/12-14/portfolio-cover/results/cover-result-08.jpeg",
+      "blobId": "e2c7c03aea847c400cf098455cd9aba650bb22d6"
+    },
+    {
+      "path": "src/assets/lessons/12-14/portfolio-cover/results/cover-result-09.jpeg",
+      "blobId": "bd3575111a46ca994a419dd9d97153720b53f625"
+    },
+    {
+      "path": "src/assets/lessons/12-14/portfolio-cover/results/cover-result-10.jpeg",
+      "blobId": "a31570ecbaac6651bfa75715dea24bc347c0702d"
+    },
+    {
+      "path": "src/assets/lessons/12-14/portfolio-follow-up-reference/01-intro-layout-reference.jpeg",
+      "blobId": "1ab122123026f7df6fe5d21f1e0b06a3d9fb9832"
+    },
+    {
+      "path": "src/assets/lessons/12-14/portfolio-follow-up-reference/02-overview-layout-reference.jpeg",
+      "blobId": "265d7b0f286645cfd8d57481172ac2a281ddb99b"
+    },
+    {
+      "path": "src/assets/lessons/12-14/portfolio-follow-up-reference/03-overview-trajectory-reference.jpeg",
+      "blobId": "33b0e520dc908d789f9601a176186186ca5dba0c"
+    },
+    {
+      "path": "src/assets/projects/campus-lounge/reference/campus-lounge-existing-plan.png",
+      "blobId": "14a64303b08e5184a4c90b625e2668272cd6fe3f"
+    },
+    {
+      "path": "src/assets/projects/campus-lounge/reference/campus-lounge-existing-view-01.jpeg",
+      "blobId": "dd400584631bb12b8ef6579f495d6cf332ec812b"
+    },
+    {
+      "path": "src/components/content/AnnotatedPromptBlock.astro",
+      "blobId": "44bbd41d551f5651036163147e8fc8012e4a40a5"
+    },
+    {
+      "path": "src/components/content/CaseStudyBlock.astro",
+      "blobId": "ac110d0ba5d73d5f863738627de5b8426f21f5ba"
+    },
+    {
+      "path": "src/components/content/ClassifiedList.astro",
+      "blobId": "6df7e1768eae20f72a8aaa90f285748e448d4172"
+    },
+    {
+      "path": "src/components/content/CourseToolsBlock.astro",
+      "blobId": "9d9511b4e06f33aa28df50b217cc968675b50324"
+    },
+    {
+      "path": "src/components/content/DemoBlock.astro",
+      "blobId": "38a5fbc7c570fcb919c6073326e4edf5a8e856ee"
+    },
+    {
+      "path": "src/components/content/DownloadBlock.astro",
+      "blobId": "2b33d92f64dd1b4cbc8ef6e40cf08bd543209bc4"
+    },
+    {
+      "path": "src/components/content/EmptySpacePracticeKit.astro",
+      "blobId": "4fc9e914f5fb2414e734a0a2aabfb4feedc5b285"
+    },
+    {
+      "path": "src/components/content/FactCheckBlock.astro",
+      "blobId": "c873f66224a9502bdcc1d0a66e8ba7571ad8cd6a"
+    },
+    {
+      "path": "src/components/content/GlossaryEntry.astro",
+      "blobId": "13fac092e0ab2300bdd28753def2b7f8754dd341"
+    },
+    {
+      "path": "src/components/content/GlossaryIndex.astro",
+      "blobId": "d60fe360c1d18d4e290b53fef3ca3c44b2f25bdd"
+    },
+    {
+      "path": "src/components/content/IterativeImageSample.astro",
+      "blobId": "3784ea083a40733ea58011eb81932177858e4d0f"
+    },
+    {
+      "path": "src/components/content/LearningGoals.astro",
+      "blobId": "3fcb01e0982c03761084016214a3c106c4505e02"
+    },
+    {
+      "path": "src/components/content/Lesson02Ebook.astro",
+      "blobId": "032f81260ef35f1f21b15824170633fabd8cc033"
+    },
+    {
+      "path": "src/components/content/Lesson02PresentationSample.astro",
+      "blobId": "7b512c28c668beeb8ebf537d0b580e7100806c80"
+    },
+    {
+      "path": "src/components/content/Lesson03DesignBriefPractice.astro",
+      "blobId": "359e273996a9ad7f995ba6d85bac786a50bc7c3a"
+    },
+    {
+      "path": "src/components/content/Lesson03ReviewPractice.astro",
+      "blobId": "5841a5912b386f129b90af43620ef67567dc4495"
+    },
+    {
+      "path": "src/components/content/Lesson04ProjectWorkflow.astro",
+      "blobId": "082bda6c4ac4d45b7ce676ec3593ff4df9eb40a7"
+    },
+    {
+      "path": "src/components/content/Lesson04RfpReviewPractice.astro",
+      "blobId": "1222f482aec95c707d35280bf6c3c2f24a838793"
+    },
+    {
+      "path": "src/components/content/Lesson05MaterialMoodboardReview.astro",
+      "blobId": "dd0d4630eefd42cf6a5b467888a2b77491364377"
+    },
+    {
+      "path": "src/components/content/Lesson05PlanToIsometric.astro",
+      "blobId": "7ef1d67622058ccd3e0efd972516b4c7e8c6c127"
+    },
+    {
+      "path": "src/components/content/Lesson06DwgToExploded.astro",
+      "blobId": "0172569161177d210ac7cd10863c6c008f5477d1"
+    },
+    {
+      "path": "src/components/content/Lesson07PdfToGaussian.astro",
+      "blobId": "b81d0b1941c5b3f0c2bca13da1e07f332865178e"
+    },
+    {
+      "path": "src/components/content/Lesson08GaussianUpscale.astro",
+      "blobId": "cfd97df3835c921a3088e1f255cb0d34c7f1e1cf"
+    },
+    {
+      "path": "src/components/content/Lesson09SpatialZoning.astro",
+      "blobId": "048dddddeb1a15ab3c9892d5210d781eba9d470f"
+    },
+    {
+      "path": "src/components/content/Lesson10GroundedLegalReview.astro",
+      "blobId": "ee5226a85d5bb37dfc11e417c66f55c9996f46d2"
+    },
+    {
+      "path": "src/components/content/Lesson11LegalCrossValidation.astro",
+      "blobId": "82fe8811d0582e921291703cb4317c763475749a"
+    },
+    {
+      "path": "src/components/content/Lesson12PortfolioProjectSetup.astro",
+      "blobId": "bb9bf918d47e6803f736488af3ccd213ed5e6bac"
+    },
+    {
+      "path": "src/components/content/Lesson13PortfolioCoverPractice.astro",
+      "blobId": "45e55089f93504af3a3ec3c65b9f949d4ca9e4b1"
+    },
+    {
+      "path": "src/components/content/Lesson14ResultReportPackage.astro",
+      "blobId": "44b834dc4410cbc50bda125dfa6c38892076b214"
+    },
+    {
+      "path": "src/components/content/LessonAsset.astro",
+      "blobId": "b82ec5f97e51cfaa09d8bb804275edfeafdf0986"
+    },
+    {
+      "path": "src/components/content/LessonAssetList.astro",
+      "blobId": "6b74a4b466c8faa6df0f98ce9173e7b4060b7f99"
+    },
+    {
+      "path": "src/components/content/LessonOutline.astro",
+      "blobId": "7002388ff618fbbdebfb27642e303f7200163c3a"
+    },
+    {
+      "path": "src/components/content/LessonPlaceholder.astro",
+      "blobId": "e8a4241bef4d903344818ef383b40d118340d94b"
+    },
+    {
+      "path": "src/components/content/LessonResourceDownloads.astro",
+      "blobId": "5328442694626555f404ed345048427251aa62b0"
+    },
+    {
+      "path": "src/components/content/LessonSection.astro",
+      "blobId": "0933a485109017ad980b2af013c5d53ee21eae6b"
+    },
+    {
+      "path": "src/components/content/LessonTimePlan.astro",
+      "blobId": "76cd93456e43cd1d1a9cbd3cb255a17c60098051"
+    },
+    {
+      "path": "src/components/content/LessonTopic.astro",
+      "blobId": "52adbfb64840c21977399be2553c8643c876fbfb"
+    },
+    {
+      "path": "src/components/content/MaterialFurniturePromptLibrary.astro",
+      "blobId": "dac942fff7dfda230d683956daf323d43f83b989"
+    },
+    {
+      "path": "src/components/content/OutputBlock.astro",
+      "blobId": "b757dbede13ba737b1e50674bdeca70dffbb7338"
+    },
+    {
+      "path": "src/components/content/PracticeResultSample.astro",
+      "blobId": "76980052e8f7675f074a928199d24714b064c9c9"
+    },
+    {
+      "path": "src/components/content/PracticeSteps.astro",
+      "blobId": "f84381f2fb6b5a85867aa74741d8377ec9885f03"
+    },
+    {
+      "path": "src/components/content/ProjectReferenceMaterials.astro",
+      "blobId": "29cd5116284ce42d83cbef7485f3844cd6cf423b"
+    },
+    {
+      "path": "src/components/content/PromptBlock.astro",
+      "blobId": "b4193e7d2a9eeaf283f9a0fe465548ed4d152000"
+    },
+    {
+      "path": "src/components/content/PromptCopyBlock.astro",
+      "blobId": "8939e8ca8083090fdb18d5741f447bd030e1b296"
+    },
+    {
+      "path": "src/components/content/PromptEntry.astro",
+      "blobId": "d9157a49306e005c8fb288ea53677b229055e321"
+    },
+    {
+      "path": "src/components/content/PromptFilters.astro",
+      "blobId": "6c614334a1c6aeccb1cb1308fdf7dca77df46430"
+    },
+    {
+      "path": "src/components/content/QuizBlock.astro",
+      "blobId": "cec73c2800011d90e345eb4f1be8d5dca09de15d"
+    },
+    {
+      "path": "src/components/content/StructuredPracticeTemplates.astro",
+      "blobId": "193d4aeea46a65e45e562bb8ae97c7368fcaec6e"
+    },
+    {
+      "path": "src/components/content/TermList.astro",
+      "blobId": "9c8f4942c64b5692e4229f38dd1b522eb9302f50"
+    },
+    {
+      "path": "src/components/content/TheoryBlock.astro",
+      "blobId": "0c1c85fbe9b1a36a78340a13b604f8d35cc49af8"
+    },
+    {
+      "path": "src/components/content/TroubleshootingEntry.astro",
+      "blobId": "5c141bbefdc6e422c7968146b52a05ba97e4e1c3"
+    },
+    {
+      "path": "src/components/content/UpdateEntry.astro",
+      "blobId": "1abcbe49ede5ab3c8c8e084d782b95f00501d152"
+    },
+    {
+      "path": "src/components/content/WarningBlock.astro",
+      "blobId": "074e3ac5798969f397d205b3bb32bde3d373a9f5"
+    },
+    {
+      "path": "src/content/glossary/index.mdx",
+      "blobId": "df076f685035cb2e0549c13e87f04ccfdab7ad69"
+    },
+    {
+      "path": "src/content/lessons/01.mdx",
+      "blobId": "8779ec8d27e23c0f1441d13ba2c90c67e78bde1c"
+    },
+    {
+      "path": "src/content/lessons/02.mdx",
+      "blobId": "d4d87c2ddc3da8a24eb117a974ebd8f0961e124b"
+    },
+    {
+      "path": "src/content/lessons/03.mdx",
+      "blobId": "5bb6f3149ce5f2b1dddb89de0f2916d002ec814e"
+    },
+    {
+      "path": "src/content/lessons/04.mdx",
+      "blobId": "ad4a1007c7054678d99518053c99942b3daa393e"
+    },
+    {
+      "path": "src/content/lessons/05.mdx",
+      "blobId": "23e66701d8a67cb3c21ef0ddcabf8168c2135099"
+    },
+    {
+      "path": "src/content/lessons/06.mdx",
+      "blobId": "f0ce706433333cc4eb644389b2a381d09f11640e"
+    },
+    {
+      "path": "src/content/lessons/07.mdx",
+      "blobId": "e775fc4417f892af86c6d0b66bcff7f4ed78acca"
+    },
+    {
+      "path": "src/content/lessons/08.mdx",
+      "blobId": "e6e3cdc8d333b2da3ee1e98d8f7259c6d340f4b8"
+    },
+    {
+      "path": "src/content/lessons/09.mdx",
+      "blobId": "3cd4edf21392a551610176b9e907de4ea618e593"
+    },
+    {
+      "path": "src/content/lessons/10.mdx",
+      "blobId": "278047c512b3752d72f3175a813f9cf9e863dd2a"
+    },
+    {
+      "path": "src/content/lessons/11.mdx",
+      "blobId": "1a97dd88f77c523beb2c0850c03b6d3186b0f44a"
+    },
+    {
+      "path": "src/content/lessons/12.mdx",
+      "blobId": "303ad13c75f1a5ae5d172c5d14486059b987b6b7"
+    },
+    {
+      "path": "src/content/lessons/13.mdx",
+      "blobId": "389e7249bebcbd644e2dd92dd77459563520117b"
+    },
+    {
+      "path": "src/content/lessons/14.mdx",
+      "blobId": "1e9a1fd93a0d8bbf8d553e1e5e9a56d4f50a4e72"
+    },
+    {
+      "path": "src/content/prompts/index.mdx",
+      "blobId": "84c2873e4f4a3fb5aef57cac40c083bb32306cc0"
+    },
+    {
+      "path": "src/content/troubleshooting/index.mdx",
+      "blobId": "44b14d32de44f39c88c5468964bf52d6196425b3"
+    },
+    {
+      "path": "src/content/updates/index.mdx",
+      "blobId": "daa396ae4219ccfd89b12fbb45af00e38e033c56"
+    },
+    {
+      "path": "src/lib/lesson02-ebook.ts",
+      "blobId": "ebe41956d3e9402ce61e2a59b6199c9160f3607b"
+    },
+    {
+      "path": "src/lib/lesson04-final-content.ts",
+      "blobId": "6af9943eb79181a4d72488e676df6043f12d42da"
+    },
+    {
+      "path": "src/lib/lesson04-workflow.ts",
+      "blobId": "619b4f5ff39e291c95c129b6cc74107c55ac57c5"
+    },
+    {
+      "path": "src/lib/lesson05-plan-to-isometric.ts",
+      "blobId": "7994123c81981190ed8952454d732a4e0de3c1bf"
+    },
+    {
+      "path": "src/lib/lesson06-dwg-workflow.ts",
+      "blobId": "1121c4807660d802157612ccb57c3eff306e364b"
+    },
+    {
+      "path": "src/lib/lesson10-grounded-legal-review.ts",
+      "blobId": "2a3bf6b80d4bdbcca683996ae07e347700ea0039"
+    },
+    {
+      "path": "src/lib/lesson11-legal-cross-validation.ts",
+      "blobId": "338df623f67514d3d95ad8ef6d643f31c146532f"
+    },
+    {
+      "path": "src/lib/lesson12-14-portfolio-project.ts",
+      "blobId": "05882f6d9070cd60ed60630bdc48db3534f96537"
+    }
+  ]
+}

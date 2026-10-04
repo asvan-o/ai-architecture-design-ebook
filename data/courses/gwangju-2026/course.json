@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "institutionName": null,
+  "period": {
+    "start": null,
+    "end": null
+  },
+  "access": {
+    "passwordConfig": "src/config/access.json",
+    "legacyGwangjuCompatibility": true
+  },
+  "noindex": true,
+  "courseId": "gwangju-2026",
+  "routeSlug": "gwangju",
+  "regionLabel": "광주",
+  "courseTitle": "AI 건축디자인 바이블",
+  "siteTitle": "AI 건축디자인 바이블",
+  "contentStatus": "approved",
+  "totalMinutes": 2880,
+  "baseline": {
+    "gitSha": "cdc99d788b9506344872c865730cd9cf002f16ec",
+    "contentRoot": "src/content/lessons"
+  },
+  "topicNumbers": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7"
+  ],
+  "lessons": [
+    {
+      "id": "01",
+      "day": 1,
+      "title": "제1차시 · AI가 할 일과 디자이너가 판단할 일",
+      "durationMinutes": 180
+    },
+    {
+      "id": "02",
+      "day": 2,
+      "title": "제2차시 · 첫 공간 콘셉트 생성과 빈 공간 인테리어 배치",
+      "durationMinutes": 180
+    },
+    {
+      "id": "03",
+      "day": 3,
+      "title": "제3차시 · 실무 의뢰와 제안요청서(RFP)를 디자인 브리프로 바꾸기",
+      "durationMinutes": 180
+    },
+    {
+      "id": "04",
+      "day": 4,
+      "title": "제4차시 · RFP 기반 공간구성 대안 개발과 프로젝트 산출물 자동 정리",
+      "durationMinutes": 360
+    },
+    {
+      "id": "05",
+      "day": 5,
+      "title": "제5차시 · 평면도 기반 AI 공간 입체화와 아이소메트릭",
+      "durationMinutes": 180
+    },
+    {
+      "id": "06",
+      "day": 6,
+      "title": "제6차시 · DWG·평면도 기반 공간 수정과 3D·아이소메트릭 분해도",
+      "durationMinutes": 180
+    },
+    {
+      "id": "07",
+      "day": 7,
+      "title": "제7차시 · PDF 도면 기반 공간 수정과 Gaussian Splatting 3D 시각화",
+      "durationMinutes": 180
+    },
+    {
+      "id": "08",
+      "day": 8,
+      "title": "제8차시 · Gaussian 결과 현실화와 AI 업스케일",
+      "durationMinutes": 180
+    },
+    {
+      "id": "09",
+      "day": 9,
+      "title": "제9차시 · 3D 콘셉트 이미지에서 공간 관계 읽기와 2D 개념 조닝",
+      "durationMinutes": 180
+    },
+    {
+      "id": "10",
+      "day": 10,
+      "title": "제10차시 · 프로젝트 Grounding과 AI 법규검토 준비",
+      "durationMinutes": 180
+    },
+    {
+      "id": "11",
+      "day": 11,
+      "title": "제11차시 · AI 법규검토 반복 교차검증 실습",
+      "durationMinutes": 180
+    },
+    {
+      "id": "12",
+      "day": 12,
+      "title": "제12차시 · 실무 프로젝트 정의와 포트폴리오 자료 구성",
+      "durationMinutes": 180
+    },
+    {
+      "id": "13",
+      "day": 13,
+      "title": "제13차시 · AI 포트폴리오 표지 페이지 제작 실습",
+      "durationMinutes": 180
+    },
+    {
+      "id": "14",
+      "day": 14,
+      "title": "제14차시 · 결과보고서와 최종 제출 패키지 완성",
+      "durationMinutes": 360
+    }
+  ]
+}

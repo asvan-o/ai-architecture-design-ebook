@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "institutionName": null,
+  "period": {
+    "start": null,
+    "end": null
+  },
+  "access": {
+    "passwordConfig": null,
+    "legacyGwangjuCompatibility": false
+  },
+  "noindex": true,
+  "courseId": "daejeon-2026",
+  "routeSlug": "daejeon",
+  "regionLabel": "대전",
+  "courseTitle": "대전 과정",
+  "siteTitle": "대전 과정",
+  "contentStatus": "design-pending",
+  "totalMinutes": null,
+  "baseline": null,
+  "topicNumbers": [],
+  "lessons": []
+}
