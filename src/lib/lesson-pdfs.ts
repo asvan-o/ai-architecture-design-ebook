@@ -1,4 +1,8 @@
-import pdfManifest from '../../data/lesson-pdf-manifest.json';
+import { activeCourseProfile } from './courses';
+const pdfManifest = activeCourseProfile.pdfs as {
+  lessons: LessonPdfMetadata[];
+  course: { pdfUpdatedAt: string; pdfFilename: string } | null;
+};
 
 const normalizeLessonId = (lessonId: string | number) => String(lessonId).padStart(2, '0');
 
@@ -17,7 +21,7 @@ const lessonPdfMap = new Map(lessonPdfMetadata.map((item) => [item.lessonId, ite
 export const getLessonPdfMetadata = (lessonId: string | number) =>
   lessonPdfMap.get(normalizeLessonId(lessonId));
 
-export const coursePdfMetadata = Object.freeze({ ...pdfManifest.course });
+export const coursePdfMetadata = Object.freeze(pdfManifest.course ?? { pdfUpdatedAt: '', pdfFilename: '' });
 
 export const formatPdfUpdatedAt = (value: string) => value.replaceAll('-', '.');
 

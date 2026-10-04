@@ -1,3 +1,5 @@
+import { activeCourse } from './courses';
+
 export interface LessonTopicSummary {
   number: string;
   title: string;
@@ -91,9 +93,9 @@ const roadmapByLessonId = new Map(
   lessonRoadmap.map((lesson) => [lesson.id, lesson] as const),
 );
 
-export const getLessonTopics = (): readonly LessonTopicSummary[] => lessonTopics;
+export const getLessonTopics = (): readonly LessonTopicSummary[] => lessonTopics.filter((topic) => activeCourse.topicNumbers.includes(topic.number));
 
-export const getLessonRoadmap = (): readonly LessonRoadmapItem[] => lessonRoadmap;
+export const getLessonRoadmap = (): readonly LessonRoadmapItem[] => lessonRoadmap.filter((lesson) => activeCourse.lessons.some((item: { id: string }) => item.id === lesson.id));
 
 export const getLessonRoadmapItem = (
   lessonId: string | number,

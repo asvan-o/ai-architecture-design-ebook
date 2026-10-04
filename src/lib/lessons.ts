@@ -1,4 +1,5 @@
 import { getCollection } from 'astro:content';
+import { activeCourse, isCourseDraft } from './courses';
 import { getLessonRoadmapItem } from './lesson-topics';
 import {
   isInstructorBuild,
@@ -7,7 +8,9 @@ import {
 } from './student-release';
 
 export const getVisibleLessons = async () => {
+  if (isCourseDraft) return [];
   const lessons = await getCollection('lessons');
+  const selectedIds = new Set((activeCourse.lessons as { id: string }[]).map((lesson) => lesson.id));
 
   const titledLessons = lessons.map((lesson) => {
     const roadmapLesson = getLessonRoadmapItem(lesson.id);
@@ -23,6 +26,7 @@ export const getVisibleLessons = async () => {
   });
 
   return titledLessons
+    .filter((lesson) => selectedIds.has(lesson.id))
     .filter((lesson) =>
       isInstructorBuild || isPdfReviewBuild || isReleasedStudentLesson(lesson.id))
     .sort((a, b) => a.data.day - b.data.day);

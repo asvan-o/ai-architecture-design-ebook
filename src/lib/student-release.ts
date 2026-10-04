@@ -1,4 +1,8 @@
-import studentRelease from '../../data/student-release.json';
+import { activeCourse, activeCourseProfile } from './courses';
+const studentRelease = activeCourseProfile.release as {
+  releasedStudentLessonIds: string[];
+  releasedPdfLessonIds: string[];
+};
 
 const normalizeLessonId = (lessonId: string | number) =>
   String(lessonId).padStart(2, '0');
@@ -23,7 +27,7 @@ export const isReleasedStudentLesson = (lessonId: string | number) =>
 export const isReleasedStudentPdf = (lessonId: string | number) =>
   releasedPdfLessonIdSet.has(normalizeLessonId(lessonId));
 
-export const hasUnreleasedStudentLessons = releasedStudentLessonIds.length < 14;
+export const hasUnreleasedStudentLessons = releasedStudentLessonIds.length < activeCourse.lessons.length;
 
 export const lastReleasedStudentLessonId =
   releasedStudentLessonIds.at(-1) ?? null;

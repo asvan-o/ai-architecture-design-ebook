@@ -1,4 +1,5 @@
-export const siteTitle = 'AI 건축디자인 바이블';
+import { activeCourse } from './courses';
+export const siteTitle: string = activeCourse.siteTitle;
 
 export const withBase = (path = '/') => {
   const base = import.meta.env.BASE_URL.replace(/\/$/, '');
