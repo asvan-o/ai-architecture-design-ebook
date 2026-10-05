@@ -7,9 +7,14 @@ import { baselineCommit, getCourseProfiles, getCourseProfile, validateCourseProf
 const profiles = getCourseProfiles();
 const lock = JSON.parse(readFileSync(path.join(repositoryRoot, 'data/courses/gwangju-2026/baseline-lock.json'), 'utf8'));
 assert.equal(lock.baselineCommit, baselineCommit);
+const baselineTree = new Map(execFileSync('git', ['-c', 'core.quotePath=false', 'ls-tree', '-r', baselineCommit], { encoding: 'utf8', windowsHide: true }).trim().split(/\r?\n/).map((line) => {
+  const [, , , blob, filePath] = line.match(/^(\d+) (\w+) ([a-f0-9]+)\t(.+)$/);
+  return [filePath, blob];
+}));
 const hashes = execFileSync('git', ['hash-object', '--', ...lock.files.map((file) => file.path)], { cwd: repositoryRoot, encoding: 'utf8', windowsHide: true }).trim().split(/\r?\n/);
 for (const [index, file] of lock.files.entries()) {
   const hash = hashes[index];
+  assert.equal(file.blobId, baselineTree.get(file.path), `Baseline lock differs from public Git commit: ${file.path}`);
   assert.equal(hash, file.blobId, `Approved Gwangju content changed: ${file.path}`);
 }
 assert.throws(() => getCourseProfile('unknown-course'), /Unknown courseId/);
@@ -17,6 +22,9 @@ assert.throws(() => validateCourseProfiles([profiles[0], profiles[0]]), /Duplica
 const duplicateRoute = structuredClone(profiles);
 duplicateRoute[1].course.routeSlug = duplicateRoute[0].course.routeSlug;
 assert.throws(() => validateCourseProfiles(duplicateRoute), /Duplicate course route/);
+const reservedRoute = structuredClone(profiles);
+reservedRoute[0].course.routeSlug = 'prompts';
+assert.throws(() => validateCourseProfiles(reservedRoute), /reserved route/);
 const outputs = profiles.flatMap(({ course }) => ['student', 'instructor', 'pdf-review'].map((mode) => courseOutput(course.courseId, mode)));
 assert.equal(new Set(outputs).size, outputs.length);
 const gwangju = getCourseProfile('gwangju-2026');
