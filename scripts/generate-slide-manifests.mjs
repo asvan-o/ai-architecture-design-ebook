@@ -52,7 +52,8 @@ const targets = [
 ];
 
 const [port] = await findAvailablePorts(1, 4400, 4499);
-const server = createStaticServer(outputRoot);
+const basePath = (process.env.BASE_PATH || '').replace(/\/+$/, '');
+const server = createStaticServer(outputRoot, basePath);
 await listen(server, port, LOOPBACK_HOST);
 const browser = await chromium.launch({ headless: true });
 const context = await browser.newContext({ viewport: { width: 1280, height: 720 } });
@@ -65,7 +66,7 @@ const escapeJsonForHtml = (value) => JSON.stringify(value)
 
 try {
   for (const target of targets) {
-    const response = await page.goto(`http://${LOOPBACK_HOST}:${port}${target.presentationRoute}`, {
+    const response = await page.goto(`http://${LOOPBACK_HOST}:${port}${basePath}${target.presentationRoute}`, {
       waitUntil: 'networkidle',
     });
     if (!response?.ok()) throw new Error(`${target.presentationRoute} HTTP ${response?.status() ?? 'no response'}`);

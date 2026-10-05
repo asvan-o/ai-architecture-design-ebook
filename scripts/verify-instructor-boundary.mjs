@@ -3,6 +3,7 @@ import { existsSync } from 'node:fs';
 import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
+import { getCourseProfile } from './course-registry.mjs';
 
 const [mode, outputDirectory] = process.argv.slice(2);
 if (!['student', 'instructor'].includes(mode) || !outputDirectory) {
@@ -11,9 +12,7 @@ if (!['student', 'instructor'].includes(mode) || !outputDirectory) {
 }
 
 const outputPath = path.resolve(outputDirectory);
-const studentRelease = JSON.parse(
-  await readFile(path.resolve('data', 'student-release.json'), 'utf8'),
-);
+const studentRelease = getCourseProfile().release;
 const releasedStudentLessonIds = new Set(studentRelease.releasedStudentLessonIds);
 const releasedPdfLessonIds = new Set(studentRelease.releasedPdfLessonIds);
 const privateNoteDirectory = path.resolve(

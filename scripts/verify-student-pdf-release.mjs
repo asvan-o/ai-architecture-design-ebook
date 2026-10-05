@@ -1,17 +1,15 @@
 import { createHash } from 'node:crypto';
-import { execFileSync } from 'node:child_process';
+import assert from 'node:assert/strict';
 import { readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
+import { getCourseProfile, courseOutput } from './course-registry.mjs';
 
-const outputDirectory = path.resolve(process.argv[2] ?? 'dist');
+const profile = getCourseProfile();
+const outputDirectory = path.resolve(process.argv[2] ?? courseOutput(profile.course.courseId, 'student'));
 const pdfScope = process.argv[3] ?? 'student';
-const releaseConfig = JSON.parse(
-  await readFile(path.resolve('data', 'student-release.json'), 'utf8'),
-);
-const pdfVersionManifest = JSON.parse(
-  await readFile(path.resolve('data', 'lesson-pdf-manifest.json'), 'utf8'),
-);
+const releaseConfig = profile.release;
+const pdfVersionManifest = profile.pdfs;
 const lessonPdfMetadata = new Map(
   pdfVersionManifest.lessons.map((item) => [item.lessonId, item]),
 );
@@ -31,10 +29,7 @@ if (!['student', 'instructor'].includes(pdfScope)) {
   throw new Error(`지원하지 않는 PDF 검증 범위입니다: ${pdfScope}`);
 }
 
-const sourceGitSha = (process.env.GITHUB_SHA || execFileSync('git', ['rev-parse', 'HEAD'], {
-  encoding: 'utf8',
-  windowsHide: true,
-}).trim()).toLowerCase();
+const sourceGitSha = profile.pdfs.approvedManifest.sourceGitSha;
 
 const hashFile = async (filePath) => createHash('sha256')
   .update(await readFile(filePath))
@@ -51,9 +46,7 @@ if (actualPdfNames.join('\n') !== expectedPdfNames.join('\n')) {
 
 const manifestPath = path.join(downloadsDirectory, 'pdf-manifest.json');
 const manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
-if (manifest.scope !== pdfScope) {
-  throw new Error(`PDF manifest scope 불일치: ${manifest.scope}/${pdfScope}`);
-}
+assert.deepEqual(manifest, profile.pdfs.approvedManifest, 'Approved PDF metadata changed');
 if (manifest.sourceGitSha !== sourceGitSha) {
   throw new Error(`PDF source Git SHA 불일치: ${manifest.sourceGitSha}/${sourceGitSha}`);
 }

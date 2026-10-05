@@ -2,6 +2,7 @@ import { existsSync } from 'node:fs';
 import { cp, mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
+import { getCourseProfile, courseOutput } from './course-registry.mjs';
 import {
   buildInfoFromOutputs,
   ensureDependencies,
@@ -17,6 +18,8 @@ const NODE_VERSION = 'v24.17.0';
 const NODE_ARCHIVE = `node-${NODE_VERSION}-win-x64.zip`;
 const NODE_BASE_URL = `https://nodejs.org/dist/${NODE_VERSION}`;
 const rootDirectory = process.cwd();
+const profile = getCourseProfile();
+if (profile.course.contentStatus !== 'approved') throw new Error('Draft 과정은 강의키트로 발행할 수 없습니다.');
 const allowDirty = process.argv.includes('--allow-dirty');
 const releaseDirectory = path.join(rootDirectory, 'release');
 const finalKitDirectory = path.join(releaseDirectory, KIT_NAME);
@@ -101,9 +104,9 @@ try {
 
   await Promise.all([
     cp(extractedRuntime, path.join(tempKitDirectory, 'runtime'), { recursive: true }),
-    cp(path.join(rootDirectory, 'dist'), path.join(tempKitDirectory, 'sites', 'student'), { recursive: true }),
-    cp(path.join(rootDirectory, 'dist-instructor'), path.join(tempKitDirectory, 'sites', 'instructor'), { recursive: true }),
-    cp(path.join(rootDirectory, 'dist', 'downloads'), path.join(tempKitDirectory, 'pdf'), { recursive: true }),
+    cp(courseOutput(profile.course.courseId, 'student'), path.join(tempKitDirectory, 'sites', 'student'), { recursive: true }),
+    cp(courseOutput(profile.course.courseId, 'instructor'), path.join(tempKitDirectory, 'sites', 'instructor'), { recursive: true }),
+    cp(path.join(courseOutput(profile.course.courseId, 'student'), 'downloads'), path.join(tempKitDirectory, 'pdf'), { recursive: true }),
     cp(path.join(rootDirectory, 'lecture-kit', 'hub'), path.join(tempKitDirectory, 'app', 'hub'), { recursive: true }),
     cp(
       path.join(rootDirectory, 'lecture-kit', 'README_강의실행.txt'),

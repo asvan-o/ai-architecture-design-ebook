@@ -1,14 +1,20 @@
 import { spawnSync } from 'node:child_process';
-import { readFileSync, readdirSync, rmSync } from 'node:fs';
+import { readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
+import { getCourseProfile, courseOutput, courseBuildEnvironment } from './course-registry.mjs';
+import { reuseApprovedPdfs } from './approved-pdfs.mjs';
 
-const [command, mode, outDir, ...extraArguments] = process.argv.slice(2);
+const [command, mode, ...argumentsList] = process.argv.slice(2);
+const courseArgument = argumentsList.find((item) => item.startsWith('--course='));
+const profile = getCourseProfile(courseArgument?.slice('--course='.length) || process.env.COURSE_ID);
+const outDir = courseOutput(profile.course.courseId, mode);
+const extraArguments = argumentsList.filter((item) => item !== courseArgument);
 const allowedCommands = ['dev', 'build'];
 const allowedModes = ['student', 'instructor', 'pdf-review'];
 
 if (!allowedCommands.includes(command) || !allowedModes.includes(mode)) {
-  console.error('사용법: node scripts/run-ebook-mode.mjs <dev|build> <student|instructor|pdf-review> [outDir]');
+  console.error('사용법: node scripts/run-ebook-mode.mjs <dev|build> <student|instructor|pdf-review> [--course=<courseId>]');
   process.exit(1);
 }
 
@@ -19,23 +25,20 @@ const gitHead = spawnSync('git', ['rev-parse', 'HEAD'], {
   encoding: 'utf8',
   windowsHide: true,
 }).stdout?.trim();
-const runtimeEnvironment = {
-  ...process.env,
-  PUBLIC_LECTURE_BUILD_ID: process.env.PUBLIC_LECTURE_BUILD_ID || gitHead || 'local-working-tree',
-};
+const runtimeEnvironment = courseBuildEnvironment(profile, mode, gitHead || 'local-working-tree');
+runtimeEnvironment.PUBLIC_PDF_DOWNLOADS_ENABLED = profile.pdfs.policy === 'preserve-approved-artifact' ? 'true' : 'false';
+if (extraArguments.some((argument) => !argument.startsWith('-') || /^(?:--outDir|--mode|--base)(?:=|$)/.test(argument))) {
+  throw new Error('Output, base and mode are managed by the course profile. Use --course=<courseId>.');
+}
 
 if (command === 'dev') {
   astroArguments.push(
     '--background',
     '--mode',
     mode,
-    ...([outDir, ...extraArguments].filter(Boolean)),
+    ...extraArguments,
   );
 } else {
-  if (!outDir) {
-    console.error('빌드 출력 폴더가 필요합니다.');
-    process.exit(1);
-  }
   astroArguments.push('--outDir', outDir, '--mode', mode, ...extraArguments);
 }
 
@@ -54,6 +57,13 @@ if (result.status !== 0) {
 }
 
 if (command === 'build') {
+  if (profile.course.contentStatus === 'design-pending') {
+    const source = readFileSync(path.join(outDir, 'index.html'), 'utf8');
+    if (!source.includes('noindex') || !source.includes('design-pending') || readdirSync(outDir).includes('lessons') || readdirSync(outDir).includes('downloads')) throw new Error('Draft output inherited content or PDF routes.');
+    console.log(`[draft] ${profile.course.courseId}/${mode}: design-pending; no curriculum or PDFs`);
+    writeFileSync(path.join(outDir, 'course-build.json'), JSON.stringify({ courseId: profile.course.courseId, mode, basePath: runtimeEnvironment.BASE_PATH, buildId: runtimeEnvironment.PUBLIC_LECTURE_BUILD_ID }));
+    process.exit(0);
+  }
   if (mode === 'student' || mode === 'pdf-review') {
     const outputPath = path.resolve(outDir);
     const collectFiles = (directory) => readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -123,18 +133,18 @@ if (command === 'build') {
     }
   }
 
-  if (mode === 'pdf-review') {
-    console.log('PDF 검수 빌드: 제1–14차시 학생 본문, 강사 메모·콘솔·프레젠테이션 제외');
-  } else {
+  {
     const verification = spawnSync(
       process.execPath,
-      [path.resolve('scripts', 'verify-instructor-boundary.mjs'), mode, outDir],
+      [path.resolve('scripts', 'verify-instructor-boundary.mjs'), mode === 'pdf-review' ? 'student' : mode, outDir],
       {
         cwd: process.cwd(),
         env: runtimeEnvironment,
         stdio: 'inherit',
       },
     );
-    process.exit(verification.status ?? 1);
+    if (verification.status !== 0) process.exit(verification.status ?? 1);
   }
+  await reuseApprovedPdfs(profile, outDir);
+  writeFileSync(path.join(outDir, 'course-build.json'), JSON.stringify({ courseId: profile.course.courseId, mode, basePath: runtimeEnvironment.BASE_PATH, buildId: runtimeEnvironment.PUBLIC_LECTURE_BUILD_ID }));
 }

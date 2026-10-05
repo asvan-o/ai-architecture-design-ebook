@@ -139,10 +139,14 @@ export const findAvailablePorts = async (count, start = PORT_RANGE.start, end = 
   return ports;
 };
 
-export const createStaticServer = (rootDirectory) => createServer(async (request, response) => {
+export const createStaticServer = (rootDirectory, basePath = '') => createServer(async (request, response) => {
   try {
     const requestUrl = new URL(request.url ?? '/', `http://${request.headers.host ?? 'localhost'}`);
-    await sendStaticFile(request, response, rootDirectory, requestUrl.pathname);
+    const prefix = basePath.replace(/\/+$/, '');
+    if (prefix && requestUrl.pathname !== prefix && !requestUrl.pathname.startsWith(`${prefix}/`)) {
+      response.writeHead(404); response.end('페이지를 찾을 수 없습니다.'); return;
+    }
+    await sendStaticFile(request, response, rootDirectory, requestUrl.pathname.slice(prefix.length) || '/');
   } catch (error) {
     response.writeHead(500, {
       'Cache-Control': 'no-store',

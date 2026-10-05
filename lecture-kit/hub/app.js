@@ -30,7 +30,7 @@ const renderStatus = (nextState) => {
     .map(([key, value]) => `<div><dt>${labels[key]}</dt><dd>${value}</dd></div>`)
     .join('');
   document.querySelector('#public-ebook').href = nextState.publicEbookUrl;
-  document.querySelector('#student-course-overview').href = `http://127.0.0.1:${nextState.ports.student}/course-overview/`;
+  document.querySelector('#student-course-overview').href = `http://127.0.0.1:${nextState.ports.student}${nextState.buildInfo?.courseBasePath?.replace(/\/$/, '') || ''}/course-overview/`;
 };
 
 const refresh = async () => {
@@ -41,8 +41,9 @@ const refresh = async () => {
 
 const lessonUrl = (kind) => {
   const lesson = lessonSelect.value;
-  const studentOrigin = `http://127.0.0.1:${state.ports.student}`;
-  const instructorOrigin = `http://127.0.0.1:${state.ports.instructor}`;
+  const base = state.buildInfo?.courseBasePath?.replace(/\/$/, '') || '';
+  const studentOrigin = `http://127.0.0.1:${state.ports.student}${base}`;
+  const instructorOrigin = `http://127.0.0.1:${state.ports.instructor}${base}`;
   if (kind === 'student') return `${studentOrigin}/lessons/${lesson}/`;
   if (kind === 'console') return `${instructorOrigin}/instructor-console/lessons/${lesson}/`;
   if (kind === 'presentation') return `${instructorOrigin}/presentation/lessons/${lesson}/`;
@@ -52,7 +53,7 @@ const lessonUrl = (kind) => {
 };
 
 const lectureStartUrl = (kind) => {
-  const instructorOrigin = `http://127.0.0.1:${state.ports.instructor}`;
+  const instructorOrigin = `http://127.0.0.1:${state.ports.instructor}${state.buildInfo?.courseBasePath?.replace(/\/$/, '') || ''}`;
   if (kind === 'console') return `${instructorOrigin}/instructor-console/lecture-start/`;
   return `${instructorOrigin}/presentation/lecture-start/`;
 };

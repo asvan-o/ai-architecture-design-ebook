@@ -4,6 +4,7 @@ import { createReadStream, existsSync } from 'node:fs';
 import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
+import { getCourseProfile } from './course-registry.mjs';
 
 export const run = (command, argumentsList = [], options = {}) => {
   const result = spawnSync(command, argumentsList, {
@@ -141,12 +142,19 @@ export const buildInfoFromOutputs = async ({ rootDirectory, studentRoot, instruc
   }
   const status = gitText(['status', '--porcelain'], rootDirectory);
   const gitHead = gitText(['rev-parse', 'HEAD'], rootDirectory);
-  if (pdfManifest.scope !== 'student' || pdfManifest.sourceGitSha !== gitHead) {
+  const profile = getCourseProfile();
+  const courseBuild = JSON.parse(await readFile(path.join(studentRoot, 'course-build.json'), 'utf8'));
+  if (courseBuild.courseId !== profile.course.courseId || JSON.stringify(pdfManifest) !== JSON.stringify(profile.pdfs.approvedManifest)) {
     throw new Error(
-      `학생 PDF manifest가 현재 Git HEAD와 일치하지 않습니다: ${pdfManifest.sourceGitSha}/${gitHead}`,
+      '학생 PDF manifest 또는 courseId가 승인된 과정과 다릅니다.',
     );
   }
+  for (const file of pdfManifest.files) {
+    if (await hashFile(path.join(pdfDirectory, file.fileName)) !== file.sha256) throw new Error(`승인 PDF hash 불일치: ${file.fileName}`);
+  }
   return {
+    courseId: profile.course.courseId,
+    courseBasePath: courseBuild.basePath,
     projectName: 'AI 건축디자인 바이블',
     kitVersion,
     buildTimestamp: new Date().toISOString(),

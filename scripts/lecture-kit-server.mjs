@@ -29,10 +29,10 @@ const stateDirectory = path.resolve(
 const statePath = path.join(stateDirectory, 'state.json');
 const logPath = path.join(stateDirectory, 'lecture-kit.log');
 const studentRoot = path.resolve(
-  valueAfter('--student-root') ?? (mode === 'portable' ? path.join(rootDirectory, 'sites', 'student') : path.join(rootDirectory, 'dist')),
+  valueAfter('--student-root') ?? (mode === 'portable' ? path.join(rootDirectory, 'sites', 'student') : path.join(rootDirectory, 'dist', process.env.COURSE_ID || 'gwangju-2026', 'student')),
 );
 const instructorRoot = path.resolve(
-  valueAfter('--instructor-root') ?? (mode === 'portable' ? path.join(rootDirectory, 'sites', 'instructor') : path.join(rootDirectory, 'dist-instructor')),
+  valueAfter('--instructor-root') ?? (mode === 'portable' ? path.join(rootDirectory, 'sites', 'instructor') : path.join(rootDirectory, 'dist', process.env.COURSE_ID || 'gwangju-2026', 'instructor')),
 );
 const hubRoot = path.resolve(
   valueAfter('--hub-root') ?? (mode === 'portable' ? path.join(rootDirectory, 'app', 'hub') : path.join(rootDirectory, 'lecture-kit', 'hub')),
@@ -139,8 +139,9 @@ const statusPayload = (request) => ({
 
 let closing = false;
 let hubServer;
-const studentServer = createStaticServer(studentRoot);
-const instructorServer = createStaticServer(instructorRoot);
+const courseBasePath = (buildInfo.courseBasePath || '').replace(/\/+$/, '');
+const studentServer = createStaticServer(studentRoot, courseBasePath);
+const instructorServer = createStaticServer(instructorRoot, courseBasePath);
 
 const jsonResponse = (response, statusCode, body) => {
   const source = JSON.stringify(body);

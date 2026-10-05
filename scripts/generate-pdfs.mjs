@@ -6,6 +6,12 @@ import { mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
 import { chromium } from 'playwright';
+import { getCourseProfile } from './course-registry.mjs';
+
+// Architecture work is not approval to publish new teaching artifacts.
+if (['preserve-approved-artifact', 'not-issued'].includes(getCourseProfile().pdfs.policy)) {
+  throw new Error(`PDF regeneration is disabled for ${getCourseProfile().course.courseId}. Use a course build to reuse approved artifacts; a new PDF release requires explicit approval.`);
+}
 
 const outputDirectory = path.resolve(process.argv[2] ?? 'dist-student');
 const pdfScope = process.argv[3] ?? 'student';
