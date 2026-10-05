@@ -1,4 +1,5 @@
 import { spawn } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { existsSync } from 'node:fs';
 import { readFile, readdir, rm } from 'node:fs/promises';
 import path from 'node:path';
@@ -69,9 +70,10 @@ let state;
 try {
   state = await waitForState();
   const hubOrigin = `http://127.0.0.1:${state.ports.hub}`;
-  const studentOrigin = `http://127.0.0.1:${state.ports.student}`;
-  const instructorOrigin = `http://127.0.0.1:${state.ports.instructor}`;
   const buildInfo = JSON.parse(await readFile(path.join(kitRoot, 'BUILD_INFO.json'), 'utf8'));
+  const courseBase = (buildInfo.courseBasePath || '').replace(/\/$/, '');
+  const studentOrigin = `http://127.0.0.1:${state.ports.student}${courseBase}`;
+  const instructorOrigin = `http://127.0.0.1:${state.ports.instructor}${courseBase}`;
   const releasedPdfLessonIdSet = new Set(buildInfo.releasedPdfLessonIds);
   const pdfManifest = JSON.parse(
     await readFile(path.join(kitRoot, 'sites', 'student', 'downloads', 'pdf-manifest.json'), 'utf8'),
@@ -120,8 +122,13 @@ try {
   await requireHttp(`${instructorOrigin}/instructor-content/lessons/01.yaml`, 403);
 
   const studentSource = await collectText(path.join(kitRoot, 'sites', 'student'));
-  if (pdfManifest.scope !== 'student' || pdfManifest.sourceGitSha !== buildInfo.gitHead) {
-    throw new Error('포터블 키트의 학생 PDF manifest와 BUILD_INFO Git SHA가 일치하지 않습니다.');
+  if (pdfManifest.scope !== 'student' || pdfManifest.sourceGitSha !== (buildInfo.pdfSourceGitSha || buildInfo.gitHead)) {
+    throw new Error('포터블 키트의 학생 PDF manifest와 승인 PDF source Git SHA가 일치하지 않습니다.');
+  }
+  for (const file of pdfManifest.files) {
+    if (!/^[a-z0-9_-]+\.pdf$/.test(file.fileName)) throw new Error('안전하지 않은 PDF 파일명입니다.');
+    const bytes = await readFile(path.join(kitRoot, 'pdf', file.fileName));
+    if (createHash('sha256').update(bytes).digest('hex') !== file.sha256) throw new Error(`포터블 PDF hash 불일치: ${file.fileName}`);
   }
   if (pdfManifest.releasedLessonIds.join(',') !== buildInfo.releasedPdfLessonIds.join(',')) {
     throw new Error(`포터블 키트 PDF 공개 범위가 예상과 다릅니다: ${pdfManifest.releasedLessonIds.join(',')}`);

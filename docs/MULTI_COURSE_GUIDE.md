@@ -78,6 +78,7 @@ npm run validate:courses
 npm run build
 npm run verify:multi-course
 node scripts/verify-multi-course.mjs --regression
+node scripts/verify-course-hub.mjs
 ```
 
 회귀 옵션은 변경 전에 캡처한 `tmp/regression-baseline/student`와 `instructor`가 필요하다.

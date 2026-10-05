@@ -1,6 +1,7 @@
 import process from 'node:process';
 import { readFileSync } from 'node:fs';
 import { chromium } from 'playwright';
+import { getCourseProfile, courseBuildEnvironment } from './course-registry.mjs';
 
 const accessConfig = JSON.parse(readFileSync(new URL('../src/config/access.json', import.meta.url), 'utf8'));
 const authorizeContext = (context) => context.addInitScript(({ sessionStorageKey, passwordHash }) => {
@@ -15,7 +16,8 @@ const argumentsMap = Object.fromEntries(process.argv.slice(2).map((argument) => 
   const [key, ...value] = argument.replace(/^--/, '').split('=');
   return [key, value.join('=')];
 }));
-const baseUrl = (argumentsMap.base || 'http://127.0.0.1:4321').replace(/\/$/, '');
+const courseBase = courseBuildEnvironment(getCourseProfile(), 'student', '').BASE_PATH;
+const baseUrl = (argumentsMap.base || `http://127.0.0.1:4321${courseBase}`).replace(/\/$/, '');
 const lessonIds = ['01', '02', '03', '04'];
 const desktopViewports = [
   { width: 1440, height: 900 },

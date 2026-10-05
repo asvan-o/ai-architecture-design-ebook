@@ -2,13 +2,15 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { chromium } from 'playwright';
+import { getCourseProfile, courseBuildEnvironment } from './course-registry.mjs';
 
 const args = Object.fromEntries(process.argv.slice(2).map((arg) => {
   const [key, ...value] = arg.replace(/^--/, '').split('=');
   return [key, value.join('=')];
 }));
-const studentBase = args.student ?? 'http://127.0.0.1:4311';
-const instructorBase = args.instructor ?? 'http://127.0.0.1:4312';
+const courseBase = courseBuildEnvironment(getCourseProfile(), 'student', '').BASE_PATH;
+const studentBase = args.student ?? `http://127.0.0.1:4311${courseBase}`;
+const instructorBase = args.instructor ?? `http://127.0.0.1:4312${courseBase}`;
 const hubBase = args.hub ?? 'http://127.0.0.1:4310';
 const reviewRoot = args.output ?? path.join(tmpdir(), `ai-architecture-lecture-ui-review-${Date.now()}`);
 const screenshotsRoot = path.join(reviewRoot, 'slides');

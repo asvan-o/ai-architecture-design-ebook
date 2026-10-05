@@ -102,16 +102,17 @@ try {
     }
 
     const hasCourseOverview = existsSync(path.join(kitRoot, 'sites', 'student', 'course-overview', 'index.html'));
+    const courseBase = (JSON.parse(await readFile(path.join(kitRoot, 'BUILD_INFO.json'), 'utf8')).courseBasePath || '').replace(/\/$/, '');
     const localRoutes = [
       `http://127.0.0.1:${firstState.ports.hub}/`,
       ...(hasCourseOverview ? [
-        `http://127.0.0.1:${firstState.ports.student}/course-overview/`,
-        `http://127.0.0.1:${firstState.ports.instructor}/instructor-console/course-overview/`,
-        `http://127.0.0.1:${firstState.ports.instructor}/presentation/course-overview/`,
+        `http://127.0.0.1:${firstState.ports.student}${courseBase}/course-overview/`,
+        `http://127.0.0.1:${firstState.ports.instructor}${courseBase}/instructor-console/course-overview/`,
+        `http://127.0.0.1:${firstState.ports.instructor}${courseBase}/presentation/course-overview/`,
       ] : []),
-      `http://127.0.0.1:${firstState.ports.student}/lessons/01/`,
-      `http://127.0.0.1:${firstState.ports.instructor}/instructor-console/lessons/01/`,
-      `http://127.0.0.1:${firstState.ports.instructor}/presentation/lessons/01/`,
+      `http://127.0.0.1:${firstState.ports.student}${courseBase}/lessons/01/`,
+      `http://127.0.0.1:${firstState.ports.instructor}${courseBase}/instructor-console/lessons/01/`,
+      `http://127.0.0.1:${firstState.ports.instructor}${courseBase}/presentation/lessons/01/`,
     ];
     for (const url of localRoutes) {
       const response = await fetch(url, { signal: AbortSignal.timeout(3000) });
