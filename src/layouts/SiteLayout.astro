@@ -5,7 +5,8 @@ import { getLessonTopics } from '../lib/lesson-topics';
 import { isStudentBuild } from '../lib/student-release';
 import SearchPanel from '../components/SearchPanel';
 import EbookAccessGate from '../components/EbookAccessGate.astro';
-import accessConfig from '../config/access.json';
+import { courseAccess as accessConfig } from '../lib/course-access';
+import { activeCourse } from '../lib/courses';
 import '../styles/global.css';
 
 interface Props {
@@ -44,7 +45,7 @@ const accessGateEnabled = isStudentBuild;
 ---
 
 <!doctype html>
-<html lang="ko" data-ebook-access={accessGateEnabled ? 'locked' : 'disabled'}>
+<html lang="ko" data-course-id={activeCourse.courseId} data-ebook-access={accessGateEnabled ? 'locked' : 'disabled'}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -61,10 +62,13 @@ const accessGateEnabled = isStudentBuild;
         <script is:inline define:vars={{
           sessionStorageKey: accessConfig.sessionStorageKey,
           expectedPasswordHash: accessConfig.passwordHash,
+          legacySessionStorageKey: accessConfig.legacySessionStorageKey,
         }}>
           (() => {
             try {
-              if (sessionStorage.getItem(sessionStorageKey) === expectedPasswordHash) {
+              const legacyAccess = legacySessionStorageKey && sessionStorage.getItem(legacySessionStorageKey) === expectedPasswordHash;
+              if (sessionStorage.getItem(sessionStorageKey) === expectedPasswordHash || legacyAccess) {
+                if (legacyAccess) sessionStorage.setItem(sessionStorageKey, expectedPasswordHash);
                 document.documentElement.dataset.ebookAccess = 'unlocked';
               }
             } catch {

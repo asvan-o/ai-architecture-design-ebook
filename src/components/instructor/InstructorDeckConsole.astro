@@ -159,8 +159,9 @@ const {
 </main>
 
 <script>
-  const overrideStorageKey = 'ai-architecture-slide-overrides-v1';
-  const channelName = 'ai-architecture-presenter';
+  import { courseStorageKey, readCourseState, runtimeCourseId } from '../../lib/browser-state';
+  const overrideStorageKey = courseStorageKey('ai-architecture-slide-overrides-v1');
+  const channelName = courseStorageKey('ai-architecture-presenter');
 
   document.querySelectorAll<HTMLElement>('[data-instructor-deck-console]').forEach((consoleRoot) => {
     if (consoleRoot.dataset.consoleReady === 'true') return;
@@ -203,7 +204,7 @@ const {
     }
 
     const readRecords = () => {
-      try { return JSON.parse(localStorage.getItem(overrideStorageKey) ?? '{}'); }
+      try { return JSON.parse(readCourseState(localStorage, 'ai-architecture-slide-overrides-v1') ?? '{}'); }
       catch { return {}; }
     };
     const writeRecords = (records: Record<string, unknown>) => {
@@ -354,7 +355,7 @@ const {
 
     const changesForExport = () => Object.values(readRecords() as Record<string, any>);
     const exportChanges = () => {
-      const payload = { schemaVersion: 1, buildId, exportedAt: new Date().toISOString(), changes: changesForExport() };
+      const payload = { schemaVersion: 1, courseId: runtimeCourseId, buildId, exportedAt: new Date().toISOString(), changes: changesForExport() };
       const blob = new Blob([`${JSON.stringify(payload, null, 2)}\n`], { type: 'application/json' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
@@ -378,6 +379,7 @@ const {
         const payload = JSON.parse(await file.text());
         if (payload.schemaVersion !== 1 || !Array.isArray(payload.changes)) throw new Error('지원하지 않는 JSON 구조입니다.');
         const differentBuild = payload.buildId && payload.buildId !== buildId;
+        if (payload.courseId ? payload.courseId !== runtimeCourseId : runtimeCourseId !== 'gwangju-2026' || (payload.buildId?.includes(':') && !payload.buildId.startsWith('gwangju-2026:'))) throw new Error('다른 과정의 수정 파일은 가져올 수 없습니다.');
         const preview = payload.changes.slice(0, 8).map((item: any) => `• ${item.editKey}: ${item.replacementText}`).join('\n');
         const warning = differentBuild ? `\n\n주의: 파일 빌드(${payload.buildId})와 현재 빌드(${buildId})가 다릅니다.` : '';
         const approved = window.confirm(`가져올 변경 ${payload.changes.length}개\n\n${preview}${warning}\n\n확인 후 적용하시겠습니까?`);

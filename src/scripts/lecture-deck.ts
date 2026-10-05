@@ -1,3 +1,5 @@
+import { courseStorageKey, readCourseState } from '../lib/browser-state';
+
 type SlideRecord = {
   id: string;
   sectionId: string;
@@ -31,9 +33,8 @@ type OverrideRecord = {
 
 type StoredOverrides = Record<string, OverrideRecord>;
 
-const overrideStorageKey = 'ai-architecture-slide-overrides-v1';
-const slideStorageKey = 'ai-architecture-slide-position-v1';
-const channelName = 'ai-architecture-presenter';
+const overrideStorageKey = courseStorageKey('ai-architecture-slide-overrides-v1');
+const channelName = courseStorageKey('ai-architecture-presenter');
 const blockSelector = ':scope > h2, :scope > h3, :scope > h4, :scope > header, :scope > p, :scope > ul, :scope > ol, :scope > dl, :scope > table, :scope > figure, :scope > article, :scope > section, :scope > aside, :scope > details, :scope > pre, :scope > blockquote, :scope > div';
 const excludedSelector = [
   '.section-heading',
@@ -58,7 +59,7 @@ const escapeHtml = (value: string) => value
 
 const readOverrides = (): StoredOverrides => {
   try {
-    return JSON.parse(localStorage.getItem(overrideStorageKey) ?? '{}') as StoredOverrides;
+    return JSON.parse(readCourseState(localStorage, 'ai-architecture-slide-overrides-v1') ?? '{}') as StoredOverrides;
   } catch {
     return {};
   }
@@ -569,7 +570,7 @@ const initializeDeck = async (root: HTMLElement) => {
       button.setAttribute('aria-current', buttonIndex === activeIndex ? 'true' : 'false');
     });
     if (options.persist !== false) {
-      sessionStorage.setItem(`${slideStorageKey}:${contentId}`, slide.id);
+      sessionStorage.setItem(courseStorageKey(`ai-architecture-slide-position-v1:${contentId}`), slide.id);
     }
     root.dispatchEvent(new CustomEvent('lecture-deck-change', {
       bubbles: true,
@@ -668,7 +669,7 @@ const initializeDeck = async (root: HTMLElement) => {
     if (event.key === overrideStorageKey) render(activeIndex, { broadcast: false, persist: false });
   });
 
-  const storedSlideId = sessionStorage.getItem(`${slideStorageKey}:${contentId}`);
+  const storedSlideId = readCourseState(sessionStorage, `ai-architecture-slide-position-v1:${contentId}`);
   const initialIndex = Math.max(0, slides.findIndex((slide) => slide.id === storedSlideId));
   render(initialIndex, { broadcast: false });
 

@@ -71,6 +71,7 @@ const { contentId, title, durationMinutes } = Astro.props;
 </section>
 
 <script>
+  import { courseStorageKey, readCourseState } from '../../lib/browser-state';
   type TimelineItem = { label: string; detail?: string; minutes: number; mode?: string };
   type Timeline = { totalMinutes: number; items: TimelineItem[] };
   type DeckSlide = { id: string; sectionId: string; sectionLabel: string; title: string; node?: HTMLElement };
@@ -192,7 +193,10 @@ const { contentId, title, durationMinutes } = Astro.props;
       const buildId = consoleRoot.dataset.buildId ?? 'local-working-tree';
       const deckId = consoleRoot.dataset.deckId ?? contentId;
       const durationMinutes = Number(panel.dataset.durationMinutes) || timeline.totalMinutes;
-      const storageKey = `${progressStoragePrefix}:${buildId}:${deckId}`;
+      const legacyBuildId = import.meta.env.PUBLIC_BASELINE_BUILD_ID || buildId.split(':')[2] || buildId;
+      const legacyStorageKey = `${progressStoragePrefix}:${legacyBuildId}:${deckId}`;
+      const stateKey = `${progressStoragePrefix}:${buildId}:${deckId}`;
+      const storageKey = courseStorageKey(stateKey);
       let slides: DeckSlide[] = [];
       let checkpoints: Checkpoint[] = [];
       let activeSlideIndex = 0;
@@ -213,7 +217,8 @@ const { contentId, title, durationMinutes } = Astro.props;
         updatedAt: new Date().toISOString(),
       });
       try {
-        const stored = JSON.parse(localStorage.getItem(storageKey) ?? 'null');
+        const stored = JSON.parse(readCourseState(localStorage, stateKey, legacyStorageKey) ?? 'null');
+        if (stored?.buildId === legacyBuildId && stored.deckId === deckId) stored.buildId = buildId;
         state = stored?.schemaVersion === 1 && stored.buildId === buildId && stored.deckId === deckId
           ? { ...defaultState(), ...stored }
           : defaultState();

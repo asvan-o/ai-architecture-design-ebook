@@ -1,4 +1,5 @@
 import { useEffect, useId, useState } from 'react';
+import { courseStorageKey, readCourseState } from '../lib/browser-state';
 
 export type ChecklistItem = {
   id: string;
@@ -24,8 +25,8 @@ export default function CourseTools({ lessonId, items }: CourseToolsProps) {
 
   useEffect(() => {
     try {
-      const storedChecks = localStorage.getItem(`${storagePrefix}:checks`);
-      const storedNote = localStorage.getItem(`${storagePrefix}:note`);
+      const storedChecks = readCourseState(localStorage, `${storagePrefix}:checks`);
+      const storedNote = readCourseState(localStorage, `${storagePrefix}:note`);
       if (storedChecks) {
         const parsed: unknown = JSON.parse(storedChecks);
         if (isCheckState(parsed)) setChecks(parsed);
@@ -40,7 +41,7 @@ export default function CourseTools({ lessonId, items }: CourseToolsProps) {
     const next = { ...checks, [itemId]: !checks[itemId] };
     setChecks(next);
     try {
-      localStorage.setItem(`${storagePrefix}:checks`, JSON.stringify(next));
+      localStorage.setItem(courseStorageKey(`${storagePrefix}:checks`), JSON.stringify(next));
     } catch {
       // 저장 불가 환경에서는 현재 세션 상태만 유지한다.
     }
@@ -48,7 +49,7 @@ export default function CourseTools({ lessonId, items }: CourseToolsProps) {
 
   const saveNote = () => {
     try {
-      localStorage.setItem(`${storagePrefix}:note`, note);
+      localStorage.setItem(courseStorageKey(`${storagePrefix}:note`), note);
       setSaved(true);
       window.setTimeout(() => setSaved(false), 1800);
     } catch {
