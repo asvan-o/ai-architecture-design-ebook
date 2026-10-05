@@ -1,8 +1,10 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { createHash } from 'node:crypto';
 
-export const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+// Astro bundles this server-side module into its temporary output directory.
+// Builds run from the repository root; do not resolve data relative to the bundle.
+export const repositoryRoot = path.resolve(process.env.EBOOK_REPOSITORY_ROOT || process.cwd());
 export const baselineCommit = 'cdc99d788b9506344872c865730cd9cf002f16ec';
 const root = path.join(repositoryRoot, 'data', 'courses');
 const readJson = (file) => JSON.parse(readFileSync(file, 'utf8'));
@@ -79,8 +81,13 @@ export const courseBuildEnvironment = (profile, mode, head) => {
     ...process.env,
     COURSE_ID: course.courseId,
     PUBLIC_COURSE_ID: course.courseId,
+    EBOOK_REPOSITORY_ROOT: repositoryRoot,
+    EBOOK_MODE: mode,
     PORTAL_BASE_PATH: portalBase || '/',
     BASE_PATH: `${portalBase}/${course.routeSlug}`,
-    PUBLIC_LECTURE_BUILD_ID: `${course.courseId}:${mode}:${head}`,
+    PUBLIC_LECTURE_BUILD_ID: `${course.courseId}:${mode}:${head}:${createHash('sha256').update(JSON.stringify(profile)).digest('hex').slice(0, 12)}`,
+    PUBLIC_BASELINE_BUILD_ID: course.baseline?.gitSha || '',
+    INSTRUCTOR_CONTENT_DIR: process.env.INSTRUCTOR_CONTENT_DIR || path.join(repositoryRoot, 'instructor-content', 'courses', course.courseId, 'lessons'),
+    INSTRUCTOR_PROFILE_DIR: process.env.INSTRUCTOR_PROFILE_DIR || path.join(repositoryRoot, 'instructor-content', 'courses', course.courseId, 'assets', 'profile'),
   };
 };

@@ -1,0 +1,25 @@
+---
+import { getCourseProfile } from '../../../scripts/course-registry.mjs';
+export function getStaticPaths() {
+  const { course } = getCourseProfile('gwangju-2026');
+  const pages = ['course-overview', 'curriculum', 'ebook-downloads', 'glossary', 'guide', 'prompts', 'troubleshooting', 'updates', 'downloads', 'print/course'];
+  return [...pages, ...course.lessons.flatMap((lesson: { id: string }) => [`lessons/${lesson.id}`, `print/lessons/${lesson.id}`])]
+    .map((legacy) => ({ params: { legacy } }));
+}
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const target = `${base}/gwangju/${Astro.params.legacy === 'downloads' ? 'ebook-downloads' : Astro.params.legacy}/`;
+---
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta http-equiv="refresh" content={`0;url=${target}`} />
+    <title>광주 과정으로 이동</title>
+    <script is:inline define:vars={{ target }}>
+      window.location.replace(target + window.location.search + window.location.hash);
+    </script>
+  </head>
+  <body><main><h1>광주 과정으로 이동합니다.</h1><a href={target}>광주 강의자료 열기</a></main></body>
+</html>
