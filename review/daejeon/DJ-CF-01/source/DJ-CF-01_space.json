@@ -1,0 +1,28 @@
+{
+  "projectId": "DJ-CF-01",
+  "revision": "draft-01",
+  "status": "instructor-review",
+  "courseStatus": "design-pending",
+  "title": "직장인 생활권 소형 카페 고객공간 리뉴얼",
+  "subtitle": "픽업 동선과 짧은 체류의 균형",
+  "notice": "교육용 가상 프로젝트 · 실제 현장 사진 및 실측도면이 아님 · 강사 검토용 DRAFT",
+  "unit": "mm",
+  "origin": "실내 남서 모서리 (0,0); +X 동, +Y 북, +Z 위",
+  "room": {"width": 8000, "depth": 10000, "height": 3000, "wallThicknessVisualizationOnly": 180},
+  "elements": {
+    "D1": {"type": "door", "wall": "south", "start": 6400, "end": 7400, "bottom": 0, "top": 2200, "hinge": "east", "swing": "inward", "imageState": "closed"},
+    "W1": {"type": "window", "wall": "south", "start": 600, "end": 4800, "bottom": 600, "top": 2400, "mullions": [2700]},
+    "W2": {"type": "window", "wall": "west", "start": 6000, "end": 8000, "bottom": 900, "top": 2200, "mullions": [7000]},
+    "C1": {"type": "column", "center": [3000,4500], "size": [400,400], "height": 3000},
+    "K1": {"type": "counter", "bounds": [4800,8000,7200,8600], "height": 900},
+    "S1": {"type": "functional-zone", "bounds": [0,8000,8000,10000], "isWall": false},
+    "Z1": {"type": "customer-zone", "bounds": [0,0,8000,8000]}
+  },
+  "materials": {"wall": "중립적인 회백색 도장, 옅은 사용감", "floor": "무광 회색의 일반적인 연속 바닥, 임의 타일 줄눈 없음", "ceiling": "단순 백색 평천장", "frames": "짙은 회색 금속, W1/W2 각각 유리 2분할", "counter": "밝은 회색 무장식 전면과 중립 회색 상판", "daylight": "동일한 흐린 낮의 부드러운 자연광", "furniture": "이동식 가구 제거, 사람·로고·식물·새로운 문·창 없음"},
+  "cameras": [
+    {"id": "01", "position": [4000,7000,1500], "target": [4000,0,1500], "focalLengthMm": 28, "sensorWidthMm": 36, "purpose": "첫 생성의 주 Input; 남측 출입구와 전면 창", "expected": {"D1": "visible", "W1": "visible-partly-occluded-by-C1", "W2": "out-of-frame", "C1": "visible", "K1": "out-of-frame", "S1": "behind-camera"}},
+    {"id": "02", "position": [6800,1500,1500], "target": [3500,8200,1500], "focalLengthMm": 28, "sensorWidthMm": 36, "purpose": "보조 Input; 카운터·서측 창·서비스 영역 확인", "expected": {"D1": "behind-camera", "W1": "behind-camera", "W2": "visible", "C1": "visible", "K1": "visible", "S1": "visible-unmarked-functional-zone"}},
+    {"id": "03", "position": [7400,7500,1500], "target": [2000,5000,1500], "focalLengthMm": 28, "sensorWidthMm": 36, "purpose": "평면도와 공간 관계 확인; 서측 창과 남측 창 일부를 연결", "expected": {"D1": "out-of-frame", "W1": "partially-visible-at-left-edge", "W2": "visible", "C1": "visible", "K1": "behind-camera", "S1": "out-of-frame"}}
+  ],
+  "scope": {"seatsGoal": [12,16], "notLegalCapacity": true, "undetermined": ["시간대별 픽업/체류 고객 비율", "기존 이동식 가구 재사용 여부", "발주자 예산 상한", "운영 중단 가능 기간"], "excluded": ["주방 신설", "카운터 이전", "설비 재설계", "구조 변경"]}
+}

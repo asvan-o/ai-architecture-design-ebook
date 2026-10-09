@@ -1,0 +1,129 @@
+{
+  "project": "DJ-CF-02",
+  "status": "review-draft",
+  "fictional": true,
+  "units": "m",
+  "axes": "x: frontage left to right; y: toward rear; z: up; facade y=0",
+  "building": {
+    "width": 10,
+    "depth": 6,
+    "height": 7.2,
+    "floorLine": 3.6,
+    "roofSlab": 6.8,
+    "parapetTop": 7.2
+  },
+  "elements": [
+    {
+      "id": "D1",
+      "type": "entrance",
+      "x": 7.6,
+      "z": 0,
+      "w": 1.4,
+      "h": 2.6
+    },
+    {
+      "id": "W1",
+      "type": "window",
+      "x": 0.8,
+      "z": 0.6,
+      "w": 2.6,
+      "h": 2.2
+    },
+    {
+      "id": "W2",
+      "type": "window",
+      "x": 4.2,
+      "z": 0.6,
+      "w": 2.6,
+      "h": 2.2
+    },
+    {
+      "id": "W3",
+      "type": "window",
+      "x": 0.8,
+      "z": 4.4,
+      "w": 2,
+      "h": 1.8
+    },
+    {
+      "id": "W4",
+      "type": "window",
+      "x": 4,
+      "z": 4.4,
+      "w": 2,
+      "h": 1.8
+    },
+    {
+      "id": "W5",
+      "type": "window",
+      "x": 7.2,
+      "z": 4.4,
+      "w": 2,
+      "h": 1.8
+    },
+    {
+      "id": "SZ1",
+      "type": "blank-signage-zone",
+      "x": 0.8,
+      "z": 3,
+      "w": 8.4,
+      "h": 0.5
+    }
+  ],
+  "site": {
+    "sidewalkY": [
+      -2,
+      0
+    ],
+    "roadY": [
+      -9,
+      -2
+    ],
+    "neighborGap": 0.6,
+    "neighborSetback": 1.5,
+    "rightSide": "blank wall; no side openings"
+  },
+  "cameras": {
+    "01": {
+      "position": [
+        5,
+        -18,
+        1.6
+      ],
+      "target": [
+        5,
+        0,
+        3.4
+      ],
+      "focalPixels": 1450,
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    "02": {
+      "position": [
+        16,
+        -17,
+        1.6
+      ],
+      "target": [
+        5,
+        1.5,
+        3.4
+      ],
+      "focalPixels": 1450,
+      "canvas": [
+        1536,
+        1024
+      ]
+    }
+  },
+  "notes": [
+    "All dimensions are authored fictional teaching conditions, not legal or construction information.",
+    "No structural column grid is supplied. C1 is deliberately not assigned; structural details remain unverified.",
+    "D1 is the common entry for ground-floor commerce and upper-floor office/service use; internal circulation is outside scope.",
+    "Glass pane divisions do not count as additional wall openings.",
+    "Sidewalk and road relationship is illustrative and unchanged; planters belong inside the building frontage, not in the public walking route."
+  ]
+}

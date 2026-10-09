@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420mm" height="297mm" viewBox="0 0 1680 1188" role="img" aria-labelledby="title desc">
+<title id="title">DJ-CF-01 교육용 기준 평면도</title><desc id="desc">8m × 10m 고객공간과 서비스 영역. 고정 요소 D1 W1 W2 C1 K1, 카메라 01 02 03. S1 경계는 벽체가 아님.</desc>
+<style>text{font-family:Malgun Gothic,sans-serif;fill:#172328}.sm{font-size:15px}.label{font-size:20px;font-weight:700}.dim{font-size:16px}.muted{fill:#53616a}.wall{fill:#d5d9dc;stroke:#172328;stroke-width:2.4}.thin{stroke:#53616a;stroke-width:1;fill:none}</style>
+<rect width="1680" height="1188" fill="white"/>
+<text x="72" y="64" class="label" text-anchor="start">DJ-CF-01  |  EXISTING PLAN</text>
+<text x="72" y="100" class="label" text-anchor="start">직장인 생활권 소형 카페 고객공간 리뉴얼</text>
+<text x="72" y="130" class="sm" text-anchor="start">교육용 기준 평면도 · 개정 02 · 실제 실측도면 또는 법적 도면이 아님</text>
+<rect x="225.0" y="340.0" width="640.0" height="640.0" fill="#f8fafb"/>
+<rect x="225.0" y="180.0" width="640.0" height="160.0" fill="#edf1f3"/>
+<rect x="210.6" y="500.0" width="14.4" height="480.0" class="wall"/>
+<rect x="210.6" y="180.0" width="14.4" height="160.0" class="wall"/>
+<rect x="865.0" y="180.0" width="14.4" height="800.0" class="wall"/>
+<rect x="210.6" y="165.60000000000002" width="668.8000000000001" height="14.4" class="wall"/>
+<rect x="225.0" y="980.0" width="48.0" height="14.4" class="wall"/>
+<rect x="609.0" y="980.0" width="128.0" height="14.4" class="wall"/>
+<rect x="817.0" y="980.0" width="48.0" height="14.4" class="wall"/>
+<line x1="273.0" y1="990.8" x2="609.0" y2="990.8" stroke="#172328" stroke-width="2"/>
+<line x1="214.2" y1="500.0" x2="214.2" y2="340.0" stroke="#172328" stroke-width="2"/>
+<line x1="273.0" y1="985.2" x2="609.0" y2="985.2" stroke="#172328" stroke-width="2"/>
+<line x1="219.8" y1="500.0" x2="219.8" y2="340.0" stroke="#172328" stroke-width="2"/>
+<line x1="441.0" y1="994.4" x2="441.0" y2="980.0" stroke="#172328" stroke-width="2"/>
+<line x1="210.6" y1="420.0" x2="225.0" y2="420.0" stroke="#172328" stroke-width="2"/>
+<line x1="817.0" y1="980.0" x2="817.0" y2="900.0" stroke="#172328" stroke-width="2"/>
+<path d="M 737.0 980.0 A 80 80 0 0 1 817.0 900.0" stroke="#52616a" fill="none" stroke-width="1.5"/>
+<rect x="449.0" y="604.0" width="32.0" height="32.0" fill="#76828a" stroke="#172328" stroke-width="2"/>
+<rect x="609.0" y="292.0" width="192.0" height="48.0" fill="#d5d9dc" stroke="#172328" stroke-width="2"/>
+<line x1="225.0" y1="340.0" x2="865.0" y2="340.0" stroke="#607887" stroke-width="1.8" stroke-dasharray="9 6"/>
+<text x="465.0" y="660.0" class="label" text-anchor="middle">C1 400×400</text>
+<text x="705.0" y="312.0" class="label" text-anchor="middle">K1</text>
+<text x="417.0" y="240.0" class="label" text-anchor="middle">S1 서비스 영역</text>
+<text x="497.0" y="780.0" class="label" text-anchor="middle">Z1 고객공간</text>
+<text x="433.0" y="932.0" class="label" text-anchor="middle">W1</text>
+<text x="777.0" y="948.0" class="label" text-anchor="middle">D1</text>
+<text x="293.0" y="416.0" class="label" text-anchor="middle">W2</text>
+<text x="401.0" y="304.0" class="sm" text-anchor="middle">기능 경계 / 벽체 아님</text>
+<line x1="465.0" y1="980.0" x2="465.0" y2="636.0" stroke="#91a0a8" stroke-width="1" stroke-dasharray="4 5"/>
+<line x1="225.0" y1="620.0" x2="449.0" y2="620.0" stroke="#91a0a8" stroke-width="1" stroke-dasharray="4 5"/>
+<line x1="225.0" y1="860.0" x2="225.0" y2="840.0" stroke="#657079" stroke-width="1"/>
+<line x1="465.0" y1="860.0" x2="465.0" y2="840.0" stroke="#657079" stroke-width="1"/>
+<line x1="225.0" y1="852.0" x2="465.0" y2="852.0" stroke="#657079" stroke-width="1"/>
+<line x1="220.2" y1="857.2" x2="229.8" y2="846.8" stroke="#172328" stroke-width="1.4"/>
+<line x1="460.20000000000005" y1="857.2" x2="469.8" y2="846.8" stroke="#172328" stroke-width="1.4"/>
+<text x="345.0" y="845.0" class="dim" text-anchor="middle">기둥 중심 X=3000</text>
+<line x1="157.0" y1="980.0" x2="177.0" y2="980.0" stroke="#657079" stroke-width="1"/>
+<line x1="157.0" y1="620.0" x2="177.0" y2="620.0" stroke="#657079" stroke-width="1"/>
+<line x1="165.0" y1="980.0" x2="165.0" y2="620.0" stroke="#657079" stroke-width="1"/>
+<text x="155.0" y="800.0" class="dim" text-anchor="middle" transform="rotate(-90 155.0 800.0)">기둥 중심 Y=4500</text>
+<line x1="225.0" y1="1076.0" x2="225.0" y2="1056.0" stroke="#657079" stroke-width="1"/>
+<line x1="865.0" y1="1076.0" x2="865.0" y2="1056.0" stroke="#657079" stroke-width="1"/>
+<line x1="225.0" y1="1068.0" x2="865.0" y2="1068.0" stroke="#657079" stroke-width="1"/>
+<line x1="220.2" y1="1073.2" x2="229.8" y2="1062.8" stroke="#172328" stroke-width="1.4"/>
+<line x1="860.2" y1="1073.2" x2="869.8000000000001" y2="1062.8" stroke="#172328" stroke-width="1.4"/>
+<text x="545.0" y="1061.0" class="dim" text-anchor="middle">8000</text>
+<line x1="85.0" y1="980.0" x2="105.0" y2="980.0" stroke="#657079" stroke-width="1"/>
+<line x1="85.0" y1="180.0" x2="105.0" y2="180.0" stroke="#657079" stroke-width="1"/>
+<line x1="93.0" y1="980.0" x2="93.0" y2="180.0" stroke="#657079" stroke-width="1"/>
+<text x="83.0" y="580.0" class="dim" text-anchor="middle" transform="rotate(-90 83.0 580.0)">10000</text>
+<line x1="225.0" y1="1032.8" x2="225.0" y2="1012.8" stroke="#657079" stroke-width="1"/>
+<line x1="273.0" y1="1032.8" x2="273.0" y2="1012.8" stroke="#657079" stroke-width="1"/>
+<line x1="225.0" y1="1024.8" x2="273.0" y2="1024.8" stroke="#657079" stroke-width="1"/>
+<line x1="220.2" y1="1030.0" x2="229.8" y2="1019.6" stroke="#172328" stroke-width="1.4"/>
+<line x1="268.2" y1="1030.0" x2="277.8" y2="1019.6" stroke="#172328" stroke-width="1.4"/>
+<text x="249.0" y="1017.8" class="dim" text-anchor="middle">600</text>
+<line x1="273.0" y1="1032.8" x2="273.0" y2="1012.8" stroke="#657079" stroke-width="1"/>
+<line x1="609.0" y1="1032.8" x2="609.0" y2="1012.8" stroke="#657079" stroke-width="1"/>
+<line x1="273.0" y1="1024.8" x2="609.0" y2="1024.8" stroke="#657079" stroke-width="1"/>
+<line x1="268.2" y1="1030.0" x2="277.8" y2="1019.6" stroke="#172328" stroke-width="1.4"/>
+<line x1="604.2" y1="1030.0" x2="613.8" y2="1019.6" stroke="#172328" stroke-width="1.4"/>
+<text x="441.0" y="1017.8" class="dim" text-anchor="middle">4200</text>
+<line x1="609.0" y1="1032.8" x2="609.0" y2="1012.8" stroke="#657079" stroke-width="1"/>
+<line x1="737.0" y1="1032.8" x2="737.0" y2="1012.8" stroke="#657079" stroke-width="1"/>
+<line x1="609.0" y1="1024.8" x2="737.0" y2="1024.8" stroke="#657079" stroke-width="1"/>
+<line x1="604.2" y1="1030.0" x2="613.8" y2="1019.6" stroke="#172328" stroke-width="1.4"/>
+<line x1="732.2" y1="1030.0" x2="741.8" y2="1019.6" stroke="#172328" stroke-width="1.4"/>
+<text x="673.0" y="1017.8" class="dim" text-anchor="middle">1600</text>
+<line x1="737.0" y1="1032.8" x2="737.0" y2="1012.8" stroke="#657079" stroke-width="1"/>
+<line x1="817.0" y1="1032.8" x2="817.0" y2="1012.8" stroke="#657079" stroke-width="1"/>
+<line x1="737.0" y1="1024.8" x2="817.0" y2="1024.8" stroke="#657079" stroke-width="1"/>
+<line x1="732.2" y1="1030.0" x2="741.8" y2="1019.6" stroke="#172328" stroke-width="1.4"/>
+<line x1="812.2" y1="1030.0" x2="821.8000000000001" y2="1019.6" stroke="#172328" stroke-width="1.4"/>
+<text x="777.0" y="1017.8" class="dim" text-anchor="middle">1000</text>
+<line x1="817.0" y1="1032.8" x2="817.0" y2="1012.8" stroke="#657079" stroke-width="1"/>
+<line x1="865.0" y1="1032.8" x2="865.0" y2="1012.8" stroke="#657079" stroke-width="1"/>
+<line x1="817.0" y1="1024.8" x2="865.0" y2="1024.8" stroke="#657079" stroke-width="1"/>
+<line x1="812.2" y1="1030.0" x2="821.8000000000001" y2="1019.6" stroke="#172328" stroke-width="1.4"/>
+<line x1="860.2" y1="1030.0" x2="869.8000000000001" y2="1019.6" stroke="#172328" stroke-width="1.4"/>
+<text x="841.0" y="1017.8" class="dim" text-anchor="middle">600</text>
+<line x1="125.0" y1="980.0" x2="145.0" y2="980.0" stroke="#657079" stroke-width="1"/>
+<line x1="125.0" y1="500.0" x2="145.0" y2="500.0" stroke="#657079" stroke-width="1"/>
+<line x1="133.0" y1="980.0" x2="133.0" y2="500.0" stroke="#657079" stroke-width="1"/>
+<text x="123.0" y="740.0" class="dim" text-anchor="middle" transform="rotate(-90 123.0 740.0)">6000</text>
+<line x1="125.0" y1="500.0" x2="145.0" y2="500.0" stroke="#657079" stroke-width="1"/>
+<line x1="125.0" y1="340.0" x2="145.0" y2="340.0" stroke="#657079" stroke-width="1"/>
+<line x1="133.0" y1="500.0" x2="133.0" y2="340.0" stroke="#657079" stroke-width="1"/>
+<text x="123.0" y="420.0" class="dim" text-anchor="middle" transform="rotate(-90 123.0 420.0)">2000</text>
+<line x1="125.0" y1="340.0" x2="145.0" y2="340.0" stroke="#657079" stroke-width="1"/>
+<line x1="125.0" y1="180.0" x2="145.0" y2="180.0" stroke="#657079" stroke-width="1"/>
+<line x1="133.0" y1="340.0" x2="133.0" y2="180.0" stroke="#657079" stroke-width="1"/>
+<text x="123.0" y="260.0" class="dim" text-anchor="middle" transform="rotate(-90 123.0 260.0)">2000</text>
+<line x1="609.0" y1="268.0" x2="609.0" y2="248.0" stroke="#657079" stroke-width="1"/>
+<line x1="801.0" y1="268.0" x2="801.0" y2="248.0" stroke="#657079" stroke-width="1"/>
+<line x1="609.0" y1="260.0" x2="801.0" y2="260.0" stroke="#657079" stroke-width="1"/>
+<line x1="604.2" y1="265.19999999999993" x2="613.8" y2="254.79999999999995" stroke="#172328" stroke-width="1.4"/>
+<line x1="796.2" y1="265.19999999999993" x2="805.8000000000001" y2="254.79999999999995" stroke="#172328" stroke-width="1.4"/>
+<text x="705.0" y="253.0" class="dim" text-anchor="middle">2400</text>
+<line x1="837.0" y1="340.0" x2="857.0" y2="340.0" stroke="#657079" stroke-width="1"/>
+<line x1="837.0" y1="292.0" x2="857.0" y2="292.0" stroke="#657079" stroke-width="1"/>
+<line x1="845.0" y1="340.0" x2="845.0" y2="292.0" stroke="#657079" stroke-width="1"/>
+<text x="835.0" y="316.0" class="dim" text-anchor="middle" transform="rotate(-90 835.0 316.0)">600</text>
+<line x1="545.0" y1="420.0" x2="545.0" y2="484.0" stroke="#255c78" stroke-width="2.5"/>
+<line x1="545.0" y1="484.0" x2="552.6" y2="468.8" stroke="#255c78" stroke-width="2.5"/>
+<line x1="545.0" y1="484.0" x2="537.4000000000001" y2="468.8" stroke="#255c78" stroke-width="2.5"/>
+<circle cx="545.0" cy="420.0" r="7" fill="white" stroke="#255c78" stroke-width="2"/>
+<text x="557.0" y="408.0" class="sm" text-anchor="start">CAM 01</text>
+<line x1="769.0" y1="860.0" x2="740.7216113568609" y2="802.5863018457478" stroke="#255c78" stroke-width="2.5"/>
+<line x1="740.7216113568609" y1="802.5863018457478" x2="740.619852003789" y2="819.5801138087554" stroke="#255c78" stroke-width="2.5"/>
+<line x1="740.7216113568609" y1="802.5863018457478" x2="754.2556053154238" y2="812.8639965060099" stroke="#255c78" stroke-width="2.5"/>
+<circle cx="769.0" cy="860.0" r="7" fill="white" stroke="#255c78" stroke-width="2"/>
+<text x="781.0" y="848.0" class="sm" text-anchor="start">CAM 02</text>
+<line x1="817.0" y1="380.0" x2="758.9221179443301" y2="406.8879083591064" stroke="#255c78" stroke-width="2.5"/>
+<line x1="758.9221179443301" y1="406.8879083591064" x2="775.9085540501957" y2="407.39877861792945" stroke="#255c78" stroke-width="2.5"/>
+<line x1="758.9221179443301" y1="406.8879083591064" x2="769.5226758149079" y2="393.60528162970786" stroke="#255c78" stroke-width="2.5"/>
+<circle cx="817.0" cy="380.0" r="7" fill="white" stroke="#255c78" stroke-width="2"/>
+<text x="805.0" y="368.0" class="sm" text-anchor="end">CAM 03</text>
+<text x="980" y="210" class="label" text-anchor="start">도면 읽기</text>
+<text x="980" y="255" class="label" text-anchor="start">01  유지 요소</text>
+<text x="980" y="285" class="sm" text-anchor="start">D1 · W1 · W2 · C1 · K1 · S1 유지</text>
+<text x="980" y="327" class="label" text-anchor="start">02  변경 가능한 영역</text>
+<text x="980" y="357" class="sm" text-anchor="start">Z1의 이동식 가구 / 마감 색감 / 조명 표현</text>
+<text x="980" y="399" class="label" text-anchor="start">03  서비스 영역</text>
+<text x="980" y="429" class="sm" text-anchor="start">S1의 점선은 기능 구분선이며 벽체가 아님</text>
+<text x="980" y="471" class="label" text-anchor="start">04  개구부 높이</text>
+<text x="980" y="501" class="sm" text-anchor="start">D1: H2200 / W1: 하단600~상단2400</text>
+<text x="980" y="543" class="sm" text-anchor="start">W2: 하단900~상단2200</text>
+<text x="980" y="585" class="label" text-anchor="start">05  공간 조건</text>
+<text x="980" y="615" class="sm" text-anchor="start">천장 H3000 / 기준 영역 80㎡</text>
+<text x="980" y="657" class="sm" text-anchor="start">벽 두께 180은 시각화용 설정, 구조 판단 불가</text>
+<text x="980" y="699" class="label" text-anchor="start">06  카메라</text>
+<text x="980" y="729" class="sm" text-anchor="start">01 남측 / 02 북서측 / 03 남서측</text>
+<text x="980" y="771" class="sm" text-anchor="start">눈높이 1500 / 기준 화각 28mm</text>
+<text x="980" y="813" class="label" text-anchor="start">07  과제 범위</text>
+<text x="980" y="843" class="sm" text-anchor="start">12~16석은 교육용 목표, 법적 수용인원 아님</text>
+<text x="980" y="885" class="sm" text-anchor="start">완성 가구 배치 정답은 포함하지 않음</text>
+<text x="980" y="945" class="sm" text-anchor="start">범례: 굵은 실선 = 기존 벽체 / 회색 = 고정 요소</text>
+<text x="980" y="975" class="sm" text-anchor="start">점선 = 기능 경계 / 파란 화살표 = 카메라 방향</text>
+<text x="1510" y="155" class="label" text-anchor="middle">N</text>
+<path d="M1510 225V170M1510 170l-9 16M1510 170l9 16" stroke="#172328" stroke-width="3" fill="none"/>
+<rect x="990" y="1040" width="80" height="12" fill="#172328" stroke="#172328"/>
+<rect x="1070" y="1040" width="80" height="12" fill="white" stroke="#172328"/>
+<rect x="1150" y="1040" width="80" height="12" fill="#172328" stroke="#172328"/>
+<rect x="1230" y="1040" width="80" height="12" fill="white" stroke="#172328"/>
+<text x="990" y="1076" class="sm" text-anchor="middle">0</text>
+<text x="1070" y="1076" class="sm" text-anchor="middle">1</text>
+<text x="1150" y="1076" class="sm" text-anchor="middle">2</text>
+<text x="1230" y="1076" class="sm" text-anchor="middle">3</text>
+<text x="1310" y="1076" class="sm" text-anchor="middle">4m</text>
+<text x="72" y="1140" class="sm" text-anchor="start">A3 · 1:50 @ 100% · 단위 mm · 남서 실내 모서리 원점 · DJ-CF-01 / draft-01</text>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1000" viewBox="0 0 1400 1000"><rect width="100%" height="100%" fill="white"/><g font-family="Malgun Gothic, sans-serif" fill="#182b35">
+<text x="60" y="65" font-size="30" text-anchor="start" fill="#182b35">DJ-CF-02 · 전면 / 보도 / 카메라 관계도</text>
+<text x="60" y="108" font-size="20" text-anchor="start" fill="#182b35">교육용 배치 도식 · 지적도 / 법적 대지 경계가 아님</text>
+<rect x="85" y="400" width="720" height="52" fill="#e3e3df" stroke="#283e49" stroke-width="1" stroke-dasharray=""/>
+<rect x="85" y="452" width="720" height="182" fill="#bfc5c6" stroke="#283e49" stroke-width="1" stroke-dasharray=""/>
+<rect x="220" y="244" width="450" height="156" fill="#ece9e1" stroke="#283e49" stroke-width="3" stroke-dasharray=""/>
+<text x="445" y="322" font-size="22" text-anchor="middle" fill="#182b35">건물 10×6m / 내부 구성 생략</text>
+<line x1="562.0" y1="400" x2="625.0" y2="400" stroke="#146783" stroke-width="6" stroke-dasharray=""/>
+<text x="593.5" y="388" font-size="17" text-anchor="middle" fill="#182b35">D1</text>
+<line x1="256.0" y1="400" x2="373.0" y2="400" stroke="#146783" stroke-width="6" stroke-dasharray=""/>
+<text x="314.5" y="388" font-size="17" text-anchor="middle" fill="#182b35">W1</text>
+<line x1="409.0" y1="400" x2="526.0" y2="400" stroke="#146783" stroke-width="6" stroke-dasharray=""/>
+<text x="467.5" y="388" font-size="17" text-anchor="middle" fill="#182b35">W2</text>
+<text x="980" y="430" font-size="20" text-anchor="start" fill="#182b35">보도: 깊이 2m</text>
+<text x="980" y="550" font-size="20" text-anchor="start" fill="#182b35">도로: 관계만 표현</text>
+<line x1="445" y1="868" x2="445" y2="400" stroke="#b55130" stroke-width="2" stroke-dasharray="7 5"/>
+<rect x="440" y="863" width="10" height="10" fill="#b55130" stroke="#283e49" stroke-width="1" stroke-dasharray=""/>
+<text x="445" y="897" font-size="21" text-anchor="middle" fill="#182b35">CAM 01</text>
+<line x1="940" y1="842" x2="445" y2="361.0" stroke="#b55130" stroke-width="2" stroke-dasharray="7 5"/>
+<rect x="935" y="837" width="10" height="10" fill="#b55130" stroke="#283e49" stroke-width="1" stroke-dasharray=""/>
+<text x="940" y="871" font-size="21" text-anchor="middle" fill="#182b35">CAM 02</text>
+<text x="60" y="955" font-size="18" text-anchor="start" fill="#182b35">CAM 01 정면 / CAM 02 우측 사선 · 두 시점 모두 아이레벨 z=1.60m 기준 · 이미지의 실제 렌즈값을 보증하지 않음</text>
+</g></svg>

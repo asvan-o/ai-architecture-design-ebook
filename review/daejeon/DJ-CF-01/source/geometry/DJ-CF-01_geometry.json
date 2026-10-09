@@ -1,0 +1,89 @@
+[
+  {
+    "id": "01",
+    "image": "source\\geometry\\DJ-CF-01_whitebox-01.png",
+    "sha256": "38ff992e21075364af81af44837b7bb0f8214992e3c20446db683b115ece66bf",
+    "camera": {
+      "id": "01",
+      "position": [
+        4000,
+        7000,
+        1500
+      ],
+      "target": [
+        4000,
+        0,
+        1500
+      ],
+      "focalLengthMm": 28,
+      "sensorWidthMm": 36,
+      "purpose": "첫 생성의 주 Input; 남측 출입구와 전면 창",
+      "expected": {
+        "D1": "visible",
+        "W1": "visible-partly-occluded-by-C1",
+        "W2": "out-of-frame",
+        "C1": "visible",
+        "K1": "out-of-frame",
+        "S1": "behind-camera"
+      }
+    }
+  },
+  {
+    "id": "02",
+    "image": "source\\geometry\\DJ-CF-01_whitebox-02.png",
+    "sha256": "194d4c10d14a58b3e4e792283b0dcc05db97a2a95a7d7f666f92b952d18c78a6",
+    "camera": {
+      "id": "02",
+      "position": [
+        6800,
+        1500,
+        1500
+      ],
+      "target": [
+        3500,
+        8200,
+        1500
+      ],
+      "focalLengthMm": 28,
+      "sensorWidthMm": 36,
+      "purpose": "보조 Input; 카운터·서측 창·서비스 영역 확인",
+      "expected": {
+        "D1": "behind-camera",
+        "W1": "behind-camera",
+        "W2": "visible",
+        "C1": "visible",
+        "K1": "visible",
+        "S1": "visible-unmarked-functional-zone"
+      }
+    }
+  },
+  {
+    "id": "03",
+    "image": "source\\geometry\\DJ-CF-01_whitebox-03.png",
+    "sha256": "549be060d1837ddc31c807dd3e6424aead38d66ea3f691739b6072fcff602e51",
+    "camera": {
+      "id": "03",
+      "position": [
+        7400,
+        7500,
+        1500
+      ],
+      "target": [
+        2000,
+        5000,
+        1500
+      ],
+      "focalLengthMm": 28,
+      "sensorWidthMm": 36,
+      "purpose": "평면도와 공간 관계 확인; 서측 창과 남측 창 일부를 연결",
+      "expected": {
+        "D1": "out-of-frame",
+        "W1": "partially-visible-at-left-edge",
+        "W2": "visible",
+        "C1": "visible",
+        "K1": "behind-camera",
+        "S1": "out-of-frame"
+      }
+    }
+  }
+]

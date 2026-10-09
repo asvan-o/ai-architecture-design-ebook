@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1680" height="1188" viewBox="0 0 1680 1188"><rect width="100%" height="100%" fill="white"/><g font-family="Malgun Gothic, sans-serif" fill="#182b35">
+<text x="70" y="63" font-size="24" text-anchor="start" fill="#182b35">AI LECTURE / DJ-CF-02</text>
+<text x="1610" y="63" font-size="18" text-anchor="end" fill="#182b35">EXTERIOR / REVIEW</text>
+<text x="70" y="112" font-size="34" text-anchor="start" fill="#182b35">교육용 기준 입면도 · 개정 01</text>
+<text x="70" y="151" font-size="20" text-anchor="start" fill="#182b35">가상 건물 · 실측도면 / 구조도면 / 허가도면이 아님 · 단위 m</text>
+<rect x="260" y="260.79999999999995" width="860" height="619.2" fill="#f2f1ed" stroke="#283e49" stroke-width="3" stroke-dasharray=""/>
+<line x1="185" y1="880" x2="1195" y2="880" stroke="#74848a" stroke-width="1" stroke-dasharray="8 5"/>
+<text x="1200" y="886" font-size="19" text-anchor="start" fill="#182b35">GL ±0.00</text>
+<line x1="185" y1="570.4" x2="1195" y2="570.4" stroke="#74848a" stroke-width="1" stroke-dasharray="8 5"/>
+<text x="1200" y="576.4" font-size="19" text-anchor="start" fill="#182b35">2F +3.60</text>
+<line x1="185" y1="295.20000000000005" x2="1195" y2="295.20000000000005" stroke="#74848a" stroke-width="1" stroke-dasharray="8 5"/>
+<text x="1200" y="301.20000000000005" font-size="19" text-anchor="start" fill="#182b35">ROOF +6.80</text>
+<line x1="185" y1="260.79999999999995" x2="1195" y2="260.79999999999995" stroke="#74848a" stroke-width="1" stroke-dasharray="8 5"/>
+<text x="1200" y="266.79999999999995" font-size="19" text-anchor="start" fill="#182b35">TOP +7.20</text>
+<rect x="913.6" y="656.4" width="120.39999999999999" height="223.6" fill="#dbe7eb" stroke="#283e49" stroke-width="2" stroke-dasharray=""/>
+<text x="973.8" y="773.2" font-size="22" text-anchor="middle" fill="#182b35">D1</text>
+<rect x="328.8" y="639.2" width="223.6" height="189.20000000000002" fill="#dbe7eb" stroke="#283e49" stroke-width="2" stroke-dasharray=""/>
+<text x="440.6" y="738.8" font-size="22" text-anchor="middle" fill="#182b35">W1</text>
+<line x1="440.6" y1="828.4" x2="440.6" y2="639.2" stroke="#809399" stroke-width="1" stroke-dasharray=""/>
+<rect x="621.2" y="639.2" width="223.6" height="189.20000000000002" fill="#dbe7eb" stroke="#283e49" stroke-width="2" stroke-dasharray=""/>
+<text x="733.0" y="738.8" font-size="22" text-anchor="middle" fill="#182b35">W2</text>
+<line x1="733.0" y1="828.4" x2="733.0" y2="639.2" stroke="#809399" stroke-width="1" stroke-dasharray=""/>
+<rect x="328.8" y="346.79999999999995" width="172" height="154.8" fill="#dbe7eb" stroke="#283e49" stroke-width="2" stroke-dasharray=""/>
+<text x="414.8" y="429.19999999999993" font-size="22" text-anchor="middle" fill="#182b35">W3</text>
+<line x1="414.8" y1="501.59999999999997" x2="414.8" y2="346.79999999999995" stroke="#809399" stroke-width="1" stroke-dasharray=""/>
+<rect x="604" y="346.79999999999995" width="172" height="154.8" fill="#dbe7eb" stroke="#283e49" stroke-width="2" stroke-dasharray=""/>
+<text x="690.0" y="429.19999999999993" font-size="22" text-anchor="middle" fill="#182b35">W4</text>
+<line x1="690.0" y1="501.59999999999997" x2="690.0" y2="346.79999999999995" stroke="#809399" stroke-width="1" stroke-dasharray=""/>
+<rect x="879.2" y="346.79999999999995" width="172" height="154.8" fill="#dbe7eb" stroke="#283e49" stroke-width="2" stroke-dasharray=""/>
+<text x="965.1999999999999" y="429.19999999999993" font-size="22" text-anchor="middle" fill="#182b35">W5</text>
+<line x1="965.1999999999999" y1="501.59999999999997" x2="965.1999999999999" y2="346.79999999999995" stroke="#809399" stroke-width="1" stroke-dasharray=""/>
+<rect x="328.8" y="579.0" width="722.4" height="43.0" fill="#e6dfcb" stroke="#283e49" stroke-width="2" stroke-dasharray=""/>
+<text x="690.0" y="605.5" font-size="22" text-anchor="middle" fill="#182b35">SZ1</text>
+<line x1="260" y1="220" x2="1120" y2="220" stroke="#283e49" stroke-width="1" stroke-dasharray=""/>
+<line x1="260" y1="212" x2="260" y2="228" stroke="#283e49" stroke-width="1" stroke-dasharray=""/>
+<line x1="1120" y1="212" x2="1120" y2="228" stroke="#283e49" stroke-width="1" stroke-dasharray=""/>
+<text x="690.0" y="210" font-size="20" text-anchor="middle" fill="#182b35">전면 폭 10.00</text>
+<line x1="260" y1="220" x2="260" y2="248.79999999999995" stroke="#819098" stroke-width="1" stroke-dasharray=""/>
+<line x1="1120" y1="220" x2="1120" y2="248.79999999999995" stroke="#819098" stroke-width="1" stroke-dasharray=""/>
+<line x1="170" y1="880" x2="170" y2="260.79999999999995" stroke="#283e49" stroke-width="1" stroke-dasharray=""/>
+<text x="150" y="570" font-size="20" text-anchor="end" fill="#182b35">7.20</text>
+<line x1="160" y1="880" x2="195" y2="880" stroke="#283e49" stroke-width="1" stroke-dasharray=""/>
+<line x1="160" y1="260.79999999999995" x2="195" y2="260.79999999999995" stroke="#283e49" stroke-width="1" stroke-dasharray=""/>
+<text x="260" y="927" font-size="20" text-anchor="start" fill="#182b35">유지: 외곽 / 층수 / 지붕선 / D1 / W1~W5 / 층간 관계</text>
+<text x="260" y="960" font-size="20" text-anchor="start" fill="#182b35">변경: 외장 표현 / D1 주변 강조 / 소형 캐노피 / SZ1 표현 / 조명</text>
+<text x="70" y="1018" font-size="20" text-anchor="start" fill="#182b35">D1 1.40×2.60  |  W1·W2 2.60×2.20, 하단 +0.60  |  W3~W5 2.00×1.80, 하단 +4.40</text>
+<text x="70" y="1050" font-size="20" text-anchor="start" fill="#182b35">SZ1 8.40×0.50, 하단 +3.00 · 무문자 간판 영역 · 창호 사이 벽체도 유지 · 구조 그리드 미제공</text>
+<text x="70" y="1082" font-size="19" text-anchor="start" fill="#182b35">기준 좌표: 전면 좌하단 (0,0). 개구부 위치·크기 근거는 이 도면과 건물 조건 JSON. 이미지로 실측하지 않음.</text>
+<line x1="70" y1="1120" x2="1610" y2="1120" stroke="#283e49" stroke-width="1" stroke-dasharray=""/>
+<text x="70" y="1152" font-size="18" text-anchor="start" fill="#182b35">외벽 밝은 면 = 마감 변경 가능 영역 / 개구부 선 = 고정 / 치수·법규·구조 적합성은 별도 검토</text>
+</g></svg>
