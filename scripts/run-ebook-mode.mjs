@@ -4,6 +4,7 @@ import path from 'node:path';
 import process from 'node:process';
 import { getCourseProfile, courseOutput, courseBuildEnvironment } from './course-registry.mjs';
 import { reuseApprovedPdfs } from './approved-pdfs.mjs';
+import { verifyDraftOutput } from './draft-output.mjs';
 
 const [command, mode, ...argumentsList] = process.argv.slice(2);
 const courseArgument = argumentsList.find((item) => item.startsWith('--course='));
@@ -26,6 +27,8 @@ const gitHead = spawnSync('git', ['rev-parse', 'HEAD'], {
   windowsHide: true,
 }).stdout?.trim();
 const runtimeEnvironment = courseBuildEnvironment(profile, mode, gitHead || 'local-working-tree');
+// Exercise packages belong only to the isolated local review build.
+runtimeEnvironment.PUBLIC_DAEJEON_REVIEW_ASSETS = 'false';
 runtimeEnvironment.PUBLIC_PDF_DOWNLOADS_ENABLED = profile.pdfs.policy === 'preserve-approved-artifact' ? 'true' : 'false';
 if (extraArguments.some((argument) => !argument.startsWith('-') || /^(?:--outDir|--mode|--base)(?:=|$)/.test(argument))) {
   throw new Error('Output, base and mode are managed by the course profile. Use --course=<courseId>.');
@@ -58,9 +61,8 @@ if (result.status !== 0) {
 
 if (command === 'build') {
   if (profile.course.contentStatus === 'design-pending') {
-    const source = readFileSync(path.join(outDir, 'index.html'), 'utf8');
-    if (!source.includes('noindex') || !source.includes('design-pending') || readdirSync(outDir).includes('lessons') || readdirSync(outDir).includes('downloads')) throw new Error('Draft output inherited content or PDF routes.');
-    console.log(`[draft] ${profile.course.courseId}/${mode}: design-pending; no curriculum or PDFs`);
+    const routes = verifyDraftOutput(profile.course, outDir);
+    console.log(`[draft] ${profile.course.courseId}/${mode}: design-pending; ${routes.length} review/landing pages; no approved curriculum or PDFs`);
     writeFileSync(path.join(outDir, 'course-build.json'), JSON.stringify({ courseId: profile.course.courseId, mode, basePath: runtimeEnvironment.BASE_PATH, buildId: runtimeEnvironment.PUBLIC_LECTURE_BUILD_ID }));
     process.exit(0);
   }

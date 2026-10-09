@@ -42,7 +42,13 @@ export function validateCourseProfiles(profiles) {
       assert(ids.length === 0 && course.totalMinutes === null && course.baseline === null && course.topicNumbers.length === 0, `${id}: draft must not inherit curriculum`);
       assert(release.releasedStudentLessonIds.length === 0 && release.releasedPdfLessonIds.length === 0, `${id}: draft cannot release lessons`);
       assert(pdfs.lessons.length === 0 && pdfs.targets.length === 0 && pdfs.course === null && pdfs.approvedManifest === null && pdfs.policy === 'not-issued', `${id}: draft cannot issue PDFs`);
+      if (course.reviewDraft !== undefined) {
+        const review = course.reviewDraft;
+        assert(id === 'daejeon-2026' && review?.status === 'instructor-review' && review.courseOverview === true, `${id}: invalid review draft`);
+        assert(Array.isArray(review.lessons) && review.lessons.length === 1 && review.lessons[0].id === '01' && review.lessons[0].durationMinutes === 300, `${id}: review draft exceeds authorized lesson 01 scope`);
+      }
     } else {
+      assert(course.reviewDraft === undefined, `${id}: approved curriculum cannot carry a review draft`);
       assert(course.lessons.length > 0 && course.totalMinutes === course.lessons.reduce((sum, lesson) => sum + lesson.durationMinutes, 0), `${id}: duration mismatch`);
       assert(course.lessons.every((lesson, index) => lesson.day === index + 1 && lesson.title && lesson.durationMinutes > 0), `${id}: invalid lesson plan`);
       assert(course.baseline?.gitSha === baselineCommit && course.baseline?.contentRoot === 'src/content/lessons', `${id}: unsupported/unpinned content source`);

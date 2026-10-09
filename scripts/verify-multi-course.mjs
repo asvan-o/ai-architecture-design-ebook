@@ -7,6 +7,7 @@ import { chromium } from 'playwright';
 import ts from 'typescript';
 import { getCourseProfiles, courseOutput, repositoryRoot } from './course-registry.mjs';
 import { createStaticServer, listen, closeServer, findAvailablePorts } from './lecture-kit-static.mjs';
+import { verifyDraftOutput } from './draft-output.mjs';
 
 const args = process.argv.slice(2);
 const regression = args.includes('--regression');
@@ -26,12 +27,11 @@ for (const file of [...files(root), ...modeOutputs.flatMap(files)].filter((name)
 }
 assert(!existsSync(path.join(root, 'gwangju/instructor-console')));
 assert(!existsSync(path.join(root, 'gwangju/presentation')));
-assert(!existsSync(path.join(root, 'daejeon/lessons')));
 assert(!existsSync(path.join(root, 'daejeon/downloads')));
 for (const { course } of profiles.filter(({ course }) => course.contentStatus === 'design-pending')) {
+  verifyDraftOutput(course, path.join(root, course.routeSlug));
   for (const output of modeOutputs.filter((directory) => directory.includes(course.courseId))) {
-    assert.equal(files(output).filter((file) => file.endsWith('.html')).length, 1);
-    assert(!existsSync(path.join(output, 'lessons')) && !existsSync(path.join(output, 'downloads')));
+    verifyDraftOutput(course, output);
   }
 }
 const gw = profiles.find(({ course }) => course.courseId === 'gwangju-2026');
