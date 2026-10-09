@@ -1,16 +1,32 @@
 """Build isolated educational draft assets. No production files are written.
-Usage: bundled-python DJ-CF-01_build.py baseline|geometry|documents|verify
+Usage: bundled-python DJ-CF-01_build.py baseline|plan|geometry|verify [--output-root DIR]
 Raster white-box images are deterministic geometric references, not AI edits.
 """
 from pathlib import Path
-import json, math, hashlib, subprocess, sys, html
+import argparse, json, math, hashlib, subprocess, sys, html
 import numpy as np
 from PIL import Image
 
-ROOT = Path(__file__).resolve().parent.parent
-REPO = ROOT.parents[2]
-TMP = REPO / 'tmp' / 'DJ-CF-01'
-DATA = json.loads((ROOT/'source/DJ-CF-01_space.json').read_text(encoding='utf-8'))
+def find_repo_root(start: Path) -> Path:
+    for candidate in (start, *start.parents):
+        if ((candidate / 'package.json').is_file()
+                and (candidate / 'src/lib/lesson02-ebook.ts').is_file()
+                and (candidate / 'data/courses').is_dir()):
+            return candidate
+    raise FileNotFoundError(
+        f'Repository root not found above {start}: expected package.json, '
+        'src/lib/lesson02-ebook.ts and data/courses')
+
+PACKAGE_ROOT = Path(__file__).resolve().parent.parent
+REPO = find_repo_root(Path(__file__).resolve())
+parser = argparse.ArgumentParser(description='CF-01 geometry/protection stages; no PDF authoring.')
+parser.add_argument('stage',choices=['baseline','plan','geometry','verify'])
+parser.add_argument('--output-root',type=Path)
+args = parser.parse_args()
+ROOT = args.output_root.resolve() if args.output_root else PACKAGE_ROOT
+ROOT.mkdir(parents=True,exist_ok=True)
+TMP = ROOT/'_validation' if args.output_root else REPO/'tmp'/'DJ-CF-01'
+DATA = json.loads((PACKAGE_ROOT/'source/DJ-CF-01_space.json').read_text(encoding='utf-8'))
 TMP.mkdir(parents=True, exist_ok=True)
 
 def sha(p):
@@ -21,9 +37,10 @@ def sha(p):
 
 def capture():
     result={}
-    for name, repo in [('daejeon',REPO),('gwangju',REPO.parent/'gwangju')]:
+    # Only the current checkout is inspected; Gwangju is checked by Git blob validation.
+    for name, repo in [('daejeon',REPO)]:
         paths=subprocess.check_output(['git','ls-files','-z','--cached','--others','--exclude-standard'],cwd=repo).decode('utf-8').split('\0')
-        result[name]={p:sha(repo/p) for p in paths if p and (repo/p).is_file() and not p.startswith('review/daejeon/DJ-CF-01/')}
+        result[name]={p:sha(repo/p) for p in paths if p and (repo/p).is_file() and (args.output_root or not p.startswith('review/daejeon/DJ-CF-01/'))}
         result[name+'_status']=subprocess.check_output(['git','--no-optional-locks','status','--short','-uall'],cwd=repo).decode('utf-8')
     return result
 
@@ -131,7 +148,7 @@ def geometry():
     box([4.8,8,0],[7.2,8.6,.86],[.65,.66,.655]);box([4.8,8,.86],[7.2,8.6,.9],[.43,.45,.45])
     # Existing door handle, attached only to D1.
     box([6.52,.015,.98],[6.54,.05,1.28],frame)
-    refs=ROOT/'source'/'geometry';refs.mkdir(exist_ok=True)
+    refs=ROOT/'source'/'geometry';refs.mkdir(parents=True,exist_ok=True)
     def raycast(orig,dirs):
         n=len(dirs);best=np.full(n,np.inf);idx=np.full(n,-1,dtype=int);norm=np.zeros((n,3));safe=np.where(abs(dirs)<1e-9,1e-9,dirs)
         for j,(lo,hi,col,kind) in enumerate(boxes):
@@ -174,15 +191,16 @@ def geometry():
 
 def verify():
     before=json.loads((TMP/'before.json').read_text(encoding='utf-8'));after=capture();result={}
-    for name in ['daejeon','gwangju']:
+    for name in ['daejeon']:
         changes=[p for p,h in before[name].items() if after[name].get(p)!=h]
         additions=[p for p in after[name] if p not in before[name]]
         result[name]={'existingFileChanges':changes,'outsidePackageAdditions':additions,'filesCompared':len(before[name])}
     result['courseStatus']=json.loads((REPO/'data/courses/daejeon-2026/course.json').read_text(encoding='utf-8'))['contentStatus']
+    (ROOT/'source').mkdir(exist_ok=True)
     (ROOT/'source/DJ-CF-01_protection-check.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
     print(json.dumps(result,ensure_ascii=False,indent=2))
-    assert all(not result[n]['existingFileChanges'] and not result[n]['outsidePackageAdditions'] for n in ['daejeon','gwangju'])
+    assert all(not result[n]['existingFileChanges'] and not result[n]['outsidePackageAdditions'] for n in ['daejeon'])
     assert result['courseStatus']=='design-pending'
 
 if __name__=='__main__':
-    {'baseline':baseline,'geometry':geometry,'plan':svg_plan,'verify':verify}[sys.argv[1]]()
+    {'baseline':baseline,'geometry':geometry,'plan':svg_plan,'verify':verify}[args.stage]()

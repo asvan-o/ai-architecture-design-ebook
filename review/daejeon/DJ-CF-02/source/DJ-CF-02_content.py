@@ -1,7 +1,33 @@
 """Authored fictional exercise content; all rendered documents derive from these data."""
 from pathlib import Path
-import json, re, hashlib
-R=Path(__file__).resolve().parent.parent
+import argparse, json, re, hashlib
+
+def find_repo_root(start: Path) -> Path:
+    for candidate in (start, *start.parents):
+        if ((candidate / 'package.json').is_file()
+                and (candidate / 'src/lib/lesson02-ebook.ts').is_file()
+                and (candidate / 'data/courses').is_dir()):
+            return candidate
+    raise FileNotFoundError(
+        f'Repository root not found above {start}: expected package.json, '
+        'src/lib/lesson02-ebook.ts and data/courses')
+
+repo_root=find_repo_root(Path(__file__).resolve())
+lesson02_source=repo_root/'src/lib/lesson02-ebook.ts'
+lesson02_text=lesson02_source.read_text(encoding='utf-8')
+parser=argparse.ArgumentParser(description='Prepare CF-02 textual sources; no PDF/image authoring.')
+parser.add_argument('--output-root',type=Path)
+parser.add_argument('--check-inputs',action='store_true')
+args=parser.parse_args()
+if args.check_inputs:
+    print(json.dumps({'repositoryRoot':str(repo_root),'source':str(lesson02_source),
+                      'sourceRelative':'src/lib/lesson02-ebook.ts','outsideRepositoryInputs':[],
+                      'normalizedTextSha256':hashlib.sha256(lesson02_text.encode('utf-8')).hexdigest()},ensure_ascii=False))
+    raise SystemExit(0)
+R=args.output_root.resolve() if args.output_root else Path(__file__).resolve().parent.parent
+R.mkdir(parents=True,exist_ok=True)
+(R/'source').mkdir(exist_ok=True)
+(R/'instructor').mkdir(exist_ok=True)
 def write(name,text):(R/name).write_text(text.strip()+'\n',encoding='utf-8')
 def jwrite(name,data):write(name,json.dumps(data,ensure_ascii=False,indent=2))
 C={
@@ -160,10 +186,9 @@ ID는 프로젝트 안에서만 유효합니다. 두 프로젝트의 D1·W1은 �
 ## 광주 제2차시 공통 규칙 → 7단 공식
 '''+ '\n'.join(f'{i}. {rule} → {formula}' for i,(rule,formula) in enumerate(zip(rules,C['formula']),1))+'\n\n광주 원문 명칭을 유지했습니다. 적용 예시만 Exterior에 맞게 작성했습니다. 확인한 소스: gwangju/src/lib/lesson02-ebook.ts, lesson02PromptRules·lesson02Formula; src/components/content/Lesson02Ebook.astro section-06·07.\n')
 # Read-only provenance of the exact existing Gwangju formula, no older PDF inference.
-g=R.parents[2].parent/'gwangju'
-f=g/'src/lib/lesson02-ebook.ts';t=f.read_text(encoding='utf-8')
+f=lesson02_source;t=lesson02_text
 start=t.index('export const lesson02Formula');end=t.index('] as const;',start)+len('] as const;')
-jwrite('instructor/DJ-CF-02_gwangju-source-check.json',{'source':str(f),'sha256':hashlib.sha256(f.read_bytes()).hexdigest(),'formulaSourceLine':t[:start].count('\n')+1,'verbatimFormula':t[start:end],'rules':rules,'verified':all(x in t for x in rules)})
+jwrite('instructor/DJ-CF-02_gwangju-source-check.json',{'source':f.relative_to(repo_root).as_posix(),'sha256':hashlib.sha256(f.read_bytes()).hexdigest(),'formulaSourceLine':t[:start].count('\n')+1,'verbatimFormula':t[start:end],'rules':rules,'verified':all(x in t for x in rules)})
 analysis_rows=[
  ['프로젝트 목표','입구 인지성과 거리 경관 균형','R1·R3·R5','원문 조건'],
  ['주요 사용자와 이용 상황','보행자·1층 상업·2층 업무/서비스·운영자; 공용 D1','02·K4','원문 조건'],

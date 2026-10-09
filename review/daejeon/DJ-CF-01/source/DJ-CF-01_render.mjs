@@ -5,16 +5,26 @@ import fs from 'node:fs';
 import http from 'node:http';
 import { createHash } from 'node:crypto';
 
-const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const repo=path.resolve(root,'../../..');
-const tmp=path.join(repo,'tmp','DJ-CF-01');
+const packageRoot=path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+let repo=path.dirname(fileURLToPath(import.meta.url));
+while(!(fs.existsSync(path.join(repo,'package.json'))&&fs.existsSync(path.join(repo,'src/lib/lesson02-ebook.ts'))&&fs.existsSync(path.join(repo,'data/courses')))) {
+  const parent=path.dirname(repo);
+  if(parent===repo)throw new Error('Repository root not found: package.json, src/lib/lesson02-ebook.ts, data/courses required');
+  repo=parent;
+}
+const outputIndex=process.argv.indexOf('--output-root');
+if(outputIndex>=0&&!process.argv[outputIndex+1])throw new Error('--output-root requires a directory');
+const root=outputIndex>=0?path.resolve(process.argv[outputIndex+1]):packageRoot;
+fs.mkdirSync(root,{recursive:true});
+const tmp=outputIndex>=0?path.join(root,'_review'):path.join(repo,'tmp','DJ-CF-01');
 fs.mkdirSync(tmp,{recursive:true});
 const browser=await chromium.launch({headless:true,args:['--disable-gpu']});
 let server;
 try {
   const page=await browser.newPage({viewport:{width:1680,height:1188},deviceScaleFactor:2});
   if(process.argv.includes('--plan')) {
-  const svg=fs.readFileSync(path.join(root,'DJ-CF-01_existing-plan.svg'),'utf8');
+  const source=fs.existsSync(path.join(root,'DJ-CF-01_existing-plan.svg'))?root:packageRoot;
+  const svg=fs.readFileSync(path.join(source,'DJ-CF-01_existing-plan.svg'),'utf8');
   await page.setContent('<html><body></body></html>');
   const raster=await page.evaluate(async source=>{
     const image=new Image();image.src='data:image/svg+xml;base64,'+btoa(unescape(encodeURIComponent(source)));

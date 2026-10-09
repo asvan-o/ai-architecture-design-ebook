@@ -1,7 +1,12 @@
 """Deterministic educational geometry. SVG is the elevation master; metres, no site survey."""
 from pathlib import Path
-import json, math, html
-R=Path(__file__).resolve().parent.parent
+import argparse, json, math, html
+parser=argparse.ArgumentParser(description='Generate SVG/geometry intermediates, before raster.')
+parser.add_argument('--output-root',type=Path)
+args=parser.parse_args()
+R=args.output_root.resolve() if args.output_root else Path(__file__).resolve().parent.parent
+R.mkdir(parents=True,exist_ok=True)
+(R/'source').mkdir(exist_ok=True)
 I=R/'instructor'; I.mkdir(exist_ok=True)
 G={'project':'DJ-CF-02','status':'review-draft','fictional':True,'units':'m','axes':'x: frontage left to right; y: toward rear; z: up; facade y=0',
  'building':{'width':10,'depth':6,'height':7.2,'floorLine':3.6,'roofSlab':6.8,'parapetTop':7.2},
