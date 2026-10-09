@@ -19,5 +19,12 @@
   "totalMinutes": null,
   "baseline": null,
   "topicNumbers": [],
-  "lessons": []
+  "lessons": [],
+  "reviewDraft": {
+    "status": "instructor-review",
+    "courseOverview": true,
+    "lessons": [
+      { "id": "01", "durationMinutes": 300 }
+    ]
+  }
 }

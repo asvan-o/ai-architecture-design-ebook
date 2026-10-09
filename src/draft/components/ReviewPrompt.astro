@@ -1,0 +1,22 @@
+---
+import PromptCopyBlock from '../../components/content/PromptCopyBlock.astro';
+interface Props { id: string; title: string; prompt: string; href?: string; filename?: string; }
+const {id,title,prompt,href,filename} = Astro.props;
+const enabled = import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS === 'true';
+---
+<div class="review-prompt" data-prompt-download={filename}>
+  <PromptCopyBlock {id} {title} {prompt} />
+  {href && <a class="review-download" href={href} download={filename}>이 Prompt TXT 다운로드</a>}
+  {enabled && !href && <button type="button" class="review-download" data-download-prompt={filename || `DJ-DAY-01_${id}.txt`}>이 Prompt TXT 다운로드</button>}
+</div>
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-download-prompt]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const source = button.closest('.review-prompt')?.querySelector<HTMLTextAreaElement>('[data-copy-source]');
+      if (!source) return;
+      const url = URL.createObjectURL(new Blob([source.value], {type:'text/plain;charset=utf-8'}));
+      const link = document.createElement('a'); link.href=url; link.download=button.dataset.downloadPrompt!;
+      link.click(); setTimeout(()=>URL.revokeObjectURL(url),1000);
+    });
+  });
+</script>

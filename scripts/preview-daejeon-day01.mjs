@@ -1,0 +1,14 @@
+import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
+import path from 'node:path';
+import {reviewOutput,repositoryRoot} from './daejeon-review-assets.mjs';
+import {getCourseProfile} from './course-registry.mjs';
+import {verifyDraftOutput} from './draft-output.mjs';
+import {createStaticServer,listen,findAvailablePorts} from './lecture-kit-static.mjs';
+verifyDraftOutput(getCourseProfile('daejeon-2026').course,reviewOutput,{localReviewAssets:true});
+const base=JSON.parse(readFileSync(path.join(reviewOutput,'course-build.json'),'utf8')).basePath;
+const [port]=await findAvailablePorts(1,4700,4799);
+const server=createStaticServer(reviewOutput,base);await listen(server,port,'127.0.0.1');
+const state={pid:process.pid,host:'127.0.0.1',port,url:`http://127.0.0.1:${port}${base}/lessons/01/`,output:reviewOutput,localOnly:true};
+mkdirSync(path.join(repositoryRoot,'tmp/day01-implementation'),{recursive:true});
+writeFileSync(path.join(repositoryRoot,'tmp/day01-implementation/preview.json'),JSON.stringify(state,null,2)+'\n');
+console.log(JSON.stringify(state,null,2));

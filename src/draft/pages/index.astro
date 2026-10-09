@@ -1,27 +1,12 @@
 ---
-import { activeCourse } from '../../lib/courses';
-import '../../styles/global.css';
+import ReviewLayout from '../layouts/ReviewLayout.astro';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const portalHref = base.replace(new RegExp(`/${activeCourse.routeSlug}$`), '') + '/';
 ---
-<!doctype html>
-<html lang="ko" data-course-id={activeCourse.courseId}>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="robots" content="noindex, nofollow, noarchive" />
-    <title>{activeCourse.regionLabel} 과정 | AI Lecture 건축디자인</title>
-  </head>
-  <body>
-    <main class="course-draft" data-course-status="design-pending">
-      <p class="eyebrow">AI LECTURE · ARCHITECTURE DESIGN</p>
-      <h1>{activeCourse.regionLabel} 과정</h1>
-      <h2>현재 과정 설계 중입니다.</h2>
-      <p>교육과정이 확정되면 이곳에 강의자료를 안내합니다.</p>
-      <a href={portalHref}>← 과정 선택으로 돌아가기</a>
-    </main>
-  </body>
-</html>
-<style>
-  .course-draft{max-width:54rem;margin:auto;padding:clamp(3rem,10vw,8rem) 1.5rem}.course-draft h1{font-family:var(--serif);font-size:clamp(3rem,7vw,5rem)}.course-draft h2{font-size:1.5rem}.course-draft a{display:inline-block;margin-top:2rem;color:var(--accent-dark)}
-</style>
+<ReviewLayout title="대전 과정" lead="현재 과정 설계 중입니다." page="home">
+  <p>과정 안내와 1일차 6교시 구성을 검토합니다. 정식 교육과정·공개 자료·PDF 발행은 승인 전입니다.</p>
+  <div class="review-cards">
+    <article class="review-card"><h2>COURSE OVERVIEW</h2><p>과정 전체 방향과 도구 역할. 차시 번호에 포함하지 않습니다.</p><a href={`${base}/course-overview/`}>과정 안내 초안 읽기 →</a></article>
+    <article class="review-card"><h2>1일차 · 6교시 × 50분</h2><p>AI 판단 → Prompt → 첫 생성·수정 → RFP 분석·검증 → Brief → 이미지 전략.</p><a href={`${base}/lessons/01/`}>1일차 e-book draft 읽기 →</a></article>
+  </div>
+  <aside class="review-callout">DJ-CF-01 Interior / DJ-CF-02 Exterior를 활용합니다. 실습자료는 로컬 검토용 preview에서 개별 다운로드합니다.</aside>
+</ReviewLayout>

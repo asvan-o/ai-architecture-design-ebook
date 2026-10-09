@@ -1,0 +1,34 @@
+---
+import {flowerCafe} from '../../../scripts/daejeon-gwangju-reuse.mjs';
+import ReviewPrompt from './ReviewPrompt.astro';
+const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const href=(file:string)=>`${base}/practice/GW-L02/${file}`;
+---
+<div id="flower-cafe-demo" data-flower-cafe-demo>
+  <h3>플라워 카페 · 첫 제안에서 수정 결과까지</h3>
+  <p>광주 Lesson 02의 기존 이미지·요청문을 그대로 사용한 강사 시연입니다.</p>
+  <h4>1. 한 줄 요청 → 최초 생성 이미지</h4>
+  <blockquote>{flowerCafe.originalPrompt}</blockquote>
+  {enabled ? <figure class="review-card">
+    <img src={href(flowerCafe.original.file)} alt={flowerCafe.original.alt} loading="lazy" />
+    <figcaption>{flowerCafe.original.caption}</figcaption>
+    <a class="review-download" href={href(flowerCafe.original.file)} download={flowerCafe.original.file}>최초 생성 이미지 다운로드</a>
+  </figure> : <p class="review-callout">원본 이미지는 로컬 검토용 preview에서 확인합니다.</p>}
+  <h4>2. 무엇이 의도와 달랐는지 판단</h4>
+  <ul><li>사람·상호·문자가 요청에 필요한가?</li><li>카페 기능이 꽃 판매 공간보다 과도하게 드러나는가?</li><li>의도하지 않은 요소와 확인할 수 없는 실제 조건은 무엇인가?</li></ul>
+  <h4>3. 유지 / 변경 / 금지를 수정 요청으로 정리</h4>
+  <ReviewPrompt id="flower-cafe-revision" title="광주 플라워 카페 · 기존 수정 요청" prompt={flowerCafe.revisionPrompt} href={enabled?href('03-revision-prompt.txt'):undefined} filename="03-revision-prompt.txt" />
+  <h4>4. Before / After · 수정 결과 비교</h4>
+  {enabled && <div class="review-cards" data-flower-cafe-comparison>
+    {[['Before · 최초 생성',flowerCafe.original],['After · 수정 결과',flowerCafe.revised]].map(([title,image])=><figure class="review-card">
+      <h4>{title as string}</h4>
+      <img src={href((image as typeof flowerCafe.original).file)} alt={(image as typeof flowerCafe.original).alt} loading="lazy" />
+      <figcaption>{(image as typeof flowerCafe.original).caption}</figcaption>
+      <a class="review-download" href={href((image as typeof flowerCafe.original).file)} download={(image as typeof flowerCafe.original).file}>이미지 개별 다운로드</a>
+    </figure>)}
+  </div>}
+  <p>{flowerCafe.comparison}</p>
+  <aside class="review-callout"><strong>{flowerCafe.learningPoint}</strong><p>{flowerCafe.caution}</p></aside>
+  <p class="review-source-list">출처: 광주 Lesson 02 · 교육용 Google AI 생성자료. 기존 원본과 생성 표시를 유지했습니다. 실제 현장 사진이나 실측 자료가 아닙니다.</p>
+</div>

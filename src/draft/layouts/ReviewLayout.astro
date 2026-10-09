@@ -1,0 +1,57 @@
+---
+import { activeCourse } from '../../lib/courses';
+import '../../styles/global.css';
+import '../styles/review.css';
+import { reviewDate } from '../content/daejeon-2026';
+interface TocItem { id: string; title: string; }
+interface Props { title: string; lead: string; page: 'home' | 'overview' | 'lesson'; toc?: readonly TocItem[]; tocGroups?: readonly {id:string;title:string;items:readonly TocItem[]}[]; }
+const { title, lead, page, toc = [], tocGroups = [] } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const portalHref = base.replace(new RegExp(`/${activeCourse.routeSlug}$`), '') + '/';
+---
+<!doctype html>
+<html lang="ko" data-course-id={activeCourse.courseId}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <title>{title} | 대전 AI Lecture · 검토용 초안</title>
+  </head>
+  <body class="review-page">
+    <a class="skip-link" href="#main">본문으로 바로가기</a>
+    <header class="review-header">
+      <a class="review-brand" href={`${base}/`}>AI LECTURE <span>ARCHITECTURE DESIGN · DAEJEON</span></a>
+      <nav aria-label="대전 검토용 자료">
+        <a href={`${base}/course-overview/`} aria-current={page === 'overview' ? 'page' : undefined}>COURSE OVERVIEW</a>
+        <a href={`${base}/lessons/01/`} aria-current={page === 'lesson' ? 'page' : undefined}>1일차 · 6교시</a>
+        <a href={portalHref}>과정 선택</a>
+      </nav>
+    </header>
+    <div class="review-notice" role="note">대전 e-book draft · design-pending · 정식 공개·PDF 발행 승인 전 · {reviewDate}</div>
+    <div class:list={['review-shell', { 'review-shell--toc': toc.length > 0 }]}>
+      {toc.length > 0 && <nav class="review-toc" aria-label="현재 차시 내부 목차"><details open><summary>현재 차시 내부 목차</summary>{tocGroups.length>0 ? tocGroups.map((group)=><details class="review-toc-group" data-toc-period={group.id} open><summary>{group.title}</summary><ol>{group.items.map((item)=><li><a href={`#${item.id}`}>{item.title}</a></li>)}</ol></details>) : <ol>{toc.map((item) => <li><a href={`#${item.id}`}>{item.title}</a></li>)}</ol>}</details></nav>}
+      <main id="main" tabindex="-1" data-course-status="design-pending" data-review-status="instructor-review" data-review-page={page}>
+        <div class="review-intro"><p class="review-eyebrow">DAEJEON · {page === 'overview' ? 'COURSE OVERVIEW' : page === 'lesson' ? 'DAY 01 / 6 × 50 MIN' : 'COURSE DESIGN'}</p><h1>{title}</h1><p class="review-lead">{lead}</p></div>
+        <slot />
+      </main>
+    </div>
+    <footer class="review-footer">AI는 제안하고, 디자이너는 판단한다. <a href={`${base}/`}>대전 과정 안내</a></footer>
+    <script>
+      const toc = document.querySelector<HTMLDetailsElement>('.review-toc details');
+      const media = matchMedia('(max-width: 1000px)');
+      const groups=[...document.querySelectorAll<HTMLDetailsElement>('.review-toc-group')];
+      const adaptToc = () => { if (toc) toc.open = !media.matches; groups.forEach((group)=>group.open=!media.matches); };
+      adaptToc(); media.addEventListener('change', adaptToc);
+      const links = [...document.querySelectorAll<HTMLAnchorElement>('.review-toc a')];
+      links.forEach((link) => link.addEventListener('click', () => { if (toc && media.matches) toc.open = false; }));
+      const observer = new IntersectionObserver((entries) => {
+        const section = entries.find((entry) => entry.isIntersecting);
+        if (section) links.forEach((link) => {
+          if (link.hash === `#${section.target.id}`) link.setAttribute('aria-current','location');
+          else link.removeAttribute('aria-current');
+        });
+      }, {rootMargin: '-5% 0px -70% 0px'});
+      links.forEach((link) => { const target = document.getElementById(link.hash.slice(1)); if(target) observer.observe(target); });
+    </script>
+  </body>
+</html>

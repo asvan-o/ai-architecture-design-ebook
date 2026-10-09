@@ -1,0 +1,177 @@
+{
+  "localReviewOnly": true,
+  "courseStatus": "design-pending",
+  "canonicalRoot": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\gwangju",
+  "lessonSource": "src/content/lessons/02.mdx",
+  "lessonSourceSha256": "7e9139d0a235d81e93b76f37e52df6a952a7baca4d0c788dede45a8813d444a4",
+  "manifestSource": "data/asset-manifest.yaml",
+  "manifestSourceSha256": "4d0ce421dcd4905fe268d9b8d760c67b758704038e95a72786fff21bbb203aa4",
+  "ebookSources": [
+    "src/components/content/Lesson02Ebook.astro",
+    "src/lib/lesson02-ebook.ts"
+  ],
+  "imageCount": 7,
+  "files": [
+    {
+      "file": "02-original-result.jpeg",
+      "source": "src/assets/lessons/02/flower-cafe-sample/02-original-result.jpeg",
+      "alt": "두 사람과 고양이처럼 보이는 동물, 창문 문자, 에스프레소 머신과 카운터처럼 보이는 요소, 테이블, 의자, 꽃과 식물이 포함된 플라워 카페 초기 이미지",
+      "caption": "짧은 한 줄 요청만으로 생성한 초기 콘셉트 이미지이다. 두 사람과 고양이처럼 보이는 동물, 읽을 수 있는 창문 상호·문자, 에스프레소 머신과 카운터처럼 보이는 요소가 함께 나타난다. 카페 기능의 비중이 의도보다 크다는 평가는 수업 목적에 따른 디자인 판단이다.",
+      "sha256": "5e41b23eb97dc76831ef38b52fc1f3debcf17193e5a039d3e33793d88d61c096",
+      "canonicalByteIdentical": true,
+      "bytes": 244116,
+      "mime": "image/jpeg",
+      "xmp": {
+        "credit": "Made with Google AI",
+        "digitalSourceType": "trainedAlgorithmicMedia",
+        "markersVerified": true
+      }
+    },
+    {
+      "file": "04-revised-result.jpeg",
+      "source": "src/assets/lessons/02/flower-cafe-sample/04-revised-result.jpeg",
+      "alt": "사람과 고양이는 보이지 않고 꽃과 식물 진열, 테이블과 의자, 문 유리의 작은 표식처럼 보이는 요소가 남은 플라워 카페 수정 이미지",
+      "caption": "수정 요청 일부를 반영한 두 번째 결과이다. 두 사람과 주요 창문 상호·문자는 보이지 않고 대형 카페 설비의 존재감은 줄었다. 꽃과 식물 진열이 늘어 꽃 판매 공간의 정체성이 더 선명해졌다는 평가는 디자인 판단이다. 문 유리에는 작은 표식처럼 보이는 요소가 남아 있어 모든 문자가 완전히 제거됐다고 단정하지 않는다.",
+      "sha256": "c6fc4435038d50292b11c33eea3e4a533b6a7c0639a216df1aba1684c63ea21c",
+      "canonicalByteIdentical": true,
+      "bytes": 281581,
+      "mime": "image/jpeg",
+      "xmp": {
+        "credit": "Made with Google AI",
+        "digitalSourceType": "trainedAlgorithmicMedia",
+        "markersVerified": true
+      }
+    },
+    {
+      "id": "l02-empty-base-01",
+      "number": "01",
+      "file": "base-01.jpeg",
+      "source": "src/assets/lessons/02/empty-space-sample/02-base-images/base-01.jpeg",
+      "alt": "목재 바닥과 천장 요소가 보이고 가구와 사람이 없는 소형 공간 교육용 이미지",
+      "caption": "목재 바닥과 천장 요소가 보이는 비어 있는 소형 공간",
+      "sourceNote": "사용자가 제공한 Google AI 생성 제2차시 교육용 샘플",
+      "rightsStatus": "review-required",
+      "provenanceNote": "XMP에서 DigitalSourceType trainedAlgorithmicMedia와 Credit Made with Google AI 확인",
+      "generationModel": "unknown",
+      "generationDate": "unknown",
+      "rightsReviewNote": "공개 사용 권리와 제3자 입력 여부의 별도 검토 기록이 없음",
+      "sha256": "79e66e751e7c9dbce017144c842d7ceb89632e680836446873655b8c01723ca7",
+      "canonicalByteIdentical": true,
+      "bytes": 115546,
+      "mime": "image/jpeg",
+      "xmp": {
+        "credit": "Made with Google AI",
+        "digitalSourceType": "trainedAlgorithmicMedia",
+        "markersVerified": true
+      }
+    },
+    {
+      "id": "l02-empty-base-02",
+      "number": "02",
+      "file": "base-02.jpeg",
+      "source": "src/assets/lessons/02/empty-space-sample/02-base-images/base-02.jpeg",
+      "alt": "마감 전 상태로 보이며 가구와 사람이 없는 빈 상업공간 교육용 이미지",
+      "caption": "마감 전 상태의 빈 상업공간",
+      "sourceNote": "사용자가 제공한 Google AI 생성 제2차시 교육용 샘플",
+      "rightsStatus": "review-required",
+      "provenanceNote": "XMP에서 DigitalSourceType trainedAlgorithmicMedia와 Credit Made with Google AI 확인",
+      "generationModel": "unknown",
+      "generationDate": "unknown",
+      "rightsReviewNote": "공개 사용 권리와 제3자 입력 여부의 별도 검토 기록이 없음",
+      "sha256": "a7eeaf62441041de43778068c1db2f3c02ed45c09a8964e666b4b0b4350133fc",
+      "canonicalByteIdentical": true,
+      "bytes": 136483,
+      "mime": "image/jpeg",
+      "xmp": {
+        "credit": "Made with Google AI",
+        "digitalSourceType": "trainedAlgorithmicMedia",
+        "markersVerified": true
+      }
+    },
+    {
+      "id": "l02-empty-base-03",
+      "number": "03",
+      "file": "base-03.jpeg",
+      "source": "src/assets/lessons/02/empty-space-sample/02-base-images/base-03.jpeg",
+      "alt": "길고 단순한 직사각형 형태로 보이는 빈 상업공간 교육용 이미지",
+      "caption": "길고 단순한 직사각형 상업공간",
+      "sourceNote": "사용자가 제공한 Google AI 생성 제2차시 교육용 샘플",
+      "rightsStatus": "review-required",
+      "provenanceNote": "XMP에서 DigitalSourceType trainedAlgorithmicMedia와 Credit Made with Google AI 확인",
+      "generationModel": "unknown",
+      "generationDate": "unknown",
+      "rightsReviewNote": "공개 사용 권리와 제3자 입력 여부의 별도 검토 기록이 없음",
+      "sha256": "4cb5ad7f1cd477132944a624056f5748b624c5e1215c8a98c9900ce9ee6280f3",
+      "canonicalByteIdentical": true,
+      "bytes": 105693,
+      "mime": "image/jpeg",
+      "xmp": {
+        "credit": "Made with Google AI",
+        "digitalSourceType": "trainedAlgorithmicMedia",
+        "markersVerified": true
+      }
+    },
+    {
+      "id": "l02-empty-base-04",
+      "number": "04",
+      "file": "base-04.jpeg",
+      "source": "src/assets/lessons/02/empty-space-sample/02-base-images/base-04.jpeg",
+      "alt": "코너 창이 보이고 가구와 사람이 없는 소형 상업공간 교육용 이미지",
+      "caption": "코너 창이 있는 소형 상업공간",
+      "sourceNote": "사용자가 제공한 Google AI 생성 제2차시 교육용 샘플",
+      "rightsStatus": "review-required",
+      "provenanceNote": "XMP에서 DigitalSourceType trainedAlgorithmicMedia와 Credit Made with Google AI 확인",
+      "generationModel": "unknown",
+      "generationDate": "unknown",
+      "rightsReviewNote": "공개 사용 권리와 제3자 입력 여부의 별도 검토 기록이 없음",
+      "sha256": "5403a0756bd657386a27cc84e6707b1c5e411e74bec3ab8ae2081c7d52af07a4",
+      "canonicalByteIdentical": true,
+      "bytes": 89031,
+      "mime": "image/jpeg",
+      "xmp": {
+        "credit": "Made with Google AI",
+        "digitalSourceType": "trainedAlgorithmicMedia",
+        "markersVerified": true
+      }
+    },
+    {
+      "id": "l02-empty-base-05",
+      "number": "05",
+      "file": "base-05.jpeg",
+      "source": "src/assets/lessons/02/empty-space-sample/02-base-images/base-05.jpeg",
+      "alt": "전면창과 출입문, 붙박이 선반과 일부 고정 가구가 보이는 소형 공간 교육용 이미지",
+      "caption": "전면창과 출입문, 붙박이 선반과 일부 고정 가구가 보이는 소형 공간",
+      "sourceNote": "사용자가 제공한 Google AI 생성 제2차시 교육용 샘플",
+      "rightsStatus": "review-required",
+      "provenanceNote": "XMP에서 DigitalSourceType trainedAlgorithmicMedia와 Credit Made with Google AI 확인",
+      "generationModel": "unknown",
+      "generationDate": "unknown",
+      "rightsReviewNote": "공개 사용 권리와 제3자 입력 여부의 별도 검토 기록이 없음",
+      "sha256": "f50c4a8a41870395affa318a5fa7145a7c02aadbf6ee42d66415f0192806854c",
+      "canonicalByteIdentical": true,
+      "bytes": 125833,
+      "mime": "image/jpeg",
+      "xmp": {
+        "credit": "Made with Google AI",
+        "digitalSourceType": "trainedAlgorithmicMedia",
+        "markersVerified": true
+      }
+    },
+    {
+      "file": "01-original-prompt.txt",
+      "source": "src/assets/lessons/02/flower-cafe-sample/01-original-prompt.txt",
+      "sha256": "5614a85b3128fa64b9100e58de7e02f3ab813c9e2db893115bc0a22f3e49892d",
+      "canonicalByteIdentical": true,
+      "bytes": 79,
+      "mime": "text/plain"
+    },
+    {
+      "file": "03-revision-prompt.txt",
+      "source": "src/assets/lessons/02/flower-cafe-sample/03-revision-prompt.txt",
+      "sha256": "5fa0bab72e8a8df8d6da155b523b9618bda5d257463aceab8f66a07f053e74a1",
+      "canonicalByteIdentical": true,
+      "bytes": 1260,
+      "mime": "text/plain"
+    }
+  ]
+}

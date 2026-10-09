@@ -12,6 +12,9 @@
 - 광주 `baseline-lock.json`: 기존 승인 source/content/asset의 Git blob ID. 현재 Git 기준 commit과 작업 파일을 모두 대조한다.
 - `src/content/lessons`는 광주 승인본을 그대로 유지한다. 차시 분해, shared 이동, deep merge는 구현하지 않았다.
 - 대전은 `design-pending`, 차시/주제 빈 배열, 시간·일정·기관 미정, PDF 미발행이다. 광주 콘텐츠를 자동 상속하지 않는다.
+- 대전 `reviewDraft`는 강사 검토용 COURSE OVERVIEW와 제1차시(180분)만 허용한다. 승인된 `lessons`/공개 선택 배열과 분리하며, 총 과정 시간·전체 시간표를 확정하지 않는다.
+- 대전 출력은 안내, `/course-overview/`, `/lessons/01/`의 HTML 3개만 허용한다. 실습 이미지·PDF·ZIP·다운로드·제2차시 이후 경로를 상속하지 않는다. NEW/REVISED 영역과 자료 선정은 별도 검토 대상이다.
+- `node scripts/verify-daejeon-review.mjs`는 세 모드의 출력 경계, 180분 합계, 7단 Prompt, 첫 차시의 NotebookLM 제외, 모바일/키보드/BASE_PATH를 확인한다. 자료/RFP 감사는 `DAEJEON_GWANGJU_ASSET_AUDIT.md`와 `DAEJEON_RFP_IMPROVEMENT_REVIEW.md`를 참고한다.
 
 ## URL 및 출력
 
