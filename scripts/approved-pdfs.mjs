@@ -8,6 +8,16 @@ import { repositoryRoot, courseOutput } from './course-registry.mjs';
 // Immutable source of published artifacts; this module never renders a PDF.
 const approvedSource = 'https://asvan-o.github.io/ai-architecture-design-ebook/downloads/';
 const digest = (bytes) => createHash('sha256').update(bytes).digest('hex');
+
+export function resolveApprovedPdfSource(file, releaseFiles = []) {
+  const entry = releaseFiles.find(item => item.path === 'gwangju/downloads/' + file.fileName || item.path === 'downloads/' + file.fileName);
+  if (!entry) return new URL(file.fileName, approvedSource).href;
+  assert.equal(entry.sha256, file.sha256, 'Release PDF must retain its approval hash');
+  assert.equal(entry.bytes, file.sizeBytes, 'Release PDF must retain its approval size');
+  assert(entry.url.startsWith('https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/'), 'Unexpected approved PDF host');
+  return entry.url;
+}
+
 export async function reuseApprovedPdfs(profile, outputDirectory) {
   const { course, pdfs } = profile;
   const output = path.resolve(outputDirectory);
@@ -15,6 +25,7 @@ export async function reuseApprovedPdfs(profile, outputDirectory) {
   if (pdfs.policy === 'not-issued') return;
   assert.equal(pdfs.policy, 'preserve-approved-artifact');
   const manifest = pdfs.approvedManifest;
+  const releasePlan = JSON.parse(await readFile(path.join(repositoryRoot, 'data/deployment/release-assets.json'), 'utf8'));
   const cache = path.join(repositoryRoot, 'tmp', 'approved-pdfs', course.courseId);
   const downloads = path.join(output, 'downloads');
   await mkdir(cache, { recursive: true });
@@ -27,7 +38,7 @@ export async function reuseApprovedPdfs(profile, outputDirectory) {
     if (existsSync(cachedFile)) {
       bytes = await readFile(cachedFile);
     } else {
-      const response = await fetch(new URL(file.fileName, approvedSource), { signal: AbortSignal.timeout(120000) });
+      const response = await fetch(resolveApprovedPdfSource(file, releasePlan.files), { signal: AbortSignal.timeout(120000) });
       assert(response.ok, `Approved PDF unavailable: ${file.fileName} (HTTP ${response.status})`);
       bytes = Buffer.from(await response.arrayBuffer());
       assert.equal(digest(bytes), file.sha256, `Published PDF hash changed: ${file.fileName}`);
