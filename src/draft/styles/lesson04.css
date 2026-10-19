@@ -1,0 +1,9 @@
+.lesson04-review .l04-status{font-size:.9rem;color:var(--muted)}
+.lesson04-review .l04-provenance{font-size:.82rem;line-height:1.6;overflow-wrap:anywhere;margin:.6rem 0 1.2rem}
+.lesson04-review .l04-table,.lesson03-review .l03-table-scroll{max-width:100%;overflow-x:auto;margin:1rem 0}
+.lesson04-review table,.lesson03-review [data-l03-six-changes]{border-collapse:collapse;width:100%;table-layout:fixed;font-size:.96rem}
+.lesson04-review th,.lesson04-review td,.lesson03-review [data-l03-six-changes] td,.lesson03-review [data-l03-six-changes] th{padding:.8rem;border:1px solid var(--line-dark);text-align:left;vertical-align:top;overflow-wrap:anywhere}
+.lesson04-review th{background:var(--paper-deep)}
+.lesson04-review .l04-table th:first-child{width:23%}
+.lesson04-review .l04-hold{padding:1rem;border-left:3px solid var(--accent-dark);background:var(--paper-deep)}
+@media(max-width:400px){.lesson04-review th,.lesson04-review td{padding:.5rem;font-size:.9rem}}

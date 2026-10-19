@@ -1,0 +1,35 @@
+---
+import ReviewPrompt from './ReviewPrompt.astro';
+import Lesson0910Asset from './Lesson0910Asset.astro';
+import source from '../content/lesson0910-source.json';
+import type {PromptPlatformGuide} from '../content/prompt-platform-guides';
+const data=source.lessons['09'].cameraColormap;
+const prompt=source.prompts['l09-colormap-higgsfield'];
+const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+---
+<section id={data.id} class="camera-colormap" aria-labelledby="l09-colormap-title">
+ <h3 id="l09-colormap-title">{data.title}</h3>
+ {data.paragraphs.map(text=><p>{text}</p>)}
+ {data.tables.map(table=><div class="modeling-table-wrap" role="region" aria-label={table.title} tabindex="0"><table><caption>{table.title}</caption><thead><tr>{table.headers.map(h=><th scope="col">{h}</th>)}</tr></thead><tbody>{table.rows.map(row=><tr>{row.map((cell,i)=>i===0?<th scope="row">{cell}</th>:<td data-label={table.headers[i]}>{cell}</td>)}</tr>)}</tbody></table></div>)}
+ <div class="modeling-image-row modeling-image-row--pair">{data.videoKeys.map(key=><Lesson0910Asset assetKey={key} instance="colormap-videos" />)}</div>
+ {data.frameGroups.map((group,index)=><div><h4>{group.title}</h4><div class="modeling-image-row modeling-image-row--three">{group.keys.map(key=><Lesson0910Asset assetKey={key} instance={'colormap-frames-'+index} />)}</div></div>)}
+ <ol class="modeling-steps">{data.steps.map(step=><li>{step}</li>)}</ol>
+ <aside class="modeling-note">{data.callout}</aside>
+ <p class="camera-colormap-reference">도구 참고: <a href="https://higgsfield.ai/video-to-video" target="_blank" rel="noreferrer">Higgsfield · 영상 변환 안내</a> · <a href="https://open.higgsfield.ai/models/higgsfield/genjutsu/motion-transfer/v1.0/playground" target="_blank" rel="noreferrer">Higgsfield · 영상과 참고 이미지 입력 예시</a></p>
+ <ReviewPrompt id={prompt.id} title={prompt.title} prompt={prompt.text} guide={prompt.guide as PromptPlatformGuide & {purpose:string;variables:string}} href={enabled?base+'/downloads/daejeon/lesson-09/'+prompt.filename:undefined} filename={prompt.filename} />
+</section>
+<style>
+.camera-colormap{min-width:0;margin-top:2rem;padding-top:1.5rem;border-top:2px solid var(--line);overflow-wrap:anywhere}.camera-colormap>h3{font-size:1.3rem;line-height:1.5}.camera-colormap h4{font-size:1.03rem;margin:1.5rem 0 .5rem}.camera-colormap-reference{font-size:.86rem}
+
+@media(max-width:600px){
+ .camera-colormap .modeling-table-wrap{overflow:visible;min-width:0}
+ .camera-colormap table,.camera-colormap tbody{display:block;width:100%;min-width:0}
+ .camera-colormap caption{display:block;width:auto;text-align:left;margin-bottom:.65rem}
+ .camera-colormap thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+ .camera-colormap tr{display:block;margin-bottom:.8rem;border:1px solid var(--line);padding:.75rem;background:var(--paper,#faf9f5)}
+ .camera-colormap tbody th,.camera-colormap td{display:block;width:auto;max-width:100%;border:0;padding:.35rem 0;white-space:normal;overflow-wrap:anywhere;line-height:1.65}
+ .camera-colormap tbody th{font-size:.95rem;background:transparent;padding:0 0 .5rem;border-bottom:1px solid var(--line)}
+ .camera-colormap td::before{content:attr(data-label);display:block;font-weight:700;font-size:.78rem;color:var(--muted);margin-top:.25rem}
+}
+</style>

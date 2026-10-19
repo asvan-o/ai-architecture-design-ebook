@@ -89,6 +89,60 @@
 .review-page blockquote { margin:1rem 0; padding:1rem; border-left:3px solid var(--accent); background:var(--paper-deep); }
 .review-page .prompt-copy-block__source { max-width:1px; }
 @media print { .instructor-notes { display:none; } .review-download,.review-page [data-copy-trigger] { display:none; } .period-heading { break-after:avoid; color:var(--ink); background:var(--paper-deep); } }
-@media(max-width:1000px) { .review-shell--toc { grid-template-columns: 1fr; } .review-toc { position: static; max-height: none; padding-bottom: 1.5rem; border-bottom: 1px solid var(--line); } .review-toc ol { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 2rem; } }
+@media(max-width:1000px) { .review-shell--toc { grid-template-columns: 1fr; } .review-sidebar { position: static; max-height: none; padding-bottom: 1.5rem; border-bottom: 1px solid var(--line); } .review-toc { position: static; max-height: none; } .review-toc ol { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 2rem; } }
 @media(max-width:600px) { .review-header { display: block; } .review-header nav { margin-top: 1rem; } .review-shell { padding-top: 2rem; } .review-section-heading { grid-template-columns: 2rem minmax(0,1fr); gap: .5rem; } .review-section-body { padding-left: 0; } .review-cards,.review-prompt-cards,.review-toc ol { grid-template-columns: 1fr; } .review-notice { text-align: left; } }
-@media print { .review-header,.review-toc,.review-footer,.skip-link { display: none; } .review-shell--toc { display: block; } .review-section { break-inside: auto; } .review-card,.review-prompt-cards li { break-inside: avoid; } }
+@media print { .review-header,.review-sidebar,.review-toc,.review-course-toc,.review-footer,.skip-link { display: none; } .review-shell--toc { display: block; } .review-section { break-inside: auto; } .review-card,.review-prompt-cards li { break-inside: avoid; } }
+
+/* One shared navigation for the five implemented review lessons. */
+.review-header{flex-wrap:wrap}.review-header nav{min-width:0;max-width:100%;justify-content:flex-end;flex:1 1 34rem;gap:.6rem 1rem}.review-header nav a{white-space:nowrap;max-width:100%;padding:.2rem 0}.review-brand{min-width:0}.review-brand span{overflow-wrap:anywhere}@media(max-width:700px){.review-header nav{justify-content:flex-start;gap:.5rem 1rem}.review-header{align-items:flex-start}}
+
+/* Sidebar & 7 Major Topics TOC */
+.review-shell--toc { grid-template-columns: 16.5rem minmax(0,1fr); }
+.review-sidebar { position: sticky; top: 1rem; align-self: start; max-height: calc(100vh - 2rem); overflow-y: auto; padding-right: .85rem; display: grid; gap: 1.25rem; font-size: .84rem; }
+.review-sidebar .review-toc { position: static; max-height: none; overflow: visible; padding-right: 0; border-bottom: 1px solid var(--line); padding-bottom: 1rem; }
+.review-toc-current-topic { padding: .65rem .75rem; margin-bottom: .75rem; border-left: 3px solid var(--accent-dark); background: var(--paper-deep); }
+.review-toc-current-topic p { margin: 0; font-size: .78rem; line-height: 1.45; letter-spacing: 0; font-weight: 400; }
+.review-toc-current-topic p + p { margin-top: .45rem; padding-top: .45rem; border-top: 1px dashed var(--line); }
+.review-toc-current-topic span { display: block; font-size: .7rem; font-weight: 800; color: var(--accent-dark); letter-spacing: .08em; }
+.review-toc-current-topic strong { display: block; font-size: .8rem; font-weight: 700; color: var(--ink); }
+
+.review-course-toc details { margin: 0; padding: 0; border: 0; }
+.review-course-toc summary { font-size: .8rem; font-weight: 800; color: var(--ink); margin-bottom: .6rem; }
+.review-course-toc__Overview { display: grid; gap: .3rem; margin: .5rem 0 .85rem; padding-bottom: .65rem; border-bottom: 1px dashed var(--line); }
+.review-course-toc__Overview a { font-size: .8rem; color: var(--muted); text-decoration: none; font-weight: 700; }
+.review-course-toc__Overview a[aria-current="page"] { color: var(--accent-dark); font-weight: 800; }
+.review-course-toc__topics { list-style: none; padding: 0; margin: 0; display: grid; gap: .75rem; }
+.review-course-toc__topic { padding: .55rem .65rem; border: 1px solid var(--line); background: var(--surface); }
+.review-course-toc__topic.is-current-topic { border-color: var(--accent-dark); background: var(--paper-deep); }
+.review-course-toc__heading { margin: 0 0 .4rem; line-height: 1.4; }
+.review-course-toc__heading span { display: block; font-size: .68rem; font-weight: 800; color: var(--accent-dark); letter-spacing: .08em; }
+.review-course-toc__heading strong { display: block; font-size: .79rem; color: var(--ink); }
+.review-course-toc__lessons { list-style: none; padding: 0; margin: 0; display: grid; gap: .28rem; }
+.review-course-toc__lessons a { display: grid; gap: .08rem; padding: .28rem .4rem; font-size: .76rem; line-height: 1.38; color: var(--muted); text-decoration: none; border-left: 2px solid transparent; }
+.review-course-toc__lessons a:hover { color: var(--accent-dark); background: var(--paper); }
+.review-course-toc__lessons a[aria-current="page"] { color: var(--ink); font-weight: 800; border-left-color: var(--accent-dark); background: var(--surface); }
+.review-course-toc__badge { font-size: .7rem; font-weight: 800; color: var(--accent-dark); }
+.review-course-toc__lesson-title { color: inherit; }
+
+/* Home page 7 Major Topics Roadmap TOC */
+.home-topic-roadmap { margin: 1.25rem 0 2rem; padding: 1.35rem 1.5rem; border: 1px solid var(--line-dark); background: var(--surface); }
+.home-topic-roadmap h2 { font-family: var(--serif); font-size: 1.45rem; margin: 0 0 .35rem; }
+.home-topic-roadmap > p { margin: 0 0 1rem; font-size: .9rem; color: var(--muted); }
+.home-topic-roadmap__list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .75rem 1.1rem; }
+.home-topic-roadmap__item { display: grid; grid-template-columns: 4.6rem minmax(0,1fr); gap: .6rem; padding: .8rem; border: 1px solid var(--line); background: var(--paper); min-width: 0; }
+.home-topic-roadmap__number { font-size: .74rem; font-weight: 800; color: var(--accent-dark); letter-spacing: .05em; padding-top: .15rem; }
+.home-topic-roadmap__title { display: block; font-size: .92rem; line-height: 1.5; margin-bottom: .45rem; color: var(--ink); }
+.home-topic-roadmap__links { display: grid; gap: .3rem; font-size: .8rem; }
+.home-topic-roadmap__links a { display: block; padding: .28rem .5rem; border: 1px solid var(--line); background: var(--surface); text-decoration: none; color: var(--ink); line-height: 1.45; }
+.home-topic-roadmap__links a:hover { border-color: var(--accent-dark); color: var(--accent-dark); }
+.home-topic-roadmap__links a strong { color: var(--accent-dark); }
+.review-card__topics { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .55rem; }
+.review-card__topic-badge { display: inline-block; padding: .18rem .5rem; font-size: .74rem; font-weight: 800; color: var(--accent-dark); background: var(--paper-deep); border: 1px solid var(--line); line-height: 1.4; }
+@media(max-width:900px) { .home-topic-roadmap__list { grid-template-columns: 1fr; } }
+@media(max-width:600px) { .home-topic-roadmap { padding: 1rem; } .home-topic-roadmap__item { grid-template-columns: 1fr; gap: .25rem; } }
+
+/* The topic sidebar must not restore desktop columns after the mobile rules. */
+@media screen and (max-width:1000px) {
+  .review-shell--toc { grid-template-columns: minmax(0,1fr); }
+  .review-sidebar { position:static; max-height:none; min-width:0; padding-right:0; overflow:visible; }
+}

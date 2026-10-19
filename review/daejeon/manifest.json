@@ -1,0 +1,973 @@
+{
+  "schemaVersion": 1,
+  "localOnly": true,
+  "lessons": {
+    "07": {
+      "revision": "DJ-L07-GAUSSIAN-UPSCALE/revision-1",
+      "durationMinutes": 300,
+      "sectionCount": 16,
+      "partCount": 6,
+      "courseStatus": "design-pending",
+      "reviewStatus": "instructor-review",
+      "readiness": "synthetic-office-and-preserved-archive-review-draft",
+      "gaps": [
+        {
+          "id": "gaussian-ply",
+          "status": "not-provided-by-approved-scope",
+          "detail": "사용자 확인: 아카이브에도 사전 PLY가 없어 배포에서 제외. 실제 수업 JSON 2종과 입력·캡처로 구성. 저장 노드는 SPZ 경로."
+        },
+        {
+          "id": "gaussian-six-views",
+          "status": "not-provided-by-approved-scope",
+          "detail": "사용자 확인: 실제 6시점 세트 없음. 확보한 캡처 1장만 사용하고 가상 시점을 만들지 않음."
+        },
+        {
+          "id": "partial-fix-pair",
+          "status": "prompt-and-checklist-only",
+          "detail": "사용자 지시: 별도 원본 전후 세트가 없어 추가 합성 이미지를 배포하지 않음. 한국어 Prompt·체크리스트 중심."
+        },
+        {
+          "id": "comfyui-execution",
+          "status": "not-run",
+          "detail": "현재 PC에서 TripoSplat 및 ComfyUI Upscale GPU 실행 미검증. 모델 가중치·사용자 노드가 ZIP에 포함된 실행환경이라고 주장하지 않음."
+        }
+      ],
+      "archiveReadOnly": true,
+      "sourceComponents": [
+        "src/components/content/Lesson07PdfToGaussian.astro",
+        "src/components/content/Lesson08GaussianUpscale.astro"
+      ],
+      "runtime": {
+        "python": "3.14.6",
+        "openvino": "2026.4.1-22982-e213a147257-releases/2026/4",
+        "opencv": "5.0.0",
+        "numpy": "2.5.4",
+        "os": "Windows-11-10.0.26200-SP0",
+        "devices": [
+          "CPU",
+          "GPU.0",
+          "GPU.1"
+        ],
+        "testedDevice": "CPU",
+        "inputs": [
+          {
+            "file": "input/render-source.png",
+            "width": 1777,
+            "height": 885
+          }
+        ],
+        "outputs": [
+          {
+            "file": "output/render-source_Bicubic_3x.png",
+            "width": 5331,
+            "height": 2655
+          },
+          {
+            "file": "output/render-source_SR1033_3x.png",
+            "width": 5331,
+            "height": 2655
+          }
+        ],
+        "openvinoPackage": "2026.4.1",
+        "opencvPackage": "5.0.0.93"
+      },
+      "files": [
+        {
+          "outputPath": "images/daejeon/lesson-07/gaussian-source.png",
+          "sha256": "fb6a5849f3902e7354b3eafd782d7b89ef3552088d2f444ce69398f8c15f800f",
+          "sizeBytes": 2403000,
+          "kind": "image",
+          "key": "gaussian",
+          "title": "③ 거실·주방 Gaussian 시점 탐색 캡처",
+          "description": "같은 원본 공간의 보관된 TripoSplat Gaussian 시점 캡처입니다. 원본 2D 평면도와 3D 입체화 참고본을 먼저 대조합니다. 개별 카메라·실행 로그나 사전 PLY가 제공된다는 뜻은 아닙니다.",
+          "width": 2536,
+          "height": 1264,
+          "originalSource": "src/assets/lessons/08/gaussian-render-comparison/01-gaussian-source.png"
+        },
+        {
+          "outputPath": "images/daejeon/lesson-07/route-01.png",
+          "sha256": "91749661bc90501f0e3b8bd484f2c13b747363c71b82807ce02efdff79d639e3",
+          "sizeBytes": 1800617,
+          "kind": "image",
+          "key": "route-01",
+          "title": "ChatGPT 이미지 경로",
+          "description": "원본 수업 자료에서 이 경로의 결과로 구분한 이미지입니다. 동일 Prompt·모델·생성시간을 통제한 성능 시험은 아닙니다.",
+          "width": 1777,
+          "height": 885,
+          "originalSource": "src/assets/lessons/08/gaussian-render-comparison/02-chatgpt-render.png"
+        },
+        {
+          "outputPath": "images/daejeon/lesson-07/route-02.jpeg",
+          "sha256": "88485f9de39aa59fc661f92809cb52e7391947300cf63f5ce51f579f7c45de6a",
+          "sizeBytes": 102966,
+          "kind": "image",
+          "key": "route-02",
+          "title": "Gemini · Nano Banana 프롬프트 경로",
+          "description": "원본 수업 자료에서 이 경로의 결과로 구분한 이미지입니다. 동일 Prompt·모델·생성시간을 통제한 성능 시험은 아닙니다.",
+          "height": 768,
+          "width": 1376,
+          "originalSource": "src/assets/lessons/08/gaussian-render-comparison/03-gemini-nano-banana-prompt.jpeg"
+        },
+        {
+          "outputPath": "images/daejeon/lesson-07/route-03.jpeg",
+          "sha256": "c1b0859217de2c9952dbd54b9edcd3fef29a75fe195859b1c0c25cf28bcbe86c",
+          "sizeBytes": 106085,
+          "kind": "image",
+          "key": "route-03",
+          "title": "Gemini · Nano Banana 에이전트 경로",
+          "description": "원본 수업 자료에서 이 경로의 결과로 구분한 이미지입니다. 동일 Prompt·모델·생성시간을 통제한 성능 시험은 아닙니다.",
+          "height": 768,
+          "width": 1376,
+          "originalSource": "src/assets/lessons/08/gaussian-render-comparison/04-gemini-nano-banana-agent.jpeg"
+        },
+        {
+          "outputPath": "images/daejeon/lesson-07/route-04.png",
+          "sha256": "f62570bfbf97557ccdb42b456f4886a3428f4834a0c654e24acdd2ee88bbc9b6",
+          "sizeBytes": 7600058,
+          "kind": "image",
+          "key": "route-04",
+          "title": "VIBE3D 렌더 경로",
+          "description": "원본 수업 자료에서 이 경로의 결과로 구분한 이미지입니다. 동일 Prompt·모델·생성시간을 통제한 성능 시험은 아닙니다.",
+          "width": 2912,
+          "height": 1456,
+          "originalSource": "src/assets/lessons/08/gaussian-render-comparison/05-vibe3d-render.png"
+        },
+        {
+          "outputPath": "images/daejeon/lesson-07/route-05.png",
+          "sha256": "1652073d68de090cbeb078b3c94a0303ae4ec7061f10f0a551d7214aaf9b4d92",
+          "sizeBytes": 4433365,
+          "kind": "image",
+          "key": "route-05",
+          "title": "VIBE3D Relight 경로",
+          "description": "원본 수업 자료에서 이 경로의 결과로 구분한 이미지입니다. 동일 Prompt·모델·생성시간을 통제한 성능 시험은 아닙니다.",
+          "width": 3307,
+          "height": 1644,
+          "originalSource": "src/assets/lessons/08/gaussian-render-comparison/06-vibe3d-relight-render.png"
+        },
+        {
+          "outputPath": "images/daejeon/lesson-07/input-candidate-office.png",
+          "sha256": "20c3be98160ba011ea3b90e06184e402b7071431f01091f7f7f5f5094d309823",
+          "sizeBytes": 1560676,
+          "kind": "image",
+          "key": "input-candidate",
+          "title": "새 Gaussian 생성용 입력 후보 · 제6차시 오피스",
+          "description": "제6차시의 실제 이미지입니다. 위 기존 Gaussian 캡처를 만든 원래 입력이라고 주장하지 않습니다.",
+          "width": 1646,
+          "height": 956,
+          "originalSource": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/samples/01_office-topview-3d.png",
+          "createdFrom": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/samples/01_office-topview-3d.png",
+          "authorship": "Daejeon Lesson06 corrected office Top View; byte-identical reuse"
+        },
+        {
+          "outputPath": "images/daejeon/lesson-07/gaussian-input-128.jpg",
+          "sha256": "0bfac65e817f2ad9dd571a6dfe074673806f3ea01bdeb5fadc3f627e444e7643",
+          "sizeBytes": 5148,
+          "kind": "image",
+          "key": "gs-input-128",
+          "title": "교육용 오피스 입체 · 작은 입력",
+          "description": "새 교육용 오피스 기준 자료. 입체의 문자 오류는 의도된 비교 항목이며 원본 PDF가 사실 기준.",
+          "height": 128,
+          "width": 128,
+          "authorship": "self-authored educational synthetic office / revision-10 door and stair precision correction",
+          "createdFrom": "review/daejeon/DJ-L06-L07-ORIGINAL-HOUSE-PLAN-AND-DOOR-STAIR-PRECISION-FIX/revision-10/source/topview-final.png"
+        },
+        {
+          "outputPath": "images/daejeon/lesson-07/gaussian-input-256.jpg",
+          "sha256": "5954ff2cb535d5d6ceb7e56ddbae80d7dae11faaa627391b72197163afe875a2",
+          "sizeBytes": 14926,
+          "kind": "image",
+          "key": "gs-input-256",
+          "title": "교육용 오피스 입체 · 중간 입력",
+          "description": "새 교육용 오피스 기준 자료. 입체의 문자 오류는 의도된 비교 항목이며 원본 PDF가 사실 기준.",
+          "height": 256,
+          "width": 256,
+          "authorship": "self-authored educational synthetic office / revision-10 door and stair precision correction",
+          "createdFrom": "review/daejeon/DJ-L06-L07-ORIGINAL-HOUSE-PLAN-AND-DOOR-STAIR-PRECISION-FIX/revision-10/source/topview-final.png"
+        },
+        {
+          "outputPath": "images/daejeon/lesson-07/gaussian-input-512.jpg",
+          "sha256": "2b63f85b67e82871abe30596dc4936ac48cb296e58248cec7c62281759679478",
+          "sizeBytes": 44497,
+          "kind": "image",
+          "key": "gs-input-512",
+          "title": "교육용 오피스 입체 · 큰 입력",
+          "description": "새 교육용 오피스 기준 자료. 입체의 문자 오류는 의도된 비교 항목이며 원본 PDF가 사실 기준.",
+          "height": 512,
+          "width": 512,
+          "authorship": "self-authored educational synthetic office / revision-10 door and stair precision correction",
+          "createdFrom": "review/daejeon/DJ-L06-L07-ORIGINAL-HOUSE-PLAN-AND-DOOR-STAIR-PRECISION-FIX/revision-10/source/topview-final.png"
+        },
+        {
+          "outputPath": "images/daejeon/lesson-07/gaussian-lecture-input.jpeg",
+          "sha256": "af7bfac476357fd0c8daffaebdcdfc91a71b3521d94f6d7ea5aaa56deb1de4ce",
+          "sizeBytes": 218645,
+          "kind": "image",
+          "key": "gs-lecture-input",
+          "title": "교육용 오피스 입체 · JPEG",
+          "description": "자체 제작 오피스 입체 입력 예시입니다. 거실·주방 원본 연결 자료와 구분하여 신규 시점 탐색에 사용합니다.",
+          "height": 1054,
+          "width": 1492,
+          "authorship": "self-authored educational synthetic office / revision-10 door and stair precision correction",
+          "createdFrom": "review/daejeon/DJ-L06-L07-ORIGINAL-HOUSE-PLAN-AND-DOOR-STAIR-PRECISION-FIX/revision-10/source/topview-final.png"
+        },
+        {
+          "outputPath": "images/daejeon/lesson-07/gaussian-topview-input.png",
+          "sha256": "de6e5b37e3b5046e83d2f2cedb787d9d9b6577df66ebf2ab0d7227a7928596d8",
+          "sizeBytes": 2665524,
+          "kind": "image",
+          "key": "gs-topview",
+          "title": "교육용 오피스 Top View 입력",
+          "description": "자체 제작 오피스 입체 입력 예시입니다. 거실·주방 원본 연결 자료와 구분하여 신규 시점 탐색에 사용합니다.",
+          "height": 1054,
+          "width": 1492,
+          "authorship": "self-authored educational synthetic office / revision-10 door and stair precision correction",
+          "createdFrom": "review/daejeon/DJ-L06-L07-ORIGINAL-HOUSE-PLAN-AND-DOOR-STAIR-PRECISION-FIX/revision-10/source/topview-final.png"
+        },
+        {
+          "outputPath": "images/daejeon/lesson-07/gaussian-3d-reference.png",
+          "sha256": "de6e5b37e3b5046e83d2f2cedb787d9d9b6577df66ebf2ab0d7227a7928596d8",
+          "sizeBytes": 2665524,
+          "kind": "image",
+          "key": "gs-3d-reference",
+          "title": "교육용 오피스 입체 비교 기준",
+          "description": "자체 제작 오피스 입체 입력 예시입니다. 거실·주방 원본 연결 자료와 구분하여 신규 시점 탐색에 사용합니다.",
+          "width": 1492,
+          "height": 1054,
+          "authorship": "self-authored educational synthetic office / revision-10 door and stair precision correction",
+          "createdFrom": "review/daejeon/DJ-L06-L07-ORIGINAL-HOUSE-PLAN-AND-DOOR-STAIR-PRECISION-FIX/revision-10/source/topview-final.png"
+        },
+        {
+          "outputPath": "images/daejeon/lesson-07/upscale-input-256.png",
+          "sha256": "220e37e8828ab21d452c78e56e2fdaa43d5b29bf15338ce642b5756c1cb04b3b",
+          "sizeBytes": 101882,
+          "kind": "image",
+          "key": "upscale-input-256",
+          "title": "교육용 오피스 · 축소 입력",
+          "description": "새 교육용 오피스 기준 자료. 입체의 문자 오류는 의도된 비교 항목이며 원본 PDF가 사실 기준.",
+          "width": 256,
+          "height": 256,
+          "authorship": "self-authored educational synthetic office / revision-10 door and stair precision correction",
+          "createdFrom": "review/daejeon/DJ-L06-L07-ORIGINAL-HOUSE-PLAN-AND-DOOR-STAIR-PRECISION-FIX/revision-10/source/topview-final.png"
+        },
+        {
+          "outputPath": "images/daejeon/lesson-07/upscale-input-low.png",
+          "sha256": "0f3d4b477ea915764860aa23a9fc0c6a39127be891b0b7fb0331c249fb707937",
+          "sizeBytes": 27195,
+          "kind": "image",
+          "key": "upscale-input-low",
+          "title": "교육용 오피스 · 저해상도 입력",
+          "description": "새 교육용 오피스 기준 자료. 입체의 문자 오류는 의도된 비교 항목이며 원본 PDF가 사실 기준.",
+          "width": 128,
+          "height": 90,
+          "authorship": "self-authored educational synthetic office / revision-10 door and stair precision correction",
+          "createdFrom": "review/daejeon/DJ-L06-L07-ORIGINAL-HOUSE-PLAN-AND-DOOR-STAIR-PRECISION-FIX/revision-10/source/topview-final.png"
+        },
+        {
+          "outputPath": "images/daejeon/lesson-07/upscale-input-photo.png",
+          "sha256": "de6e5b37e3b5046e83d2f2cedb787d9d9b6577df66ebf2ab0d7227a7928596d8",
+          "sizeBytes": 2665524,
+          "kind": "image",
+          "key": "upscale-input-photo",
+          "title": "교육용 오피스 · 전체 입력",
+          "description": "새 교육용 오피스 기준 자료. 입체의 문자 오류는 의도된 비교 항목이며 원본 PDF가 사실 기준.",
+          "width": 1492,
+          "height": 1054,
+          "authorship": "self-authored educational synthetic office / revision-10 door and stair precision correction",
+          "createdFrom": "review/daejeon/DJ-L06-L07-ORIGINAL-HOUSE-PLAN-AND-DOOR-STAIR-PRECISION-FIX/revision-10/source/topview-final.png"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/comfy-originals/2. ChatGPT_RENDER.png",
+          "sha256": "91749661bc90501f0e3b8bd484f2c13b747363c71b82807ce02efdff79d639e3",
+          "sizeBytes": 1800617,
+          "kind": "original-image",
+          "title": "ComfyUI 비교 · 입력 원본",
+          "originalSource": "archive://99. 기타자료/1. 3D가우시안/GPT_업스케일/2. ChatGPT_RENDER.png"
+        },
+        {
+          "outputPath": "images/daejeon/lesson-07/comfy-source-preview.webp",
+          "sha256": "c111fbd2a1b08ab0e4265ca365127d360f65dbf4eb88435f9c6ea933b2cabc9e",
+          "sizeBytes": 74230,
+          "kind": "image",
+          "key": "comfy-source",
+          "title": "ComfyUI 비교 · 입력 원본",
+          "description": "웹 표시용 축소 미리보기입니다. 실제 수업 원본 1777×885 PNG는 별도 다운로드·확대 보기로 제공합니다. 현재 PC에서 ComfyUI를 재실행한 결과로 표시하지 않습니다.",
+          "width": 1440,
+          "height": 717,
+          "downloadPath": "downloads/daejeon/lesson-07/comfy-originals/2. ChatGPT_RENDER.png",
+          "originalWidth": 1777,
+          "originalHeight": 885,
+          "derivedFrom": "downloads/daejeon/lesson-07/comfy-originals/2. ChatGPT_RENDER.png"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/comfy-originals/lanczos__00002_.png",
+          "sha256": "e2103c97afc045872aa3ca90bdaa47c5caf0339a88227d93846a2201a20dd0bb",
+          "sizeBytes": 1839060,
+          "kind": "original-image",
+          "title": "ComfyUI 비교 · Lanczos 기준",
+          "originalSource": "archive://99. 기타자료/1. 3D가우시안/GPT_업스케일/lanczos__00002_.png"
+        },
+        {
+          "outputPath": "images/daejeon/lesson-07/comfy-lanczos-preview.webp",
+          "sha256": "c111fbd2a1b08ab0e4265ca365127d360f65dbf4eb88435f9c6ea933b2cabc9e",
+          "sizeBytes": 74230,
+          "kind": "image",
+          "key": "comfy-lanczos",
+          "title": "ComfyUI 비교 · Lanczos 기준",
+          "description": "웹 표시용 축소 미리보기입니다. 실제 수업 원본 1777×885 PNG는 별도 다운로드·확대 보기로 제공합니다. 현재 PC에서 ComfyUI를 재실행한 결과로 표시하지 않습니다.",
+          "width": 1440,
+          "height": 717,
+          "downloadPath": "downloads/daejeon/lesson-07/comfy-originals/lanczos__00002_.png",
+          "originalWidth": 1777,
+          "originalHeight": 885,
+          "derivedFrom": "downloads/daejeon/lesson-07/comfy-originals/lanczos__00002_.png"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/comfy-originals/realesrgan__00002_.png",
+          "sha256": "3a3091919d405431c1c49edaa9a68c93364730a9d4a98ec20d6c8a4b5926e55c",
+          "sizeBytes": 5912059,
+          "kind": "original-image",
+          "title": "ComfyUI 비교 · RealESRGAN_x2",
+          "originalSource": "archive://99. 기타자료/1. 3D가우시안/GPT_업스케일/realesrgan__00002_.png"
+        },
+        {
+          "outputPath": "images/daejeon/lesson-07/comfy-realesrgan-preview.webp",
+          "sha256": "d8805fef87fbedc35f29f02c0c5a4faae35e09d991ac2842816ec66f44f5586c",
+          "sizeBytes": 70700,
+          "kind": "image",
+          "key": "comfy-realesrgan",
+          "title": "ComfyUI 비교 · RealESRGAN_x2",
+          "description": "웹 표시용 축소 미리보기입니다. 실제 수업 원본 3554×1770 PNG는 별도 다운로드·확대 보기로 제공합니다. 현재 PC에서 ComfyUI를 재실행한 결과로 표시하지 않습니다.",
+          "width": 1440,
+          "height": 717,
+          "downloadPath": "downloads/daejeon/lesson-07/comfy-originals/realesrgan__00002_.png",
+          "originalWidth": 3554,
+          "originalHeight": 1770,
+          "derivedFrom": "downloads/daejeon/lesson-07/comfy-originals/realesrgan__00002_.png"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/comfy-originals/lanczos_UltraSharp__00002_.png",
+          "sha256": "552e05e8dd2fd08dd357b12596c79cf24ed94a3c8db6f08fd37bbf6c50a9b274",
+          "sizeBytes": 31532429,
+          "kind": "original-image",
+          "title": "ComfyUI 비교 · 4x-UltraSharp",
+          "originalSource": "archive://99. 기타자료/1. 3D가우시안/GPT_업스케일/lanczos_UltraSharp__00002_.png"
+        },
+        {
+          "outputPath": "images/daejeon/lesson-07/comfy-ultrasharp-preview.webp",
+          "sha256": "3bdae81ff439ed42dc3af46bbcbf06e8927e5edd1096bdb018dae377340dce79",
+          "sizeBytes": 80348,
+          "kind": "image",
+          "key": "comfy-ultrasharp",
+          "title": "ComfyUI 비교 · 4x-UltraSharp",
+          "description": "웹 표시용 축소 미리보기입니다. 실제 수업 원본 7108×3540 PNG는 별도 다운로드·확대 보기로 제공합니다. 현재 PC에서 ComfyUI를 재실행한 결과로 표시하지 않습니다.",
+          "width": 1440,
+          "height": 717,
+          "downloadPath": "downloads/daejeon/lesson-07/comfy-originals/lanczos_UltraSharp__00002_.png",
+          "originalWidth": 7108,
+          "originalHeight": 3540,
+          "derivedFrom": "downloads/daejeon/lesson-07/comfy-originals/lanczos_UltraSharp__00002_.png"
+        },
+        {
+          "outputPath": "images/daejeon/lesson-07/comfy-reference-before.png",
+          "sha256": "4bb46b5e7ff47999a97881118a9f8310de7e0b3bffd660140b85b2165d350810",
+          "sizeBytes": 89894,
+          "kind": "image",
+          "key": "comfy-before",
+          "title": "교육용 평면도 · 원본",
+          "description": "새 교육용 오피스 기준 자료. 입체의 문자 오류는 의도된 비교 항목이며 원본 PDF가 사실 기준.",
+          "width": 1680,
+          "height": 1188,
+          "authorship": "self-authored educational synthetic office / revision-9 door correction",
+          "createdFrom": "review/daejeon/DJ-ALL-LESSONS-FLOORPLAN-STAIR-AND-DOOR-AUDIT-FIX/revision-9/source/office-geometry.json"
+        },
+        {
+          "outputPath": "images/daejeon/lesson-07/comfy-reference-after-2x.png",
+          "sha256": "ce74f469d295d3184d30a0b29f54d70149985b323c5e033020aa60b9e4c5bee5",
+          "sizeBytes": 410195,
+          "kind": "image",
+          "key": "comfy-after",
+          "title": "교육용 평면도 · 2배 일반 확대",
+          "description": "자체 제작 원본의 Lanczos 2배 리사이즈. AI 실행 결과 아님.",
+          "width": 3360,
+          "height": 2376,
+          "authorship": "self-authored educational synthetic office / revision-9 door correction",
+          "createdFrom": "review/daejeon/DJ-ALL-LESSONS-FLOORPLAN-STAIR-AND-DOOR-AUDIT-FIX/revision-9/source/office-geometry.json"
+        },
+        {
+          "outputPath": "images/daejeon/lesson-07/render-source.png",
+          "sha256": "91749661bc90501f0e3b8bd484f2c13b747363c71b82807ce02efdff79d639e3",
+          "sizeBytes": 1800617,
+          "kind": "image",
+          "key": "sr-input",
+          "title": "CPU 검증 입력 · 현실화 결과",
+          "description": "기존 ChatGPT 경로 이미지를 변경 없이 입력했습니다.",
+          "width": 1777,
+          "height": 885,
+          "originalSource": "review/daejeon/DJ-L07-GAUSSIAN-UPSCALE/revision-1/runtime/input/render-source.png"
+        },
+        {
+          "outputPath": "images/daejeon/lesson-07/render-source_Bicubic_3x.png",
+          "sha256": "02bc611093c8377e7950c96cf9c643dd0bcda9c604c7fff8f431ffefb64ca3af",
+          "sizeBytes": 42531241,
+          "kind": "image",
+          "key": "sr-bicubic",
+          "title": "일반 Bicubic 세 배 확대",
+          "description": "원본 스크립트가 실제 CPU 검증에서 함께 저장한 일반 보간 결과입니다.",
+          "width": 5331,
+          "height": 2655,
+          "originalSource": "review/daejeon/DJ-L07-GAUSSIAN-UPSCALE/revision-1/runtime/output/render-source_Bicubic_3x.png"
+        },
+        {
+          "outputPath": "images/daejeon/lesson-07/render-source_SR1033_3x.png",
+          "sha256": "fcd4f9f2666f8206b0059d6576fea2b3058ef39ad3f6c3051748d11d9430a13e",
+          "sizeBytes": 42531241,
+          "kind": "image",
+          "key": "sr-output",
+          "title": "OpenVINO SR1033 세 배 확대",
+          "description": "원본 스크립트의 실제 CPU 출력입니다. NPU·iGPU 실행 결과가 아닙니다.",
+          "width": 5331,
+          "height": 2655,
+          "originalSource": "review/daejeon/DJ-L07-GAUSSIAN-UPSCALE/revision-1/runtime/output/render-source_SR1033_3x.png"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/gaussian-inspection-learning.txt",
+          "sha256": "8156719933ab0404d17720158da99d0f15a34041f49c6c780926719181b64ad6",
+          "sizeBytes": 1180,
+          "kind": "document",
+          "title": "gaussian-inspection-learning.txt"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/gaussian-inspection-execution.txt",
+          "sha256": "520bfe2c94fddf0a4f749668c2cf8ffd40094b86f1360e0446d5dba39149ed57",
+          "sizeBytes": 297,
+          "kind": "document",
+          "title": "gaussian-inspection-execution.txt"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/realistic-render-learning.txt",
+          "sha256": "093788e10fc0553ed18eb611a4ea3d507553de245cb91fdf321316eaddbbc49a",
+          "sizeBytes": 1180,
+          "kind": "document",
+          "title": "realistic-render-learning.txt"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/realistic-render-execution.txt",
+          "sha256": "8d4dcb94070416067ce42e7df4ccd9a1d501a78a7211b0748bd16b94d47ee438",
+          "sizeBytes": 373,
+          "kind": "document",
+          "title": "realistic-render-execution.txt"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/partial-fix-learning.txt",
+          "sha256": "b977afd524244360ddfd331f8f77500a5966a837a0fb266c116b9513a0de2fb7",
+          "sizeBytes": 1174,
+          "kind": "document",
+          "title": "partial-fix-learning.txt"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/partial-fix-execution.txt",
+          "sha256": "567b4038b2c3a8b53e9af53c77c038272dc7b72b1916969807d976a577465d42",
+          "sizeBytes": 364,
+          "kind": "document",
+          "title": "partial-fix-execution.txt"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/upscale-review-learning.txt",
+          "sha256": "af0b6c9d979377e364747a42237ea6b770064909bb0325f5fbed068699334e0e",
+          "sizeBytes": 1076,
+          "kind": "document",
+          "title": "upscale-review-learning.txt"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/upscale-review-execution.txt",
+          "sha256": "c49d28659d6cabce264ff12be5484cfe1001de92a87ce2afadf76273d7736544",
+          "sizeBytes": 292,
+          "kind": "document",
+          "title": "upscale-review-execution.txt"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/workflow_triposplat_modified.json",
+          "sha256": "7ed3c5e3b94fb7c091439e1fb428cbbbb446129577c9aa3bc43531e246cb4103",
+          "sizeBytes": 56584,
+          "kind": "workflow",
+          "title": "실제 수업 TripoSplat · (수정)3d_triposplat_image_to_gaussian_splat.json",
+          "originalSource": "archive://99. 기타자료/5. ComfyUI 모델/Gaussian splat/(수정)3d_triposplat_image_to_gaussian_splat.json"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/workflow_triposplat_optimized.json",
+          "sha256": "ca6a242cb71939ff32f0b53c22c6159e57a9f9daa0df8a37a14dfcb097da5e83",
+          "sizeBytes": 56564,
+          "kind": "workflow",
+          "title": "실제 수업 TripoSplat · (최적화)3d_triposplat_image_to_gaussian_splat.json",
+          "originalSource": "archive://99. 기타자료/5. ComfyUI 모델/Gaussian splat/(최적화)3d_triposplat_image_to_gaussian_splat.json"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/upscale_basic.json",
+          "sha256": "b6a9d6c702e0ff9b72cfa4eb736ea8e7af61831df05f9f83852f36d2bbc40512",
+          "sizeBytes": 4555,
+          "kind": "workflow",
+          "title": "실제 수업 Upscale · upscale_basic.json",
+          "originalSource": "archive://99. 기타자료/5. ComfyUI 모델/Upscale/업스케일 json/upscale_basic.json"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/upscale_modified.json",
+          "sha256": "4cf676764ab1088dc2c6e8bbc9fc99bbaf770b6284f509c9d147f30318ebae6a",
+          "sizeBytes": 12215,
+          "kind": "workflow",
+          "title": "실제 수업 Upscale · 업스케일러(수정).json",
+          "originalSource": "archive://99. 기타자료/5. ComfyUI 모델/Upscale/업스케일 json/업스케일러(수정).json"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/lesson-08-upscale-workflow.json",
+          "sha256": "891517f9533165e1116559f81cd192e61b5d271d93b552662a0a01e8de5d3627",
+          "sizeBytes": 12857,
+          "kind": "workflow",
+          "title": "기존 ComfyUI Upscale JSON",
+          "originalSource": "src/assets/lessons/08/upscale-workflow/lesson-08-upscale-workflow.json"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/run_sr1033.py",
+          "sha256": "b1063f6703ef55e5835237ce5b2cf4c6095c1ace3c75a672c028fc8d494eaa22",
+          "sizeBytes": 5932,
+          "kind": "runtime",
+          "title": "원본 CPU 실행 스크립트",
+          "originalSource": "src/assets/lessons/08/openvino-sr1033/run_sr1033.py"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/download-sr1033-model.ps1",
+          "sha256": "66db70cb838e24c54c7a5f7f1cad4f36553ab45ded57bedb8ea4aac0e2b214f2",
+          "sizeBytes": 529,
+          "kind": "document",
+          "title": "download-sr1033-model.ps1"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/provenance/workflow-templates-LICENSE.txt",
+          "sha256": "5dccd61c80c847cd6b22fa98124010163ab8646e573557a16a5cae31122f2056",
+          "sizeBytes": 1074,
+          "kind": "provenance",
+          "originalSource": "review/daejeon/DJ-L07-GAUSSIAN-UPSCALE/revision-1/external/workflow-templates-LICENSE"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/provenance/open-model-zoo-LICENSE.txt",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "sizeBytes": 11357,
+          "kind": "provenance",
+          "originalSource": "review/daejeon/DJ-L07-GAUSSIAN-UPSCALE/revision-1/external/open-model-zoo-LICENSE"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/provenance/sources.json",
+          "sha256": "357ea231266f7fffcc885bf55a6705d45c274608c867370682dee9b4edd9419d",
+          "sizeBytes": 1183,
+          "kind": "provenance",
+          "originalSource": "review/daejeon/DJ-L07-GAUSSIAN-UPSCALE/revision-1/external/sources.json"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/provenance/execution.json",
+          "sha256": "e5da10fbb23daed230bfef8967ffe37292f01ee8808542480cd441826ca22965",
+          "sizeBytes": 687,
+          "kind": "evidence",
+          "originalSource": "review/daejeon/DJ-L07-GAUSSIAN-UPSCALE/revision-1/runtime/execution.json"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/provenance/cpu-run.log",
+          "sha256": "fcf9912ff55b3d833b41623e4581ea4a8f0f8a5686f71583cbdd44b1046bd3e2",
+          "sizeBytes": 703,
+          "kind": "evidence",
+          "originalSource": "review/daejeon/DJ-L07-GAUSSIAN-UPSCALE/revision-1/runtime/cpu-run.log"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/requirements-verified.txt",
+          "sha256": "7401f8384bd1e936ad711e031ddc3cafb9352c08f897140b799aaec8a0394c96",
+          "sizeBytes": 56,
+          "kind": "document",
+          "title": "requirements-verified.txt"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/run_sr1033.bat",
+          "sha256": "7d5a24fa9d6514281277d052485a963916520f6dc7685f9ffee9fb1e17088a48",
+          "sizeBytes": 240,
+          "kind": "document",
+          "title": "run_sr1033.bat"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/ASSET-READINESS.md",
+          "sha256": "738ba9e11d4d246f4d96ed65eb9b0fb3f47e110e9a7bb4da9540137f523dd3fd",
+          "sizeBytes": 1208,
+          "kind": "document",
+          "title": "ASSET-READINESS.md"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/DJ-L07-Checklist-And-Prompts.md",
+          "sha256": "ccc321462c4e5f50b0c7356ca3b7033ddee4188a67c64e60760def154e53432e",
+          "sizeBytes": 6877,
+          "kind": "document",
+          "title": "DJ-L07-Checklist-And-Prompts.md"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/README.md",
+          "sha256": "3985cbfdda7e55c24e9952495335281302d0fbb91997d8d5f05e257ecc80043f",
+          "sizeBytes": 5317,
+          "kind": "document",
+          "title": "README.md"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/DJ-L07-Gaussian-Views-Pack.zip",
+          "sha256": "609c62e7c08e76bb0fe207a498f0831fc2f1459e3a05b261ad5e4d62ea3f1950",
+          "sizeBytes": 12891229,
+          "kind": "zip",
+          "title": "DJ-L07-Gaussian-Views-Pack.zip"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/DJ-L07-Realistic-Render-Pack.zip",
+          "sha256": "a72f1d55f717493b6948a2544cd02a6f1e92cc827c45b850b80e4c781a7fcd0a",
+          "sizeBytes": 61008180,
+          "kind": "zip",
+          "title": "DJ-L07-Realistic-Render-Pack.zip"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/DJ-L07-OpenVINO-SR1033-Pack.zip",
+          "sha256": "8bef20eff01591dffce6ae1d373937653598ca898b50d13d020e831f5283a5e5",
+          "sizeBytes": 22682676,
+          "kind": "zip",
+          "title": "DJ-L07-OpenVINO-SR1033-Pack.zip"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-07/DJ-L07-Starter-Pack.zip",
+          "sha256": "67864d8bf4ba1e484be78e10b28629f19982bb12dcb8677e23399ea4c9f2ca94",
+          "sizeBytes": 96615282,
+          "kind": "zip",
+          "title": "제7차시 전체 통합 실습팩 · 준비 상태 포함"
+        },
+        {
+          "key": "gaussian-plan-source",
+          "kind": "image",
+          "outputPath": "images/daejeon/lesson-07/gaussian-plan-source.png",
+          "title": "① 원본 2D 평면도 · 거실·주방",
+          "description": "도면 2.png 계열의 원본 평면 배치입니다.",
+          "originalSource": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/legacy-basic/04-living-kitchen-plan.png",
+          "sha256": "05a9cca51e0d7898310df83440e980406e8633734524d37c226630058e07d2b6",
+          "sizeBytes": 1441731,
+          "width": 1254,
+          "height": 1254
+        },
+        {
+          "key": "gaussian-isometric-source",
+          "kind": "image",
+          "outputPath": "images/daejeon/lesson-07/gaussian-isometric-source.png",
+          "title": "② 같은 평면의 3D 아이소메트릭",
+          "description": "같은 공간의 입체화 비교본이며 문·개구부 교정이 포함됩니다. 보관된 Gaussian 캡처를 현재 파일로 재생성한 기록은 아닙니다.",
+          "originalSource": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/legacy-basic/05-living-kitchen-isometric-interior.png",
+          "sha256": "b8f6d6177d9c2e6ba18005bd008756647286d75365064e5b874bfdeff616b733",
+          "sizeBytes": 1855154,
+          "width": 1254,
+          "height": 1254
+        }
+      ],
+      "syntheticRevision": "DJ-L06-L07-ORIGINAL-HOUSE-PLAN-AND-DOOR-STAIR-PRECISION-FIX/revision-10",
+      "structureRevision": "DJ-L06-L07-L08-RESTRUCTURE-AND-CAD-3D-ALIGNMENT/revision-11"
+    },
+    "08": {
+      "revision": "DJ-L08-L09-PLAIN-HOUSE-3F",
+      "courseStatus": "design-pending",
+      "reviewStatus": "instructor-review",
+      "durationMinutes": 150,
+      "sectionCount": 9,
+      "partCount": 3,
+      "localReviewOnly": true,
+      "sourceGeometry": "review/daejeon/DJ-ALL-LESSONS-FLOORPLAN-STAIR-AND-DOOR-AUDIT-FIX/revision-9/source/office-geometry.json",
+      "sourceLesson": "07",
+      "includedOriginalPdf": true,
+      "files": [
+        {
+          "outputPath": "images/daejeon/lesson-08/floorplan/01-clean-line.jpg",
+          "sizeBytes": 166125,
+          "sha256": "da15b44d9b08cd85e180bce7492c85f48bd95dded9c5c9d11fb792889650ffb4",
+          "kind": "image",
+          "key": "clean-line",
+          "title": "교육용 클린 선화 · 문자 오류 비교본",
+          "description": "자체 도면의 주석을 제거하고 모형실 → 이사실, 13인승 → 13연승을 의도적으로 넣은 교육용 비교본입니다. 실제 AI 오류의 증빙이 아니며 원본 PDF·기준표와 대조합니다.",
+          "width": 1680,
+          "height": 1188,
+          "authorship": "self-authored educational synthetic office / revision-9 door correction",
+          "createdFrom": "review/daejeon/DJ-ALL-LESSONS-FLOORPLAN-STAIR-AND-DOOR-AUDIT-FIX/revision-9/source/office-geometry.json",
+          "migratedFrom": "images/daejeon/lesson-07/floorplan/01-clean-line.jpg"
+        },
+        {
+          "outputPath": "images/daejeon/lesson-08/floorplan/02-top-view-3d.jpeg",
+          "sizeBytes": 454035,
+          "sha256": "13ffc3eb3eabadde64ed7b7d8d5c3bf99d4fc0cb850dab8a26db5fe0bae2ee7a",
+          "kind": "image",
+          "key": "top-view",
+          "title": "교육용 Top View 3D · 문자 오류 비교본",
+          "description": "새 교육용 도면의 입체 표현입니다. 사장실·이사실·계단창·1.5인승은 의도한 문자 오류입니다. 재료·빛·높이·부가 연출은 표현이며 원본 PDF가 사실 기준입니다.",
+          "width": 1492,
+          "height": 1054,
+          "authorship": "self-authored educational synthetic office / revision-10 door and stair precision correction",
+          "createdFrom": "review/daejeon/DJ-L06-L07-ORIGINAL-HOUSE-PLAN-AND-DOOR-STAIR-PRECISION-FIX/revision-10/source/topview-final.png",
+          "migratedFrom": "images/daejeon/lesson-07/floorplan/02-top-view-3d.jpeg"
+        },
+        {
+          "outputPath": "images/daejeon/lesson-08/floorplan/03-notebooklm-graphviz.png",
+          "sizeBytes": 161137,
+          "sha256": "d5392f047d06f7c527edf9890857e641a645bccf739e6b1df77871bb1b4bbfc4",
+          "kind": "image",
+          "key": "notebook-diagram",
+          "title": "방법 A · 세로형 관계 구조화 예시",
+          "description": "교육용 원본에서 검증한 DOT를 세로로 렌더링했습니다. NotebookLM 분석을 관계표로 넘기는 방법의 예시이며 서비스 실행 화면은 아닙니다.",
+          "width": 1666,
+          "height": 2000,
+          "authorship": "self-authored educational synthetic office / revision-7",
+          "createdFrom": "review/daejeon/DJ-L01-L07-PROMPT-DERIVATION-AND-L07-SYNTHETIC-PLAN/revision-7/source/office-geometry.json",
+          "migratedFrom": "images/daejeon/lesson-07/floorplan/03-notebooklm-graphviz.png"
+        },
+        {
+          "outputPath": "images/daejeon/lesson-08/floorplan/04-chatgpt-graphviz.png",
+          "sizeBytes": 98503,
+          "sha256": "8507f7b29ab3abf5b9f6b132ad1ded3a2a15579de3bb9314e298d07a85d598a2",
+          "kind": "image",
+          "key": "chatgpt-diagram",
+          "title": "방법 B · 가로형 기능·관계 다이어그램",
+          "description": "같은 교육용 DOT를 가로로 렌더링했습니다. 모형실·소장실·계단실의 이름과 관계 의미를 유지하며 ChatGPT 서비스 실행 화면으로 제시하지 않습니다.",
+          "width": 1386,
+          "height": 995,
+          "authorship": "self-authored educational synthetic office / revision-7",
+          "createdFrom": "review/daejeon/DJ-L01-L07-PROMPT-DERIVATION-AND-L07-SYNTHETIC-PLAN/revision-7/source/office-geometry.json",
+          "migratedFrom": "images/daejeon/lesson-07/floorplan/04-chatgpt-graphviz.png"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-08/notebook-plan-analysis.txt",
+          "sizeBytes": 1050,
+          "sha256": "facb632f736a6ee6c07f665886d8a420fe34b0b546d4e5d13d553ed3de1e2457",
+          "kind": "prompt",
+          "key": "notebookPlanAnalysisPrompt",
+          "title": "원본 평면도 정보 분석 프롬프트",
+          "migratedFrom": "downloads/daejeon/lesson-07/floorplan/notebook-plan-analysis.txt"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-08/floor-plan-criteria.txt",
+          "sizeBytes": 2292,
+          "sha256": "b1fc719ecc0327a3a5b647fe191f661d0545c7db3675f8a78c06fa9fbfe10407",
+          "kind": "prompt",
+          "key": "floorPlanCriteriaPrompt",
+          "title": "후속 AI용 최종 확정 도면 기준표 프롬프트",
+          "migratedFrom": "downloads/daejeon/lesson-07/floorplan/floor-plan-criteria.txt"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-08/top-view-structure.txt",
+          "sizeBytes": 1211,
+          "sha256": "a7ee01fc613269d01c36a303a9005d7ea69b82d0648b5e226449f42a07e25fdc",
+          "kind": "prompt",
+          "key": "topViewPrompt",
+          "title": "구조 검토용 Top View 3D 생성 프롬프트",
+          "migratedFrom": "downloads/daejeon/lesson-07/floorplan/top-view-structure.txt"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-08/spatial-analysis.txt",
+          "sizeBytes": 2254,
+          "sha256": "85e9e7d71418ce3e0d2ea600cecf1ddd8974fffd018ec8b5af899300a14dbdb3",
+          "kind": "prompt",
+          "key": "spatialAnalysisPrompt",
+          "title": "공간 기능·공간 인접 관계·주요 동선 분석 프롬프트",
+          "migratedFrom": "downloads/daejeon/lesson-07/floorplan/spatial-analysis.txt"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-08/spatial-validation.txt",
+          "sizeBytes": 1616,
+          "sha256": "d7a2cbb5ce80178871f9ca39e0705f9343614ed612c7fe5ff42c691b00891ac6",
+          "kind": "prompt",
+          "key": "validationPrompt",
+          "title": "분석 결과 검증 및 최종 인계본 정리 프롬프트",
+          "migratedFrom": "downloads/daejeon/lesson-07/floorplan/spatial-validation.txt"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-08/graphviz-generation.txt",
+          "sizeBytes": 1114,
+          "sha256": "689bf07c32177859c373ef3df739a5d45f2085f616b851cb0df3b04b637dced3",
+          "kind": "prompt",
+          "key": "graphvizPrompt",
+          "title": "Graphviz(DOT) 코드 생성 프롬프트",
+          "migratedFrom": "downloads/daejeon/lesson-07/floorplan/graphviz-generation.txt"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-08/Graphviz-DOT-source.txt",
+          "sizeBytes": 3255,
+          "sha256": "d775fe4b611588082ba1ccaeaac41b7bae121320051adf224ae42de53b246c20",
+          "kind": "dot",
+          "title": "실습용 Graphviz DOT 코드",
+          "migratedFrom": "downloads/daejeon/lesson-07/floorplan/Graphviz-DOT-source.txt"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-08/DJ-L07-Floorplan-Checklist.md",
+          "sizeBytes": 970,
+          "sha256": "6b5891f6d57f958c9ce631ed8889f4b54a32827929960abbeff1d115910510df",
+          "kind": "checklist",
+          "migratedFrom": "downloads/daejeon/lesson-07/floorplan/DJ-L07-Floorplan-Checklist.md"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-08/README.md",
+          "sizeBytes": 2053,
+          "sha256": "f37b8f909c5b774e97a55a5254e685910525ed2dcbd0cfab63debbed4133ded6",
+          "kind": "readme",
+          "migratedFrom": "downloads/daejeon/lesson-07/floorplan/README.md"
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-08/DJ-L08-Floorplan-Graphviz-Pack.zip",
+          "kind": "zip",
+          "sha256": "6936a83aa7cbaeef029e8813eccbb78124e5f2b372292e130e7fef533e39de8f",
+          "sizeBytes": 939917,
+          "title": "제8차시 도면 판독·Graphviz 실습자료",
+          "migratedFrom": "downloads/daejeon/lesson-07/floorplan/DJ-L07-Floorplan-Graphviz-Pack.zip"
+        },
+        {
+          "kind": "original-pdf",
+          "key": "office-original-pdf",
+          "title": "자체 제작 교육용 1층 오피스 원본 PDF",
+          "outputPath": "downloads/daejeon/lesson-08/DJ-L07-Office-Floorplan-Original.pdf",
+          "authorship": "self-authored educational synthetic office / revision-9 door correction",
+          "sha256": "5bc0ceaacb6491a98d23b11cde290fe5768e0c5fdbfc7894067496f69d776f91",
+          "sizeBytes": 45816,
+          "createdFrom": "review/daejeon/DJ-ALL-LESSONS-FLOORPLAN-STAIR-AND-DOOR-AUDIT-FIX/revision-9/source/office-geometry.json",
+          "migratedFrom": "downloads/daejeon/lesson-07/floorplan/DJ-L07-Office-Floorplan-Original.pdf"
+        },
+        {
+          "kind": "prompt",
+          "key": "clean-line-preprocess",
+          "title": "클린 선화 전처리 프롬프트",
+          "outputPath": "downloads/daejeon/lesson-08/DJ-L07-clean-line-preprocess.txt",
+          "sha256": "7d6cf63231bafea666b26e6879caf8a622727487b36385ce2758a77a558dafeb",
+          "sizeBytes": 2745,
+          "migratedFrom": "downloads/daejeon/lesson-07/floorplan/DJ-L07-clean-line-preprocess.txt"
+        },
+        {
+          "kind": "image",
+          "key": "office-original-png",
+          "title": "교육용 1층 오피스 원본 PNG",
+          "outputPath": "downloads/daejeon/lesson-08/00-office-floorplan-original.png",
+          "createdFrom": "public/images/daejeon/lesson-07/comfy-reference-before.png",
+          "authorship": "byte-identical copy of active self-authored educational original",
+          "sha256": "4bb46b5e7ff47999a97881118a9f8310de7e0b3bffd660140b85b2165d350810",
+          "sizeBytes": 89894
+        }
+      ],
+      "mcpFiles": [
+        {
+          "kind": "mcp-starter",
+          "key": "mcp-0",
+          "title": "blender_mcp_addon.py",
+          "outputPath": "downloads/daejeon/lesson-08/blender_mcp_addon.py",
+          "sha256": "eb0facf69781a30e69792532087d8d41c6a14fcd323353250abe7988ee297fa5",
+          "sizeBytes": 270889
+        },
+        {
+          "kind": "mcp-starter",
+          "key": "mcp-1",
+          "title": "LICENSE-blender-mcp.txt",
+          "outputPath": "downloads/daejeon/lesson-08/LICENSE-blender-mcp.txt",
+          "sha256": "048c8f0b94adbf94c455349754f3b460aa1248e3ad1b4fe5794fdbe18b60ef44",
+          "sizeBytes": 1072
+        },
+        {
+          "kind": "mcp-starter",
+          "key": "mcp-2",
+          "title": "uv-install.txt",
+          "outputPath": "downloads/daejeon/lesson-08/uv-install.txt",
+          "sha256": "9d8e65c8ebffebb350ce57a21c00763efa42f4586faf6905a2a35886e239ff9c",
+          "sizeBytes": 83
+        },
+        {
+          "kind": "mcp-starter",
+          "key": "mcp-3",
+          "title": "codex-config.example.toml",
+          "outputPath": "downloads/daejeon/lesson-08/codex-config.example.toml",
+          "sha256": "40b3b63c6b8dafb8685adbb8bf900a2b612fb4170804ec81c26a354e47b50d3d",
+          "sizeBytes": 125
+        },
+        {
+          "kind": "mcp-starter",
+          "key": "mcp-4",
+          "title": "MCP-01-hello-room.txt",
+          "outputPath": "downloads/daejeon/lesson-08/MCP-01-hello-room.txt",
+          "sha256": "72200540b6e6da6779f80747b75e3ee6480444d77a3751b710f3c4fd8bc2ccf1",
+          "sizeBytes": 3180
+        },
+        {
+          "kind": "mcp-starter",
+          "key": "mcp-5",
+          "title": "BLENDER-MCP-README.md",
+          "outputPath": "downloads/daejeon/lesson-08/BLENDER-MCP-README.md",
+          "sha256": "6378f6b49c4b23807fb54cc853662182499a1dc19801921417e1d52665ff12a3",
+          "sizeBytes": 3060
+        },
+        {
+          "kind": "mcp-starter",
+          "key": "mcp-6",
+          "title": "BLENDER-MCP-SHA256SUMS.txt",
+          "outputPath": "downloads/daejeon/lesson-08/BLENDER-MCP-SHA256SUMS.txt",
+          "sha256": "cbf169b7b0cedb9ac877a1eb8821a868e2f125806399a766dc0dfe0886bfb168",
+          "sizeBytes": 532
+        },
+        {
+          "kind": "mcp-starter",
+          "key": "mcp-7",
+          "title": "DJ-L08-Blender-MCP-Starter-Pack.zip",
+          "outputPath": "downloads/daejeon/lesson-08/DJ-L08-Blender-MCP-Starter-Pack.zip",
+          "sha256": "a29292cb9504fa80a4feb84b8a6d6edeff2d295258edd80e0766c810fb89fe34",
+          "sizeBytes": 71105
+        },
+        {
+          "kind": "diagram",
+          "key": "mcp-12",
+          "title": "mcp-room-flow.svg",
+          "outputPath": "images/daejeon/lesson-08/mcp-room-flow.svg",
+          "sha256": "0a673f5a621a4a122d19b9c303bee02b6ca263e474c213a384cdab3097ed3f40",
+          "sizeBytes": 2675
+        }
+      ]
+    },
+    "06": {
+      "revision": "DJ-L08-BLENDER-MCP-SETUP-AND-L06-SUBVIEW-RESTORE/revision-13",
+      "courseStatus": "design-pending",
+      "reviewStatus": "instructor-review",
+      "localReviewOnly": true,
+      "files": [
+        {
+          "key": "samples/06_office-interior-subview.png",
+          "file": "samples/06_office-interior-subview.png",
+          "outputPath": "practice/DJ-L06/samples/06_office-interior-subview.png",
+          "originalSource": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/samples/06_office-interior-subview.png",
+          "sourceCopy": "src/assets/daejeon/lesson-06/samples/06_office-interior-subview.png",
+          "sha256": "9fb25aac8ef8dc400da62ae66e8b63bd14eb4231750a85f1626380a92722615b",
+          "sizeBytes": 1807675
+        },
+        {
+          "key": "legacy-house/04-top-view-3d.png",
+          "file": "legacy-house/04-top-view-3d.png",
+          "outputPath": "practice/DJ-L06/legacy-house/04-top-view-3d.png",
+          "originalSource": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/legacy-house/04-top-view-3d.png",
+          "sourceCopy": "src/assets/daejeon/lesson-06/legacy-house/04-top-view-3d.png",
+          "sha256": "63ad6deb3a91d54d3e4a4265b612e95b12ca8b7398bbf9c0bdc7a4495fa0f13a"
+        },
+        {
+          "key": "legacy-house/05-isometric.png",
+          "file": "legacy-house/05-isometric.png",
+          "outputPath": "practice/DJ-L06/legacy-house/05-isometric.png",
+          "originalSource": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/legacy-house/05-isometric.png",
+          "sourceCopy": "src/assets/daejeon/lesson-06/legacy-house/05-isometric.png",
+          "sha256": "a6e68c4ae2a898e785ce153d4d04096676f556a8da4d4175be5c05532d20b28f"
+        },
+        {
+          "key": "legacy-house/06-exploded-isometric.png",
+          "file": "legacy-house/06-exploded-isometric.png",
+          "outputPath": "practice/DJ-L06/legacy-house/06-exploded-isometric.png",
+          "originalSource": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/legacy-house/06-exploded-isometric.png",
+          "sourceCopy": "src/assets/daejeon/lesson-06/legacy-house/06-exploded-isometric.png",
+          "sha256": "a49cda66cbfa38e5e836612cb29a856bdb26a870c0fd1890e83aef5a128a71e4"
+        }
+      ],
+      "package": {
+        "outputPath": "practice/DJ-L06/DJ-L06-3d-isometric-zoning.zip",
+        "sha256": "981bfbc1335f5d2090c566acefdea86026ea408d518586a123cc4f096b03f747"
+      }
+    }
+  }
+}

@@ -1,18 +1,25 @@
 ---
 import ReviewLayout from '../layouts/ReviewLayout.astro';
 import ReviewSection from '../components/ReviewSection.astro';
-import { overviewSections, roles, workflow, tools, cycle, safety } from '../content/daejeon-2026';
+import CourseRoadmap from '../components/CourseRoadmap.astro';
+import {alignedLessons} from '../content/lesson-topic-alignment';
+import { overviewSections, workflow } from '../content/daejeon-2026';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const toc = [{id:'course-roadmap',title:'7개 대주제 Roadmap'},...overviewSections];
 ---
-<ReviewLayout title="AI와 함께 설계하고, 사람의 판단을 남기다" lead="실무자료에서 Portfolio와 Project Result Report까지 이어지는 48시간 과정의 방향입니다. 과정 안내 12분은 1일차 제1교시 50분 안에 포함합니다." page="overview" toc={overviewSections}>
-  {overviewSections.map((section, index) => <ReviewSection {...section} index={index + 1} tag="REVISED">
-    {section.id === 'learn' && <ol class="review-cycle" aria-label="학습 흐름">{['실무자료','조건 분석','Design Brief','이미지 시각화','도면·3D','법규 검토','검증','포트폴리오·결과보고'].map((item) => <li>{item}</li>)}</ol>}
-    {section.id === 'roles' && <div class="review-cards">{roles.map((role) => <article class="review-card"><h3>{role.name}</h3><ul>{role.items.map((item) => <li>{item}</li>)}</ul></article>)}</div>}
-    {section.id === 'workflow' && <><ol class="review-flow" aria-label="전체 과정 방향">{workflow.map(([title, description]) => <li><div><strong>{title}</strong><span>{description}</span></div></li>)}</ol><p>1일차에서는 이미지 생성의 기본을 먼저 경험한 뒤, 후반 실습에서 RFP → Design Brief → 이미지 Workflow를 적용합니다.</p></>}
-    {section.id === 'tools' && <div class="review-cards">{tools.map(([name, role]) => <article class="review-card"><h3>{name}</h3><p>{role}</p></article>)}</div>}
-    {section.id === 'cycle' && <ol class="review-cycle" aria-label="반복 작업 순서">{cycle.map((item) => <li>{item}</li>)}</ol>}
-    {section.id === 'safe' && <ul>{safety.map((item) => <li>{item}</li>)}</ul>}
-    {section.id === 'project' && <aside class="review-callout">BYOD: 자료 사용 권한과 실제 조건을 확인한 자신의 프로젝트에서 AI 초안과 사람의 판단을 반복합니다. 공개할 수 있는 결과와 내부 검토 기록을 구분합니다. 후속 일정과 과제는 별도 확정합니다.</aside>}
-    {section.id === 'outputs' && <><div class="review-cards"><article class="review-card"><h3>Portfolio</h3><p>무엇을 만들었는가: 콘셉트·이미지·도면·3D 등 선택한 결과물.</p></article><article class="review-card"><h3>Project Result Report</h3><p>어떤 자료와 도구를 사용했고 사람이 무엇을 판단·수정·검증했는가: 입력·Workflow·선택 이유·확인 상태.</p></article></div><p><a href={`${base}/lessons/01/`}>1일차 e-book draft로 →</a></p></>}
+<ReviewLayout title="AI와 함께 설계하고, 사람의 판단을 남기다" lead="교육용 실습 예제를 통해 AI 활용의 기본을 익히고, 이미지 생성·수정에서 도면 이해, 3D 모델링과 검토까지 단계적으로 확장하는 과정입니다." page="overview" sharedScreen {toc}>
+  <CourseRoadmap />
+  <div class="review-cards" data-overview-lesson-grid>
+    {alignedLessons.map(lesson=><article class="review-card" {...{['data-lesson'+lesson.id+'-overview-card']:true}}><h2>{lesson.title}</h2><p><strong>{lesson.stage}</strong></p><p>{lesson.description}</p><a href={base+'/lessons/'+lesson.id+'/'}>제{Number(lesson.id)}차시 바로가기 →</a></article>)}
+  </div>
+  {overviewSections.map((section, index) => <ReviewSection {...section} index={index + 1}>
+    {section.id === 'learn' && <p>직접 만든 결과와 원본을 비교하며, 무엇을 유지하고 바꿀지 판단하는 연습을 합니다.</p>}
+    {section.id === 'roles' && <p>구체적인 역할과 판단 사례는 제1차시에서 살펴봅니다.</p>}
+    {section.id === 'workflow' && <ol class="review-flow" aria-label="전체 과정 방향">{workflow.map(([title, description]) => <li><div><strong>{title}</strong><span>{description}</span></div></li>)}</ol>}
+    {section.id === 'tools' && <p>요청 정리, 이미지 편집, 도면 해석, 3D 표현에 필요한 기능이 서로 다릅니다. 도구 이름보다 오늘 하려는 작업을 먼저 확인합니다.</p>}
+    {section.id === 'cycle' && <ol class="review-cycle" aria-label="반복 작업 순서">{['첫 제안','사람의 확인','수정과 비교'].map(item=><li>{item}</li>)}</ol>}
+    {section.id === 'safe' && <p>개인정보·저작권·업로드 권한의 구체적인 확인 방법은 제1차시에서 다룹니다.</p>}
+    {section.id === 'project' && <p>교육용 예제로 작업 방법을 익힌 뒤, 권한과 실제 조건을 확인한 자신의 프로젝트에 적용합니다.</p>}
+    {section.id === 'outputs' && <><p>이미지·도면·3D 결과와 함께 사용한 자료, 선택 이유, 수정과 확인 과정을 정리합니다.</p><p><a href={`${base}/lessons/01/`}>제1차시 시작하기 →</a></p></>}
   </ReviewSection>)}
 </ReviewLayout>

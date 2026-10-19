@@ -1,0 +1,57 @@
+---
+import {classificationRules as rules,classificationExplanation as copy} from '../content/lesson02-classification';
+import {representativeRules} from '../content/daejeon-lesson02-automation';
+---
+<div class="l02-classification-guide" data-classification-guide aria-labelledby="l02-classification-title">
+  <header class="classification-core"><h3 id="l02-classification-title">{copy.title}</h3><p>{copy.core}</p><p class="classification-principle"><strong>{copy.principle}</strong></p></header>
+  <ol class="classification-flow" aria-label="분류에 사용하는 세 단계" data-classification-flow>{copy.flow.map((step,index)=><li><span class="classification-number">{index+1}</span><h4>{step.title}</h4><p>{step.note}</p><small>{step.example}</small></li>)}</ol>
+  <div class="classification-ambiguous"><h4>{copy.ambiguousTitle}</h4><p>{copy.ambiguousExamples}</p></div>
+  <div class="lesson02-table classification-examples"><table><caption>파일명 단서의 대표 예시</caption><thead><tr><th scope="col">파일명</th><th scope="col">확인한 단서</th><th scope="col">규칙에 따른 결과</th></tr></thead><tbody>{copy.examples.map(example=><tr data-classification-example><th scope="row" data-label="파일명">{example.files.map(file=><code>{file}</code>)}</th><td data-label="확인한 단서">{example.clue}</td><td data-label="규칙에 따른 결과">{example.result}<small>{example.mode}</small></td></tr>)}</tbody></table></div>
+  <p class="classification-conflict" data-classification-conflict><strong>단서가 충돌하면 사람이 판단합니다.</strong><br />{copy.conflict}</p>
+  <details class="classification-details" data-classification-details><summary>실제 분류 규칙 보기</summary>
+    <p>{copy.priority}</p>
+    <h4>확장자로 직접 분류하는 유형</h4>
+    <dl class="classification-rules" data-classification-direct>{rules.direct.map(rule=><div data-rule-folder={rule.folder}><dt>{rule.label} → <code>{rule.folder}</code></dt><dd>{rule.extensions.map(ext=><code>{ext}</code>)}</dd></div>)}</dl>
+    <h4>파일명 단서를 추가로 확인하는 확장자</h4><p class="classification-token-list" data-classification-ambiguous>{rules.ambiguous.map(ext=><code>{ext}</code>)}</p>
+    <h4>파일명 키워드 그룹</h4>
+    <dl class="classification-rules" data-classification-keywords>{rules.keywords.map(rule=><div data-rule-folder={rule.folder}><dt>{rule.label} → <code>{rule.folder}</code></dt><dd>{rule.words.map(word=><code>{word}</code>)}</dd></div>)}</dl>
+    <p>{copy.keywordBoundary}</p><p>{copy.ignored}</p>
+    <div class="lesson02-table l02-rule-table"><table><caption>현재 프로그램의 대표 규칙</caption><thead><tr><th scope="col">입력 예</th><th scope="col">목적지</th><th scope="col">판단 방식</th></tr></thead><tbody>{representativeRules.map(([input,target,note])=><tr><th scope="row" data-label="입력 예">{input}</th><td data-label="목적지">{target}</td><td data-label="판단 방식">{note}</td></tr>)}</tbody></table></div>
+  </details>
+  <p data-rule-automation-principle>{copy.automation}</p>
+  <div class="classification-roles" data-classification-roles>{copy.roles.map(role=><article><h4>{role.title}</h4><ul>{role.items.map(item=><li>{item}</li>)}</ul></article>)}</div>
+</div>
+
+<style>
+ .l02-classification-guide { min-width:0; }
+ .classification-core { padding:1.15rem 1.3rem; border-left:4px solid var(--lesson02-accent); background:#edf3ef; }
+ .classification-core h3 { margin-top:0; }
+ .classification-principle { margin-bottom:0; }
+ .classification-flow { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.75rem; margin:1.15rem 0; padding:0; list-style:none; }
+ .classification-flow li { position:relative; min-width:0; padding:1rem; border:1px solid var(--line-dark); background:var(--surface); }
+ .classification-flow h4 { margin:.6rem 0; }
+ .classification-flow p { margin:.5rem 0; }
+ .classification-flow small { display:block; color:var(--muted); }
+ .classification-number { display:inline-grid; place-items:center; width:1.6rem; height:1.6rem; background:var(--ink); color:var(--paper); font-weight:800; }
+ .classification-flow li:not(:last-child)::after { content:'→'; position:absolute; right:-.67rem; top:1.1rem; z-index:1; background:var(--paper); }
+ .classification-ambiguous { padding:.2rem 0; }
+ .classification-ambiguous h4 { margin-bottom:.4rem; }
+ .classification-examples code { display:block; white-space:normal; overflow-wrap:anywhere; }
+ .classification-conflict { padding:1rem 1.2rem; background:var(--paper-deep); }
+ .classification-details { padding:.8rem 1.1rem; border:1px solid var(--line-dark); margin:1rem 0; }
+ .classification-details summary { cursor:pointer; font-weight:800; }
+ .classification-details summary:focus-visible { outline:3px solid var(--accent); outline-offset:4px; }
+ .classification-rules { margin:0; }
+ .classification-rules > div { padding:.65rem 0; border-bottom:1px solid var(--line); }
+ .classification-rules dt { font-weight:700; }
+ .classification-rules dd { display:flex; flex-wrap:wrap; gap:.35rem; margin:.4rem 0 0; }
+ .classification-rules dd code,.classification-token-list code { display:inline-block; padding:.1rem .35rem; border:1px solid var(--line); background:var(--surface); font-size:.85rem; }
+ .classification-token-list { display:flex; flex-wrap:wrap; gap:.35rem; }
+ .classification-roles { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; }
+ .classification-roles article { padding:.9rem 1.1rem; border:1px solid var(--line); }
+ .classification-roles h4 { margin-top:0; }
+ .classification-roles ul { padding-left:1.2rem; margin-bottom:0; }
+ .l02-classification-guide :is(p,li,dt,dd,code,small) { overflow-wrap:anywhere; }
+ @media(max-width:700px) { .classification-flow,.classification-roles { grid-template-columns:1fr; } .classification-flow li:not(:last-child)::after { content:'↓'; top:auto; bottom:-.86rem; left:1.2rem; right:auto; } .classification-core { padding:1rem; } .classification-details { padding:.8rem; } }
+ @media print { .classification-details:not([open]) > :not(summary) { display:none; } .classification-core,.classification-flow li,.classification-roles article { break-inside:avoid; } }
+</style>

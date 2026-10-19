@@ -1,0 +1,11 @@
+---
+import ReviewLayout from '../../layouts/ReviewLayout.astro';
+import DaejeonPortfolioLesson from '../../components/DaejeonPortfolioLesson.astro';
+import data from '../../content/lesson111213.json';
+const lesson=data.lessons['13'];
+const toc=lesson.sections.map(s=>({id:s.id,title:s.title}));
+const tocGroups=lesson.parts.map((title,i)=>({id:'l13-part-'+(i+1),title,items:toc.slice(i*4,i*4+4)}));
+---
+<ReviewLayout title={lesson.title} lead={lesson.lead} page="lesson" lessonId="13" eyebrow="제13차시 · 포트폴리오·발표·결과보고" {toc} {tocGroups}>
+ <DaejeonPortfolioLesson lessonId="13" />
+</ReviewLayout>

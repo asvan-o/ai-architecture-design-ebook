@@ -1,14 +1,25 @@
 ---
 import PromptCopyBlock from '../../components/content/PromptCopyBlock.astro';
-interface Props { id: string; title: string; prompt: string; href?: string; filename?: string; }
-const {id,title,prompt,href,filename} = Astro.props;
+import PromptPlatformGuide from './PromptPlatformGuide.astro';
+import {ebookText} from '../../../scripts/daejeon-ebook-language.mjs';
+import type {PromptPlatformGuide as PlatformGuideData} from '../content/prompt-platform-guides';
+interface Props { guide?: PlatformGuideData & {purpose?:string;variables?:string;}; id: string; title: string; prompt: string; href?: string; filename?: string; attachments?: {file:string;role:string;outputPath:string}[]; platform?:string;howToUse?:string; }
+const {id,title,prompt,href,filename,attachments=[],platform,howToUse,guide} = Astro.props;
+const displayPrompt=ebookText(prompt);
+const displayTitle=ebookText(title);
+// If wording changes, download the displayed learning text; preserve historical TXT bytes at their original path.
+const sourceHref=displayPrompt===prompt?href:undefined;
 const enabled = import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS === 'true';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
 ---
 <div class="review-prompt" data-prompt-download={filename}>
-  <PromptCopyBlock {id} {title} {prompt} />
-  {href && <a class="review-download" href={href} download={filename}>이 Prompt TXT 다운로드</a>}
-  {enabled && !href && <button type="button" class="review-download" data-download-prompt={filename || `DJ-DAY-01_${id}.txt`}>이 Prompt TXT 다운로드</button>}
+  <PromptPlatformGuide {id} {platform} {howToUse} {guide} />
+  {attachments.length>0&&<div class="prompt-attachments" data-prompt-attachments><strong>첨부 이미지 · 아래 순서로 준비</strong><ol>{attachments.map(a=><li>{enabled?<a href={base+'/'+a.outputPath} download={a.file.split('/').pop()}>{a.file.split('/').pop()}</a>:<span>{a.file.split('/').pop()}</span>}<span> — {a.role}</span></li>)}</ol></div>}
+  <PromptCopyBlock {id} title={displayTitle} prompt={displayPrompt} />
+  {sourceHref && <a class="review-download" href={sourceHref} download={filename}>이 Prompt TXT 다운로드</a>}
+  {enabled && !sourceHref && <button type="button" class="review-download" data-download-prompt={filename || `DJ-DAY-01_${id}.txt`}>이 Prompt TXT 다운로드</button>}
 </div>
+<style>.prompt-attachments{margin:.8rem 0;padding:.8rem;border-left:3px solid var(--accent-dark);background:var(--surface);overflow-wrap:anywhere}.prompt-attachments ol{margin:.4rem 0;padding-left:1.4rem}.prompt-attachments li+li{margin-top:.3rem}</style>
 <script>
   document.querySelectorAll<HTMLButtonElement>('[data-download-prompt]').forEach((button) => {
     button.addEventListener('click', () => {

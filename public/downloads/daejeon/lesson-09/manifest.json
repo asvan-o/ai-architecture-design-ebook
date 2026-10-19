@@ -1,0 +1,424 @@
+{
+  "lesson": "09",
+  "localOnly": true,
+  "status": "design-pending",
+  "reviewStatus": "instructor-review",
+  "originalDrawingsIncluded": false,
+  "selfCreatedHouseDrawingsIncluded": true,
+  "originalDrawingsPolicy": "No external Hwang Insu drawings. Self-created educational house drawings only.",
+  "houseModelsIncluded": true,
+  "files": [
+    {
+      "outputPath": "images/daejeon/lesson-09/house_astra_1f_top.png",
+      "bytes": 2527660,
+      "sha256": "fb0d2a2fef251687cbe558256d3b0aa3437318cb5b63cc4c67f943389a3fe36d"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house_astra_1f_iso.png",
+      "bytes": 2677728,
+      "sha256": "fbf777a241e6191ce725e43704d889822a1e71ca7a26389f046921ce04111920"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house_astra_1f_eye.png",
+      "bytes": 2587149,
+      "sha256": "e53ebd36646af878b2676be07488ae8ccdc5bcd2c63ac709457d287d1ff2bb0d"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house_astra_2f_top.png",
+      "bytes": 2599921,
+      "sha256": "40e7e823e9862f100e632c8891dcfb70f294a9fff6f44cf86049c5c1f800e4e6"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house_astra_2f_iso.png",
+      "bytes": 2815962,
+      "sha256": "bb40549fd5f7ed7115d99de805cfab1eb31a0097851877f503b35952d35741f3"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house_astra_3f_hero.png",
+      "bytes": 2652087,
+      "sha256": "0e79bbbc0ed93f859ade18c68653006cbf0ad7844e24bb3afb1d7dec1fb9fd3e"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house_astra_3f_iso.png",
+      "bytes": 2780688,
+      "sha256": "a75f9a582315d32188d6a3fa78fdfb0d9543b3011d266d1705f83b45108a65cf"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house_astra_3f_rooftop.png",
+      "bytes": 2946610,
+      "sha256": "85a469c70e67a5d56fd9a0f6a98d7f9d0d94619b8934b9065eebd63419480d80"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house-drawings/01_house_1f_plan_dim.png",
+      "bytes": 165858,
+      "sha256": "677cc37a93b44489231bf51bb033d5fbfa1f46e51c6ce9ed465d30b9ec9d0780"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house-drawings/01_house_1f_plan_clean.png",
+      "bytes": 135948,
+      "sha256": "6f8d37616ce0f2c38cc0fd98731e05523302f226d1dd99a6aefc134f97308dd8"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house-drawings/02_house_2f_plan.png",
+      "bytes": 173225,
+      "sha256": "c0ba8db42116e9469164411503b9ff35c1365538b28b4d4ef4811b78cc613dcb"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house-drawings/03_house_3f_rooftop_plan.png",
+      "bytes": 157246,
+      "sha256": "f40c82ff01651a835c13207ad13cd41e872366097e008f1e6542de30382dd88a"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house-drawings/04_house_section.png",
+      "bytes": 175329,
+      "sha256": "1b55c8453ebcc94cd92cb16affe86e4944107ef83def50e71f51ccb5d60cec95"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house-drawings/05_house_elevations_4views.png",
+      "bytes": 198797,
+      "sha256": "49189aa9a60d323c3aa45e40a490d6466d33b2fac673086f332d6daa4b2e2335"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/astra-1f-iso.png",
+      "bytes": 1750990,
+      "sha256": "890654c0d183b843fe3cbca292995f21e4ad37f5d52fca31099c1514f1737a1a"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/astra-2f-iso.png",
+      "bytes": 2114163,
+      "sha256": "5bc6deeb2625ffd4579ca58cdb7b9761b5596ada3460eb6efba5cf3ab4e50431"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/astra-3f-hero.png",
+      "bytes": 1973412,
+      "sha256": "cecd15e2c729c0641efdc609e242c20f72265c2b8b19dcc312b9dc424c36c276"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/DJ-L09-House-3F-Drawings.zip",
+      "bytes": 939663,
+      "sha256": "9ed9dad6dfcc5c6db8ad3909c9cf311c19538938cd78373bb8bdadaf0ec7a8c8"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/DJ-L09-House-3F-Models.zip",
+      "bytes": 59981604,
+      "sha256": "7cbc61a422712ae78646cfb02e75dc69c59b50ecc9b4cc2e35389539b003980c"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/DJ-L09-House-3F-Prompts.zip",
+      "bytes": 24221,
+      "sha256": "4b6dbf6322847e8aebddbad6d330da5ffe0e0ea52da76a1cffe52c4ca57c9011"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/HOUSE-3F-CHECKLIST.md",
+      "bytes": 908,
+      "sha256": "7e6424a1c552aef6882bab1a1fcd1b1a8c1a4e29dd5edf3afbfd78d0d3e4e7cd"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/house-design.json",
+      "bytes": 26264,
+      "sha256": "6340e2f213b07d9c739d00348bfa5792860849fedad684369a2b34fa6c11338e"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/house-export-validation.json",
+      "bytes": 120368,
+      "sha256": "ee40ea56a2ec9de965dfc9acc0ebf9bb27c6d3202a91fb8c0e99242b5c440ecd"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/House_3F_Full_Complete_Astra.fbx",
+      "bytes": 9388924,
+      "sha256": "9a860c37a7eae0737d524a6f4f51eb6fddb723899560cb2919d4bb9285e57591"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/House_3F_Full_Complete_Astra.glb",
+      "bytes": 8672116,
+      "sha256": "ed0bfdaeae51f26dd2fbcc09906e386b788d4f8408201cf18b01d174ed99cce5"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/l09-collection-switch.txt",
+      "bytes": 1536,
+      "sha256": "595bb570b0f281380c6a5b0a1654a305f8966319b06e858c03138d2dcc8d5bb7"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/l09-export.txt",
+      "bytes": 1880,
+      "sha256": "bf1cf8b096e824551049cb5a806a1a6c926eb0ffe8429b2e7571ccef7d386085"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/l09-house-review.txt",
+      "bytes": 1634,
+      "sha256": "52372391c14fe400da410397ea62e3c291680d8d3aed7c7c83675c3e436c14e4"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/l09-house-step2.txt",
+      "bytes": 2187,
+      "sha256": "a4aabdf60316dd049310b249f2a0a07bee2e78778d5b33b892d99ab892bb2f98"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/l09-house-step3.txt",
+      "bytes": 2247,
+      "sha256": "d813a328cbf64cfe0daaf1c946ea7f544b68857143ba1a911cbc907968a43a2b"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/l09-lighting.txt",
+      "bytes": 1668,
+      "sha256": "e3aaea2b30b12975e75abc1df2d748ecf8e5fa7eaecb6690f6268cee16591895"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/l09-move1.txt",
+      "bytes": 2409,
+      "sha256": "0fb383fd0d6de9a3e989f91834285ecc5ef948c4515ab9586aa62b384787cc23"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/l09-move2.txt",
+      "bytes": 2677,
+      "sha256": "1acfddcbed2326e42aff592a2aa7cbb7cd58976fea6b2d4c77a084f791d0de55"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/l09-move3.txt",
+      "bytes": 2746,
+      "sha256": "26e72608a9b198cb164243742d75ca2d8d3b78efc9f0da424df03e6d6a3bb4ac"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/l09-pbr-materials.txt",
+      "bytes": 1951,
+      "sha256": "c1135e6a3b6a6712cecb2a5e508e3740be4f83d6b88b535eeca4cc06e435820b"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/l09-step1-build.txt",
+      "bytes": 2694,
+      "sha256": "bbc92644775928cf087f1df6e9a77a3e9c2981aafcf4fb9d00730eb8e0bf54b5"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/measurement-evidence.json",
+      "bytes": 12071,
+      "sha256": "034176879ed96fd5bae091ba24779ea65d2d730389dd55d96ffd860b413dc24d"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/README.md",
+      "bytes": 10826,
+      "sha256": "754fd7228f109bdee6fcc92f2acfafb151d5183285ced518d7195698472c5a25"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/l09-camera-brief.txt",
+      "bytes": 1551,
+      "sha256": "0f9357bbc27fe4a385c93bdbae4795e2b6dbeea31f914962b03671c251399647"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/l09-camera-options.txt",
+      "bytes": 1768,
+      "sha256": "9b89eda526ece7a09d41c4bf9a6c489e25d4bbb41a1847c1c852291bd6c19c36"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/l09-camera-revision.txt",
+      "bytes": 1531,
+      "sha256": "28788fd70c1d3712bce8e261bae17b08aa01e77e1a20163c9e6406a1dbce5936"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/l09-camera-worksheet.txt",
+      "bytes": 1576,
+      "sha256": "597b6b950629142849f56876fc89f00f34c2357f73ee8f80d2614c80aeed1458"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/House_B_Walkthrough.html",
+      "bytes": 10762543,
+      "sha256": "51c17e3d97463bc79bc478c65152c261f37f6e46fce8b0f9d9de2d74f882a513"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/House_B_Walkthrough_README.txt",
+      "bytes": 4377,
+      "sha256": "47956349676d48776f7f748efdbd39c6a62ead3dd2687c5a4efa6a85d8b0535d"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house_argon_1f_top.png",
+      "bytes": 2526105,
+      "sha256": "c222a70fe3e23c2862c74501e495f1746bd646c890a7f59e68e7006b1439736e"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house_argon_1f_iso.png",
+      "bytes": 2621041,
+      "sha256": "a1fa03d311072279d658f698933021233f1f8c8b2950a7470bffb719fd4ea7b1"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house_argon_1f_eye.png",
+      "bytes": 2623147,
+      "sha256": "dda8c719209c59116f5747ba438f3518712dc5e767a1112a4288ff2673a26cbd"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house_argon_2f_top.png",
+      "bytes": 2630122,
+      "sha256": "43cd3b3090e213bc76db0cf89e00732e79c292ff0db191f136065ca42390ad76"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house_argon_2f_iso.png",
+      "bytes": 2825157,
+      "sha256": "7be234d18003798bce5b5bcfd1e72f3b259b759c68e8904790119d396e0e5b74"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house_argon_3f_hero.png",
+      "bytes": 2634858,
+      "sha256": "5574e0da4cf73b3d232a102647fd870a056ef0d3c9754fef2e4195389f36ffe0"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house_argon_3f_iso.png",
+      "bytes": 2800622,
+      "sha256": "902a728fdea0f4747d866c78aa3641eab4e3652507e427865110b22112d9c891"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house_argon_3f_rooftop.png",
+      "bytes": 2968587,
+      "sha256": "94025725e7abeef0cccb7e00b5c79928e552220d97c13bfcd0ea4cd83738c8cb"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/House_3F_Full_Complete_Argon.fbx",
+      "bytes": 10823420,
+      "sha256": "183e9d991e94c27d51096f2bf4c79552c7ac8b067b5d02263d299ab06d677f6a"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/House_3F_Full_Complete_Argon.glb",
+      "bytes": 10058008,
+      "sha256": "2e5869f0610448dc3ca9e50af0f01e904c326040d12e42768c40b91210bd39cf"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/house-argon-geometry-validation.json",
+      "bytes": 89233,
+      "sha256": "a7a37d38f27867cc594ae1473c99b8d2bac307d44f72bb5f217426b34a3dfa0d"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/house-argon-export-validation.json",
+      "bytes": 117949,
+      "sha256": "786a7045d27713eca0cb9465502f7ec9ad1871ef41bc36fc9d10169c7a13e736"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/house-argon-export-provenance.json",
+      "bytes": 10529,
+      "sha256": "dde25012eb784a6d982336c75cd8903acb7e862ecc998b45fc750885ed28cf9f"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/argon-model-validation.json",
+      "bytes": 2327,
+      "sha256": "6f38537c19be4bc89ed7ac8201ff0443e40e9a0db5ab6b6dead39e70277d6766"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/house_astra_camera_normal_8s.mp4",
+      "bytes": 3376879,
+      "sha256": "1152f1e2ac0452f6ac4deb10de26050269e32104b244e0d315647b5380c0cb0e"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/house_astra_camera_colormap_8s.mp4",
+      "bytes": 6278092,
+      "sha256": "5cb966759163e1d00161b839dd2e26d1944f72fd50a1022d4ddab665b615c355"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/house_astra_b_01_entry.mp4",
+      "bytes": 8659837,
+      "sha256": "c1a03cc41909205fe18b90479ec4e1fea66e32c41665824987a9e8e74bf54df7"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/house_astra_b_02_living_kitchen.mp4",
+      "bytes": 19384550,
+      "sha256": "299450a5425aa92b780b7e7709c098635275b0276ac0332ee79b290ccfb2221a"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/house_astra_b_03_stairs_1_2.mp4",
+      "bytes": 15010283,
+      "sha256": "2725200af442b996ba613ca4b91d5893a3d633e4b3daf72d5930957b6ed370eb"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/house_astra_b_04_second_floor.mp4",
+      "bytes": 12301864,
+      "sha256": "2d8e7c35cb92730fa93ef5db8d9fe0d4402a89f00feeb09f018e89bf59c21b90"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/house_astra_b_05_stairs_2_3.mp4",
+      "bytes": 14216986,
+      "sha256": "65b121a8fd94e25bb9121a9229555cdd30601d7374ff5d750765fb802b4ff12c"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/house_astra_b_06_third_floor.mp4",
+      "bytes": 16217454,
+      "sha256": "3b2ef8f1e4f2bb8a46cb0915e4be456728d7d047af92a51ae99b70c7be041f67"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/house_astra_b_07_terrace_drone.mp4",
+      "bytes": 21410213,
+      "sha256": "d61693d4ea285406aa6138cce4f2e1b01252b8a7e5916a3a41e89aa0ffcef02d"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house_astra_normal_start.png",
+      "bytes": 1875768,
+      "sha256": "ab6dee6fbdf8a710df982774cc2b13352c1181be5b555f20859a7aadb97e6b29"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house_astra_normal_mid.png",
+      "bytes": 1848375,
+      "sha256": "96935704fa0e9da14ab615dbc05783005dbb676c4a87006d2f9571cce44b5a11"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house_astra_normal_end.png",
+      "bytes": 1972169,
+      "sha256": "0257891138017e51e38ca6d8fcde04de375d7d84761c6e6b0a377cf071ae8c91"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house_astra_colormap_start.png",
+      "bytes": 1798880,
+      "sha256": "7fd9a65ccb6faeed02236cbb1a6384252054d2c44ed83039df80f9135110de3d"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house_astra_colormap_mid.png",
+      "bytes": 1602978,
+      "sha256": "63c12668f221c7200738f80fa059fa1927fc06484a29b8a5349dca44fb49a1c5"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house_astra_colormap_end.png",
+      "bytes": 1926714,
+      "sha256": "7bec50578efd3a248318ded266d4f9a8628fa156b4830a647a5e8c7a2bcd8250"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house_astra_b_01_entry.png",
+      "bytes": 523774,
+      "sha256": "2056f8febe76413d3c9c25762bcccc5d5ffd915f2ea1f08d9cd94d33383cd38e"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house_astra_b_02_living_kitchen.png",
+      "bytes": 964949,
+      "sha256": "a0f4ecae7f0590daebf857451fa49a4352ee1748a2c4ec09ce533dcb1a00653f"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house_astra_b_03_stairs_1_2.png",
+      "bytes": 746198,
+      "sha256": "42e160153927d6d9f7094339d89ec74c03799f43fb719da0d87391a2751aa83a"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house_astra_b_04_second_floor.png",
+      "bytes": 871663,
+      "sha256": "71e072d347c20cd1c5685e9b30189bc7d117fea0669781c2a89232f81ee9e8b0"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house_astra_b_05_stairs_2_3.png",
+      "bytes": 784707,
+      "sha256": "27ce5676d04ba841b2ad3e4466e9a6b507f78e2284e1b59866acb1a60cb15d2c"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house_astra_b_06_third_floor.png",
+      "bytes": 672829,
+      "sha256": "72a323de56e42f7c02d0dbc25f09b145c29e7bb5775570657bafdc86e5730514"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-09/house_astra_b_07_terrace_drone.png",
+      "bytes": 721405,
+      "sha256": "bb4cac407254d14fd0bf11f58b3fcfffbc50915b371d0a675c1c0a8b639a108f"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/l09-colormap-higgsfield.txt",
+      "bytes": 3441,
+      "sha256": "d87915884a409c7d57f9e955cb0f8ff2364d304b073a95b7e07cb430ef30cead"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/l09-camera-8s.txt",
+      "bytes": 2535,
+      "sha256": "e9153508bf45380dccd165976ff96283e4ab7d96a32c6f67fde0ff26bb00d5c6"
+    }
+  ],
+  "cameraColormapIncluded": true,
+  "bWalkthroughClipCount": 7
+}

@@ -1,0 +1,1230 @@
+{
+  "status": "instructor-review",
+  "courseStatus": "design-pending",
+  "images": [
+    {
+      "file": "samples/00_site-before-cleanup.png",
+      "sha256": "ebb16fa25d7c9d9959d004078d8346e5a6688e0ea823e4fddf1ad10214b4ef55",
+      "bytes": 2312833,
+      "key": "site-before",
+      "title": "정리 전 현장 · 가상 입력",
+      "description": "펜스·적치물·콘·임시 간판을 더한 가상 Before입니다. 실제 현장 기록이 아닙니다."
+    },
+    {
+      "file": "samples/01_cleanup-result.png",
+      "sha256": "7cc5a2c8195d0b09023c184dc8afe0ebd1a30fd6007077400c23fd83c1c8b056",
+      "bytes": 2201444,
+      "key": "cleanup",
+      "title": "기법 1 · 방해물 제거",
+      "description": "현장 Before를 실제 편집한 정리 후 결과입니다. 가려진 보도·기단 복원은 생성 추정입니다."
+    },
+    {
+      "file": "samples/05_landscape-additive.png",
+      "sha256": "008958280b8a6c14e5cfb79f4a02526911e8885601687c6ff6e79fb765f6dcfd",
+      "bytes": 2274212,
+      "key": "landscape",
+      "title": "조경 추가 · 양쪽 플랜터와 열린 출입",
+      "description": "A의 양쪽 쇼윈도 앞에 크림 플랜터·관목·소형 수목·초화를 더했습니다. 중앙 출입은 열려 보이며 식재·보도 접합은 별도 검토 대상입니다."
+    },
+    {
+      "file": "samples/06_dusk-lighting.png",
+      "sha256": "d2deedb48179031c21bd122157c1bef413e848069ae102625406177886648b49",
+      "bytes": 2246910,
+      "key": "dusk",
+      "title": "석양·경관조명 · 같은 외관의 빛 확장",
+      "description": "주간 조경안의 재료와 개구부를 기준으로 블루아워·캐노피 라인 빛·실내 발광·식재 업라이트를 표현했습니다. 이웃 창의 발광과 노면 반사도 재표현됐습니다."
+    },
+    {
+      "file": "samples/07_entrance-closeup-subview.png",
+      "sha256": "27e56d9cd9f63a98a0c02d2fc65aed25a064bb664d32ad35552d5ddfbdaa4412",
+      "bytes": 2561263,
+      "key": "subview",
+      "title": "입구 근접 서브 시점 · 재료 관계 확인",
+      "description": "크림 석재·브론즈·수직 목재 포털·양쪽 플랜터가 이어집니다. 카메라 이동에 따른 깊이·문 세부·식재 크기는 생성 추정이며 모델 정합의 증거가 아닙니다."
+    },
+    {
+      "file": "samples/08_exterior-rough-sketch.png",
+      "sha256": "6d339b67f6d5ec8e296b1c79bf4332b97bcecf80c0dd5d585838f96bc494dae0",
+      "bytes": 1420716,
+      "key": "rough-sketch",
+      "title": "기법 5 · 러프 선화 입력",
+      "description": "기준 건물의 큰 형태를 참고해 새로 만든 선화입니다. 실측 입면도·기존 설계자의 원스케치가 아닙니다."
+    },
+    {
+      "file": "samples/09_sketch-rapid-concept.png",
+      "sha256": "88e8b32720f2cb0cbb677ac435162b8d6be62798cb8abef790cc87a92b0b7f38",
+      "bytes": 2621829,
+      "key": "rapid",
+      "title": "스케치 → 래피드 콘셉트",
+      "description": "보존된 선화와 당시 마감 참고로 만든 별도 스케치 분기입니다. 새 크림 외벽 A에서 생성한 이미지가 아닙니다."
+    },
+    {
+      "file": "samples/10_sketch-concept-refined.png",
+      "sha256": "0160550783465b875887e838c9b62a981a026460a8e599fe8a328426609f6f1e",
+      "bytes": 2374307,
+      "key": "refined",
+      "title": "래피드 콘셉트 → 한 면 보완",
+      "description": "캐노피 하부만 중립 마감으로 조정한 생성 결과입니다. 상층·반사·조명 표현도 함께 대조합니다."
+    },
+    {
+      "key": "surrounding-landscape",
+      "file": "samples/11_surrounding-landscape-plaza.png",
+      "title": "주변 조경·보행 광장 종합안",
+      "description": "기존 플랜터에 좌우 교목·다층 정원·따뜻한 판석 보도·벤치·볼라드를 더했습니다. 정면 건물의 큰 관계는 유지돼 보이며 실제 가용 대지·보행 폭은 미확정입니다.",
+      "sha256": "c59b92ac5f1b6f0319b5ee8fef8486d119deb7ed032e90e46c5cb4a221671f4c",
+      "bytes": 2654632,
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "key": "human-scale",
+      "file": "samples/12_human-scale-entourage.png",
+      "title": "사람 추가 · 휴먼 스케일과 공간 활력",
+      "description": "같은 정면 조경안에 외부 이용객 6명과 쇼윈도 안 실루엣을 더했습니다. 인물의 비례·접지·가림과 건물·조경의 재표현을 함께 대조합니다.",
+      "sha256": "78728b2eae9152f8a5ade22b3b61dda5bafc87671813072d89de7317dba9423b",
+      "bytes": 2588772,
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "key": "angle-corner",
+      "file": "samples/13_angle-corner-perspective.png",
+      "title": "45도 코너 사선 거리 투시도",
+      "description": "크림 외벽·브론즈 띠·월넛 포털을 코너 사선으로 읽습니다. 수관에 가려진 창, 새 측벽 깊이·줄눈·원경 조경은 정밀 검증할 수 없는 생성 추정입니다.",
+      "sha256": "d9fb582c0a9ca6a669c3044b78e4aa6979c0ca89897cd6f6c9fec65c3901a4ec",
+      "bytes": 2908995,
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "key": "angle-streetscape",
+      "file": "samples/14_angle-pedestrian-streetscape.png",
+      "title": "보행자 측면 조경 진입 아이레벨 뷰",
+      "description": "전경의 나무·벤치 이용객과 중앙 포털로 향하는 방문 장면을 눈높이에서 읽습니다. 화면 밖 창 전체, 포털 깊이·가구/인물 간격은 원본과 완전히 일치한다고 확정하지 않습니다.",
+      "sha256": "e5fe119b723c0889fb5707d6d90fd85eb963a92da02d0f618dd860bbc7d8e00f",
+      "bytes": 3030039,
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "key": "angle-elevated",
+      "file": "samples/15_angle-elevated-overview.png",
+      "title": "반조감 · 건물과 보행 광장 전체 읽기",
+      "description": "전체 지붕 경계와 정면 창 배열, 조경·벤치·보행 관계를 반조감으로 읽습니다. 지붕 깊이·표면·뒤쪽 원경과 노면 표현은 추정이며 실제 카메라 높이나 대지 치수의 증거가 아닙니다.",
+      "sha256": "0e4a56da5c2e5dafe3bc4d5169c5d3ab3b7628ef147556e7af3f12451a23f6ef",
+      "bytes": 3308089,
+      "width": 1672,
+      "height": 941
+    }
+  ],
+  "prompts": [
+    {
+      "file": "prompts/site-before-7step.txt",
+      "sha256": "82c6b40edc9250b851f260b7037ce75aea32c9b6369f6c07871d93aa24a27181",
+      "bytes": 1168,
+      "key": "site-before-7step",
+      "title": "정리 전 현장 · 예시 준비 · 7단 생성 원문",
+      "attachments": [
+        {
+          "file": "bases/01_base-building.png",
+          "role": "건물 원본·가상 Before 제작 기준",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/site-before-short.txt",
+      "sha256": "82c6b40edc9250b851f260b7037ce75aea32c9b6369f6c07871d93aa24a27181",
+      "bytes": 1168,
+      "key": "site-before-short",
+      "title": "정리 전 현장 · 예시 준비 · 실행용 원문",
+      "attachments": [
+        {
+          "file": "bases/01_base-building.png",
+          "role": "건물 원본·가상 Before 제작 기준",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/cleanup-7step.txt",
+      "sha256": "db041c44de3335fb6c7af7d61bbf7dace7761ed0c649acf23272ae45f6736750",
+      "bytes": 1144,
+      "key": "cleanup-7step",
+      "title": "기법 1 · 방해물 제거 · 7단 생성 원문",
+      "attachments": [
+        {
+          "file": "samples/00_site-before-cleanup.png",
+          "role": "편집 대상·방해물이 있는 현장",
+          "outputPath": "practice/DJ-L04/application/samples/00_site-before-cleanup.png",
+          "sha256": "ebb16fa25d7c9d9959d004078d8346e5a6688e0ea823e4fddf1ad10214b4ef55"
+        },
+        {
+          "file": "bases/01_base-building.png",
+          "role": "방해물이 없던 건물 원본·고정 요소 대조",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/cleanup-short.txt",
+      "sha256": "db041c44de3335fb6c7af7d61bbf7dace7761ed0c649acf23272ae45f6736750",
+      "bytes": 1144,
+      "key": "cleanup-short",
+      "title": "기법 1 · 방해물 제거 · 실행용 원문",
+      "attachments": [
+        {
+          "file": "samples/00_site-before-cleanup.png",
+          "role": "편집 대상·방해물이 있는 현장",
+          "outputPath": "practice/DJ-L04/application/samples/00_site-before-cleanup.png",
+          "sha256": "ebb16fa25d7c9d9959d004078d8346e5a6688e0ea823e4fddf1ad10214b4ef55"
+        },
+        {
+          "file": "bases/01_base-building.png",
+          "role": "방해물이 없던 건물 원본·고정 요소 대조",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/landscape-7step.txt",
+      "sha256": "2e6dbf0156c960a45b9eeeb5968c7534b3c7d95e4601048bcfc6536f3df8b1b7",
+      "bytes": 1453,
+      "key": "landscape-7step",
+      "title": "조경 추가 · 양쪽 플랜터와 열린 출입 · 7단 생성 원문",
+      "attachments": [
+        {
+          "file": "samples/02_partial-edit-a.png",
+          "role": "편집 대상 A·건물/카메라/재료 기준",
+          "outputPath": "practice/DJ-L04/samples/02_partial-edit-a.png",
+          "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/landscape-short.txt",
+      "sha256": "2e6dbf0156c960a45b9eeeb5968c7534b3c7d95e4601048bcfc6536f3df8b1b7",
+      "bytes": 1453,
+      "key": "landscape-short",
+      "title": "조경 추가 · 양쪽 플랜터와 열린 출입 · 실행용 원문",
+      "attachments": [
+        {
+          "file": "samples/02_partial-edit-a.png",
+          "role": "편집 대상 A·건물/카메라/재료 기준",
+          "outputPath": "practice/DJ-L04/samples/02_partial-edit-a.png",
+          "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/dusk-7step.txt",
+      "sha256": "ec3585fae61208bb38b56a61753987106841ad541ec1db56df10efca02453684",
+      "bytes": 1471,
+      "key": "dusk-7step",
+      "title": "석양·경관조명 · 같은 외관의 빛 확장 · 7단 생성 원문",
+      "attachments": [
+        {
+          "file": "samples/05_landscape-additive.png",
+          "role": "편집 대상 주간 조경안·건물/재료/식재 기준",
+          "outputPath": "practice/DJ-L04/application/samples/05_landscape-additive.png",
+          "sha256": "008958280b8a6c14e5cfb79f4a02526911e8885601687c6ff6e79fb765f6dcfd"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/dusk-short.txt",
+      "sha256": "ec3585fae61208bb38b56a61753987106841ad541ec1db56df10efca02453684",
+      "bytes": 1471,
+      "key": "dusk-short",
+      "title": "석양·경관조명 · 같은 외관의 빛 확장 · 실행용 원문",
+      "attachments": [
+        {
+          "file": "samples/05_landscape-additive.png",
+          "role": "편집 대상 주간 조경안·건물/재료/식재 기준",
+          "outputPath": "practice/DJ-L04/application/samples/05_landscape-additive.png",
+          "sha256": "008958280b8a6c14e5cfb79f4a02526911e8885601687c6ff6e79fb765f6dcfd"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/subview-7step.txt",
+      "sha256": "3ba101927b5f8254c7fafc0888a02eaab37716233e05d94f039215ffc19face6",
+      "bytes": 1556,
+      "key": "subview-7step",
+      "title": "입구 근접 서브 시점 · 재료 관계 확인 · 7단 생성 원문",
+      "attachments": [
+        {
+          "file": "samples/05_landscape-additive.png",
+          "role": "편집 대상 주간 조경안·건물/재료/식재 기준",
+          "outputPath": "practice/DJ-L04/application/samples/05_landscape-additive.png",
+          "sha256": "008958280b8a6c14e5cfb79f4a02526911e8885601687c6ff6e79fb765f6dcfd"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/subview-short.txt",
+      "sha256": "3ba101927b5f8254c7fafc0888a02eaab37716233e05d94f039215ffc19face6",
+      "bytes": 1556,
+      "key": "subview-short",
+      "title": "입구 근접 서브 시점 · 재료 관계 확인 · 실행용 원문",
+      "attachments": [
+        {
+          "file": "samples/05_landscape-additive.png",
+          "role": "편집 대상 주간 조경안·건물/재료/식재 기준",
+          "outputPath": "practice/DJ-L04/application/samples/05_landscape-additive.png",
+          "sha256": "008958280b8a6c14e5cfb79f4a02526911e8885601687c6ff6e79fb765f6dcfd"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/rough-sketch-7step.txt",
+      "sha256": "c1ae47c46897974486fd3d69d0acdb65eafc950861749776aef1cafcd299dc6a",
+      "bytes": 1164,
+      "key": "rough-sketch-7step",
+      "title": "기법 5 · 러프 선화 입력 · 7단 생성 원문",
+      "attachments": [
+        {
+          "file": "bases/01_base-building.png",
+          "role": "건물·개구부·카메라 선화 기준",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/rough-sketch-short.txt",
+      "sha256": "c1ae47c46897974486fd3d69d0acdb65eafc950861749776aef1cafcd299dc6a",
+      "bytes": 1164,
+      "key": "rough-sketch-short",
+      "title": "기법 5 · 러프 선화 입력 · 실행용 원문",
+      "attachments": [
+        {
+          "file": "bases/01_base-building.png",
+          "role": "건물·개구부·카메라 선화 기준",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/rapid-7step.txt",
+      "sha256": "7b1dbb3b0e15e154af1bfb1da0e15c1e4d06a26a96b88bf0b2d419fb4b2b4665",
+      "bytes": 1432,
+      "key": "rapid-7step",
+      "title": "스케치 → 래피드 콘셉트 · 7단 생성 원문",
+      "attachments": [
+        {
+          "file": "samples/08_exterior-rough-sketch.png",
+          "role": "편집 대상·러프 선화",
+          "outputPath": "practice/DJ-L04/application/samples/08_exterior-rough-sketch.png",
+          "sha256": "6d339b67f6d5ec8e296b1c79bf4332b97bcecf80c0dd5d585838f96bc494dae0"
+        },
+        {
+          "file": "inputs/sketch-material-reference-original.png",
+          "role": "이 스케치 분기에 실제 사용한 기존 마감 인상 참고",
+          "outputPath": "practice/DJ-L04/application/inputs/sketch-material-reference-original.png",
+          "sha256": "eb08c8ed1e16e89a1e63725bcd0ecde64c3ce6de5320a780d808d2c76af1f12d"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/rapid-short.txt",
+      "sha256": "7b1dbb3b0e15e154af1bfb1da0e15c1e4d06a26a96b88bf0b2d419fb4b2b4665",
+      "bytes": 1432,
+      "key": "rapid-short",
+      "title": "스케치 → 래피드 콘셉트 · 실행용 원문",
+      "attachments": [
+        {
+          "file": "samples/08_exterior-rough-sketch.png",
+          "role": "편집 대상·러프 선화",
+          "outputPath": "practice/DJ-L04/application/samples/08_exterior-rough-sketch.png",
+          "sha256": "6d339b67f6d5ec8e296b1c79bf4332b97bcecf80c0dd5d585838f96bc494dae0"
+        },
+        {
+          "file": "inputs/sketch-material-reference-original.png",
+          "role": "이 스케치 분기에 실제 사용한 기존 마감 인상 참고",
+          "outputPath": "practice/DJ-L04/application/inputs/sketch-material-reference-original.png",
+          "sha256": "eb08c8ed1e16e89a1e63725bcd0ecde64c3ce6de5320a780d808d2c76af1f12d"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/refined-7step.txt",
+      "sha256": "7ea846ab6f593610fd0e65d889f6bc4cd60cbfc94fe9774e5eabad2fe24563fd",
+      "bytes": 986,
+      "key": "refined-7step",
+      "title": "래피드 콘셉트 → 한 면 보완 · 7단 생성 원문",
+      "attachments": [
+        {
+          "file": "samples/09_sketch-rapid-concept.png",
+          "role": "편집 대상·스케치 기반 래피드 콘셉트",
+          "outputPath": "practice/DJ-L04/application/samples/09_sketch-rapid-concept.png",
+          "sha256": "88e8b32720f2cb0cbb677ac435162b8d6be62798cb8abef790cc87a92b0b7f38"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/refined-short.txt",
+      "sha256": "7ea846ab6f593610fd0e65d889f6bc4cd60cbfc94fe9774e5eabad2fe24563fd",
+      "bytes": 986,
+      "key": "refined-short",
+      "title": "래피드 콘셉트 → 한 면 보완 · 실행용 원문",
+      "attachments": [
+        {
+          "file": "samples/09_sketch-rapid-concept.png",
+          "role": "편집 대상·스케치 기반 래피드 콘셉트",
+          "outputPath": "practice/DJ-L04/application/samples/09_sketch-rapid-concept.png",
+          "sha256": "88e8b32720f2cb0cbb677ac435162b8d6be62798cb8abef790cc87a92b0b7f38"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "key": "surrounding-landscape-7step",
+      "file": "prompts/surrounding-landscape-7step.txt",
+      "title": "주변 조경·보행 광장 종합안 · 7단 생성 원문",
+      "attachments": [
+        {
+          "file": "samples/05_landscape-additive.png",
+          "role": "기본 플랜터 외관·편집 대상",
+          "outputPath": "practice/DJ-L04/application/samples/05_landscape-additive.png",
+          "sha256": "008958280b8a6c14e5cfb79f4a02526911e8885601687c6ff6e79fb765f6dcfd"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim",
+      "sha256": "31f82acaaa2c44b1f6c5affc515b7e93073991cec18722c29ad33e994b2aa942",
+      "bytes": 2032
+    },
+    {
+      "key": "surrounding-landscape-short",
+      "file": "prompts/surrounding-landscape-short.txt",
+      "title": "주변 조경·보행 광장 종합안 · 동일 원문으로 실행",
+      "attachments": [
+        {
+          "file": "samples/05_landscape-additive.png",
+          "role": "기본 플랜터 외관·편집 대상",
+          "outputPath": "practice/DJ-L04/application/samples/05_landscape-additive.png",
+          "sha256": "008958280b8a6c14e5cfb79f4a02526911e8885601687c6ff6e79fb765f6dcfd"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim",
+      "sha256": "31f82acaaa2c44b1f6c5affc515b7e93073991cec18722c29ad33e994b2aa942",
+      "bytes": 2032
+    },
+    {
+      "key": "human-scale-7step",
+      "file": "prompts/human-scale-7step.txt",
+      "title": "사람 추가 · 휴먼 스케일과 공간 활력 · 7단 생성 원문",
+      "attachments": [
+        {
+          "file": "samples/11_surrounding-landscape-plaza.png",
+          "role": "조경 종합안·편집 대상",
+          "outputPath": "practice/DJ-L04/application/samples/11_surrounding-landscape-plaza.png",
+          "sha256": "c59b92ac5f1b6f0319b5ee8fef8486d119deb7ed032e90e46c5cb4a221671f4c"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim",
+      "sha256": "462d7b06d8653b50d3c86a2a0c557744bf82e8d9866cda0abaa1c9baae375269",
+      "bytes": 2161
+    },
+    {
+      "key": "human-scale-short",
+      "file": "prompts/human-scale-short.txt",
+      "title": "사람 추가 · 휴먼 스케일과 공간 활력 · 동일 원문으로 실행",
+      "attachments": [
+        {
+          "file": "samples/11_surrounding-landscape-plaza.png",
+          "role": "조경 종합안·편집 대상",
+          "outputPath": "practice/DJ-L04/application/samples/11_surrounding-landscape-plaza.png",
+          "sha256": "c59b92ac5f1b6f0319b5ee8fef8486d119deb7ed032e90e46c5cb4a221671f4c"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim",
+      "sha256": "462d7b06d8653b50d3c86a2a0c557744bf82e8d9866cda0abaa1c9baae375269",
+      "bytes": 2161
+    },
+    {
+      "key": "angle-corner-7step",
+      "file": "prompts/angle-corner-7step.txt",
+      "title": "45도 코너 사선 거리 투시도 · 7단 생성 원문",
+      "attachments": [
+        {
+          "file": "samples/11_surrounding-landscape-plaza.png",
+          "role": "건물·조경·배치 및 재료 기준",
+          "outputPath": "practice/DJ-L04/application/samples/11_surrounding-landscape-plaza.png",
+          "sha256": "c59b92ac5f1b6f0319b5ee8fef8486d119deb7ed032e90e46c5cb4a221671f4c"
+        },
+        {
+          "file": "samples/12_human-scale-entourage.png",
+          "role": "사람의 비례·활동 참고",
+          "outputPath": "practice/DJ-L04/application/samples/12_human-scale-entourage.png",
+          "sha256": "78728b2eae9152f8a5ade22b3b61dda5bafc87671813072d89de7317dba9423b"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim",
+      "sha256": "dd200c552de2311c9f2d9e2c4af565b1224dd016e69dbe4fc7311a869a1d4a9e",
+      "bytes": 2047
+    },
+    {
+      "key": "angle-corner-short",
+      "file": "prompts/angle-corner-short.txt",
+      "title": "45도 코너 사선 거리 투시도 · 동일 원문으로 실행",
+      "attachments": [
+        {
+          "file": "samples/11_surrounding-landscape-plaza.png",
+          "role": "건물·조경·배치 및 재료 기준",
+          "outputPath": "practice/DJ-L04/application/samples/11_surrounding-landscape-plaza.png",
+          "sha256": "c59b92ac5f1b6f0319b5ee8fef8486d119deb7ed032e90e46c5cb4a221671f4c"
+        },
+        {
+          "file": "samples/12_human-scale-entourage.png",
+          "role": "사람의 비례·활동 참고",
+          "outputPath": "practice/DJ-L04/application/samples/12_human-scale-entourage.png",
+          "sha256": "78728b2eae9152f8a5ade22b3b61dda5bafc87671813072d89de7317dba9423b"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim",
+      "sha256": "dd200c552de2311c9f2d9e2c4af565b1224dd016e69dbe4fc7311a869a1d4a9e",
+      "bytes": 2047
+    },
+    {
+      "key": "angle-streetscape-7step",
+      "file": "prompts/angle-streetscape-7step.txt",
+      "title": "보행자 측면 조경 진입 아이레벨 뷰 · 7단 생성 원문",
+      "attachments": [
+        {
+          "file": "samples/12_human-scale-entourage.png",
+          "role": "건물·조경·배치 및 재료 기준",
+          "outputPath": "practice/DJ-L04/application/samples/12_human-scale-entourage.png",
+          "sha256": "78728b2eae9152f8a5ade22b3b61dda5bafc87671813072d89de7317dba9423b"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim",
+      "sha256": "ed77db72fe8ae27fcd4e8f2eb133ffe3b491c647611448768c0db2bcec22f1cb",
+      "bytes": 1953
+    },
+    {
+      "key": "angle-streetscape-short",
+      "file": "prompts/angle-streetscape-short.txt",
+      "title": "보행자 측면 조경 진입 아이레벨 뷰 · 동일 원문으로 실행",
+      "attachments": [
+        {
+          "file": "samples/12_human-scale-entourage.png",
+          "role": "건물·조경·배치 및 재료 기준",
+          "outputPath": "practice/DJ-L04/application/samples/12_human-scale-entourage.png",
+          "sha256": "78728b2eae9152f8a5ade22b3b61dda5bafc87671813072d89de7317dba9423b"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim",
+      "sha256": "ed77db72fe8ae27fcd4e8f2eb133ffe3b491c647611448768c0db2bcec22f1cb",
+      "bytes": 1953
+    },
+    {
+      "key": "angle-elevated-7step",
+      "file": "prompts/angle-elevated-7step.txt",
+      "title": "반조감 · 건물과 보행 광장 전체 읽기 · 7단 생성 원문",
+      "attachments": [
+        {
+          "file": "samples/11_surrounding-landscape-plaza.png",
+          "role": "건물·조경·배치 및 재료 기준",
+          "outputPath": "practice/DJ-L04/application/samples/11_surrounding-landscape-plaza.png",
+          "sha256": "c59b92ac5f1b6f0319b5ee8fef8486d119deb7ed032e90e46c5cb4a221671f4c"
+        },
+        {
+          "file": "samples/12_human-scale-entourage.png",
+          "role": "사람의 비례·활동 참고",
+          "outputPath": "practice/DJ-L04/application/samples/12_human-scale-entourage.png",
+          "sha256": "78728b2eae9152f8a5ade22b3b61dda5bafc87671813072d89de7317dba9423b"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim",
+      "sha256": "87203ddcb42727279112434c9640d98a251caf7fb55b095a11782fa0de7d96ca",
+      "bytes": 2568
+    },
+    {
+      "key": "angle-elevated-short",
+      "file": "prompts/angle-elevated-short.txt",
+      "title": "반조감 · 건물과 보행 광장 전체 읽기 · 동일 원문으로 실행",
+      "attachments": [
+        {
+          "file": "samples/11_surrounding-landscape-plaza.png",
+          "role": "건물·조경·배치 및 재료 기준",
+          "outputPath": "practice/DJ-L04/application/samples/11_surrounding-landscape-plaza.png",
+          "sha256": "c59b92ac5f1b6f0319b5ee8fef8486d119deb7ed032e90e46c5cb4a221671f4c"
+        },
+        {
+          "file": "samples/12_human-scale-entourage.png",
+          "role": "사람의 비례·활동 참고",
+          "outputPath": "practice/DJ-L04/application/samples/12_human-scale-entourage.png",
+          "sha256": "78728b2eae9152f8a5ade22b3b61dda5bafc87671813072d89de7317dba9423b"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim",
+      "sha256": "87203ddcb42727279112434c9640d98a251caf7fb55b095a11782fa0de7d96ca",
+      "bytes": 2568
+    }
+  ],
+  "other": [
+    {
+      "file": "analysis/VISUAL-REVIEW.md",
+      "sha256": "f1e3451b5fcb3b08202df6732a5424af73459bde9f91d9858ef5b501c8cd196a",
+      "bytes": 4031,
+      "key": "analysis/VISUAL-REVIEW.md",
+      "title": "analysis/VISUAL-REVIEW.md"
+    },
+    {
+      "file": "README.txt",
+      "sha256": "4168acbf04412d98d7019a0125eecd7eddc19f15fb290481393d023ba0622075",
+      "bytes": 2574,
+      "key": "README.txt",
+      "title": "README.txt"
+    },
+    {
+      "key": "sketch-reference",
+      "file": "inputs/sketch-material-reference-original.png",
+      "title": "스케치 분기의 실제 재료 인상 입력",
+      "description": "러프 콘셉트 제작 때 사용한 기존 A 입력을 보존한 참고입니다. 새 크림 외벽 A와 다른 분기입니다.",
+      "sha256": "eb08c8ed1e16e89a1e63725bcd0ecde64c3ce6de5320a780d808d2c76af1f12d",
+      "bytes": 2259466
+    },
+    {
+      "key": "advanced-guide",
+      "file": "analysis/ADVANCED-VIEWS-GUIDE.txt",
+      "title": "조경·사람·다각도 사용 안내",
+      "sha256": "e0ddd7f0e0708d9ac08645efd74c84562c60a688a4f6f4943e7f59f092d3763a",
+      "bytes": 1168
+    }
+  ],
+  "files": [
+    {
+      "file": "samples/00_site-before-cleanup.png",
+      "sha256": "ebb16fa25d7c9d9959d004078d8346e5a6688e0ea823e4fddf1ad10214b4ef55",
+      "bytes": 2312833,
+      "key": "site-before",
+      "title": "정리 전 현장 · 가상 입력",
+      "description": "펜스·적치물·콘·임시 간판을 더한 가상 Before입니다. 실제 현장 기록이 아닙니다."
+    },
+    {
+      "file": "samples/01_cleanup-result.png",
+      "sha256": "7cc5a2c8195d0b09023c184dc8afe0ebd1a30fd6007077400c23fd83c1c8b056",
+      "bytes": 2201444,
+      "key": "cleanup",
+      "title": "기법 1 · 방해물 제거",
+      "description": "현장 Before를 실제 편집한 정리 후 결과입니다. 가려진 보도·기단 복원은 생성 추정입니다."
+    },
+    {
+      "file": "samples/05_landscape-additive.png",
+      "sha256": "008958280b8a6c14e5cfb79f4a02526911e8885601687c6ff6e79fb765f6dcfd",
+      "bytes": 2274212,
+      "key": "landscape",
+      "title": "조경 추가 · 양쪽 플랜터와 열린 출입",
+      "description": "A의 양쪽 쇼윈도 앞에 크림 플랜터·관목·소형 수목·초화를 더했습니다. 중앙 출입은 열려 보이며 식재·보도 접합은 별도 검토 대상입니다."
+    },
+    {
+      "file": "samples/06_dusk-lighting.png",
+      "sha256": "d2deedb48179031c21bd122157c1bef413e848069ae102625406177886648b49",
+      "bytes": 2246910,
+      "key": "dusk",
+      "title": "석양·경관조명 · 같은 외관의 빛 확장",
+      "description": "주간 조경안의 재료와 개구부를 기준으로 블루아워·캐노피 라인 빛·실내 발광·식재 업라이트를 표현했습니다. 이웃 창의 발광과 노면 반사도 재표현됐습니다."
+    },
+    {
+      "file": "samples/07_entrance-closeup-subview.png",
+      "sha256": "27e56d9cd9f63a98a0c02d2fc65aed25a064bb664d32ad35552d5ddfbdaa4412",
+      "bytes": 2561263,
+      "key": "subview",
+      "title": "입구 근접 서브 시점 · 재료 관계 확인",
+      "description": "크림 석재·브론즈·수직 목재 포털·양쪽 플랜터가 이어집니다. 카메라 이동에 따른 깊이·문 세부·식재 크기는 생성 추정이며 모델 정합의 증거가 아닙니다."
+    },
+    {
+      "file": "samples/08_exterior-rough-sketch.png",
+      "sha256": "6d339b67f6d5ec8e296b1c79bf4332b97bcecf80c0dd5d585838f96bc494dae0",
+      "bytes": 1420716,
+      "key": "rough-sketch",
+      "title": "기법 5 · 러프 선화 입력",
+      "description": "기준 건물의 큰 형태를 참고해 새로 만든 선화입니다. 실측 입면도·기존 설계자의 원스케치가 아닙니다."
+    },
+    {
+      "file": "samples/09_sketch-rapid-concept.png",
+      "sha256": "88e8b32720f2cb0cbb677ac435162b8d6be62798cb8abef790cc87a92b0b7f38",
+      "bytes": 2621829,
+      "key": "rapid",
+      "title": "스케치 → 래피드 콘셉트",
+      "description": "보존된 선화와 당시 마감 참고로 만든 별도 스케치 분기입니다. 새 크림 외벽 A에서 생성한 이미지가 아닙니다."
+    },
+    {
+      "file": "samples/10_sketch-concept-refined.png",
+      "sha256": "0160550783465b875887e838c9b62a981a026460a8e599fe8a328426609f6f1e",
+      "bytes": 2374307,
+      "key": "refined",
+      "title": "래피드 콘셉트 → 한 면 보완",
+      "description": "캐노피 하부만 중립 마감으로 조정한 생성 결과입니다. 상층·반사·조명 표현도 함께 대조합니다."
+    },
+    {
+      "file": "prompts/site-before-7step.txt",
+      "sha256": "82c6b40edc9250b851f260b7037ce75aea32c9b6369f6c07871d93aa24a27181",
+      "bytes": 1168,
+      "key": "site-before-7step",
+      "title": "정리 전 현장 · 예시 준비 · 7단 생성 원문",
+      "attachments": [
+        {
+          "file": "bases/01_base-building.png",
+          "role": "건물 원본·가상 Before 제작 기준",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/site-before-short.txt",
+      "sha256": "82c6b40edc9250b851f260b7037ce75aea32c9b6369f6c07871d93aa24a27181",
+      "bytes": 1168,
+      "key": "site-before-short",
+      "title": "정리 전 현장 · 예시 준비 · 실행용 원문",
+      "attachments": [
+        {
+          "file": "bases/01_base-building.png",
+          "role": "건물 원본·가상 Before 제작 기준",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/cleanup-7step.txt",
+      "sha256": "db041c44de3335fb6c7af7d61bbf7dace7761ed0c649acf23272ae45f6736750",
+      "bytes": 1144,
+      "key": "cleanup-7step",
+      "title": "기법 1 · 방해물 제거 · 7단 생성 원문",
+      "attachments": [
+        {
+          "file": "samples/00_site-before-cleanup.png",
+          "role": "편집 대상·방해물이 있는 현장",
+          "outputPath": "practice/DJ-L04/application/samples/00_site-before-cleanup.png",
+          "sha256": "ebb16fa25d7c9d9959d004078d8346e5a6688e0ea823e4fddf1ad10214b4ef55"
+        },
+        {
+          "file": "bases/01_base-building.png",
+          "role": "방해물이 없던 건물 원본·고정 요소 대조",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/cleanup-short.txt",
+      "sha256": "db041c44de3335fb6c7af7d61bbf7dace7761ed0c649acf23272ae45f6736750",
+      "bytes": 1144,
+      "key": "cleanup-short",
+      "title": "기법 1 · 방해물 제거 · 실행용 원문",
+      "attachments": [
+        {
+          "file": "samples/00_site-before-cleanup.png",
+          "role": "편집 대상·방해물이 있는 현장",
+          "outputPath": "practice/DJ-L04/application/samples/00_site-before-cleanup.png",
+          "sha256": "ebb16fa25d7c9d9959d004078d8346e5a6688e0ea823e4fddf1ad10214b4ef55"
+        },
+        {
+          "file": "bases/01_base-building.png",
+          "role": "방해물이 없던 건물 원본·고정 요소 대조",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/landscape-7step.txt",
+      "sha256": "2e6dbf0156c960a45b9eeeb5968c7534b3c7d95e4601048bcfc6536f3df8b1b7",
+      "bytes": 1453,
+      "key": "landscape-7step",
+      "title": "조경 추가 · 양쪽 플랜터와 열린 출입 · 7단 생성 원문",
+      "attachments": [
+        {
+          "file": "samples/02_partial-edit-a.png",
+          "role": "편집 대상 A·건물/카메라/재료 기준",
+          "outputPath": "practice/DJ-L04/samples/02_partial-edit-a.png",
+          "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/landscape-short.txt",
+      "sha256": "2e6dbf0156c960a45b9eeeb5968c7534b3c7d95e4601048bcfc6536f3df8b1b7",
+      "bytes": 1453,
+      "key": "landscape-short",
+      "title": "조경 추가 · 양쪽 플랜터와 열린 출입 · 실행용 원문",
+      "attachments": [
+        {
+          "file": "samples/02_partial-edit-a.png",
+          "role": "편집 대상 A·건물/카메라/재료 기준",
+          "outputPath": "practice/DJ-L04/samples/02_partial-edit-a.png",
+          "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/dusk-7step.txt",
+      "sha256": "ec3585fae61208bb38b56a61753987106841ad541ec1db56df10efca02453684",
+      "bytes": 1471,
+      "key": "dusk-7step",
+      "title": "석양·경관조명 · 같은 외관의 빛 확장 · 7단 생성 원문",
+      "attachments": [
+        {
+          "file": "samples/05_landscape-additive.png",
+          "role": "편집 대상 주간 조경안·건물/재료/식재 기준",
+          "outputPath": "practice/DJ-L04/application/samples/05_landscape-additive.png",
+          "sha256": "008958280b8a6c14e5cfb79f4a02526911e8885601687c6ff6e79fb765f6dcfd"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/dusk-short.txt",
+      "sha256": "ec3585fae61208bb38b56a61753987106841ad541ec1db56df10efca02453684",
+      "bytes": 1471,
+      "key": "dusk-short",
+      "title": "석양·경관조명 · 같은 외관의 빛 확장 · 실행용 원문",
+      "attachments": [
+        {
+          "file": "samples/05_landscape-additive.png",
+          "role": "편집 대상 주간 조경안·건물/재료/식재 기준",
+          "outputPath": "practice/DJ-L04/application/samples/05_landscape-additive.png",
+          "sha256": "008958280b8a6c14e5cfb79f4a02526911e8885601687c6ff6e79fb765f6dcfd"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/subview-7step.txt",
+      "sha256": "3ba101927b5f8254c7fafc0888a02eaab37716233e05d94f039215ffc19face6",
+      "bytes": 1556,
+      "key": "subview-7step",
+      "title": "입구 근접 서브 시점 · 재료 관계 확인 · 7단 생성 원문",
+      "attachments": [
+        {
+          "file": "samples/05_landscape-additive.png",
+          "role": "편집 대상 주간 조경안·건물/재료/식재 기준",
+          "outputPath": "practice/DJ-L04/application/samples/05_landscape-additive.png",
+          "sha256": "008958280b8a6c14e5cfb79f4a02526911e8885601687c6ff6e79fb765f6dcfd"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/subview-short.txt",
+      "sha256": "3ba101927b5f8254c7fafc0888a02eaab37716233e05d94f039215ffc19face6",
+      "bytes": 1556,
+      "key": "subview-short",
+      "title": "입구 근접 서브 시점 · 재료 관계 확인 · 실행용 원문",
+      "attachments": [
+        {
+          "file": "samples/05_landscape-additive.png",
+          "role": "편집 대상 주간 조경안·건물/재료/식재 기준",
+          "outputPath": "practice/DJ-L04/application/samples/05_landscape-additive.png",
+          "sha256": "008958280b8a6c14e5cfb79f4a02526911e8885601687c6ff6e79fb765f6dcfd"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/rough-sketch-7step.txt",
+      "sha256": "c1ae47c46897974486fd3d69d0acdb65eafc950861749776aef1cafcd299dc6a",
+      "bytes": 1164,
+      "key": "rough-sketch-7step",
+      "title": "기법 5 · 러프 선화 입력 · 7단 생성 원문",
+      "attachments": [
+        {
+          "file": "bases/01_base-building.png",
+          "role": "건물·개구부·카메라 선화 기준",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/rough-sketch-short.txt",
+      "sha256": "c1ae47c46897974486fd3d69d0acdb65eafc950861749776aef1cafcd299dc6a",
+      "bytes": 1164,
+      "key": "rough-sketch-short",
+      "title": "기법 5 · 러프 선화 입력 · 실행용 원문",
+      "attachments": [
+        {
+          "file": "bases/01_base-building.png",
+          "role": "건물·개구부·카메라 선화 기준",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/rapid-7step.txt",
+      "sha256": "7b1dbb3b0e15e154af1bfb1da0e15c1e4d06a26a96b88bf0b2d419fb4b2b4665",
+      "bytes": 1432,
+      "key": "rapid-7step",
+      "title": "스케치 → 래피드 콘셉트 · 7단 생성 원문",
+      "attachments": [
+        {
+          "file": "samples/08_exterior-rough-sketch.png",
+          "role": "편집 대상·러프 선화",
+          "outputPath": "practice/DJ-L04/application/samples/08_exterior-rough-sketch.png",
+          "sha256": "6d339b67f6d5ec8e296b1c79bf4332b97bcecf80c0dd5d585838f96bc494dae0"
+        },
+        {
+          "file": "inputs/sketch-material-reference-original.png",
+          "role": "이 스케치 분기에 실제 사용한 기존 마감 인상 참고",
+          "outputPath": "practice/DJ-L04/application/inputs/sketch-material-reference-original.png",
+          "sha256": "eb08c8ed1e16e89a1e63725bcd0ecde64c3ce6de5320a780d808d2c76af1f12d"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/rapid-short.txt",
+      "sha256": "7b1dbb3b0e15e154af1bfb1da0e15c1e4d06a26a96b88bf0b2d419fb4b2b4665",
+      "bytes": 1432,
+      "key": "rapid-short",
+      "title": "스케치 → 래피드 콘셉트 · 실행용 원문",
+      "attachments": [
+        {
+          "file": "samples/08_exterior-rough-sketch.png",
+          "role": "편집 대상·러프 선화",
+          "outputPath": "practice/DJ-L04/application/samples/08_exterior-rough-sketch.png",
+          "sha256": "6d339b67f6d5ec8e296b1c79bf4332b97bcecf80c0dd5d585838f96bc494dae0"
+        },
+        {
+          "file": "inputs/sketch-material-reference-original.png",
+          "role": "이 스케치 분기에 실제 사용한 기존 마감 인상 참고",
+          "outputPath": "practice/DJ-L04/application/inputs/sketch-material-reference-original.png",
+          "sha256": "eb08c8ed1e16e89a1e63725bcd0ecde64c3ce6de5320a780d808d2c76af1f12d"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/refined-7step.txt",
+      "sha256": "7ea846ab6f593610fd0e65d889f6bc4cd60cbfc94fe9774e5eabad2fe24563fd",
+      "bytes": 986,
+      "key": "refined-7step",
+      "title": "래피드 콘셉트 → 한 면 보완 · 7단 생성 원문",
+      "attachments": [
+        {
+          "file": "samples/09_sketch-rapid-concept.png",
+          "role": "편집 대상·스케치 기반 래피드 콘셉트",
+          "outputPath": "practice/DJ-L04/application/samples/09_sketch-rapid-concept.png",
+          "sha256": "88e8b32720f2cb0cbb677ac435162b8d6be62798cb8abef790cc87a92b0b7f38"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "prompts/refined-short.txt",
+      "sha256": "7ea846ab6f593610fd0e65d889f6bc4cd60cbfc94fe9774e5eabad2fe24563fd",
+      "bytes": 986,
+      "key": "refined-short",
+      "title": "래피드 콘셉트 → 한 면 보완 · 실행용 원문",
+      "attachments": [
+        {
+          "file": "samples/09_sketch-rapid-concept.png",
+          "role": "편집 대상·스케치 기반 래피드 콘셉트",
+          "outputPath": "practice/DJ-L04/application/samples/09_sketch-rapid-concept.png",
+          "sha256": "88e8b32720f2cb0cbb677ac435162b8d6be62798cb8abef790cc87a92b0b7f38"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim"
+    },
+    {
+      "file": "analysis/VISUAL-REVIEW.md",
+      "sha256": "f1e3451b5fcb3b08202df6732a5424af73459bde9f91d9858ef5b501c8cd196a",
+      "bytes": 4031,
+      "key": "analysis/VISUAL-REVIEW.md",
+      "title": "analysis/VISUAL-REVIEW.md"
+    },
+    {
+      "file": "README.txt",
+      "sha256": "4168acbf04412d98d7019a0125eecd7eddc19f15fb290481393d023ba0622075",
+      "bytes": 2574,
+      "key": "README.txt",
+      "title": "README.txt"
+    },
+    {
+      "file": "inputs/sketch-material-reference-original.png",
+      "sha256": "eb08c8ed1e16e89a1e63725bcd0ecde64c3ce6de5320a780d808d2c76af1f12d",
+      "bytes": 2259466,
+      "key": "sketch-reference",
+      "title": "스케치 분기의 실제 재료 인상 입력",
+      "description": "러프 콘셉트 제작 때 사용한 기존 A 입력을 보존한 참고입니다. 새 크림 외벽 A와 다른 분기입니다."
+    },
+    {
+      "key": "surrounding-landscape",
+      "file": "samples/11_surrounding-landscape-plaza.png",
+      "title": "주변 조경·보행 광장 종합안",
+      "description": "기존 플랜터에 좌우 교목·다층 정원·따뜻한 판석 보도·벤치·볼라드를 더했습니다. 정면 건물의 큰 관계는 유지돼 보이며 실제 가용 대지·보행 폭은 미확정입니다.",
+      "sha256": "c59b92ac5f1b6f0319b5ee8fef8486d119deb7ed032e90e46c5cb4a221671f4c",
+      "bytes": 2654632,
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "key": "human-scale",
+      "file": "samples/12_human-scale-entourage.png",
+      "title": "사람 추가 · 휴먼 스케일과 공간 활력",
+      "description": "같은 정면 조경안에 외부 이용객 6명과 쇼윈도 안 실루엣을 더했습니다. 인물의 비례·접지·가림과 건물·조경의 재표현을 함께 대조합니다.",
+      "sha256": "78728b2eae9152f8a5ade22b3b61dda5bafc87671813072d89de7317dba9423b",
+      "bytes": 2588772,
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "key": "angle-corner",
+      "file": "samples/13_angle-corner-perspective.png",
+      "title": "45도 코너 사선 거리 투시도",
+      "description": "크림 외벽·브론즈 띠·월넛 포털을 코너 사선으로 읽습니다. 수관에 가려진 창, 새 측벽 깊이·줄눈·원경 조경은 정밀 검증할 수 없는 생성 추정입니다.",
+      "sha256": "d9fb582c0a9ca6a669c3044b78e4aa6979c0ca89897cd6f6c9fec65c3901a4ec",
+      "bytes": 2908995,
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "key": "angle-streetscape",
+      "file": "samples/14_angle-pedestrian-streetscape.png",
+      "title": "보행자 측면 조경 진입 아이레벨 뷰",
+      "description": "전경의 나무·벤치 이용객과 중앙 포털로 향하는 방문 장면을 눈높이에서 읽습니다. 화면 밖 창 전체, 포털 깊이·가구/인물 간격은 원본과 완전히 일치한다고 확정하지 않습니다.",
+      "sha256": "e5fe119b723c0889fb5707d6d90fd85eb963a92da02d0f618dd860bbc7d8e00f",
+      "bytes": 3030039,
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "key": "angle-elevated",
+      "file": "samples/15_angle-elevated-overview.png",
+      "title": "반조감 · 건물과 보행 광장 전체 읽기",
+      "description": "전체 지붕 경계와 정면 창 배열, 조경·벤치·보행 관계를 반조감으로 읽습니다. 지붕 깊이·표면·뒤쪽 원경과 노면 표현은 추정이며 실제 카메라 높이나 대지 치수의 증거가 아닙니다.",
+      "sha256": "0e4a56da5c2e5dafe3bc4d5169c5d3ab3b7628ef147556e7af3f12451a23f6ef",
+      "bytes": 3308089,
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "key": "surrounding-landscape-7step",
+      "file": "prompts/surrounding-landscape-7step.txt",
+      "title": "주변 조경·보행 광장 종합안 · 7단 생성 원문",
+      "attachments": [
+        {
+          "file": "samples/05_landscape-additive.png",
+          "role": "기본 플랜터 외관·편집 대상",
+          "outputPath": "practice/DJ-L04/application/samples/05_landscape-additive.png",
+          "sha256": "008958280b8a6c14e5cfb79f4a02526911e8885601687c6ff6e79fb765f6dcfd"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim",
+      "sha256": "31f82acaaa2c44b1f6c5affc515b7e93073991cec18722c29ad33e994b2aa942",
+      "bytes": 2032
+    },
+    {
+      "key": "surrounding-landscape-short",
+      "file": "prompts/surrounding-landscape-short.txt",
+      "title": "주변 조경·보행 광장 종합안 · 동일 원문으로 실행",
+      "attachments": [
+        {
+          "file": "samples/05_landscape-additive.png",
+          "role": "기본 플랜터 외관·편집 대상",
+          "outputPath": "practice/DJ-L04/application/samples/05_landscape-additive.png",
+          "sha256": "008958280b8a6c14e5cfb79f4a02526911e8885601687c6ff6e79fb765f6dcfd"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim",
+      "sha256": "31f82acaaa2c44b1f6c5affc515b7e93073991cec18722c29ad33e994b2aa942",
+      "bytes": 2032
+    },
+    {
+      "key": "human-scale-7step",
+      "file": "prompts/human-scale-7step.txt",
+      "title": "사람 추가 · 휴먼 스케일과 공간 활력 · 7단 생성 원문",
+      "attachments": [
+        {
+          "file": "samples/11_surrounding-landscape-plaza.png",
+          "role": "조경 종합안·편집 대상",
+          "outputPath": "practice/DJ-L04/application/samples/11_surrounding-landscape-plaza.png",
+          "sha256": "c59b92ac5f1b6f0319b5ee8fef8486d119deb7ed032e90e46c5cb4a221671f4c"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim",
+      "sha256": "462d7b06d8653b50d3c86a2a0c557744bf82e8d9866cda0abaa1c9baae375269",
+      "bytes": 2161
+    },
+    {
+      "key": "human-scale-short",
+      "file": "prompts/human-scale-short.txt",
+      "title": "사람 추가 · 휴먼 스케일과 공간 활력 · 동일 원문으로 실행",
+      "attachments": [
+        {
+          "file": "samples/11_surrounding-landscape-plaza.png",
+          "role": "조경 종합안·편집 대상",
+          "outputPath": "practice/DJ-L04/application/samples/11_surrounding-landscape-plaza.png",
+          "sha256": "c59b92ac5f1b6f0319b5ee8fef8486d119deb7ed032e90e46c5cb4a221671f4c"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim",
+      "sha256": "462d7b06d8653b50d3c86a2a0c557744bf82e8d9866cda0abaa1c9baae375269",
+      "bytes": 2161
+    },
+    {
+      "key": "angle-corner-7step",
+      "file": "prompts/angle-corner-7step.txt",
+      "title": "45도 코너 사선 거리 투시도 · 7단 생성 원문",
+      "attachments": [
+        {
+          "file": "samples/11_surrounding-landscape-plaza.png",
+          "role": "건물·조경·배치 및 재료 기준",
+          "outputPath": "practice/DJ-L04/application/samples/11_surrounding-landscape-plaza.png",
+          "sha256": "c59b92ac5f1b6f0319b5ee8fef8486d119deb7ed032e90e46c5cb4a221671f4c"
+        },
+        {
+          "file": "samples/12_human-scale-entourage.png",
+          "role": "사람의 비례·활동 참고",
+          "outputPath": "practice/DJ-L04/application/samples/12_human-scale-entourage.png",
+          "sha256": "78728b2eae9152f8a5ade22b3b61dda5bafc87671813072d89de7317dba9423b"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim",
+      "sha256": "dd200c552de2311c9f2d9e2c4af565b1224dd016e69dbe4fc7311a869a1d4a9e",
+      "bytes": 2047
+    },
+    {
+      "key": "angle-corner-short",
+      "file": "prompts/angle-corner-short.txt",
+      "title": "45도 코너 사선 거리 투시도 · 동일 원문으로 실행",
+      "attachments": [
+        {
+          "file": "samples/11_surrounding-landscape-plaza.png",
+          "role": "건물·조경·배치 및 재료 기준",
+          "outputPath": "practice/DJ-L04/application/samples/11_surrounding-landscape-plaza.png",
+          "sha256": "c59b92ac5f1b6f0319b5ee8fef8486d119deb7ed032e90e46c5cb4a221671f4c"
+        },
+        {
+          "file": "samples/12_human-scale-entourage.png",
+          "role": "사람의 비례·활동 참고",
+          "outputPath": "practice/DJ-L04/application/samples/12_human-scale-entourage.png",
+          "sha256": "78728b2eae9152f8a5ade22b3b61dda5bafc87671813072d89de7317dba9423b"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim",
+      "sha256": "dd200c552de2311c9f2d9e2c4af565b1224dd016e69dbe4fc7311a869a1d4a9e",
+      "bytes": 2047
+    },
+    {
+      "key": "angle-streetscape-7step",
+      "file": "prompts/angle-streetscape-7step.txt",
+      "title": "보행자 측면 조경 진입 아이레벨 뷰 · 7단 생성 원문",
+      "attachments": [
+        {
+          "file": "samples/12_human-scale-entourage.png",
+          "role": "건물·조경·배치 및 재료 기준",
+          "outputPath": "practice/DJ-L04/application/samples/12_human-scale-entourage.png",
+          "sha256": "78728b2eae9152f8a5ade22b3b61dda5bafc87671813072d89de7317dba9423b"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim",
+      "sha256": "ed77db72fe8ae27fcd4e8f2eb133ffe3b491c647611448768c0db2bcec22f1cb",
+      "bytes": 1953
+    },
+    {
+      "key": "angle-streetscape-short",
+      "file": "prompts/angle-streetscape-short.txt",
+      "title": "보행자 측면 조경 진입 아이레벨 뷰 · 동일 원문으로 실행",
+      "attachments": [
+        {
+          "file": "samples/12_human-scale-entourage.png",
+          "role": "건물·조경·배치 및 재료 기준",
+          "outputPath": "practice/DJ-L04/application/samples/12_human-scale-entourage.png",
+          "sha256": "78728b2eae9152f8a5ade22b3b61dda5bafc87671813072d89de7317dba9423b"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim",
+      "sha256": "ed77db72fe8ae27fcd4e8f2eb133ffe3b491c647611448768c0db2bcec22f1cb",
+      "bytes": 1953
+    },
+    {
+      "key": "angle-elevated-7step",
+      "file": "prompts/angle-elevated-7step.txt",
+      "title": "반조감 · 건물과 보행 광장 전체 읽기 · 7단 생성 원문",
+      "attachments": [
+        {
+          "file": "samples/11_surrounding-landscape-plaza.png",
+          "role": "건물·조경·배치 및 재료 기준",
+          "outputPath": "practice/DJ-L04/application/samples/11_surrounding-landscape-plaza.png",
+          "sha256": "c59b92ac5f1b6f0319b5ee8fef8486d119deb7ed032e90e46c5cb4a221671f4c"
+        },
+        {
+          "file": "samples/12_human-scale-entourage.png",
+          "role": "사람의 비례·활동 참고",
+          "outputPath": "practice/DJ-L04/application/samples/12_human-scale-entourage.png",
+          "sha256": "78728b2eae9152f8a5ade22b3b61dda5bafc87671813072d89de7317dba9423b"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim",
+      "sha256": "87203ddcb42727279112434c9640d98a251caf7fb55b095a11782fa0de7d96ca",
+      "bytes": 2568
+    },
+    {
+      "key": "angle-elevated-short",
+      "file": "prompts/angle-elevated-short.txt",
+      "title": "반조감 · 건물과 보행 광장 전체 읽기 · 동일 원문으로 실행",
+      "attachments": [
+        {
+          "file": "samples/11_surrounding-landscape-plaza.png",
+          "role": "건물·조경·배치 및 재료 기준",
+          "outputPath": "practice/DJ-L04/application/samples/11_surrounding-landscape-plaza.png",
+          "sha256": "c59b92ac5f1b6f0319b5ee8fef8486d119deb7ed032e90e46c5cb4a221671f4c"
+        },
+        {
+          "file": "samples/12_human-scale-entourage.png",
+          "role": "사람의 비례·활동 참고",
+          "outputPath": "practice/DJ-L04/application/samples/12_human-scale-entourage.png",
+          "sha256": "78728b2eae9152f8a5ade22b3b61dda5bafc87671813072d89de7317dba9423b"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim",
+      "sha256": "87203ddcb42727279112434c9640d98a251caf7fb55b095a11782fa0de7d96ca",
+      "bytes": 2568
+    },
+    {
+      "key": "advanced-guide",
+      "file": "analysis/ADVANCED-VIEWS-GUIDE.txt",
+      "title": "조경·사람·다각도 사용 안내",
+      "sha256": "e0ddd7f0e0708d9ac08645efd74c84562c60a688a4f6f4943e7f59f092d3763a",
+      "bytes": 1168
+    }
+  ],
+  "revision": "04",
+  "imageCount": 13,
+  "comparisonCount": 14,
+  "downloadZip": "DJ-L04-exterior-applications.zip"
+}

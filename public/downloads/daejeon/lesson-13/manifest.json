@@ -1,0 +1,60 @@
+{
+  "lesson": "13",
+  "localOnly": true,
+  "status": "design-pending",
+  "reviewStatus": "instructor-review",
+  "selfCreatedHouseOnly": true,
+  "externalHwangInsuDrawingsIncluded": false,
+  "files": [
+    {
+      "outputPath": "downloads/daejeon/lesson-13/프롬프트06_왜곡검수_프로젝트결과보고서.txt",
+      "bytes": 1470,
+      "sha256": "b2c5a700e7fc6f63c4032d98ea86849886f8edfc640dd18d4106bc11c338448e"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-13/프롬프트_시안_의사결정_기록표.csv",
+      "bytes": 739,
+      "sha256": "e407e21dd7d1802fa7e8b2635b81653b2597eb014c2d0655865a0d84a7c208b8"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-13/모던3층단독주택_프로젝트결과보고서_예시.md",
+      "bytes": 4673,
+      "sha256": "dae9eacb8c0bf530dcdcdd092e159688bc9a0ed0283ea1ac817026c6b9ea102b"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-13/프로젝트결과보고서_작성양식_템플릿.md",
+      "bytes": 1263,
+      "sha256": "52ff9349caa019c0b4e10f95dd04f21fb2de7781c360ab79b85d2ec843d6f598"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-13/모던3층단독주택_프로젝트결과보고서_예시.pdf",
+      "bytes": 115485,
+      "sha256": "f1e7e9aff64c61f691f24eece294dca398794c816f4843fa1685c86a42ae0da9"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-13/이미지생성_실제프롬프트와_검수기록.md",
+      "bytes": 9928,
+      "sha256": "18c2a842559c5792f5aac1ea1bcbc2b471590a80d938d459888425bea9d4b8c4"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-13/원본출처_파일명_SHA256.json",
+      "bytes": 30518,
+      "sha256": "321a26b2decdc05045e37e85d03d320253f98353c91cf6957f3f8a63cc80d873"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-13/통합패키지_먼저읽기.txt",
+      "bytes": 1650,
+      "sha256": "701349bf368020513a9ff19523f71dde30545cfc9cc1fee68c707c444cf37680"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-13/통합패키지_파일해시_SHA256.txt",
+      "bytes": 8111,
+      "sha256": "7ffb8841c2dad183d0316def7f5d28a64081f23beb194ddc698b26abc36543d7"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-13/제11_13차시_포트폴리오_PPT_결과보고서_통합패키지.zip",
+      "bytes": 79301127,
+      "sha256": "c323c3e0c26d3f8ecb9770bfc344151a7a5164bb5a1d53502f5c3052146712fb"
+    }
+  ]
+}

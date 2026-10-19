@@ -1,0 +1,58 @@
+---
+import data from '../content/lesson111213.json';
+import assets from '../content/lesson111213-assets.json';
+import TopicProgress from './TopicProgress.astro';
+import ReviewSection from './ReviewSection.astro';
+import PortfolioPrompt from './PortfolioPrompt.astro';
+import PortfolioAsset from './PortfolioAsset.astro';
+import PortfolioKeywords from './PortfolioKeywords.astro';
+import type {PromptPlatformGuide} from '../content/prompt-platform-guides';
+interface Block {type:string;items?:string[];head?:string[];rows?:string[][];title?:string;body?:string;number?:number;group?:string;}
+interface Section {id:string;title:string;index:number;minutes:number;part:number;action:string;why:string;next:string;blocks:Block[];}
+interface Lesson {id:string;flow:string[];parts:string[];sections:Section[];}
+interface Props {lessonId:'11'|'12'|'13';}
+const {lessonId}=Astro.props;
+const lesson=(data.lessons as Record<string,Lesson>)[lessonId];
+const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const url=(p:string)=>base+'/'+p.split('/').map(encodeURIComponent).join('/');
+const getAssets=(group:string)=>assets.filter(a=>a.group===group);
+const prompt=(n:number)=>data.prompts.find(p=>p.number===n)!;
+const pAsset=(n:number)=>assets.find(a=>a.filename===prompt(n).filename)!;
+const houseLinks=[['DJ-L09-House-3F-Drawings.zip','주택 도면 PNG 6종'],['DJ-L09-House-3F-Models.zip','주택 FBX·GLB 모델'],['house-design.json','주택 치수·레벨 입력값']];
+const folders=['01_포트폴리오_보드','02_PPT_발표슬라이드','03_프로젝트_결과보고서','04_도면_3D_원본자산','05_법규검토_프롬프트로그'];
+const legacyText="선행 제작 사례에서는 큰 투시도와 작은 도면·재료·공간 관계도를 그리드로 연결하는 방식을 봅니다. 자신의 프로젝트에서는 정확한 도면과 렌더로 이미지를 교체하고 제목·방 이름·수치·표는 PowerPoint에서 별도 편집합니다. AI가 만든 글자와 도면은 원자료와 대조해 고칩니다.";
+---
+<div class="portfolio-lesson" data-portfolio-lesson={lessonId}>
+ <section class="portfolio-core" aria-label="오늘의 핵심 흐름"><h2>오늘의 핵심 흐름</h2><ol>{lesson.flow.map((item,i)=><li><span>{i+1}단계</span><strong>{item}</strong></li>)}</ol></section>
+ <TopicProgress lesson={lessonId} items={[{topic:7,status:lessonId==='11'?'시작':lessonId==='12'?'계속':'완결',note:'포트폴리오·발표 제안서·결과보고서를 연결하고 사람이 최종 판단합니다.'}]} />
+ <aside class="portfolio-boundary">기본 수업 150분 · 50분 × 3교시 (쉬는 시간·운영 별도){lessonId!=='11'&&' · 선택 심화 50분은 기본 수업 밖에서 별도로 진행합니다.'}</aside>
+ {lesson.parts.map((part,pi)=><section class="portfolio-part" id={'l'+lessonId+'-part-'+(pi+1)} data-portfolio-part={pi+1}>
+  <header class="part-head"><p>Part {pi+1} · 50분</p><h2>{part}</h2></header>
+  {lesson.sections.filter(s=>s.part===pi+1).map(s=><ReviewSection id={s.id} title={s.title} index={s.index} minutes={s.minutes} tag={'제'+Number(lessonId)+'차시 · '+s.minutes+'분'}>
+   <dl class="portfolio-action"><div><dt>지금 할 일</dt><dd>{s.action}</dd></div><div><dt>왜 하는가</dt><dd>{s.why}</dd></div><div><dt>다음에 사용할 것</dt><dd>{s.next}</dd></div></dl>
+   {s.blocks.map((b,bi)=><>
+    {b.type==='text'&&b.items?.map(p=><p>{p}</p>)}
+    {b.type==='list'&&<ul>{b.items?.map(p=><li>{p}</li>)}</ul>}
+    {b.type==='steps'&&<ol class="portfolio-steps">{b.items?.map(p=><li>{p}</li>)}</ol>}
+    {b.type==='table'&&<div class="portfolio-table"><table><thead><tr>{b.head?.map(v=><th scope="col">{v}</th>)}</tr></thead><tbody>{b.rows?.map(row=><tr>{row.map((v,i)=><td data-label={b.head?.[i]}>{v}</td>)}</tr>)}</tbody></table></div>}
+    {b.type==='note'&&<aside class="portfolio-note"><strong>{b.title}</strong><p>{b.body}</p></aside>}
+    {b.type==='prompt'&&b.number&&<PortfolioPrompt id={prompt(b.number).id} title={'프롬프트 '+String(b.number).padStart(2,'0')+' · '+prompt(b.number).title} prompt={prompt(b.number).prompt} filename={prompt(b.number).filename} href={enabled?url(pAsset(b.number).outputPath):undefined} guide={prompt(b.number).guide as PromptPlatformGuide & {purpose:string;variables:string}} />}
+    {b.type==='gallery'&&<div class:list={['portfolio-gallery',{'portfolio-gallery--wide':!['slides','daydusk','materials','isometrics'].includes(b.group||'')}]}>{getAssets(b.group||'').map((a,i)=><PortfolioAsset asset={a} instance={s.id+'-'+bi+'-'+i}/>)}</div>}
+    {b.type==='keywords'&&<PortfolioKeywords/>}
+    {b.type==='walkthrough'&&enabled&&<aside class="portfolio-note"><strong>실제 주택 B안 브라우저 워크스루</strong><p><a href={url('downloads/daejeon/lesson-09/House_B_Walkthrough.html')} target="_blank" rel="noopener">House_B_Walkthrough.html · 같은 주택 B안 프리뷰 열기</a></p><p><a href={url('downloads/daejeon/lesson-09/House_B_Walkthrough_README.txt')} download="House_B_Walkthrough_README.txt">House_B_Walkthrough_README.txt · 조작·검수 범위 안내 다운로드</a></p><p>통합 ZIP에도 원본 HTML·안내문을 포함했습니다. 브라우저에서 재생하며, 고화질 렌더 MP4·Blender 애니메이션 저장본은 아닙니다.</p></aside>}
+    {b.type==='houseDownloads'&&<ul class="portfolio-downloads">{houseLinks.map(([f,t])=><li>{enabled?<a href={url('downloads/daejeon/lesson-09/'+f)} download={f}>{t} · {f} 다운로드</a>:<span>{t} · 로컬 검수에서 제공</span>}</li>)}</ul>}
+    {['storyboardDownload','pptDownloads','reportDownloads','decisionDownload','packageDownload','allVisualDownloads'].includes(b.type)&&<ul class="portfolio-downloads">{assets.filter(a=>a.group===b.type||(b.type==='allVisualDownloads'&&['pptDownloads','cover','intro','overview','verification'].includes(a.group))).map(a=><li>{enabled?<a href={url(a.outputPath)} download={a.filename}>{a.filename} 다운로드</a>:<span>{a.title} · 로컬 검수에서 제공</span>}<small>{a.caption}</small></li>)}</ul>}
+    {b.type==='packageTree'&&<ol class="portfolio-folders">{folders.map((f,i)=><li><strong>{f}</strong><p>{['보드 PNG·무드보드·실사 입체·로고·재료 참조','편집 원본 PPTX·PDF·슬라이드 PNG','완성 예시·빈 양식','주택 도면·재료 참조·제9차시 3D 원본 다운로드 안내','프롬프트·의사결정·원본 출처·SHA-256'][i]}</p></li>)}</ol>}
+    {b.type==='legacy'&&<details class="portfolio-legacy"><summary>선행 제작 사례 · AI 기반 건축 포트폴리오 표지·내지 레이아웃 예시</summary><p>{legacyText}</p><div class="portfolio-gallery">{getAssets('legacy').map((a,i)=><PortfolioAsset asset={a} instance={'legacy-'+i}/>)}</div><details><summary>표지 레이아웃 10종 더 보기</summary><div class="portfolio-gallery">{getAssets('legacyCover').map((a,i)=><PortfolioAsset asset={a} instance={'legacy-cover-'+i}/>)}</div></details>{getAssets('legacyPrompt').map(a=>enabled&&<p><a href={url(a.outputPath)} download={a.filename}>{a.filename} 다운로드 · 참고용 원문</a></p>)}</details>}
+   </>)}
+  </ReviewSection>)}
+ </section>)}
+ <aside class="portfolio-note"><strong>다음 단계</strong><p>{lessonId==='11'?'제12차시에서 보드와 PPT를 제작합니다.':lessonId==='12'?'제13차시에서 결과보고서와 최종 제출 패키지를 완성합니다.':'원도면 대조와 전문가·건축주 최종 확인을 거쳐 실무 적용 범위를 결정합니다.'}</p></aside>
+</div>
+<style>
+ .portfolio-lesson{min-width:0;max-width:100%;overflow-wrap:anywhere}.portfolio-core{padding:1.2rem;background:var(--paper-deep);margin-bottom:1.5rem}.portfolio-core h2{font-size:1.1rem;margin-top:0}.portfolio-core ol{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;list-style:none;padding:0}.portfolio-core li{border-top:3px solid var(--accent-dark);padding-top:.7rem;min-width:0}.portfolio-core span{display:block;color:var(--muted);font-size:.8rem;margin-bottom:.4rem}.portfolio-boundary{font-size:.85rem;color:var(--muted);padding:1rem 0}.part-head{padding:1.3rem 0;margin-top:2.5rem;border-top:3px solid var(--accent-dark)}.part-head p{margin:0;color:var(--accent-dark);font-size:.9rem}.part-head h2{font-size:1.55rem;margin:.5rem 0}.portfolio-action{padding:1rem;background:var(--surface);border:1px solid var(--line);font-size:.88rem}.portfolio-action div{display:grid;grid-template-columns:8rem minmax(0,1fr);gap:.5rem}.portfolio-action div+div{margin-top:.5rem}.portfolio-action dt{font-weight:700}.portfolio-action dd{margin:0}.portfolio-note{margin:1rem 0;padding:1rem;border-left:3px solid var(--accent-dark);background:var(--paper-deep)}.portfolio-note p{margin:.4rem 0 0}.portfolio-table{min-width:0;margin:1rem 0}table{width:100%;border-collapse:collapse;font-size:.88rem;table-layout:fixed}th,td{text-align:left;vertical-align:top;padding:.7rem;border:1px solid var(--line);overflow-wrap:anywhere}th{background:var(--paper-deep)}.portfolio-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1rem 0}.portfolio-gallery--wide{grid-template-columns:minmax(0,1fr)}.portfolio-steps{display:flex;gap:.7rem;flex-wrap:wrap;padding:0;list-style:none}.portfolio-steps li{flex:1 1 12rem;border-top:2px solid var(--accent-dark);padding:.7rem 0}.portfolio-downloads{padding-left:1.2rem}.portfolio-downloads li{margin:.8rem 0}.portfolio-downloads small{display:block;color:var(--muted)}.portfolio-legacy{padding:1rem;border:1px solid var(--line);font-size:.9rem}.portfolio-legacy summary{cursor:pointer;font-weight:700}.portfolio-folders{list-style:none;padding:0}.portfolio-folders li{border-bottom:1px solid var(--line);padding:.7rem 0}.portfolio-folders p{margin:.3rem 0}.portfolio-core,.portfolio-part{scroll-margin-top:1rem}a,button{overflow-wrap:anywhere}summary:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+ @media(max-width:900px){.portfolio-core ol{grid-template-columns:repeat(2,minmax(0,1fr))}.portfolio-gallery{grid-template-columns:minmax(0,1fr)}}
+ @media(max-width:600px){.portfolio-core ol{grid-template-columns:minmax(0,1fr)}.portfolio-action div{grid-template-columns:minmax(0,1fr);gap:.2rem}table,tbody,tr,td{display:block;width:auto}thead{display:none}tr{margin-bottom:1rem;border:1px solid var(--line)}td{border:0;border-bottom:1px solid var(--line)}td::before{content:attr(data-label);display:block;font-weight:700;color:var(--accent-dark);font-size:.8rem;margin-bottom:.3rem}.part-head h2{font-size:1.25rem}}
+ @media print{.portfolio-core ol{grid-template-columns:repeat(4,minmax(0,1fr))}.portfolio-legacy:not([open]){break-inside:avoid}table{break-inside:avoid}}
+</style>

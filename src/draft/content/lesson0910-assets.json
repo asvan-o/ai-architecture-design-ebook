@@ -1,0 +1,481 @@
+[
+  {
+    "key": "house_astra_1f_top",
+    "lesson": "09",
+    "title": "Codex (Astra) · 1층 · 위에서 본 가구 배치",
+    "description": "1층만 켠 위쪽 화면입니다. 거실·식당·주방·생활 가구와 계단을 확인합니다.",
+    "outputPath": "images/daejeon/lesson-09/house_astra_1f_top.png",
+    "width": 1920,
+    "height": 1200,
+    "kind": "render"
+  },
+  {
+    "key": "house_astra_1f_iso",
+    "lesson": "09",
+    "title": "Codex (Astra) · 1층 · 벽을 가려 본 실내와 가구",
+    "description": "앞쪽 외벽만 잠시 숨긴 화면입니다. 원본 모델에는 외벽·창·문이 남아 있습니다.",
+    "outputPath": "images/daejeon/lesson-09/house_astra_1f_iso.png",
+    "width": 1920,
+    "height": 1200,
+    "kind": "render"
+  },
+  {
+    "key": "house_astra_1f_eye",
+    "lesson": "09",
+    "title": "Codex (Astra) · 1층 · 사람 눈높이의 거실·주방",
+    "description": "실제 Blender 카메라 렌더입니다. 가구 높이·창과 공간의 관계를 확인합니다.",
+    "outputPath": "images/daejeon/lesson-09/house_astra_1f_eye.png",
+    "width": 1920,
+    "height": 1200,
+    "kind": "render"
+  },
+  {
+    "key": "house_astra_2f_top",
+    "lesson": "09",
+    "title": "Codex (Astra) · 2층 · 침실·가족실·욕실·발코니",
+    "description": "침대·협탁·책상·욕실·발코니 가구와 계단 구멍을 위에서 확인합니다.",
+    "outputPath": "images/daejeon/lesson-09/house_astra_2f_top.png",
+    "width": 1920,
+    "height": 1200,
+    "kind": "render"
+  },
+  {
+    "key": "house_astra_2f_iso",
+    "lesson": "09",
+    "title": "Codex (Astra) · 2층 · 방과 가구의 사선 보기",
+    "description": "2층 앞쪽 외벽만 잠시 숨긴 검토 화면입니다. 모든 벽은 원본 파일에 있습니다.",
+    "outputPath": "images/daejeon/lesson-09/house_astra_2f_iso.png",
+    "width": 1920,
+    "height": 1200,
+    "kind": "render"
+  },
+  {
+    "key": "house_astra_3f_hero",
+    "lesson": "09",
+    "title": "Codex (Astra) · 3층 주택 · 전체 외관",
+    "description": "실내 가구·발코니·루프탑 데크·식물을 포함한 전체 모델입니다.",
+    "outputPath": "images/daejeon/lesson-09/house_astra_3f_hero.png",
+    "width": 1920,
+    "height": 1200,
+    "kind": "render"
+  },
+  {
+    "key": "house_astra_3f_iso",
+    "lesson": "09",
+    "title": "Codex (Astra) · 3층 주택 · 전체 사선 보기",
+    "description": "집의 옆·앞·지붕과 열린 서측 테라스를 함께 확인합니다.",
+    "outputPath": "images/daejeon/lesson-09/house_astra_3f_iso.png",
+    "width": 1920,
+    "height": 1200,
+    "kind": "render"
+  },
+  {
+    "key": "house_astra_3f_rooftop",
+    "lesson": "09",
+    "title": "Codex (Astra) · 3층 · 라운지와 옥상 가구",
+    "description": "실내 지붕과 상부 낮은 벽만 잠시 숨긴 화면입니다. 내보낸 파일에는 모두 포함됩니다.",
+    "outputPath": "images/daejeon/lesson-09/house_astra_3f_rooftop.png",
+    "width": 1920,
+    "height": 1200,
+    "kind": "render"
+  },
+  {
+    "key": "house_argon_1f_top",
+    "lesson": "09",
+    "title": "Argon (Antigravity) · 1층 · 위에서 본 가구 배치",
+    "description": "Codex (Astra)와 같은 위쪽 카메라로 본 1층입니다. 벽·문·창·계단과 가구 위치를 먼저 맞춰 보고 색과 세부 표현을 비교합니다.",
+    "outputPath": "images/daejeon/lesson-09/house_argon_1f_top.png",
+    "width": 1920,
+    "height": 1200,
+    "kind": "render"
+  },
+  {
+    "key": "house_argon_1f_iso",
+    "lesson": "09",
+    "title": "Argon (Antigravity) · 1층 · 벽을 가려 본 실내와 가구",
+    "description": "Codex (Astra)와 같은 사선 카메라로 앞쪽 외벽을 잠시 가린 1층입니다. 원본 모델에는 외벽·창·문이 남아 있습니다.",
+    "outputPath": "images/daejeon/lesson-09/house_argon_1f_iso.png",
+    "width": 1920,
+    "height": 1200,
+    "kind": "render"
+  },
+  {
+    "key": "house_argon_1f_eye",
+    "lesson": "09",
+    "title": "Argon (Antigravity) · 1층 · 사람 눈높이의 거실·주방",
+    "description": "Codex (Astra)와 같은 사람 눈높이 카메라의 실제 Blender 렌더입니다. 쿠션·팔걸이·손잡이·목재색과 공간의 밝기를 비교합니다.",
+    "outputPath": "images/daejeon/lesson-09/house_argon_1f_eye.png",
+    "width": 1920,
+    "height": 1200,
+    "kind": "render"
+  },
+  {
+    "key": "house_argon_2f_top",
+    "lesson": "09",
+    "title": "Argon (Antigravity) · 2층 · 침실·가족실·욕실·발코니",
+    "description": "Codex (Astra)와 같은 위쪽 카메라로 침실·욕실·수납실·발코니·계단의 연결과 가구 배치를 비교합니다.",
+    "outputPath": "images/daejeon/lesson-09/house_argon_2f_top.png",
+    "width": 1920,
+    "height": 1200,
+    "kind": "render"
+  },
+  {
+    "key": "house_argon_2f_iso",
+    "lesson": "09",
+    "title": "Argon (Antigravity) · 2층 · 방과 가구의 사선 보기",
+    "description": "Codex (Astra)와 같은 사선 카메라로 본 2층입니다. 앞쪽 외벽만 잠시 가렸으며 원본 모델에는 모든 벽이 있습니다.",
+    "outputPath": "images/daejeon/lesson-09/house_argon_2f_iso.png",
+    "width": 1920,
+    "height": 1200,
+    "kind": "render"
+  },
+  {
+    "key": "house_argon_3f_hero",
+    "lesson": "09",
+    "title": "Argon (Antigravity) · 3층 주택 · 전체 외관",
+    "description": "Codex (Astra)와 같은 카메라로 본 전체 외관입니다. 같은 창과 난간 위치를 확인한 뒤 외벽·창틀·목재색의 차이를 봅니다.",
+    "outputPath": "images/daejeon/lesson-09/house_argon_3f_hero.png",
+    "width": 1920,
+    "height": 1200,
+    "kind": "render"
+  },
+  {
+    "key": "house_argon_3f_iso",
+    "lesson": "09",
+    "title": "Argon (Antigravity) · 3층 주택 · 전체 사선 보기",
+    "description": "Codex (Astra)와 같은 사선 카메라로 앞·옆·지붕·서측 테라스를 함께 비교합니다. 색과 표면 표현이 달라도 기준 배치는 유지합니다.",
+    "outputPath": "images/daejeon/lesson-09/house_argon_3f_iso.png",
+    "width": 1920,
+    "height": 1200,
+    "kind": "render"
+  },
+  {
+    "key": "house_argon_3f_rooftop",
+    "lesson": "09",
+    "title": "Argon (Antigravity) · 3층 · 라운지와 옥상 가구",
+    "description": "Codex (Astra)와 같은 옥상 카메라입니다. 지붕과 상부 낮은 벽만 잠시 숨겨 라운지·데크·가구를 보며, 다운로드 모델에는 모두 포함됩니다.",
+    "outputPath": "images/daejeon/lesson-09/house_argon_3f_rooftop.png",
+    "width": 1920,
+    "height": 1200,
+    "kind": "render"
+  },
+  {
+    "key": "01_house_1f_plan_dim",
+    "lesson": "09",
+    "title": "1층 · 치수와 가구가 있는 기준 도면",
+    "description": "이번 실습을 위해 직접 작도한 교육용 도면입니다. 3D 모델과 같은 벽·문·창·가구 데이터를 사용합니다. 실제 설계·인허가 도면이 아닙니다.",
+    "outputPath": "images/daejeon/lesson-09/house-drawings/01_house_1f_plan_dim.png",
+    "width": 4200,
+    "height": 3300,
+    "kind": "drawing"
+  },
+  {
+    "key": "01_house_1f_plan_clean",
+    "lesson": "09",
+    "title": "1층 · 치수선을 뺀 클린 도면",
+    "description": "이번 실습을 위해 직접 작도한 교육용 도면입니다. 3D 모델과 같은 벽·문·창·가구 데이터를 사용합니다. 실제 설계·인허가 도면이 아닙니다.",
+    "outputPath": "images/daejeon/lesson-09/house-drawings/01_house_1f_plan_clean.png",
+    "width": 4200,
+    "height": 3300,
+    "kind": "drawing"
+  },
+  {
+    "key": "02_house_2f_plan",
+    "lesson": "09",
+    "title": "2층 · 방과 가구 배치",
+    "description": "이번 실습을 위해 직접 작도한 교육용 도면입니다. 3D 모델과 같은 벽·문·창·가구 데이터를 사용합니다. 실제 설계·인허가 도면이 아닙니다.",
+    "outputPath": "images/daejeon/lesson-09/house-drawings/02_house_2f_plan.png",
+    "width": 4200,
+    "height": 3300,
+    "kind": "drawing"
+  },
+  {
+    "key": "03_house_3f_rooftop_plan",
+    "lesson": "09",
+    "title": "3층 · 실내와 옥상 배치",
+    "description": "이번 실습을 위해 직접 작도한 교육용 도면입니다. 3D 모델과 같은 벽·문·창·가구 데이터를 사용합니다. 실제 설계·인허가 도면이 아닙니다.",
+    "outputPath": "images/daejeon/lesson-09/house-drawings/03_house_3f_rooftop_plan.png",
+    "width": 4200,
+    "height": 3300,
+    "kind": "drawing"
+  },
+  {
+    "key": "04_house_section",
+    "lesson": "09",
+    "title": "단면 · 층 높이와 계단",
+    "description": "이번 실습을 위해 직접 작도한 교육용 도면입니다. 3D 모델과 같은 벽·문·창·가구 데이터를 사용합니다. 실제 설계·인허가 도면이 아닙니다.",
+    "outputPath": "images/daejeon/lesson-09/house-drawings/04_house_section.png",
+    "width": 5200,
+    "height": 3300,
+    "kind": "drawing"
+  },
+  {
+    "key": "05_house_elevations_4views",
+    "lesson": "09",
+    "title": "4면 입면 · 앞·뒤·양쪽 모습",
+    "description": "이번 실습을 위해 직접 작도한 교육용 도면입니다. 3D 모델과 같은 벽·문·창·가구 데이터를 사용합니다. 실제 설계·인허가 도면이 아닙니다.",
+    "outputPath": "images/daejeon/lesson-09/house-drawings/05_house_elevations_4views.png",
+    "width": 5400,
+    "height": 4550,
+    "kind": "drawing"
+  },
+  {
+    "key": "astra-1f-iso",
+    "lesson": "09",
+    "title": "이전 참고 사례 · 1층",
+    "description": "별도 복합 상업시설의 참고 렌더입니다. 이번 주택 실습 대상과 다르며 원도면은 제공하지 않습니다.",
+    "outputPath": "images/daejeon/lesson-09/astra-1f-iso.png",
+    "width": 1600,
+    "height": 1000,
+    "kind": "render"
+  },
+  {
+    "key": "astra-2f-iso",
+    "lesson": "09",
+    "title": "이전 참고 사례 · 2층 적층",
+    "description": "별도 복합 상업시설의 참고 렌더입니다. 이번 주택 실습 대상과 다르며 원도면은 제공하지 않습니다.",
+    "outputPath": "images/daejeon/lesson-09/astra-2f-iso.png",
+    "width": 1920,
+    "height": 1200,
+    "kind": "render"
+  },
+  {
+    "key": "astra-3f-hero",
+    "lesson": "09",
+    "title": "이전 참고 사례 · 외관",
+    "description": "별도 복합 상업시설의 참고 렌더입니다. 이번 주택 실습 대상과 다르며 원도면은 제공하지 않습니다.",
+    "outputPath": "images/daejeon/lesson-09/astra-3f-hero.png",
+    "width": 1920,
+    "height": 1200,
+    "kind": "render"
+  },
+  {
+    "key": "house_astra_camera_normal_8s",
+    "lesson": "09",
+    "title": "8초 카메라 이동 · 일반 재질",
+    "description": "실제 주택 모델의 남서쪽 → 남측 정면 → 남동쪽 바깥 이동입니다. 두 영상은 같은 카메라의192프레임을 사용합니다. 무음 영상입니다.",
+    "outputPath": "downloads/daejeon/lesson-09/house_astra_camera_normal_8s.mp4",
+    "width": 1920,
+    "height": 1080,
+    "kind": "video",
+    "posterPath": "images/daejeon/lesson-09/house_astra_normal_start.png"
+  },
+  {
+    "key": "house_astra_normal_start",
+    "lesson": "09",
+    "title": "일반 재질 · 시작 · 1프레임",
+    "description": "같은 프레임의 일반 재질·컬러맵을 비교합니다. 형상과 카메라는 같고 표면 표시만 다릅니다.",
+    "outputPath": "images/daejeon/lesson-09/house_astra_normal_start.png",
+    "width": 1920,
+    "height": 1080,
+    "kind": "render"
+  },
+  {
+    "key": "house_astra_normal_mid",
+    "lesson": "09",
+    "title": "일반 재질 · 중간 · 96프레임",
+    "description": "같은 프레임의 일반 재질·컬러맵을 비교합니다. 형상과 카메라는 같고 표면 표시만 다릅니다.",
+    "outputPath": "images/daejeon/lesson-09/house_astra_normal_mid.png",
+    "width": 1920,
+    "height": 1080,
+    "kind": "render"
+  },
+  {
+    "key": "house_astra_normal_end",
+    "lesson": "09",
+    "title": "일반 재질 · 끝 · 192프레임",
+    "description": "같은 프레임의 일반 재질·컬러맵을 비교합니다. 형상과 카메라는 같고 표면 표시만 다릅니다.",
+    "outputPath": "images/daejeon/lesson-09/house_astra_normal_end.png",
+    "width": 1920,
+    "height": 1080,
+    "kind": "render"
+  },
+  {
+    "key": "house_astra_camera_colormap_8s",
+    "lesson": "09",
+    "title": "8초 카메라 이동 · 부위별 컬러맵",
+    "description": "실제 주택 모델의 남서쪽 → 남측 정면 → 남동쪽 바깥 이동입니다. 두 영상은 같은 카메라의192프레임을 사용합니다. 무음 영상입니다.",
+    "outputPath": "downloads/daejeon/lesson-09/house_astra_camera_colormap_8s.mp4",
+    "width": 1920,
+    "height": 1080,
+    "kind": "video",
+    "posterPath": "images/daejeon/lesson-09/house_astra_colormap_start.png"
+  },
+  {
+    "key": "house_astra_colormap_start",
+    "lesson": "09",
+    "title": "부위별 컬러맵 · 시작 · 1프레임",
+    "description": "같은 프레임의 일반 재질·컬러맵을 비교합니다. 형상과 카메라는 같고 표면 표시만 다릅니다.",
+    "outputPath": "images/daejeon/lesson-09/house_astra_colormap_start.png",
+    "width": 1920,
+    "height": 1080,
+    "kind": "render"
+  },
+  {
+    "key": "house_astra_colormap_mid",
+    "lesson": "09",
+    "title": "부위별 컬러맵 · 중간 · 96프레임",
+    "description": "같은 프레임의 일반 재질·컬러맵을 비교합니다. 형상과 카메라는 같고 표면 표시만 다릅니다.",
+    "outputPath": "images/daejeon/lesson-09/house_astra_colormap_mid.png",
+    "width": 1920,
+    "height": 1080,
+    "kind": "render"
+  },
+  {
+    "key": "house_astra_colormap_end",
+    "lesson": "09",
+    "title": "부위별 컬러맵 · 끝 · 192프레임",
+    "description": "같은 프레임의 일반 재질·컬러맵을 비교합니다. 형상과 카메라는 같고 표면 표시만 다릅니다.",
+    "outputPath": "images/daejeon/lesson-09/house_astra_colormap_end.png",
+    "width": 1920,
+    "height": 1080,
+    "kind": "render"
+  },
+  {
+    "key": "house_astra_b_01_entry",
+    "lesson": "09",
+    "title": "01 · 현관 접근·진입 · 12초",
+    "description": "원본 0–12초. 현관 밖에서 문을 바라보며 1층 안으로 들어갑니다. 기존 브라우저 뷰어를 캡처한 무음 영상입니다.",
+    "outputPath": "downloads/daejeon/lesson-09/house_astra_b_01_entry.mp4",
+    "width": 1280,
+    "height": 720,
+    "kind": "video",
+    "posterPath": "images/daejeon/lesson-09/house_astra_b_01_entry.png"
+  },
+  {
+    "key": "house_astra_b_01_entry_poster",
+    "lesson": "09",
+    "title": "01 · 현관 접근·진입 · 미리보기",
+    "description": "원본 B안 0초의 카메라 화면입니다.",
+    "outputPath": "images/daejeon/lesson-09/house_astra_b_01_entry.png",
+    "width": 1280,
+    "height": 720,
+    "kind": "render"
+  },
+  {
+    "key": "house_astra_b_02_living_kitchen",
+    "lesson": "09",
+    "title": "02 · 1층 거실·주방 · 26초",
+    "description": "원본 12–38초. 빈 통로를 이동하며 거실·주방을 보고 계단 쪽으로 이동합니다. 기존 브라우저 뷰어를 캡처한 무음 영상입니다.",
+    "outputPath": "downloads/daejeon/lesson-09/house_astra_b_02_living_kitchen.mp4",
+    "width": 1280,
+    "height": 720,
+    "kind": "video",
+    "posterPath": "images/daejeon/lesson-09/house_astra_b_02_living_kitchen.png"
+  },
+  {
+    "key": "house_astra_b_02_living_kitchen_poster",
+    "lesson": "09",
+    "title": "02 · 1층 거실·주방 · 미리보기",
+    "description": "원본 B안 12초의 카메라 화면입니다.",
+    "outputPath": "images/daejeon/lesson-09/house_astra_b_02_living_kitchen.png",
+    "width": 1280,
+    "height": 720,
+    "kind": "render"
+  },
+  {
+    "key": "house_astra_b_03_stairs_1_2",
+    "lesson": "09",
+    "title": "03 · 1→2층 계단 · 22초",
+    "description": "원본 38–60초. 계단을 따라 올라갑니다. 이 영상 끝과 다음 2층 홀 영상 사이는 원본의 60초 컷입니다. 기존 브라우저 뷰어를 캡처한 무음 영상입니다.",
+    "outputPath": "downloads/daejeon/lesson-09/house_astra_b_03_stairs_1_2.mp4",
+    "width": 1280,
+    "height": 720,
+    "kind": "video",
+    "posterPath": "images/daejeon/lesson-09/house_astra_b_03_stairs_1_2.png"
+  },
+  {
+    "key": "house_astra_b_03_stairs_1_2_poster",
+    "lesson": "09",
+    "title": "03 · 1→2층 계단 · 미리보기",
+    "description": "원본 B안 38초의 카메라 화면입니다.",
+    "outputPath": "images/daejeon/lesson-09/house_astra_b_03_stairs_1_2.png",
+    "width": 1280,
+    "height": 720,
+    "kind": "render"
+  },
+  {
+    "key": "house_astra_b_04_second_floor",
+    "lesson": "09",
+    "title": "04 · 2층 홀·가족실 · 20초",
+    "description": "원본 60–80초. 계단 도착부에서 컷으로 전환한 뒤 2층 홀·가족실을 보고 다음 계단으로 이동합니다. 기존 브라우저 뷰어를 캡처한 무음 영상입니다.",
+    "outputPath": "downloads/daejeon/lesson-09/house_astra_b_04_second_floor.mp4",
+    "width": 1280,
+    "height": 720,
+    "kind": "video",
+    "posterPath": "images/daejeon/lesson-09/house_astra_b_04_second_floor.png"
+  },
+  {
+    "key": "house_astra_b_04_second_floor_poster",
+    "lesson": "09",
+    "title": "04 · 2층 홀·가족실 · 미리보기",
+    "description": "원본 B안 60초의 카메라 화면입니다.",
+    "outputPath": "images/daejeon/lesson-09/house_astra_b_04_second_floor.png",
+    "width": 1280,
+    "height": 720,
+    "kind": "render"
+  },
+  {
+    "key": "house_astra_b_05_stairs_2_3",
+    "lesson": "09",
+    "title": "05 · 2→3층 계단 · 22초",
+    "description": "원본 80–102초. 계단참에서 감속하며 다음 진행 방향을 보고 3층으로 올라갑니다. 기존 브라우저 뷰어를 캡처한 무음 영상입니다.",
+    "outputPath": "downloads/daejeon/lesson-09/house_astra_b_05_stairs_2_3.mp4",
+    "width": 1280,
+    "height": 720,
+    "kind": "video",
+    "posterPath": "images/daejeon/lesson-09/house_astra_b_05_stairs_2_3.png"
+  },
+  {
+    "key": "house_astra_b_05_stairs_2_3_poster",
+    "lesson": "09",
+    "title": "05 · 2→3층 계단 · 미리보기",
+    "description": "원본 B안 80초의 카메라 화면입니다.",
+    "outputPath": "images/daejeon/lesson-09/house_astra_b_05_stairs_2_3.png",
+    "width": 1280,
+    "height": 720,
+    "kind": "render"
+  },
+  {
+    "key": "house_astra_b_06_third_floor",
+    "lesson": "09",
+    "title": "06 · 3층 스튜디오 · 24초",
+    "description": "원본 102–126초. 3층 실내를 둘러봅니다. 이 영상 끝과 다음 테라스 영상 사이는 닫힌 문 전후를 연결한 원본의 126초 컷입니다. 기존 브라우저 뷰어를 캡처한 무음 영상입니다.",
+    "outputPath": "downloads/daejeon/lesson-09/house_astra_b_06_third_floor.mp4",
+    "width": 1280,
+    "height": 720,
+    "kind": "video",
+    "posterPath": "images/daejeon/lesson-09/house_astra_b_06_third_floor.png"
+  },
+  {
+    "key": "house_astra_b_06_third_floor_poster",
+    "lesson": "09",
+    "title": "06 · 3층 스튜디오 · 미리보기",
+    "description": "원본 B안 102초의 카메라 화면입니다.",
+    "outputPath": "images/daejeon/lesson-09/house_astra_b_06_third_floor.png",
+    "width": 1280,
+    "height": 720,
+    "kind": "render"
+  },
+  {
+    "key": "house_astra_b_07_terrace_drone",
+    "lesson": "09",
+    "title": "07 · 테라스에서 건물 전체로 · 34초",
+    "description": "원본 126–160초. 테라스 샷에서 바깥으로 상승·후진하며 건물 전체를 드러내고 마지막 구도를 유지합니다. 기존 브라우저 뷰어를 캡처한 무음 영상입니다.",
+    "outputPath": "downloads/daejeon/lesson-09/house_astra_b_07_terrace_drone.mp4",
+    "width": 1280,
+    "height": 720,
+    "kind": "video",
+    "posterPath": "images/daejeon/lesson-09/house_astra_b_07_terrace_drone.png"
+  },
+  {
+    "key": "house_astra_b_07_terrace_drone_poster",
+    "lesson": "09",
+    "title": "07 · 테라스에서 건물 전체로 · 미리보기",
+    "description": "원본 B안 126초의 카메라 화면입니다.",
+    "outputPath": "images/daejeon/lesson-09/house_astra_b_07_terrace_drone.png",
+    "width": 1280,
+    "height": 720,
+    "kind": "render"
+  }
+]

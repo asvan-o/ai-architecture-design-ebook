@@ -1,0 +1,17 @@
+---
+import { officialTopics } from '../content/course-roadmap';
+---
+<aside class="lesson01-position" data-topic-progress data-lesson="01" aria-labelledby="lesson01-position-heading">
+  <h2 id="lesson01-position-heading">이번 차시의 위치</h2>
+  <div data-topic-number="1"><p>대주제 1 · 완결</p><h3 data-official-title>{officialTopics[0]}</h3></div>
+  <p class="lesson01-position-connection">후반부에는 대주제 2의 의뢰 분석과 제안 이미지 과정으로 연결됩니다.</p>
+  <div data-topic-number="2"><p>대주제 2 · 시작</p><h3 data-official-title>{officialTopics[1]}</h3></div>
+</aside>
+<style>
+  .lesson01-position { padding:1rem 1.2rem; border:1px solid var(--line); background:var(--paper-deep); margin:0 0 1.5rem; }
+  h2 { margin:0 0 .7rem; font-size:.82rem; color:var(--muted); }
+  h3 { margin:0; font-size:.96rem; line-height:1.65; overflow-wrap:anywhere; }
+  [data-topic-number] p { margin:0 0 .15rem; font-size:.82rem; font-weight:800; }
+  .lesson01-position-connection { margin:.8rem 0; font-size:.9rem; overflow-wrap:anywhere; }
+  @media print { .lesson01-position { break-inside:avoid; } }
+</style>

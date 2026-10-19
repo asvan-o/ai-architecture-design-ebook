@@ -1,0 +1,7 @@
+---
+import {inputMethods} from '../content/lesson02-input-methods';
+---
+<div class="l02-input-methods" id="l02-file-input-methods" data-lesson-input-methods><h4>{inputMethods.title}</h4><div class="input-options">{inputMethods.methods.map(method=><article><h5>{method.title}</h5><p>{method.description}</p></article>)}</div><p class="input-merge" aria-hidden="true">두 방법 모두 ↓</p><ol aria-label="두 입력 방식 이후의 공통 처리 흐름">{inputMethods.flow.map(step=><li>{step}</li>)}</ol><p><strong>{inputMethods.protection}</strong></p><p>{inputMethods.limit}</p></div>
+<style>
+.l02-input-methods{margin:1rem 0;padding:1rem;border:1px solid var(--line-dark);background:var(--surface);min-width:0}.l02-input-methods h4{margin-top:0}.input-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.input-options article{min-width:0}.input-options h5{font-size:1rem;margin:.2rem 0}.input-merge{text-align:center;color:var(--muted)}.l02-input-methods ol{display:flex;flex-wrap:wrap;gap:.5rem;padding:0;list-style:none}.l02-input-methods li{padding:.5rem .75rem;background:var(--paper-deep)}.l02-input-methods li:not(:last-child)::after{content:' →'}.l02-input-methods p,.l02-input-methods li{overflow-wrap:anywhere}@media(max-width:700px){.input-options{grid-template-columns:1fr}.input-options article+article{border-top:1px solid var(--line);padding-top:.8rem}}
+</style>

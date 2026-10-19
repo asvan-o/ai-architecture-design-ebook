@@ -1,0 +1,32 @@
+---
+import ReviewSection from './ReviewSection.astro';
+import Lesson08McpPart from './Lesson08McpPart.astro';
+import TopicProgress from './TopicProgress.astro';
+import Lesson07FloorplanPart from './Lesson07FloorplanPart.astro';
+import {lesson08Meta,lesson08Parts,lesson08Sections,lesson08Boundary} from '../content/daejeon-lesson08';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
+---
+<div class="lesson08-review" data-lesson08-revision={lesson08Meta.revision}>
+ <TopicProgress lesson="08" items={[{topic:5,status:'시작',note:'실무 도면을 판독 기준표와 클린 선화로 전처리하고 공간 관계를 검증하고 Blender MCP 연결·첫 3D 모델링까지 이어갑니다.'}]} />
+ <ol class="l08-flow" aria-label="제8차시 작업 흐름">{['원본 도면·사용 권한 확인','NotebookLM 판독','사람이 확정 기준표 작성','클린 선화와 교차검증','Graphviz 관계도','Blender MCP 연결·첫 3D 룸'].map(text=><li>{text}</li>)}</ol>
+ <aside class="review-callout"><strong>원도면의 사실과 표현 이미지를 구분합니다</strong><p>{lesson08Boundary}</p></aside>
+ <aside class="l08-note"><h2>이번 차시 실습자료</h2><p>제7차시의 평면도 확대 비교를 이어받아, 같은 자체 제작 오피스의 원본 PDF·클린 선화·문자 오류 비교 입체 이미지와 관계도 예시를 사용합니다. 새로운 원본 도면으로 바뀌는 실습이 아닙니다.</p>{enabled&&<a class="review-download" href={base+'/downloads/daejeon/lesson-08/DJ-L08-Floorplan-Graphviz-Pack.zip'} download>제8차시 도면 판독·Graphviz 실습자료 ZIP 다운로드</a>}</aside>
+ <div class="l08-part-grid">{lesson08Parts.map((part,i)=><a href={'#'+part.id}><span>Part {i+1}</span><strong>{part.title}</strong><span>{part.time} · 50분</span></a>)}</div>
+ {lesson08Parts.map((part,partIndex)=><div class="day-period" id={part.id} data-teaching-minutes={part.sections.reduce((sum,section)=>sum+section.minutes,0)}>
+  <header class="period-heading"><p>Part {partIndex+1}</p><h2>{part.title}</h2><p>{part.time} · 50분</p></header>
+  {part.sections.map(section=><ReviewSection id={section.id} title={section.title} minutes={section.minutes} index={lesson08Sections.findIndex(row=>row.id===section.id)+1}>
+   <dl class="l08-context"><div><dt>지금 할 일</dt><dd>{section.action}</dd></div><div><dt>왜 하는가</dt><dd>{section.reason}</dd></div><div><dt>다음에 사용할 것</dt><dd>{section.next}</dd></div></dl>
+   {partIndex<2?<Lesson07FloorplanPart sectionId={section.id} />:<Lesson08McpPart sectionId={section.id} />}
+  </ReviewSection>)}
+ </div>)}
+</div>
+<style>
+ .lesson08-review{min-width:0;overflow-wrap:anywhere}
+ .l08-flow{display:flex;flex-wrap:wrap;gap:.6rem;list-style:none;padding:0;margin:1.5rem 0}.l08-flow li{min-width:0;padding:.6rem .8rem;border:1px solid var(--line);background:var(--surface);font-size:.9rem}.l08-flow li:not(:last-child)::after{content:' →';color:var(--accent-dark)}
+ .l08-note{padding:1.2rem;margin:1.5rem 0;border:1px solid var(--line);border-left:4px solid var(--accent-dark);background:var(--surface)}.l08-note h2{font-size:1.15rem;margin:.1rem 0 .7rem}
+ .l08-part-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:1.4rem 0}.l08-part-grid a{display:grid;gap:.4rem;padding:1rem;border:1px solid var(--line);background:var(--surface);text-decoration:none}.l08-part-grid span{font-size:.78rem;color:var(--muted)}
+ .l08-context{font-size:.87rem;padding:1rem;border-left:2px solid var(--accent);background:var(--surface)}.l08-context div{display:grid;grid-template-columns:7.5rem minmax(0,1fr);gap:.5rem;margin:.3rem 0}.l08-context dt{font-weight:700}.l08-context dd{margin:0;min-width:0}
+ @media(max-width:700px){.l08-part-grid{grid-template-columns:minmax(0,1fr)}.l08-context div{grid-template-columns:minmax(0,1fr);gap:.1rem;margin:.65rem 0}}
+ @media print{.l08-note,.l08-part-grid a{break-inside:avoid}}
+</style>

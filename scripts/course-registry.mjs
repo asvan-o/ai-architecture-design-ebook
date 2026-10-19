@@ -45,7 +45,8 @@ export function validateCourseProfiles(profiles) {
       if (course.reviewDraft !== undefined) {
         const review = course.reviewDraft;
         assert(id === 'daejeon-2026' && review?.status === 'instructor-review' && review.courseOverview === true, `${id}: invalid review draft`);
-        assert(Array.isArray(review.lessons) && review.lessons.length === 1 && review.lessons[0].id === '01' && review.lessons[0].durationMinutes === 300, `${id}: review draft exceeds authorized lesson 01 scope`);
+        const reviewScope = [{ id:'01', durationMinutes:300 }, { id:'02', durationMinutes:150 }, { id:'03', durationMinutes:150 }, { id:'04', durationMinutes:150 }, { id:'05', durationMinutes:150 }, { id:'06', durationMinutes:150 }, { id:'07', durationMinutes:300 }, { id:'08', durationMinutes:150 }, { id:'09', durationMinutes:150 }, { id:'10', durationMinutes:150 }, { id:'11', durationMinutes:150 }, { id:'12', durationMinutes:150 }, { id:'13', durationMinutes:150 }];
+        assert(Array.isArray(review.lessons) && review.lessons.length >= 1 && review.lessons.length <= reviewScope.length && review.lessons.every((lesson,index)=>lesson.id === reviewScope[index].id && lesson.durationMinutes === reviewScope[index].durationMinutes), `${id}: review draft exceeds authorized lesson 01/02/03/04/05/06/07/08/09/10/11/12/13 scope`);
       }
     } else {
       assert(course.reviewDraft === undefined, `${id}: approved curriculum cannot carry a review draft`);

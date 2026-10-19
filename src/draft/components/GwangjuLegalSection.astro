@@ -1,0 +1,10 @@
+---
+import integration from '../content/lesson10-grounded-map.json';
+interface Props {id:string;number:string;title:string;minutes:number;lessonId?:string;class?:string;}
+const {id,number,title,minutes,class:className}=Astro.props;
+const displayedTitle=integration.lesson.sections.find(s=>s.id===id)?.title||title;
+---
+<section class:list={['lesson-section','review-section',className]} id={id} aria-labelledby={id+'-title'} data-review-section={id} data-section-number={number} data-section-minutes={minutes}>
+ <div class="section-heading review-section-heading"><span class="review-number">{number}</span><h2 id={id+'-title'}>{displayedTitle}</h2></div>
+ <slot />
+</section>

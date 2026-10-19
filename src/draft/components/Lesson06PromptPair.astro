@@ -1,0 +1,13 @@
+---
+import ReviewPrompt from './ReviewPrompt.astro';
+import {lesson06Prompt} from '../../../scripts/daejeon-lesson06-assets.mjs';
+interface Props {stage:string;}
+const {stage}=Astro.props;
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
+const p=lesson06Prompt[stage];
+---
+<div class="l06-prompt" data-l06-stage-prompt={stage}>
+ {p.doorState && <p class="l03-note" data-door-state>문 표현: {p.doorState}</p>}
+ <ReviewPrompt id={'l06-'+stage} title={p.title} prompt={p.text} attachments={p.attachments} filename={p.file.split('/').pop()} href={enabled?base+'/'+p.outputPath:undefined} />
+</div>

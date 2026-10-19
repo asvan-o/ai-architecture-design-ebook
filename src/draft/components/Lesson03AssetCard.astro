@@ -1,0 +1,33 @@
+---
+interface Props {image:{key:string;file:string;outputPath:string;width:number;height:number};title:string;description:string;instance:string;spaceChoice?:string;downloadName?:string;downloadLabel?:string;}
+const {image,title,description,instance,spaceChoice,downloadName,downloadLabel='원본 PNG 다운로드'}=Astro.props;
+const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
+const href=import.meta.env.BASE_URL.replace(/\/$/,'')+'/'+image.outputPath;
+const dialogId='l03-image-'+instance+'-'+image.key;
+---
+<article class="l03-asset-card" data-l03-asset={image.key}>
+  {enabled&&<img src={href} alt={title} width={image.width} height={image.height} loading="lazy" />}
+  <div class="l03-asset-copy"><h4>{title}</h4><p>{description}</p>
+    <div class="l03-actions">
+      {spaceChoice&&<button type="button" data-l03-space-choice={spaceChoice} aria-pressed="false">이 공간 사용하기</button>}
+      {enabled&&<><button type="button" data-l03-image-open={dialogId} aria-haspopup="dialog">확대 보기</button><a href={href} download={downloadName||title+'.png'}>{downloadLabel}</a></>}
+    </div>
+  </div>
+  {enabled&&<dialog id={dialogId} class="l03-dialog" aria-labelledby={dialogId+'-title'}>
+    <header><h3 id={dialogId+'-title'}>{title}</h3><button type="button" data-l03-image-size aria-pressed="false">원본 크기로 보기</button><button type="button" data-l03-image-close>닫기</button></header>
+    <div class="l03-dialog-scroll"><img src={href} alt={title} width={image.width} height={image.height} /></div><p>Esc 키로 닫습니다. 원본 크기에서는 이미지 안에서 이동할 수 있습니다.</p>
+  </dialog>}
+</article>
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-l03-image-open]').forEach(opener=>{
+    const dialog=document.getElementById(opener.dataset.l03ImageOpen||'') as HTMLDialogElement|null;
+    if(!dialog)return;
+    opener.addEventListener('click',()=>dialog.showModal());
+    dialog.querySelector<HTMLButtonElement>('[data-l03-image-close]')?.addEventListener('click',()=>dialog.close());
+    dialog.addEventListener('close',()=>opener.focus());
+    dialog.querySelector<HTMLButtonElement>('[data-l03-image-size]')?.addEventListener('click',event=>{
+      const original=dialog.classList.toggle('is-original');const button=event.currentTarget as HTMLButtonElement;
+      button.textContent=original?'화면에 맞춰 보기':'원본 크기로 보기';button.setAttribute('aria-pressed',String(original));
+    });
+  });
+</script>

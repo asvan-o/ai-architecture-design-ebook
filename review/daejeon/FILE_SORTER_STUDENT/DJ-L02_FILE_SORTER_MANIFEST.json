@@ -1,0 +1,25 @@
+{
+  "contentStatus": "design-pending",
+  "generatedAt": "2026-10-14T00:00:00+09:00",
+  "nodeRuntimeIncluded": false,
+  "verifiedNodeVersion": "22.23.2",
+  "selfHashExcluded": true,
+  "files": [
+    {
+      "file": "DJ-L02_FILE_SORTER_PROGRAM.zip",
+      "bytes": 32727,
+      "sha256": "0a49126629e852702f22d9ce9f27aa0411b045739d128d8271c5c3824a5836ce"
+    },
+    {
+      "file": "DJ-L02_SORT_TEST.zip",
+      "bytes": 6178286,
+      "sha256": "9c8f3897169df9e69d984c9d592fbdb0f55177fbebbb23a5fc20a1ceda97acf5"
+    },
+    {
+      "file": "DJ-L02_FILE_SORTER_README.txt",
+      "bytes": 6670,
+      "sha256": "1cbed93dedfa40d80157f10d1d3d1e899205d64cd06a299100f79629f6230022"
+    }
+  ],
+  "studentUiRevision": "A explicit top-level folder import; classifier/watcher/file-manager unchanged"
+}

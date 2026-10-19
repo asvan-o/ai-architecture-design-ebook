@@ -1,0 +1,78 @@
+{
+  "package": "DJ-ML-01",
+  "status": "review/draft",
+  "createdUtc": "2026-10-09T14:34:44.1364946Z",
+  "tool": "built-in image_gen",
+  "promptRecord": "DJ-ML-01_generation-prompts.txt",
+  "lessonIntegration": "local-review draft lesson02 sections 02, 03, 04; design-pending; no release",
+  "visualCheck": {
+    "base": "One reception desk, sofa, low table, door and window visible; neutral small-office scene",
+    "material": "Four separate oak, stone, fabric and matte metal swatches; no room layout",
+    "lighting": "Warm indirect light on a cropped wall-ceiling junction; no furniture layout",
+    "textPeopleLogos": "none observed",
+    "actualColorTemperature": "not measurable from generated image"
+  },
+  "files": [
+    {
+      "file": "DJ-ML-01_BASE.png",
+      "role": "space-camera-furniture baseline",
+      "format": "PNG",
+      "width": 1672,
+      "height": 941,
+      "aspectRatio": 1.7768331562167907,
+      "requestedAspectRatio": "16:9",
+      "exact16x9": false,
+      "sha256": "f97ecd9a666e9b917c747f55960fc313a3f41c28be46124a4413cfe06ea193b4",
+      "bytes": 2123709,
+      "generatorSource": "C:\\Users\\deric\\.codex\\generated_images\\01a106c4-1768-75c2-9a8d-9a1cb683c730\\exec-b9eaec3c-2cb7-465d-a61c-49e2799f841c.png",
+      "generationAttempts": 1,
+      "inputImages": [],
+      "postProcessing": "none",
+      "copiedWithoutModification": true
+    },
+    {
+      "file": "DJ-ML-01_MATERIAL_REFERENCE.png",
+      "role": "material-color-texture only",
+      "format": "PNG",
+      "width": 1672,
+      "height": 941,
+      "aspectRatio": 1.7768331562167907,
+      "requestedAspectRatio": "16:9",
+      "exact16x9": false,
+      "sha256": "416a0189fe2cfdf3949125113eb04a81f8903da52db24a549ea46a3bd1788d20",
+      "bytes": 2843582,
+      "generatorSource": "C:\\Users\\deric\\.codex\\generated_images\\01a106c4-1768-75c2-9a8d-9a1cb683c730\\exec-ad1fa61b-0b9a-4393-905b-965820f605eb.png",
+      "generationAttempts": 1,
+      "inputImages": [],
+      "postProcessing": "none",
+      "copiedWithoutModification": true
+    },
+    {
+      "file": "DJ-ML-01_LIGHTING_REFERENCE.png",
+      "role": "warm-light-color-brightness impression only",
+      "format": "PNG",
+      "width": 1672,
+      "height": 941,
+      "aspectRatio": 1.7768331562167907,
+      "requestedAspectRatio": "16:9",
+      "exact16x9": false,
+      "sha256": "539f969702ed195b358a5f64f29f4f488e25fba1a31e74dae6431f2948a70d5a",
+      "bytes": 2380887,
+      "generatorSource": "C:\\Users\\deric\\.codex\\generated_images\\01a106c4-1768-75c2-9a8d-9a1cb683c730\\exec-b650a154-173f-45dd-8085-98081f5536db.png",
+      "generationAttempts": 1,
+      "inputImages": [],
+      "postProcessing": "none",
+      "copiedWithoutModification": true
+    }
+  ],
+  "practicePrompts": [
+    {
+      "file": "DJ-ML-01_material-lighting-learning-prompt.txt",
+      "sha256": "9724bf9f5b6d63890b95b02e645aecb2c258d18d18b94174804cbe0596d8ef17"
+    },
+    {
+      "file": "DJ-ML-01_material-lighting-execution-prompt.txt",
+      "sha256": "372c6ca93880caa4cf6807bea224a7ff0585c3afb1d9bc64250344a2690f46e3"
+    }
+  ]
+}

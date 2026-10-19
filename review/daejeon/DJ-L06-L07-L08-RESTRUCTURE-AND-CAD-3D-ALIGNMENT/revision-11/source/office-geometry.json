@@ -1,0 +1,599 @@
+{
+  "id": "DJ-L07-SYNTHETIC-OFFICE-01",
+  "authorship": "Original code-authored educational drawing, not traced from a participant plan",
+  "units": "metres",
+  "scale": "1:100 on A3 landscape",
+  "outline": [
+    [
+      0,
+      0
+    ],
+    [
+      24,
+      0
+    ],
+    [
+      24,
+      13
+    ],
+    [
+      12,
+      13
+    ],
+    [
+      12,
+      16
+    ],
+    [
+      0,
+      16
+    ]
+  ],
+  "outerDimensionMm": [
+    24000,
+    16000
+  ],
+  "rooms": [
+    {
+      "name": "소장실",
+      "bounds": [
+        0,
+        0,
+        6,
+        5
+      ]
+    },
+    {
+      "name": "사무소",
+      "bounds": [
+        0,
+        5,
+        12,
+        11
+      ]
+    },
+    {
+      "name": "계단실",
+      "bounds": [
+        6,
+        0,
+        4,
+        5
+      ]
+    },
+    {
+      "name": "엘리베이터",
+      "bounds": [
+        10,
+        0,
+        2,
+        2.5
+      ]
+    },
+    {
+      "name": "P.S",
+      "bounds": [
+        10,
+        2.5,
+        2,
+        1.3
+      ]
+    },
+    {
+      "name": "TO.W",
+      "bounds": [
+        12,
+        0,
+        3,
+        5
+      ]
+    },
+    {
+      "name": "TO.M",
+      "bounds": [
+        15,
+        0,
+        3,
+        5
+      ]
+    },
+    {
+      "name": "탕비실",
+      "bounds": [
+        18,
+        0,
+        3,
+        5
+      ]
+    },
+    {
+      "name": "창고",
+      "bounds": [
+        21,
+        0,
+        3,
+        5
+      ]
+    },
+    {
+      "name": "모형실",
+      "bounds": [
+        21,
+        5,
+        3,
+        8
+      ]
+    },
+    {
+      "name": "회의실",
+      "bounds": [
+        12,
+        7,
+        9,
+        6
+      ]
+    },
+    {
+      "name": "중앙 공용통로",
+      "bounds": [
+        10,
+        3.8,
+        11,
+        3.2
+      ]
+    }
+  ],
+  "directDoors": [
+    {
+      "id": "D1",
+      "a": "사무소",
+      "b": "소장실",
+      "axis": "H",
+      "wall": 5,
+      "start": 2.5,
+      "width": 1,
+      "flip": -1,
+      "hinge": [
+        2.5,
+        5
+      ],
+      "leafTip": [
+        2.5,
+        4
+      ],
+      "openingAngleDegrees": 90
+    },
+    {
+      "id": "D2",
+      "a": "사무소",
+      "b": "계단실",
+      "axis": "H",
+      "wall": 5,
+      "start": 7,
+      "width": 1.2,
+      "flip": 1,
+      "hinge": [
+        7,
+        5
+      ],
+      "leafTip": [
+        7,
+        6.2
+      ],
+      "openingAngleDegrees": 90
+    },
+    {
+      "id": "D3",
+      "a": "사무소",
+      "b": "휴게데크-1",
+      "axis": "V",
+      "wall": 0,
+      "start": 10,
+      "width": 1.4,
+      "flip": -1,
+      "hinge": [
+        0,
+        10
+      ],
+      "leafTip": [
+        -1.4,
+        10
+      ],
+      "openingAngleDegrees": 90
+    },
+    {
+      "id": "D4",
+      "a": "소장실",
+      "b": "휴게데크-2",
+      "axis": "H",
+      "wall": 0,
+      "start": 2.2,
+      "width": 1.2,
+      "flip": -1,
+      "hinge": [
+        2.2,
+        0
+      ],
+      "leafTip": [
+        2.2,
+        -1.2
+      ],
+      "openingAngleDegrees": 90
+    },
+    {
+      "id": "D5",
+      "a": "회의실",
+      "b": "휴게데크-3",
+      "axis": "H",
+      "wall": 13,
+      "start": 16,
+      "width": 1.2,
+      "flip": 1,
+      "hinge": [
+        16,
+        13
+      ],
+      "leafTip": [
+        16,
+        14.2
+      ],
+      "openingAngleDegrees": 90
+    },
+    {
+      "id": "D6",
+      "a": "모형실",
+      "b": "창고",
+      "axis": "H",
+      "wall": 5,
+      "start": 22,
+      "width": 1,
+      "flip": -1,
+      "hinge": [
+        22,
+        5
+      ],
+      "leafTip": [
+        22,
+        4
+      ],
+      "openingAngleDegrees": 90
+    },
+    {
+      "id": "D7",
+      "a": "TO.W",
+      "b": "중앙 공용통로",
+      "axis": "H",
+      "wall": 5,
+      "start": 13,
+      "width": 1,
+      "flip": -1,
+      "hinge": [
+        13,
+        5
+      ],
+      "leafTip": [
+        13,
+        4
+      ],
+      "openingAngleDegrees": 90
+    },
+    {
+      "id": "D8",
+      "a": "TO.M",
+      "b": "중앙 공용통로",
+      "axis": "H",
+      "wall": 5,
+      "start": 16,
+      "width": 1,
+      "flip": -1,
+      "hinge": [
+        16,
+        5
+      ],
+      "leafTip": [
+        16,
+        4
+      ],
+      "openingAngleDegrees": 90
+    }
+  ],
+  "openConnections": [
+    [
+      "중앙 공용통로",
+      "계단실"
+    ],
+    [
+      "엘리베이터",
+      "계단실"
+    ]
+  ],
+  "review": [
+    "탕비실/창고 경계",
+    "회의실/모형실의 통로 측 출입 관계",
+    "P.S 일반 보행 접근",
+    "복도 전체 경계"
+  ],
+  "intentionalErrors": {
+    "clean-line": {
+      "모형실": "이사실",
+      "13인승": "13연승"
+    },
+    "top-view": {
+      "소장실": "사장실",
+      "모형실": "이사실",
+      "계단참": "계단창",
+      "13인승": "1.5인승"
+    }
+  },
+  "revision": "revision-9",
+  "swingDoors": [
+    {
+      "id": "D1",
+      "a": "사무소",
+      "b": "소장실",
+      "axis": "H",
+      "wall": 5,
+      "start": 2.5,
+      "width": 1,
+      "flip": -1,
+      "hinge": [
+        2.5,
+        5
+      ],
+      "leafTip": [
+        2.5,
+        4
+      ],
+      "openingAngleDegrees": 90
+    },
+    {
+      "id": "D2",
+      "a": "사무소",
+      "b": "계단실",
+      "axis": "H",
+      "wall": 5,
+      "start": 7,
+      "width": 1.2,
+      "flip": 1,
+      "hinge": [
+        7,
+        5
+      ],
+      "leafTip": [
+        7,
+        6.2
+      ],
+      "openingAngleDegrees": 90
+    },
+    {
+      "id": "D3",
+      "a": "사무소",
+      "b": "휴게데크-1",
+      "axis": "V",
+      "wall": 0,
+      "start": 10,
+      "width": 1.4,
+      "flip": -1,
+      "hinge": [
+        0,
+        10
+      ],
+      "leafTip": [
+        -1.4,
+        10
+      ],
+      "openingAngleDegrees": 90
+    },
+    {
+      "id": "D4",
+      "a": "소장실",
+      "b": "휴게데크-2",
+      "axis": "H",
+      "wall": 0,
+      "start": 2.2,
+      "width": 1.2,
+      "flip": -1,
+      "hinge": [
+        2.2,
+        0
+      ],
+      "leafTip": [
+        2.2,
+        -1.2
+      ],
+      "openingAngleDegrees": 90
+    },
+    {
+      "id": "D5",
+      "a": "회의실",
+      "b": "휴게데크-3",
+      "axis": "H",
+      "wall": 13,
+      "start": 16,
+      "width": 1.2,
+      "flip": 1,
+      "hinge": [
+        16,
+        13
+      ],
+      "leafTip": [
+        16,
+        14.2
+      ],
+      "openingAngleDegrees": 90
+    },
+    {
+      "id": "D6",
+      "a": "모형실",
+      "b": "창고",
+      "axis": "H",
+      "wall": 5,
+      "start": 22,
+      "width": 1,
+      "flip": -1,
+      "hinge": [
+        22,
+        5
+      ],
+      "leafTip": [
+        22,
+        4
+      ],
+      "openingAngleDegrees": 90
+    },
+    {
+      "id": "D7",
+      "a": "TO.W",
+      "b": "중앙 공용통로",
+      "axis": "H",
+      "wall": 5,
+      "start": 13,
+      "width": 1,
+      "flip": -1,
+      "hinge": [
+        13,
+        5
+      ],
+      "leafTip": [
+        13,
+        4
+      ],
+      "openingAngleDegrees": 90
+    },
+    {
+      "id": "D8",
+      "a": "TO.M",
+      "b": "중앙 공용통로",
+      "axis": "H",
+      "wall": 5,
+      "start": 16,
+      "width": 1,
+      "flip": -1,
+      "hinge": [
+        16,
+        5
+      ],
+      "leafTip": [
+        16,
+        4
+      ],
+      "openingAngleDegrees": 90
+    },
+    {
+      "id": "D9",
+      "a": "탕비실",
+      "b": "중앙 공용통로",
+      "axis": "H",
+      "wall": 5,
+      "start": 19,
+      "width": 1,
+      "flip": -1,
+      "hinge": [
+        19,
+        5
+      ],
+      "leafTip": [
+        19,
+        4
+      ],
+      "openingAngleDegrees": 90
+    },
+    {
+      "id": "D10",
+      "a": "사무소",
+      "b": "외부",
+      "axis": "H",
+      "wall": 16,
+      "start": 9,
+      "width": 1.5,
+      "flip": -1,
+      "hinge": [
+        9,
+        16
+      ],
+      "leafTip": [
+        9,
+        14.5
+      ],
+      "openingAngleDegrees": 90
+    }
+  ],
+  "elevatorDoor": {
+    "type": "center-opening-double-sliding",
+    "axis": "V",
+    "wall": 10,
+    "start": 1.2,
+    "width": 1.2,
+    "closed": true,
+    "swingArc": false,
+    "panels": 2
+  },
+  "directorBenchBounds": [
+    0.5,
+    3.7,
+    1.65,
+    0.6
+  ],
+  "doorDrafting": {
+    "leaf": "straight rectangular panel, 40 mm thick",
+    "arc": "90-degree auxiliary curve, thin gray dashed line",
+    "threeDGuide": "arcs omitted; leaves and jamb hinges only"
+  },
+  "stairs": {
+    "northLandingBounds": [
+      6.3,
+      0,
+      3.4,
+      1.2
+    ],
+    "northLandingLevelMetres": 2.2,
+    "interpretation": "Educational opposite travel: left UP south-to-north; right DN north-to-south. Not a verified inter-storey stair design.",
+    "flights": [
+      {
+        "id": "UP",
+        "bounds": [
+          6.6,
+          1.2,
+          1.3,
+          2.6
+        ],
+        "arrowStart": [
+          7.25,
+          3.65
+        ],
+        "arrowEnd": [
+          7.25,
+          1.45
+        ],
+        "startLevelMetres": 0,
+        "endLevelMetres": 2.2
+      },
+      {
+        "id": "DN",
+        "bounds": [
+          8.2,
+          1.2,
+          1.3,
+          2.6
+        ],
+        "arrowStart": [
+          8.85,
+          1.45
+        ],
+        "arrowEnd": [
+          8.85,
+          3.65
+        ],
+        "startLevelMetres": 2.2,
+        "endLevelMetres": 0
+      }
+    ],
+    "centralDivider": [
+      8,
+      1.2,
+      8,
+      3.8
+    ],
+    "entryFloorLabelRemoved": true
+  }
+}

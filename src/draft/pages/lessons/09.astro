@@ -1,0 +1,9 @@
+---
+import ReviewLayout from '../../layouts/ReviewLayout.astro';
+import DaejeonModelingLesson from '../../components/DaejeonModelingLesson.astro';
+import {lesson09} from '../../content/daejeon-lesson09';
+const tocGroups=lesson09.parts.map((part,index)=>({id:'l09-part-'+(index+1),title:part.title,items:lesson09.sections.slice(part.start,part.end)}));
+---
+<ReviewLayout title={lesson09.title} lead={lesson09.lead} page="lesson" lessonId="09" eyebrow="LESSON 09 · MODERN 3F HOUSE / FURNITURE / CAMERA" toc={lesson09.sections} {tocGroups}>
+ <DaejeonModelingLesson lesson="09" />
+</ReviewLayout>

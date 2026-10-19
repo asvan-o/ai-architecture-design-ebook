@@ -1,5 +1,7 @@
 ---
 import { packages } from '../../../scripts/daejeon-review-assets.mjs';
+import { practice, learnerText } from '../content/lesson01-learner';
+import Lesson01Image from './Lesson01Image.astro';
 interface Props { stage: 'early'|'rfp'|'example'|'instructor'|'evidence'; }
 const { stage } = Astro.props;
 const enabled = import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS === 'true';
@@ -7,9 +9,19 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 {enabled ? <div class="review-cards project-materials" data-material-stage={stage}>
   {packages.map((project) => <article class="review-card">
-    <p class="review-eyebrow">{project.id} · {project.kind}</p><h3>{project.title}</h3>
-    {['early','rfp'].includes(stage) && <figure><img src={`${base}/practice/${project.id}/${project.id}_${stage==='early'?project.image:project.diagram}`} alt={`${project.id} ${stage==='early'?'같은 시점 비교를 위한 현황 이미지':'교육용 기준 도면'}`} loading="lazy" /><figcaption>{stage==='early'?'첫 생성의 편집 원본 · 교육용 가상 공간':project.diagramRole}</figcaption></figure>}
-    {stage === 'early' && <><p><strong>유지:</strong> {project.keep}</p><p><strong>변경:</strong> {project.change}</p><p><strong>제외:</strong> {project.exclude}</p></>}
-    <ul class="review-downloads">{project.assets.filter((a)=>a.stage===stage || stage==='rfp'&&a.stage==='early').map((asset)=><li><a href={`${base}/practice/${project.id}/${asset.file}`} download={asset.file}>{asset.label}</a></li>)}</ul>
+    <h3>{stage==='example'?`${practice(project.id).label} · 예시 이미지 다운로드`:practice(project.id).name}</h3>
+    {stage==='rfp' && <><p>{practice(project.id).description}</p><small data-project-metadata>자료 ID · {project.id}</small><p>도면 표기: {practice(project.id).drawingLabels.join(' / ')}</p></>}
+    {['early','rfp'].includes(stage) && <figure><Lesson01Image id={`${stage}-${project.id}`} src={`${base}/practice/${project.id}/${project.id}_${stage==='early'?project.image:project.diagram}`} alt={`${practice(project.id).name} · ${stage==='early'?'현황 이미지':'교육용 기준 도면'}`} /><figcaption>{stage==='early'?'첫 생성의 편집 원본 · 교육용 가상 공간':learnerText(project.diagramRole)}</figcaption></figure>}
+    {stage === 'early' && <><p><strong>유지:</strong> {learnerText(project.keep)}</p><p><strong>변경:</strong> {learnerText(project.change)}</p><p><strong>제외:</strong> {learnerText(project.exclude)}</p></>}
+    <ul class="review-downloads">{project.assets.filter((a)=>(a.stage===stage || stage==='rfp'&&a.stage==='early') && !(stage==='example'&&a.file.endsWith('-prompt.txt'))).map((asset)=><li><a href={`${base}/practice/${project.id}/${asset.file}`} download={asset.file}>{learnerText(asset.label).replace('교육용 적용 예시','교육용 예시').replace('적용 예시','예시')}</a></li>)}</ul>
+    {stage==='rfp' && <a class="review-download" data-project-choice href={`#${project.id==='DJ-CF-01'?'practice-a':'practice-b'}-analysis`}>{practice(project.id).label}로 분석 시작</a>}
   </article>)}
-</div> : <p class="review-callout">실습 파일은 강사가 제공하는 로컬 검토용 preview에서 확인·다운로드합니다. 이 과정은 설계 검토 중입니다.</p>}
+</div> : <p class="review-callout">실습 파일은 제공된 자료에서 확인합니다.</p>}
+<script>
+  document.querySelectorAll<HTMLAnchorElement>('[data-project-choice]').forEach(link => {
+    link.addEventListener('click', () => {
+      const target = document.getElementById(link.hash.slice(1));
+      if (target instanceof HTMLDetailsElement) target.open = true;
+    });
+  });
+</script>

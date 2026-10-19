@@ -1,0 +1,90 @@
+---
+import ReviewPrompt from './ReviewPrompt.astro';
+import Lesson07FloorplanAsset from './Lesson07FloorplanAsset.astro';
+import Lesson07Asset from './Lesson07Asset.astro';
+import {floorplanPrompts,actualDotCode,reviewRows,functionGroups,sourcePrinciples,criteriaStates,relationshipRules,floorplanDeliverables,floorplanPreparationTracks,floorplanPlatformFlow,floorplanStageIO,cleanLinePrompt,floorplanTextChecks} from '../content/lesson07-floorplan';
+interface Props {sectionId:string;}
+const {sectionId}=Astro.props;
+const sourceSectionId=sectionId.replace(/^l08-/,'l07-');
+const stageIO=floorplanStageIO[sourceSectionId];
+const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const href=(file:string)=>base+'/downloads/daejeon/lesson-08/'+file;
+---
+<div class="l07-floorplan-part" data-l07-floorplan-content={sectionId}>
+ {stageIO&&<dl class="l07-fp-note l07-stage-io" data-l07-stage-io={sectionId}><div><dt>실행 플랫폼</dt><dd>{stageIO.platform}</dd></div><div><dt>입력</dt><dd>{stageIO.input}</dd></div><div><dt>출력</dt><dd>{stageIO.output}</dd></div></dl>}
+ {sourceSectionId==='l07-plan-prep-why'&&<>
+  <p>이 차시에서 <strong>클린 선화</strong>는 치수·주석 등 불필요한 선을 정리한 도면, <strong>공간 관계도</strong>는 방과 문이 어떻게 이어지는지 점과 선으로 그린 그림입니다. Graphviz는 이 그림을 만드는 도구이며, DOT는 점과 선의 연결 방법을 적는 텍스트입니다.</p>
+  <p>제7차시의 업스케일 비교에서 살펴본 바로 그 1층 오피스 평면도를 이어서 사용합니다. 해상도를 2배로 높여도 치수선·단면선·벽선의 겹침이나 글자 왜곡이 모두 해결되지는 않습니다. 이제 같은 도면을 가로로 놓고, 원본에서 무엇을 사실 기준으로 남길지 먼저 정리합니다.</p>
+  <p>이 자체 제작 교육용 도면은 처음부터 가로 정방향입니다. 원본 PDF·PNG·선화·입체 비교에서 같은 방향을 유지하며 별도 회전은 하지 않습니다. 원본 PDF의 NotebookLM·ChatGPT 판독 기준표를 먼저 확보한 뒤 외곽 치수선·마감표를 걷어낸 선화와 결합하고, 공간 관계도(Graphviz)까지 원본에 대조합니다.</p>
+  <aside class="l07-fp-note" data-l07-synthetic-notice><strong>하나의 자체 제작 가상 오피스로 연결합니다</strong><p>선화의 문자 오류 2곳과 입체 이미지의 문자 오류 4곳은 원본·기준표 대조를 연습하도록 의도한 교육용 예시입니다. 실제 AI가 같은 오류를 냈다는 증빙이 아니며, 입체의 재료·빛·높이는 표현을 위한 가정입니다.</p></aside><div class="l07-fp-cards">{sourcePrinciples.map(([number,title,text])=><article><span>{number}</span><h3>{title}</h3><p>{text}</p></article>)}</div>
+  <ol class="l07-fp-flow">{['원본 도면 분석','확정 기준표','클린 선화','원본과 비교','검증된 관계 데이터','Graphviz 관계도'].map(text=><li>{text}</li>)}</ol>
+  <p>방을 원으로 나타내거나 용도별 색을 나누는 그림을 다시 만드는 활동에서 확장해, 문·개구부의 근거와 연결 상태를 텍스트 데이터로 검증합니다.</p>
+  <h3>도면 기준표와 클린 선화는 서로 다른 준비물입니다</h3>
+  <div class="l07-fp-cards" data-l07-preparation-tracks>{floorplanPreparationTracks.map(track=><article><h4>{track.title}</h4><strong>{track.platform}</strong><p>{track.text}</p></article>)}</div>
+  <ol class="l07-fp-flow" data-l07-platform-flow>{floorplanPlatformFlow.map(([platform,text])=><li><strong>{platform}</strong><p>{text}</p></li>)}</ol>
+ </>}
+ {sourceSectionId==='l07-notebooklm-plan'&&<>
+  <aside class="l07-fp-note" data-l07-original-pdf><h3>교육용 원본 평면도 PDF부터 받습니다</h3><p>텍스트가 살아 있는 자체 제작 1층 오피스 PDF를 내려받아 <a href="https://notebooklm.google.com/" target="_blank" rel="noreferrer">NotebookLM</a>의 소스로 추가합니다. 원본 PDF는 아래 개별 다운로드와 도면 실습 ZIP에 함께 들어 있습니다. 실제 업무 도면을 사용할 때는 식별정보와 외부 업로드 권한을 먼저 확인합니다.</p>{enabled&&<a class="review-download" href={href('DJ-L07-Office-Floorplan-Original.pdf')} download>교육용 1층 오피스 원본 PDF 다운로드</a>}</aside>
+  <ol><li>교육용 원본 PDF를 내려받은 뒤 새 노트북의 소스로 추가합니다.</li><li>이번 분석에서 사용할 원본 소스를 선택합니다.</li><li>아래 프롬프트를 입력해 공간·벽·개구부·코어 정보를 정리합니다.</li><li>답변의 근거 위치를 원도면에서 직접 찾아 대조합니다.</li></ol>
+  <ol class="l07-fp-flow">{['NotebookLM 1차 분석','원도면 재확인','오류 발견','GPT·사람 교차검수','최종 확정 기준표'].map(text=><li>{text}</li>)}</ol>
+  <ReviewPrompt id="l07-plan-analysis" title="원본 평면도 정보 분석 프롬프트" prompt={floorplanPrompts.notebookPlanAnalysisPrompt} href={enabled?href('notebook-plan-analysis.txt'):undefined} filename="notebook-plan-analysis.txt" />
+  <p>이번에는 도면 한 장의 공간·개구부 판독 기준표를 만드는 데 사용합니다. 제10차시 건축법규에서는 A·B 듀얼 노트북으로 확장해 법령 원문에서 근거를 찾아 대조하는 작업을 진행합니다.</p>
+ </>}
+ {sourceSectionId==='l07-clean-line-criteria'&&<>
+  <div class="l07-fp-cards">{criteriaStates.map(([title,meaning,action])=><article><h3>{title}</h3><p>{meaning}</p><p>{action}</p></article>)}</div>
+  <p>최종 확정 도면 기준표는 후속 AI 작업의 보조 기준입니다. 분석과 원도면이 충돌하면 원도면의 선·문·실명·치수·레벨 표기를 우선합니다.</p>
+  <div class="l07-fp-table"><table><thead><tr>{['구분','항목','원본 도면에서 확인된 내용','상태','후속 작업 지시','원본 근거'].map(text=><th>{text}</th>)}</tr></thead><tbody>
+   <tr><td>공간·직접 연결</td><td>사무소·소장실·계단실·휴게데크-1</td><td>사무소에서 소장실·계단실·휴게데크-1로 통하는 직접문 확인</td><td>유지(KEEP)</td><td>후속 3D·관계도에서 실선 직접 연결로 유지</td><td>1층 평면도 문 기호·실명</td></tr>
+   <tr><td>경계·레벨 표기</td><td>탕비실↔창고 경계 · 계단참 EL+2,200</td><td>표기는 있으나 단일 평면도만으로 경계·확정 높이 단정 불가</td><td>다시 확인(REVIEW)</td><td>점선·주석으로 보류하고 확정 단차·높이로 해석 금지</td><td>1층 평면도 우측 지원영역·계단실</td></tr>
+   <tr><td>미기재 설계정보</td><td>천장고 · 마감재 · 조명 · 설비 성능</td><td>현재 평면도에 표기 없음</td><td>확인 불가(UNKNOWN)</td><td>임의 수치·재질·성능 생성 금지</td><td>확인 불가(별도 도면 필요)</td></tr>
+  </tbody></table></div>
+  <ReviewPrompt id="l07-plan-criteria" title="후속 AI용 최종 확정 도면 기준표 프롬프트" prompt={floorplanPrompts.floorPlanCriteriaPrompt} href={enabled?href('floor-plan-criteria.txt'):undefined} filename="floor-plan-criteria.txt" />
+  <h3>클린 선화(Clean Line) 전처리 직접 시도</h3><p>CAD에서 치수·주석 레이어를 끄거나, 원본 도면 이미지를 ChatGPT 이미지 편집 / Google AI Studio (Nano Banana)에 첨부해 외곽 주석을 정리할 수 있습니다. 아래 요청을 한 번 시도하고 원본과 비교합니다. 글자·구조선의 완전 보존은 지시만으로 보장되지 않습니다.</p>
+  {enabled&&<p><a class="review-download" data-office-original-download href={href('00-office-floorplan-original.png')} download>교육용 1층 오피스 원본 평면도 PNG 다운로드</a></p>}
+  <ReviewPrompt id="l07-clean-line-prompt" title="클린 선화(Clean Line) 전처리 프롬프트 · 7단 구조" prompt={cleanLinePrompt} href={enabled?href('DJ-L07-clean-line-preprocess.txt'):undefined} filename="DJ-L07-clean-line-preprocess.txt" />
+  <aside class="l07-fp-note" data-l07-cleanline-fallback><strong>직접 시도한 선화에서 다음 단계로 이어가기</strong><p>직접 생성한 선화에서 글자가 깨지거나 다음 단계로 진행해야 할 때는 실습팩의 <code>01-clean-line.jpg</code>를 사용합니다. 비교본에 의도적으로 넣은 모형실 → 이사실, 13인승 → 13연승을 확정 기준표로 바로잡으며 다음 단계로 진행합니다. 이미지 원문을 사실로 채택하지 않고 기준표의 정확한 명칭으로 해석·기록합니다.</p><p>이 전처리 Prompt는 바로 위 TXT 버튼에서 받습니다. 기존 실습팩 ZIP에는 기준 선화와 판독·관계도 자료가 들어 있습니다.</p></aside>
+  <h3>정리 전 도면과 정리 후 클린 선화 비교</h3><div class="l07-fp-grid" data-l07-plan-before-after><Lesson07Asset assetKey="comfy-before" instance="plan-before-clean-line" title="정리 전 도면 · 실명·치수·레벨 포함" description="제7차시 확대 비교에서 본 같은 자체 제작 교육용 1층 오피스 평면도입니다. 원본부터 가로 정방향이며 PDF의 실명·치수·레벨을 사실 기준으로 사용합니다." /><Lesson07FloorplanAsset lesson="08" assetKey="clean-line" title="클린 선화 · 교육용 문자 오류 비교본" description="외곽 축선·치수선·마감표·단면 지시선을 제거한 뒤 모형실 → 이사실, 13인승 → 13연승을 의도적으로 넣었습니다. 실명·가구·일부 표기가 남아 있어 글자를 모두 제거한 도면은 아닙니다. 실제 AI 오류 증빙이 아닌 대조 연습용입니다." /></div>
+  <p>같은 평면을 바탕으로 한 자료이지만 글자와 선의 완전 보존을 증명하지 않습니다. 선화 이미지 하나만 믿지 않고 트랙 A의 원본 PDF·최종 확정 도면 기준표를 함께 사용합니다.</p>
+  <h3>원본 → 선화 → Top View의 문자 변형 대조</h3><div class="l07-fp-table" data-l07-text-checks><table><thead><tr><th>원본</th><th>선화</th><th>Top View</th><th>검토·교정 기준</th></tr></thead><tbody>{floorplanTextChecks.map(row=><tr>{row.map(cell=><td>{cell}</td>)}</tr>)}</tbody></table></div>
+  <h3>클린 선화와 구조 검토용 입체 이미지</h3><div class="l07-fp-grid"><Lesson07FloorplanAsset lesson="08" assetKey="top-view" /></div>
+  <p>입체 비교본에도 모형실 → 이사실, 소장실 → 사장실, 계단참 → 계단창, 13인승 → 1.5인승을 교육용으로 의도했습니다. 실제 AI가 같은 오류를 재현했다는 뜻은 아닙니다. 원본 PDF·확정 기준표를 사실 기준으로 함께 입력하고, 입체의 가구·개구부·재료·문자도 원도면과 다시 비교합니다.</p>
+  <details><summary>보조 프롬프트 · 구조 검토용 Top View 3D 생성</summary><ReviewPrompt id="l07-plan-topview" title="구조 검토용 Top View 3D 생성 프롬프트" prompt={floorplanPrompts.topViewPrompt} href={enabled?href('top-view-structure.txt'):undefined} filename="top-view-structure.txt" /></details>
+  <h3>원도면 대조 체크리스트</h3><div class="l07-fp-table"><table><thead><tr><th>검토 항목</th><th>일치</th><th>불일치</th><th>확인 불가</th><th>원본 근거</th></tr></thead><tbody>{reviewRows.map(row=><tr><th>{row}</th><td>□</td><td>□</td><td>□</td><td>페이지·도면 위치</td></tr>)}</tbody></table></div>
+  <p>KEEP 직접 연결 9개와 승강기 출입면의 수평 접근을 구별합니다. -30/-60 구조레벨을 완성바닥 문턱 단차로, 계단참 EL+2,200을 확정 높이로 바꾸어 해석하지 않습니다.</p>
+ </>}
+ {sourceSectionId==='l07-spatial-validation'&&<>
+  <p>원본 평면도와 확정 기준표만으로 공간 기능·인접 관계·주요 동선을 정리합니다. 3D 이미지의 그럴듯한 표현이 새로운 사실 근거로 섞이지 않도록 합니다.</p>
+  <div class="l07-fp-cards">{functionGroups.map(([title,spaces])=><article><h3>{title}</h3><p>{spaces}</p></article>)}</div>
+  <div class="l07-fp-table"><table><thead><tr><th>관계 표현</th><th>규칙</th></tr></thead><tbody>{relationshipRules.map(([title,text])=><tr><th>{title}</th><td>{text}</td></tr>)}</tbody></table></div>
+  <h3>초기 분석의 오독을 교정합니다</h3><div class="l07-fp-grid"><article><h4>사무소 ↔ 탕비실</h4><p>가까이 보인다는 이유로 직접문을 만들지 않습니다. 원도면에서 직접문이 확인되지 않으므로 직접 연결선을 금지합니다.</p></article><article><h4>휴게데크 연결 실</h4><p>휴게데크-1 ↔ 사무소, 휴게데크-2 ↔ 소장실, 휴게데크-3 ↔ 회의실의 직접문 관계를 원도면에서 대조해 교정합니다.</p></article></div>
+  <ReviewPrompt id="l07-spatial-analysis" title="공간 기능·공간 인접 관계·주요 동선 분석 프롬프트" prompt={floorplanPrompts.spatialAnalysisPrompt} href={enabled?href('spatial-analysis.txt'):undefined} filename="spatial-analysis.txt" />
+  <ReviewPrompt id="l07-spatial-validation-prompt" title="분석 결과 검증 및 최종 인계본 정리 프롬프트" prompt={floorplanPrompts.validationPrompt} href={enabled?href('spatial-validation.txt'):undefined} filename="spatial-validation.txt" />
+ </>}
+ {sourceSectionId==='l07-graphviz-diagram'&&<>
+  <p>검증한 공간명·관계·동선을 Graphviz(DOT) 텍스트로 구조화합니다. 이미지 생성에만 맡기지 않고, 어떤 방을 점으로 표시하고 어느 점 사이를 선으로 이을지 텍스트에서 직접 확인합니다.</p>
+  <ol class="l07-fp-flow">{['최종 공간·관계 데이터','DOT 코드','웹 렌더링','원본 근거와 비교'].map(text=><li>{text}</li>)}</ol>
+  <ReviewPrompt platform="ChatGPT · Google AI Studio (Gemini)" howToUse="검증한 공간 관계 데이터로 DOT 코드를 생성한 뒤, Viz.js(권장) 또는 WebGraphviz(보조)에 붙여 넣고 노드·관계선을 대조합니다." id="l07-graphviz-prompt" title="Graphviz(DOT) 코드 생성 프롬프트" prompt={floorplanPrompts.graphvizPrompt} href={enabled?href('graphviz-generation.txt'):undefined} filename="graphviz-generation.txt" />
+  <ReviewPrompt platform="Viz.js · 보조: WebGraphviz" howToUse="아래 DOT 코드를 Viz.js에 붙여 넣고 한글 라벨·노드 간격·공간 연결을 확인합니다. WebGraphviz는 HTTP 보조 경로입니다." id="l07-actual-dot" title="실습용 DOT 코드 · 공간 관계 기준 예시" prompt={actualDotCode} href={enabled?href('Graphviz-DOT-source.txt'):undefined} filename="Graphviz-DOT-source.txt" />
+  <div class="l07-fp-grid" data-graphviz-tools><article><h3>Viz.js · 1순위 권장</h3><p>HTTPS에서 Graphviz DOT를 렌더링합니다. 아래 링크를 열고 같은 코드를 붙여 넣어 노드·관계선을 대조합니다.</p><a href="https://viz-js.com/" target="_blank" rel="noreferrer">Viz.js 열기 · HTTPS</a><p>예제 DOT의 Malgun Gothic은 한글 표시를 위한 폰트 지정입니다. PC의 설치 폰트와 브라우저에 따라 대체 글꼴·글자 폭이 달라질 수 있으므로 한글 깨짐과 잘림을 확인합니다.</p></article><article><h3>WebGraphviz · 보조 대안</h3><p>HTTP 사이트이므로 연결 보안 경고나 접속 제한이 발생할 수 있습니다. 경고를 우회하지 말고 Viz.js를 먼저 사용합니다. 한글 폰트·글자 폭과 노드 잘림도 대조합니다.</p><a href="http://webgraphviz.com/" target="_blank" rel="noreferrer">WebGraphviz 열기 · HTTP 주의</a></article></div>
+  <h3>방법 A / B · 관계 구조화 결과 비교</h3><div class="l07-fp-grid"><Lesson07FloorplanAsset lesson="08" assetKey="notebook-diagram" /><Lesson07FloorplanAsset lesson="08" assetKey="chatgpt-diagram" /></div>
+  <p>두 관계도는 같은 검증 데이터에서 DOT의 배치 설정만 달리한 세로·가로 예시입니다. NotebookLM·ChatGPT의 실제 실행 화면이 아니라, 각 방법의 분석을 관계 데이터로 넘기는 흐름을 보여 줍니다. 노드 배치가 달라도 모형실·소장실·계단실과 KEEP·REVIEW의 의미는 같게 유지합니다.</p>
+  <div class="l07-fp-cards"><article><h4>유지 · 실선</h4><p>원본에서 확인한 직접 관계를 표시합니다.</p></article><article><h4>다시 확인 · 점선</h4><p>경계·접근 방식 등 추가 확인할 관계를 표시합니다. 직접문 없음 표시는 별도 상태 라벨로 읽습니다.</p></article><article><h4>확인 불가 · 임의 생성 금지</h4><p>현재 도면에서 확인할 수 없는 관계·수치를 만들지 않습니다.</p></article><article><h4>주요 이동 · 화살표</h4><p>계단과 엘리베이터의 수직동선, 승강기 출입면의 수평 접근을 구별합니다.</p></article></div>
+  <p>노드 위치는 실제 평면 위치·거리·면적을 뜻하지 않습니다. 이 다이어그램은 치수·구조·법규 검토나 실제 도면을 대체하지 않습니다.</p>
+ </>}
+ {sourceSectionId==='l07-part2-handover'&&<>
+  <h3>도면 판독·공간 관계도 핵심 산출물</h3><div class="l07-fp-cards">{floorplanDeliverables.map((text,i)=><article><span>{String(i+1).padStart(2,'0')}</span><strong>{text}</strong></article>)}</div>
+  <p>원본 근거가 있는 정보와 추가 확인할 정보를 함께 보관합니다. 클린 선화·입체 이미지·관계도를 원도면의 대체물로 사용하지 않습니다.</p>
+  {enabled&&<div class="l07-fp-downloads"><a class="review-download" href={href('DJ-L08-Floorplan-Graphviz-Pack.zip')} download>도면 판독·Graphviz 실습자료 ZIP 다운로드</a><a href={href('DJ-L07-Floorplan-Checklist.md')} download>원도면 대조 체크리스트 다운로드</a><a href={href('README.md')} download>도면 판독 실습자료 사용 방법</a></div>}
+  <p>패키지는 자체 제작 원본 PDF·PNG·클린 선화·Top View 비교 이미지·다이어그램 A/B·전처리 및 판독 프롬프트·DOT 코드·체크리스트를 포함합니다. 외부 프로젝트 원본 PDF와 내부 검수용 DOCX는 넣지 않습니다.</p>{enabled&&<a class="review-download" href={href('DJ-L07-Office-Floorplan-Original.pdf')} download>교육용 1층 오피스 원본 PDF 다운로드</a>}
+  <h3>후속 3D 모델링으로 연결합니다</h3><p>전처리한 클린 도면과 공간 기준표·검증한 관계 데이터를 함께 준비합니다. 제9차시에서는 이 사실 기준과 추가 확인 항목을 도면 기반 Step 1~3 모델링, 부위별 재질·조명, Step 4 카메라 무빙으로 연결합니다.</p>
+ </>}
+</div>
+<style>
+ .l07-floorplan-part{min-width:0;overflow-wrap:anywhere}.l07-fp-cards,.l07-fp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1.4rem 0}.l07-fp-cards>article,.l07-fp-grid>article{min-width:0;padding:1rem;border:1px solid var(--line);background:var(--surface)}h3,h4{font-size:1.05rem}.l07-fp-cards h3,.l07-fp-cards h4{margin:.1rem 0 .6rem}.l07-fp-cards span{display:block;color:var(--accent-dark);font-size:.8rem;margin-bottom:.5rem}
+ .l07-fp-flow{display:flex;flex-wrap:wrap;gap:.6rem;list-style:none;padding:0;margin:1.4rem 0}.l07-fp-flow li{min-width:0;padding:.6rem .8rem;border:1px solid var(--line);background:var(--surface)}.l07-fp-flow li:not(:last-child)::after{content:' →'}.l07-fp-note{padding:1.2rem;background:var(--surface);border-left:3px solid var(--accent-dark);margin:1.5rem 0}
+ .l07-fp-table{max-width:100%;margin:1.4rem 0}.l07-fp-table table{width:100%;table-layout:fixed}.l07-fp-table th,.l07-fp-table td{overflow-wrap:anywhere;word-break:normal;padding:.6rem}.l07-fp-downloads{display:grid;gap:.8rem;padding:1rem;border:1px solid var(--line)}
+ .l07-stage-io div{display:grid;grid-template-columns:6rem minmax(0,1fr);gap:.5rem;margin:.5rem 0}.l07-stage-io dt{font-weight:700}.l07-stage-io dd{margin:0;min-width:0}[data-l07-platform-flow] li{flex:1 1 12rem}[data-l07-platform-flow] p{margin:.5rem 0 0}
+ @media(max-width:700px){.l07-stage-io div{grid-template-columns:minmax(0,1fr);gap:.2rem}}
+ @media(max-width:700px){.l07-fp-grid,.l07-fp-cards{grid-template-columns:minmax(0,1fr)}.l07-fp-table th,.l07-fp-table td{font-size:.72rem;padding:.3rem}}
+</style>

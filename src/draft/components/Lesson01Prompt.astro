@@ -1,0 +1,7 @@
+---
+import ReviewPrompt from './ReviewPrompt.astro';
+import { learnerText } from '../content/lesson01-learner';
+interface Props { id: string; title: string; prompt: string; filename: string; }
+const { id, title, prompt, filename } = Astro.props;
+---
+<ReviewPrompt {id} {title} prompt={learnerText(prompt)} {filename} />

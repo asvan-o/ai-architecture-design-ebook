@@ -1,0 +1,106 @@
+---
+import ReviewLayout from '../../layouts/ReviewLayout.astro';
+import ReviewSection from '../../components/ReviewSection.astro';
+import Lesson02AutomationPractice from '../../components/Lesson02AutomationPractice.astro';
+import Lesson02ClassificationGuide from '../../components/Lesson02ClassificationGuide.astro';
+import Lesson02Infographic from '../../components/Lesson02Infographic.astro';
+import TopicProgress from '../../components/TopicProgress.astro';
+import '../../styles/lesson02.css';
+import '../../styles/lesson02-automation.css';
+import {
+  lesson02Title,lesson02Lead,sections,periods,goals,recap,
+  automationDefinition,automationExamples,humanDecisions,environmentSteps,referenceLinks,
+  architectureRoles,hierarchyTree,
+} from '../../content/daejeon-lesson02-automation';
+const sectionProps=(id:string)=>({...sections.find(s=>s.id===id)!,index:sections.findIndex(s=>s.id===id)+1});
+const tocGroups=periods.map((period,index)=>({id:period.id,title:'Part '+(index+1)+' · '+period.title,items:[{id:period.id,title:'Part '+(index+1)+' 시작'},...period.sections]}));
+const toc=tocGroups.flatMap(group=>group.items);
+---
+<ReviewLayout title={lesson02Title} lead={lesson02Lead} page="lesson" lessonId="02" eyebrow="LESSON 02" sharedScreen {toc} {tocGroups}>
+<div class="lesson02-review lesson02-automation">
+
+  <TopicProgress lesson="02" items={[{topic:2,status:'완결',note:'실무 시나리오의 목표와 사람의 판단 범위를 정하고, Vibe Coding으로 설계 워크플로우 자동화를 구현·실행하며 대주제 2를 마무리합니다.'}]} />
+  <div class="lesson02-summary">{periods.map((period,index)=><article><h2>Part {index+1} · {period.title}</h2><p>{period.output}</p></article>)}</div>
+  <h2>이번 차시의 학습 목표</h2><ol class="lesson02-goals">{goals.map(goal=><li>{goal}</li>)}</ol>
+
+  {periods.map((period,periodIndex)=><div class="day-period" id={period.id} data-period={periodIndex+1} data-teaching-minutes="50">
+    <header class="period-heading"><p>Part {periodIndex+1}</p><h2>{period.title}</h2><p>이번 파트의 결과: {period.output}</p></header>
+    {periodIndex===0&&<>
+      <ReviewSection {...sectionProps('l02-recap')} summary={recap.subtitle}>
+        <div data-recap-introduction>{recap.introduction.map(text=><p>{text}</p>)}</div>
+        <h3>지난 차시의 작업 흐름</h3>
+        <ol class="l02-recap-flow" data-recap-previous-flow aria-label="지난 차시의 작업 순서">{recap.previousFlow.map(step=><li>{step}</li>)}</ol>
+        <div class="l02-recap-roles" data-recap-roles>{recap.roles.map(role=><article><h3>{role.title}</h3><ul>{role.items.map(item=><li>{item}</li>)}</ul></article>)}</div>
+        <h3>같은 원칙으로 프로그램 만들기</h3><p>{recap.connection}</p>
+        <ol class="l02-recap-flow" data-recap-planning-flow aria-label="프로그램을 만들 때 확인할 순서">{recap.planningFlow.map(step=><li>{step}</li>)}</ol>
+        <h3>오늘의 작업 흐름</h3>
+        <ol class="l02-recap-flow" data-recap-today-flow aria-label="오늘의 작업 순서">{recap.todayFlow.map(step=><li>{step}</li>)}</ol>
+        <div class="l02-recap-transition" data-recap-transition>{recap.transition.map(text=><p>{text}</p>)}</div>
+      </ReviewSection>
+      <ReviewSection {...sectionProps('l02-automation')} summary="반복되는 일 중 규칙으로 처리할 수 있는 부분을 찾습니다.">
+        <p class="l02-definition">{automationDefinition}</p>
+        <div class="lesson02-summary"><article><h3>수작업</h3><p>파일이 들어올 때마다 사람이 하나씩 확인하고 이동합니다.</p></article><article><h3>자동화</h3><p>정해둔 규칙에 맞는 파일은 프로그램이 자동 처리합니다.</p></article><article><h3>사람 판단</h3><p>어디에 넣어야 할지 명확하지 않은 파일은 사람이 결정합니다.</p></article></div>
+        <h3>건축·디자인 업무에서 찾아보기</h3><ul>{automationExamples.map(([title,note])=><li><strong>{title}</strong> — {note}</li>)}</ul>
+        <div class="lesson02-decision"><strong>오늘은 작은 파일 정리 자동화 사례 하나를 만듭니다.</strong><p>위 예시를 모두 구현하지 않습니다. 먼저 수집함에 넣은 파일 중 규칙으로 분류할 수 있는 범위를 정합니다.</p></div>
+      </ReviewSection>
+      <ReviewSection {...sectionProps('l02-vibe-coding')} summary="원하는 기능을 자연어로 설명하며 AI와 함께 프로그램을 만듭니다.">
+        <p class="l02-flow-line">업무 문제 → 자동화 가능성 → Vibe Coding</p>
+        <p>파일을 매번 정리하는 문제가 있다면, 어떤 부분을 규칙으로 처리할 수 있는지 먼저 생각합니다. 그다음 원하는 프로그램의 기능과 동작을 자연어로 설명하면서 AI와 함께 설계·구현·수정합니다. 이 방법을 Vibe Coding이라고 부릅니다.</p>
+        <h3>사람이 먼저 정할 여섯 가지</h3><ol class="lesson02-checklist">{humanDecisions.map(item=><li>{item}</li>)}</ol>
+        <div class="review-question"><strong>내 업무에 적용하기</strong><p>반복해서 하는 일 하나를 고르고, 자동으로 처리할 부분과 사람이 결정할 부분을 각각 한 문장으로 적습니다. “알아서 만들어 주세요”에 빠진 조건을 찾아봅니다.</p></div>
+      </ReviewSection>
+      <ReviewSection {...sectionProps('l02-environment')} summary="ChatGPT Desktop에서 Codex와 실습 폴더를 연결하고 작업 범위를 확인합니다.">
+        <h3>본 실습 · ChatGPT Desktop + Codex</h3><p>Codex는 사람이 정한 요구사항과 구조를 실제 프로젝트 파일과 코드로 구현하는 도구입니다. 지금은 환경을 준비하고, 구현 전에 계획을 요청하는 방법까지 확인합니다.</p>
+        <ol class="lesson02-checklist" data-codex-environment>{environmentSteps.map(([title,note])=><li><strong>{title}</strong><p>{note}</p></li>)}</ol>
+        <aside class="lesson02-decision" data-node-guidance><h3>Node.js LTS · 로컬 프로그램 실행환경</h3><p>Node.js는 Codex 자체를 설치하기 위한 필수요건이 아니라 이번 로컬 프로그램을 실행·테스트하기 위한 실행환경입니다. 명령 창에서 <code>node --version</code>으로 설치된 버전을 확인합니다.</p><p>제공하는 실행 예제의 기준은 README에 적힌 Node.js 22.23.2 이상인 LTS 버전입니다. 실제 확인한 최소 버전은 22.23.2이며, 모든 버전·PC의 동작을 보증한다는 뜻은 아닙니다.</p></aside>
+        <p>CLI 방식의 Codex, Git, VS Code, WSL 설치는 이번 기본 실습의 필수조건이 아닙니다.</p>
+        <aside class="review-callout" data-alternative-environment><strong>대체 환경 소개 · Antigravity</strong><p>비슷한 에이전트형 개발 작업은 Antigravity와 같은 다른 개발 환경에서도 진행할 수 있습니다. 이번 본 실습은 ChatGPT Desktop + Codex로 진행합니다.</p></aside>
+        <div class="l02-reference-links" data-reference-links><h3>참고 링크</h3><h4>OpenAI 공식 안내</h4><ul>{referenceLinks.openai.map(link=><li><a href={link.href} target="_blank" rel="noreferrer">{link.label}</a></li>)}</ul><h4>실행환경</h4><ul><li><a href={referenceLinks.runtime.href} target="_blank" rel="noreferrer">{referenceLinks.runtime.label}</a></li></ul></div>
+      </ReviewSection>
+    </>}
+    {periodIndex===1&&<>
+      <ReviewSection {...sectionProps('l02-architecture')} summary="어떤 기능이 필요하고 서로 어떻게 연결되는지 정합니다.">
+        <p>건축에서 공간의 역할과 연결관계를 먼저 계획하듯, 프로그램도 기능의 역할과 연결관계를 먼저 정합니다. 이것이 프로그램의 큰 구조, Architecture입니다.</p>
+        <Lesson02Infographic imageKey="flow" instance="architecture" />
+        <ol class="lesson02-architecture-flow" data-architecture-flow>{architectureRoles.map(([term,title,note])=><li><strong>{title}</strong><span>{term}</span><p>{note}</p></li>)}</ol>
+        <p>이 도식은 역할의 연결관계를 보여줍니다. 실제 파일 이동 전에는 복사 완료 확인과 원본보관이 먼저 필요합니다. 영어 이름을 외우기보다 각 역할을 자신의 말로 설명합니다.</p>
+        <div class="review-question"><strong>역할 연결하기</strong><p>파일명만으로 분류할 수 없으면 어느 역할이 사람에게 판단을 넘기나요? 원본 보관과 결과 기록은 누가 맡나요?</p></div>
+      </ReviewSection>
+      <ReviewSection {...sectionProps('l02-hierarchy')} summary="기능의 역할을 실제 폴더와 파일에 나눠 담습니다.">
+        <div class="lesson02-reference-pair"><aside class="lesson02-decision"><h3>프로그램의 큰 구조 · Architecture</h3><p>무슨 기능이 필요한가?</p></aside><aside class="lesson02-decision"><h3>폴더와 파일 구성 · Hierarchy</h3><p>그 기능을 실제 폴더와 파일로 어떻게 나눌 것인가?</p></aside></div>
+        <pre class="lesson02-program-tree" data-hierarchy-tree>{hierarchyTree}</pre>
+        <p>제공하는 실행 예제의 주요 구조입니다. <code>01~11 분류폴더</code>는 여러 분류 폴더를 줄여 쓴 표기입니다. <code>app</code>에는 기능과 규칙, <code>data</code>에는 처리 상태와 기록을 둡니다.</p>
+        <div class="review-task"><strong>역할이 놓이는 위치 찾기</strong><p>“규칙을 바꾸는 곳”, “원본을 보관하는 곳”, “사람이 확인할 파일이 있는 곳”을 찾습니다. 코드 파일명을 암기하는 대신 역할과 위치를 연결합니다.</p></div>
+      </ReviewSection>
+      <ReviewSection {...sectionProps('l02-rules')} summary="확실한 것은 자동 처리하고 애매한 것은 사람이 확인하도록 정합니다.">
+        <Lesson02Infographic imageKey="rules" instance="rules" />
+        <Lesson02ClassificationGuide />
+        <div class="review-question"><strong>자동화의 경계 정하기</strong><p>이름이 모호한 파일까지 자동으로 보내면 어떤 문제가 생길까요? “사람확인으로 보내기”를 성공 조건에 포함해 봅니다.</p></div>
+      </ReviewSection>
+      <ReviewSection {...sectionProps('l02-first-request')} summary="두 예제의 목적과 사람 판단 범위를 비교하고 구조부터 제안받습니다.">
+        <Lesson02AutomationPractice stage="choose" />
+      </ReviewSection>
+      <ReviewSection {...sectionProps('l02-plan-review')} summary="AI 답변과 사람이 정한 조건을 비교한 뒤 부족한 부분을 보완합니다.">
+        <Lesson02AutomationPractice stage="review" />
+      </ReviewSection>
+    </>}
+    {periodIndex===2&&<>
+      <ReviewSection {...sectionProps('l02-implementation-spec')} summary="검토한 구조를 바탕으로 선택한 예제의 구현 범위와 확인 기준을 정합니다.">
+        <Lesson02AutomationPractice stage="spec" />
+      </ReviewSection>
+      <ReviewSection {...sectionProps('l02-implement')} summary="검토한 계획을 프로젝트 파일로 만들고 필요한 수정과 기능 확인을 이어갑니다.">
+        <Lesson02AutomationPractice stage="implement" />
+      </ReviewSection>
+      <ReviewSection {...sectionProps('l02-run')} summary="선택한 프로그램을 실행하고 직접 관찰한 결과를 기록합니다.">
+        <Lesson02AutomationPractice stage="run" />
+      </ReviewSection>
+      <ReviewSection {...sectionProps('l02-test')} summary="다른 예제를 빠르게 실행하며 자동 처리와 사람 판단의 차이를 살펴봅니다.">
+        <Lesson02AutomationPractice stage="try" />
+      </ReviewSection>
+      <ReviewSection {...sectionProps('l02-wrap-up')} summary="요구사항과 판단 범위, 직접 확인한 결과를 함께 정리합니다.">
+        <Lesson02AutomationPractice stage="wrap" />
+      </ReviewSection>
+    </>}
+  </div>)}
+</div>
+</ReviewLayout>

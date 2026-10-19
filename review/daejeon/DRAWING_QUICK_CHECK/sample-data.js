@@ -1,0 +1,334 @@
+globalThis.DrawingSample = {
+  "title": "도면 제출 전 빠른 점검 · 교육용 파일명 테스트",
+  "notice": "모든 파일은 파일명 점검용 stub이며 실제 도면이 아닙니다.",
+  "count": 29,
+  "expectedSummary": {
+    "total": 29,
+    "checked": 24,
+    "drawings": 9,
+    "needsCheck": 8,
+    "previous": 4,
+    "excluded": 5
+  },
+  "files": [
+    {
+      "name": "A-101_1층평면도_R01.pdf",
+      "relativePath": "A-101_1층평면도_R01.pdf",
+      "size": 103,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "이전 리비전",
+        "latest": "R02"
+      }
+    },
+    {
+      "name": "A-101_1층평면도_R02.pdf",
+      "relativePath": "A-101_1층평면도_R02.pdf",
+      "size": 103,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "정상",
+        "latest": "R02"
+      }
+    },
+    {
+      "name": "A-101_1층평면도_R02.dwg",
+      "relativePath": "A-101_1층평면도_R02.dwg",
+      "size": 103,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "정상",
+        "latest": "R02"
+      }
+    },
+    {
+      "name": "A-102_2층평면도_R01.pdf",
+      "relativePath": "A-102_2층평면도_R01.pdf",
+      "size": 103,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "정상",
+        "latest": "R01"
+      }
+    },
+    {
+      "name": "A-102_2층평면도_R01.dwg",
+      "relativePath": "A-102_2층평면도_R01.dwg",
+      "size": 103,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "정상",
+        "latest": "R01"
+      }
+    },
+    {
+      "name": "A-102_2층평면도_R01.dxf",
+      "relativePath": "A-102_2층평면도_R01.dxf",
+      "size": 103,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "정상",
+        "latest": "R01"
+      }
+    },
+    {
+      "name": "A-103_천장평면도_R01.pdf",
+      "relativePath": "A-103_천장평면도_R01.pdf",
+      "size": 105,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "확인 필요",
+        "latest": "R01"
+      }
+    },
+    {
+      "name": "A-104_입면도_R01.dwg",
+      "relativePath": "A-104_입면도_R01.dwg",
+      "size": 99,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "확인 필요",
+        "latest": "R01"
+      }
+    },
+    {
+      "name": "A-105_단면도_R01.dxf",
+      "relativePath": "A-105_단면도_R01.dxf",
+      "size": 99,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "확인 필요",
+        "latest": "R01"
+      }
+    },
+    {
+      "name": "A101_입면도_최종.pdf",
+      "relativePath": "A101_입면도_최종.pdf",
+      "size": 101,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "파일명 확인",
+        "latest": ""
+      }
+    },
+    {
+      "name": "A-106_단면도.pdf",
+      "relativePath": "A-106_단면도.pdf",
+      "size": 95,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "파일명 확인",
+        "latest": ""
+      }
+    },
+    {
+      "name": "A-107__R01.pdf",
+      "relativePath": "A-107__R01.pdf",
+      "size": 90,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "파일명 확인",
+        "latest": ""
+      }
+    },
+    {
+      "name": "A-108_상세도_R01.pdf",
+      "relativePath": "A-108_상세도_R01.pdf",
+      "size": 99,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "이전 리비전",
+        "latest": "R03"
+      }
+    },
+    {
+      "name": "A-108_상세도_R02.pdf",
+      "relativePath": "A-108_상세도_R02.pdf",
+      "size": 99,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "이전 리비전",
+        "latest": "R03"
+      }
+    },
+    {
+      "name": "A-108_상세도_R03.pdf",
+      "relativePath": "A-108_상세도_R03.pdf",
+      "size": 99,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "정상",
+        "latest": "R03"
+      }
+    },
+    {
+      "name": "A-108_상세도_R03.dwg",
+      "relativePath": "A-108_상세도_R03.dwg",
+      "size": 99,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "정상",
+        "latest": "R03"
+      }
+    },
+    {
+      "name": "A-109_배치도_R02.pdf",
+      "relativePath": "A-109_배치도_R02.pdf",
+      "size": 99,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "이전 리비전",
+        "latest": "R10"
+      }
+    },
+    {
+      "name": "A-109_배치도_R10.pdf",
+      "relativePath": "A-109_배치도_R10.pdf",
+      "size": 99,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "정상",
+        "latest": "R10"
+      }
+    },
+    {
+      "name": "A-109_배치도_R10.dwg",
+      "relativePath": "A-109_배치도_R10.dwg",
+      "size": 99,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "정상",
+        "latest": "R10"
+      }
+    },
+    {
+      "name": "A-110_계단상세_R02.pdf",
+      "relativePath": "원본/A-110_계단상세_R02.pdf",
+      "size": 109,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "확인 필요",
+        "latest": "R02"
+      }
+    },
+    {
+      "name": "A-110_계단상세_R02.pdf",
+      "relativePath": "복사본/A-110_계단상세_R02.pdf",
+      "size": 112,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "확인 필요",
+        "latest": "R02"
+      }
+    },
+    {
+      "name": "A-110_계단상세_R02.dwg",
+      "relativePath": "A-110_계단상세_R02.dwg",
+      "size": 102,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "정상",
+        "latest": "R02"
+      }
+    },
+    {
+      "name": "A-111_로비_벽체상세_R01.pdf",
+      "relativePath": "A-111_로비_벽체상세_R01.pdf",
+      "size": 109,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "정상",
+        "latest": "R01"
+      }
+    },
+    {
+      "name": "A-111_로비_벽체상세_R01.dwg",
+      "relativePath": "A-111_로비_벽체상세_R01.dwg",
+      "size": 109,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "정상",
+        "latest": "R01"
+      }
+    },
+    {
+      "name": "설명.txt",
+      "relativePath": "설명.txt",
+      "size": 86,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "제외",
+        "reason": "지원하지 않는 형식"
+      }
+    },
+    {
+      "name": "A-112_임시도면_R01.pdf.tmp",
+      "relativePath": "A-112_임시도면_R01.pdf.tmp",
+      "size": 106,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "제외",
+        "reason": "임시·백업 파일"
+      }
+    },
+    {
+      "name": ".숨김.pdf",
+      "relativePath": ".숨김.pdf",
+      "size": 87,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "제외",
+        "reason": "숨김 이름 또는 숨김 폴더"
+      }
+    },
+    {
+      "name": "A-113_검토도면_R01.pdf",
+      "relativePath": ".숨김폴더/A-113_검토도면_R01.pdf",
+      "size": 116,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "제외",
+        "reason": "숨김 이름 또는 숨김 폴더"
+      }
+    },
+    {
+      "name": "~$A-114_임시도면_R01.dwg",
+      "relativePath": "~$A-114_임시도면_R01.dwg",
+      "size": 104,
+      "lastModified": 0,
+      "purpose": "파일명 점검용 stub · 실제 도면 아님",
+      "expected": {
+        "status": "제외",
+        "reason": "임시·백업 파일"
+      }
+    }
+  ]
+};

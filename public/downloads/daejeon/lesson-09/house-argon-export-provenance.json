@@ -1,0 +1,233 @@
+{
+  "status": "PASS",
+  "derived": true,
+  "createdAt": "2026-10-19T07:08:55.285106+00:00",
+  "blenderVersion": "5.2.2 LTS",
+  "sourceBlend": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\review\\daejeon\\HOUSE_3F_SIMULATION\\argon_simulation\\House_3F_Step1_to_Step3_Master_Argon.blend",
+  "sourceBlendSha256": "c54025af45a79ac676910741d27dd045f42d31e4a75ca22373e941b7130f9f83",
+  "sourceFilesUnchanged": true,
+  "originalFbx": {
+    "file": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\review\\daejeon\\HOUSE_3F_SIMULATION\\argon_simulation\\export\\House_3F_Full_Complete_Argon.fbx",
+    "sha256": "82bc40186a0f4e01d9d648ec803daf008e92ef7f95a24c77782b7e180c77e6a0",
+    "textureCount": 0
+  },
+  "reason": "Original FBX exported no image textures because Hue/Saturation sits between image and Principled Base Color. Only distribution exports are derived; original model, scripts and renders remain unchanged.",
+  "method": "Cycles EMIT bake of original Blender Hue/Saturation node output onto UV unit quad. 512x512 sRGB textures, direct Principled Base Color connection for FBX/GLB compatibility. No geometry changes. Original shader versus baked-image emission renders compared before export.",
+  "meshCount": 1534,
+  "materials": 17,
+  "textures": 7,
+  "textureBakeEvidence": [
+    {
+      "sourceImage": "terrazzo.png",
+      "settings": {
+        "Hue": 0.49000000953674316,
+        "Saturation": 1.149999976158142,
+        "Value": 1.0399999618530273,
+        "Fac": 1.0
+      },
+      "bakedFile": "argon_baked_terrazzo.png",
+      "sha256": "106bee4c136cec22c687d2c2a2b7b481b106f9c5518a07688ab8876614cf1b32",
+      "materials": [
+        "Argon_Honed_Travertine"
+      ],
+      "resolution": [
+        512,
+        512
+      ],
+      "shaderReference": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\shader-comparison\\argon_baked_terrazzo-shader.png",
+      "bakedReference": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\shader-comparison\\argon_baked_terrazzo-baked.png",
+      "comparison": {
+        "space": "Normalized RGB channels from Blender-loaded 8-bit validation PNG",
+        "meanAbsoluteError": 0.0010307411199240353,
+        "p99AbsoluteError": 0.003921568393707275,
+        "maxAbsoluteError": 0.00784313678741455,
+        "pass": true,
+        "threshold": "mean<0.004, p99<0.018"
+      }
+    },
+    {
+      "sourceImage": "plaster.png",
+      "settings": {
+        "Hue": 0.49000000953674316,
+        "Saturation": 1.149999976158142,
+        "Value": 1.0399999618530273,
+        "Fac": 1.0
+      },
+      "bakedFile": "argon_baked_plaster.png",
+      "sha256": "c36fa435a8520b08be0ad0383e69c24c64dcff634680d3398ad9fe6cf3765899",
+      "materials": [
+        "Argon_Warm_Limestone_Plaster"
+      ],
+      "resolution": [
+        512,
+        512
+      ],
+      "shaderReference": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\shader-comparison\\argon_baked_plaster-shader.png",
+      "bakedReference": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\shader-comparison\\argon_baked_plaster-baked.png",
+      "comparison": {
+        "space": "Normalized RGB channels from Blender-loaded 8-bit validation PNG",
+        "meanAbsoluteError": 0.001137612468255611,
+        "p99AbsoluteError": 0.003921568393707275,
+        "maxAbsoluteError": 0.003921568393707275,
+        "pass": true,
+        "threshold": "mean<0.004, p99<0.018"
+      }
+    },
+    {
+      "sourceImage": "walnut.png",
+      "settings": {
+        "Hue": 0.49000000953674316,
+        "Saturation": 1.149999976158142,
+        "Value": 1.0399999618530273,
+        "Fac": 1.0
+      },
+      "bakedFile": "argon_baked_walnut.png",
+      "sha256": "ba9e8295fbcd0a0b788a7159cc6f902bcaca70f5adbe32cd59580dd939bafe80",
+      "materials": [
+        "Argon_Smoked_Espresso_Walnut"
+      ],
+      "resolution": [
+        512,
+        512
+      ],
+      "shaderReference": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\shader-comparison\\argon_baked_walnut-shader.png",
+      "bakedReference": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\shader-comparison\\argon_baked_walnut-baked.png",
+      "comparison": {
+        "space": "Normalized RGB channels from Blender-loaded 8-bit validation PNG",
+        "meanAbsoluteError": 0.0004928789567083905,
+        "p99AbsoluteError": 0.003921568393707275,
+        "maxAbsoluteError": 0.003921598196029663,
+        "pass": true,
+        "threshold": "mean<0.004, p99<0.018"
+      }
+    },
+    {
+      "sourceImage": "oak.png",
+      "settings": {
+        "Hue": 0.49000000953674316,
+        "Saturation": 1.149999976158142,
+        "Value": 1.0399999618530273,
+        "Fac": 1.0
+      },
+      "bakedFile": "argon_baked_oak.png",
+      "sha256": "490f1c89867c1b92f079763dd0a00590c0c30544987e1980c2ef52732ce4fc86",
+      "materials": [
+        "Argon_Nordic_Honey_Oak"
+      ],
+      "resolution": [
+        512,
+        512
+      ],
+      "shaderReference": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\shader-comparison\\argon_baked_oak-shader.png",
+      "bakedReference": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\shader-comparison\\argon_baked_oak-baked.png",
+      "comparison": {
+        "space": "Normalized RGB channels from Blender-loaded 8-bit validation PNG",
+        "meanAbsoluteError": 0.0004518446424602492,
+        "p99AbsoluteError": 0.003921568393707275,
+        "maxAbsoluteError": 0.003921583294868469,
+        "pass": true,
+        "threshold": "mean<0.004, p99<0.018"
+      }
+    },
+    {
+      "sourceImage": "fabric.png",
+      "settings": {
+        "Hue": 0.49000000953674316,
+        "Saturation": 1.149999976158142,
+        "Value": 1.0399999618530273,
+        "Fac": 1.0
+      },
+      "bakedFile": "argon_baked_fabric.png",
+      "sha256": "3cab45f5a33b07e128066daa9fe3b312d51b8b2a7723c938e014815e9192f4d5",
+      "materials": [
+        "Argon_Warm_Ivory_Boucle",
+        "Argon_Warm_Berber_Rug"
+      ],
+      "resolution": [
+        512,
+        512
+      ],
+      "shaderReference": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\shader-comparison\\argon_baked_fabric-shader.png",
+      "bakedReference": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\shader-comparison\\argon_baked_fabric-baked.png",
+      "comparison": {
+        "space": "Normalized RGB channels from Blender-loaded 8-bit validation PNG",
+        "meanAbsoluteError": 0.0004914825854787827,
+        "p99AbsoluteError": 0.003921568393707275,
+        "maxAbsoluteError": 0.003921627998352051,
+        "pass": true,
+        "threshold": "mean<0.004, p99<0.018"
+      }
+    },
+    {
+      "sourceImage": "navy.png",
+      "settings": {
+        "Hue": 0.49000000953674316,
+        "Saturation": 1.149999976158142,
+        "Value": 1.0399999618530273,
+        "Fac": 1.0
+      },
+      "bakedFile": "argon_baked_navy.png",
+      "sha256": "e47e22f53ba45390e4a88a2dde7ad5daa8a161dd16d23a09906fdc6a8c10a5df",
+      "materials": [
+        "Argon_Terracotta_Velvet"
+      ],
+      "resolution": [
+        512,
+        512
+      ],
+      "shaderReference": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\shader-comparison\\argon_baked_navy-shader.png",
+      "bakedReference": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\shader-comparison\\argon_baked_navy-baked.png",
+      "comparison": {
+        "space": "Normalized RGB channels from Blender-loaded 8-bit validation PNG",
+        "meanAbsoluteError": 0.000978706664341189,
+        "p99AbsoluteError": 0.003921568393707275,
+        "maxAbsoluteError": 0.003921598196029663,
+        "pass": true,
+        "threshold": "mean<0.004, p99<0.018"
+      }
+    },
+    {
+      "sourceImage": "darkstone.png",
+      "settings": {
+        "Hue": 0.49000000953674316,
+        "Saturation": 1.149999976158142,
+        "Value": 1.0399999618530273,
+        "Fac": 1.0
+      },
+      "bakedFile": "argon_baked_darkstone.png",
+      "sha256": "b0fbbe550584321431ee9d44b04ea96729a567a94faf5e6659427a1f3993a8eb",
+      "materials": [
+        "Argon_Charcoal_Basalt"
+      ],
+      "resolution": [
+        512,
+        512
+      ],
+      "shaderReference": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\shader-comparison\\argon_baked_darkstone-shader.png",
+      "bakedReference": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\shader-comparison\\argon_baked_darkstone-baked.png",
+      "comparison": {
+        "space": "Normalized RGB channels from Blender-loaded 8-bit validation PNG",
+        "meanAbsoluteError": 0.0009674271150288405,
+        "p99AbsoluteError": 0.003921568393707275,
+        "maxAbsoluteError": 0.003921568393707275,
+        "pass": true,
+        "threshold": "mean<0.004, p99<0.018"
+      }
+    }
+  ],
+  "exports": [
+    {
+      "format": "fbx",
+      "file": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\House_3F_Full_Complete_Argon.fbx",
+      "bytes": 10823420,
+      "sha256": "183e9d991e94c27d51096f2bf4c79552c7ac8b067b5d02263d299ab06d677f6a"
+    },
+    {
+      "format": "glb",
+      "file": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\House_3F_Full_Complete_Argon.glb",
+      "bytes": 10058008,
+      "sha256": "2e5869f0610448dc3ca9e50af0f01e904c326040d12e42768c40b91210bd39cf"
+    }
+  ],
+  "limits": "Textures are baked to 8-bit PNG; minor quantization and cross-application glass/lighting differences remain."
+}

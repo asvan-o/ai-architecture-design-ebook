@@ -1,0 +1,23 @@
+---
+import Lesson02AssetCard from './Lesson02AssetCard.astro';
+import {lesson02MaterialImages,lesson02DefaultMaterialIds} from '../../../scripts/daejeon-lesson02-assets.mjs';
+const defaults=lesson02DefaultMaterialIds.map(id=>lesson02MaterialImages.find(m=>m.id===id)!);
+---
+<div data-material-library>
+  <h3>재질 참고 이미지 선택</h3>
+  <p>먼저 아래 8종을 살펴보거나 전체 33종 중 하나를 선택합니다. 이름과 설명은 원본 표기를 사용합니다.</p>
+  <div class="lesson02-asset-grid" data-material-defaults>
+    {defaults.map(image=><Lesson02AssetCard {image} title={image.name} description={image.description} category={image.category} materialId={image.id} instance="default" />)}
+  </div>
+  <details class="lesson02-material-library" data-material-all>
+    <summary>전체 재질 33종 보기</summary>
+    <p>기본 8종을 포함한 전체 라이브러리입니다. 적용하려는 기존 벽면과 어울리는 색상·무늬·질감을 비교합니다.</p>
+    <div class="lesson02-asset-grid">
+      {lesson02MaterialImages.map(image=><Lesson02AssetCard {image} title={image.name} description={image.description} category={image.category} materialId={image.id} instance="all" />)}
+    </div>
+  </details>
+  <aside class="lesson02-decision"><h3>재질 이미지에서 가져올 것과 확인할 것</h3>
+    <p>색상·무늬·질감만 참고합니다. 실제 제품 규격·가격·두께·내구성·난연성·방수성·미끄럼 성능·시공법·성능은 이미지로 확정하지 않습니다.</p>
+    <p>원본에 들어 있는 영문 재질명·라벨은 결과 이미지로 복사하지 않습니다. 참고 이미지의 공간 구조나 가구 배치를 가져오지 않으며, 적용할 기존 벽면 한 곳을 Prompt에서 지정합니다.</p>
+  </aside>
+</div>

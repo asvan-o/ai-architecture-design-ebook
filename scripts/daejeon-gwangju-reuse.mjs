@@ -16,6 +16,7 @@ const literal=(key)=>{
 const text=(file)=>readFileSync(path.join(repositoryRoot,flowerRoot,file),'utf8').trim();
 export const flowerCafe={
   source:lessonPath,
+  before:{file:'00-empty-space.png',source:'review/daejeon/FLOWER_CAFE_BEFORE/00-empty-space.png',outputPath:'practice/gwangju-lesson02-reuse/flower-cafe-sample/00-empty-space.png',alt:'플라워 카페의 창호와 출입구를 기준으로 재구성한 빈 상업공간',caption:'① 기준 빈 공간 · 창호·출입구·목재 바닥을 읽는 교육용 재구성 이미지'},
   originalPrompt:text('01-original-prompt.txt'),revisionPrompt:text('03-revision-prompt.txt'),
   original:{file:'02-original-result.jpeg',source:flowerRoot+'02-original-result.jpeg',alt:literal('originalAlt'),caption:literal('originalCaption')},
   revised:{file:'04-revised-result.jpeg',source:flowerRoot+'04-revised-result.jpeg',alt:literal('revisedAlt'),caption:literal('revisedCaption')},
@@ -29,5 +30,5 @@ export const emptyBases=['01','02','03','04','05'].map((number)=>{
   const field=(key)=>entry.match(new RegExp(`    ${key}: "([^"]+)"`))?.[1];
   return {id,number,file:`base-${number}.jpeg`,source:field('file_path'),alt:mdx[1],caption:mdx[2],sourceNote:field('source_note'),rightsStatus:field('rights_status'),provenanceNote:field('provenance_note'),generationModel:field('generation_model'),generationDate:field('generation_date'),rightsReviewNote:field('rights_review_note')};
 });
-export const reusedLesson02Files=[flowerCafe.original,flowerCafe.revised,...emptyBases,
+export const reusedLesson02Files=[flowerCafe.before,flowerCafe.original,flowerCafe.revised,...emptyBases,
   ...['01-original-prompt.txt','03-revision-prompt.txt'].map((file)=>({file,source:flowerRoot+file}))];

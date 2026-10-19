@@ -27,11 +27,12 @@ for (const file of [...files(root), ...modeOutputs.flatMap(files)].filter((name)
 }
 assert(!existsSync(path.join(root, 'gwangju/instructor-console')));
 assert(!existsSync(path.join(root, 'gwangju/presentation')));
-assert(!existsSync(path.join(root, 'daejeon/downloads')));
+assert(existsSync(path.join(root, 'daejeon/downloads/daejeon/pdf/ai-architecture-design-daejeon-course-overview.pdf')));
 for (const { course } of profiles.filter(({ course }) => course.contentStatus === 'design-pending')) {
-  verifyDraftOutput(course, path.join(root, course.routeSlug));
+  const opts = { localReviewAssets: course.courseId === 'daejeon-2026' };
+  verifyDraftOutput(course, path.join(root, course.routeSlug), opts);
   for (const output of modeOutputs.filter((directory) => directory.includes(course.courseId))) {
-    verifyDraftOutput(course, output);
+    verifyDraftOutput(course, output, opts);
   }
 }
 const gw = profiles.find(({ course }) => course.courseId === 'gwangju-2026');

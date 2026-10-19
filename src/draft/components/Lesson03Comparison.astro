@@ -1,0 +1,10 @@
+---
+import Lesson03AssetCard from './Lesson03AssetCard.astro';
+interface Image {key:string;file:string;outputPath:string;width:number;height:number;}
+interface Props {before:Image;after:Image;beforeTitle:string;afterTitle:string;beforeDescription:string;afterDescription:string;instance:string;beforeDownloadName?:string;afterDownloadName?:string;beforeDownloadLabel?:string;afterDownloadLabel?:string;}
+const {before,after,beforeTitle,afterTitle,beforeDescription,afterDescription,instance,beforeDownloadName,afterDownloadName,beforeDownloadLabel,afterDownloadLabel}=Astro.props;
+---
+<div class="l03-comparison" data-l03-comparison={instance}>
+  <Lesson03AssetCard image={before} title={beforeTitle} description={beforeDescription} instance={instance+'-before'} downloadName={beforeDownloadName||beforeTitle+'.png'} downloadLabel={beforeDownloadLabel} />
+  <Lesson03AssetCard image={after} title={afterTitle} description={afterDescription} instance={instance+'-after'} downloadName={afterDownloadName||afterTitle+'.png'} downloadLabel={afterDownloadLabel} />
+</div>

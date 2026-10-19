@@ -1,0 +1,116 @@
+---
+import ReviewLayout from '../../layouts/ReviewLayout.astro';
+import ReviewSection from '../../components/ReviewSection.astro';
+import TopicProgress from '../../components/TopicProgress.astro';
+import Lesson03AssetCard from '../../components/Lesson03AssetCard.astro';
+import Lesson03Comparison from '../../components/Lesson03Comparison.astro';
+import Lesson05Workbench from '../../components/Lesson05Workbench.astro';
+import PlanOverlay from '../../components/PlanOverlay.astro';
+import ReviewPrompt from '../../components/ReviewPrompt.astro';
+import {lesson05Title,lesson05Sections,lesson05Periods,lesson05Boundary} from '../../content/daejeon-lesson05';
+import {lesson05Plans,lesson05Legacy,lesson05Door,lesson05RawOutputs,lesson05Crops,lesson05Prompt,lesson05Analysis,lesson05Zip} from '../../../../scripts/daejeon-lesson05-assets.mjs';
+import '../../styles/lesson03.css';
+import '../../styles/lesson04.css';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
+const tocGroups=lesson05Periods.map((period,index)=>({id:period.id,title:'Part '+(index+1)+' · '+period.title,items:period.sections}));
+const toc=tocGroups.flatMap(period=>period.items);
+const filename=(asset:{file:string})=>asset.file.split('/').pop();
+const prompt=(key:string)=>{
+ const asset=lesson05Prompt[key];
+ return {id:'l05-prompt-'+key,title:asset.title,prompt:asset.text,attachments:asset.attachments,href:enabled?base+'/'+asset.outputPath:undefined,filename:filename(asset)};
+};
+const choices=lesson05Plans.map((plan,index)=>{
+ const asset=lesson05Prompt[index===0?'plan01-edit':'plan02-edit'];
+ const crop=lesson05Crops[index];
+ return {id:plan.id,title:plan.title,text:asset.text,cropPath:crop.outputPath,cropFilename:filename(crop),promptPath:asset.outputPath,promptFilename:filename(asset)};
+});
+---
+<ReviewLayout title={lesson05Title} lead="평면도를 읽고 가구를 바꾼 뒤, 그 결과에 문 이동을 이어 적용합니다." page="lesson" lessonId="05" eyebrow="LESSON 05 · FLOOR PLAN INPAINTING" sharedScreen {toc} {tocGroups}>
+<div class="lesson03-review lesson04-review lesson05-review" data-l05-workbench data-l05-base={base} data-l05-prompts={JSON.stringify(choices)}>
+ <TopicProgress lesson="05" items={[{topic:3,status:'완결',note:'실내·외관 인페인팅에 이어 2D 평면도 부분 수정으로 초기 기획 인페인팅 과정을 마무리합니다.'}]} />
+ <div class="l03-period-summary">{lesson05Periods.map((period,index)=><article><h2>Part {index+1} · {period.title}</h2></article>)}</div>
+ <p>두 평면도의 외곽은 모두 <strong>14,400 × 8,400 mm</strong>입니다. 오피스는 회의실 4석을 6석으로 바꾼 다음 D2를 이동하고, 카페는 중앙 4석을 6석으로 바꾸며 우측 하단 2석을 유지합니다.</p>
+ {lesson05Periods.map((period,periodIndex)=><div class="day-period" id={period.id} data-period={periodIndex+1} data-teaching-minutes="50">
+  <header class="period-heading"><p>Part {periodIndex+1}</p><h2>{period.title}</h2></header>
+  {period.sections.map(section=><ReviewSection id={section.id} title={section.title} minutes={section.minutes} index={lesson05Sections.findIndex(item=>item.id===section.id)+1}>
+   <dl class="l03-step-context"><div><dt>지금 할 일</dt><dd>{section.action}</dd></div><div><dt>왜 하는가</dt><dd>{section.reason}</dd></div><div><dt>다음에 사용할 것</dt><dd>{section.next}</dd></div></dl>
+   {section.id==='l05-recap'&&<>
+    <p>실내와 외관에서는 마감·분위기와 건물 형태를 비교했습니다. 도면에서는 <strong>선·문자·기호·치수 표기·문 개폐 방향</strong>을 고정 기준으로 삼습니다.</p>
+    <ol class="l03-workflow">{['원본 보존·비식별화','도면 읽기·원본 대조','유지·변경 영역 지정','부분 수정','같은 위치에 재반영','원본과 중첩 비교'].map(text=><li>{text}</li>)}</ol>
+   </>}
+   {section.id==='l05-elements'&&<>
+    <Lesson03AssetCard image={lesson05Plans[0].base} title="구성 요소 읽기 · 오피스 평면" description="좌측 업무공간, 우측 상부 회의실, 우측 하부 탕비·수납 코어를 읽습니다. D2와 D3는 각각 업무공간에서 진입합니다." instance="l05-read" downloadName={filename(lesson05Plans[0].base)} />
+    <div class="l04-table"><table><thead><tr><th>요소</th><th>함께 읽을 것</th></tr></thead><tbody>{[['벽·기둥','외벽 200 mm, 경량벽체 LW 100 mm, 기둥 400 × 400 mm와 접합 위치'],['문·개폐호','개구부·문짝·회전 중심·90도 개폐호와 D1/D2/D3'],['창','복선 창틀, W1/W2/W3의 위치와 벽·기둥 사이 간격'],['가구·집기','업무 4석·회의 4석과 탕비 카운터·수납장'],['치수·축선','전체 치수, 구간 치수, X1~X3·Y1~Y3와 실제 벽체 위치']].map(row=><tr><th>{row[0]}</th><td>{row[1]}</td></tr>)}</tbody></table></div>
+   </>}
+   {section.id==='l05-inputs'&&<>
+    <div class="review-cards"><article class="review-card"><h3>기준 CAD / PDF</h3><p>원자료의 레이어·문자·치수와 도면 범위를 확인하고, 원본을 별도 보관합니다.</p></article><article class="review-card"><h3>편집할 평면도 이미지</h3><p>허용된 범위를 이미지로 준비해 분석·부분 수정·결과 비교에 사용합니다.</p></article></div>
+    <ul><li>주소·회사/프로젝트명·표제란·이름·연락처·메모를 비식별화하고 업로드 권한을 확인합니다.</li><li>숨은 레이어·블록 속성·외부참조의 식별정보도 확인합니다.</li><li>수정 결과는 별도 파일로 저장합니다. 제공된 두 평면도는 실습용 가상 공간입니다.</li></ul>
+   </>}
+   {section.id==='l05-reading'&&<>
+    <Lesson05Workbench area="selection" />
+    <div class="l03-asset-grid" data-l05-plan-bases>{lesson05Plans.map(plan=><Lesson03AssetCard image={plan.base} title={plan.title+' · 원본'} description={plan.description} instance="l05-base" downloadName={filename(plan.base)} />)}</div>
+    <details><summary>평면도 분석 Prompt</summary><ReviewPrompt {...prompt('analysis')} /></details>
+    <p>응답에서 원도면에 직접 보이는 항목, AI가 해석한 항목, 읽히지 않는 항목을 구분해 기록합니다.</p>
+   </>}
+   {section.id==='l05-correct'&&<>
+    <div class="l04-table"><table><thead><tr><th>원본에서 볼 것</th><th>대조할 내용</th><th>남길 기록</th></tr></thead><tbody><tr><td>전체 14,400 × 8,400</td><td>가로·세로 표기와 도면 외곽 비율</td><td>직접 읽은 표기값과 판독 불가 항목</td></tr><tr><td>오피스 X2 · 7,800 / 6,600</td><td>세로 경량벽체와 축선 위치</td><td>치수선·벽체의 대응 관계</td></tr><tr><td>카페 X2 · 4,800 / 9,600</td><td>W1과 W2가 경계벽 양쪽에 분리되는지</td><td>창·기둥·가벽의 위치</td></tr><tr><td>문짝과 90도 개폐호</td><td>문폭·회전 중심·열리는 방향</td><td>D2·D3의 진입 관계와 누락 표기</td></tr></tbody></table></div>
+    <p>원본에서 확인한 내용을 기준으로 AI 분석 목록의 누락과 오독을 바로잡습니다.</p>
+   </>}
+   {section.id==='l05-principle'&&<>
+    <p>가구·의자·접하는 빈 바탕을 변경 영역으로 묶고 벽·창·문자·치수선은 유지 영역으로 남깁니다. 부분 출력에서도 두 영역의 경계를 함께 확인합니다.</p>
+    <h3>주택 식탁 부분 수정 · 6석 → 8석</h3>
+    <div class="l03-asset-grid" data-l05-track-a>{lesson05Legacy.map(asset=><Lesson03AssetCard image={asset} title={asset.title} description={asset.description} instance="l05-a" downloadName={filename(asset)} />)}</div>
+    <p>원본과 결과의 식탁 길이, 긴 변 3+3석과 양 끝 각 1석을 비교합니다. 잘린 범위가 다르면 고정 선을 먼저 맞춥니다.</p>
+   </>}
+   {section.id==='l05-mask'&&<>
+    <h3>부분 수정 입력을 준비하는 두 가지 방법</h3>
+    <div class="review-cards" data-l05-chatgpt-guide><article class="review-card"><h4>편집 화면에서 영역 선택</h4><ol><li>이미지를 열고 영역 선택·브러시를 제공하는 화면에서 가구와 의자를 선택합니다.</li><li>변경할 내용과 유지할 선을 Prompt에 적습니다.</li><li>결과에서 선택 영역의 경계와 주변 도면을 대조합니다.</li></ol></article><article class="review-card"><h4>제공된 부분 확대 도면 사용</h4><ol><li>선택한 도면의 Crop PNG를 입력으로 첨부합니다.</li><li>해당 단계의 Prompt를 실행하고 실제 부분 출력을 저장합니다.</li><li>고정 선을 맞춰 전체 도면의 원래 위치에 반영합니다.</li></ol></article></div>
+    <div class="l03-asset-grid" data-l05-masks>{lesson05Plans.map(plan=><Lesson03AssetCard image={plan.marked} title={plan.title+' · 수정 영역'} description={plan.marked.description} instance="l05-mask" downloadName={filename(plan.marked)} />)}</div>
+    <p>붉은 표시는 수정 범위 안내입니다. 편집 화면에서는 가구와 의자를 선택하고 벽·기둥·문·창·공간명·치수·기호를 제외합니다.</p>
+   </>}
+   {section.id==='l05-prompt-a'&&<>
+    <Lesson05Workbench area="prompts" />
+    <p>오피스는 회의실 테이블을 3+3석으로 확장하고 업무공간 4석을 유지합니다. 카페는 중앙 테이블을 3+3석으로 확장하고 우측 하단 2인석과 서비스·바 영역을 유지합니다.</p>
+   </>}
+   {section.id==='l05-run-a'&&<>
+    <ol class="review-flow"><li><div><strong>부분 도면과 Prompt 준비</strong><span>원본 전체와 목표 범위를 함께 확인합니다.</span></div></li><li><div><strong>부분 수정 실행·원문 저장</strong><span>입력 Crop·실제 Prompt·실제 출력을 함께 보존합니다.</span></div></li><li><div><strong>전체 재반영·비교</strong><span>가구 수·크기·경계와 벽·개구부·문자·치수를 대조합니다.</span></div></li></ol>
+    <div data-l05-results>{lesson05Plans.map(plan=><Lesson03Comparison before={plan.base} after={plan.result} beforeTitle={'Before · '+plan.title+' 원본'} afterTitle={'After · '+plan.title+' 가구 수정'} beforeDescription={plan.description} afterDescription={plan.result.description} beforeDownloadName={filename(plan.base)} afterDownloadName={filename(plan.result)} instance={'l05-furniture-'+plan.id} />)}</div>
+    <h3>입력 Crop ↔ 실제 AI 부분 출력</h3>
+    <div data-l05-raw-results>{lesson05Crops.slice(0,2).map((crop,index)=><Lesson03Comparison before={crop} after={lesson05RawOutputs[index]} beforeTitle={'Input · '+crop.title} afterTitle={'Output · '+lesson05RawOutputs[index].title} beforeDescription={crop.description} afterDescription={lesson05RawOutputs[index].description} beforeDownloadName={filename(crop)} afterDownloadName={filename(lesson05RawOutputs[index])} instance={'l05-raw-'+index} />)}</div>
+    <p>부분 출력에서는 3+3석·테이블 크기·선 두께를 보고, 전체 재반영본에서는 주변 도면과의 연결을 확인합니다.</p>
+   </>}
+   {section.id==='l05-crop-flow'&&<>
+    <ol class="l03-workflow">{['전체 도면 확인','수정할 부분 확대','변경 영역 지정','부분 도면 수정','원래 자리 전체 재반영'].map(text=><li>{text}</li>)}</ol>
+    <div class="l04-table"><table><thead><tr><th>단계</th><th>확인할 연결</th></tr></thead><tbody><tr><td>가구 수정</td><td>4석 원본 → 가구 Crop → 실제 부분 출력 → 6석 전체 결과</td></tr><tr><td>문 이동</td><td>6석 전체 결과 → D2·라벨을 포함한 Crop → 문 이동 출력 → 전체 결과</td></tr><tr><td>중첩 비교</td><td>각 단계의 입력 전체 도면과 해당 단계의 재반영본</td></tr></tbody></table></div>
+    <p>다음 문 이동은 오피스의 <strong>6석 반영 결과</strong>에서 이어갑니다. 탕비·수납 코어는 업무공간의 D3로 직접 출입하는 구성을 유지합니다.</p>
+   </>}
+   {section.id==='l05-door'&&<>
+    <p>회의실 6석을 반영한 도면에서 기존 D2·문짝·개폐호·라벨이 함께 들어오도록 자릅니다. 위쪽 개구부를 LW 복선으로 메우고 아래쪽에 900 mm 문 하나와 D2 표기를 옮깁니다. 새 문 개구부 안의 회색 벽 채움과 양쪽 세로 벽선은 비우고 위·아래 문틀 마감선만 남깁니다.</p>
+    <Lesson03Comparison before={lesson05Plans[0].result} after={lesson05Door[3]} beforeTitle="Before · 회의실 6석 반영본" afterTitle="After · 6석 유지·D2 이동" beforeDescription="앞 단계 가구 결과를 문 이동의 입력으로 사용합니다." afterDescription="기존 D2 자리의 벽 연결, 새 문짝·개폐호·D2 표기와 회의실 6석을 대조합니다." beforeDownloadName={filename(lesson05Plans[0].result)} afterDownloadName={filename(lesson05Door[3])} instance="l05-door-full" />
+    <Lesson03AssetCard image={lesson05Door[0]} title={lesson05Door[0].title} description={lesson05Door[0].description} instance="l05-door-marked" downloadName={filename(lesson05Door[0])} />
+    <Lesson03Comparison before={lesson05Door[1]} after={lesson05Door[2]} beforeTitle="Input · D2 이동 Crop" afterTitle="Output · 실제 문 이동 출력" beforeDescription={lesson05Door[1].description} afterDescription={lesson05Door[2].description} beforeDownloadName={filename(lesson05Door[1])} afterDownloadName={filename(lesson05Door[2])} instance="l05-door-raw" />
+    <details><summary>D2 이동 Prompt</summary><ReviewPrompt {...prompt('door-edit')} /></details>
+    <p>위쪽 자리에 D2 글자가 남았는지, 새 문·개폐호가 한 세트인지, 문틀 사이가 벽으로 막히지 않았는지 확인합니다. 회의실 6석·업무 4석과 D3 진입도 유지합니다.</p>
+   </>}
+   {section.id==='l05-overlay'&&<>
+    <p>벽 교차점·개구부 등 고정 기준을 맞춰 부분 출력을 원래 위치에 반영합니다. 경계가 맞지 않으면 Crop과 정합 기준을 다시 확인합니다.</p>
+    <Lesson03AssetCard image={lesson05Door[4]} title={lesson05Door[4].title} description={lesson05Door[4].description} instance="l05-door-overlay" downloadName={filename(lesson05Door[4])} />
+    <PlanOverlay before={lesson05Plans[0].result} after={lesson05Door[3]} id="l05-door-overlay-control" title="문 이동 전·후 겹쳐 보기" />
+    <p>겹침 강도를 바꾸며 기존 문 자리·새 문 자리·D2 표기·벽 접합을 대조합니다. 색 중첩 도면은 입력과 결과의 선 위치를 비교하는 데 사용합니다.</p>
+    <details><summary>전체 재반영 Prompt</summary><ReviewPrompt {...prompt('recompose')} /></details>
+    <details><summary>중첩 검토 Prompt</summary><ReviewPrompt {...prompt('overlay')} /></details>
+   </>}
+   {section.id==='l05-next'&&<>
+    <aside class="review-callout"><strong>실제 설계에 적용할 때</strong><p>{lesson05Boundary}</p></aside>
+    <h3>보존할 파일과 기록</h3><ul><li>처음 원본과 허용된 입력 범위</li><li>직접 확인·AI 해석·판독 불가를 나눈 분석 메모</li><li>실제 Prompt·영역 표시·Crop·실제 부분 출력</li><li>전체 재반영 도면·중첩 비교·추가 확인 항목</li></ul>
+    {enabled&&<div data-l05-downloads><p><a class="review-download" href={base+'/'+lesson05Zip.outputPath} download={filename(lesson05Zip)}>통합 실습자료 ZIP 다운로드</a></p><p>평면도 2종 · 가구 수정 2종과 연속 문 이동 · 주택 식탁 이미지 3종 · 단계별 Prompt · 분석 체크리스트</p>{lesson05Analysis[0]&&<p><a class="review-download" href={base+'/'+lesson05Analysis[0].outputPath} download={filename(lesson05Analysis[0])}>도면 분석·검수 체크리스트 다운로드</a></p>}</div>}
+    <h3>다음 설계 단계로 넘길 기준</h3>
+    <p>제6차시는 오피스의 <code>PLAN-BASE-01-door-result.png</code>와 카페의 <code>PLAN-BASE-02-result.png</code>를 입력으로 사용합니다. 높이·마감·조명 제안은 원 평면의 벽·문·창·가구 배치와 함께 대조합니다.</p>
+    <p><a class="review-download" href={base+'/lessons/06/'}>제6차시 · 3D 입체화와 개념 조닝으로 이어가기 →</a></p>
+   </>}
+  </ReviewSection>)}
+ </div>)}
+</div>
+</ReviewLayout>
+<script>import '../../scripts/lesson05-workbench';</script>

@@ -1,0 +1,126 @@
+---
+import ReviewLayout from '../../layouts/ReviewLayout.astro';
+import TopicProgress from '../../components/TopicProgress.astro';
+import Lesson03Step from '../../components/Lesson03Step.astro';
+import Lesson03AssetCard from '../../components/Lesson03AssetCard.astro';
+import Lesson03Comparison from '../../components/Lesson03Comparison.astro';
+import Lesson03Workbench from '../../components/Lesson03Workbench.astro';
+import ReviewPrompt from '../../components/ReviewPrompt.astro';
+import {lesson03Title,lesson03Lead,lesson03Sections,lesson03Periods,lesson03Flow,analysisGroups} from '../../content/daejeon-lesson03';
+import {lesson03Spaces,lesson03Materials,lesson03Defaults,lesson03Temperature,lesson03Lighting,lesson03AppliedExample,lesson03Sample,lesson03SamplePrompt,lesson03SampleAnalysis,lesson03WarmAnalysis,lesson03WarmAnalysisText} from '../../../../scripts/daejeon-lesson03-assets.mjs';
+import '../../styles/lesson03.css';
+const step=(id:string)=>({section:lesson03Sections.find(s=>s.id===id)!,index:lesson03Sections.findIndex(s=>s.id===id)+1});
+const tocGroups=lesson03Periods.map((period,index)=>({id:period.id,title:'Part '+(index+1)+' · '+period.title,items:period.sections}));
+const toc=tocGroups.flatMap(group=>group.items);
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
+const assets={spaces:lesson03Spaces.map(s=>({id:s.id,title:s.title})),materials:lesson03Materials.map(m=>({id:m.id,name:m.name}))};
+const prompt=(key:string,id:string)=>{const item=lesson03SamplePrompt[key];return {id,title:item.title,prompt:item.text,filename:item.downloadName,href:enabled?base+'/'+item.outputPath:undefined};};
+---
+<ReviewLayout title={lesson03Title} lead={lesson03Lead} page="lesson" lessonId="03" eyebrow="LESSON 03 · INTERIOR" sharedScreen {toc} {tocGroups}>
+<div class="lesson03-review" data-l03-workbench data-l03-assets={JSON.stringify(assets)}>
+
+  <TopicProgress lesson="03" items={[{topic:3,status:'시작',note:'실내의 지정 영역만 수정하고 디자인보드로 방향을 정리한 뒤, 새로운 초기 기획 콘셉트로 확장하며 대주제 3을 시작합니다.'}]} />
+  <div class="l03-period-summary">{lesson03Periods.map((period,index)=><article><h2>Part {index+1} · {period.title}</h2></article>)}</div>
+  <aside class="review-callout l03-session-goal"><h2>오늘은 한 공간을 끝까지 이어갑니다</h2><p>기본 이미지 작업은 <strong>공간 일부 수정 → 디자인 방향 보드 → 새로운 공간 콘셉트</strong>의 3회입니다. 보드의 대표 공간·재질 카드·팔레트를 함께 갱신하는 단계는 심화 실습으로 이어갑니다.</p><p>사용하는 생성 모델과 실행 시점에 따라 세부 표현과 이미지 속 작은 글자는 달라질 수 있습니다.</p></aside>
+  {lesson03Periods.map((period,periodIndex)=><div class="day-period" id={period.id} data-period={periodIndex+1} data-teaching-minutes="50">
+    <header class="period-heading"><p>Part {periodIndex+1}</p><h2>{period.title}</h2></header>
+    {periodIndex===0&&<>
+      <Lesson03Step {...step('l03-recap')}>
+        <p>지난 차시에는 사람이 목적과 범위를 정하고, AI가 구현을 도운 뒤 사람이 결과를 확인했습니다. 오늘도 같은 원칙으로 실내 이미지의 수정 범위를 정하고 원본과 결과를 함께 봅니다.</p>
+        <div class="review-cards"><article class="review-card"><h3>지난 차시</h3><p>사람이 기준 설정 → AI가 구현 지원 → 사람이 결과 확인</p></article><article class="review-card"><h3>오늘</h3><p>사람이 디자인 기준 설정 → AI가 수정·생성 지원 → 사람이 원본과 결과 비교</p></article></div>
+        <ol class="l03-workflow" data-l03-workflow>{lesson03Flow.map(text=><li>{text}</li>)}</ol>
+      </Lesson03Step>
+      <Lesson03Step {...step('l03-space')}>
+        <p>다섯 공간 중 하나를 선택합니다. 오늘의 수정과 마지막 비교에는 계속 같은 원본을 사용합니다. 연속 예제는 소형 오피스 리셉션·대기공간입니다.</p>
+        <Lesson03Workbench area="space" />
+        <div class="l03-asset-grid" data-l03-spaces>{lesson03Spaces.map(space=><Lesson03AssetCard image={space} title={space.title} description="디자인 적용 전 기준 공간입니다. 구조·문·창호·카메라·주요 가구 위치를 읽고 오늘 계속 같은 원본을 사용합니다." instance="space" spaceChoice={space.id} downloadName={space.title+'-기준공간.png'} />)}</div>
+      </Lesson03Step>
+      <Lesson03Step {...step('l03-scope')}>
+        <p>기본 Inpainting은 이미지의 지정한 부분을 바꾸는 수정 작업입니다. 오늘은 한 면의 재질 표현을 바꾸는 기초 작업에 집중합니다. 도구에서 영역을 선택하더라도 글로 유지·변경 조건을 함께 적습니다.</p>
+        <p><strong>실습 예제의 변경 면:</strong> 리셉션 뒤 왼쪽 안쪽 모서리부터 회색 문틀 왼쪽 선까지의 벽면. 문 위와 옆 벽, 데스크·좌석·창호·조명은 유지합니다.</p>
+        <Lesson03Workbench area="scope" />
+      </Lesson03Step>
+      <Lesson03Step {...step('l03-material')}>
+        <p>재질명부터 고르기보다 <strong>공간 관찰 → 원하는 인상 → 적용 목적 → 선택 이유</strong>를 먼저 생각합니다. 한 면에 어떤 인상을 더하고 싶은지 정한 뒤 재질 한 개를 고릅니다.</p>
+        <h3>재질 참고자료 · 기본 8종</h3>
+        <div class="l03-asset-grid" data-l03-material-defaults>{lesson03Defaults.map(material=><Lesson03AssetCard image={material!} title={material!.name} description={material!.description} instance="default" />)}</div>
+        <details data-l03-material-all><summary>전체 재질 33종 펼치기</summary><p>기본 8종을 포함한 전체 자료입니다. 적용할 기존 면과 선택 이유를 함께 생각합니다.</p><div class="l03-asset-grid">{lesson03Materials.map(material=><Lesson03AssetCard image={material} title={material.name} description={material.description} instance="all" />)}</div></details>
+        <Lesson03Workbench area="material" />
+        <aside class="review-callout"><h3>재질 Reference에서 가져올 것</h3><p>색상·무늬·질감만 참고합니다. Reference 이미지의 공간 구조나 가구 배치를 복사하지 않습니다. 실제 규격·가격·성능·내구성·난연성·시공법·수급 가능성은 이미지로 확정하지 않습니다.</p></aside>
+        <details data-l03-lighting-materials><summary>조명 참고와 색온도 설명자료 구분하기</summary><div class="l03-lighting-pair"><div data-l03-lighting-input><Lesson03AssetCard image={lesson03Lighting!} title="따뜻하고 부드러운 조명 Reference" description="필요할 때 색감과 밝기 인상을 참고할 수 있습니다. 약 3000K 방향의 시각적 인상이며 실제 색온도·조도 측정 자료가 아닙니다. 오늘 한 면의 재질만 바꿀 때는 자동으로 첨부하지 않습니다." instance="lighting" /></div><div data-l03-lighting-comparison><Lesson03AssetCard image={lesson03Temperature!} title="색온도에 따른 공간 인상 · 설명자료" description="3000K·4000K·6000K의 인상을 비교하는 개념 설명용입니다. 이미지 생성 입력으로 자동 첨부하지 않으며, 실제 인상은 자연광·마감·카메라·화면에 따라 달라집니다." instance="temperature" /></div><div data-l03-applied-example><Lesson03AssetCard image={lesson03AppliedExample!} title="재질·조명 적용 후 · 참고 예시" description="재질과 조명이 적용된 AFTER 참고 이미지입니다. 직접 고르는 작업 전 BASE와 역할이 다릅니다. 실제 제품·색온도·조도를 보증하지 않습니다." instance="applied-example" /></div></div></details>
+        <Lesson03Workbench area="first-prompt" />
+      </Lesson03Step>
+      <Lesson03Step {...step('l03-first-edit')}>
+        <ol class="review-flow"><li><div><strong>원본과 재질 참고자료 첨부</strong><span>내가 선택한 기준 공간과 재질 이미지를 준비합니다.</span></div></li><li><div><strong>Prompt를 읽고 Nano Banana에서 실행</strong><span>지정 면과 유지 조건이 내 입력자료에 맞는지 확인합니다.</span></div></li><li><div><strong>원본과 수정 결과 비교</strong><span>의도한 수정과 요청하지 않은 의미 있는 변화, 추가 물체를 함께 봅니다.</span></div></li></ol>
+        <Lesson03Comparison before={lesson03Sample.reference} after={lesson03Sample.edited} beforeTitle="디자인 적용 전 기준 공간" afterTitle="재질을 적용한 수정 공간" beforeDescription="구조·카메라·문·창호·주요 가구의 위치를 읽는 기준입니다." afterDescription="지정 벽면에 Dark Walnut 방향을 적용한 실습 예제입니다. 픽셀 동일성을 평가하기보다 의도하지 않은 의미 있는 변화가 있는지 봅니다." instance="first-edit" />
+        <p>지정 벽면, 카메라, 문·창호, 가구 위치와 수, 추가된 물체를 확인합니다. 결과가 원본과 모든 픽셀까지 같아야 하는 평가 활동은 아닙니다.</p>
+        <details><summary>실습 예제의 공간 수정 Prompt</summary><ReviewPrompt {...prompt('space-edit','l03-first-example-prompt')} /></details>
+      </Lesson03Step>
+    </>}
+    {periodIndex===1&&<>
+      <Lesson03Step {...step('l03-board')}>
+        <p><strong>디자인 방향 보드는 공간의 재질·색상·조명·형태·분위기를 한 화면에 정리해, 다음 이미지 생성의 방향을 전달하는 시각적 기준 자료입니다.</strong></p>
+        <p>제품 사양서나 시공 지시서가 아닙니다. 예쁜 콜라주 자체보다 어떤 디자인 언어를 다음 작업에 전달하는지가 중요합니다.</p>
+        <div class="review-cards"><article class="review-card"><h3>대표 공간과 표면 정보</h3><p>수정 공간 한 장과 주요 표면 약 2개를 연결합니다.</p></article><article class="review-card"><h3>색상·조명·분위기</h3><p>3색 팔레트, 조명 인상, 짧은 방향명과 키워드를 정리합니다.</p></article></div>
+      </Lesson03Step>
+      <Lesson03Step {...step('l03-analysis')}>
+        <div class="l03-analysis-grid">{analysisGroups.map(group=><article class="review-card"><h3>{group.title}</h3><p><strong>{group.example}</strong></p><p>{group.description}</p></article>)}</div>
+        <details><summary>수정 공간 예시의 분석 결과 보기</summary><pre class="l03-analysis-text">{lesson03SampleAnalysis}</pre></details>
+      </Lesson03Step>
+      <Lesson03Step {...step('l03-meta')}>
+        <p>Meta Prompt는 현재 공간을 분석하고, <strong>디자인보드 이미지 생성용 Prompt 초안을 AI에게 작성시키는 요청</strong>입니다. 여기서는 이미지를 바로 만들지 않습니다.</p>
+        <p class="l03-flow">수정 공간과 사용한 재질 첨부 → 분석과 요청문 초안 받기 → 사람 확인</p>
+        <p>아래 실습 예제를 사용할 때 입력 설명과 재질 이름을 내 자료에 맞춥니다. 분석 결과는 실제 제품 정보로 확정하지 않습니다.</p>
+        <details data-l03-meta-prompt><summary>Meta Prompt 보기</summary><ReviewPrompt {...prompt('meta','l03-meta-prompt')} /></details>
+      </Lesson03Step>
+      <Lesson03Step {...step('l03-prompt-review')}>
+        <p class="l03-flow">AI Prompt 초안 → 사람이 관찰·추정·제안 확인 → 필요한 표현 수정 → 실제 보드 생성 Prompt</p>
+        <ul><li>분석 내용이 첨부 이미지나 제공 정보에 근거하는지 읽습니다.</li><li>없는 브랜드·제품·치수·성능과 무관한 스타일을 빼거나 확정 불가로 남깁니다.</li><li>대표 공간과 재질의 역할, 보드 구성과 출력 요청을 명확히 합니다.</li><li>긴 글 대신 짧은 방향명·키워드·최소 라벨로 정리합니다.</li></ul>
+        <p>다른 공간을 선택했다면 실습 예제의 공간 설명과 재질 이름을 그대로 실행하지 않고 내 분석과 입력자료에 맞게 수정합니다.</p>
+        <details data-l03-board-prompt><summary>디자인 방향 보드 Prompt</summary><ReviewPrompt {...prompt('board','l03-board-example-prompt')} /></details>
+      </Lesson03Step>
+      <Lesson03Step {...step('l03-board-generate')}>
+        <p>검토한 Prompt와 수정 공간·실제 사용한 재질 이미지를 첨부해 가로형 보드 한 장을 생성합니다. 사용하는 생성 모델과 실행 시점에 따라 세부 표현과 작은 글자는 달라질 수 있습니다.</p>
+        <Lesson03AssetCard image={lesson03Sample.board} title="차분한 리셉션 · 디자인 방향 보드" description="대표 공간, 재질 참고, 표면 관찰, 3색 팔레트, 조명 인상, 키워드와 짧은 설명을 한 장에 정리한 실습 예제입니다." instance="board-main" downloadName="디자인-방향-보드.png" />
+        <p>이 보드는 공간 구조를 검증하는 자료가 아니라 다음 디자인 방향을 전달하는 Reference입니다. 원본의 구조를 판단할 때는 처음 기준 공간을 함께 봅니다.</p>
+      </Lesson03Step>
+    </>}
+    {periodIndex===2&&<>
+      <Lesson03Step {...step('l03-board-edit-principle')}>
+        <p class="l03-optional">심화 예제 / 선택 활동</p>
+        <p>Part 1에는 벽면 한 곳을 수정했습니다. 이번에는 디자인 방향을 따뜻한 내추럴 오크·웜 스톤·오트밀로 확장하고, 대표 공간 이미지·재질 카드·팔레트를 함께 갱신합니다. 보드의 큰 레이아웃과 기준 공간의 구조는 유지합니다. 추가 보드 생성은 심화 예제 또는 선택 활동입니다.</p>
+        <details data-l03-board-edit-prompt><summary>디자인보드 전체 방향 갱신 Prompt 보기</summary><ReviewPrompt {...prompt('board-edit','l03-board-edit-prompt')} /></details>
+      </Lesson03Step>
+      <Lesson03Step {...step('l03-board-demo')}>
+        <p class="l03-optional">심화 선택 실습</p>
+        <Lesson03Comparison before={lesson03Sample.board} after={lesson03Sample['edited-board']} beforeTitle="디자인 방향 보드 · 수정 전" afterTitle="대표 공간·재질 카드·팔레트를 갱신한 보드" beforeDescription="Dark Walnut 참고 카드와 기존 회색 좌석 표면을 함께 봅니다." afterDescription="왼쪽 대표 공간부터 Natural Oak·웜 스톤·오트밀 마감과 따뜻한 조명을 적용하고, 두 재질 카드와 세 팔레트 칩도 같은 방향으로 맞춘 예제입니다." instance="board-edit" />
+        <aside class="review-callout" data-l03-nontarget-note><h3>대표 공간과 Reference를 함께 갱신</h3><p>새 보드는 왼쪽 대표 공간의 벽·데스크·바닥·소파·문과 조명 인상까지 바꾸고, Natural Oak·Oatmeal Fabric 카드와 오크·베이지·크림 팔레트를 함께 갱신했습니다. 카드만 바뀐 상태가 아니라 다음 공간에 적용할 일관된 방향입니다.</p><p>보드는 마감과 분위기의 Reference입니다. 구조와 가구 배치를 판단할 때는 처음 기준 공간을 우선합니다.</p></aside>
+        <div class="l03-reference-pair"><Lesson03AssetCard image={lesson03Sample.walnut} title="Dark Walnut · 처음 재질 참고" description="처음 지정 벽면에 사용한 색상·무늬·질감 Reference입니다." instance="walnut-example" /><Lesson03AssetCard image={lesson03Sample.oak} title="Natural Oak · 다음 변경 재질" description="보드와 다음 공간의 포인트 벽·우드 디테일에 적용하는 색상·무늬·질감 Reference입니다." instance="oak-example" /></div>
+      </Lesson03Step>
+      <Lesson03Step {...step('l03-new-concept')}>
+        <p><strong>Rapid Concept은 초기 디자인 방향을 빠르게 시각화하는 작업입니다.</strong> 오늘은 수정 보드의 제안을 같은 공간에 적용한 새로운 콘셉트 한 장으로 이어갑니다.</p>
+        <div class="l03-input-roles" data-l03-final-inputs><article class="review-card"><h3>입력 1 · 처음 기준 공간</h3><p>구조·카메라·문·창호·가구 배치의 기준입니다.</p></article><article class="review-card"><h3>입력 2 · 디자인 방향 보드</h3><p>디자인 방향 참고입니다. 보드 속 작은 공간을 구조 기준으로 사용하지 않습니다.</p></article><article class="review-card"><h3>입력 3 · 변경 재질 Reference</h3><p>포인트 벽과 우드 디테일에 적용할 색상·무늬·질감 참고입니다.</p></article></div>
+        <p>직접 보드 수정을 생성하지 않았다면 방향 갱신 보드 예시를 참고하거나 내 보드에서 다음 변경 제안을 정합니다. 방향 갱신 보드 예시를 사용해도 처음 선택한 공간의 구조를 우선합니다.</p>
+        <Lesson03Workbench area="final-prompt" />
+        <details><summary>실습 예제의 새로운 공간 콘셉트 Prompt</summary><ReviewPrompt {...prompt('concept','l03-final-example-prompt')} /></details>
+        <p>세 입력을 역할에 맞게 첨부하고 Nano Banana에서 실행합니다. 여러 표면의 마감과 조명 인상은 바꾸되, 원본의 구조·문·창호·카메라·가구 위치와 수는 유지합니다.</p>
+      </Lesson03Step>
+      <Lesson03Step {...step('l03-compare')}>
+        <Lesson03Comparison before={lesson03Sample.reference} after={lesson03Sample.concept} beforeTitle="디자인 적용 전 기준 공간" afterTitle="수정한 디자인 방향을 적용한 새로운 공간 콘셉트" beforeDescription="처음 공간의 구조·카메라·문·창호·가구 위치를 다시 봅니다." afterDescription="같은 공간의 벽·데스크·바닥·소파·테이블·문·벽색·조명을 따뜻하게 확장한 예시 결과입니다. 원본과 같은 세 매입등과 주요 가구 위치·수를 함께 비교합니다." instance="final-concept" />
+        <ul>{['여러 기존 표면과 조명의 디자인 방향','카메라와 화각','벽·문·창호','데스크·좌석·주요 가구의 위치와 수','공간 배치와 의도하지 않은 추가 물체'].map(item=><li>{item}</li>)}</ul>
+        <div class="l03-table-scroll"><table data-l03-six-changes><thead><tr><th>비교 부위</th><th>처음 기준 공간</th><th>새로운 콘셉트</th></tr></thead><tbody>{[['포인트 벽','회색 벽','Natural Oak 세로결'],['데스크','짙은 회색','라이트 스톤·오크 디테일'],['바닥','차가운 회색 타일','샌드 베이지·웜 스톤 인상'],['소파·테이블','회색 패브릭·차가운 상판','오트밀 부클레·우드/웜 메탈'],['문·주변 벽','회색 문·차가운 벽색','오크 문·웜 화이트'],['조명','중립적인 빛','약 3000K 방향의 따뜻한 빛']].map(row=><tr>{row.map(cell=><td>{cell}</td>)}</tr>)}</tbody></table></div>
+        <aside class="review-callout"><strong>유지 요소와 세부 재표현을 함께 보기</strong><p>원본과 결과 모두 매입등 3개가 보이고 주요 가구의 위치와 수는 유지돼 보입니다. 타일 줄눈·질감·반사는 다시 표현돼 정밀 형상 보존이나 실제 색온도를 보증하지 않습니다.</p></aside>
+        <details><summary>마감·유지 조건 비교 노트 A02</summary><pre class="l03-analysis-text">{lesson03WarmAnalysisText}</pre>{enabled&&<a href={base+'/'+lesson03WarmAnalysis.outputPath} download>비교 분석 MD 다운로드</a>}</details>
+        <p>점수나 순위를 매기는 단계가 아닙니다. 디자인 방향을 적용했는지, 기준 공간을 유지했는지 확인하고 필요한 비교 메모를 남깁니다.</p>
+      </Lesson03Step>
+      <Lesson03Step {...step('l03-next')}>
+        <Lesson03Workbench area="records" />
+        <h3>오늘 남길 자료</h3><ul data-l03-outputs><li>처음 선택한 기준 공간</li><li>재질을 적용한 수정 공간과 실제 Prompt</li><li>분석과 사람이 검토한 보드 생성 Prompt</li><li>디자인 방향 보드</li><li>새로운 공간 콘셉트와 실제 Prompt</li><li>원본 비교 메모와 실행 상태</li></ul>
+        <p data-l03-exterior-next>오늘은 실내 공간에서 하나의 디자인 방향을 만들고 디자인보드와 새로운 콘셉트로 연결했습니다. 다음 차시에서는 건물 외관 이미지로 범위를 넓혀, 유지할 영역과 바꿀 영역을 더 세밀하게 나누고 Exterior Inpainting과 대안 비교를 진행합니다.</p>
+      </Lesson03Step>
+    </>}
+  </div>)}
+</div>
+</ReviewLayout>
+<script>import '../../scripts/lesson03-workbench';</script>

@@ -1,0 +1,9 @@
+---
+import ReviewLayout from '../../layouts/ReviewLayout.astro';
+import DaejeonLesson10GroundedLegal from '../../components/DaejeonLesson10GroundedLegal.astro';
+import {lesson10} from '../../content/daejeon-lesson10';
+const tocGroups=lesson10.parts.map((part,index)=>({id:'l10-part-'+(index+1),title:part.title,items:lesson10.sections.slice(part.start,part.end)}));
+---
+<ReviewLayout title={lesson10.title} lead={lesson10.lead} page="lesson" lessonId="10" eyebrow="LESSON 10 · LEGAL SOURCES / DUAL NOTEBOOKS / CROSS-CHECK" toc={lesson10.sections} {tocGroups}>
+ <DaejeonLesson10GroundedLegal />
+</ReviewLayout>

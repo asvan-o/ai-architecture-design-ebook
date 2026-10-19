@@ -1,0 +1,48 @@
+---
+import ReviewPrompt from './ReviewPrompt.astro';
+import {lesson03Spaces,lesson03Materials} from '../../../scripts/daejeon-lesson03-assets.mjs';
+import {commonKeep,recordStages,workPrompts} from '../content/daejeon-lesson03';
+interface Props {area:'space'|'scope'|'material'|'first-prompt'|'final-prompt'|'records';}
+const {area}=Astro.props;
+const initial=workPrompts({space:'',target:'',intent:'',material:'Dark Walnut',nextMaterial:'Natural Oak'});
+---
+{area==='space'&&<div class="l03-input-panel">
+  <label>오늘 계속 사용할 기준 공간<select data-l03-base><option value="">한 공간을 고릅니다</option>{lesson03Spaces.map(space=><option value={space.id}>{space.title}</option>)}</select></label>
+  <p data-l03-selection-status aria-live="polite">한 공간을 선택하면 내 작업 Prompt에 반영됩니다.</p>
+</div>}
+{area==='scope'&&<div class="l03-input-panel">
+  <label>바꿀 기존 면 한 곳<input data-l03-target placeholder="어느 벽면인지, 시작과 끝이 어디인지 적습니다" /></label>
+  <label>원하는 인상과 적용 목적<input data-l03-intent placeholder="한 면의 재질로 어떤 인상을 살펴볼까요?" /></label>
+  <h3>그대로 유지할 부분</h3><ul>{commonKeep.map(item=><li>{item}</li>)}</ul>
+  <p>이미지에서 실제로 보이는 경계로 지정합니다. 가려진 부분의 치수를 새로 추정하지 않습니다.</p>
+</div>}
+{area==='material'&&<div class="l03-input-panel">
+  <label>지정한 면에 적용할 재질 한 개<select data-l03-material>{lesson03Materials.map(material=><option value={material.id} selected={material.id==='M-21'}>{material.name}</option>)}</select></label>
+  <p>실습 예제는 Dark Walnut입니다. 다른 재질을 고르면 바꿀 면과 적용 목적이 연결되는지 읽습니다.</p>
+</div>}
+{area==='first-prompt'&&<>
+  <p data-l03-prompt-status aria-live="polite">선택한 공간·면·재질이 아래 요청문에 반영됩니다. 대괄호가 남아 있으면 실행 전에 채웁니다.</p>
+  <details data-l03-live-prompt><summary>내 공간 일부 수정 Prompt 보기</summary><ReviewPrompt id="l03-my-first-edit" title="내 공간 일부 수정 Prompt · 7단 구조" prompt={initial.first} filename="내-공간-일부수정-Prompt.txt" /></details>
+</>}
+{area==='final-prompt'&&<>
+  <div class="l03-input-panel"><label>최종 콘셉트의 우드 방향<select data-l03-next-material>{lesson03Materials.map(material=><option value={material.id} selected={material.id==='M-24'}>{material.name}</option>)}</select></label><p>심화 예제은 Natural Oak·웜 스톤·오트밀입니다. 앞 단계의 한 면 수정과 달리 여러 기존 표면과 조명 인상을 함께 바꿉니다. 다른 재질을 고르면 보드와 실제 요청도 함께 맞춥니다.</p></div>
+  <details data-l03-live-prompt><summary>내 새로운 공간 콘셉트 Prompt 보기</summary><ReviewPrompt id="l03-my-new-concept" title="내 새로운 공간 콘셉트 Prompt · 7단 구조" prompt={initial.final} filename="내-새로운-공간콘셉트-Prompt.txt" /></details>
+</>}
+{area==='records'&&<>
+  <p>기본 이미지 작업 세 단계의 실제 Prompt와 실행 상태를 남깁니다. 보드 방향 갱신은 심화 실습입니다. 처음 기준 공간과 변경 조건을 함께 기록합니다.</p>
+  <details data-l03-records><summary>내 실행 기록 남기기</summary>
+  <div class="l03-record-grid">{recordStages.map((stage,index)=><article class="l03-record-card" data-l03-record={index}>
+    <h3>{stage.name}</h3>
+    <button type="button" data-l03-capture={index}>현재 조건과 Prompt 기록</button>
+    <p data-record-summary={index}>아직 기록하지 않았습니다.</p>
+    <label>실제 사용한 Prompt<textarea rows="7" data-record-prompt={index} placeholder="AI 초안을 수정했다면 실제 실행한 문구로 바꿉니다" /></label>
+    <label>내 결과 이미지<input type="file" accept="image/png,image/jpeg,image/webp" data-record-image={index} /></label>
+    <figure data-record-preview={index} data-preview-alt={stage.name+' · 내 결과'} hidden><figcaption>{stage.name+'의 내 결과 미리보기'}</figcaption></figure>
+    <label>실행 상태<select data-record-status={index}><option value="">실행 상태 선택</option>{['생성 완료','진행 중','생성 실패','다시 실행 필요'].map(status=><option>{status}</option>)}</select></label>
+    <label>비교·실행 메모<textarea rows="3" data-record-note={index} placeholder="목표한 수정과 의도하지 않은 변화, 보완할 점을 기록합니다" /></label>
+  </article>)}</div>
+  <button type="button" class="review-download" data-l03-records-download>실제 Prompt·실행 기록 다운로드</button>
+  <p class="l03-note">미리보기와 기록은 이 탭에서만 사용합니다. 기록 파일에는 이미지 파일명만 들어가므로 이미지 원본도 따로 저장합니다. 탭을 닫기 전에 기록을 내려받습니다.</p>
+  <p data-l03-save-status aria-live="polite" />
+  </details>
+</>}

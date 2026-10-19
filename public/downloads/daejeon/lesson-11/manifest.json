@@ -1,0 +1,20 @@
+{
+  "lesson": "11",
+  "localOnly": true,
+  "status": "design-pending",
+  "reviewStatus": "instructor-review",
+  "selfCreatedHouseOnly": true,
+  "externalHwangInsuDrawingsIncluded": false,
+  "files": [
+    {
+      "outputPath": "downloads/daejeon/lesson-11/프롬프트01_도면기반_콘셉트기획_스토리보드.txt",
+      "bytes": 1644,
+      "sha256": "035d7993cebe197b1a3feaaeae91fe9458b7776ef610b97d73132a60a91aaee4"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-11/8장_PPT_스토리보드_작성표.md",
+      "bytes": 2595,
+      "sha256": "eb46550bf4331428f70ec3db05950cc13a0d2f71d515eee8550df6c19a180e96"
+    }
+  ]
+}

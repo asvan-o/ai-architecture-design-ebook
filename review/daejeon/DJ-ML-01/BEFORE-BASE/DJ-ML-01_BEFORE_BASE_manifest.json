@@ -1,0 +1,102 @@
+{
+  "package": "DJ-ML-01-BEFORE-BASE",
+  "status": "review/draft",
+  "tool": "built-in image_gen",
+  "requestedAspectRatio": "16:9",
+  "requestedDimensions": [
+    2048,
+    1152
+  ],
+  "postProcessing": "none; generator original copied byte-identically",
+  "priorAfterSource": "../DJ-ML-01_BASE.png",
+  "files": [
+    {
+      "id": "01",
+      "title": "소형 오피스 리셉션·대기공간",
+      "file": "DJ-ML-01_BEFORE_BASE_01_reception.png",
+      "role": "리셉션 데스크 뒤 메인 벽면의 재질·기존 조명 인상 비교",
+      "scene": "Scene: a small office reception and waiting room. Exactly one compact rectangular reception desk with a plain neutral front, one simple two-seat waiting sofa, and one small low table. Show a normal closed door and a simple side window. The reception desk and waiting group occupy distinct, practical positions with an unobstructed route from entry. The blank main wall behind the reception desk is broad and clearly visible above and beside it. Show the whole usable furniture arrangement with neutral basic finishes.",
+      "prompt": "Use case: precise-object-edit.\nAsset type: BEFORE BASE 01, a participant input for an architecture/interior-design material-and-lighting editing exercise.\nInput image: the provided existing DJ-ML-01 reception rendering is the exact room, geometry, furniture and camera reference. It will be retained separately as an instructor AFTER example. Produce a new neutral BEFORE version of this SAME room.\nPrimary edit: remove the designed warm lighting impression and make the wall/floor/ceiling finishes visually plain and neutral. The broad wall behind the reception desk must read as an ordinary off-white/light-gray painted surface ready for a later finish change. Keep the gray floor simple and subdued, and the ceiling neutral white. Turn OFF the warm perimeter/cove lighting completely; retain its physical ceiling edge geometry, and use only the existing ordinary recessed ceiling downlights with neutral white appearance plus soft daylight through the existing window. No additional fixtures.\nStrict invariants: preserve the exact camera, field of view, crop, room proportions, all wall corners, ceiling geometry, rear door and its handle, right-hand window and mullions, reception desk, chair and blank monitor behind it, sofa, low table, furniture shapes/counts/positions, tile grid and exterior view. Do not shift, enlarge, remove, replace or add furniture. No redesign of the layout.\nStyle: realistic ArchViz of a finished, furnished and already usable ordinary small-office reception before a material-and-lighting proposal. Natural neutral exposure and restrained surface detail, no warm golden grade, no luxury styling, no dramatic contrast.\nAvoid: people, text, logos, labels, watermarks, decorative objects, artwork, plants, feature timber, decorative stone veins, glossy metallic feature finishes, new strip lights or pendants. Do not make a clay render, empty shell, material board, collage or before/after diptych.\nOutput: ONE independent opaque PNG, landscape exact 16:9, target 2048 x 1152 pixels, edge to edge with no border.",
+      "referenced_image_paths": [
+        "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\review\\daejeon\\DJ-ML-01\\DJ-ML-01_BASE.png"
+      ],
+      "generatorSource": "C:\\Users\\deric\\.codex\\generated_images\\01a106c4-1768-75c2-9a8d-9a1cb683c730\\exec-c75857cb-dfc9-4b7c-92dc-ed6c1209971e.png",
+      "generatedAtUtc": "2026-10-09T16:15:41.09Z",
+      "attempts": 1,
+      "sha256": "6628586c7fc3727f7928b9a6622b01cdf5a85bad329a4e7d0f36b535c32ee3b4",
+      "bytes": 1994524,
+      "width": 1672,
+      "height": 941,
+      "exact16x9": false,
+      "originalBytesPreserved": true
+    },
+    {
+      "id": "02",
+      "title": "소형 회의실",
+      "file": "DJ-ML-01_BEFORE_BASE_02_meeting-room.png",
+      "role": "회의실 메인 벽면의 재질·기본 천장 조명 인상 비교",
+      "scene": "Scene: a modest small meeting room, already usable. One plain rectangular meeting table, six simple matching neutral-gray chairs (three along each long side), no other furniture. A normal closed door and a simple side window are visible. Show a broad blank main wall at the far end of the room beyond the table; do not put a screen, whiteboard or artwork on it. The camera looks along the table from a doorway-side corner so the table, all chairs, main wall and room boundaries remain legible. Ordinary ceiling fixtures, simple basic finishes.",
+      "prompt": "Use case: photorealistic-natural.\nAsset type: an independent BEFORE BASE input image for an adult architecture/interior-design training exercise. It is a neutral starting condition for later editing ONLY a specified wall finish and the impression of the existing lighting.\nStyle: realistic architectural visualization, believable ordinary small-office interior, good construction detail, restrained everyday commercial fit-out. The room is already finished, furnished and usable, not an empty shell, not an untextured clay render, and not an after-design hero image.\nFinishes: plain neutral off-white/light-gray painted walls, uncomplicated matte pale-gray flooring, plain white flat ceiling, plain neutral-gray upholstery and solid neutral laminate furniture. Subtle realistic surface detail, but no feature timber grain, decorative stone veins, metallic accent wall, fluting or strong material design.\nLighting: ordinary simple visible ceiling light fittings in a neutral white appearance, evenly exposed with soft ambient daylight if a window is present. No warm golden grading, no cove lighting, no LED strips, no dramatic wall-wash, no designer pendant lighting, no moody spotlit rendering. The scene must leave clear room for a later material/lighting comparison.\nCamera: fixed eye-level about 1.55 m, moderate architectural wide angle around 30 mm full-frame equivalent, straight verticals, natural perspective, one coherent view. Show the wall-floor-ceiling relationships and furniture positions clearly; a broad uninterrupted main wall must be visibly available for a later finish change. Avoid fisheye, extreme wide-angle, overhead view, cutaway or collage.\nConstraints: no people, no text, no lettering, no labels, no logos, no watermarks, no signage, no screens with writing, no artwork, no plants or decorative styling props. Do not add new design concepts or a materials board. Keep furniture count modest and circulation readable.\nOutput: ONE standalone opaque PNG, landscape exact 16:9, target 2048 x 1152 pixels. Full image edge to edge, no border, no split panel, no before/after pair.\n\nScene: a modest small meeting room, already usable. One plain rectangular meeting table, six simple matching neutral-gray chairs (three along each long side), no other furniture. A normal closed door and a simple side window are visible. Show a broad blank main wall at the far end of the room beyond the table; do not put a screen, whiteboard or artwork on it. The camera looks along the table from a doorway-side corner so the table, all chairs, main wall and room boundaries remain legible. Ordinary ceiling fixtures, simple basic finishes.",
+      "generatorSource": "C:\\Users\\deric\\.codex\\generated_images\\01a106c4-1768-75c2-9a8d-9a1cb683c730\\exec-982c99d6-a32c-4711-b832-dda17f0012ca.png",
+      "generatedAtUtc": "2026-10-09T16:15:41.094Z",
+      "attempts": 1,
+      "sha256": "fdf949a279bc142df8c0329eded4536aa4934f8ebbac715ac3c5a4d73794d61e",
+      "bytes": 1959003,
+      "width": 1672,
+      "height": 941,
+      "exact16x9": false,
+      "originalBytesPreserved": true
+    },
+    {
+      "id": "03",
+      "title": "상담 라운지",
+      "file": "DJ-ML-01_BEFORE_BASE_03_consultation-lounge.png",
+      "role": "상담 좌석 뒤 메인 벽면의 재질·부드러운 조명 인상 비교",
+      "scene": "Scene: a compact professional consultation lounge for a seated conversation. Four simple upright upholstered armchairs, arranged as two facing pairs around one small low rectangular table. A normal closed door in a side wall and a modest side window are visible. One broad plain main wall behind a pair of chairs is unobstructed above chair-back level. All four chairs and the table have clear separate silhouettes, with room to walk around the group. Neutral finish and basic ceiling light; approachable and practical without decorative hospitality styling.",
+      "prompt": "Use case: photorealistic-natural.\nAsset type: an independent BEFORE BASE input image for an adult architecture/interior-design training exercise. It is a neutral starting condition for later editing ONLY a specified wall finish and the impression of the existing lighting.\nStyle: realistic architectural visualization, believable ordinary small-office interior, good construction detail, restrained everyday commercial fit-out. The room is already finished, furnished and usable, not an empty shell, not an untextured clay render, and not an after-design hero image.\nFinishes: plain neutral off-white/light-gray painted walls, uncomplicated matte pale-gray flooring, plain white flat ceiling, plain neutral-gray upholstery and solid neutral laminate furniture. Subtle realistic surface detail, but no feature timber grain, decorative stone veins, metallic accent wall, fluting or strong material design.\nLighting: ordinary simple visible ceiling light fittings in a neutral white appearance, evenly exposed with soft ambient daylight if a window is present. No warm golden grading, no cove lighting, no LED strips, no dramatic wall-wash, no designer pendant lighting, no moody spotlit rendering. The scene must leave clear room for a later material/lighting comparison.\nCamera: fixed eye-level about 1.55 m, moderate architectural wide angle around 30 mm full-frame equivalent, straight verticals, natural perspective, one coherent view. Show the wall-floor-ceiling relationships and furniture positions clearly; a broad uninterrupted main wall must be visibly available for a later finish change. Avoid fisheye, extreme wide-angle, overhead view, cutaway or collage.\nConstraints: no people, no text, no lettering, no labels, no logos, no watermarks, no signage, no screens with writing, no artwork, no plants or decorative styling props. Do not add new design concepts or a materials board. Keep furniture count modest and circulation readable.\nOutput: ONE standalone opaque PNG, landscape exact 16:9, target 2048 x 1152 pixels. Full image edge to edge, no border, no split panel, no before/after pair.\n\nScene: a compact professional consultation lounge for a seated conversation. Four simple upright upholstered armchairs, arranged as two facing pairs around one small low rectangular table. A normal closed door in a side wall and a modest side window are visible. One broad plain main wall behind a pair of chairs is unobstructed above chair-back level. All four chairs and the table have clear separate silhouettes, with room to walk around the group. Neutral finish and basic ceiling light; approachable and practical without decorative hospitality styling.",
+      "generatorSource": "C:\\Users\\deric\\.codex\\generated_images\\01a106c4-1768-75c2-9a8d-9a1cb683c730\\exec-2864bf93-f1a1-4df5-906c-e2d06bfb585b.png",
+      "generatedAtUtc": "2026-10-09T16:15:41.097Z",
+      "attempts": 1,
+      "sha256": "38866e5d5f2a0c6b1e456ee7cb79ac812817e43a8c658add4aec633bac2153fc",
+      "bytes": 2280398,
+      "width": 1672,
+      "height": 941,
+      "exact16x9": false,
+      "originalBytesPreserved": true
+    },
+    {
+      "id": "04",
+      "title": "업무·휴게 라운지",
+      "file": "DJ-ML-01_BEFORE_BASE_04_work-break-lounge.png",
+      "role": "휴게 좌석 뒤 벽면의 재질·업무와 휴식에 맞는 조명 인상 비교",
+      "scene": "Scene: a small office work-and-break lounge with simple functional zoning. One plain two-seat sofa and one compact low table form a rest area. One small rectangular work-height table with two simple chairs forms an adjacent work area, both clearly visible in the same room without crowding. A simple side window and a closed door are visible. A broad blank main wall behind the sofa is available for a later finish change. Plain flat ceiling and ordinary basic lights. This is an everyday usable office lounge before a material-and-lighting proposal, not a fashionable coworking interior.",
+      "prompt": "Use case: photorealistic-natural.\nAsset type: an independent BEFORE BASE input image for an adult architecture/interior-design training exercise. It is a neutral starting condition for later editing ONLY a specified wall finish and the impression of the existing lighting.\nStyle: realistic architectural visualization, believable ordinary small-office interior, good construction detail, restrained everyday commercial fit-out. The room is already finished, furnished and usable, not an empty shell, not an untextured clay render, and not an after-design hero image.\nFinishes: plain neutral off-white/light-gray painted walls, uncomplicated matte pale-gray flooring, plain white flat ceiling, plain neutral-gray upholstery and solid neutral laminate furniture. Subtle realistic surface detail, but no feature timber grain, decorative stone veins, metallic accent wall, fluting or strong material design.\nLighting: ordinary simple visible ceiling light fittings in a neutral white appearance, evenly exposed with soft ambient daylight if a window is present. No warm golden grading, no cove lighting, no LED strips, no dramatic wall-wash, no designer pendant lighting, no moody spotlit rendering. The scene must leave clear room for a later material/lighting comparison.\nCamera: fixed eye-level about 1.55 m, moderate architectural wide angle around 30 mm full-frame equivalent, straight verticals, natural perspective, one coherent view. Show the wall-floor-ceiling relationships and furniture positions clearly; a broad uninterrupted main wall must be visibly available for a later finish change. Avoid fisheye, extreme wide-angle, overhead view, cutaway or collage.\nConstraints: no people, no text, no lettering, no labels, no logos, no watermarks, no signage, no screens with writing, no artwork, no plants or decorative styling props. Do not add new design concepts or a materials board. Keep furniture count modest and circulation readable.\nOutput: ONE standalone opaque PNG, landscape exact 16:9, target 2048 x 1152 pixels. Full image edge to edge, no border, no split panel, no before/after pair.\n\nScene: a small office work-and-break lounge with simple functional zoning. One plain two-seat sofa and one compact low table form a rest area. One small rectangular work-height table with two simple chairs forms an adjacent work area, both clearly visible in the same room without crowding. A simple side window and a closed door are visible. A broad blank main wall behind the sofa is available for a later finish change. Plain flat ceiling and ordinary basic lights. This is an everyday usable office lounge before a material-and-lighting proposal, not a fashionable coworking interior.",
+      "generatorSource": "C:\\Users\\deric\\.codex\\generated_images\\01a106c4-1768-75c2-9a8d-9a1cb683c730\\exec-ab71e913-7c70-47ed-9dcf-895ed2b57d2e.png",
+      "generatedAtUtc": "2026-10-09T16:15:41.099Z",
+      "attempts": 1,
+      "sha256": "f3061134639c57f9fd3c39df77601b1250d011eca10deb9a591ce385196c5799",
+      "bytes": 2010618,
+      "width": 1672,
+      "height": 941,
+      "exact16x9": false,
+      "originalBytesPreserved": true
+    },
+    {
+      "id": "05",
+      "title": "소형 대기공간",
+      "file": "DJ-ML-01_BEFORE_BASE_05_waiting-area.png",
+      "role": "대기 좌석 뒤 메인 벽면의 재질·기본 조명 인상 비교",
+      "scene": "Scene: a very small, simple rectangular waiting area. Three separate simple neutral upholstered waiting chairs arranged neatly in a row against a broad plain main wall, with one small square side table at the end of the row. Show one ordinary closed door in the adjoining wall and a modest window on the opposite side. The camera faces the waiting row at a slight angle, showing the chair positions, main wall, a usable clear circulation strip, floor and ceiling. Keep it noticeably simpler and smaller than an office reception: no reception desk, no consultation group, no meeting table, no extra furniture. Basic neutral finishes and ceiling lights only.",
+      "prompt": "Use case: photorealistic-natural.\nAsset type: an independent BEFORE BASE input image for an adult architecture/interior-design training exercise. It is a neutral starting condition for later editing ONLY a specified wall finish and the impression of the existing lighting.\nStyle: realistic architectural visualization, believable ordinary small-office interior, good construction detail, restrained everyday commercial fit-out. The room is already finished, furnished and usable, not an empty shell, not an untextured clay render, and not an after-design hero image.\nFinishes: plain neutral off-white/light-gray painted walls, uncomplicated matte pale-gray flooring, plain white flat ceiling, plain neutral-gray upholstery and solid neutral laminate furniture. Subtle realistic surface detail, but no feature timber grain, decorative stone veins, metallic accent wall, fluting or strong material design.\nLighting: ordinary simple visible ceiling light fittings in a neutral white appearance, evenly exposed with soft ambient daylight if a window is present. No warm golden grading, no cove lighting, no LED strips, no dramatic wall-wash, no designer pendant lighting, no moody spotlit rendering. The scene must leave clear room for a later material/lighting comparison.\nCamera: fixed eye-level about 1.55 m, moderate architectural wide angle around 30 mm full-frame equivalent, straight verticals, natural perspective, one coherent view. Show the wall-floor-ceiling relationships and furniture positions clearly; a broad uninterrupted main wall must be visibly available for a later finish change. Avoid fisheye, extreme wide-angle, overhead view, cutaway or collage.\nConstraints: no people, no text, no lettering, no labels, no logos, no watermarks, no signage, no screens with writing, no artwork, no plants or decorative styling props. Do not add new design concepts or a materials board. Keep furniture count modest and circulation readable.\nOutput: ONE standalone opaque PNG, landscape exact 16:9, target 2048 x 1152 pixels. Full image edge to edge, no border, no split panel, no before/after pair.\n\nScene: a very small, simple rectangular waiting area. Three separate simple neutral upholstered waiting chairs arranged neatly in a row against a broad plain main wall, with one small square side table at the end of the row. Show one ordinary closed door in the adjoining wall and a modest window on the opposite side. The camera faces the waiting row at a slight angle, showing the chair positions, main wall, a usable clear circulation strip, floor and ceiling. Keep it noticeably simpler and smaller than an office reception: no reception desk, no consultation group, no meeting table, no extra furniture. Basic neutral finishes and ceiling lights only.",
+      "generatorSource": "C:\\Users\\deric\\.codex\\generated_images\\01a106c4-1768-75c2-9a8d-9a1cb683c730\\exec-d455c0bf-d33b-4255-94b5-73376b3493f5.png",
+      "generatedAtUtc": "2026-10-09T16:15:41.102Z",
+      "attempts": 1,
+      "sha256": "25d5e0f9407b80dc09a1256d00fecf258d28e7c2744f05ca7c49401c81a4dd6b",
+      "bytes": 2006489,
+      "width": 1672,
+      "height": 941,
+      "exact16x9": false,
+      "originalBytesPreserved": true
+    }
+  ]
+}

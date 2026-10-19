@@ -1,0 +1,28 @@
+---
+import { officialTopics } from '../content/course-roadmap';
+import {topicLessonLinks} from '../content/lesson-topic-alignment';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+---
+<section class="course-roadmap" id="course-roadmap" data-course-roadmap aria-labelledby="course-roadmap-heading">
+  <h2 id="course-roadmap-heading">7개 대주제 Roadmap</h2>
+  <p>교육과정의 큰 단계입니다. 아래의 전체 과정 Workflow는 실제 작업이 어떻게 연결되는지 보여주는 작업 흐름입니다.</p>
+  <ol>
+    {officialTopics.map((title,index)=><li data-official-topic={index+1}>
+      <span class="course-roadmap-number">{String(index+1).padStart(2,'0')}.</span>
+      <div><strong data-official-title>{title}</strong><div class="roadmap-lesson-links" data-topic-lesson-links>{topicLessonLinks[index].map(lesson=><a href={base+'/lessons/'+lesson.id+'/'}>{lesson.label}</a>)}</div></div>
+    </li>)}
+  </ol>
+</section>
+<style>
+  .course-roadmap { padding:1.4rem; margin:0 0 2rem; border:1px solid var(--line-dark); background:var(--surface); }
+  h2 { font-family:var(--serif); font-size:1.5rem; line-height:1.45; margin:0 0 .6rem; }
+  p { margin:.4rem 0 1rem; color:var(--muted); font-size:.9rem; }
+  ol { list-style:none; padding:0; margin:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.65rem 1.1rem; }
+  li { display:grid; grid-template-columns:2rem minmax(0,1fr); gap:.6rem; border-top:1px solid var(--line); padding:.8rem 0; min-width:0; break-inside:avoid; }
+  .course-roadmap-number { color:var(--accent-dark); font-weight:800; }
+  strong { display:block; font-size:.92rem; line-height:1.65; overflow-wrap:anywhere; }
+  .roadmap-lesson-links { display:flex; flex-wrap:wrap; gap:.4rem; margin-top:.6rem; font-size:.8rem; }
+  .roadmap-lesson-links a,.roadmap-lesson-links span { padding:.25rem .5rem; border:1px solid var(--line); background:var(--paper); overflow-wrap:anywhere; }
+  .roadmap-lesson-links a:focus-visible { outline:3px solid var(--blue); outline-offset:3px; }
+  @media(max-width:600px) { .course-roadmap { padding:1rem; } ol { grid-template-columns:1fr; } }
+</style>

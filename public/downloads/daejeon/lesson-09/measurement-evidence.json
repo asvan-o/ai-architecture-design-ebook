@@ -1,0 +1,444 @@
+{
+  "sourceRecord": "audit-fix-reopen-validation.json",
+  "sourceSha256": "4b4a2cd9e9c756e69f0ddb911fd9f1486a7cb9ab20657537dbeac7927fe8dca9",
+  "sourceModelSha256": "d4bef5ae27a804f6e403979ad27db906ddee09bc303402ce166156ebbec37a8b",
+  "method": "Read-only evaluated world-space mesh audit",
+  "check": {
+    "id": "1F_under_stair_headroom_all_architectural_meshes",
+    "status": "PASS",
+    "measured": {
+      "minimum_m": 2.112000114440918,
+      "samples": [
+        {
+          "x": 30.35,
+          "y": 0.65,
+          "clearance_m": 4.201999790191651,
+          "firstObject": "Floor_Slab_2F",
+          "pass": true
+        },
+        {
+          "x": 30.35,
+          "y": 1.15,
+          "clearance_m": 4.201999790191651,
+          "firstObject": "Floor_Slab_2F",
+          "pass": true
+        },
+        {
+          "x": 30.35,
+          "y": 1.65,
+          "clearance_m": 4.201999790191651,
+          "firstObject": "Floor_Slab_2F",
+          "pass": true
+        },
+        {
+          "x": 30.35,
+          "y": 2.15,
+          "clearance_m": 4.201999790191651,
+          "firstObject": "Floor_Slab_2F",
+          "pass": true
+        },
+        {
+          "x": 30.35,
+          "y": 2.65,
+          "clearance_m": 4.169692642211914,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 30.35,
+          "y": 3.15,
+          "clearance_m": 3.8491793937683108,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 30.35,
+          "y": 3.65,
+          "clearance_m": 3.5286668605804445,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 30.35,
+          "y": 4.15,
+          "clearance_m": 3.208153612136841,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 30.35,
+          "y": 4.65,
+          "clearance_m": 2.887641317367554,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 30.35,
+          "y": 5.15,
+          "clearance_m": 2.5671285457611086,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 30.35,
+          "y": 5.7,
+          "clearance_m": 2.214564687728882,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 30.35,
+          "y": 5.9,
+          "clearance_m": 2.1120003528594973,
+          "firstObject": "Stair_1F_MidLanding",
+          "pass": true
+        },
+        {
+          "x": 30.6,
+          "y": 0.65,
+          "clearance_m": 4.201999790191651,
+          "firstObject": "Floor_Slab_2F",
+          "pass": true
+        },
+        {
+          "x": 30.6,
+          "y": 1.15,
+          "clearance_m": 4.202000267028809,
+          "firstObject": "Floor_Slab_2F",
+          "pass": true
+        },
+        {
+          "x": 30.6,
+          "y": 1.65,
+          "clearance_m": 4.201999790191651,
+          "firstObject": "Floor_Slab_2F",
+          "pass": true
+        },
+        {
+          "x": 30.6,
+          "y": 2.15,
+          "clearance_m": 4.201999790191651,
+          "firstObject": "Floor_Slab_2F",
+          "pass": true
+        },
+        {
+          "x": 30.6,
+          "y": 2.65,
+          "clearance_m": 4.169692642211914,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 30.6,
+          "y": 3.15,
+          "clearance_m": 3.849179870605469,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 30.6,
+          "y": 3.65,
+          "clearance_m": 3.5286663837432863,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 30.6,
+          "y": 4.15,
+          "clearance_m": 3.2081540889739992,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 30.6,
+          "y": 4.65,
+          "clearance_m": 2.887641317367554,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 30.6,
+          "y": 5.15,
+          "clearance_m": 2.5671285457611086,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 30.6,
+          "y": 5.7,
+          "clearance_m": 2.214564449310303,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 30.6,
+          "y": 5.9,
+          "clearance_m": 2.112000114440918,
+          "firstObject": "Stair_1F_MidLanding",
+          "pass": true
+        },
+        {
+          "x": 30.85,
+          "y": 0.65,
+          "clearance_m": 4.201999790191651,
+          "firstObject": "Floor_Slab_2F",
+          "pass": true
+        },
+        {
+          "x": 30.85,
+          "y": 1.15,
+          "clearance_m": 4.201999790191651,
+          "firstObject": "Floor_Slab_2F",
+          "pass": true
+        },
+        {
+          "x": 30.85,
+          "y": 1.65,
+          "clearance_m": 4.201999790191651,
+          "firstObject": "Floor_Slab_2F",
+          "pass": true
+        },
+        {
+          "x": 30.85,
+          "y": 2.15,
+          "clearance_m": 4.201999790191651,
+          "firstObject": "Floor_Slab_2F",
+          "pass": true
+        },
+        {
+          "x": 30.85,
+          "y": 2.65,
+          "clearance_m": 4.169692642211914,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 30.85,
+          "y": 3.15,
+          "clearance_m": 3.84917963218689,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 30.85,
+          "y": 3.65,
+          "clearance_m": 3.5286668605804445,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 30.85,
+          "y": 4.15,
+          "clearance_m": 3.2081540889739992,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 30.85,
+          "y": 4.65,
+          "clearance_m": 2.887641317367554,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 30.85,
+          "y": 5.15,
+          "clearance_m": 2.5671285457611086,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 30.85,
+          "y": 5.7,
+          "clearance_m": 2.214564449310303,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 30.85,
+          "y": 5.9,
+          "clearance_m": 2.1120003528594973,
+          "firstObject": "Stair_1F_MidLanding",
+          "pass": true
+        },
+        {
+          "x": 31.1,
+          "y": 0.65,
+          "clearance_m": 4.201999790191651,
+          "firstObject": "Floor_Slab_2F",
+          "pass": true
+        },
+        {
+          "x": 31.1,
+          "y": 1.15,
+          "clearance_m": 4.201999790191651,
+          "firstObject": "Floor_Slab_2F",
+          "pass": true
+        },
+        {
+          "x": 31.1,
+          "y": 1.65,
+          "clearance_m": 4.201999790191651,
+          "firstObject": "Floor_Slab_2F",
+          "pass": true
+        },
+        {
+          "x": 31.1,
+          "y": 2.15,
+          "clearance_m": 4.201999790191651,
+          "firstObject": "Floor_Slab_2F",
+          "pass": true
+        },
+        {
+          "x": 31.1,
+          "y": 2.65,
+          "clearance_m": 4.169692165374756,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 31.1,
+          "y": 3.15,
+          "clearance_m": 3.8491791553497317,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 31.1,
+          "y": 3.65,
+          "clearance_m": 3.5286668605804445,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 31.1,
+          "y": 4.15,
+          "clearance_m": 3.20815385055542,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 31.1,
+          "y": 4.65,
+          "clearance_m": 2.887641317367554,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 31.1,
+          "y": 5.15,
+          "clearance_m": 2.5671280689239504,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 31.1,
+          "y": 5.7,
+          "clearance_m": 2.214564449310303,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 31.1,
+          "y": 5.9,
+          "clearance_m": 2.112000114440918,
+          "firstObject": "Stair_1F_MidLanding",
+          "pass": true
+        },
+        {
+          "x": 31.35,
+          "y": 0.65,
+          "clearance_m": 4.201999790191651,
+          "firstObject": "Floor_Slab_2F",
+          "pass": true
+        },
+        {
+          "x": 31.35,
+          "y": 1.15,
+          "clearance_m": 4.201999790191651,
+          "firstObject": "Floor_Slab_2F",
+          "pass": true
+        },
+        {
+          "x": 31.35,
+          "y": 1.65,
+          "clearance_m": 4.201999790191651,
+          "firstObject": "Floor_Slab_2F",
+          "pass": true
+        },
+        {
+          "x": 31.35,
+          "y": 2.15,
+          "clearance_m": 4.201999790191651,
+          "firstObject": "Floor_Slab_2F",
+          "pass": true
+        },
+        {
+          "x": 31.35,
+          "y": 2.65,
+          "clearance_m": 4.169692165374756,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 31.35,
+          "y": 3.15,
+          "clearance_m": 3.84917963218689,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 31.35,
+          "y": 3.65,
+          "clearance_m": 3.5286668605804445,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 31.35,
+          "y": 4.15,
+          "clearance_m": 3.2081540889739992,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 31.35,
+          "y": 4.65,
+          "clearance_m": 2.8876408405303957,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 31.35,
+          "y": 5.15,
+          "clearance_m": 2.5671280689239504,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 31.35,
+          "y": 5.7,
+          "clearance_m": 2.214564449310303,
+          "firstObject": "Stair_1F_W_SlopedFlight",
+          "pass": true
+        },
+        {
+          "x": 31.35,
+          "y": 5.9,
+          "clearance_m": 2.112000114440918,
+          "firstObject": "Stair_1F_MidLanding",
+          "pass": true
+        }
+      ]
+    },
+    "method": "Upward world BVH rays include walls, frames, doors, furniture and columns"
+  },
+  "scope": "Existing audited model sampled geometry only. Not the camera-moving remodeled model; not an applicable-code approval.",
+  "displayRoundedM": 2.11,
+  "unmeasured": [
+    "current camera-moving stair headroom",
+    "finished corridor clear width",
+    "fire-door compliance",
+    "travel distance"
+  ]
+}

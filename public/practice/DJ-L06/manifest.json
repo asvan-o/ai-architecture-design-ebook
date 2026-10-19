@@ -1,0 +1,696 @@
+{
+  "packageId": "DJ-L06-3D-ZONING",
+  "lesson": "06",
+  "revision": "revision-review8-20261016",
+  "sectionCount": 12,
+  "durationMinutes": 150,
+  "legacy": [
+    {
+      "file": "legacy-basic/01-small-room-plan.png",
+      "sha256": "130a2789dc5caab50ed971918a5d718b00de4be7e8d81f5651b0ddc157c16013",
+      "bytes": 1371447,
+      "sizeBytes": 1371447,
+      "key": "small-plan",
+      "title": "작은 방 원본 평면",
+      "originalSource": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/legacy-basic/01-small-room-plan.png",
+      "width": 1348,
+      "height": 1167
+    },
+    {
+      "file": "legacy-basic/02-small-room-topview-3d.png",
+      "sha256": "2b62d416edf108db9aa3182f263d8bb527c80aaee7383aedde54cba8afe7b9de",
+      "bytes": 1668098,
+      "sizeBytes": 1668098,
+      "key": "small-top",
+      "title": "작은 방 Top View 3D",
+      "originalSource": "src/assets/lessons/05/plan-to-isometric/02-small-room-topview-3d.png",
+      "width": 1448,
+      "height": 1086
+    },
+    {
+      "file": "legacy-basic/03-small-room-isometric.png",
+      "sha256": "9cd9ea4d3a3ca15ba7781b0445c809f9d24772db281ce9230a4b2676f708ab99",
+      "bytes": 1669035,
+      "sizeBytes": 1669035,
+      "key": "small-iso",
+      "title": "작은 방 아이소메트릭",
+      "originalSource": "src/assets/lessons/05/plan-to-isometric/03-small-room-isometric.png",
+      "width": 1448,
+      "height": 1086
+    },
+    {
+      "file": "legacy-basic/04-living-kitchen-plan.png",
+      "sha256": "05a9cca51e0d7898310df83440e980406e8633734524d37c226630058e07d2b6",
+      "bytes": 1441731,
+      "sizeBytes": 1441731,
+      "key": "living-plan",
+      "title": "거실·주방 원본 평면",
+      "originalSource": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/legacy-basic/04-living-kitchen-plan.png",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "file": "legacy-basic/05-living-kitchen-isometric-interior.png",
+      "sha256": "b8f6d6177d9c2e6ba18005bd008756647286d75365064e5b874bfdeff616b733",
+      "bytes": 1855154,
+      "sizeBytes": 1855154,
+      "key": "living-iso",
+      "title": "거실·주방 아이소메트릭 실내",
+      "originalSource": "src/assets/lessons/05/plan-to-isometric/05-living-kitchen-isometric-interior.png",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "file": "legacy-house/03-modified-first-floor-plan.png",
+      "sha256": "72f9e1898863d74ac916f8423307ae49232d71dbddcbf9751cdb7946656a8fa7",
+      "bytes": 1035678,
+      "sizeBytes": 1035678,
+      "key": "house-plan",
+      "title": "단독주택 수정 평면",
+      "originalSource": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/legacy-house/03-modified-first-floor-plan.png",
+      "width": 1227,
+      "height": 1281
+    },
+    {
+      "file": "legacy-house/04-top-view-3d.png",
+      "sha256": "63ad6deb3a91d54d3e4a4265b612e95b12ca8b7398bbf9c0bdc7a4495fa0f13a",
+      "bytes": 1868159,
+      "sizeBytes": 1868159,
+      "key": "house-top",
+      "title": "단독주택 Top View 3D",
+      "originalSource": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/legacy-house/04-top-view-3d.png",
+      "width": 1227,
+      "height": 1281
+    },
+    {
+      "file": "legacy-house/05-isometric.png",
+      "sha256": "a6e68c4ae2a898e785ce153d4d04096676f556a8da4d4175be5c05532d20b28f",
+      "bytes": 2097676,
+      "sizeBytes": 2097676,
+      "key": "house-iso",
+      "title": "단독주택 아이소메트릭",
+      "originalSource": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/legacy-house/05-isometric.png",
+      "width": 1312,
+      "height": 1199
+    },
+    {
+      "file": "legacy-house/06-exploded-isometric.png",
+      "sha256": "a49cda66cbfa38e5e836612cb29a856bdb26a870c0fd1890e83aef5a128a71e4",
+      "bytes": 1530406,
+      "sizeBytes": 1530406,
+      "key": "house-exploded",
+      "title": "단독주택 분해 아이소메트릭",
+      "originalSource": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/legacy-house/06-exploded-isometric.png",
+      "width": 1145,
+      "height": 1374
+    }
+  ],
+  "inputs": [
+    {
+      "file": "inputs/PLAN-BASE-01-door-result.png",
+      "sha256": "b013ff8001e5c703980a1b80bad74a17adeadadfb181f49a94370c608c343ca7",
+      "bytes": 250941,
+      "sizeBytes": 250941,
+      "key": "office-plan",
+      "title": "D2 이동 완료 오피스 · 회의실 6석",
+      "originalSource": "review/daejeon/DJ-L05-FLOORPLAN-INPAINTING/revision-review8-20261016/results/PLAN-BASE-01-door-result.png",
+      "width": 2400,
+      "height": 1650
+    },
+    {
+      "file": "inputs/PLAN-BASE-02-result.png",
+      "sha256": "053a49acd205abf381ebf5d8935efd705f8f16e6de116fc5c56e6de425d2ebbd",
+      "bytes": 178036,
+      "sizeBytes": 178036,
+      "key": "cafe-plan",
+      "title": "카페 · 중앙 6석과 하단 2석",
+      "originalSource": "review/daejeon/DJ-L05-FLOORPLAN-INPAINTING/revision-review8-20261016/results/PLAN-BASE-02-result.png",
+      "width": 2400,
+      "height": 1650
+    }
+  ],
+  "images": [
+    {
+      "file": "samples/01_office-topview-3d.png",
+      "sha256": "20c3be98160ba011ea3b90e06184e402b7071431f01091f7f7f5f5094d309823",
+      "bytes": 1560676,
+      "sizeBytes": 1560676,
+      "key": "office-topview",
+      "title": "수정 오피스 평면 → Top View 3D",
+      "width": 1646,
+      "height": 956,
+      "id": "office-topview",
+      "section": "l06-topview"
+    },
+    {
+      "file": "samples/02_office-isometric-warm.png",
+      "sha256": "f0738c703b616415b2173267445d1014b50fd5fc408a570f8ce89ac7b3183193",
+      "bytes": 1639946,
+      "sizeBytes": 1639946,
+      "key": "office-warm",
+      "title": "아이소메트릭 A · 웜 오크 & 크림 스톤",
+      "width": 1536,
+      "height": 1024,
+      "id": "office-warm",
+      "section": "l06-isometric-ab"
+    },
+    {
+      "file": "samples/03_office-isometric-modern.png",
+      "sha256": "35a57bdacec3a64b871cb90ca3ea2e45384704accbf04225ca80675bb5e4af5a",
+      "bytes": 1516797,
+      "sizeBytes": 1516797,
+      "key": "office-modern",
+      "title": "아이소메트릭 B · 차콜 & 라이트 스톤",
+      "width": 1536,
+      "height": 1024,
+      "id": "office-modern",
+      "section": "l06-isometric-ab"
+    },
+    {
+      "file": "samples/04_cafe-isometric-3d.png",
+      "sha256": "f6ee721d188ad5824c2dfb76b8f6fa20317da13a4fd07dc8bb2e81b181c22d3d",
+      "bytes": 1838382,
+      "sizeBytes": 1838382,
+      "key": "cafe-isometric",
+      "title": "카페 수정 평면 → 아이소메트릭",
+      "width": 1536,
+      "height": 1024,
+      "id": "cafe-isometric",
+      "section": "l06-isometric-ab"
+    },
+    {
+      "file": "samples/05_office-exploded-isometric.png",
+      "sha256": "fa4b70075af032f55e5436c37fcb49cc19eb9151e5bc239a39bf4e26509c71f2",
+      "bytes": 1585070,
+      "sizeBytes": 1585070,
+      "key": "office-exploded",
+      "title": "오피스 · Z축 3단 분해도",
+      "width": 1145,
+      "height": 1374,
+      "id": "office-exploded",
+      "section": "l06-exploded-run"
+    },
+    {
+      "file": "samples/06_office-interior-subview.png",
+      "sha256": "9fb25aac8ef8dc400da62ae66e8b63bd14eb4231750a85f1626380a92722615b",
+      "bytes": 1807675,
+      "sizeBytes": 1807675,
+      "key": "office-subview",
+      "title": "오피스 · 실내 아이레벨 서브 뷰",
+      "width": 1536,
+      "height": 1024,
+      "id": "office-subview",
+      "section": "l06-main-sub"
+    },
+    {
+      "file": "samples/07_office-spatial-bubble-diagram.png",
+      "sha256": "bb593f2adf600669c3e894db1be6fa460e230063c08c440b785400814ad900f4",
+      "bytes": 1124127,
+      "sizeBytes": 1124127,
+      "key": "office-bubble",
+      "title": "오피스 · 공간 관계 버블 다이어그램",
+      "width": 1536,
+      "height": 1024,
+      "id": "office-bubble",
+      "section": "l06-bubble-diagram"
+    },
+    {
+      "file": "samples/08_office-2d-zoning-bridge.png",
+      "sha256": "357b027287c58421b90fccdbed7c1b267e341b3395e4f17b47cf6432bc794f3d",
+      "bytes": 1212093,
+      "sizeBytes": 1212093,
+      "key": "office-zoning",
+      "title": "오피스 · 2D 개념 조닝",
+      "width": 1645,
+      "height": 956,
+      "id": "office-zoning",
+      "section": "l06-zoning-bridge"
+    }
+  ],
+  "prompts": [
+    {
+      "file": "prompts/office-topview.txt",
+      "sha256": "0ed6cd5bb271657274a5b413fd58f09d7be6077ab7b18f6dbe6385f904a8426e",
+      "bytes": 1302,
+      "sizeBytes": 1302,
+      "key": "office-topview",
+      "title": "수정 오피스 평면 → Top View 3D",
+      "attachments": [
+        {
+          "file": "inputs/PLAN-BASE-01-door-result.png",
+          "role": "6석·D2 이동 반영 기준 평면",
+          "outputPath": "practice/DJ-L06/inputs/PLAN-BASE-01-door-result.png",
+          "sha256": "b013ff8001e5c703980a1b80bad74a17adeadadfb181f49a94370c608c343ca7",
+          "bytes": 250941,
+          "sizeBytes": 250941,
+          "width": 2400,
+          "height": 1650
+        }
+      ],
+      "section": "l06-topview",
+      "doorState": "개폐 방향 확인용 반열림",
+      "promptRevision": "한국어 실습용 교정문. 과거 실제 생성 원문은 이전 audit에 보존. 이번 재생성 및 후속 부분 보정 기록은 LESSON05_06_FINAL_8FIX/generation에 보존."
+    },
+    {
+      "file": "prompts/office-warm.txt",
+      "sha256": "f552563ee864a658b916ddcde2024320ba087f0065be72d7306da77bad737b21",
+      "bytes": 1345,
+      "sizeBytes": 1345,
+      "key": "office-warm",
+      "title": "아이소메트릭 A · 웜 오크 & 크림 스톤",
+      "attachments": [
+        {
+          "file": "inputs/PLAN-BASE-01-door-result.png",
+          "role": "배치·문·창·좌석 수의 우선 기준",
+          "outputPath": "practice/DJ-L06/inputs/PLAN-BASE-01-door-result.png",
+          "sha256": "b013ff8001e5c703980a1b80bad74a17adeadadfb181f49a94370c608c343ca7",
+          "bytes": 250941,
+          "sizeBytes": 250941,
+          "width": 2400,
+          "height": 1650
+        }
+      ],
+      "section": "l06-isometric-ab",
+      "doorState": "닫힘",
+      "promptRevision": "한국어 실습용 교정문. 과거 실제 생성 원문은 이전 audit에 보존. 이번 재생성 및 후속 부분 보정 기록은 LESSON05_06_FINAL_8FIX/generation에 보존."
+    },
+    {
+      "file": "prompts/office-modern.txt",
+      "sha256": "110e17f5aa6a77edbe828346d5f40192ed168009150f7ef1eb76f3bad674fe67",
+      "bytes": 972,
+      "sizeBytes": 972,
+      "key": "office-modern",
+      "title": "아이소메트릭 B · 차콜 & 라이트 스톤",
+      "attachments": [
+        {
+          "file": "inputs/PLAN-BASE-01-door-result.png",
+          "role": "원래 배치 대조 기준",
+          "outputPath": "practice/DJ-L06/inputs/PLAN-BASE-01-door-result.png",
+          "sha256": "b013ff8001e5c703980a1b80bad74a17adeadadfb181f49a94370c608c343ca7",
+          "bytes": 250941,
+          "sizeBytes": 250941,
+          "width": 2400,
+          "height": 1650
+        },
+        {
+          "file": "samples/02_office-isometric-warm.png",
+          "role": "재료만 바꿀 편집 대상·동일 카메라 기준",
+          "outputPath": "practice/DJ-L06/samples/02_office-isometric-warm.png",
+          "sha256": "f0738c703b616415b2173267445d1014b50fd5fc408a570f8ce89ac7b3183193",
+          "bytes": 1639946,
+          "sizeBytes": 1639946,
+          "width": 1536,
+          "height": 1024
+        }
+      ],
+      "section": "l06-isometric-ab",
+      "doorState": "닫힘",
+      "promptRevision": "한국어 실습용 교정문. 과거 실제 생성 원문은 이전 audit에 보존. 이번 재생성 및 후속 부분 보정 기록은 LESSON05_06_FINAL_8FIX/generation에 보존."
+    },
+    {
+      "file": "prompts/cafe-isometric.txt",
+      "sha256": "f82ccbeeb78f91c017271eec5e822411e76d917eeb992679b191dcfbb4b1e7e4",
+      "bytes": 1022,
+      "sizeBytes": 1022,
+      "key": "cafe-isometric",
+      "title": "카페 수정 평면 → 아이소메트릭",
+      "attachments": [
+        {
+          "file": "inputs/PLAN-BASE-02-result.png",
+          "role": "바·백바·6석과2석·분리된 창호의 기준 평면",
+          "outputPath": "practice/DJ-L06/inputs/PLAN-BASE-02-result.png",
+          "sha256": "053a49acd205abf381ebf5d8935efd705f8f16e6de116fc5c56e6de425d2ebbd",
+          "bytes": 178036,
+          "sizeBytes": 178036,
+          "width": 2400,
+          "height": 1650
+        }
+      ],
+      "section": "l06-isometric-ab",
+      "doorState": "개폐 방향 확인용 반열림",
+      "promptRevision": "한국어 실습용 교정문. 과거 실제 생성 원문은 이전 audit에 보존. 이번 재생성 및 후속 부분 보정 기록은 LESSON05_06_FINAL_8FIX/generation에 보존."
+    },
+    {
+      "file": "prompts/office-exploded.txt",
+      "sha256": "dfab745cbe20ca6c47a9349417c604f0d34d02255c2424e2f25c43f9f51d4abb",
+      "bytes": 2632,
+      "sizeBytes": 2632,
+      "key": "office-exploded",
+      "title": "오피스 · Z축 3단 분해도",
+      "attachments": [
+        {
+          "file": "inputs/PLAN-BASE-01-door-result.png",
+          "role": "개구부가 열린 최종 수정 평면도",
+          "outputPath": "practice/DJ-L06/inputs/PLAN-BASE-01-door-result.png",
+          "sha256": "b013ff8001e5c703980a1b80bad74a17adeadadfb181f49a94370c608c343ca7",
+          "bytes": 250941,
+          "sizeBytes": 250941,
+          "width": 2400,
+          "height": 1650
+        },
+        {
+          "file": "samples/01_office-topview-3d.png",
+          "role": "같은 평면의 상부 입체도",
+          "outputPath": "practice/DJ-L06/samples/01_office-topview-3d.png",
+          "sha256": "20c3be98160ba011ea3b90e06184e402b7071431f01091f7f7f5f5094d309823",
+          "bytes": 1560676,
+          "sizeBytes": 1560676,
+          "width": 1646,
+          "height": 956
+        },
+        {
+          "file": "samples/02_office-isometric-warm.png",
+          "role": "브론즈 프레임 유리 가벽과 재료 기준",
+          "outputPath": "practice/DJ-L06/samples/02_office-isometric-warm.png",
+          "sha256": "f0738c703b616415b2173267445d1014b50fd5fc408a570f8ce89ac7b3183193",
+          "bytes": 1639946,
+          "sizeBytes": 1639946,
+          "width": 1536,
+          "height": 1024
+        }
+      ],
+      "section": "l06-exploded-run",
+      "doorState": "개폐 방향 확인용 반열림",
+      "promptRevision": "한국어 실습용 교정문. 과거 실제 생성 원문은 이전 audit에 보존. 이번 재생성 및 후속 부분 보정 기록은 LESSON05_06_FINAL_8FIX/generation에 보존."
+    },
+    {
+      "file": "prompts/office-subview.txt",
+      "sha256": "88d48fd916aceb4a440b7709f55d156c3d714d69a3357056c85acf9d82fbd7cd",
+      "bytes": 1181,
+      "sizeBytes": 1181,
+      "key": "office-subview",
+      "title": "오피스 · 실내 아이레벨 서브 뷰",
+      "attachments": [
+        {
+          "file": "samples/02_office-isometric-warm.png",
+          "role": "공통 재료·구획·조명 Anchor",
+          "outputPath": "practice/DJ-L06/samples/02_office-isometric-warm.png",
+          "sha256": "f0738c703b616415b2173267445d1014b50fd5fc408a570f8ce89ac7b3183193",
+          "bytes": 1639946,
+          "sizeBytes": 1639946,
+          "width": 1536,
+          "height": 1024
+        },
+        {
+          "file": "inputs/PLAN-BASE-01-door-result.png",
+          "role": "D2/D3·창·4석/6석의 배치 기준",
+          "outputPath": "practice/DJ-L06/inputs/PLAN-BASE-01-door-result.png",
+          "sha256": "b013ff8001e5c703980a1b80bad74a17adeadadfb181f49a94370c608c343ca7",
+          "bytes": 250941,
+          "sizeBytes": 250941,
+          "width": 2400,
+          "height": 1650
+        }
+      ],
+      "section": "l06-main-sub",
+      "doorState": "닫힘",
+      "promptRevision": "한국어 실습용 교정문. 과거 실제 생성 원문은 이전 audit에 보존. 이번 재생성 및 후속 부분 보정 기록은 LESSON05_06_FINAL_8FIX/generation에 보존."
+    },
+    {
+      "file": "prompts/office-bubble.txt",
+      "sha256": "b49197e325e04d7dcd7812026be17a5608c989e6fd0fcb0fd401916c577de8ee",
+      "bytes": 768,
+      "sizeBytes": 768,
+      "key": "office-bubble",
+      "title": "오피스 · 공간 관계 버블 다이어그램",
+      "attachments": [
+        {
+          "file": "inputs/PLAN-BASE-01-door-result.png",
+          "role": "두 독립 출입 경로와 기능 위치의 기준",
+          "outputPath": "practice/DJ-L06/inputs/PLAN-BASE-01-door-result.png",
+          "sha256": "b013ff8001e5c703980a1b80bad74a17adeadadfb181f49a94370c608c343ca7",
+          "bytes": 250941,
+          "sizeBytes": 250941,
+          "width": 2400,
+          "height": 1650
+        }
+      ],
+      "section": "l06-bubble-diagram",
+      "doorState": "평면 기호 또는 관계도",
+      "promptRevision": "한국어 실습용 교정문. 과거 실제 생성 원문은 이전 audit에 보존. 이번 재생성 및 후속 부분 보정 기록은 LESSON05_06_FINAL_8FIX/generation에 보존."
+    },
+    {
+      "file": "prompts/office-zoning.txt",
+      "sha256": "83148f70ba86a3316441bcf1b4d16e0abd8699d43ad6c0ffbd8291709b2c96af",
+      "bytes": 926,
+      "sizeBytes": 926,
+      "key": "office-zoning",
+      "title": "오피스 · 2D 개념 조닝",
+      "attachments": [
+        {
+          "file": "samples/01_office-topview-3d.png",
+          "role": "기능 영역을 요약할 상부 입체 뷰",
+          "outputPath": "practice/DJ-L06/samples/01_office-topview-3d.png",
+          "sha256": "20c3be98160ba011ea3b90e06184e402b7071431f01091f7f7f5f5094d309823",
+          "bytes": 1560676,
+          "sizeBytes": 1560676,
+          "width": 1646,
+          "height": 956
+        },
+        {
+          "file": "inputs/PLAN-BASE-01-door-result.png",
+          "role": "벽·문·창·가구 위치의 우선 기준",
+          "outputPath": "practice/DJ-L06/inputs/PLAN-BASE-01-door-result.png",
+          "sha256": "b013ff8001e5c703980a1b80bad74a17adeadadfb181f49a94370c608c343ca7",
+          "bytes": 250941,
+          "sizeBytes": 250941,
+          "width": 2400,
+          "height": 1650
+        }
+      ],
+      "section": "l06-zoning-bridge",
+      "doorState": "평면 기호 또는 관계도",
+      "promptRevision": "한국어 실습용 교정문. 과거 실제 생성 원문은 이전 audit에 보존. 이번 재생성 및 후속 부분 보정 기록은 LESSON05_06_FINAL_8FIX/generation에 보존."
+    }
+  ],
+  "downloads": [
+    {
+      "file": "CHECKLIST.md",
+      "sha256": "f51886e0310d84686adde62737cd9dfc005c1b123cd38e1903adb73a72db8a72",
+      "bytes": 1001,
+      "sizeBytes": 1001,
+      "key": "checklist",
+      "title": "입체·분해도·조닝 체크리스트"
+    }
+  ],
+  "files": [
+    {
+      "file": "CHECKLIST.md",
+      "sha256": "f51886e0310d84686adde62737cd9dfc005c1b123cd38e1903adb73a72db8a72",
+      "bytes": 1001,
+      "sizeBytes": 1001
+    },
+    {
+      "file": "README.txt",
+      "sha256": "c1d6af296275af264e977136dcd3c28ff79b0f5beab2bb900619863de772ec0e",
+      "bytes": 225,
+      "sizeBytes": 225
+    },
+    {
+      "file": "inputs/PLAN-BASE-01-door-result.png",
+      "sha256": "b013ff8001e5c703980a1b80bad74a17adeadadfb181f49a94370c608c343ca7",
+      "bytes": 250941,
+      "sizeBytes": 250941,
+      "width": 2400,
+      "height": 1650
+    },
+    {
+      "file": "inputs/PLAN-BASE-02-result.png",
+      "sha256": "053a49acd205abf381ebf5d8935efd705f8f16e6de116fc5c56e6de425d2ebbd",
+      "bytes": 178036,
+      "sizeBytes": 178036,
+      "width": 2400,
+      "height": 1650
+    },
+    {
+      "file": "legacy-basic/01-small-room-plan.png",
+      "sha256": "130a2789dc5caab50ed971918a5d718b00de4be7e8d81f5651b0ddc157c16013",
+      "bytes": 1371447,
+      "sizeBytes": 1371447,
+      "width": 1348,
+      "height": 1167
+    },
+    {
+      "file": "legacy-basic/02-small-room-topview-3d.png",
+      "sha256": "2b62d416edf108db9aa3182f263d8bb527c80aaee7383aedde54cba8afe7b9de",
+      "bytes": 1668098,
+      "sizeBytes": 1668098,
+      "width": 1448,
+      "height": 1086
+    },
+    {
+      "file": "legacy-basic/03-small-room-isometric.png",
+      "sha256": "9cd9ea4d3a3ca15ba7781b0445c809f9d24772db281ce9230a4b2676f708ab99",
+      "bytes": 1669035,
+      "sizeBytes": 1669035,
+      "width": 1448,
+      "height": 1086
+    },
+    {
+      "file": "legacy-basic/04-living-kitchen-plan.png",
+      "sha256": "05a9cca51e0d7898310df83440e980406e8633734524d37c226630058e07d2b6",
+      "bytes": 1441731,
+      "sizeBytes": 1441731,
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "file": "legacy-basic/05-living-kitchen-isometric-interior.png",
+      "sha256": "b8f6d6177d9c2e6ba18005bd008756647286d75365064e5b874bfdeff616b733",
+      "bytes": 1855154,
+      "sizeBytes": 1855154,
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "file": "legacy-house/03-modified-first-floor-plan.png",
+      "sha256": "72f9e1898863d74ac916f8423307ae49232d71dbddcbf9751cdb7946656a8fa7",
+      "bytes": 1035678,
+      "sizeBytes": 1035678,
+      "width": 1227,
+      "height": 1281
+    },
+    {
+      "file": "legacy-house/04-top-view-3d.png",
+      "sha256": "63ad6deb3a91d54d3e4a4265b612e95b12ca8b7398bbf9c0bdc7a4495fa0f13a",
+      "bytes": 1868159,
+      "sizeBytes": 1868159,
+      "width": 1227,
+      "height": 1281
+    },
+    {
+      "file": "legacy-house/05-isometric.png",
+      "sha256": "a6e68c4ae2a898e785ce153d4d04096676f556a8da4d4175be5c05532d20b28f",
+      "bytes": 2097676,
+      "sizeBytes": 2097676,
+      "width": 1312,
+      "height": 1199
+    },
+    {
+      "file": "legacy-house/06-exploded-isometric.png",
+      "sha256": "a49cda66cbfa38e5e836612cb29a856bdb26a870c0fd1890e83aef5a128a71e4",
+      "bytes": 1530406,
+      "sizeBytes": 1530406,
+      "width": 1145,
+      "height": 1374
+    },
+    {
+      "file": "prompts/cafe-isometric.txt",
+      "sha256": "f82ccbeeb78f91c017271eec5e822411e76d917eeb992679b191dcfbb4b1e7e4",
+      "bytes": 1022,
+      "sizeBytes": 1022
+    },
+    {
+      "file": "prompts/office-bubble.txt",
+      "sha256": "b49197e325e04d7dcd7812026be17a5608c989e6fd0fcb0fd401916c577de8ee",
+      "bytes": 768,
+      "sizeBytes": 768
+    },
+    {
+      "file": "prompts/office-exploded.txt",
+      "sha256": "dfab745cbe20ca6c47a9349417c604f0d34d02255c2424e2f25c43f9f51d4abb",
+      "bytes": 2632,
+      "sizeBytes": 2632
+    },
+    {
+      "file": "prompts/office-modern.txt",
+      "sha256": "110e17f5aa6a77edbe828346d5f40192ed168009150f7ef1eb76f3bad674fe67",
+      "bytes": 972,
+      "sizeBytes": 972
+    },
+    {
+      "file": "prompts/office-subview.txt",
+      "sha256": "88d48fd916aceb4a440b7709f55d156c3d714d69a3357056c85acf9d82fbd7cd",
+      "bytes": 1181,
+      "sizeBytes": 1181
+    },
+    {
+      "file": "prompts/office-topview.txt",
+      "sha256": "0ed6cd5bb271657274a5b413fd58f09d7be6077ab7b18f6dbe6385f904a8426e",
+      "bytes": 1302,
+      "sizeBytes": 1302
+    },
+    {
+      "file": "prompts/office-warm.txt",
+      "sha256": "f552563ee864a658b916ddcde2024320ba087f0065be72d7306da77bad737b21",
+      "bytes": 1345,
+      "sizeBytes": 1345
+    },
+    {
+      "file": "prompts/office-zoning.txt",
+      "sha256": "83148f70ba86a3316441bcf1b4d16e0abd8699d43ad6c0ffbd8291709b2c96af",
+      "bytes": 926,
+      "sizeBytes": 926
+    },
+    {
+      "file": "samples/01_office-topview-3d.png",
+      "sha256": "20c3be98160ba011ea3b90e06184e402b7071431f01091f7f7f5f5094d309823",
+      "bytes": 1560676,
+      "sizeBytes": 1560676,
+      "width": 1646,
+      "height": 956
+    },
+    {
+      "file": "samples/02_office-isometric-warm.png",
+      "sha256": "f0738c703b616415b2173267445d1014b50fd5fc408a570f8ce89ac7b3183193",
+      "bytes": 1639946,
+      "sizeBytes": 1639946,
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "file": "samples/03_office-isometric-modern.png",
+      "sha256": "35a57bdacec3a64b871cb90ca3ea2e45384704accbf04225ca80675bb5e4af5a",
+      "bytes": 1516797,
+      "sizeBytes": 1516797,
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "file": "samples/04_cafe-isometric-3d.png",
+      "sha256": "f6ee721d188ad5824c2dfb76b8f6fa20317da13a4fd07dc8bb2e81b181c22d3d",
+      "bytes": 1838382,
+      "sizeBytes": 1838382,
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "file": "samples/05_office-exploded-isometric.png",
+      "sha256": "fa4b70075af032f55e5436c37fcb49cc19eb9151e5bc239a39bf4e26509c71f2",
+      "bytes": 1585070,
+      "sizeBytes": 1585070,
+      "width": 1145,
+      "height": 1374
+    },
+    {
+      "file": "samples/06_office-interior-subview.png",
+      "sha256": "9fb25aac8ef8dc400da62ae66e8b63bd14eb4231750a85f1626380a92722615b",
+      "bytes": 1807675,
+      "sizeBytes": 1807675,
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "file": "samples/07_office-spatial-bubble-diagram.png",
+      "sha256": "bb593f2adf600669c3e894db1be6fa460e230063c08c440b785400814ad900f4",
+      "bytes": 1124127,
+      "sizeBytes": 1124127,
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "file": "samples/08_office-2d-zoning-bridge.png",
+      "sha256": "357b027287c58421b90fccdbed7c1b267e341b3395e4f17b47cf6432bc794f3d",
+      "bytes": 1212093,
+      "sizeBytes": 1212093,
+      "width": 1645,
+      "height": 956
+    }
+  ],
+  "revision13": {
+    "id": "DJ-L08-BLENDER-MCP-SETUP-AND-L06-SUBVIEW-RESTORE/revision-13",
+    "selectedComposition": "revision-12 original explicitly selected by user",
+    "imageGenerationThisUpdate": false,
+    "houseAssets": "revision-12 unchanged"
+  }
+}

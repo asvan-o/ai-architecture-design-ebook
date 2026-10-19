@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "status": "instructor-review",
+  "localOnly": true,
+  "source": "User-supplied PNG; original bytes retained",
+  "rights": "사용자 제공; 제작자·생성 도구·제작 시점·이용허락 범위는 확인되지 않음",
+  "notes": [
+    "원본 이름과 실제 내용이 달라 실제 내용 기준으로 검수용 복사본 이름만 정리함. Downloads 원본은 수정하지 않음.",
+    "조명 이미지는 생성 Reference가 아닌 설명용 infographic.",
+    "분류 규칙 이미지는 대표 예시이며 본문 텍스트가 사양 기준. .xyz는 기본 분류확인."
+  ],
+  "files": [
+    {
+      "key": "lighting",
+      "file": "DJ-L02_01_lighting-temperature-guide.png",
+      "sourcePath": "C:\\Users\\deric\\Downloads\\DJ-L02_01_lighting-temperature-guide.png.png",
+      "title": "조명 색온도 비교",
+      "purpose": "조명 색온도의 시각적 차이를 이해하기 위한 교육용 비교자료",
+      "width": 1536,
+      "height": 1024,
+      "sizeBytes": 1753982,
+      "sha256": "b534c45faf73d084835b0a48dc588075bbea62f3c26fe82a147a243fc66e6714",
+      "byteIdentical": true
+    },
+    {
+      "key": "flow",
+      "file": "DJ-L02_02_auto-sort-flow.png",
+      "sourcePath": "C:\\Users\\deric\\Downloads\\DJ-L02_02_auto-sort-flow.png",
+      "title": "자동 파일정리 기본 동작",
+      "purpose": "파일 자동정리 프로그램의 기본 판단 흐름",
+      "width": 1672,
+      "height": 941,
+      "sizeBytes": 1449203,
+      "sha256": "d8e465419e414bf4f59c568a006937bafbd3de440da9e570269b77043a3dc4c6",
+      "byteIdentical": true
+    },
+    {
+      "key": "rules",
+      "file": "DJ-L02_03_auto-sort-rules-guide.png",
+      "sourcePath": "C:\\Users\\deric\\Downloads\\DJ-L02_01_lighting-temperature-guide.png",
+      "title": "자동 파일정리 분류 규칙과 예외 처리",
+      "purpose": "대표 폴더 구조와 분류·예외처리 설명자료",
+      "width": 1672,
+      "height": 941,
+      "sizeBytes": 1566126,
+      "sha256": "cca8cef1d452b11ea2885d29f50d8ba26ab95a3c1c8f2194bec880ee79be837d",
+      "byteIdentical": true
+    }
+  ]
+}

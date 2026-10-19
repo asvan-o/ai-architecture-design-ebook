@@ -22,7 +22,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           <a class="course-card" href={`${base}/${course.routeSlug}/`} data-course-link={course.courseId}>
             <span>{course.regionLabel}</span>
             <h2>{course.regionLabel} 과정</h2>
-            <p>{course.contentStatus === 'approved' ? '강의자료 열기' : '과정 설계 중 · 안내 보기'}</p>
+            <p>{course.contentStatus === 'approved' || course.courseId === 'daejeon-2026' ? '강의자료 열기' : '과정 설계 중 · 안내 보기'}</p>
             <strong aria-hidden="true">→</strong>
           </a>
         ))}

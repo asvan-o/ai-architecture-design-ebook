@@ -1,0 +1,39 @@
+.lesson02-automation .l02-definition { font-size:1.15rem; font-weight:700; line-height:1.85; padding:1rem 1.2rem; border-left:4px solid var(--lesson02-accent); background:#edf3ef; }
+.lesson02-automation .l02-flow-line { padding:.9rem 1.1rem; background:var(--paper-deep); line-height:2; overflow-wrap:anywhere; }
+.lesson02-automation .lesson02-summary h3 { margin:0 0 .55rem; font-size:1rem; }
+.lesson02-automation .lesson02-checklist p { margin:.3rem 0 .7rem; }
+.lesson02-automation .lesson02-program-tree { white-space:pre-wrap; overflow-wrap:anywhere; }
+.lesson02-automation .l02-reference-links { border-top:1px solid var(--line); margin-top:1.5rem; padding-top:.7rem; }
+.lesson02-automation [data-implementation-download] { margin-top:.8rem; }
+.lesson02-automation .lesson02-table table { table-layout:fixed; width:100%; }
+.lesson02-automation .lesson02-table th { min-width:0; overflow-wrap:anywhere; }
+.lesson02-automation .lesson02-table small { display:block; color:var(--muted); font-size:.78rem; margin-top:.4rem; }
+.lesson02-automation .l02-test-table th:first-child { width:24%; }
+.lesson02-automation .l02-test-table th:nth-child(2) { width:24%; }
+.lesson02-automation .l02-test-table th:nth-child(4) { width:12%; }
+.lesson02-automation .l02-test-table code { white-space:normal; overflow-wrap:anywhere; }
+.lesson02-automation #l02-recap .l02-recap-flow { display:flex; flex-wrap:wrap; gap:.4rem .5rem; list-style:none; padding:.8rem 1rem; margin:.7rem 0 1.25rem; background:var(--paper-deep); }
+.lesson02-automation #l02-recap .l02-recap-flow li { font-size:.88rem; line-height:1.8; overflow-wrap:anywhere; }
+.lesson02-automation #l02-recap .l02-recap-flow li:not(:last-child)::after { content:' →'; margin-left:.5rem; color:var(--muted); }
+.lesson02-automation #l02-recap .l02-recap-roles { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; margin:1.2rem 0; }
+.lesson02-automation #l02-recap .l02-recap-roles article { min-width:0; padding:1rem 1.2rem; border:1px solid var(--line-dark); background:var(--surface); }
+.lesson02-automation #l02-recap .l02-recap-roles h3 { margin:0 0 .7rem; font-size:1rem; }
+.lesson02-automation #l02-recap .l02-recap-roles ul { margin:0; padding-left:1.2rem; font-size:.92rem; }
+.lesson02-automation #l02-recap .l02-recap-transition { border-top:1px solid var(--line); padding-top:.75rem; margin-top:1.3rem; }
+@media(max-width:700px) { .lesson02-automation #l02-recap .l02-recap-roles { grid-template-columns:1fr; } }
+@media print { .lesson02-automation #l02-recap .l02-recap-roles article { break-inside:avoid; } }
+@media(max-width:700px) {
+  .lesson02-automation .lesson02-table table,.lesson02-automation .lesson02-table tbody,.lesson02-automation .lesson02-table tr,.lesson02-automation .lesson02-table td,.lesson02-automation .lesson02-table th { display:block; width:auto; }
+  .lesson02-automation .lesson02-table thead { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+  .lesson02-automation .lesson02-table tr { border:1px solid var(--line-dark); margin-bottom:1rem; }
+  .lesson02-automation .lesson02-table td::before { content:attr(data-label) " · "; font-weight:700; }
+  .lesson02-automation .lesson02-table td,.lesson02-automation .lesson02-table th { border:0; padding:.6rem .8rem; }
+  .lesson02-automation .l02-test-table th:first-child { width:auto; }
+  .lesson02-automation .lesson02-table caption { display:block; }
+}
+@media print {
+  .lesson02-automation [data-implementation-spec] > :not(summary),.lesson02-automation [data-test-prompt] > :not(summary) { display:none !important; }
+  .lesson02-automation [data-implementation-download] { display:none; }
+  .lesson02-automation h2,.lesson02-automation h3 { break-after:avoid; }
+  .lesson02-automation tr { break-inside:avoid; }
+}

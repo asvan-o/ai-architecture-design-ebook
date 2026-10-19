@@ -1,0 +1,41 @@
+---
+import {drawingExplanation as copy,drawingExamples,drawingDetails} from '../content/lesson02-drawing-rules';
+---
+<div class="l02-drawing-guide" id="l02-drawing-rules" data-drawing-guide aria-labelledby="l02-drawing-rules-title">
+  <header class="drawing-core"><h4 id="l02-drawing-rules-title">{copy.title}</h4><p>{copy.core}</p><p class="drawing-candidate"><strong>{copy.candidate}</strong></p></header>
+  <h4>파일명 구조 한눈에 보기</h4><p class="drawing-filename"><code>{copy.filename}</code></p>
+  <dl class="drawing-parts" data-drawing-parts>{copy.parts.map(([value,label])=><div><dt>{value}</dt><dd>{label}</dd></div>)}</dl>
+  <h4>핵심 판단 규칙</h4><ol class="drawing-rules" data-drawing-core-rules>{copy.rules.map(rule=><li>{rule}</li>)}</ol>
+  <div class="lesson02-table l02-ab-table drawing-examples"><table><caption>대표 사례 · 실제 프로그램에서 확인한 표시</caption><thead><tr><th scope="col">파일명</th><th scope="col">규칙에 따른 표시</th></tr></thead><tbody>{drawingExamples.map(example=><tr data-drawing-example={example.id}><th scope="row" data-label="파일명"><span>{example.title}</span>{example.files.map(file=><code>{'relativePath' in file?file.relativePath:file.name}</code>)}</th><td data-label="규칙에 따른 표시">{example.result}</td></tr>)}</tbody></table></div>
+  <details class="drawing-details" data-drawing-details><summary>실제 점검 규칙 보기</summary><dl>{drawingDetails.map(([title,note])=><div><dt>{title}</dt><dd>{note}</dd></div>)}</dl></details>
+  <p class="drawing-role" data-drawing-ai-role><strong>{copy.role}</strong></p>
+  <p>{copy.ai}</p><div class="drawing-roles"><article><h4>완성된 프로그램이 하는 일</h4><p>{copy.program}</p></article><article><h4>사람이 최종 확인할 일</h4><p>{copy.human}</p></article></div>
+</div>
+<style>
+ .l02-drawing-guide { min-width:0; margin:1.25rem 0; }
+ .drawing-core { padding:1.15rem 1.3rem; border-left:4px solid var(--lesson02-accent); background:#edf3ef; }
+ .drawing-core h4 { margin-top:0; }
+ .drawing-candidate { margin-bottom:0; }
+ .drawing-filename code { display:block; padding:.75rem 1rem; border:1px solid var(--line-dark); background:var(--surface); white-space:normal; }
+ .drawing-parts { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.65rem; }
+ .drawing-parts > div { min-width:0; padding:.7rem .85rem; border:1px solid var(--line); }
+ .drawing-parts dt { font-weight:800; }
+ .drawing-parts dd { margin:.3rem 0 0; color:var(--muted); }
+ .drawing-rules { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.5rem 1.6rem; padding-left:1.5rem; }
+ .drawing-rules li { min-width:0; padding-right:.3rem; }
+ .drawing-examples th > span { display:block; margin-bottom:.5rem; }
+ .drawing-examples code { display:block; font-size:.88rem; font-weight:400; white-space:normal; }
+ .drawing-examples th { width:48%; }
+ .drawing-details { padding:.8rem 1.1rem; border:1px solid var(--line-dark); }
+ .drawing-details dl { margin-bottom:0; }
+ .drawing-details dl > div { padding:.65rem 0; border-bottom:1px solid var(--line); }
+ .drawing-details dt { font-weight:750; }
+ .drawing-details dd { margin:.35rem 0 0; }
+ .drawing-role { padding:1rem 1.2rem; background:var(--paper-deep); }
+ .drawing-roles { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; }
+ .drawing-roles article { min-width:0; padding:.8rem 1rem; border:1px solid var(--line); }
+ .drawing-roles h4 { margin-top:0; }
+ .l02-drawing-guide :is(p,li,dt,dd,code,span) { overflow-wrap:anywhere; }
+ @media(max-width:700px) { .drawing-parts { grid-template-columns:repeat(2,minmax(0,1fr)); } .drawing-rules,.drawing-roles { grid-template-columns:1fr; } .drawing-core { padding:1rem; } .drawing-details { padding:.8rem; } .drawing-examples th { width:100%; } }
+ @media print { .drawing-details:not([open]) > :not(summary) { display:none; } .drawing-core,.drawing-parts > div,.drawing-roles article { break-inside:avoid; } }
+</style>

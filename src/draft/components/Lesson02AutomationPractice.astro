@@ -1,0 +1,85 @@
+---
+import ReviewPrompt from './ReviewPrompt.astro';
+import Lesson02ExerciseDownloads from './Lesson02ExerciseDownloads.astro';
+import Lesson02ExercisePreview from './Lesson02ExercisePreview.astro';
+import Lesson02InputMethods from './Lesson02InputMethods.astro';
+import Lesson02DrawingRules from './Lesson02DrawingRules.astro';
+import {drawingComparison} from '../content/lesson02-drawing-rules';
+import {automationFiles,automationPrompts} from '../../../scripts/daejeon-automation-ab-assets.mjs';
+import {exercises,drawingChecks,drawingSpec,drawingFlow,drawingTree,drawingRunSteps,drawingLimits,drawingExpected,evidencePrompt} from '../content/lesson02-exercises';
+import {planChecks,specSummary,implementSteps,implementationRequest,runSteps,knownLimits,testScenarios,takeaways} from '../content/daejeon-lesson02-automation';
+import '../styles/lesson02-exercises.css';
+import {classificationExplanation} from '../content/lesson02-classification';
+interface Props { stage:'choose'|'review'|'spec'|'implement'|'run'|'try'|'wrap'; }
+const {stage}=Astro.props;
+const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+---
+<div class="l02-ab" data-exercise-stage={stage}>
+{stage==='choose'&&<>
+  <p><strong>실습 A를 공통 기본 예제로 진행합니다.</strong> 실습 B는 A를 마친 뒤 추가로 체험하거나, 자신의 업무와 더 가까운 예제로 선택할 수 있습니다.</p>
+  <p>선택한 예제의 구조를 먼저 제안받습니다. 직접 구현을 시도할 수 있고, 준비된 완성 예제를 실행해 기능을 확인할 수도 있습니다.</p>
+  <div class="l02-ab-grid">{exercises.map(exercise=><article class="l02-ab-card" data-exercise-card={exercise.id}>
+    <p class="l02-ab-label">실습 {exercise.id} · {exercise.id==='A'?'공통 기본 예제':'추가·선택 예제'}</p><h3>{exercise.title}</h3><p>{exercise.description}</p>
+    {exercise.id==='A'&&<p data-classification-introduction><strong>{classificationExplanation.introduction}</strong> <a href="#l02-rules">무엇을 보고 분류하는지 보기</a></p>}
+    {exercise.id==='A'&&<p>수집함에 직접 넣거나 다른 폴더의 최상위 파일을 가져올 수 있습니다. <a href="#l02-file-input-methods">두 입력 방법 보기</a></p>}
+    {exercise.id==='B'&&<p><a href="#l02-drawing-rules">무엇을 보고 점검하는지 보기</a> · 파일명 기준 최신 후보이며 실제 제출 여부는 사람이 확인합니다.</p>}
+    <dl><dt>줄이고 싶은 반복 작업</dt><dd>{exercise.repetition}</dd><dt>프로그램이 처리</dt><dd>{exercise.automatic}</dd><dt>사람이 판단</dt><dd>{exercise.human}</dd></dl>
+    <p>{exercise.environment}</p><Lesson02ExercisePreview exercise={exercise.id} />
+    <details data-first-request={exercise.id}><summary>실습 {exercise.id} 자연어 첫 요청 보기</summary><ReviewPrompt id={'l02-'+exercise.id+'-first'} title={exercise.title+' · 구조부터 제안받기'} prompt={automationPrompts[exercise.id].first} filename={automationFiles[exercise.id].first.file} href={enabled?base+'/'+automationFiles[exercise.id].first.outputPath:undefined} /></details>
+    <Lesson02ExerciseDownloads exercise={exercise.id} compact />
+  </article>)}</div>
+  <div data-exercise-comparison><h3>{drawingComparison.title}</h3><div class="l02-ab-grid">{drawingComparison.items.map(item=><article class="l02-ab-card"><h4>{item.title}</h4><dl><dt>판단 근거</dt><dd>{item.basis}</dd><dt>목적</dt><dd>{item.purpose}</dd><dt>불확실할 때</dt><dd>{item.uncertain}</dd></dl></article>)}</div><p><strong>{drawingComparison.common}</strong></p></div>
+  <p>첫 요청의 목적은 코드 완성이 아니라 기능·화면·규칙·확인 방법을 제안받는 것입니다. AI 답변을 읽고 다음 단계에서 사람이 범위를 정합니다.</p>
+</>}
+{stage==='review'&&<>
+  <p>AI가 제안한 내용과 자신이 요청한 범위를 비교합니다. 유지할 내용, 고칠 내용, 아직 결정하지 못한 질문을 구분합니다.</p>
+  <div class="l02-ab-grid"><article class="l02-ab-card"><h3>A · 파일 정리 자동화</h3><ol>{planChecks.map(check=><li>{check}</li>)}</ol>{enabled&&<a class="review-download" href={base+'/'+automationFiles.A.checklist.outputPath} download>구조 검토 체크리스트 다운로드</a>}</article>
+  <article class="l02-ab-card"><h3>B · 도면 제출 전 빠른 점검</h3><ol>{drawingChecks.map(check=><li>{check}</li>)}</ol></article></div>
+  <details><summary>실습 B의 역할과 파일 구성 살펴보기</summary><ol class="l02-ab-flow">{drawingFlow.map(step=><li>{step}</li>)}</ol><pre class="lesson02-program-tree">{drawingTree}</pre><p>화면 동작과 판정 규칙을 나눕니다. 파일 내부를 읽거나 파일을 바꾸는 기능은 넣지 않습니다.</p></details>
+  <div class="review-task"><h3>사람이 확인한 내용 남기기</h3><p>실습 폴더, 접근 범위, 자동 처리와 사람 판단, 오류 처리, 기대 결과를 읽습니다. 검토한 계획과 만들 파일이 일치하는지 확인한 뒤 구현을 승인합니다.</p></div>
+</>}
+{stage==='spec'&&<>
+  <p>선택한 예제의 명세만 사용합니다. 작업 폴더·허용 파일·검토한 계획을 자신의 상황에 맞게 채우고, 결정되지 않은 조건을 확정된 것처럼 적지 않습니다.</p>
+  <div class="l02-ab-grid">{exercises.map(exercise=><article class="l02-ab-card"><h3>{exercise.id} · {exercise.title}</h3><ul data-implementation-summary={exercise.id}>{(exercise.id==='A'?specSummary:drawingSpec).map(([title,note])=><li><strong>{title}</strong><p>{note}</p></li>)}</ul>
+    <details data-implementation-spec={exercise.id}><summary>실습 {exercise.id} 상세 구현 명세 보기</summary><ReviewPrompt id={'l02-'+exercise.id+'-approval'} title={exercise.title+' · 구현 승인 Prompt'} prompt={automationPrompts[exercise.id].approval} filename={automationFiles[exercise.id].approval.file} href={enabled?base+'/'+automationFiles[exercise.id].approval.outputPath:undefined} /></details>
+    {enabled&&<a class="review-download" href={base+'/'+automationFiles[exercise.id].approval.outputPath} download>실습 {exercise.id} 상세 Prompt TXT 다운로드</a>}
+  </article>)}</div>
+</>}
+{stage==='implement'&&<>
+  <ol class="l02-ab-flow" aria-label="요청에서 완성 프로그램까지"><li>자연어 첫 요청</li><li>AI의 구조 제안</li><li>사람의 검토</li><li>구현 승인</li><li>수정·기능 확인</li><li>완성 프로그램</li></ol>
+  <ol class="lesson02-checklist">{implementSteps.map(([title,note])=><li><strong>{title}</strong><p>{note}</p></li>)}</ol>
+  <details><summary>검토한 명세와 함께 전달할 구현 요청</summary><ReviewPrompt id="l02-implement-prompt" title="구현 요청 · 선택한 예제의 명세와 함께 전달하기" prompt={implementationRequest} filename="DJ-L02_codex-implementation-request-prompt.txt" /></details>
+  <div class="review-task"><h3>수정이 필요하면 관찰한 내용을 전달합니다</h3><p>“기대 결과 / 실제 결과 / 재현 순서 / 유지할 기능”을 적어 수정 요청을 합니다. 파일이 생성됐다는 답변만으로 성공을 기록하지 않고, 실행과 종료까지 확인합니다.</p></div>
+  <h3>제공 예제는 수정과 기능 확인을 거쳤습니다</h3><ul><li>A는 기존 분류 기능을 유지하면서 키보드 선택이 끊기지 않도록 하고, 모바일 결과 목록을 읽기 쉽게 보완했습니다.</li><li>B는 파일명 규칙, 숫자 리비전 비교, 형식·중복 표시를 구현한 뒤 시험 파일로 화면·CSV·모바일 동작을 확인했습니다.</li></ul>
+  <p>학습용 첫 요청은 제작 절차를 시작하는 예시입니다. 제공 프로그램 전체가 짧은 Prompt 한 번으로 만들어진 결과라는 뜻은 아닙니다. 직접 구현한 결과와 제공 예제의 실행 결과를 구분해 기록합니다.</p>
+</>}
+{stage==='run'&&<>
+  <p>선택한 프로그램을 실행하고 기대 결과와 실제 결과를 비교합니다. 실행한 대상이 <strong>직접 구현한 프로그램인지, 제공 예제인지</strong> 먼저 기록합니다. 확인하지 못한 항목은 미확인으로 남깁니다.</p>
+  <article class="l02-ab-run" id="l02-run-a"><h3>A · 파일 정리 자동화 실행</h3><p>Windows 교육용 로컬 프로그램입니다. Node.js는 이 프로그램의 실행환경이며 Runtime이 포함된 배포본은 아닙니다.</p><Lesson02ExerciseDownloads exercise="A" />
+    <Lesson02InputMethods />
+    <ol class="lesson02-checklist" data-program-run-steps>{runSteps.map(step=><li>{step}</li>)}</ol>
+    <p>제공 예제의 주소는 <code>http://127.0.0.1:4174/</code>입니다. 사용 중이라는 안내가 나오면 다른 프로그램을 임의로 종료하지 않습니다.</p>
+    <p><strong>SORT_TEST 기대 결과: 자동처리 9개 / 사람확인 2개.</strong> 실습파일 11개를 <code>00_수집함</code>에 넣습니다. 아래 표를 자신의 기록 문서에 옮겨 실제 결과·판정·근거를 작성합니다.</p>
+    <div class="lesson02-table l02-test-table" data-test-records><table><caption>SORT_TEST 11개 · 실행 기록 양식</caption><thead><tr><th scope="col">파일명</th><th scope="col">기대 결과</th><th scope="col">실제 결과</th><th scope="col">판정</th><th scope="col">근거</th></tr></thead><tbody>{testScenarios.map(([file,expected,reason])=><tr><th scope="row" data-label="파일명"><code>{file}</code></th><td data-label="기대 결과">{expected}<small>{reason}</small></td><td data-label="실제 결과">실행 후 기록</td><td data-label="판정">미확인</td><td data-label="근거">파일 위치 / 화면 기록</td></tr>)}</tbody></table></div>
+    <div class="lesson02-decision"><h4>사람확인도 기대한 동작입니다</h4><p><code>image001.png</code>와 <code>scan003.pdf</code>는 처음에 <code>99_분류확인</code>으로 갑니다. 파일 1개의 용도를 사람이 판단해 분류를 선택하고, 실제 이동한 폴더를 확인합니다.</p><p>같은 파일을 다시 넣었을 때의 중복 안내와, 같은 이름이지만 내용이 다른 파일의 버전 증가도 확인할 수 있습니다. 자동 처리와 수동 선택 후 결과를 따로 적고 STOP.bat으로 종료합니다.</p></div>
+    <details data-test-file-notes><summary>실습파일의 용도 확인</summary><ul><li><code>building_model.blend</code>와 <code>animation_cache.abc</code>는 분류 시험용 파일입니다. 실제 Blender 모델이나 애니메이션 캐시가 아닙니다.</li><li><code>lighting_ref_3000K.jpg</code>는 파일명 분류 시험용이며 실제 3000K 측정·보증 자료가 아닙니다.</li><li><code>office_floorplan.png</code>는 교육용 카페 평면도 복사본이며 오피스 실측도면이 아닙니다.</li><li><code>scan003.pdf</code>는 교육용 PDF 복사본, <code>walkthrough.mp4</code>는 1초 정지 화면 영상입니다.</li></ul></details>
+    <details data-program-limits><summary>A의 사용 범위와 알려진 한계</summary><ul>{knownLimits.map(item=><li>{item}</li>)}</ul><p>삭제할 때는 STOP으로 종료하고 필요한 원본·결과를 따로 보관한 뒤 프로그램 폴더를 지웁니다. OS·브라우저 캐시까지 제거한다는 뜻은 아닙니다.</p></details>
+  </article>
+  <article class="l02-ab-run" id="l02-run-b"><h3>B · 도면 제출 전 빠른 점검 실행</h3><p>파일명과 기본정보만 브라우저 안에서 확인합니다. Node.js 설치 없이 예제를 열거나 ZIP의 <code>index.html</code>을 실행합니다.</p><Lesson02DrawingRules /><Lesson02ExerciseDownloads exercise="B" /><ol class="lesson02-checklist">{drawingRunSteps.map(step=><li>{step}</li>)}</ol>
+    <p>시험 세트는 29개 파일명 점검용 stub입니다. 실제 CAD 도면이 아닙니다. 샘플 기대값은 선택 29개 중 점검 24개·제외 5개, 도면번호 9개, 확인 필요 파일 8개, 이전 리비전 파일 4개입니다. 상태가 겹칠 수 있어 숫자를 합쳐 전체 수로 해석하지 않습니다.</p>
+    <div class="lesson02-table l02-ab-table"><table><caption>B · 주요 기대 결과와 내 실행 결과 비교</caption><thead><tr><th scope="col">확인 사례</th><th scope="col">기대 결과</th><th scope="col">내 기록</th></tr></thead><tbody>{drawingExpected.map(([input,result])=><tr><th scope="row" data-label="확인 사례">{input}</th><td data-label="기대 결과">{result}</td><td data-label="내 기록">실제 표시 / 통과·실패·미확인 / 근거</td></tr>)}</tbody></table></div>
+    <details><summary>B의 사용 범위와 알려진 한계</summary><ul>{drawingLimits.map(item=><li>{item}</li>)}</ul></details>
+  </article>
+</>}
+{stage==='try'&&<>
+  <p>아직 실행하지 않은 다른 예제를 열어 같은 작업 방식이 어떻게 적용되는지 살펴봅니다. 두 프로그램을 모두 처음부터 구현할 필요는 없습니다.</p>
+  <div class="l02-ab-grid"><article class="l02-ab-card"><h3>A를 진행했다면 → B 빠르게 체험</h3><ol><li>브라우저에서 예제를 열고 샘플을 불러옵니다.</li><li>최신 후보와 이전 리비전을 비교합니다.</li><li>확인 필요 항목 한 개를 읽고 사람이 결정할 내용을 말해 봅니다.</li><li>CSV를 저장하고 원본 파일이 바뀌지 않는지 확인합니다.</li></ol><Lesson02ExerciseDownloads exercise="B" compact /></article><article class="l02-ab-card"><h3>B를 선택했다면 → A의 처리 흐름 확인</h3><ol><li>Node.js와 README를 확인하고 START.bat을 실행합니다.</li><li>시험 파일을 수집함에 넣어 자동분류와 사람확인을 비교합니다.</li><li>처리 결과와 원본 보관 위치를 확인합니다.</li><li>STOP.bat으로 종료합니다.</li></ol><Lesson02ExerciseDownloads exercise="A" compact /></article></div>
+  <p>A는 규칙에 따라 파일을 보관·이동하고, B는 파일을 바꾸지 않고 확인할 항목을 보여줍니다. 두 예제 모두 사람이 규칙과 판단 범위를 먼저 정합니다.</p>
+</>}
+{stage==='wrap'&&<>
+  <ol class="lesson02-checklist">{takeaways.map(item=><li>{item}</li>)}</ol><div class="review-task"><h3>이번 차시 결과 모으기</h3><p>선택한 예제, 검토한 구조와 구현 명세, 생성된 파일, 직접 실행한 결과, 아직 확인하지 못한 항목을 정리합니다. 직접 구현 / 제공 예제 중 무엇을 사용했는지 함께 남깁니다.</p></div>
+  <details data-test-prompt><summary>내 실행 기록을 정리하는 Prompt</summary><ReviewPrompt id="l02-evidence-prompt" title="기대 결과와 내가 관찰한 실제 결과 정리하기" prompt={evidencePrompt} filename="DJ-L02_my-execution-record.txt" /></details>
+  <h3>다음 차시 · 초기 디자인 방향을 빠르게 만들기</h3><p>다음 차시부터는 Rapid Concept 실습으로 넘어갑니다. 재질·조명·분위기와 참고 이미지를 활용한 디자인 방향 설정을 다룹니다.</p>
+</>}
+</div>

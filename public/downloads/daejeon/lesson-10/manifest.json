@@ -1,0 +1,394 @@
+{
+  "lesson": "10",
+  "localOnly": true,
+  "status": "design-pending",
+  "reviewStatus": "instructor-review",
+  "originalDrawingsIncluded": true,
+  "files": [
+    {
+      "outputPath": "downloads/daejeon/lesson-10/A01_건축기획서.pdf",
+      "bytes": 2840302,
+      "sha256": "5e540d9c331a389b484ed2cf4957e655922aadd1d96fbb9661cc3961b13bd8cb"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/A02_지구단위계획보고서.pdf",
+      "bytes": 3881831,
+      "sha256": "58ab2d55830dba7c13b4923027d369bc9077940b99482e5abcfcd9718d255766"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/A03_건축물등에관한결정도.pdf",
+      "bytes": 3702501,
+      "sha256": "8fe09e887a91a09dbbf465bb91e974d3bc322827619b6e6589071825619c1ba5"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/A04_설계공모_질의답변.pdf",
+      "bytes": 186949,
+      "sha256": "c90086d18d75f8f8b659dee9d3015133debd02fb94825b33df5fe6f5afe7e8ec"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/A04_원문_설계공모_질의답변.hwpx",
+      "bytes": 65582,
+      "sha256": "875e25b45d45118cba3ad675eaead7af8e938847c29ea35f1accccc57b9c2236"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/A05_기존국민체육센터_설계개요_층별면적표.pdf",
+      "bytes": 184360,
+      "sha256": "d6a19862c7c74445590735dcffbc6acaf2efabc3e14779a5b3316e198af0f290"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/A06-1_기존국민체육센터_부지배치도_01.pdf",
+      "bytes": 858207,
+      "sha256": "eaa825519b528d4eaf381f316e9f0e1be5ca94e1b1c4e9a2e08478e9c9446772"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/A06-2_기존국민체육센터_부지배치도_02.pdf",
+      "bytes": 846558,
+      "sha256": "b15f021dd4188d691c484ca88d72f944abefddc869333c9254212369508b799e"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/A07_현황측량도.pdf",
+      "bytes": 1027560,
+      "sha256": "1bd39fadfced4389700a8620065a3161635f887326a9b17e77e9318c8c10210a"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/A99_반다비체육관_프로젝트조건_법규검토준비기준서.docx",
+      "bytes": 45318,
+      "sha256": "d111ad8a8f8c0bb33eac576ca5cd913d5c002c4492358d905ac10290640ef7c1"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/A99_프로젝트조건기준서_일부예시.csv",
+      "bytes": 561,
+      "sha256": "d536d7701aba67ee4d02ecd85eaac363d25b23fff2d726ef98c50c0297fac120"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/B00_반다비체육관_프로젝트조건_법규검토준비기준서.docx",
+      "bytes": 45318,
+      "sha256": "d111ad8a8f8c0bb33eac576ca5cd913d5c002c4492358d905ac10290640ef7c1"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/B01_건축물피난방화구조_기준규칙_보관본_20251031.pdf",
+      "bytes": 209127,
+      "sha256": "034de465eddfd7c1bcca5435adcce7a88b65a67d24dd9483e842494a062956f2"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/B02_서산시건축조례_보관본_20231220.pdf",
+      "bytes": 134456,
+      "sha256": "bed04094a54e8ac206de998b3842edd3ea81ff900e0cc35a8f341bd0bcb35dca"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/B03_서산시주차장조례_보관본_20250811.pdf",
+      "bytes": 111011,
+      "sha256": "b931f326cd2e0258713ccb7e09cb9b297e3b2655b63182d55fe243bba5c94833"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/B04_BF인증에관한규칙_보관본_20211204.pdf",
+      "bytes": 123814,
+      "sha256": "7a4d692808bcd7d4e1318a64a40450d25f2228af1d4e841d089832e27a126769"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/B05-1_BF인증지표_별표5_건축물_보관본.pdf",
+      "bytes": 1096414,
+      "sha256": "9701bd6b14925674b73478132a5ca96bb08a767a60198d2c7a73683fb9bf54c8"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/B05_BF인증심사기준_보관본_20220401.pdf",
+      "bytes": 67009,
+      "sha256": "52970daf44438ac9edbdc1b99067be5159020ff193f352031fc659e11cf7faef"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/B06_건축법시행령_조문발췌_보관본.pdf",
+      "bytes": 6131,
+      "sha256": "717dc53a2b910d5de7a85f0ddc3cca12b15759a9031f10d6e635e2bb45377c2d"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/B07_서산시도시계획조례_보관본_20251210.pdf",
+      "bytes": 173769,
+      "sha256": "948025020053b237071d4a90c600a117f43cf7c9afb0d3281b4474ec28be4e7b"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/B08-1_편의시설세부기준_별표1_보관본.pdf",
+      "bytes": 499725,
+      "sha256": "aaa14267e5aa1b6ddc3d3e1ccfffa1c2a08fbe0843db0bd5b19c01aa0d15c9b3"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/B08_장애인등편의법시행규칙_개정이유_개정문_20260702.txt",
+      "bytes": 1473,
+      "sha256": "d93e77add358c7f0c7f39e8339c43222dc1992f4708d2218adf68b908ab6574c"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/B90_참고용_2023_화재안전기준집.pdf",
+      "bytes": 7204374,
+      "sha256": "119dbc87f8f5ddb4abc31efbf79c6483bc208cf2ba9aeb6bc25e1df2749106df"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/B99_반다비체육관_AI법규검토_체크리스트.docx",
+      "bytes": 54343,
+      "sha256": "77b16a4984291395dcd1b39be0502a7420dbb5a4a446c8e1018d008798a876f3"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/B99_법규검토체크리스트_일부예시.csv",
+      "bytes": 742,
+      "sha256": "667eb2a6a08cb13e8307d5e002b1adbac12fc87a5fa81353eee3a304c27f562c"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/DJ-L10_긴프롬프트_작성원리.md",
+      "bytes": 15566,
+      "sha256": "988aea5185b46077d98cfb13e19b43ff9a8af380a1f080d0146802a4aa693362"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/DJ-L10_반다비_강사_결과예시.zip",
+      "bytes": 149710,
+      "sha256": "7156cacc29c9d28cb68f5e3b4ae21c339460c27f0ee1ad4ba14da856e7620c40"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/DJ-L10_반다비_공식법규_조문_별표.zip",
+      "bytes": 1907206,
+      "sha256": "61378d4028444acd6f99431e3d5cecb4922a4b66d2ed90e93d0d2334ee8d508a"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/DJ-L10_반다비_보관법규_참고자료.zip",
+      "bytes": 8644779,
+      "sha256": "435958f49ef58c22655c24b08d09b036d8893362a520ccc2cb77685ffdd8e6ee"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/DJ-L10_반다비_출처_판본_자료목록.json",
+      "bytes": 53081,
+      "sha256": "7345a7d69f452d39d6a4bdf7fd8239640ea1f622bae3b080ee01b3636d16f598"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/DJ-L10_반다비_프로젝트_원자료.zip",
+      "bytes": 28450422,
+      "sha256": "d3791c4198226580a29536f8a45b2c61a1835b147ab01baefb099e8dfbd81af3"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/DJ-L10_반다비자료_시작안내.md",
+      "bytes": 5316,
+      "sha256": "3588d49f82905db2a5184b66101bd4ba382959948879abb884612c47bce4a392"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/DJ-L10_법규검토_기록표.csv",
+      "bytes": 2662,
+      "sha256": "37e44a915728000680b81ede8a5431fdb8e1f8436f883369868862be144f32a5"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/DJ-L10_법규검토_전체흐름.json",
+      "bytes": 1965,
+      "sha256": "f6f526eac3e47a0e67a0834b2ec3b79484484b1ad79ff7941baa6852ff56e9b2"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/DJ-L10_법규검토_프롬프트_실습팩.zip",
+      "bytes": 31938,
+      "sha256": "0df6a904d3d5646d90ad1a12f0b73c854981feb1f86b88ab878777003c3d9ac2"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/DJ-L10_원문출처_보존기록.json",
+      "bytes": 1887,
+      "sha256": "106e893b9da724bd114fd624e3d67ae1ecd81aa65530d13e2788e5d5df082622"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/DJ-L10_전체실습자료_사용안내.md",
+      "bytes": 5316,
+      "sha256": "3588d49f82905db2a5184b66101bd4ba382959948879abb884612c47bce4a392"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/DJ-L10_프로젝트_법규_자료카드.json",
+      "bytes": 6350,
+      "sha256": "44ad3fc4f38cfaede56b42b3789e4a816347f2a28081b8da0ab35b10afbdc013"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/L10-A00_프로젝트_원자료_분석_공통규칙.txt",
+      "bytes": 704,
+      "sha256": "fc63eddd65b1a62718016c1bb0bb05925d3f7267ed263d2393b320fa1e3f1bc6"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/L10-A01_자료역할_구분_프로젝트_조건분석.txt",
+      "bytes": 485,
+      "sha256": "26aa3a6eb8b924bc5c3c831da99268c587663a03b63925b3428cca933624bf77"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/L10-A02-5_프로젝트_조건_기준서_표정리.txt",
+      "bytes": 619,
+      "sha256": "bec8b28e29bd97b5fd98e5ce40818dcfe78fa27184d9476ebae98e66d0672c89"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/L10-A02_오류와_과도한해석_점검.txt",
+      "bytes": 756,
+      "sha256": "7fb040c272de0d88d2631723510ac8a74f50da0689f112f2817138a9b0613919"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/L10-B01_현재자료_법규검토_가능범위.txt",
+      "bytes": 590,
+      "sha256": "e6146ede47a685b4a73a235e494120b9133946d0123455e419d77be2159ffda7"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/L10-B02_보완자료_반영_법규검토_체크리스트.txt",
+      "bytes": 573,
+      "sha256": "125166df2f9d418cd23db32fb3a89438996423ea3e207b632bc0448e0299ec23"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/L10-X01_분석문_교차검증.txt",
+      "bytes": 739,
+      "sha256": "9807ee73356ed5bc6c88b0e285401ca08589ba2f43f8d515c28afb1124052cdd"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/L11-01_ChatGPT_법규조사_검증_역할설정.txt",
+      "bytes": 1279,
+      "sha256": "5c3bcbaf15a90716b0c32cd1e4315cf8dcb4ac2445e4936729319104033d9e4d"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/L11-02_조건기준서_공식법규_검색.txt",
+      "bytes": 1280,
+      "sha256": "a621da2f3b8c23b457eedd4dee22f26e8d4ef685f16fdf27e44fee4b6c1c4710"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/L11-03_노트북B_1차_법규검토_체크리스트.txt",
+      "bytes": 1708,
+      "sha256": "5eeea1c9941529f5f7c78144423f9c91de0891ab7a8b48eeb40243bbf9b8e18d"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/L11-04_ChatGPT_독립_교차검증.txt",
+      "bytes": 2022,
+      "sha256": "6d724a73cf38ad25ead8ae6a340ea0b7e5f3e2d58e8a164a304ac7cb2f409622"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/L11-05_노트북B_체크리스트_보완.txt",
+      "bytes": 1214,
+      "sha256": "a0d50774784f3a2de192b39bd2768eb73659d1dbdd11ea26e00bc926c9d451e3"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/L11-06_ChatGPT_수정결과_재검증.txt",
+      "bytes": 1037,
+      "sha256": "37bad5ad41af1193f76189625fa55a98ff0274655983152abf01abbaff436f8e"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/N01_건축법_조문.txt",
+      "bytes": 297907,
+      "sha256": "b87b4371098a9769915a97f9098618e35ccf527ef08f46de4b4b5a6609996b7d"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/N02_별표1_부설주차장_설치대상_설치기준.pdf",
+      "bytes": 91999,
+      "sha256": "7bb7c636380bef03827dd8eeac69dcb6f249dfc770fc443bad0dc4bab8a45e07"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/N02_주차장법시행령_조문.txt",
+      "bytes": 76546,
+      "sha256": "28ea0b655cfba658d95f5d2f3062845816c5a6ba18f98a272fd74806d7114ba9"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/N03_별표1_편의시설_설치대상시설.pdf",
+      "bytes": 87832,
+      "sha256": "418c8dbed012ef702f1be3c9f0d0b699f551db07b5941043e9b7344c4f00264d"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/N03_별표2_대상시설별_편의시설_종류_설치기준.pdf",
+      "bytes": 158317,
+      "sha256": "7f0d40fff30743f5c09cc7f72030903586b7cb46a539b3840493659ab4a9ef2e"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/N03_별표2의2_국가등_BF인증_의무시설.pdf",
+      "bytes": 155176,
+      "sha256": "d7184e2aef92df3db2094f4bc4fb355b22198321d91fee70ee732f16daff308b"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/N03_장애인등편의법시행령_조문.txt",
+      "bytes": 50028,
+      "sha256": "6e1292a81592b1340bbe876b4f2dbcf106904a6a73ad368fd249a30a768c9de5"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/N04_서산시도시계획조례_조문.txt",
+      "bytes": 76254,
+      "sha256": "782091301fe3da01ca24fe351e76375b8436053a05d4f8063c5249857fcb9d4c"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/N05_서산시건축조례_조문.txt",
+      "bytes": 57276,
+      "sha256": "d155bda468efcf8a69197638aa5c327206ebd3d92c40eb3654b4446891e8a2c1"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/N06_별표6_서산시_부설주차장_설치기준.hwp",
+      "bytes": 16896,
+      "sha256": "f6aded9ab7e61ef2bcb7d5145de6325fe70fc7ce88e90c9715b5c8c966bd109b"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/N06_서산시주차장조례_조문.txt",
+      "bytes": 29034,
+      "sha256": "a6efcb48ed5560fe42b7df04c495435083db9c830fa5a397f8f7eee22627044f"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/N07_건축법시행령_조문.txt",
+      "bytes": 535537,
+      "sha256": "fb618559bd117535598b6acd41eb61c80112b78cabb2a9e2d18d5bb13d6a6448"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/N07_별표1_용도별_건축물_종류.pdf",
+      "bytes": 137824,
+      "sha256": "42decb2d1094965a86b880d3acad6d7a8b844b547c6033710a6d0228120e6fe1"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/N07_별표2_대지의공지_기준.pdf",
+      "bytes": 59672,
+      "sha256": "7abf14816200c80adc092dd00e9e5bf1854da8b50f286ca59e44dab26b2cd0b4"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/N08_건축물피난방화구조_기준규칙_조문.txt",
+      "bytes": 116253,
+      "sha256": "92a6282445de8d617f492eb0bfd559958fa957c34db4c77a734894505c0dd101"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/N09_별표1_편의시설_구조재질_세부기준.pdf",
+      "bytes": 489120,
+      "sha256": "b71c64f1a9b3125fbedc6fce85831ef3964819988ce76d5aac4ba26eb0902c63"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/N09_장애인등편의법시행규칙_조문.txt",
+      "bytes": 20009,
+      "sha256": "6b62bab77d6048dcbc21b4a34f98998e069fb5eb3dabcd169d8649ed58b94c9e"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/N10_별표2_특정소방대상물.pdf",
+      "bytes": 311120,
+      "sha256": "3d61002c9352ac809ec8ea10d687ae64970171889cf9c65dcfb28a927d480d04"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/N10_별표4_특정소방대상물_소방시설_종류.pdf",
+      "bytes": 276057,
+      "sha256": "865d409a46a8f52bbe4c45e83329b9c8f6d826dbb13b45141ecc77ff502a572e"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/N10_소방시설설치관리법시행령_조문.txt",
+      "bytes": 92701,
+      "sha256": "e3dba5e03829ed699ba1ad3fe93722393964861a3e30095e2e9c5319985a93fb"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/N11_국토계획법시행령_조문.txt",
+      "bytes": 584505,
+      "sha256": "365366f0cb6730e677d4953f7d8a26dbbf6eeb22ba578fccac705313e50806da"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/S01_반다비체육센터_사업안내서.hwp",
+      "bytes": 430592,
+      "sha256": "28ee833bd86060805987e667349519965a3967d68ceda9428a1cb568150454ba"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/S02_반다비체육센터_관리운영지침.pdf",
+      "bytes": 700838,
+      "sha256": "7f1909407666d157da8fefc378f766580b74fc6cd0161822f2dd4782b8b81b8f"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/S03_지반조사보고서.hwp",
+      "bytes": 9256960,
+      "sha256": "d0bb2b55c1c924b14a4a8ff5315a3dd5fad2f30ba3c11ba3c8db69895873bd52"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-10/S04_건축_측량_원본DWG_4종.zip",
+      "bytes": 5739706,
+      "sha256": "e6f63e47935b2bb049c007f2e1583a1067418c238380df7ce293c0022b7ca835"
+    }
+  ],
+  "originalDrawingsScope": "seosan-bandabi-public-competition-only",
+  "bandabiPublicSourceDocumentsIncluded": true,
+  "hwangInsuOriginalDrawingsIncluded": false,
+  "sourceCheckedAt": "2026-10-19",
+  "koreanFileNames": true
+}

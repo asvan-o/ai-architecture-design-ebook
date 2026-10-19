@@ -1,0 +1,276 @@
+{
+  "schemaVersion": 1,
+  "courseStatus": "design-pending",
+  "publication": "local-review-only",
+  "status": "review-ready-not-fully-approved",
+  "originalCopies": [
+    {
+      "copy": "inputs/DJ-L03_01_reference-space.png",
+      "source": "review/daejeon/DJ-ML-01/BEFORE-BASE/DJ-ML-01_BEFORE_BASE_01_reception.png",
+      "sha256": "6628586c7fc3727f7928b9a6622b01cdf5a85bad329a4e7d0f36b535c32ee3b4",
+      "byteIdentical": true
+    },
+    {
+      "copy": "inputs/DJ-L03_M21_dark-walnut.png",
+      "source": "src/assets/lessons/04/material-reference-review/m-21-dark-walnut.png",
+      "sha256": "e6d9256b0382dd6e6fabd49248bae8dc122dd288bc136c58bee65077c0eb135d",
+      "byteIdentical": true
+    },
+    {
+      "copy": "inputs/DJ-L03_M24_natural-oak.png",
+      "source": "src/assets/lessons/04/material-reference-review/m-24-natural-oak.png",
+      "sha256": "14a62a4acd460543c25b823ecf4c59ac8f049330c812def72b141f97a5a23ebb",
+      "byteIdentical": true
+    }
+  ],
+  "display": [
+    {
+      "number": "01",
+      "title": "디자인 적용 전 기준 공간",
+      "file": "inputs/DJ-L03_01_reference-space.png",
+      "status": "protected-original-copy",
+      "sha256": "6628586c7fc3727f7928b9a6622b01cdf5a85bad329a4e7d0f36b535c32ee3b4"
+    },
+    {
+      "number": "02",
+      "title": "재질을 적용한 수정 공간",
+      "file": "outputs/DJ-L03_02_edited-space.png",
+      "status": "technical-pass-with-notes",
+      "sha256": "ec94d11b0e98f42c3f754f6d4f660a05b6b4b2217720d06b8a6e28c1935ac45b"
+    },
+    {
+      "number": "03",
+      "title": "수정 공간에서 디자인 요소 찾기",
+      "file": "analysis/DJ-L03_03_design-analysis.txt",
+      "status": "analysis-complete",
+      "sha256": "c19a1848d0e5d202efbf38717b4815311f292574e8bb38d4851df95e1fe4af16"
+    },
+    {
+      "number": "04",
+      "title": "디자인 방향 보드",
+      "file": "outputs/DJ-L03_04_design-board.png",
+      "status": "technical-pass-with-notes",
+      "sha256": "f8469bdecc8c7f8abd100c929de8535ce053db0897796cf019e6f70330165bdc"
+    },
+    {
+      "number": "05",
+      "title": "한 요소를 수정한 디자인 방향 보드",
+      "file": "outputs/DJ-L03_05_edited-board-v2.png",
+      "status": "held-strict-preservation-not-met",
+      "sha256": "d6152219f3533f2a78c64eb0167b1a89a716ccdce11450c3d5c26de86a0e1422"
+    },
+    {
+      "number": "06",
+      "title": "수정한 디자인 방향을 적용한 새로운 공간 콘셉트",
+      "file": "outputs/DJ-L03_06_new-concept-v2.png",
+      "status": "technical-pass-with-notes-upstream-board-held",
+      "sha256": "160e5981be0d00f30e004d8888692342f9d97ed52c073f0162ccb9c290944509"
+    }
+  ],
+  "calls": [
+    {
+      "sequence": 1,
+      "stage": "space-edit",
+      "promptFile": "prompts/DJ-L03_01_space-edit-prompt.txt",
+      "actualPrompt": "[목적]\n첨부한 소형 오피스 리셉션·대기공간의 리셉션 뒤 메인 벽면 한 곳에만 Dark Walnut의 색상·무늬·질감을 적용한다. 한 곳의 마감만 바꾸는 정밀한 이미지 편집이다.\n\n[맥락]\n건축·인테리어 교육용 초기 수정 예제다. 공간 재설계나 스타일링이 아니다.\n\n[입력자료]\n이미지 1: 편집 대상이자 절대적인 공간·카메라·배치 기준인 디자인 적용 전 공간.\n이미지 2: M-21 Dark Walnut 재질 참고 이미지. 짙은 갈색의 자연스러운 목무늬와 질감만 참고한다. 참고 이미지 안의 글자는 사용하지 않는다.\n\n[작업 단계]\n이미지 1을 그대로 유지한 채, 리셉션 데스크 뒤쪽의 평평한 배경 벽에서 왼쪽 안쪽 모서리부터 회색 문틀의 왼쪽 수직선까지인 면만 바꾼다.\n편집 영역의 윗변은 기존 벽과 천장의 경계이며, 아랫부분은 기존 데스크·의자·모니터에 가려진 그대로 둔다.\n문틀 왼쪽 수직선 위로 이어지는 선에서 재질을 끝낸다. 문 위와 문 오른쪽 벽, 왼쪽 측벽은 원래 마감을 유지한다.\n새 판넬 구조·루버·슬랫·단차·몰딩 없이 기존 평면 위에 촘촘하고 차분한 세로 목무늬의 짙은 갈색 무광 표면만 표현한다.\n원본의 밝기, 일광, 그림자와 전체 색 균형을 유지한다.\n\n[조건·제한]\n편집 영역 밖은 원본 그대로 보존한다. 카메라, 화각, 이미지 크롭, 공간 크기, 모든 벽 위치, 회색 문과 손잡이, 오른쪽 검은 창호와 바깥 풍경, 천장과 매입등 3개의 위치를 바꾸지 않는다.\n리셉션 데스크, 사무용 의자 1개, 모니터 1개, 오른쪽 소파와 쿠션, 작은 테이블의 개수·형태·위치·비율·재질을 그대로 둔다.\n바닥 타일과 줄눈, 걸레받이, 창턱, 나머지 흰색·회색 벽면을 바꾸지 않는다.\n새 가구·문·창문·장식·사람·텍스트·로고를 추가하지 않는다.\n실제 월넛 제품의 규격·성능을 표현하거나 보증하지 않는다.\n\n[출력 형식]\n원본과 같은 가로 16:9 구도와 시점의 사실적인 ArchViz 이미지 1장. 가능하면 원본 1672×941의 화면 비율과 크롭을 유지한다. 비교 패널이나 설명 글자는 넣지 않는다. 불투명 PNG.\n\n[검토 기준]\n변화가 지정 벽면의 색상·무늬·질감에 한정되는가?\n카메라·문·창호·가구·매입등·바닥·다른 마감이 원본과 일치하는가?",
+      "startedAtUtc": "2026-10-14 15:50:39 UTC",
+      "finishedAtUtc": "2026-10-14 15:51:00 UTC",
+      "inputs": [
+        {
+          "path": "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-ML-01/BEFORE-BASE/DJ-ML-01_BEFORE_BASE_01_reception.png",
+          "sha256": "6628586c7fc3727f7928b9a6622b01cdf5a85bad329a4e7d0f36b535c32ee3b4"
+        },
+        {
+          "path": "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/src/assets/lessons/04/material-reference-review/m-21-dark-walnut.png",
+          "sha256": "e6d9256b0382dd6e6fabd49248bae8dc122dd288bc136c58bee65077c0eb135d"
+        }
+      ],
+      "transparentBackground": false,
+      "providerOutput": "C:/Users/deric/.codex/generated_images/01a106c4-1768-75c2-9a8d-9a1cb683c730/exec-2640f5ef-b5ef-447c-83cd-a80669fedd5c.png",
+      "resultFile": "outputs/DJ-L03_02_edited-space.png",
+      "status": "pass-with-notes",
+      "note": "지정 벽면 변화와 주요 구조 유지. 비대상 픽셀의 미세 밝기·질감 차이 존재.",
+      "sha256": "ec94d11b0e98f42c3f754f6d4f660a05b6b4b2217720d06b8a6e28c1935ac45b",
+      "bytes": 1968174,
+      "width": 1672,
+      "height": 941,
+      "providerBytesPreserved": true
+    },
+    {
+      "sequence": 2,
+      "stage": "board-generation",
+      "promptFile": "prompts/DJ-L03_03_board-generation-prompt.txt",
+      "actualPrompt": "[목적]\n첨부한 수정 공간을 설명하는 가로형 16:9 디자인 방향 보드 1장을 제작한다. 제목은 \"차분한 리셉션\"이다.\n\n[맥락]\n공간의 재질·색상·조명·분위기를 정리해 다음 이미지 생성의 방향을 전달하는 교육용 시각 자료다. 제품 사양서가 아니다.\n\n[입력자료]\n이미지 1: 대표 공간 이미지. 리셉션 뒤 지정 벽면에 짙은 목무늬를 적용한 실제 수정 결과다.\n이미지 2: 제공된 Dark Walnut 참고 이미지. 이름은 제공된 참고자료 이름이며 실제 시공 제품의 확인이 아니다.\n\n[작업 단계]\n여백이 있는 따뜻한 백색 배경의 절제된 편집 디자인으로 구성한다.\n상단에 제목 \"차분한 리셉션\", 부제 \"공간의 디자인 방향 정리\"를 또렷하게 배치한다.\n왼쪽 약 63% 영역에 이미지 1 전체 프레임을 가로 비율 그대로 크게 배치한다. 다른 공간을 그리지 말고 이 이미지를 그대로 담는다. 크롭하지 않는다.\n오른쪽 위에는 크기가 같은 표면 샘플 카드 두 개를 나란히 배치한다.\n첫 카드: 이미지 2의 글자를 제외한 짙은 갈색 목무늬. 샘플 아래 정확한 이름 \"Dark Walnut\", 작은 설명 \"제공된 재질 참고\".\n두 번째 카드: 이미지 1의 회색 소파에서 읽은 회색 표면 인상. 이름 \"기존 회색 좌석\", 작은 설명 \"표면 관찰 · 소재 미확정\".\n그 아래에는 공간에서 읽은 짙은 갈색 / 중간 회색 / 밝은 회백색의 팔레트 칩 3개만 둔다. 정확한 색상 코드나 제품 번호는 넣지 않는다.\n오른쪽 아래에는 조명 인상 한 줄 \"자연광 + 기본 매입등\"을 배치한다. 새로운 조명 사진은 넣지 않는다.\n하단에는 키워드 \"정돈됨 · 차분함 · 절제\"와 짧은 설명 \"한 벽면의 재질 변화로 읽는 공간의 인상\"을 배치한다.\n\n[조건·제한]\n대표 공간 이미지의 카메라·벽·문·창호·책상·의자·모니터·소파·테이블·매입등과 배치를 바꾸지 않는다.\n새로운 공간, 가구, 장식, 별도 제품 사진, 로고, 브랜드, 치수, 가격, 성능, 실제 색온도·조도 수치는 추가하지 않는다.\n명시한 글자 외에 텍스트를 추가하지 않는다. 글자는 읽기 쉬운 한국어 산세리프와 단정한 영문으로 정확히 표시한다.\n반사광이나 제품 성능을 강조하는 광고처럼 만들지 않는다. 원근감 있는 보드 사진이 아니라 정면의 평평한 보드 이미지다.\nDark Walnut은 참고자료 이름이고 회색 좌석의 실제 소재는 확정되지 않았음을 유지한다.\n\n[출력 형식]\n가로 16:9 불투명 PNG 1장. 2048×1152 요청. 메인 이미지가 충분히 크게 읽히는 심플한 디자인보드.\n\n[검토 기준]\n실제 수정 공간과 같은 공간이 대표 이미지로 유지되었는가?\n표면 정보가 두 개이며 관찰과 제공된 정보가 구분되는가?\n3색, 조명 인상, 방향명, 키워드와 짧은 설명이 읽히는가?\n입력에 없는 제품이나 공간이 생성되지 않았는가?",
+      "startedAtUtc": "2026-10-14 15:53:17 UTC",
+      "finishedAtUtc": "2026-10-14 15:53:39 UTC",
+      "inputs": [
+        {
+          "path": "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-L03-CONTINUOUS-SAMPLE/outputs/DJ-L03_02_edited-space.png",
+          "sha256": "ec94d11b0e98f42c3f754f6d4f660a05b6b4b2217720d06b8a6e28c1935ac45b"
+        },
+        {
+          "path": "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/src/assets/lessons/04/material-reference-review/m-21-dark-walnut.png",
+          "sha256": "e6d9256b0382dd6e6fabd49248bae8dc122dd288bc136c58bee65077c0eb135d"
+        }
+      ],
+      "transparentBackground": false,
+      "providerOutput": "C:/Users/deric/.codex/generated_images/01a106c4-1768-75c2-9a8d-9a1cb683c730/exec-ab2f371e-9659-47d7-a21c-fa7bd5ea307d.png",
+      "resultFile": "outputs/DJ-L03_04_design-board.png",
+      "status": "pass-with-notes",
+      "note": "요청한 구성·문구 포함. 대표 이미지는 원본의 픽셀 복사가 아닌 생성 재표현이므로 구조 검증용이 아님.",
+      "sha256": "f8469bdecc8c7f8abd100c929de8535ce053db0897796cf019e6f70330165bdc",
+      "bytes": 1731702,
+      "width": 1672,
+      "height": 941,
+      "providerBytesPreserved": true
+    },
+    {
+      "sequence": 3,
+      "stage": "board-edit-attempt-1",
+      "promptFile": "prompts/DJ-L03_04_board-edit-prompt.txt",
+      "actualPrompt": "[목적]\n첨부 디자인 방향 보드의 재질 샘플 카드 한 곳만 수정한다. Dark Walnut을 Natural Oak 방향으로 바꾸는 교육용 부분 수정이다.\n\n[맥락]\n바뀐 재질은 대표 공간에 이미 적용된 사실이 아니라 다음 공간 이미지에서 시도할 변경 제안이다.\n\n[입력자료]\n이미지 1: 편집 대상인 현재 디자인 방향 보드.\n이미지 2: M-24 Natural Oak 참고 이미지. 밝은 자연 목재의 색상·무늬·질감만 사용한다.\n\n[작업 단계]\n이미지 1의 오른쪽 위 두 표면 카드 중 왼쪽 Dark Walnut 카드 한 곳만 편집한다.\n그 카드의 짙은 목무늬 샘플을 이미지 2의 Natural Oak 목무늬 인상으로 바꾼다.\n같은 카드의 이름 \"Dark Walnut\"을 \"Natural Oak\"로 바꾼다.\n그 아래 설명 \"제공된 재질 참고\"만 \"다음 변경 제안\"으로 바꾼다.\n새 텍스트가 기존 카드 안에 들어가게 하되 전체 보드 배치는 바꾸지 않는다.\n\n[조건·제한]\n왼쪽 대표 공간 이미지는 목무늬 벽을 포함하여 완전히 그대로 둔다. 이 단계에서는 대표 공간에 Natural Oak를 적용하지 않는다.\n보드의 제목·부제·크기·레이아웃·여백·구분선·글꼴·배경을 유지한다.\n오른쪽 다른 카드 \"기존 회색 좌석\"과 설명, 세 색상 팔레트, \"자연광 + 기본 매입등\"을 모두 유지한다.\n하단 \"정돈됨 · 차분함 · 절제\"와 \"한 벽면의 재질 변화로 읽는 공간의 인상\"도 그대로 둔다.\n팔레트의 갈색 칩도 이번 단계에는 바꾸지 않는다.\n새 공간 이미지·가구·조명·브랜드·제품 사양을 추가하지 않는다.\n전체를 새로 디자인하지 말고 지정 카드의 샘플·이름·제안 표시만 국소 편집한다.\n\n[출력 형식]\n입력 보드와 같은 1672×941 크기·구도·화면 비율의 불투명 PNG 1장.\n\n[검토 기준]\nDark Walnut 카드가 Natural Oak로 바뀌고 '다음 변경 제안'으로 표시되는가?\n대표 공간 이미지와 다른 카드·팔레트·문구·레이아웃에 의미 있는 변화가 없는가?",
+      "startedAtUtc": "2026-10-14 15:54:28 UTC",
+      "finishedAtUtc": "2026-10-14 15:54:49 UTC",
+      "inputs": [
+        {
+          "path": "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-L03-CONTINUOUS-SAMPLE/outputs/DJ-L03_04_design-board.png",
+          "sha256": "f8469bdecc8c7f8abd100c929de8535ce053db0897796cf019e6f70330165bdc"
+        },
+        {
+          "path": "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/src/assets/lessons/04/material-reference-review/m-24-natural-oak.png",
+          "sha256": "14a62a4acd460543c25b823ecf4c59ac8f049330c812def72b141f97a5a23ebb"
+        }
+      ],
+      "transparentBackground": false,
+      "providerOutput": "C:/Users/deric/.codex/generated_images/01a106c4-1768-75c2-9a8d-9a1cb683c730/exec-3b3c0ae9-dd08-4719-af56-cd0b5e4cffb0.png",
+      "resultFile": "outputs/DJ-L03_05_edited-board.png",
+      "status": "held",
+      "note": "Natural Oak와 다음 변경 제안 반영. 다른 회색 표면 직조 무늬 변화 발견.",
+      "sha256": "58d1deaadf26f64114ebe9bf5d539f947f2e9479bd9e17240bdd2ae9a96a4abd",
+      "bytes": 1799264,
+      "width": 1672,
+      "height": 941,
+      "providerBytesPreserved": true
+    },
+    {
+      "sequence": 4,
+      "stage": "new-concept-attempt-1",
+      "promptFile": "prompts/DJ-L03_05_new-concept-prompt.txt",
+      "actualPrompt": "[목적]\n같은 소형 오피스 리셉션·대기공간에서, 지정 벽면에 Natural Oak 방향을 적용한 새로운 공간 콘셉트 1장을 만든다. 이 작업도 한 벽면의 마감만 바꾸는 이미지 편집이다.\n\n[맥락]\n부분 수정한 디자인 방향 보드의 변경 제안을 실제 기준 공간에 다시 적용하는 교육용 Rapid Concept 예제다. 구조와 가구 배치를 새로 설계하는 작업이 아니다.\n\n[입력자료]\n이미지 1: 디자인 적용 전 기준 공간. 카메라·구조·배치·모든 고정 요소의 절대 기준이다. 이 이미지를 편집한다.\n이미지 2: 한 요소를 수정한 디자인 방향 보드. 오른쪽 위 \"Natural Oak / 다음 변경 제안\" 카드의 목재 인상만 다음 수정에 사용한다.\n이미지 3: 제공된 M-24 Natural Oak 원본 참고 이미지. 이름이나 글자가 아니라 밝은 갈색 목무늬의 색상·무늬·질감만 사용한다.\n우선순위: 구조와 모든 위치는 이미지 1, 바꿀 벽면의 재질 인상은 이미지 2의 Natural Oak 카드와 이미지 3.\n이미지 2의 작은 대표 공간에는 이전 Dark Walnut 벽이 남아 있다. 그 작은 공간의 구조·크롭·어두운 목재를 복사하지 않는다.\n\n[작업 단계]\n이미지 1의 리셉션 데스크 뒤쪽 평평한 벽에서, 왼쪽 안쪽 모서리부터 회색 문틀 왼쪽 수직선까지의 면만 수정한다.\n윗변은 기존 벽과 천장의 경계이고 아래쪽은 데스크·의자·모니터에 가려진 그대로 둔다.\n문틀 왼쪽 수직선 위로 이어지는 선에서 재질을 끝낸다. 문 위, 문 오른쪽 벽, 왼쪽 측벽은 원래 마감 그대로 유지한다.\n그 면에 Natural Oak의 밝고 자연스러운 갈색 세로 목무늬를 기존 조명 아래에서 표현한다. 면은 평평하고 무광이며 새 단차·루버·몰딩을 추가하지 않는다.\n그 외 영역은 이미지 1의 원본을 그대로 유지한다.\n\n[조건·제한]\n카메라·화각·크롭·공간 크기·벽 위치·문과 손잡이·창호·바깥 풍경·천장·매입등 3개의 위치를 유지한다.\n데스크, 의자 1개, 모니터 1개, 소파와 쿠션, 작은 테이블의 개수·형태·위치·비율·마감을 유지한다.\n바닥 타일과 줄눈, 걸레받이, 창턱, 나머지 벽, 자연광·밝기·그림자·전체 색 균형은 바꾸지 않는다.\n새 가구·문·창문·장식·사람·글자·로고를 추가하지 않는다.\n디자인보드 전체나 팔레트·글자를 공간 안에 삽입하지 않는다.\n실제 목종·제품·시공 성능을 확정하지 않는다.\n\n[출력 형식]\n원본과 같은 1672×941 크기·시점·가로 화면 비율의 사실적인 ArchViz 불투명 PNG 1장.\n비교 패널이나 설명 문구 없이 공간 이미지만 출력한다.\n\n[검토 기준]\n기준 공간의 카메라·문·창호·벽·주요 가구와 배치가 유지되었는가?\n지정 벽면만 Natural Oak 방향으로 바뀌었는가?\n보드의 작은 공간을 구조 기준으로 잘못 사용하지 않았는가?",
+      "startedAtUtc": "2026-10-14 15:55:53 UTC",
+      "finishedAtUtc": "2026-10-14 15:56:15 UTC",
+      "inputs": [
+        {
+          "path": "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-ML-01/BEFORE-BASE/DJ-ML-01_BEFORE_BASE_01_reception.png",
+          "sha256": "6628586c7fc3727f7928b9a6622b01cdf5a85bad329a4e7d0f36b535c32ee3b4"
+        },
+        {
+          "path": "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-L03-CONTINUOUS-SAMPLE/outputs/DJ-L03_05_edited-board.png",
+          "sha256": "58d1deaadf26f64114ebe9bf5d539f947f2e9479bd9e17240bdd2ae9a96a4abd"
+        },
+        {
+          "path": "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/src/assets/lessons/04/material-reference-review/m-24-natural-oak.png",
+          "sha256": "14a62a4acd460543c25b823ecf4c59ac8f049330c812def72b141f97a5a23ebb"
+        }
+      ],
+      "transparentBackground": false,
+      "providerOutput": "C:/Users/deric/.codex/generated_images/01a106c4-1768-75c2-9a8d-9a1cb683c730/exec-09fd4793-8e3f-40f3-b6dc-8846aec1a8d7.png",
+      "resultFile": "outputs/DJ-L03_06_new-concept.png",
+      "status": "superseded",
+      "note": "첫 보드 수정본을 실제 입력으로 사용. 최신 검수 후보본과의 입력 연결을 위해 재실행.",
+      "sha256": "22ed577ae5a8b0ac2d9b7dad7e73a689244fc4eda2b671db954e272b18aa010d",
+      "bytes": 1996217,
+      "width": 1672,
+      "height": 941,
+      "providerBytesPreserved": true
+    },
+    {
+      "sequence": 5,
+      "stage": "board-edit-attempt-2",
+      "promptFile": "prompts/DJ-L03_04_board-edit-retry-prompt.txt",
+      "actualPrompt": "[목적]\n첨부 디자인 방향 보드의 재질 샘플 카드 한 곳만 수정한다. Dark Walnut을 Natural Oak 방향으로 바꾸는 교육용 부분 수정이다.\n\n[맥락]\n바뀐 재질은 대표 공간에 이미 적용된 사실이 아니라 다음 공간 이미지에서 시도할 변경 제안이다.\n\n[입력자료]\n이미지 1: 편집 대상인 현재 디자인 방향 보드.\n이미지 2: M-24 Natural Oak 참고 이미지. 밝은 자연 목재의 색상·무늬·질감만 사용한다.\n\n[작업 단계]\n이미지 1의 오른쪽 위 두 표면 카드 중 왼쪽 Dark Walnut 카드 한 곳만 편집한다.\n그 카드의 짙은 목무늬 샘플을 이미지 2의 Natural Oak 목무늬 인상으로 바꾼다.\n같은 카드의 이름 \"Dark Walnut\"을 \"Natural Oak\"로 바꾼다.\n그 아래 설명 \"제공된 재질 참고\"만 \"다음 변경 제안\"으로 바꾼다.\n새 텍스트가 기존 카드 안에 들어가게 하되 전체 보드 배치는 바꾸지 않는다.\n\n[조건·제한]\n왼쪽 대표 공간 이미지는 목무늬 벽을 포함하여 완전히 그대로 둔다. 이 단계에서는 대표 공간에 Natural Oak를 적용하지 않는다.\n보드의 제목·부제·크기·레이아웃·여백·구분선·글꼴·배경을 유지한다.\n오른쪽 다른 카드 \"기존 회색 좌석\"과 설명, 세 색상 팔레트, \"자연광 + 기본 매입등\"을 모두 유지한다.\n하단 \"정돈됨 · 차분함 · 절제\"와 \"한 벽면의 재질 변화로 읽는 공간의 인상\"도 그대로 둔다.\n팔레트의 갈색 칩도 이번 단계에는 바꾸지 않는다.\n새 공간 이미지·가구·조명·브랜드·제품 사양을 추가하지 않는다.\n전체를 새로 디자인하지 말고 지정 카드의 샘플·이름·제안 표시만 국소 편집한다.\n\n[출력 형식]\n입력 보드와 같은 1672×941 크기·구도·화면 비율의 불투명 PNG 1장.\n\n[검토 기준]\nDark Walnut 카드가 Natural Oak로 바뀌고 '다음 변경 제안'으로 표시되는가?\n대표 공간 이미지와 다른 카드·팔레트·문구·레이아웃에 의미 있는 변화가 없는가?\n\n[재시도에서 반드시 보완할 사항]\n이전 시도에서는 변경 대상이 아닌 오른쪽 회색 좌석 샘플의 직조 패턴도 달라졌다. 이번에는 원본 보드에서 그 카드의 무늬·섬유 간격·명암·방향을 사진 복사처럼 그대로 보존한다.\n이미지 1은 원본 보드다. 바꿀 수 있는 영역은 x=1151~1385, y=159~476 부근의 왼쪽 재질 카드와 그 두 줄 라벨뿐이다. 경계 밖은 원본 이미지 데이터를 그대로 유지하는 방식으로 편집하라.\n오른쪽 x=1402~1630의 회색 좌석 샘플을 다시 그리지 마. 원래 굵고 불규칙한 직조 패턴을 그대로 사용한다.\n대표 공간과 텍스트를 새로 렌더하지 말고, Natural Oak 카드만 국소적으로 교체한다.\nChange only the single Dark Walnut card and its two labels. Preserve the existing gray textile swatch exactly, including the original coarse weave. Keep the rest of the source board unchanged; no whole-image redraw or retexturing.",
+      "startedAtUtc": "2026-10-14 15:58:06 UTC",
+      "finishedAtUtc": "2026-10-14 15:58:30 UTC",
+      "inputs": [
+        {
+          "path": "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-L03-CONTINUOUS-SAMPLE/outputs/DJ-L03_04_design-board.png",
+          "sha256": "f8469bdecc8c7f8abd100c929de8535ce053db0897796cf019e6f70330165bdc"
+        },
+        {
+          "path": "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/src/assets/lessons/04/material-reference-review/m-24-natural-oak.png",
+          "sha256": "14a62a4acd460543c25b823ecf4c59ac8f049330c812def72b141f97a5a23ebb"
+        }
+      ],
+      "transparentBackground": false,
+      "providerOutput": "C:/Users/deric/.codex/generated_images/01a106c4-1768-75c2-9a8d-9a1cb683c730/exec-603e5c0d-66f0-4e98-83e2-a5e01679d466.png",
+      "resultFile": "outputs/DJ-L03_05_edited-board-v2.png",
+      "status": "held-review-candidate",
+      "note": "보드 구성과 의미는 유지되나 비대상 회색 샘플 직조 무늬 변화가 남아 엄격 보존 예제로 승인하지 않음.",
+      "sha256": "d6152219f3533f2a78c64eb0167b1a89a716ccdce11450c3d5c26de86a0e1422",
+      "bytes": 1810726,
+      "width": 1672,
+      "height": 941,
+      "providerBytesPreserved": true
+    },
+    {
+      "sequence": 6,
+      "stage": "new-concept-attempt-2",
+      "promptFile": "prompts/DJ-L03_05_new-concept-prompt.txt",
+      "actualPrompt": "[목적]\n같은 소형 오피스 리셉션·대기공간에서, 지정 벽면에 Natural Oak 방향을 적용한 새로운 공간 콘셉트 1장을 만든다. 이 작업도 한 벽면의 마감만 바꾸는 이미지 편집이다.\n\n[맥락]\n부분 수정한 디자인 방향 보드의 변경 제안을 실제 기준 공간에 다시 적용하는 교육용 Rapid Concept 예제다. 구조와 가구 배치를 새로 설계하는 작업이 아니다.\n\n[입력자료]\n이미지 1: 디자인 적용 전 기준 공간. 카메라·구조·배치·모든 고정 요소의 절대 기준이다. 이 이미지를 편집한다.\n이미지 2: 한 요소를 수정한 디자인 방향 보드. 오른쪽 위 \"Natural Oak / 다음 변경 제안\" 카드의 목재 인상만 다음 수정에 사용한다.\n이미지 3: 제공된 M-24 Natural Oak 원본 참고 이미지. 이름이나 글자가 아니라 밝은 갈색 목무늬의 색상·무늬·질감만 사용한다.\n우선순위: 구조와 모든 위치는 이미지 1, 바꿀 벽면의 재질 인상은 이미지 2의 Natural Oak 카드와 이미지 3.\n이미지 2의 작은 대표 공간에는 이전 Dark Walnut 벽이 남아 있다. 그 작은 공간의 구조·크롭·어두운 목재를 복사하지 않는다.\n\n[작업 단계]\n이미지 1의 리셉션 데스크 뒤쪽 평평한 벽에서, 왼쪽 안쪽 모서리부터 회색 문틀 왼쪽 수직선까지의 면만 수정한다.\n윗변은 기존 벽과 천장의 경계이고 아래쪽은 데스크·의자·모니터에 가려진 그대로 둔다.\n문틀 왼쪽 수직선 위로 이어지는 선에서 재질을 끝낸다. 문 위, 문 오른쪽 벽, 왼쪽 측벽은 원래 마감 그대로 유지한다.\n그 면에 Natural Oak의 밝고 자연스러운 갈색 세로 목무늬를 기존 조명 아래에서 표현한다. 면은 평평하고 무광이며 새 단차·루버·몰딩을 추가하지 않는다.\n그 외 영역은 이미지 1의 원본을 그대로 유지한다.\n\n[조건·제한]\n카메라·화각·크롭·공간 크기·벽 위치·문과 손잡이·창호·바깥 풍경·천장·매입등 3개의 위치를 유지한다.\n데스크, 의자 1개, 모니터 1개, 소파와 쿠션, 작은 테이블의 개수·형태·위치·비율·마감을 유지한다.\n바닥 타일과 줄눈, 걸레받이, 창턱, 나머지 벽, 자연광·밝기·그림자·전체 색 균형은 바꾸지 않는다.\n새 가구·문·창문·장식·사람·글자·로고를 추가하지 않는다.\n디자인보드 전체나 팔레트·글자를 공간 안에 삽입하지 않는다.\n실제 목종·제품·시공 성능을 확정하지 않는다.\n\n[출력 형식]\n원본과 같은 1672×941 크기·시점·가로 화면 비율의 사실적인 ArchViz 불투명 PNG 1장.\n비교 패널이나 설명 문구 없이 공간 이미지만 출력한다.\n\n[검토 기준]\n기준 공간의 카메라·문·창호·벽·주요 가구와 배치가 유지되었는가?\n지정 벽면만 Natural Oak 방향으로 바뀌었는가?\n보드의 작은 공간을 구조 기준으로 잘못 사용하지 않았는가?",
+      "startedAtUtc": "2026-10-14 15:59:45 UTC",
+      "finishedAtUtc": "2026-10-14 16:00:06 UTC",
+      "inputs": [
+        {
+          "path": "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-ML-01/BEFORE-BASE/DJ-ML-01_BEFORE_BASE_01_reception.png",
+          "sha256": "6628586c7fc3727f7928b9a6622b01cdf5a85bad329a4e7d0f36b535c32ee3b4"
+        },
+        {
+          "path": "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-L03-CONTINUOUS-SAMPLE/outputs/DJ-L03_05_edited-board-v2.png",
+          "sha256": "d6152219f3533f2a78c64eb0167b1a89a716ccdce11450c3d5c26de86a0e1422"
+        },
+        {
+          "path": "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/src/assets/lessons/04/material-reference-review/m-24-natural-oak.png",
+          "sha256": "14a62a4acd460543c25b823ecf4c59ac8f049330c812def72b141f97a5a23ebb"
+        }
+      ],
+      "transparentBackground": false,
+      "providerOutput": "C:/Users/deric/.codex/generated_images/01a106c4-1768-75c2-9a8d-9a1cb683c730/exec-9d643b2c-f1f2-4463-851e-cd8e5834e4d3.png",
+      "resultFile": "outputs/DJ-L03_06_new-concept-v2.png",
+      "status": "pass-with-notes",
+      "note": "두 번째 보드 수정본을 실제 입력으로 사용. 기준 공간의 주요 구조 유지, 비대상 미세 픽셀 차이 존재.",
+      "sha256": "160e5981be0d00f30e004d8888692342f9d97ed52c073f0162ccb9c290944509",
+      "bytes": 1986158,
+      "width": 1672,
+      "height": 941,
+      "providerBytesPreserved": true
+    },
+    {
+      "sequence": 7,
+      "stage": "board-preservation-correction",
+      "promptFile": "prompts/DJ-L03_04_board-preservation-correction-prompt.txt",
+      "actualPrompt": "[목적]\n이미지 1 디자인보드의 비대상 회색 표면 카드만 원본 상태로 복원한다. 새로운 디자인을 하지 않는다.\n\n[입력자료]\n이미지 1: Natural Oak / 다음 변경 제안으로 수정한 보드. 최종 편집 대상이다.\n이미지 2: 수정 전 원본 보드. 오른쪽 위 \"기존 회색 좌석\" 샘플의 정확한 원본을 제공한다.\n\n[작업 단계]\n이미지 1의 오른쪽 위 두 카드 중 오른쪽 회색 좌석 표면 사각형만, 이미지 2의 같은 위치에 있는 원래 회색 좌석 표면 사각형으로 복원한다.\n샘플의 색상, 명암, 직조의 굵기·간격·방향·무늬를 원본 그대로 복사한다. 새 패브릭 텍스처를 생성하지 않는다.\n복원할 이미지 영역은 가로 1672×941 화면에서 x=1402~1629, y=159~391의 사각형이다.\n\n[조건·제한]\n이 사각형 밖은 이미지 1을 그대로 유지한다.\nNatural Oak 카드와 \"다음 변경 제안\" 라벨은 바꾸지 않는다.\n대표 공간 이미지, 제목, 부제, 글자, 팔레트 3색, 조명 문구, 키워드, 구분선, 배경과 레이아웃을 유지한다.\n이미지 2의 Dark Walnut 카드를 가져오지 않는다.\n이것은 두 원본 사이에서 지정한 작은 표면 샘플을 정확히 복원하는 작업이다. 다른 부분을 다시 그리지 않는다.\n\n[출력 형식]\n이미지 1과 같은 1672×941의 불투명 PNG 보드 한 장.\n\n[검토 기준]\nNatural Oak 변경 제안은 남아 있고, 회색 표면 샘플은 이미지 2 원본과 일치하는가?\n지정 영역 밖의 다른 요소에 의미 있는 변화가 없는가?",
+      "startedAtUtc": "2026-10-14 16:01:20 UTC",
+      "finishedAtUtc": "2026-10-14 16:01:41 UTC",
+      "inputs": [
+        {
+          "path": "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-L03-CONTINUOUS-SAMPLE/outputs/DJ-L03_05_edited-board-v2.png",
+          "sha256": "d6152219f3533f2a78c64eb0167b1a89a716ccdce11450c3d5c26de86a0e1422"
+        },
+        {
+          "path": "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-L03-CONTINUOUS-SAMPLE/outputs/DJ-L03_04_design-board.png",
+          "sha256": "f8469bdecc8c7f8abd100c929de8535ce053db0897796cf019e6f70330165bdc"
+        }
+      ],
+      "transparentBackground": false,
+      "providerOutput": "C:/Users/deric/.codex/generated_images/01a106c4-1768-75c2-9a8d-9a1cb683c730/exec-6fb240c7-e182-4267-9b77-5d175bf56556.png",
+      "resultFile": "instructor/attempts/DJ-L03_05_edited-board-correction-attempt3.png",
+      "status": "not-selected",
+      "note": "원본 회색 샘플 복원 요청. 비대상 완전 보존을 입증하지 못했고 보드 대표 이미지 미세 재표현도 있어 채택하지 않음.",
+      "sha256": "72a9a9db9a6936e52eceb922bb00131fd3e3828fc45d3a7e533f6a3cc6243335",
+      "bytes": 1797295,
+      "width": 1672,
+      "height": 941,
+      "providerBytesPreserved": true
+    }
+  ]
+}

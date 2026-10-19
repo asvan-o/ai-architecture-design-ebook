@@ -1,0 +1,560 @@
+{
+  "설명": "교육용 주택 원도면·모델과 AI 시각화·실제 재료 참조의 출처. 원본은 수정하지 않았습니다.",
+  "파일": [
+    {
+      "원본": "artifacts/보드01_포트폴리오_표지_모던3층단독주택.png",
+      "배포파일": "images/daejeon/lesson-12/보드01_포트폴리오_표지_모던3층단독주택.png",
+      "원본SHA256": "4e785fbe961deee76474ade02c9ca7818d0404e1601343453eba77d6f08d67cb",
+      "배포SHA256": "4e785fbe961deee76474ade02c9ca7818d0404e1601343453eba77d6f08d67cb",
+      "동일바이트": true
+    },
+    {
+      "원본": "artifacts/보드02_01_Intro_디자인컨셉과_내외장재무드보드.png",
+      "배포파일": "images/daejeon/lesson-12/보드02_01_Intro_디자인컨셉과_내외장재무드보드.png",
+      "원본SHA256": "9500407c70fbdfcd9b8b7c221748b100c5543af697b9d07ec12aa0c1cbc42f79",
+      "배포SHA256": "9500407c70fbdfcd9b8b7c221748b100c5543af697b9d07ec12aa0c1cbc42f79",
+      "동일바이트": true
+    },
+    {
+      "원본": "artifacts/보드03_02_Overview_입체아이소메트릭과_공간동선.png",
+      "배포파일": "images/daejeon/lesson-12/보드03_02_Overview_입체아이소메트릭과_공간동선.png",
+      "원본SHA256": "f9b947d9ce3522c32def09d7e3ec75583e3006a4fb8a2fb58ead938a9b54623a",
+      "배포SHA256": "f9b947d9ce3522c32def09d7e3ec75583e3006a4fb8a2fb58ead938a9b54623a",
+      "동일바이트": true
+    },
+    {
+      "원본": "artifacts/보드04_03_Verification_입단면도면과_법규검토요약.png",
+      "배포파일": "images/daejeon/lesson-12/보드04_03_Verification_입단면도면과_법규검토요약.png",
+      "원본SHA256": "904846cd521fa302448a74320dc606ed74eeb4621e07f9c14c44b7276665ac3b",
+      "배포SHA256": "904846cd521fa302448a74320dc606ed74eeb4621e07f9c14c44b7276665ac3b",
+      "동일바이트": true
+    },
+    {
+      "원본": "artifacts/슬라이드01_표지.png",
+      "배포파일": "images/daejeon/lesson-12/슬라이드01_표지.png",
+      "원본SHA256": "c889eda997a16138f2df63ff529894a972944a1a04be93cfe416f2d1b9d200b1",
+      "배포SHA256": "c889eda997a16138f2df63ff529894a972944a1a04be93cfe416f2d1b9d200b1",
+      "동일바이트": true
+    },
+    {
+      "원본": "artifacts/슬라이드02_기획기준.png",
+      "배포파일": "images/daejeon/lesson-12/슬라이드02_기획기준.png",
+      "원본SHA256": "6b846d9b9ae7b00a8848509e6235efb93e176d1648c6a345aead82becadcd298",
+      "배포SHA256": "6b846d9b9ae7b00a8848509e6235efb93e176d1648c6a345aead82becadcd298",
+      "동일바이트": true
+    },
+    {
+      "원본": "artifacts/슬라이드03_콘셉트재료.png",
+      "배포파일": "images/daejeon/lesson-12/슬라이드03_콘셉트재료.png",
+      "원본SHA256": "10758aff339667a3c8ea4567cb2c80f246ffa95b0cfbdddc4298ba3afb4145c9",
+      "배포SHA256": "10758aff339667a3c8ea4567cb2c80f246ffa95b0cfbdddc4298ba3afb4145c9",
+      "동일바이트": true
+    },
+    {
+      "원본": "artifacts/슬라이드04_평면조닝.png",
+      "배포파일": "images/daejeon/lesson-12/슬라이드04_평면조닝.png",
+      "원본SHA256": "1baf54712b9572b2bbbbcf0e34866b9ac845c87e178b71a28435439598915ad0",
+      "배포SHA256": "1baf54712b9572b2bbbbcf0e34866b9ac845c87e178b71a28435439598915ad0",
+      "동일바이트": true
+    },
+    {
+      "원본": "artifacts/슬라이드05_1층2층3D공간.png",
+      "배포파일": "images/daejeon/lesson-12/슬라이드05_1층2층3D공간.png",
+      "원본SHA256": "f2f3eebcb4ab631059a3a5f7018680b2d51796b60ca64125c08da011ca2ba037",
+      "배포SHA256": "f2f3eebcb4ab631059a3a5f7018680b2d51796b60ca64125c08da011ca2ba037",
+      "동일바이트": true
+    },
+    {
+      "원본": "artifacts/슬라이드06_루프탑단면.png",
+      "배포파일": "images/daejeon/lesson-12/슬라이드06_루프탑단면.png",
+      "원본SHA256": "5c90746e71d85baa7e6eef5dd7e4dd49b183d23e18420c74591c6cf1dd9df1b4",
+      "배포SHA256": "5c90746e71d85baa7e6eef5dd7e4dd49b183d23e18420c74591c6cf1dd9df1b4",
+      "동일바이트": true
+    },
+    {
+      "원본": "artifacts/슬라이드07_최종시각화.png",
+      "배포파일": "images/daejeon/lesson-12/슬라이드07_최종시각화.png",
+      "원본SHA256": "76780549ade05f3ed3ca34283215de2c4ca90b0dab1584e0fddfbf467f6bb075",
+      "배포SHA256": "76780549ade05f3ed3ca34283215de2c4ca90b0dab1584e0fddfbf467f6bb075",
+      "동일바이트": true
+    },
+    {
+      "원본": "artifacts/슬라이드08_법규검증및결론.png",
+      "배포파일": "images/daejeon/lesson-12/슬라이드08_법규검증및결론.png",
+      "원본SHA256": "0ded4d8ffb375c5a10ddaff2623aa16a3d2213bc62b4571f46f3e1ea83cd20dc",
+      "배포SHA256": "0ded4d8ffb375c5a10ddaff2623aa16a3d2213bc62b4571f46f3e1ea83cd20dc",
+      "동일바이트": true
+    },
+    {
+      "원본": "artifacts/무드보드_모던3층단독주택_내외장재_컨셉보드.png",
+      "배포파일": "images/daejeon/lesson-12/무드보드_모던3층단독주택_내외장재_컨셉보드.png",
+      "원본SHA256": "91a57ce16ce850a8d30c259b2e7bd0e8f57846acba7d888c8d7035c2029a647f",
+      "배포SHA256": "91a57ce16ce850a8d30c259b2e7bd0e8f57846acba7d888c8d7035c2029a647f",
+      "동일바이트": true
+    },
+    {
+      "원본": "generated/logo-trim.png",
+      "배포파일": "images/daejeon/lesson-12/스튜디오_로고_ARCHI_NOVA.png",
+      "원본SHA256": "bc105839c54ea49f00e5f60c6d5c77bfc3bf1e47d827b5977e13438659236ee1",
+      "배포SHA256": "bc105839c54ea49f00e5f60c6d5c77bfc3bf1e47d827b5977e13438659236ee1",
+      "동일바이트": true
+    },
+    {
+      "원본": "generated/iso1.png",
+      "배포파일": "images/daejeon/lesson-12/실사형_01_1층_거실주방_아이소메트릭.png",
+      "원본SHA256": "690da7842093b2aeeb04d8cd9a3337a95b7fcb535c0231242baab7d5a0227fb1",
+      "배포SHA256": "690da7842093b2aeeb04d8cd9a3337a95b7fcb535c0231242baab7d5a0227fb1",
+      "동일바이트": true
+    },
+    {
+      "원본": "generated/iso2.png",
+      "배포파일": "images/daejeon/lesson-12/실사형_02_2층_침실서재_아이소메트릭.png",
+      "원본SHA256": "91c2f0ea96179907d4267b8144825b75a6c2a87758ea09aca5496911967e477c",
+      "배포SHA256": "91c2f0ea96179907d4267b8144825b75a6c2a87758ea09aca5496911967e477c",
+      "동일바이트": true
+    },
+    {
+      "원본": "generated/iso3.png",
+      "배포파일": "images/daejeon/lesson-12/실사형_03_3층_다락루프탑_아이소메트릭.png",
+      "원본SHA256": "c4f86127c79c2f4cf429888516653f8b0be4269a0710f1c2e2fd192b91813f12",
+      "배포SHA256": "c4f86127c79c2f4cf429888516653f8b0be4269a0710f1c2e2fd192b91813f12",
+      "동일바이트": true
+    },
+    {
+      "원본": "generated/interior.png",
+      "배포파일": "images/daejeon/lesson-12/실내_1층_거실주방_재료조명_제안.png",
+      "원본SHA256": "11eadbff0a815de733c9bd298461abb3d58cf9957bfa375dc28ddc107afa90d3",
+      "배포SHA256": "11eadbff0a815de733c9bd298461abb3d58cf9957bfa375dc28ddc107afa90d3",
+      "동일바이트": true
+    },
+    {
+      "원본": "generated/bedroom.png",
+      "배포파일": "images/daejeon/lesson-12/실내_2층_침실_재료조명_제안.png",
+      "원본SHA256": "7625e69be2d86ef73ffbbc145bdb1a1363100e6b9fa8ed6695e540f102cdf695",
+      "배포SHA256": "7625e69be2d86ef73ffbbc145bdb1a1363100e6b9fa8ed6695e540f102cdf695",
+      "동일바이트": true
+    },
+    {
+      "원본": "generated/rooftop.png",
+      "배포파일": "images/daejeon/lesson-12/실외_3층_루프탑라운지_제안.png",
+      "원본SHA256": "f848093b5ce9e57b90ec9a585c42cd65a1ca41ac6498db8469c6327baf270dbe",
+      "배포SHA256": "f848093b5ce9e57b90ec9a585c42cd65a1ca41ac6498db8469c6327baf270dbe",
+      "동일바이트": true
+    },
+    {
+      "원본": "generated/day.png",
+      "배포파일": "images/daejeon/lesson-12/주택_주간_재료조명_제안렌더.png",
+      "원본SHA256": "bc2d143ac64a846df7a433e9b75ae0aefa112fed9d65bea54ce544b7ab3bbe50",
+      "배포SHA256": "bc2d143ac64a846df7a433e9b75ae0aefa112fed9d65bea54ce544b7ab3bbe50",
+      "동일바이트": true
+    },
+    {
+      "원본": "generated/dusk.png",
+      "배포파일": "images/daejeon/lesson-12/주택_석양_조명_제안렌더.png",
+      "원본SHA256": "7a92e0b836c25b0beb27cec4dc90e0e7fa2a080ac866795e2c2a0487603fd0c0",
+      "배포SHA256": "7a92e0b836c25b0beb27cec4dc90e0e7fa2a080ac866795e2c2a0487603fd0c0",
+      "동일바이트": true
+    },
+    {
+      "원본": "generated/fixtures.png",
+      "배포파일": "images/daejeon/lesson-12/가구조명_소파_식탁_아일랜드_컷아웃.png",
+      "원본SHA256": "edb7ee004650a23c01ecd75e29f37baf9dd4de46f3767a1b543b5c03676d4273",
+      "배포SHA256": "edb7ee004650a23c01ecd75e29f37baf9dd4de46f3767a1b543b5c03676d4273",
+      "동일바이트": true
+    },
+    {
+      "원본": "artifacts/공간조닝_공용_사적_루프탑.png",
+      "배포파일": "images/daejeon/lesson-12/공간조닝_공용_사적_루프탑.png",
+      "원본SHA256": "26315e41ca85ab67bccdfde1b40b9e7e785e6c06d2b19c0826a2af708f505eed",
+      "배포SHA256": "26315e41ca85ab67bccdfde1b40b9e7e785e6c06d2b19c0826a2af708f505eed",
+      "동일바이트": true
+    },
+    {
+      "원본": "generated/moodboard.png",
+      "배포파일": "images/daejeon/lesson-12/무드보드_AI레이아웃_시안.png",
+      "원본SHA256": "807f833b6aaac1fac981fbbff1987f09350ef542c3d0397126120a0653d4d62c",
+      "배포SHA256": "807f833b6aaac1fac981fbbff1987f09350ef542c3d0397126120a0653d4d62c",
+      "동일바이트": true
+    },
+    {
+      "원본": "generated/textures/texture-1.png",
+      "배포파일": "images/daejeon/lesson-12/재료01_아이보리_트라버틴_질감참조.png",
+      "원본SHA256": "5c7f934a40c171aa27ed8e9e4be9d6f8af3d5bf0e57cc56690469a8743006b78",
+      "배포SHA256": "5c7f934a40c171aa27ed8e9e4be9d6f8af3d5bf0e57cc56690469a8743006b78",
+      "동일바이트": true
+    },
+    {
+      "원본": "generated/textures/texture-2.png",
+      "배포파일": "images/daejeon/lesson-12/재료02_크림_마이크로시멘트_질감참조.png",
+      "원본SHA256": "3bee8002cfed858af7b7d09e179c4d1acb523a3520689370ff152fed1c436f26",
+      "배포SHA256": "3bee8002cfed858af7b7d09e179c4d1acb523a3520689370ff152fed1c436f26",
+      "동일바이트": true
+    },
+    {
+      "원본": "generated/textures/texture-3.png",
+      "배포파일": "images/daejeon/lesson-12/재료03_내추럴_화이트오크_질감참조.png",
+      "원본SHA256": "bcf05ba89e2827131f739f2cdc64bc89905d5e1203101bf4ee4054b96ab04a9b",
+      "배포SHA256": "bcf05ba89e2827131f739f2cdc64bc89905d5e1203101bf4ee4054b96ab04a9b",
+      "동일바이트": true
+    },
+    {
+      "원본": "generated/textures/material-4-combined.png",
+      "배포파일": "images/daejeon/lesson-12/재료04_다크월넛_타지마할스톤_질감참조.png",
+      "원본SHA256": "36feae25c16f394ca3bc4aa146060fd01def4fd7b0116d210b38ae7487239e3b",
+      "배포SHA256": "36feae25c16f394ca3bc4aa146060fd01def4fd7b0116d210b38ae7487239e3b",
+      "동일바이트": true
+    },
+    {
+      "원본": "artifacts/모던3층단독주택_AI설계제안서_8장슬라이드.pptx",
+      "배포파일": "downloads/daejeon/lesson-12/모던3층단독주택_AI설계제안서_8장슬라이드.pptx",
+      "원본SHA256": "a9ea1523f80dc15b7e913dd091c657d7af4f1afeaad33c36c3ce4932e003ff72",
+      "배포SHA256": "a9ea1523f80dc15b7e913dd091c657d7af4f1afeaad33c36c3ce4932e003ff72",
+      "동일바이트": true
+    },
+    {
+      "원본": "src/assets/lessons/12-14/portfolio-follow-up-reference/01-intro-layout-reference.jpeg",
+      "배포파일": "images/daejeon/lesson-12/참고_01-intro-layout-reference.jpeg",
+      "원본SHA256": "290bd8d7175aca3b31f2370f57453c6742c9bda1973deb79547b70f684e9cf83",
+      "배포SHA256": "290bd8d7175aca3b31f2370f57453c6742c9bda1973deb79547b70f684e9cf83",
+      "동일바이트": true
+    },
+    {
+      "원본": "src/assets/lessons/12-14/portfolio-follow-up-reference/02-overview-layout-reference.jpeg",
+      "배포파일": "images/daejeon/lesson-12/참고_02-overview-layout-reference.jpeg",
+      "원본SHA256": "f779e66b80d295dbc17cf4790a2c6b52598eccc093dbdc95034078d8e300984f",
+      "배포SHA256": "f779e66b80d295dbc17cf4790a2c6b52598eccc093dbdc95034078d8e300984f",
+      "동일바이트": true
+    },
+    {
+      "원본": "src/assets/lessons/12-14/portfolio-follow-up-reference/03-overview-trajectory-reference.jpeg",
+      "배포파일": "images/daejeon/lesson-12/참고_03-overview-trajectory-reference.jpeg",
+      "원본SHA256": "5f053126e72f8776d0644316a70b06e8f7a3bb08b0a0039950ec02e57cd64ce6",
+      "배포SHA256": "5f053126e72f8776d0644316a70b06e8f7a3bb08b0a0039950ec02e57cd64ce6",
+      "동일바이트": true
+    },
+    {
+      "원본": "src/assets/lessons/12-14/portfolio-cover/results/cover-result-01.jpeg",
+      "배포파일": "images/daejeon/lesson-12/참고_표지구도_01.jpeg",
+      "원본SHA256": "3f42a4d90cf847bca8b924a2c6f6b7a3474ee2863fc12dbd1b347c6e833efdec",
+      "배포SHA256": "3f42a4d90cf847bca8b924a2c6f6b7a3474ee2863fc12dbd1b347c6e833efdec",
+      "동일바이트": true
+    },
+    {
+      "원본": "src/assets/lessons/12-14/portfolio-cover/results/cover-result-02.jpeg",
+      "배포파일": "images/daejeon/lesson-12/참고_표지구도_02.jpeg",
+      "원본SHA256": "3528bd154f5022f9dcb00291e24cff5f7efc43be12621a556b42bd7070077847",
+      "배포SHA256": "3528bd154f5022f9dcb00291e24cff5f7efc43be12621a556b42bd7070077847",
+      "동일바이트": true
+    },
+    {
+      "원본": "src/assets/lessons/12-14/portfolio-cover/results/cover-result-03.jpeg",
+      "배포파일": "images/daejeon/lesson-12/참고_표지구도_03.jpeg",
+      "원본SHA256": "cedb7aacba7353bb20163e823290d0f9d84174f0a25708fc48bd411b2949814d",
+      "배포SHA256": "cedb7aacba7353bb20163e823290d0f9d84174f0a25708fc48bd411b2949814d",
+      "동일바이트": true
+    },
+    {
+      "원본": "src/assets/lessons/12-14/portfolio-cover/results/cover-result-04.jpeg",
+      "배포파일": "images/daejeon/lesson-12/참고_표지구도_04.jpeg",
+      "원본SHA256": "e87387e0a39d25e995dc0dfb3e1d698bafc9a93e5e161c74b188be5b8a3c4a18",
+      "배포SHA256": "e87387e0a39d25e995dc0dfb3e1d698bafc9a93e5e161c74b188be5b8a3c4a18",
+      "동일바이트": true
+    },
+    {
+      "원본": "src/assets/lessons/12-14/portfolio-cover/results/cover-result-05.jpeg",
+      "배포파일": "images/daejeon/lesson-12/참고_표지구도_05.jpeg",
+      "원본SHA256": "2cd58a5f190becdd68e82e2fd1717c0555197721f4bf0fc50c05e288969d478a",
+      "배포SHA256": "2cd58a5f190becdd68e82e2fd1717c0555197721f4bf0fc50c05e288969d478a",
+      "동일바이트": true
+    },
+    {
+      "원본": "src/assets/lessons/12-14/portfolio-cover/results/cover-result-06.jpeg",
+      "배포파일": "images/daejeon/lesson-12/참고_표지구도_06.jpeg",
+      "원본SHA256": "554adace9091424bd82e1a0e4e0416041b8f7a093aef725c318ecf0ab4fe89a5",
+      "배포SHA256": "554adace9091424bd82e1a0e4e0416041b8f7a093aef725c318ecf0ab4fe89a5",
+      "동일바이트": true
+    },
+    {
+      "원본": "src/assets/lessons/12-14/portfolio-cover/results/cover-result-07.jpeg",
+      "배포파일": "images/daejeon/lesson-12/참고_표지구도_07.jpeg",
+      "원본SHA256": "8a807d47f05a3a6f28bb57ccf1c32d6c4cccc7e090b3d938805464a06eaa9b37",
+      "배포SHA256": "8a807d47f05a3a6f28bb57ccf1c32d6c4cccc7e090b3d938805464a06eaa9b37",
+      "동일바이트": true
+    },
+    {
+      "원본": "src/assets/lessons/12-14/portfolio-cover/results/cover-result-08.jpeg",
+      "배포파일": "images/daejeon/lesson-12/참고_표지구도_08.jpeg",
+      "원본SHA256": "71bebdc298014b19d8e9e759cf6a7fb924f495b061b5a66631ec8030338a75ed",
+      "배포SHA256": "71bebdc298014b19d8e9e759cf6a7fb924f495b061b5a66631ec8030338a75ed",
+      "동일바이트": true
+    },
+    {
+      "원본": "src/assets/lessons/12-14/portfolio-cover/results/cover-result-09.jpeg",
+      "배포파일": "images/daejeon/lesson-12/참고_표지구도_09.jpeg",
+      "원본SHA256": "b430c2f980be784d30617535995a89398f8b654d679af32709fae373373a5a31",
+      "배포SHA256": "b430c2f980be784d30617535995a89398f8b654d679af32709fae373373a5a31",
+      "동일바이트": true
+    },
+    {
+      "원본": "src/assets/lessons/12-14/portfolio-cover/results/cover-result-10.jpeg",
+      "배포파일": "images/daejeon/lesson-12/참고_표지구도_10.jpeg",
+      "원본SHA256": "e8a23f5aa512e13ae9ebed51f7334b42da2c5a334e65abec20914ed9da56344d",
+      "배포SHA256": "e8a23f5aa512e13ae9ebed51f7334b42da2c5a334e65abec20914ed9da56344d",
+      "동일바이트": true
+    },
+    {
+      "원본": "src/assets/lessons/12-14/portfolio-cover/prompts/nano-banana-cover-used.txt",
+      "배포파일": "downloads/daejeon/lesson-12/참고용_표지레이아웃_장문프롬프트_원문.txt",
+      "원본SHA256": "e5bcd25558ba34fdf26b3f613fd643c8064c284a278e80be8ffa60e2c7963dc0",
+      "배포SHA256": "e5bcd25558ba34fdf26b3f613fd643c8064c284a278e80be8ffa60e2c7963dc0",
+      "동일바이트": true
+    },
+    {
+      "원본": "public/images/daejeon/lesson-09/house-drawings/01_house_1f_plan_clean.png",
+      "패키지위치": "04_도면_3D_원본자산/도면/01_house_1f_plan_clean.png",
+      "SHA256": "6f8d37616ce0f2c38cc0fd98731e05523302f226d1dd99a6aefc134f97308dd8",
+      "동일바이트": true
+    },
+    {
+      "원본": "public/images/daejeon/lesson-09/house-drawings/01_house_1f_plan_dim.png",
+      "패키지위치": "04_도면_3D_원본자산/도면/01_house_1f_plan_dim.png",
+      "SHA256": "677cc37a93b44489231bf51bb033d5fbfa1f46e51c6ce9ed465d30b9ec9d0780",
+      "동일바이트": true
+    },
+    {
+      "원본": "public/images/daejeon/lesson-09/house-drawings/02_house_2f_plan.png",
+      "패키지위치": "04_도면_3D_원본자산/도면/02_house_2f_plan.png",
+      "SHA256": "c0ba8db42116e9469164411503b9ff35c1365538b28b4d4ef4811b78cc613dcb",
+      "동일바이트": true
+    },
+    {
+      "원본": "public/images/daejeon/lesson-09/house-drawings/03_house_3f_rooftop_plan.png",
+      "패키지위치": "04_도면_3D_원본자산/도면/03_house_3f_rooftop_plan.png",
+      "SHA256": "f40c82ff01651a835c13207ad13cd41e872366097e008f1e6542de30382dd88a",
+      "동일바이트": true
+    },
+    {
+      "원본": "public/images/daejeon/lesson-09/house-drawings/04_house_section.png",
+      "패키지위치": "04_도면_3D_원본자산/도면/04_house_section.png",
+      "SHA256": "1b55c8453ebcc94cd92cb16affe86e4944107ef83def50e71f51ccb5d60cec95",
+      "동일바이트": true
+    },
+    {
+      "원본": "public/images/daejeon/lesson-09/house-drawings/05_house_elevations_4views.png",
+      "패키지위치": "04_도면_3D_원본자산/도면/05_house_elevations_4views.png",
+      "SHA256": "49189aa9a60d323c3aa45e40a490d6466d33b2fac673086f332d6daa4b2e2335",
+      "동일바이트": true
+    },
+    {
+      "원본": "public/images/daejeon/lesson-09/house_astra_1f_eye.png",
+      "SHA256": "e53ebd36646af878b2676be07488ae8ccdc5bcd2c63ac709457d287d1ff2bb0d",
+      "동일바이트": true,
+      "개별다운로드": "https://asvan-o.github.io/ai-architecture-design-ebook/daejeon/images/daejeon/lesson-09/house_astra_1f_eye.png",
+      "통합ZIP포함": false
+    },
+    {
+      "원본": "public/images/daejeon/lesson-09/house_astra_1f_iso.png",
+      "SHA256": "fbf777a241e6191ce725e43704d889822a1e71ca7a26389f046921ce04111920",
+      "동일바이트": true,
+      "개별다운로드": "https://asvan-o.github.io/ai-architecture-design-ebook/daejeon/images/daejeon/lesson-09/house_astra_1f_iso.png",
+      "통합ZIP포함": false
+    },
+    {
+      "원본": "public/images/daejeon/lesson-09/house_astra_1f_top.png",
+      "SHA256": "fb0d2a2fef251687cbe558256d3b0aa3437318cb5b63cc4c67f943389a3fe36d",
+      "동일바이트": true,
+      "개별다운로드": "https://asvan-o.github.io/ai-architecture-design-ebook/daejeon/images/daejeon/lesson-09/house_astra_1f_top.png",
+      "통합ZIP포함": false
+    },
+    {
+      "원본": "public/images/daejeon/lesson-09/house_astra_2f_iso.png",
+      "SHA256": "bb40549fd5f7ed7115d99de805cfab1eb31a0097851877f503b35952d35741f3",
+      "동일바이트": true,
+      "개별다운로드": "https://asvan-o.github.io/ai-architecture-design-ebook/daejeon/images/daejeon/lesson-09/house_astra_2f_iso.png",
+      "통합ZIP포함": false
+    },
+    {
+      "원본": "public/images/daejeon/lesson-09/house_astra_2f_top.png",
+      "SHA256": "40e7e823e9862f100e632c8891dcfb70f294a9fff6f44cf86049c5c1f800e4e6",
+      "동일바이트": true,
+      "개별다운로드": "https://asvan-o.github.io/ai-architecture-design-ebook/daejeon/images/daejeon/lesson-09/house_astra_2f_top.png",
+      "통합ZIP포함": false
+    },
+    {
+      "원본": "public/images/daejeon/lesson-09/house_astra_3f_hero.png",
+      "SHA256": "0e79bbbc0ed93f859ade18c68653006cbf0ad7844e24bb3afb1d7dec1fb9fd3e",
+      "동일바이트": true,
+      "개별다운로드": "https://asvan-o.github.io/ai-architecture-design-ebook/daejeon/images/daejeon/lesson-09/house_astra_3f_hero.png",
+      "통합ZIP포함": false
+    },
+    {
+      "원본": "public/images/daejeon/lesson-09/house_astra_3f_iso.png",
+      "SHA256": "a75f9a582315d32188d6a3fa78fdfb0d9543b3011d266d1705f83b45108a65cf",
+      "동일바이트": true,
+      "개별다운로드": "https://asvan-o.github.io/ai-architecture-design-ebook/daejeon/images/daejeon/lesson-09/house_astra_3f_iso.png",
+      "통합ZIP포함": false
+    },
+    {
+      "원본": "public/images/daejeon/lesson-09/house_astra_3f_rooftop.png",
+      "SHA256": "85a469c70e67a5d56fd9a0f6a98d7f9d0d94619b8934b9065eebd63419480d80",
+      "동일바이트": true,
+      "개별다운로드": "https://asvan-o.github.io/ai-architecture-design-ebook/daejeon/images/daejeon/lesson-09/house_astra_3f_rooftop.png",
+      "통합ZIP포함": false
+    },
+    {
+      "원본": "public/images/daejeon/lesson-09/house_astra_b_01_entry.png",
+      "SHA256": "2056f8febe76413d3c9c25762bcccc5d5ffd915f2ea1f08d9cd94d33383cd38e",
+      "동일바이트": true,
+      "개별다운로드": "https://asvan-o.github.io/ai-architecture-design-ebook/daejeon/images/daejeon/lesson-09/house_astra_b_01_entry.png",
+      "통합ZIP포함": false
+    },
+    {
+      "원본": "public/images/daejeon/lesson-09/house_astra_b_02_living_kitchen.png",
+      "SHA256": "a0f4ecae7f0590daebf857451fa49a4352ee1748a2c4ec09ce533dcb1a00653f",
+      "동일바이트": true,
+      "개별다운로드": "https://asvan-o.github.io/ai-architecture-design-ebook/daejeon/images/daejeon/lesson-09/house_astra_b_02_living_kitchen.png",
+      "통합ZIP포함": false
+    },
+    {
+      "원본": "public/images/daejeon/lesson-09/house_astra_b_03_stairs_1_2.png",
+      "SHA256": "42e160153927d6d9f7094339d89ec74c03799f43fb719da0d87391a2751aa83a",
+      "동일바이트": true,
+      "개별다운로드": "https://asvan-o.github.io/ai-architecture-design-ebook/daejeon/images/daejeon/lesson-09/house_astra_b_03_stairs_1_2.png",
+      "통합ZIP포함": false
+    },
+    {
+      "원본": "public/images/daejeon/lesson-09/house_astra_b_04_second_floor.png",
+      "SHA256": "71e072d347c20cd1c5685e9b30189bc7d117fea0669781c2a89232f81ee9e8b0",
+      "동일바이트": true,
+      "개별다운로드": "https://asvan-o.github.io/ai-architecture-design-ebook/daejeon/images/daejeon/lesson-09/house_astra_b_04_second_floor.png",
+      "통합ZIP포함": false
+    },
+    {
+      "원본": "public/images/daejeon/lesson-09/house_astra_b_05_stairs_2_3.png",
+      "SHA256": "27ce5676d04ba841b2ad3e4466e9a6b507f78e2284e1b59866acb1a60cb15d2c",
+      "동일바이트": true,
+      "개별다운로드": "https://asvan-o.github.io/ai-architecture-design-ebook/daejeon/images/daejeon/lesson-09/house_astra_b_05_stairs_2_3.png",
+      "통합ZIP포함": false
+    },
+    {
+      "원본": "public/images/daejeon/lesson-09/house_astra_b_06_third_floor.png",
+      "SHA256": "72a323de56e42f7c02d0dbc25f09b145c29e7bb5775570657bafdc86e5730514",
+      "동일바이트": true,
+      "개별다운로드": "https://asvan-o.github.io/ai-architecture-design-ebook/daejeon/images/daejeon/lesson-09/house_astra_b_06_third_floor.png",
+      "통합ZIP포함": false
+    },
+    {
+      "원본": "public/images/daejeon/lesson-09/house_astra_b_07_terrace_drone.png",
+      "SHA256": "bb4cac407254d14fd0bf11f58b3fcfffbc50915b371d0a675c1c0a8b639a108f",
+      "동일바이트": true,
+      "개별다운로드": "https://asvan-o.github.io/ai-architecture-design-ebook/daejeon/images/daejeon/lesson-09/house_astra_b_07_terrace_drone.png",
+      "통합ZIP포함": false
+    },
+    {
+      "원본": "public/images/daejeon/lesson-09/house_astra_colormap_end.png",
+      "SHA256": "7bec50578efd3a248318ded266d4f9a8628fa156b4830a647a5e8c7a2bcd8250",
+      "동일바이트": true,
+      "개별다운로드": "https://asvan-o.github.io/ai-architecture-design-ebook/daejeon/images/daejeon/lesson-09/house_astra_colormap_end.png",
+      "통합ZIP포함": false
+    },
+    {
+      "원본": "public/images/daejeon/lesson-09/house_astra_colormap_mid.png",
+      "SHA256": "63c12668f221c7200738f80fa059fa1927fc06484a29b8a5349dca44fb49a1c5",
+      "동일바이트": true,
+      "개별다운로드": "https://asvan-o.github.io/ai-architecture-design-ebook/daejeon/images/daejeon/lesson-09/house_astra_colormap_mid.png",
+      "통합ZIP포함": false
+    },
+    {
+      "원본": "public/images/daejeon/lesson-09/house_astra_colormap_start.png",
+      "SHA256": "7fd9a65ccb6faeed02236cbb1a6384252054d2c44ed83039df80f9135110de3d",
+      "동일바이트": true,
+      "개별다운로드": "https://asvan-o.github.io/ai-architecture-design-ebook/daejeon/images/daejeon/lesson-09/house_astra_colormap_start.png",
+      "통합ZIP포함": false
+    },
+    {
+      "원본": "public/images/daejeon/lesson-09/house_astra_normal_end.png",
+      "SHA256": "0257891138017e51e38ca6d8fcde04de375d7d84761c6e6b0a377cf071ae8c91",
+      "동일바이트": true,
+      "개별다운로드": "https://asvan-o.github.io/ai-architecture-design-ebook/daejeon/images/daejeon/lesson-09/house_astra_normal_end.png",
+      "통합ZIP포함": false
+    },
+    {
+      "원본": "public/images/daejeon/lesson-09/house_astra_normal_mid.png",
+      "SHA256": "96935704fa0e9da14ab615dbc05783005dbb676c4a87006d2f9571cce44b5a11",
+      "동일바이트": true,
+      "개별다운로드": "https://asvan-o.github.io/ai-architecture-design-ebook/daejeon/images/daejeon/lesson-09/house_astra_normal_mid.png",
+      "통합ZIP포함": false
+    },
+    {
+      "원본": "public/images/daejeon/lesson-09/house_astra_normal_start.png",
+      "SHA256": "ab6dee6fbdf8a710df982774cc2b13352c1181be5b555f20859a7aadb97e6b29",
+      "동일바이트": true,
+      "개별다운로드": "https://asvan-o.github.io/ai-architecture-design-ebook/daejeon/images/daejeon/lesson-09/house_astra_normal_start.png",
+      "통합ZIP포함": false
+    },
+    {
+      "원본": "public/downloads/daejeon/lesson-09/House_3F_Full_Complete_Astra.fbx",
+      "SHA256": "9a860c37a7eae0737d524a6f4f51eb6fddb723899560cb2919d4bb9285e57591",
+      "동일바이트": true,
+      "개별다운로드": "https://asvan-o.github.io/ai-architecture-design-ebook/daejeon/downloads/daejeon/lesson-09/House_3F_Full_Complete_Astra.fbx",
+      "통합ZIP포함": false
+    },
+    {
+      "원본": "public/downloads/daejeon/lesson-09/House_3F_Full_Complete_Astra.glb",
+      "SHA256": "ed0bfdaeae51f26dd2fbcc09906e386b788d4f8408201cf18b01d174ed99cce5",
+      "동일바이트": true,
+      "개별다운로드": "https://asvan-o.github.io/ai-architecture-design-ebook/daejeon/downloads/daejeon/lesson-09/House_3F_Full_Complete_Astra.glb",
+      "통합ZIP포함": false
+    },
+    {
+      "원본": "public/downloads/daejeon/lesson-09/house-design.json",
+      "패키지위치": "04_도면_3D_원본자산/house-design.json",
+      "SHA256": "6340e2f213b07d9c739d00348bfa5792860849fedad684369a2b34fa6c11338e",
+      "동일바이트": true
+    },
+    {
+      "원본": "public/downloads/daejeon/lesson-09/House_B_Walkthrough.html",
+      "SHA256": "51c17e3d97463bc79bc478c65152c261f37f6e46fce8b0f9d9de2d74f882a513",
+      "동일바이트": true,
+      "개별다운로드": "https://asvan-o.github.io/ai-architecture-design-ebook/daejeon/downloads/daejeon/lesson-09/House_B_Walkthrough.html",
+      "통합ZIP포함": false
+    },
+    {
+      "원본": "public/downloads/daejeon/lesson-09/House_B_Walkthrough_README.txt",
+      "SHA256": "47956349676d48776f7f748efdbd39c6a62ead3dd2687c5a4efa6a85d8b0535d",
+      "동일바이트": true,
+      "개별다운로드": "https://asvan-o.github.io/ai-architecture-design-ebook/daejeon/downloads/daejeon/lesson-09/House_B_Walkthrough_README.txt",
+      "통합ZIP포함": false
+    },
+    {
+      "원본": "src/assets/lessons/04/material-reference-review/m-14-ivory-travertine.png",
+      "패키지위치": "04_도면_3D_원본자산/원본재료참조/m-14-ivory-travertine.png",
+      "SHA256": "7ee24b721a4cdf9d7afc68ad59507b7cca3251c8f17fac424155f016b930e710",
+      "동일바이트": true
+    },
+    {
+      "원본": "src/assets/lessons/04/material-reference-review/m-12-soft-cream-micro-cement.png",
+      "패키지위치": "04_도면_3D_원본자산/원본재료참조/m-12-soft-cream-micro-cement.png",
+      "SHA256": "aef9ea9a6f33481bbabc020ba01cef1d7aa22e7f3b55dab6e6513ad69766fa36",
+      "동일바이트": true
+    },
+    {
+      "원본": "src/assets/lessons/04/material-reference-review/m-23-white-oak.png",
+      "패키지위치": "04_도면_3D_원본자산/원본재료참조/m-23-white-oak.png",
+      "SHA256": "b526d4bee4b661026aff70cfd4f7b9f6f9fcee400e4b9a781785453f512b429c",
+      "동일바이트": true
+    },
+    {
+      "원본": "src/assets/lessons/04/material-reference-review/m-21-dark-walnut.png",
+      "패키지위치": "04_도면_3D_원본자산/원본재료참조/m-21-dark-walnut.png",
+      "SHA256": "e6d9256b0382dd6e6fabd49248bae8dc122dd288bc136c58bee65077c0eb135d",
+      "동일바이트": true
+    },
+    {
+      "원본": "src/assets/lessons/04/material-reference-review/m-22-taj-mahal.png",
+      "패키지위치": "04_도면_3D_원본자산/원본재료참조/m-22-taj-mahal.png",
+      "SHA256": "5eeb008d9406cd8ee7c0e5528077363fd7489533874d04844dc56f1d949bc1b5",
+      "동일바이트": true
+    }
+  ]
+}

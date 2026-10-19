@@ -1,0 +1,38 @@
+---
+import ReviewPrompt from './ReviewPrompt.astro';
+import Lesson07Asset from './Lesson07Asset.astro';
+import {srFacts} from '../content/lesson07-textbook';
+import {openVinoSteps,openVinoReuse,openVinoPackageFlow,openVinoTroubleshooting} from '../content/lesson07-openvino';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
+const href=(file:string)=>base+'/downloads/daejeon/lesson-07/'+file;
+---
+<div class="l07-sr-guide">
+ <p>외장 GPU 없이 CPU로 실행하는 OpenVINO 실습입니다. 작은 이미지와 일반 Bicubic 확대, AI SR1033 결과를 같은 위치에서 비교합니다. Python 문법보다 준비·실행·결과 확인의 순서를 익힙니다.</p>
+ <div class="l07-sr-cards">{srFacts.map(([label,title,text])=><article><span>{label}</span><h3>{title}</h3><p>{text}</p></article>)}</div>
+ <ol class="l07-sr-flow">{['원본 이미지','일반 Bicubic 3×','AI SR1033 3×','같은 영역 비교','개선과 변경 구분'].map(t=><li>{t}</li>)}</ol>
+ <p>Windows의 PowerShell과 인터넷 연결을 사용합니다. 아래 순서는 Python 3.12 기준이며, 프로젝트의 독립 가상환경에서 실행합니다. SR1033은 원본 BGR 입력과 Bicubic 3배 입력을 함께 받습니다. 실행 스크립트가 타일 처리와 두 입력 구성을 수행합니다.</p>
+ {enabled&&<p><a class="review-download" href={href('DJ-L07-OpenVINO-SR1033-Pack.zip')} download>OpenVINO SR1033 CPU 실행 패키지 다운로드</a></p>}
+ <div class="l07-sr-cards" data-l07-package-flow>{openVinoPackageFlow.map(([title,text])=><article><h3>{title}</h3><p>{text}</p></article>)}</div>
+ {openVinoSteps.map((step,i)=><section class="l07-sr-step" data-l07-sr-step={i+1}>
+  <header><span>STEP {String(i+1).padStart(2,'0')}</span><h3>{step.title}</h3></header>
+  <p>{step.description}</p>
+  {i===4&&<div class="l07-sr-table"><table><thead><tr><th>패키지</th><th>역할</th></tr></thead><tbody><tr><th>OpenVINO</th><td>AI 모델 실행</td></tr><tr><th>OpenCV</th><td>이미지 읽기·크기 변경·저장</td></tr><tr><th>NumPy</th><td>이미지 배열 처리</td></tr></tbody></table></div>}
+  {i===5&&<pre><code>{'OpenVINO_SR1033/\n├─ .venv/\n├─ model/\n├─ input/\n├─ output/\n└─ run_sr1033.py'}</code></pre>}
+  {i===8&&enabled&&<p><a class="review-download" href={href('run_sr1033.py')} download>run_sr1033.py 다운로드</a></p>}
+  {step.commands.map((command,n)=><ReviewPrompt id={'l07-sr-step-'+(i+1)+'-'+n} title={command.title} prompt={command.text} filename={'DJ-L07-SR1033-step-'+String(i+1).padStart(2,'0')+'-'+(n+1)+'.txt'} />)}
+  {i===11&&<><div class="l07-sr-images"><Lesson07Asset assetKey="sr-input" instance="sr-input" /><Lesson07Asset assetKey="sr-bicubic" instance="sr-bicubic" /><Lesson07Asset assetKey="sr-output" instance="sr-output" /></div><ul><li>창틀과 가는 선이 원래 위치에 있는지 확인합니다.</li><li>의자 연결부와 소파 직물에 새 패턴이 생겼는지 살핍니다.</li><li>더 선명해 보여도 실제 제품·치수·구조는 원자료에서 확인합니다.</li></ul></>}
+ </section>)}
+ <aside class="l07-sr-note"><h3>다음부터는 이렇게 사용합니다</h3><p>input에 이미지를 넣고 새 PowerShell에서 작업 폴더로 이동합니다. 패키지 폴더를 사용했다면 아래 경로를 그 위치로 바꿉니다. UTF-8 설정을 포함해 한글 로그를 확인합니다.</p><ReviewPrompt id="l07-sr-reuse" title="프로젝트로 이동하고 다시 실행" prompt={openVinoReuse} filename="DJ-L07-SR1033-reuse.txt" /><p>재실행하면 output의 같은 이름을 덮어쓸 수 있습니다. 비교할 결과는 먼저 다른 이름으로 보관합니다.</p></aside>
+ <h3>증상별 확인 방법</h3><div class="l07-sr-table"><table><thead><tr><th>증상</th><th>확인</th></tr></thead><tbody>{openVinoTroubleshooting.map(([symptom,check])=><tr><th>{symptom}</th><td>{check}</td></tr>)}</tbody></table></div>
+ {enabled&&<div class="l07-sr-links"><a class="review-download" href={href('download-sr1033-model.ps1')} download>모델 다운로드 PowerShell 파일</a><a class="review-download" href={href('README.md')} download>자료 사용 방법 README</a></div>}
+ <aside class="l07-sr-note" data-l07-web-upscale><h3>저사양 PC 대안 · Hugging Face Web Upscale</h3><p>로컬 환경 준비가 어려우면 웹 기반 도구에서 확대와 비교를 체험합니다.</p><div class="l07-sr-links"><a href="https://huggingface.co/spaces/Phips/Upscaler" target="_blank" rel="noreferrer">Image Upscaler · 2x/4x 비교 슬라이더</a><a href="https://huggingface.co/spaces/gokaygokay/Tile-Upscaler" target="_blank" rel="noreferrer">Tile Upscaler · 고해상도 타일 보정</a><a href="https://huggingface.co/spaces?category=image-upscaling" target="_blank" rel="noreferrer">Hugging Face Image Upscaling 전체 목록</a></div><ul><li>Space가 Sleeping·Paused·Runtime Error 상태인지 확인합니다.</li><li>무료 사용량과 GPU 자원은 Space마다 다를 수 있습니다.</li><li>민감정보와 외부 전송 권한을 확인한 뒤 업로드합니다.</li><li>문자·치수·벽선은 확대 후에도 원본과 대조합니다.</li></ul></aside>
+</div>
+<style>
+ .l07-sr-guide{min-width:0;overflow-wrap:anywhere}.l07-sr-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem;margin:1.3rem 0}.l07-sr-cards article{padding:1rem;border:1px solid var(--line);background:var(--surface);min-width:0}.l07-sr-cards span,.l07-sr-step header>span{font-size:.78rem;color:var(--accent-dark)}h3{font-size:1.05rem}
+ .l07-sr-flow,.l07-sr-links{display:flex;flex-wrap:wrap;gap:.7rem}.l07-sr-flow{list-style:none;padding:0}.l07-sr-flow li{padding:.7rem;border:1px solid var(--line);min-width:0}.l07-sr-flow li:not(:last-child)::after{content:' →'}
+ .l07-sr-step{margin:2rem 0;padding-top:1.2rem;border-top:1px solid var(--line);min-width:0}.l07-sr-step header h3{margin:.3rem 0 .8rem}.l07-sr-note{padding:1.2rem;background:var(--surface);border-left:3px solid var(--accent-dark);margin:1.4rem 0}
+ .l07-sr-table{max-width:100%;margin:1.4rem 0}.l07-sr-table table{width:100%;table-layout:fixed}.l07-sr-table th,.l07-sr-table td{padding:.65rem;overflow-wrap:anywhere}.l07-sr-images{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1.4rem 0}.l07-sr-images>:first-child{grid-column:1/-1}
+ pre{white-space:pre-wrap;overflow-wrap:anywhere;max-width:100%}
+ @media(max-width:700px){.l07-sr-cards,.l07-sr-images{grid-template-columns:minmax(0,1fr)}.l07-sr-table th,.l07-sr-table td{padding:.4rem;font-size:.8rem}}
+</style>

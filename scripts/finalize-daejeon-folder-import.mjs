@@ -1,0 +1,20 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {createHash} from 'node:crypto';
+const base='review/daejeon/LESSON02_INPUT_IMPORT',student='review/daejeon/LESSON02_AUTOMATION_AB/student/A',parent='review/daejeon/LESSON02_AUTOMATION_AB/instructor/A';
+const read=p=>fs.readFileSync(p,'utf8'),json=p=>JSON.parse(read(p));
+const hash=p=>createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+const regression=json(base+'/instructor/verification.json'),input=json(base+'/instructor/import-verification.json');
+assert(regression.passed&&input.passed);
+for(const [key,file] of [['programZipSha256','DJ-L02_FILE_SORTER_PROGRAM.zip'],['testZipSha256','DJ-L02_SORT_TEST.zip']]){const actual=hash('review/daejeon/FILE_SORTER_STUDENT/'+file);assert.equal(regression.artifacts[key],actual);assert.equal(input.artifacts[key],actual);}
+fs.writeFileSync(parent+'/verification.json',JSON.stringify({...regression,latestRequest:'dc0ff8a2-58cb-4e09-9afe-ba45e5d5d42b',inputImport:{passed:true,report:base+'/instructor/import-verification.json',cases:input.cases,screens:input.screens,picker:input.picker,sourceIntegrity:input.sourceIntegrity},cases:[...regression.cases,...input.cases]},null,2)+'\n');
+fs.writeFileSync(student+'/A_VERIFICATION_SUMMARY.txt',`파일 정리 자동화 · 제공 예제의 기능 확인 결과\n\nWindows / 시스템 Node.js ${input.node}에서 새 경로에 최종 ZIP을 풀어 확인했습니다.\n기존 SORT_TEST 11개는 모두 기대 폴더와 일치했습니다(자동 9개, 사람 확인 2개).\n기존 핵심 회귀 17개와 배포 회귀 13개 묶음을 다시 확인했습니다.\n다른 폴더의 최상위 파일을 목록 확인 뒤 가져와 수집함·기존 감시·분류 흐름으로 처리했습니다.\n읽을 수 없는 파일은 오류로 표시하고 나머지 파일을 계속 처리했습니다.\n외부 원본 15개의 이름·수·SHA와 하위 폴더 파일은 변경되지 않았습니다.\n동일 내용 중복·같은 이름 다른 내용 _v02·임시파일 제외·빈 폴더·수동분류·START/STOP을 확인했습니다.\n1440·390·320px 가로 넘침과 잘린 버튼이 없었습니다.\nWindows Forms 선택창 helper의 생성 실행환경을 확인했습니다. OS 선택창의 실제 사용자 선택은 로컬 검수에서 확인할 항목입니다. 경로 입력→목록 확인→가져오기는 실제 브라우저에서 검증했습니다.\n\n이 결과는 제공 예제의 확인 결과입니다. 자신의 실행 결과는 별도로 기록하세요. 모든 PC를 보증하지 않습니다.\n`);
+const files=fs.readdirSync(student).filter(file=>file!=='download-manifest.json').sort().map(file=>({file,bytes:fs.statSync(student+'/'+file).size,sha256:hash(student+'/'+file)}));
+fs.writeFileSync(student+'/download-manifest.json',JSON.stringify({studentTitle:'파일 정리 자동화',verified:true,selfHashExcluded:true,files,packages:['DJ-L02_FILE_SORTER_PROGRAM.zip','DJ-L02_SORT_TEST.zip'].map(file=>({source:'review/daejeon/FILE_SORTER_STUDENT/'+file,file,bytes:fs.statSync('review/daejeon/FILE_SORTER_STUDENT/'+file).size,sha256:hash('review/daejeon/FILE_SORTER_STUDENT/'+file)}))},null,2)+'\n');
+const source='review/daejeon/AI_파일자동정리',manifest=json(source+'/manifest.json');
+for(const name of ['app/folder-importer.js','app/folder-picker.ps1'])if(!manifest.files.some(file=>file.file===name))manifest.files.push({file:name});
+for(const file of manifest.files){const p=source+'/'+file.file;file.bytes=fs.statSync(p).size;file.sha256=hash(p);}
+manifest.inputMethodRevision='explicit selected-folder read-only import; existing classification pipeline retained';
+fs.writeFileSync(source+'/manifest.json',JSON.stringify(manifest,null,2)+'\n');
+fs.writeFileSync(base+'/instructor/INPUT_IMPORT_PROVENANCE.txt',`이번 실제 사용자 지시: 첨부 dc0ff8a2-58cb-4e09-9afe-ba45e5d5d42b.\n새 입력 adapter와 Windows Forms helper, localhost 인증 route, UI·README를 구현했습니다. classifier.js / rules.json / watcher.js / file-manager.js / safe-root.js / data-store.js / control.js 및 START/STOP은 바이트를 그대로 유지했습니다.\n변경한 app.js는 입력 route 연결·기존 queue 사용·종료 시 가져오기 취소·쓰기/읽기 경계 설명만 보완했습니다.\n새 분류기·SHA 중복 정책·버전 정책을 만들지 않고 manager.reserveCopy와 기존 watcher를 재사용했습니다.\n현재 첫 요청/구현 승인 TXT는 기존 학습용 템플릿에 이번에 승인한 입력 범위를 보완한 자료입니다. 짧은 Prompt 한 번으로 최종 코드가 생성됐다는 뜻이 아닙니다. 과거 PROMPT_PROVENANCE는 이전 단계 기록으로 보존했습니다.\n가져오기 전 용량 계산에 제외 파일도 포함하고, 탐색기의 따옴표가 붙은 경로 입력을 처리하도록 보완한 뒤 최종 ZIP으로 기존 및 새 검증을 다시 실행했습니다.\n검증: 실제 새 ZIP·시스템 Node·START/STOP·15개 원본·13개 복사/1건너뜀/1오류·기존 분류·부분 실패·중복·버전·원본 불변·모바일. 실제 Windows Forms helper 구성/생성 확인. 네이티브 선택창에서 사용자가 폴더를 클릭해 확정하는 상호작용은 직접 검수할 항목으로 남깁니다.\n`);
+console.log(JSON.stringify({passed:true,regressionGroups:regression.cases.length,inputGroups:input.cases.length,totalGroups:regression.cases.length+input.cases.length,programSha256:input.artifacts.programZipSha256},null,2));

@@ -1,0 +1,34 @@
+{
+  "python": "3.14.6",
+  "openvino": "2026.4.1-22982-e213a147257-releases/2026/4",
+  "opencv": "5.0.0",
+  "numpy": "2.5.4",
+  "os": "Windows-11-10.0.26200-SP0",
+  "devices": [
+    "CPU",
+    "GPU.0",
+    "GPU.1"
+  ],
+  "testedDevice": "CPU",
+  "inputs": [
+    {
+      "file": "input/render-source.png",
+      "width": 1777,
+      "height": 885
+    }
+  ],
+  "outputs": [
+    {
+      "file": "output/render-source_Bicubic_3x.png",
+      "width": 5331,
+      "height": 2655
+    },
+    {
+      "file": "output/render-source_SR1033_3x.png",
+      "width": 5331,
+      "height": 2655
+    }
+  ],
+  "openvinoPackage": "2026.4.1",
+  "opencvPackage": "5.0.0.93"
+}

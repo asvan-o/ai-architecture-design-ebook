@@ -1,0 +1,95 @@
+---
+import assets from '../content/lesson0910-assets.json';
+interface Props { assetKey:string; instance:string; }
+const {assetKey,instance}=Astro.props;
+const asset=assets.find(item=>item.key===assetKey);
+if(!asset)throw new Error('Unknown Lesson09/10 asset: '+assetKey);
+const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const href=base+'/'+asset.outputPath;
+const dialogId='modeling-image-'+instance+'-'+asset.key;
+const isVideo=asset.kind==='video';
+const poster='posterPath' in asset?base+'/'+asset.posterPath:undefined;
+---
+<figure class="modeling-asset" data-modeling-asset={asset.key}>
+ {enabled&&isVideo&&<video data-modeling-video controls playsinline preload="metadata" poster={poster} width={asset.width} height={asset.height} aria-label={asset.title}><source src={href} type="video/mp4" />브라우저에서 영상을 재생할 수 없으면 MP4를 내려받아 확인하세요.</video>}
+ {enabled&&!isVideo&&<img src={href} alt={asset.title} width={asset.width} height={asset.height} loading="lazy" />}
+ <figcaption><strong>{asset.title}</strong><p>{asset.description}</p>
+ {enabled&&<div class="modeling-asset-actions">{!isVideo&&<button type="button" data-modeling-open={dialogId} aria-haspopup="dialog">확대 보기</button>}<a href={href} download={asset.outputPath.split('/').pop()}>{isVideo?'영상 MP4 다운로드':asset.kind==='drawing'?'도면 PNG 다운로드':'렌더 PNG 다운로드'}</a></div>}
+ {enabled&&isVideo&&<p class="modeling-video-status" data-modeling-video-status role="status" aria-live="polite"></p>}
+ </figcaption>
+ {enabled&&!isVideo&&<dialog id={dialogId} aria-labelledby={dialogId+'-title'}>
+  <header><h3 id={dialogId+'-title'}>{asset.title}</h3><button type="button" data-modeling-close>닫기</button></header>
+  <div class="modeling-dialog-scroll"><img src={href} alt={asset.title} width={asset.width} height={asset.height} loading="lazy" /></div>
+  <p>{asset.description}</p><p>Esc 키로 닫습니다.</p>
+ </dialog>}
+</figure>
+<script>
+ document.querySelectorAll<HTMLButtonElement>('[data-modeling-open]').forEach(button=>{
+  const dialog=document.getElementById(button.dataset.modelingOpen||'') as HTMLDialogElement|null;
+  if(!dialog)return;
+  button.addEventListener('click',()=>{const img=dialog.querySelector('img');if(img)img.loading='eager';dialog.showModal();});
+  dialog.querySelector('[data-modeling-close]')?.addEventListener('click',()=>dialog.close());
+  dialog.addEventListener('close',()=>button.focus());
+ });
+
+ // Local review servers may return the complete MP4 without HTTP Range support.
+ // Prepare only the video the learner plays, preserving its original download URL.
+ const videoBlobCache=new Map<string,Promise<string>>();
+ const videoBlobUrls=new Set<string>();
+ const readSeekableBlob=(url:string)=>{
+  const existing=videoBlobCache.get(url);if(existing)return existing;
+  const pending=fetch(url).then(async response=>{
+   if(!response.ok)throw new Error('Video HTTP '+response.status);
+   const blob=await response.blob();if(!blob.size)throw new Error('Empty video');
+   const objectUrl=URL.createObjectURL(blob);videoBlobUrls.add(objectUrl);return objectUrl;
+  }).catch(error=>{videoBlobCache.delete(url);throw error;});
+  videoBlobCache.set(url,pending);return pending;
+ };
+ const waitForVideo=(video:HTMLVideoElement)=>new Promise<void>((resolve,reject)=>{
+  if(video.readyState>=3){resolve();return;}
+  const cleanup=()=>{window.clearTimeout(timer);video.removeEventListener('canplay',ready);video.removeEventListener('error',failed);};
+  const ready=()=>{cleanup();resolve();};const failed=()=>{cleanup();reject(new Error('Video decoding failed'));};
+  const timer=window.setTimeout(()=>{cleanup();reject(new Error('Video preparation timed out'));},20000);
+  video.addEventListener('canplay',ready,{once:true});video.addEventListener('error',failed,{once:true});
+ });
+ document.querySelectorAll<HTMLVideoElement>('[data-modeling-video]').forEach(video=>{
+  const original=video.querySelector('source')?.src;
+  const status=video.closest('figure')?.querySelector<HTMLElement>('[data-modeling-video-status]');
+  if(!original||!status)return;
+  let pending=false;
+  video.addEventListener('play',async()=>{
+   if(pending||video.dataset.seekMode)return;
+   if(video.seekable.length&&video.seekable.end(video.seekable.length-1)>.1){video.dataset.seekMode='native';return;}
+   pending=true;video.dataset.seekPreparation='loading';status.textContent='영상 준비 중… 준비가 끝나면 원하는 시간으로 이동할 수 있습니다.';
+   try{
+    const objectUrl=await readSeekableBlob(original);
+    const time=video.currentTime;const resume=!video.paused;
+    video.src=objectUrl;video.load();await waitForVideo(video);
+    video.currentTime=Math.min(time,Math.max(0,video.duration-.05));
+    video.dataset.seekMode='local-blob';video.dataset.seekPreparation='ready';
+    status.textContent='영상 준비 완료 · 재생 막대로 원하는 시간으로 이동할 수 있습니다.';
+    if(resume)await video.play().catch(()=>{status.textContent='영상 준비 완료 · 재생 버튼을 눌러 계속 봅니다.';});
+   }catch{
+    video.src=original;video.load();delete video.dataset.seekMode;video.dataset.seekPreparation='error';
+    status.textContent='영상 준비에 실패했습니다. 재생을 다시 누르거나 MP4를 내려받아 확인하세요.';
+   }finally{pending=false;}
+  });
+  window.addEventListener('pageshow',event=>{
+   if(event.persisted&&video.dataset.seekMode==='local-blob'){
+    video.src=original;video.load();delete video.dataset.seekMode;delete video.dataset.seekPreparation;status.textContent='';
+   }
+  });
+ });
+ window.addEventListener('pagehide',()=>{
+  for(const url of videoBlobUrls)URL.revokeObjectURL(url);
+  videoBlobUrls.clear();videoBlobCache.clear();
+ });
+</script>
+
+<style>
+.modeling-video-status{font-size:.8rem!important;color:var(--muted)}.modeling-video-status:empty{display:none}
+.modeling-asset>video{display:block;width:100%;height:auto;max-width:100%;background:#101828;aspect-ratio:16/9}
+@media print{.modeling-video-status{font-size:.8rem!important;color:var(--muted)}.modeling-video-status:empty{display:none}
+.modeling-asset>video{display:none}.modeling-asset:has(>video)::before{content:"영상은 웹에서 재생합니다. PDF의 버튼은 표시 요소입니다.";display:block;padding:1rem}}
+</style>

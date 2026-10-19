@@ -1,0 +1,50 @@
+.lesson03-review { --l03-accent:#315b66; min-width:0; }
+.lesson03-review .l03-period-summary,.lesson03-review .l03-step-context,.lesson03-review .l03-input-roles { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem; }
+.lesson03-review .l03-period-summary { margin-bottom:1.5rem; }
+.lesson03-review .l03-period-summary article { border:1px solid var(--line-dark);background:var(--surface);padding:1rem;min-width:0; }
+.lesson03-review .l03-period-summary h2 { font-size:1rem;margin:0; }
+.lesson03-review .l03-session-goal h2 { font-size:1.15rem; }
+.lesson03-review .l03-step-context { margin:0 0 1.5rem;padding:1rem;background:var(--paper-deep); }
+.lesson03-review .l03-step-context div { min-width:0; }
+.lesson03-review .l03-step-context dt { font-weight:700;color:var(--l03-accent);font-size:.86rem; }
+.lesson03-review .l03-step-context dd { margin:.35rem 0 0;font-size:.94rem;line-height:1.65; }
+.lesson03-review .l03-workflow { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem;padding-left:1.5rem; }
+.lesson03-review .l03-workflow li { padding:.6rem;min-width:0;border-bottom:1px solid var(--line); }
+.lesson03-review .l03-flow { padding:1rem;background:var(--paper-deep); }
+.lesson03-review .l03-asset-grid,.lesson03-review .l03-comparison,.lesson03-review .l03-reference-pair,.lesson03-review .l03-analysis-grid,.lesson03-review .l03-lighting-pair { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1rem 0; }
+.lesson03-review .l03-asset-card { min-width:0;border:1px solid var(--line-dark);background:var(--surface); }
+.lesson03-review .l03-asset-card.is-selected { border:3px solid var(--l03-accent); }
+.lesson03-review .l03-asset-card>img { width:100%;height:auto;display:block; }
+.lesson03-review .l03-asset-copy { padding:1rem; }
+.lesson03-review .l03-asset-copy h4 { font-size:1rem;margin:0 0 .5rem; }
+.lesson03-review .l03-asset-copy p { font-size:.94rem;line-height:1.7; }
+.lesson03-review .l03-actions { display:flex;flex-wrap:wrap;gap:.5rem; }
+.lesson03-review button,.lesson03-review .l03-actions a { padding:.6rem .75rem;min-height:44px;border:1px solid var(--l03-accent);background:var(--surface);color:var(--ink);font:inherit;font-size:.94rem;cursor:pointer;text-decoration:none;max-width:100%;overflow-wrap:anywhere; }
+.lesson03-review button[aria-pressed=true] { background:var(--l03-accent);color:white; }
+.lesson03-review button:focus-visible,.lesson03-review a:focus-visible,.lesson03-review summary:focus-visible { outline:3px solid var(--l03-accent);outline-offset:3px; }
+.lesson03-review input,.lesson03-review select,.lesson03-review textarea:not([aria-hidden="true"]) { font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line-dark);padding:.65rem;width:100%;max-width:100%;min-width:0;box-sizing:border-box;display:block;margin-top:.4rem;font-size:1rem; }
+.lesson03-review textarea { resize:vertical; }
+.lesson03-review label { display:block;font-weight:700;font-size:1rem;min-width:0;margin:.8rem 0; }
+.lesson03-review input:focus-visible,.lesson03-review select:focus-visible,.lesson03-review textarea:focus-visible { outline:3px solid var(--l03-accent);outline-offset:3px; }
+.lesson03-review .l03-input-panel { padding:1rem;border-left:3px solid var(--l03-accent);background:var(--paper-deep);margin:1.5rem 0; }
+.lesson03-review .l03-note { font-size:.94rem; }
+.lesson03-review .l03-optional { display:inline-block;padding:.35rem .7rem;background:var(--paper-deep);border-left:3px solid var(--l03-accent);font-weight:700; }
+.lesson03-review .l03-record-grid { display:grid;grid-template-columns:1fr;gap:1rem;margin:1.5rem 0; }
+.lesson03-review .l03-record-card { min-width:0;padding:1rem;border:1px solid var(--line-dark);background:var(--surface); }
+.lesson03-review .l03-record-card>h3 { margin:0 0 .8rem;color:var(--l03-accent);font-size:1.1rem; }
+.lesson03-review .l03-record-card img { max-width:100%;height:auto; }
+.lesson03-review .l03-analysis-text { white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;font-size:.95rem; }
+.lesson03-review [hidden] { display:none!important; }
+.lesson03-review .l03-dialog { box-sizing:border-box;width:min(95vw,1450px);max-width:95vw;max-height:92dvh;padding:1rem;background:var(--surface);border:1px solid var(--line-dark);color:var(--ink); }
+.lesson03-review .l03-dialog::backdrop { background:rgba(10,24,43,.72); }
+.lesson03-review .l03-dialog header { display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-bottom:1rem; }
+.lesson03-review .l03-dialog h3 { flex:1 1 15rem;min-width:0;font-size:1rem;margin:0;overflow-wrap:anywhere; }
+.lesson03-review .l03-dialog-scroll { overflow:auto;max-height:65dvh; }
+.lesson03-review .l03-dialog-scroll img { max-width:100%;height:auto; }
+.lesson03-review .l03-dialog.is-original img { max-width:none;width:auto; }
+.lesson03-review .l03-dialog>p { font-size:.9rem; }
+@media(max-width:900px) { .lesson03-review .l03-asset-grid,.lesson03-review .l03-comparison,.lesson03-review .l03-reference-pair,.lesson03-review .l03-analysis-grid,.lesson03-review .l03-lighting-pair,.lesson03-review .l03-period-summary,.lesson03-review .l03-step-context,.lesson03-review .l03-input-roles { grid-template-columns:1fr; } }
+@media(max-width:700px) { .lesson03-review .l03-workflow { grid-template-columns:1fr; }.lesson03-review .l03-asset-copy { padding:.8rem; } }
+@media print { .lesson03-review .l03-asset-card { break-inside:avoid; }.lesson03-review .l03-actions,.lesson03-review button { display:none; }.lesson03-review .l03-dialog:not([open]) { display:none; } }
+
+.lesson03-review .l03-table-scroll{max-width:100%;overflow-x:auto}.lesson03-review [data-l03-six-changes]{width:100%;table-layout:fixed;border-collapse:collapse}.lesson03-review [data-l03-six-changes] td,.lesson03-review [data-l03-six-changes] th{padding:.65rem;border:1px solid var(--line-dark);text-align:left;overflow-wrap:anywhere}

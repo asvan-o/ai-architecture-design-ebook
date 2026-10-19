@@ -1,0 +1,43 @@
+---
+import ReviewPrompt from './ReviewPrompt.astro';
+import {materialPrompt,materialExecutionPrompt} from '../content/daejeon-lesson02';
+import {lesson02BeforeImages,lesson02MaterialImages} from '../../../scripts/daejeon-lesson02-assets.mjs';
+---
+<div data-material-practice-editor>
+  <div class="lesson02-input-grid" aria-label="이번 실습 입력 선택">
+    <label>작업 전 공간<select data-practice-base><option value="">작업 전 공간을 선택하세요</option>{lesson02BeforeImages.map(image=><option value={`BASE ${image.id} · ${image.title} (${image.file})`}>BASE {image.id} · {image.title}</option>)}</select></label>
+    <label>재질 참고 이미지<select data-practice-material><option value="">재질 하나를 선택하세요</option>{lesson02MaterialImages.map(image=><option value={`${image.id} ${image.name} (${image.file})`}>{image.id} {image.name}</option>)}</select></label>
+    <label>적용할 기존 벽면<input type="text" data-practice-location placeholder="예: 회의 테이블 뒤 정면 기존 벽면" /></label>
+    <p>조명 참고 이미지: <strong>DJ-ML-01_LIGHTING_REFERENCE.png</strong><br />세 PNG를 함께 첨부합니다. 색온도 비교 도표는 입력으로 넣지 않습니다.</p>
+  </div>
+  <p class="lesson02-practice-status" aria-live="polite" data-practice-status>공간·재질·벽면을 선택하면 아래 두 Prompt의 입력 항목에 반영됩니다.</p>
+  <ReviewPrompt id="l02-material-prompt" title="선택형 실습 · 학습용 7단 Prompt" prompt={materialPrompt} filename="DJ-ML-01_material-lighting-learning-prompt.txt" />
+  <ReviewPrompt id="l02-material-execution-prompt" title="선택형 실습 · 실제 실행용 짧은 Prompt" prompt={materialExecutionPrompt} filename="DJ-ML-01_material-lighting-execution-prompt.txt" />
+</div>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-material-practice-editor]').forEach(editor=>{
+    const space=editor.querySelector<HTMLSelectElement>('[data-practice-base]')!;
+    const material=editor.querySelector<HTMLSelectElement>('[data-practice-material]')!;
+    const location=editor.querySelector<HTMLInputElement>('[data-practice-location]')!;
+    const prompts=Array.from(editor.querySelectorAll<HTMLElement>('.review-prompt')).map(block=>({
+      source:block.querySelector<HTMLTextAreaElement>('[data-copy-source]')!,
+      code:block.querySelector<HTMLElement>('pre code')!,
+      template:block.querySelector<HTMLTextAreaElement>('[data-copy-source]')!.value,
+    }));
+    const update=()=>{
+      prompts.forEach(({source,code,template})=>{
+        const replacements:Record<string,string>={
+          '[선택한 작업 전 공간]':space.value||'[선택한 작업 전 공간]',
+          '[선택한 재질]':material.value||'[선택한 재질]',
+          '[적용할 위치]':location.value.trim()||'[적용할 위치]',
+          '[Lighting Reference]':'DJ-ML-01_LIGHTING_REFERENCE.png',
+        };
+        const text=template.replace(/\[(선택한 작업 전 공간|선택한 재질|적용할 위치|Lighting Reference)\]/g,token=>replacements[token]);
+        source.value=text;code.textContent=text;
+      });
+      const complete=Boolean(space.value&&material.value&&location.value.trim());
+      editor.querySelector<HTMLElement>('[data-practice-status]')!.textContent=complete?'입력 항목이 반영되었습니다. 유지·변경·금지 조건을 확인한 뒤 Prompt를 복사하세요.':'아직 선택하지 않은 항목은 대괄호로 남습니다. 실행 전에 모두 채우세요.';
+    };
+    space.addEventListener('change',update);material.addEventListener('change',update);location.addEventListener('input',update);
+  });
+</script>

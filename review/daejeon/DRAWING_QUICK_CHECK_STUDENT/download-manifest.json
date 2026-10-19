@@ -1,0 +1,64 @@
+{
+  "title": "도면 제출 전 빠른 점검",
+  "runtimeFiles": [
+    "index.html",
+    "app.js",
+    "rules.js",
+    "style.css",
+    "sample-data.js",
+    "sample-manifest.json",
+    "README.txt"
+  ],
+  "files": [
+    {
+      "file": "DRAWING_QUICK_CHECK_DESKTOP.png",
+      "bytes": 259790,
+      "sha256": "b797d4ce821bb365f0f9338dcd146014398a09e979bca5c95bae265161036cf5"
+    },
+    {
+      "file": "DRAWING_QUICK_CHECK_FIRST_REQUEST.txt",
+      "bytes": 896,
+      "sha256": "2bac9955c19b1cd4792ed4111f98be1858be6092197f5ac7defdc0c78acae8e6"
+    },
+    {
+      "file": "DRAWING_QUICK_CHECK_IMPLEMENTATION_APPROVAL.txt",
+      "bytes": 3836,
+      "sha256": "ea32410c3cf385ba9743d336361d2ca03e5dacad6af1b218525123eecbff2906"
+    },
+    {
+      "file": "DRAWING_QUICK_CHECK_MOBILE.png",
+      "bytes": 31495,
+      "sha256": "afa5fbb32fda5b84abae99996fa4a7c36de7ddfda78bcecb76b3403e477f7a0b"
+    },
+    {
+      "file": "DRAWING_QUICK_CHECK_MOBILE_320.png",
+      "bytes": 30574,
+      "sha256": "6466d7bc7c4025ddb54aa36081356caa90121657bc1d2f68bd7ccbe61818e47f"
+    },
+    {
+      "file": "DRAWING_QUICK_CHECK_PROGRAM.zip",
+      "bytes": 13855,
+      "sha256": "7436724f70bc7649d5f2d209d2cb003dee5ffbb4e9f3c8b9ee98745aa3c80370"
+    },
+    {
+      "file": "DRAWING_QUICK_CHECK_README.txt",
+      "bytes": 4855,
+      "sha256": "8e62cddc7435f74c5f700f61dd1fd96d7fb17308107b11b486402d54cb7bd979"
+    },
+    {
+      "file": "DRAWING_QUICK_CHECK_SAMPLE_RESULTS.csv",
+      "bytes": 5141,
+      "sha256": "58d2eeac60605136f05dae8461cc4065f4dba315e9d0bb7e427cc8f81db644b7"
+    },
+    {
+      "file": "DRAWING_QUICK_CHECK_TEST.zip",
+      "bytes": 10958,
+      "sha256": "197cf08baf5d79e2d514fa32348e5bfff38dd04cc9954132e347d50451947323"
+    },
+    {
+      "file": "sample-manifest.json",
+      "bytes": 9244,
+      "sha256": "db45b45114af8f56d1d2391a9775ea77b8132ddf4ab806237562f7ceec2a5a62"
+    }
+  ]
+}

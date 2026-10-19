@@ -1,0 +1,96 @@
+{
+  "studentTitle": "파일 정리 자동화",
+  "verified": true,
+  "selfHashExcluded": true,
+  "files": [
+    {
+      "file": "A_EXPECTED_RESULTS.csv",
+      "bytes": 1478,
+      "sha256": "724e8d48a14068cfc36d19c5fa09719751524f8bc26158173b40ecbb600664ee"
+    },
+    {
+      "file": "A_FIRST_REQUEST.txt",
+      "bytes": 2009,
+      "sha256": "a076e5a968beea0e73eabf6cbab57027b79d1dfd5ce5dd0b1525a6f7c155485d"
+    },
+    {
+      "file": "A_IMPLEMENTATION_APPROVAL.txt",
+      "bytes": 8192,
+      "sha256": "6d9ddab4a46eb1739de1686570fc88e270a84377ca68e959baad62d3dc9f2740"
+    },
+    {
+      "file": "A_INPUT_UI_AUTOMATIC.png",
+      "bytes": 118365,
+      "sha256": "75ffc0058632dd170cb379f14d99a5c3e64d834cb511739be60f4aee0d6e27ce"
+    },
+    {
+      "file": "A_INPUT_UI_DESKTOP.png",
+      "bytes": 300786,
+      "sha256": "bea8c1572d24aba5b9eeebee40d0160f82e658d5f1f092f18f22476a147996a0"
+    },
+    {
+      "file": "A_INPUT_UI_MOBILE.png",
+      "bytes": 314673,
+      "sha256": "793ab8d631351ae1bf0dcfc1d428e0bbef0ef4565fdd3c5472630a37d0f7da48"
+    },
+    {
+      "file": "A_INPUT_UI_PENDING.png",
+      "bytes": 96763,
+      "sha256": "e7330d5494686257c889dc8b29e5a4203c5ec4de71852b5b25d7095264a84d05"
+    },
+    {
+      "file": "A_KNOWN_LIMITS.txt",
+      "bytes": 1632,
+      "sha256": "8abb8c3bbb8a90454d75a7e6280956fdea99552fd60c88191c14b737078e7a86"
+    },
+    {
+      "file": "A_README.txt",
+      "bytes": 6670,
+      "sha256": "1cbed93dedfa40d80157f10d1d3d1e899205d64cd06a299100f79629f6230022"
+    },
+    {
+      "file": "A_STRUCTURE_CHECKLIST.txt",
+      "bytes": 1121,
+      "sha256": "1d98ab970a07afa52eed68e0df637d236dc7af76f1f07c48331843de36c838e9"
+    },
+    {
+      "file": "A_UI_AUTOMATIC.png",
+      "bytes": 47625,
+      "sha256": "45490c09321917d32bc0f62e0c4ccfee3ba8ed610d617ad19b72f8685676a27a"
+    },
+    {
+      "file": "A_UI_DESKTOP.png",
+      "bytes": 215435,
+      "sha256": "65e7a5de085cad018f9233c80c83d495b1189704a4dfdc450d5f278da4e2b167"
+    },
+    {
+      "file": "A_UI_MOBILE.png",
+      "bytes": 213595,
+      "sha256": "cdb3c2c7ad883434fb6337bfc7d34c820518e5ddab1fc73c06cdfd1295858444"
+    },
+    {
+      "file": "A_UI_PENDING.png",
+      "bytes": 98648,
+      "sha256": "7175ee2c33337f885cba15248139d5060e7c3c2086e7183b1aeea42d8342d2d4"
+    },
+    {
+      "file": "A_VERIFICATION_SUMMARY.txt",
+      "bytes": 1295,
+      "sha256": "a0a6ab9191e07a7e3e796695845a7f53fcf0c2b41f908405b59c8b4eb02f2205"
+    }
+  ],
+  "packages": [
+    {
+      "source": "review/daejeon/FILE_SORTER_STUDENT/DJ-L02_FILE_SORTER_PROGRAM.zip",
+      "file": "DJ-L02_FILE_SORTER_PROGRAM.zip",
+      "bytes": 32727,
+      "sha256": "0a49126629e852702f22d9ce9f27aa0411b045739d128d8271c5c3824a5836ce"
+    },
+    {
+      "source": "review/daejeon/FILE_SORTER_STUDENT/DJ-L02_SORT_TEST.zip",
+      "file": "DJ-L02_SORT_TEST.zip",
+      "bytes": 6178286,
+      "sha256": "9c8f3897169df9e69d984c9d592fbdb0f55177fbebbb23a5fc20a1ceda97acf5"
+    }
+  ]
+}

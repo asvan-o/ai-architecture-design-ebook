@@ -1,0 +1,13 @@
+---
+import PromptCopyBlock from '../../components/content/PromptCopyBlock.astro';
+import PromptPlatformGuide from './PromptPlatformGuide.astro';
+import type {PromptPlatformGuide as Guide} from '../content/prompt-platform-guides';
+interface Props {id:string;title:string;prompt:string;filename:string;href?:string;guide:Guide&{purpose:string;variables:string};}
+const {id,title,prompt,filename,href,guide}=Astro.props;
+---
+<div class="portfolio-prompt">
+ <PromptPlatformGuide {id} {guide}/>
+ <PromptCopyBlock {id} {title} {prompt}/>
+ {href&&<p><a href={href} download={filename}>{filename} 다운로드</a></p>}
+</div>
+<style>.portfolio-prompt{min-width:0;max-width:100%;overflow-wrap:anywhere}.portfolio-prompt a{overflow-wrap:anywhere}</style>

@@ -1,0 +1,10 @@
+---
+import ReviewSection from './ReviewSection.astro';
+import type {Lesson03Section} from '../content/daejeon-lesson03';
+interface Props {section:Lesson03Section;index:number;}
+const {section,index}=Astro.props;
+---
+<ReviewSection id={section.id} title={section.title} minutes={section.minutes} {index}>
+  <dl class="l03-step-context"><div><dt>지금 할 일</dt><dd>{section.action}</dd></div><div><dt>왜 하는가</dt><dd>{section.reason}</dd></div><div><dt>다음에 사용할 것</dt><dd>{section.next}</dd></div></dl>
+  <slot />
+</ReviewSection>

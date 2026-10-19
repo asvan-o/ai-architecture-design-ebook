@@ -1,0 +1,45 @@
+---
+import Lesson03Comparison from './Lesson03Comparison.astro';
+import ReviewPrompt from './ReviewPrompt.astro';
+import{lesson04ApplicationImage as images,lesson04ApplicationPrompt as prompts}from'../../../scripts/daejeon-lesson04-applications.mjs';
+import{lesson04Samples}from'../../../scripts/daejeon-lesson04-assets.mjs';
+interface Props{stage:'cleanup'|'landscape'|'dusk'|'sketch'|'angles';}
+const{stage}=Astro.props;
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
+const prompt=(key:string)=>{const p=prompts[key];return{id:'l04-app-'+key,title:p.title,prompt:p.text,attachments:p.attachments,filename:p.file.split('/').pop(),href:enabled?base+'/'+p.outputPath:undefined};};
+const a=lesson04Samples.find(s=>s.key==='A')!;
+const comparisons={
+ cleanup:[{before:images['site-before'],after:images.cleanup,beforeTitle:'Before · 정리 전 현장',afterTitle:'After · 방해물 제거',beforeDescription:'펜스·적치물·콘·임시 간판이 있는 가상 현장입니다.',afterDescription:'방해물을 제거한 결과입니다. 가려졌던 기단·보도의 복원과 요청 밖 재표현도 확인합니다.',instance:'l04-cleanup'}],
+ landscape:[
+  {before:a,after:images.landscape,beforeTitle:'Before · 조경 추가 전 A',afterTitle:'After · 쇼윈도 전면 플랜터·식재',beforeDescription:'크림 석재와 수직 목재 포털·브론즈 띠를 적용한 주간 A입니다.',afterDescription:images.landscape.description,instance:'l04-landscape'},
+  {before:images.landscape,after:images['surrounding-landscape'],beforeTitle:'Before · 기본 플랜터 외관',afterTitle:'After · 주변 교목·보행 광장·벤치',beforeDescription:'건물·기존 두 플랜터·정면 카메라의 기준입니다.',afterDescription:images['surrounding-landscape'].description,instance:'l04-surrounding-landscape'},
+  {before:images['surrounding-landscape'],after:images['human-scale'],beforeTitle:'Before · 조경 완성 후 비어 있는 공간',afterTitle:'After · 방문객·보행자·벤치 이용객',beforeDescription:'교목·다층 정원·판석·벤치와 건물의 배치를 비교합니다.',afterDescription:images['human-scale'].description,instance:'l04-human-scale'},
+ ],
+ dusk:[{before:images.landscape,after:images.dusk,beforeTitle:'Before · 주간 조경 외관',afterTitle:'After · 석양·경관조명',beforeDescription:'재료·개구부·플랜터와 식재 위치의 기준입니다.',afterDescription:images.dusk.description,instance:'l04-dusk'}],
+ sketch:[
+  {before:images['rough-sketch'],after:images.rapid,beforeTitle:'Before · 외관 러프 선화',afterTitle:'After · 실사 래피드 콘셉트',beforeDescription:'건물 외곽과 개구부를 읽는 선화이며 실측 입면도가 아닙니다.',afterDescription:images.rapid.description,instance:'l04-sketch-rapid'},
+  {before:images.rapid,after:images.refined,beforeTitle:'Before · 1차 래피드 콘셉트',afterTitle:'After · 캐노피 하부 보완',beforeDescription:'보존된 스케치 기반 콘셉트입니다.',afterDescription:'캐노피 하부의 밝은 톤과 나머지 표면의 재표현을 나누어 대조합니다.',instance:'l04-sketch-refined'},
+ ],
+ angles:[
+  {before:images.landscape,after:images.subview,beforeTitle:'Main View · 정면 주간 조경안',afterTitle:'Angle 1 · 입구 포털 사선 클로즈업',beforeDescription:'크림 석재·브론즈·목재·플랜터의 메인 기준입니다.',afterDescription:images.subview.description,instance:'l04-subview'},
+  {before:images['surrounding-landscape'],after:images['angle-corner'],beforeTitle:'Main View · 정면 주변 조경 종합안',afterTitle:'Angle 2 · 45도 코너 사선 입체 투시도',beforeDescription:'건물·조경은 이 정면안, 사람의 활동은 사람 추가안을 함께 참고합니다.',afterDescription:images['angle-corner'].description,instance:'l04-angle-corner'},
+  {before:images['human-scale'],after:images['angle-streetscape'],beforeTitle:'Main View · 정면 휴먼 스케일 조경안',afterTitle:'Angle 3 · 보행자 측면 조경 진입 뷰',beforeDescription:'같은 정면안의 포털·쇼윈도·정원·벤치·사람을 기준으로 삼습니다.',afterDescription:images['angle-streetscape'].description,instance:'l04-angle-streetscape'},
+  {before:images['surrounding-landscape'],after:images['angle-elevated'],beforeTitle:'Main View · 정면 주변 조경 종합안',afterTitle:'Angle 4 · 건물·보행 광장 반조감',beforeDescription:'건물·조경의 기준이며 사람 추가안은 활동 참고로 함께 첨부합니다.',afterDescription:images['angle-elevated'].description,instance:'l04-angle-elevated'},
+ ],
+};
+const promptKeys={cleanup:['cleanup'],landscape:['landscape','surrounding-landscape','human-scale'],dusk:['dusk'],sketch:['rough-sketch','rapid','refined'],angles:['subview','angle-corner','angle-streetscape','angle-elevated']}[stage];
+---
+<div class="l04-technique" data-l04-technique={stage}>
+ {stage==='cleanup'&&<><h3>기법 1 · 제거형 인페인팅</h3><p>먼저 방해물만 정리해 같은 건물의 기준 상태를 확보합니다. 임시 펜스·적치물·콘·낡은 간판을 범위로 잡고 건물과 주변의 유지 요소는 별도로 확인합니다.</p><p><strong>기본 실습:</strong> 제공된 현장 Before로 클린업 1회. 가려진 보도·기단의 복원은 생성 추정입니다.</p></>}
+ {stage==='landscape'&&<><h3>기법 3 · 추가·합성형 인페인팅</h3><p>A의 크림 석재·월넛 포털은 유지하고 양쪽 쇼윈도 앞에 크림 플랜터·관목·소형 수목·초화를 추가합니다. 중앙 출입과 보행 중심은 비워 둡니다.</p><p><strong>단계별 범위:</strong> 앞의 표면 교체에서는 조경을 금지했습니다. 이 추가 단계에서만 지정한 식재와 플랜터를 허용합니다. 도로·보도 확장이나 실제 설치 가능성은 확정하지 않습니다.</p><p><strong>선택 확장:</strong> A 또는 검토한 결과를 입력으로 추가형 1회. 결과를 원본과 나란히 비교합니다.</p></>}
+ {stage==='landscape'&&<><h4>기본 플랜터 → 주변 조경 종합 → 사람 추가</h4><p>먼저 두 플랜터의 효과를 본 뒤 교목·다층 정원·판석 보도·벤치·낮은 볼라드로 외부공간을 확장합니다. 그다음 건물과 조경을 기준으로 사람만 추가해 방문·벤치 이용·보행 장면을 비교합니다.</p><p>세 비교를 모두 읽고 직접 실행할 확장 하나를 선택합니다. 가용 대지·도로 경계·실제 보행 폭과 인물로 추정한 치수는 미확정이며, 실제 설치 가능한 배치로 확정하지 않습니다.</p></>}
+ {stage==='dusk'&&<><h3>기법 4 · 시간대·경관조명 확장</h3><p>주간 조경안을 기준으로 시간대와 빛의 인상만 확장합니다. 캐노피 간접 라인 빛·포털 월워싱·기존 창과 쇼윈도의 웜화이트 실내 빛을 원본과 비교합니다.</p><p><strong>심화 예제 / 선택:</strong> 같은 매스·개구부·마감·식재인지 먼저 봅니다. 렌더 이미지가 실제 조도·색온도·눈부심·전기 설계 검증을 대신하지 않습니다. 새 결과에는 이웃 창의 빛도 재표현돼 있습니다.</p></>}
+ {stage==='sketch'&&<><h3>기법 5 · 스케치 래피드 콘셉트와 국소 보완</h3><p>러프 선화 → 월넛·브론즈·웜 스톤 콘셉트 → 캐노피 하부 한 면 보완을 비교합니다. 이 스케치 분기는 당시 사용한 별도 마감 참고 파일을 보존했습니다. 새 크림 외벽 A에서 만든 결과가 아닙니다.</p><p>선화는 교육용 표현이며 실측 입면도가 아닙니다. 스케치의 고정 요소와 수정 범위를 대조한 뒤 아래의 다각도 확장으로 이어갑니다.</p></>}
+ {stage==='angles'&&<><h3>동일 건물의 다각도 뷰(Multi-Angle Views) 제작 실습</h3><ol class="review-flow"><li><div><strong>정면 기준 이미지를 먼저 첨부</strong><span>입구 근접은 05, 코너·반조감은 11과 12, 보행자 진입은 12를 아래 안내 순서대로 준비합니다.</span></div></li><li><div><strong>건물 고유 특징을 유지 조건으로 지정</strong><span>3층·상층 4열 두 줄의 창·중앙 포털·두 쇼윈도·크림/브론즈/월넛과 조경의 상대 관계를 적습니다.</span></div></li><li><div><strong>카메라 각도·높이·방향을 분리해 요청</strong><span>입구 근접 / 코너 사선 / 보행자 눈높이 접근 / 대각선 위 반조감 중 필요한 시점을 고릅니다.</span></div></li><li><div><strong>메인과 새 시점을 나란히 대조</strong><span>보이는 창·문·캐노피·식재를 비교하고 가려진 면·깊이·배경은 추정으로 구분합니다.</span></div></li></ol><p>추가 실행은 필요한 시점 하나를 선택합니다. 새로운 시점을 요청할 때마다 독립된 결과가 나올 수 있으며 같은 입력·원문도 매번 같은 이미지를 보장하지 않습니다.</p></>}
+ {comparisons[stage].map(pair=><Lesson03Comparison {...pair} />)}
+ {stage==='cleanup'&&enabled&&<details><summary>제거할 범위 가이드 보기</summary><div class="mask-guide"><img src={base+'/'+images['site-before'].outputPath} alt="현장 Before의 제거 범위 가이드" width={images['site-before'].width} height={images['site-before'].height} loading="lazy"/><svg viewBox="0 0 1672 941" aria-hidden="true"><rect x="38" y="674" width="412" height="154"/><rect x="1065" y="718" width="211" height="110"/></svg></div><p>붉은 박스는 설명용 범위입니다. 사용하는 편집 도구에서 실제 마스크 경계를 따로 선택하고 주변의 기단·쇼윈도·보도는 제외합니다.</p></details>}
+ {stage==='angles'&&<aside class="review-callout">캐노피 깊이·문 세부·수목과 인물 간격·원경은 새 시점에서 재추정됐습니다. 코너의 목표 각도와 반조감 높이는 측정값이 아닙니다. 보행자 뷰에서 잘리거나 가려진 창 전체를 확인했다고 설명하지 않습니다. 지붕·측면은 정면에 없던 정보이며 정확한 모델 정합을 증명하지 않습니다.</aside>}
+ {promptKeys.map(key=><details><summary>{images[key].title} · 실제 생성 Prompt와 첨부</summary><ReviewPrompt {...prompt(key+'-7step')}/><p>실행용 TXT도 같은 생성 원문입니다. 별도 요약문으로 이 결과를 만들었다는 뜻이 아닙니다.</p><ReviewPrompt {...prompt(key+'-short')}/></details>)}
+</div>
+<style>.l04-technique{margin:1.5rem 0;padding:1rem;border-top:3px solid var(--accent-dark);background:var(--surface)}.mask-guide{position:relative}.mask-guide img{display:block;width:100%;height:auto}.mask-guide svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.mask-guide rect{fill:rgb(210 25 35 / .12);stroke:#c9232d;stroke-width:4;stroke-dasharray:14 8}</style>

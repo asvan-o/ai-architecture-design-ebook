@@ -1,0 +1,22 @@
+---
+import {reviewNavigation} from '../content/review-navigation';
+interface Props { page:'home'|'overview'|'lesson'; lessonId?:string; }
+const {page,lessonId}=Astro.props;
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const links=reviewNavigation.map(item=>({...item,href:base+'/'+item.path}));
+const current=links.findIndex(l=>l.id===(page==='overview'?'overview':page==='lesson'?lessonId:'home'));
+---
+<nav class="review-lesson-navigation" data-review-course-nav aria-label="차시 간 이동">
+  <div class="review-lesson-neighbors">
+    {current > 0 &&<a href={links[current-1].href} rel="prev">← 이전 · {links[current-1].label}</a>}
+    {(current >= 0 && current < links.length - 1) &&<a href={links[current+1].href} rel="next">다음 · {links[current+1].label} →</a>}
+  </div>
+  <ol>{links.map(l=><li><a href={l.href} aria-current={links[current]?.id===l.id?'page':undefined}>{l.label}</a></li>)}</ol>
+</nav>
+<style>
+.review-lesson-navigation{margin-top:3rem;padding-top:1.4rem;border-top:1px solid var(--line);break-inside:avoid}
+.review-lesson-neighbors{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+ol{display:flex;flex-wrap:wrap;gap:.6rem 1rem;list-style:none;padding:0;margin:1.2rem 0 0}
+a{display:inline-block;overflow-wrap:anywhere}a[aria-current="page"]{font-weight:800;color:var(--accent-dark)}
+a:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+</style>

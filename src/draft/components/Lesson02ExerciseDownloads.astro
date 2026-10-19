@@ -1,0 +1,17 @@
+---
+import {automationFiles,drawingDemoPath} from '../../../scripts/daejeon-automation-ab-assets.mjs';
+import {lesson02ProgramFiles} from '../../../scripts/daejeon-file-sorter-assets.mjs';
+interface Props { exercise:'A'|'B'; compact?:boolean; }
+const {exercise,compact=false}=Astro.props;
+const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const labels:Record<string,string>={program:'프로그램 ZIP 다운로드',test:exercise==='A'?'SORT_TEST ZIP 다운로드':'파일명 테스트 ZIP 다운로드',readme:'사용방법 README 다운로드',csv:'결과 CSV 예시 다운로드',first:'자연어 첫 요청 TXT 다운로드',approval:'구현 승인 Prompt TXT 다운로드',checklist:'구조 검토 체크리스트 다운로드',expected:'기대 결과표 다운로드',limits:'알려진 한계 다운로드',summary:'기능 확인 요약 다운로드'};
+const files=exercise==='A'?Object.fromEntries(lesson02ProgramFiles.map(f=>[f.key,f])):automationFiles.B;
+const keys=compact?['program','test','readme']:exercise==='A'?['program','test','readme','expected','limits','summary']:['program','test','readme','csv'];
+---
+<div class="l02-ab-downloads" data-exercise-downloads={exercise}>
+  {enabled ? <>
+    {exercise==='B'&&<a class="review-download l02-ab-primary" href={base+'/'+drawingDemoPath} target="_blank" rel="noreferrer" data-drawing-demo>브라우저에서 예제 열기 ↗</a>}
+    {keys.map(key=>{const file=files[key]||automationFiles[exercise][key];return <a class="review-download" href={base+'/'+file.outputPath} download={file.file} data-exercise-file={exercise+':'+key}>{labels[key]}</a>;})}
+  </> : <p>실습자료는 제공받은 파일을 사용합니다.</p>}
+</div>

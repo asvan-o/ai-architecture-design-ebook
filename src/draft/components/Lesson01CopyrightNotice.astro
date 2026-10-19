@@ -1,0 +1,8 @@
+---
+import { copyrightLines, copyrightSources } from '../content/lesson01-copyright';
+---
+<aside class="review-callout" data-copyright-notice>
+  <h3>AI로 만든 이미지, 누구나 마음대로 써도 될까?</h3>
+  <ul>{copyrightLines.map(line=><li>{line}</li>)}</ul>
+  <ul class="review-source-list" data-copyright-sources>{copyrightSources.map(source=><li>{source.title} · <a href={source.url} target="_blank" rel="noopener noreferrer" aria-label={`${source.title} 공식 원문 보기`}>공식 원문 보기</a></li>)}</ul>
+</aside>

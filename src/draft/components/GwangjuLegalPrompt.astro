@@ -1,0 +1,24 @@
+---
+import PromptCopyBlock from '../../components/content/PromptCopyBlock.astro';
+import PromptPlatformGuide from './PromptPlatformGuide.astro';
+import definitions from '../content/lesson10-prompt-guides.json';
+import {humanizeLegalText} from '../content/lesson10-beginner';
+import type {PromptPlatformGuide as Guide} from '../content/prompt-platform-guides';
+interface Props {id:string;title:string;description:string;prompt:string;}
+const {id,title,description,prompt}=Astro.props;
+const definition=definitions[id as keyof typeof definitions];
+if(!definition)throw new Error('제10차시 프롬프트 안내 누락: '+id);
+const guide={...definition,kind:'text'} as Guide & {purpose:string;variables:string};
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
+---
+<div class="grounded-prompt" data-grounded-prompt={id}>
+ <div class="legal-derivation" data-legal-prompt-derivation={id}>
+  <h4>프롬프트 도출 원리 · {definition.title}</h4>
+  <p class="derivation-intro">긴 문장을 외워 쓰지 않습니다. 아래 ‘AI에게 프롬프트 작성을 요청하는 법’의 짧은 질문으로 초안을 만들고, 준비한 자료와 목적에 맞게 사람이 다듬습니다.</p>
+  <PromptPlatformGuide {id} {guide} />
+ </div>
+ <PromptCopyBlock {id} title={definition.title||humanizeLegalText(title)} description={humanizeLegalText(description)} {prompt} />
+ {enabled&&<a class="review-download" href={base+'/downloads/daejeon/lesson-10/'+encodeURIComponent(definition.filename)} download={definition.filename}>{definition.filename} 다운로드</a>}
+</div>
+<style>.grounded-prompt{min-width:0;max-width:100%;overflow-wrap:anywhere;margin:1.4rem 0}.legal-derivation{padding:1rem;border:1px solid var(--line);border-top:3px solid var(--accent-dark);background:var(--paper-deep)}.legal-derivation h4{margin:0;font-size:1rem;line-height:1.6}.derivation-intro{margin:.6rem 0 0;font-size:.87rem;line-height:1.75;color:var(--muted)}.review-download{display:block;padding:.6rem 0;font-weight:700;overflow-wrap:anywhere}</style>

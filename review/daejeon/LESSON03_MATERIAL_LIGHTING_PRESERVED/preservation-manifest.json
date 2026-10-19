@@ -1,0 +1,478 @@
+{
+  "status": "preserved-for-future-lesson03",
+  "note": "제2차시 학생 DOM에서 연결만 제거. 원본 이동·수정·삭제 없음. 제3차시 페이지 제작/승인 아님.",
+  "defaultMaterialIds": [
+    "M-23",
+    "M-24",
+    "M-21",
+    "M-02",
+    "M-07",
+    "M-12",
+    "M-20",
+    "M-06"
+  ],
+  "sourceLinks": [
+    {
+      "role": "기존 페이지 구성",
+      "path": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\review\\daejeon\\LESSON03_MATERIAL_LIGHTING_PRESERVED\\lesson02-before-automation.astro.txt",
+      "sha256": "a2f0b1838b18395ad5baf3c5ab0195229a796b0955f3f7c510d7d97ceec12883"
+    },
+    {
+      "role": "학습용 materialPrompt / 실행용 materialExecutionPrompt",
+      "path": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\draft\\content\\daejeon-lesson02.ts",
+      "sha256": "aa41526c63d5259722250e066cf3b7ff21157add16d594366943165038358533"
+    },
+    {
+      "role": "BASE·재질·적용 위치 선택 및 두 Prompt 반영",
+      "path": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\draft\\components\\Lesson02PracticePrompts.astro",
+      "sha256": "96ada4876ca717cc9bbf35ee43b691520bebd475260f96ae49735d49f2964d87"
+    },
+    {
+      "role": "기본 8종 / 전체 33종 카드",
+      "path": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\draft\\components\\Lesson02MaterialLibrary.astro",
+      "sha256": "5bfadc4ca6e7f7c603f714000ff83e964f2440c2db91d859e362d2f6b1a74d5f"
+    },
+    {
+      "role": "BASE 카드·PNG 다운로드·확대",
+      "path": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\draft\\components\\Lesson02AssetCard.astro",
+      "sha256": "558037ea9074448e278e7b1b8ada6249603f8d0da14f5db6babd1eceae121e8c"
+    },
+    {
+      "role": "색온도 비교·조명 Reference·강사 예시",
+      "path": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\draft\\components\\Lesson02Infographic.astro",
+      "sha256": "cba58893767ce62061ac6c5292407bbdef1738ad92b89d41629162c764f2659f"
+    },
+    {
+      "role": "원본 경로·다운로드 경로·기본 재질 8종 정의",
+      "path": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\scripts\\daejeon-lesson02-assets.mjs",
+      "sha256": "59e3d64bf7fe0a46620e38f16181407854c95e5317a597370cbf7174c5752942"
+    },
+    {
+      "role": "광주 승인 재질 이름·설명 33종",
+      "path": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\lib\\lesson04-final-content.ts",
+      "sha256": "b02aa1d2b249638009b67be3c2bbb4508509032f10b6004cbf881640118f292b"
+    }
+  ],
+  "files": [
+    {
+      "key": "lighting",
+      "id": null,
+      "name": "조명 색온도 비교",
+      "file": "DJ-L02_01_lighting-temperature-guide.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\review\\daejeon\\DJ-L02\\DJ-L02_01_lighting-temperature-guide.png",
+      "downloadPath": "practice/DJ-L02/DJ-L02_01_lighting-temperature-guide.png",
+      "sha256": "b534c45faf73d084835b0a48dc588075bbea62f3c26fe82a147a243fc66e6714",
+      "defaultMaterial": false
+    },
+    {
+      "key": "base",
+      "id": null,
+      "name": "DJ-ML-01_BASE.png",
+      "file": "DJ-ML-01_BASE.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\review\\daejeon\\DJ-ML-01\\DJ-ML-01_BASE.png",
+      "downloadPath": "practice/DJ-ML-01/DJ-ML-01_BASE.png",
+      "sha256": "f97ecd9a666e9b917c747f55960fc313a3f41c28be46124a4413cfe06ea193b4",
+      "defaultMaterial": false
+    },
+    {
+      "key": "material",
+      "id": null,
+      "name": "DJ-ML-01_MATERIAL_REFERENCE.png",
+      "file": "DJ-ML-01_MATERIAL_REFERENCE.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\review\\daejeon\\DJ-ML-01\\DJ-ML-01_MATERIAL_REFERENCE.png",
+      "downloadPath": "practice/DJ-ML-01/DJ-ML-01_MATERIAL_REFERENCE.png",
+      "sha256": "416a0189fe2cfdf3949125113eb04a81f8903da52db24a549ea46a3bd1788d20",
+      "defaultMaterial": false
+    },
+    {
+      "key": "lighting-reference",
+      "id": null,
+      "name": "DJ-ML-01_LIGHTING_REFERENCE.png",
+      "file": "DJ-ML-01_LIGHTING_REFERENCE.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\review\\daejeon\\DJ-ML-01\\DJ-ML-01_LIGHTING_REFERENCE.png",
+      "downloadPath": "practice/DJ-ML-01/DJ-ML-01_LIGHTING_REFERENCE.png",
+      "sha256": "539f969702ed195b358a5f64f29f4f488e25fba1a31e74dae6431f2948a70d5a",
+      "defaultMaterial": false
+    },
+    {
+      "key": "before-01",
+      "id": "01",
+      "name": "소형 오피스 리셉션·대기공간",
+      "file": "DJ-ML-01_BEFORE_BASE_01_reception.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\review\\daejeon\\DJ-ML-01\\BEFORE-BASE\\DJ-ML-01_BEFORE_BASE_01_reception.png",
+      "downloadPath": "practice/DJ-ML-01/BEFORE-BASE/DJ-ML-01_BEFORE_BASE_01_reception.png",
+      "sha256": "6628586c7fc3727f7928b9a6622b01cdf5a85bad329a4e7d0f36b535c32ee3b4",
+      "defaultMaterial": false
+    },
+    {
+      "key": "before-02",
+      "id": "02",
+      "name": "소형 회의실",
+      "file": "DJ-ML-01_BEFORE_BASE_02_meeting-room.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\review\\daejeon\\DJ-ML-01\\BEFORE-BASE\\DJ-ML-01_BEFORE_BASE_02_meeting-room.png",
+      "downloadPath": "practice/DJ-ML-01/BEFORE-BASE/DJ-ML-01_BEFORE_BASE_02_meeting-room.png",
+      "sha256": "fdf949a279bc142df8c0329eded4536aa4934f8ebbac715ac3c5a4d73794d61e",
+      "defaultMaterial": false
+    },
+    {
+      "key": "before-03",
+      "id": "03",
+      "name": "상담 라운지",
+      "file": "DJ-ML-01_BEFORE_BASE_03_consultation-lounge.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\review\\daejeon\\DJ-ML-01\\BEFORE-BASE\\DJ-ML-01_BEFORE_BASE_03_consultation-lounge.png",
+      "downloadPath": "practice/DJ-ML-01/BEFORE-BASE/DJ-ML-01_BEFORE_BASE_03_consultation-lounge.png",
+      "sha256": "38866e5d5f2a0c6b1e456ee7cb79ac812817e43a8c658add4aec633bac2153fc",
+      "defaultMaterial": false
+    },
+    {
+      "key": "before-04",
+      "id": "04",
+      "name": "업무·휴게 라운지",
+      "file": "DJ-ML-01_BEFORE_BASE_04_work-break-lounge.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\review\\daejeon\\DJ-ML-01\\BEFORE-BASE\\DJ-ML-01_BEFORE_BASE_04_work-break-lounge.png",
+      "downloadPath": "practice/DJ-ML-01/BEFORE-BASE/DJ-ML-01_BEFORE_BASE_04_work-break-lounge.png",
+      "sha256": "f3061134639c57f9fd3c39df77601b1250d011eca10deb9a591ce385196c5799",
+      "defaultMaterial": false
+    },
+    {
+      "key": "before-05",
+      "id": "05",
+      "name": "소형 대기공간",
+      "file": "DJ-ML-01_BEFORE_BASE_05_waiting-area.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\review\\daejeon\\DJ-ML-01\\BEFORE-BASE\\DJ-ML-01_BEFORE_BASE_05_waiting-area.png",
+      "downloadPath": "practice/DJ-ML-01/BEFORE-BASE/DJ-ML-01_BEFORE_BASE_05_waiting-area.png",
+      "sha256": "25d5e0f9407b80dc09a1256d00fecf258d28e7c2744f05ca7c49401c81a4dd6b",
+      "defaultMaterial": false
+    },
+    {
+      "key": "material-M-01",
+      "id": "M-01",
+      "name": "Oyster Quartzite",
+      "file": "m-01-oyster-quartzite.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-01-oyster-quartzite.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-01-oyster-quartzite.png",
+      "sha256": "4f090c75af0024b4baf014a675999c6d2f14936005ce7d5f697749ffe69e17d3",
+      "defaultMaterial": false
+    },
+    {
+      "key": "material-M-02",
+      "id": "M-02",
+      "name": "Almond Limestone",
+      "file": "m-02-almond-limestone.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-02-almond-limestone.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-02-almond-limestone.png",
+      "sha256": "647e6cb2535395a444f421130edb5763f753b3463738aa519cce1e96663eec3f",
+      "defaultMaterial": true
+    },
+    {
+      "key": "material-M-03",
+      "id": "M-03",
+      "name": "Azul Blue Marble",
+      "file": "m-03-azul-blue-marble.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-03-azul-blue-marble.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-03-azul-blue-marble.png",
+      "sha256": "78232ee75f5149bc720fc6815104844b580c65f5e4a307bdbb3f4cf93313ad06",
+      "defaultMaterial": false
+    },
+    {
+      "key": "material-M-04",
+      "id": "M-04",
+      "name": "Pearl White Porcelain",
+      "file": "m-04-pearl-white-porcelain.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-04-pearl-white-porcelain.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-04-pearl-white-porcelain.png",
+      "sha256": "c8ae928185a0f07888cc9d869094f2c8c17a814fcb9a45a91aaae593305222ee",
+      "defaultMaterial": false
+    },
+    {
+      "key": "material-M-05",
+      "id": "M-05",
+      "name": "Rosso Levanto Marble",
+      "file": "m-05-rosso-levanto-marble.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-05-rosso-levanto-marble.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-05-rosso-levanto-marble.png",
+      "sha256": "b0077aef7cfcd4bb3f77249404492fec4548e8c12b582eb5f1191de17b803875",
+      "defaultMaterial": false
+    },
+    {
+      "key": "material-M-06",
+      "id": "M-06",
+      "name": "Sand Beige Porcelain",
+      "file": "m-06-sand-beige-porcelain.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-06-sand-beige-porcelain.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-06-sand-beige-porcelain.png",
+      "sha256": "d5638eb17b8f30907dfbb6c95510b53aead6aad86446ef4b5af91b91642394dd",
+      "defaultMaterial": true
+    },
+    {
+      "key": "material-M-07",
+      "id": "M-07",
+      "name": "Silver Travertine",
+      "file": "m-07-silver-travertine.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-07-silver-travertine.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-07-silver-travertine.png",
+      "sha256": "d89548e35d7403f08ac3bb8ac27734bfdbefed7d8a012d34829bf896dbd802e6",
+      "defaultMaterial": true
+    },
+    {
+      "key": "material-M-08",
+      "id": "M-08",
+      "name": "Taupe Microcement",
+      "file": "m-08-taupe-microcement.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-08-taupe-microcement.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-08-taupe-microcement.png",
+      "sha256": "6b94c9b22fba1921e42dbbcf34ac4d8a344a2498ccfc2817fd32bd1b1bf2ae04",
+      "defaultMaterial": false
+    },
+    {
+      "key": "material-M-09",
+      "id": "M-09",
+      "name": "Verde Alpi Marble",
+      "file": "m-09-verde-alpi-marble.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-09-verde-alpi-marble.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-09-verde-alpi-marble.png",
+      "sha256": "c5eea71b80d3c12e88431e83b471338ca9420eb4ae5c63e50aa12d6b9f3fb039",
+      "defaultMaterial": false
+    },
+    {
+      "key": "material-M-10",
+      "id": "M-10",
+      "name": "Charcoal Microcement",
+      "file": "m-10-charcoal-microcement.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-10-charcoal-microcement.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-10-charcoal-microcement.png",
+      "sha256": "0474bc338e8c296a9405993afbfbfb4cd84b54c11566b69e279f14da1a109247",
+      "defaultMaterial": false
+    },
+    {
+      "key": "material-M-11",
+      "id": "M-11",
+      "name": "Travertine Beige",
+      "file": "m-11-travertine-beige.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-11-travertine-beige.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-11-travertine-beige.png",
+      "sha256": "5c7ded25ae6b3347ccb08611d015ee52c8d0f1256e4a896de47d415b36c28bb0",
+      "defaultMaterial": false
+    },
+    {
+      "key": "material-M-12",
+      "id": "M-12",
+      "name": "Soft Cream Micro Cement",
+      "file": "m-12-soft-cream-micro-cement.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-12-soft-cream-micro-cement.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-12-soft-cream-micro-cement.png",
+      "sha256": "aef9ea9a6f33481bbabc020ba01cef1d7aa22e7f3b55dab6e6513ad69766fa36",
+      "defaultMaterial": true
+    },
+    {
+      "key": "material-M-13",
+      "id": "M-13",
+      "name": "Dark Grey Marble",
+      "file": "m-13-dark-grey-marble.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-13-dark-grey-marble.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-13-dark-grey-marble.png",
+      "sha256": "949171d2e6f23cd4154340c0c34746c39b470e586035fca597a4ed554b074664",
+      "defaultMaterial": false
+    },
+    {
+      "key": "material-M-14",
+      "id": "M-14",
+      "name": "Ivory Travertine",
+      "file": "m-14-ivory-travertine.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-14-ivory-travertine.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-14-ivory-travertine.png",
+      "sha256": "7ee24b721a4cdf9d7afc68ad59507b7cca3251c8f17fac424155f016b930e710",
+      "defaultMaterial": false
+    },
+    {
+      "key": "material-M-15",
+      "id": "M-15",
+      "name": "Light Grey Marble",
+      "file": "m-15-light-grey-marble.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-15-light-grey-marble.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-15-light-grey-marble.png",
+      "sha256": "bf32a10026ce47a83707d2afd3d41eb89f00767202809f583c824f31d327321c",
+      "defaultMaterial": false
+    },
+    {
+      "key": "material-M-16",
+      "id": "M-16",
+      "name": "Warm Beige Porcelain",
+      "file": "m-16-warm-beige-porcelain.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-16-warm-beige-porcelain.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-16-warm-beige-porcelain.png",
+      "sha256": "f0245fc86c45b59deeafcb1ed79b0af4f3bb08990787b40fc6cce8f747720f31",
+      "defaultMaterial": false
+    },
+    {
+      "key": "material-M-17",
+      "id": "M-17",
+      "name": "Dark Grey Slate",
+      "file": "m-17-dark-grey-slate.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-17-dark-grey-slate.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-17-dark-grey-slate.png",
+      "sha256": "e89656bf645ffa9419f75d7ae1fa6a39953a515de110c12abdfceadc0808d6e2",
+      "defaultMaterial": false
+    },
+    {
+      "key": "material-M-18",
+      "id": "M-18",
+      "name": "Green Marble",
+      "file": "m-18-green-marble.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-18-green-marble.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-18-green-marble.png",
+      "sha256": "d8ec0b2c82bd3de27747926c6cd163cbc7a583668d175246d160af1b95484004",
+      "defaultMaterial": false
+    },
+    {
+      "key": "material-M-19",
+      "id": "M-19",
+      "name": "Walnut Wood",
+      "file": "m-19-walnut-wood.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-19-walnut-wood.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-19-walnut-wood.png",
+      "sha256": "ec339e7630549cb440dd59483b1a251dded25a43fa9086c5f12ac32204291ea6",
+      "defaultMaterial": false
+    },
+    {
+      "key": "material-M-20",
+      "id": "M-20",
+      "name": "Light Grey Microcement",
+      "file": "m-20-light-grey-microcement.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-20-light-grey-microcement.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-20-light-grey-microcement.png",
+      "sha256": "9558eb14d2c675b9ebaefe6d1813348587dd38409cee59a21eed12e82457b298",
+      "defaultMaterial": true
+    },
+    {
+      "key": "material-M-21",
+      "id": "M-21",
+      "name": "Dark Walnut",
+      "file": "m-21-dark-walnut.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-21-dark-walnut.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-21-dark-walnut.png",
+      "sha256": "e6d9256b0382dd6e6fabd49248bae8dc122dd288bc136c58bee65077c0eb135d",
+      "defaultMaterial": true
+    },
+    {
+      "key": "material-M-22",
+      "id": "M-22",
+      "name": "Taj Mahal",
+      "file": "m-22-taj-mahal.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-22-taj-mahal.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-22-taj-mahal.png",
+      "sha256": "5eeb008d9406cd8ee7c0e5528077363fd7489533874d04844dc56f1d949bc1b5",
+      "defaultMaterial": false
+    },
+    {
+      "key": "material-M-23",
+      "id": "M-23",
+      "name": "White Oak",
+      "file": "m-23-white-oak.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-23-white-oak.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-23-white-oak.png",
+      "sha256": "b526d4bee4b661026aff70cfd4f7b9f6f9fcee400e4b9a781785453f512b429c",
+      "defaultMaterial": true
+    },
+    {
+      "key": "material-M-24",
+      "id": "M-24",
+      "name": "Natural Oak",
+      "file": "m-24-natural-oak.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-24-natural-oak.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-24-natural-oak.png",
+      "sha256": "14a62a4acd460543c25b823ecf4c59ac8f049330c812def72b141f97a5a23ebb",
+      "defaultMaterial": true
+    },
+    {
+      "key": "material-M-25",
+      "id": "M-25",
+      "name": "Taupe",
+      "file": "m-25-taupe.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-25-taupe.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-25-taupe.png",
+      "sha256": "ebec691796a6194368bccd078716139acef78550a6e04a7fc2db2a024f8270c4",
+      "defaultMaterial": false
+    },
+    {
+      "key": "material-M-26",
+      "id": "M-26",
+      "name": "Calacatta Viola Marble",
+      "file": "m-26-calacatta-viola-marble.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-26-calacatta-viola-marble.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-26-calacatta-viola-marble.png",
+      "sha256": "657d27cc040b26951f54a6f1de4fe26dfc64a5a90565757662331403e7126e7d",
+      "defaultMaterial": false
+    },
+    {
+      "key": "material-M-27",
+      "id": "M-27",
+      "name": "Warm Ivory Porcelain",
+      "file": "m-27-warm-ivory-porcelain.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-27-warm-ivory-porcelain.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-27-warm-ivory-porcelain.png",
+      "sha256": "d908f8f0333b546a9aea97d7a45b2e94b993754f581bff3aa9fb4ccaa4c9fb7d",
+      "defaultMaterial": false
+    },
+    {
+      "key": "material-M-28",
+      "id": "M-28",
+      "name": "Light Taupe Porcelain",
+      "file": "m-28-light-taupe-porcelain.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-28-light-taupe-porcelain.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-28-light-taupe-porcelain.png",
+      "sha256": "fb8bb1bfca4ef0cbfcf166269dc518c5ad34b77ba0495e5d54c84906b28380f8",
+      "defaultMaterial": false
+    },
+    {
+      "key": "material-M-29",
+      "id": "M-29",
+      "name": "Matte Black Porcelain",
+      "file": "m-29-matte-black-porcelain.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-29-matte-black-porcelain.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-29-matte-black-porcelain.png",
+      "sha256": "4d52a29cc9e9523758c664db7543f491e68ea952013b08b7f7b08f4966626a62",
+      "defaultMaterial": false
+    },
+    {
+      "key": "material-M-30",
+      "id": "M-30",
+      "name": "Breccia Capraia Marble",
+      "file": "m-30-breccia-capraia-marble.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-30-breccia-capraia-marble.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-30-breccia-capraia-marble.png",
+      "sha256": "1a8f1411c56da9e32ee94357fc48b152287b0ffcc09bae9e14235587049624f7",
+      "defaultMaterial": false
+    },
+    {
+      "key": "material-M-31",
+      "id": "M-31",
+      "name": "Champagne Porcelain",
+      "file": "m-31-champagne-porcelain.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-31-champagne-porcelain.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-31-champagne-porcelain.png",
+      "sha256": "ee2043b4a60cd3345e4b24e629433cfef7d6811ac6dfc27f65c21f3ed2756d1a",
+      "defaultMaterial": false
+    },
+    {
+      "key": "material-M-32",
+      "id": "M-32",
+      "name": "Lilac Marble",
+      "file": "m-32-lilac-marble.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-32-lilac-marble.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-32-lilac-marble.png",
+      "sha256": "0f6142c9994c10a1d6743760ae0c069fa9d4734c247682002d26eee1e5ec3231",
+      "defaultMaterial": false
+    },
+    {
+      "key": "material-M-33",
+      "id": "M-33",
+      "name": "Pearl Grey Porcelain",
+      "file": "m-33-pearl-grey-porcelain.png",
+      "source": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\src\\assets\\lessons\\04\\material-reference-review\\m-33-pearl-grey-porcelain.png",
+      "downloadPath": "practice/DJ-ML-01/materials/m-33-pearl-grey-porcelain.png",
+      "sha256": "0a8c40b88ca2d4e157e29186b94c10526fc668e6ab9d3ec5e03daedcad704546",
+      "defaultMaterial": false
+    }
+  ]
+}

@@ -1,0 +1,616 @@
+{
+  "passed": true,
+  "verifiedAt": "2026-10-14T13:55:30.466Z",
+  "root": "C:\\Users\\deric\\AppData\\Local\\Temp\\DJ_L02_CLEAN_ROOM_d5285f75-0bcf-4cc8-91c8-0c4102d2c624_한글 공백",
+  "node": "22.23.2",
+  "nodeExecutable": "C:\\Program Files\\nodejs\\node.exe",
+  "elevated": false,
+  "absoluteRepositoryDependency": false,
+  "artifacts": {
+    "programZipSha256": "0a49126629e852702f22d9ce9f27aa0411b045739d128d8271c5c3824a5836ce",
+    "testZipSha256": "9c8f3897169df9e69d984c9d592fbdb0f55177fbebbb23a5fc20a1ceda97acf5"
+  },
+  "programCoreIdentical": [
+    "START.bat",
+    "STOP.bat",
+    "package.json",
+    "data/registry.json",
+    "data/log.json",
+    "app/app.js",
+    "app/classifier.js",
+    "app/control.js",
+    "app/data-store.js",
+    "app/file-manager.js",
+    "app/rules.json",
+    "app/safe-root.js",
+    "app/watcher.js",
+    "app/folder-importer.js",
+    "app/folder-picker.ps1"
+  ],
+  "rows": [
+    {
+      "file": "office_floorplan.png",
+      "expected": "01_CAD도면",
+      "actual": "01_CAD도면",
+      "passed": true,
+      "sha256": "a50f21035b0629a3a34cc38cf949cb92a7c4f57ba377b5be8cd067b104e1b0cf",
+      "backupVerified": true,
+      "outputVerified": true
+    },
+    {
+      "file": "front_elevation.pdf",
+      "expected": "01_CAD도면",
+      "actual": "01_CAD도면",
+      "passed": true,
+      "sha256": "2572cf87468745c3be57ee357a338c864b12d3a2ae0b8bd341ecf1cb68d13892",
+      "backupVerified": true,
+      "outputVerified": true
+    },
+    {
+      "file": "material_ref_oak.png",
+      "expected": "03_레퍼런스",
+      "actual": "03_레퍼런스",
+      "passed": true,
+      "sha256": "b526d4bee4b661026aff70cfd4f7b9f6f9fcee400e4b9a781785453f512b429c",
+      "backupVerified": true,
+      "outputVerified": true
+    },
+    {
+      "file": "lighting_ref_3000K.jpg",
+      "expected": "03_레퍼런스",
+      "actual": "03_레퍼런스",
+      "passed": true,
+      "sha256": "79e66e751e7c9dbce017144c842d7ceb89632e680836446873655b8c01723ca7",
+      "backupVerified": true,
+      "outputVerified": true
+    },
+    {
+      "file": "render_A_v01.png",
+      "expected": "04_이미지결과",
+      "actual": "04_이미지결과",
+      "passed": true,
+      "sha256": "04220fd1050b08640e56b204a6000f9203cac31429e7fc39235b74551b29337f",
+      "backupVerified": true,
+      "outputVerified": true
+    },
+    {
+      "file": "project_brief.docx",
+      "expected": "07_문서",
+      "actual": "07_문서",
+      "passed": true,
+      "sha256": "b6aa93b455bfc2fc0bf181bb156c9864b60f19f9ddf34543a7cd92c099cb72f4",
+      "backupVerified": true,
+      "outputVerified": true
+    },
+    {
+      "file": "building_model.blend",
+      "expected": "05_3D모델",
+      "actual": "05_3D모델",
+      "passed": true,
+      "sha256": "7a5bf503255bc0ffa41031ba6eddba43bdd9b3280b8596a56f7a39f8ae987d8d",
+      "backupVerified": true,
+      "outputVerified": true
+    },
+    {
+      "file": "animation_cache.abc",
+      "expected": "05_3D모델",
+      "actual": "05_3D모델",
+      "passed": true,
+      "sha256": "302e7776cb78b49b846efae0d92acfd7113f9926a80fcc37b8795963e814b9d4",
+      "backupVerified": true,
+      "outputVerified": true
+    },
+    {
+      "file": "walkthrough.mp4",
+      "expected": "08_영상",
+      "actual": "08_영상",
+      "passed": true,
+      "sha256": "14d49fd349d5b86d92bb310264f103e9d56f2448192a09d74da3e95919edfa12",
+      "backupVerified": true,
+      "outputVerified": true
+    },
+    {
+      "file": "image001.png",
+      "expected": "99_분류확인",
+      "actual": "99_분류확인",
+      "passed": true,
+      "sha256": "38866e5d5f2a0c6b1e456ee7cb79ac812817e43a8c658add4aec633bac2153fc",
+      "backupVerified": true,
+      "outputVerified": true
+    },
+    {
+      "file": "scan003.pdf",
+      "expected": "99_분류확인",
+      "actual": "99_분류확인",
+      "passed": true,
+      "sha256": "ebc7594cb093daec642c6772ba352726162a5aea4e6d5cf53b36e3e7262af72c",
+      "backupVerified": true,
+      "outputVerified": true
+    }
+  ],
+  "cases": [
+    {
+      "name": "새 TEMP 압축해제·빈 data·프로그램/테스트 ZIP 무결성·원본 core 동일",
+      "passed": true,
+      "detail": {
+        "program": "C:\\Users\\deric\\AppData\\Local\\Temp\\DJ_L02_CLEAN_ROOM_d5285f75-0bcf-4cc8-91c8-0c4102d2c624_한글 공백\\AI_파일자동정리",
+        "coreFiles": 15
+      }
+    },
+    {
+      "name": "시스템 Node.js·비관리자 START.bat",
+      "passed": true,
+      "detail": {
+        "port": 4174,
+        "node": "22.23.2",
+        "stableMs": 2000
+      }
+    },
+    {
+      "name": "빈 화면 다음 행동·반응형 1440/390/320",
+      "passed": true
+    },
+    {
+      "name": "SORT_TEST 11개 기대=실제·자동9/확인대기2·원본보관 동일",
+      "passed": true,
+      "detail": [
+        {
+          "file": "office_floorplan.png",
+          "expected": "01_CAD도면",
+          "actual": "01_CAD도면",
+          "passed": true,
+          "sha256": "a50f21035b0629a3a34cc38cf949cb92a7c4f57ba377b5be8cd067b104e1b0cf",
+          "backupVerified": true,
+          "outputVerified": true
+        },
+        {
+          "file": "front_elevation.pdf",
+          "expected": "01_CAD도면",
+          "actual": "01_CAD도면",
+          "passed": true,
+          "sha256": "2572cf87468745c3be57ee357a338c864b12d3a2ae0b8bd341ecf1cb68d13892",
+          "backupVerified": true,
+          "outputVerified": true
+        },
+        {
+          "file": "material_ref_oak.png",
+          "expected": "03_레퍼런스",
+          "actual": "03_레퍼런스",
+          "passed": true,
+          "sha256": "b526d4bee4b661026aff70cfd4f7b9f6f9fcee400e4b9a781785453f512b429c",
+          "backupVerified": true,
+          "outputVerified": true
+        },
+        {
+          "file": "lighting_ref_3000K.jpg",
+          "expected": "03_레퍼런스",
+          "actual": "03_레퍼런스",
+          "passed": true,
+          "sha256": "79e66e751e7c9dbce017144c842d7ceb89632e680836446873655b8c01723ca7",
+          "backupVerified": true,
+          "outputVerified": true
+        },
+        {
+          "file": "render_A_v01.png",
+          "expected": "04_이미지결과",
+          "actual": "04_이미지결과",
+          "passed": true,
+          "sha256": "04220fd1050b08640e56b204a6000f9203cac31429e7fc39235b74551b29337f",
+          "backupVerified": true,
+          "outputVerified": true
+        },
+        {
+          "file": "project_brief.docx",
+          "expected": "07_문서",
+          "actual": "07_문서",
+          "passed": true,
+          "sha256": "b6aa93b455bfc2fc0bf181bb156c9864b60f19f9ddf34543a7cd92c099cb72f4",
+          "backupVerified": true,
+          "outputVerified": true
+        },
+        {
+          "file": "building_model.blend",
+          "expected": "05_3D모델",
+          "actual": "05_3D모델",
+          "passed": true,
+          "sha256": "7a5bf503255bc0ffa41031ba6eddba43bdd9b3280b8596a56f7a39f8ae987d8d",
+          "backupVerified": true,
+          "outputVerified": true
+        },
+        {
+          "file": "animation_cache.abc",
+          "expected": "05_3D모델",
+          "actual": "05_3D모델",
+          "passed": true,
+          "sha256": "302e7776cb78b49b846efae0d92acfd7113f9926a80fcc37b8795963e814b9d4",
+          "backupVerified": true,
+          "outputVerified": true
+        },
+        {
+          "file": "walkthrough.mp4",
+          "expected": "08_영상",
+          "actual": "08_영상",
+          "passed": true,
+          "sha256": "14d49fd349d5b86d92bb310264f103e9d56f2448192a09d74da3e95919edfa12",
+          "backupVerified": true,
+          "outputVerified": true
+        },
+        {
+          "file": "image001.png",
+          "expected": "99_분류확인",
+          "actual": "99_분류확인",
+          "passed": true,
+          "sha256": "38866e5d5f2a0c6b1e456ee7cb79ac812817e43a8c658add4aec633bac2153fc",
+          "backupVerified": true,
+          "outputVerified": true
+        },
+        {
+          "file": "scan003.pdf",
+          "expected": "99_분류확인",
+          "actual": "99_분류확인",
+          "passed": true,
+          "sha256": "ebc7594cb093daec642c6772ba352726162a5aea4e6d5cf53b36e3e7262af72c",
+          "backupVerified": true,
+          "outputVerified": true
+        }
+      ]
+    },
+    {
+      "name": "선택 없는 오류 안내·카드 키보드 초점 4.6초 유지·Enter 수동분류",
+      "passed": true
+    },
+    {
+      "name": "경로·제어 token·외부 Origin·직접 data 접근 제한",
+      "passed": true
+    },
+    {
+      "name": "중복 재투입·입력 유지·6초/24회 poll 동안 반복처리/로그 증가 없음",
+      "passed": true,
+      "detail": {
+        "records": 12,
+        "events": 26,
+        "observationMs": 6000
+      }
+    },
+    {
+      "name": "같은 이름 다른 내용 _v02·덮어쓰기 없음",
+      "passed": true
+    },
+    {
+      "name": "다른 instance 종료 거부·별도 Node 프로세스 유지",
+      "passed": true
+    },
+    {
+      "name": "STOP.bat 감시/서버 종료·다른 Node 유지·연결 오류 다음 행동 안내",
+      "passed": true
+    },
+    {
+      "name": "브라우저 JS 오류 0·외부 네트워크 요청 0",
+      "passed": true
+    },
+    {
+      "name": "검증 전용 TEMP 프로그램·data·log 실제 삭제",
+      "passed": true,
+      "detail": {
+        "programDeleted": true,
+        "cleanRootDeleted": true,
+        "checkedRoot": "C:\\Users\\deric\\AppData\\Local\\Temp\\DJ_L02_CLEAN_ROOM_d5285f75-0bcf-4cc8-91c8-0c4102d2c624_�ѱ� ����",
+        "osOrBrowserCacheDeletionClaim": false
+      }
+    },
+    {
+      "name": "기존 핵심 회귀검증: 복사 안정·충돌·실패·링크·fs root 감사·이동·START/STOP",
+      "passed": true,
+      "detail": {
+        "cases": 17,
+        "sourceUntouched": true
+      }
+    },
+    {
+      "name": "Windows Forms 선택창 실행환경 확인·실제 helper 동봉",
+      "passed": true,
+      "detail": {
+        "supported": true,
+        "type": "Windows.Forms.FolderBrowserDialog",
+        "interactiveSelection": "manual-review",
+        "implementation": "Real Windows Forms FolderBrowserDialog; path input verified end-to-end"
+      }
+    },
+    {
+      "name": "A 직접 수집함 방식 → 기존 분류·원본보관",
+      "passed": true
+    },
+    {
+      "name": "B/F/G/H/I 목록 확인→외부 읽기→수집함 복사→기존 감시·분류·부분 오류 계속",
+      "passed": true,
+      "detail": {
+        "result": "15개 확인 · 13개 복사 · 1개 건너뜀 · 1개 오류",
+        "topLevelOnly": true,
+        "ambiguous": true,
+        "conflict": true,
+        "unsupportedToPending": true,
+        "unreadableError": true
+      }
+    },
+    {
+      "name": "C 원본 파일 수·이름·SHA 변경0·하위 폴더 변경0",
+      "passed": true
+    },
+    {
+      "name": "D 동일 SHA 재가져오기 → 기존 duplicate 정책·입력 유지·5초 로그 증가0",
+      "passed": true
+    },
+    {
+      "name": "수집함의 같은 이름 충돌도 기존 reserveCopy _v02 사용·덮어쓰기0",
+      "passed": true
+    },
+    {
+      "name": "E 같은 이름 다른 내용 → 기존 _v02·기존 결과 및 외부 원본 보존",
+      "passed": true
+    },
+    {
+      "name": "J 빈 폴더 안내·가져오기 비활성",
+      "passed": true
+    },
+    {
+      "name": "선택 없는 경로·잘못된 token·외부 Origin·프로그램/드라이브/홈 루트 거부",
+      "passed": true
+    },
+    {
+      "name": "목록 확인 뒤 원본 변경 감지·다른 파일 계속·사용한 목록 재실행 거부",
+      "passed": true
+    },
+    {
+      "name": "새 가져오기 후 STOP 종료·외부 원본 보존·외부 요청0",
+      "passed": true
+    }
+  ],
+  "ui": [
+    {
+      "width": 1440,
+      "stage": "empty",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "title": "파일 정리 자동화",
+      "inbox": "AI_파일자동정리 / 00_수집함",
+      "badButtons": [],
+      "unlabeledSelects": 0,
+      "minimumActionFont": 16
+    },
+    {
+      "width": 390,
+      "stage": "empty",
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "title": "파일 정리 자동화",
+      "inbox": "AI_파일자동정리 / 00_수집함",
+      "badButtons": [],
+      "unlabeledSelects": 0,
+      "minimumActionFont": 16
+    },
+    {
+      "width": 320,
+      "stage": "empty",
+      "scrollWidth": 320,
+      "clientWidth": 320,
+      "title": "파일 정리 자동화",
+      "inbox": "AI_파일자동정리 / 00_수집함",
+      "badButtons": [],
+      "unlabeledSelects": 0,
+      "minimumActionFont": 16
+    },
+    {
+      "width": 1440,
+      "stage": "pending",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "title": "파일 정리 자동화",
+      "inbox": "AI_파일자동정리 / 00_수집함",
+      "badButtons": [],
+      "unlabeledSelects": 0,
+      "minimumActionFont": 13.76
+    },
+    {
+      "width": 390,
+      "stage": "pending",
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "title": "파일 정리 자동화",
+      "inbox": "AI_파일자동정리 / 00_수집함",
+      "badButtons": [],
+      "unlabeledSelects": 0,
+      "minimumActionFont": 13.76
+    },
+    {
+      "width": 320,
+      "stage": "pending",
+      "scrollWidth": 320,
+      "clientWidth": 320,
+      "title": "파일 정리 자동화",
+      "inbox": "AI_파일자동정리 / 00_수집함",
+      "badButtons": [],
+      "unlabeledSelects": 0,
+      "minimumActionFont": 13.76
+    }
+  ],
+  "pageErrors": [],
+  "externalNetworkRequests": [],
+  "cleanup": {
+    "programDeleted": true,
+    "cleanRootDeleted": true,
+    "checkedRoot": "C:\\Users\\deric\\AppData\\Local\\Temp\\DJ_L02_CLEAN_ROOM_d5285f75-0bcf-4cc8-91c8-0c4102d2c624_�ѱ� ����",
+    "osOrBrowserCacheDeletionClaim": false
+  },
+  "latestRequest": "dc0ff8a2-58cb-4e09-9afe-ba45e5d5d42b",
+  "inputImport": {
+    "passed": true,
+    "report": "review/daejeon/LESSON02_INPUT_IMPORT/instructor/import-verification.json",
+    "cases": [
+      {
+        "name": "Windows Forms 선택창 실행환경 확인·실제 helper 동봉",
+        "passed": true,
+        "detail": {
+          "supported": true,
+          "type": "Windows.Forms.FolderBrowserDialog",
+          "interactiveSelection": "manual-review",
+          "implementation": "Real Windows Forms FolderBrowserDialog; path input verified end-to-end"
+        }
+      },
+      {
+        "name": "A 직접 수집함 방식 → 기존 분류·원본보관",
+        "passed": true
+      },
+      {
+        "name": "B/F/G/H/I 목록 확인→외부 읽기→수집함 복사→기존 감시·분류·부분 오류 계속",
+        "passed": true,
+        "detail": {
+          "result": "15개 확인 · 13개 복사 · 1개 건너뜀 · 1개 오류",
+          "topLevelOnly": true,
+          "ambiguous": true,
+          "conflict": true,
+          "unsupportedToPending": true,
+          "unreadableError": true
+        }
+      },
+      {
+        "name": "C 원본 파일 수·이름·SHA 변경0·하위 폴더 변경0",
+        "passed": true
+      },
+      {
+        "name": "D 동일 SHA 재가져오기 → 기존 duplicate 정책·입력 유지·5초 로그 증가0",
+        "passed": true
+      },
+      {
+        "name": "수집함의 같은 이름 충돌도 기존 reserveCopy _v02 사용·덮어쓰기0",
+        "passed": true
+      },
+      {
+        "name": "E 같은 이름 다른 내용 → 기존 _v02·기존 결과 및 외부 원본 보존",
+        "passed": true
+      },
+      {
+        "name": "J 빈 폴더 안내·가져오기 비활성",
+        "passed": true
+      },
+      {
+        "name": "선택 없는 경로·잘못된 token·외부 Origin·프로그램/드라이브/홈 루트 거부",
+        "passed": true
+      },
+      {
+        "name": "목록 확인 뒤 원본 변경 감지·다른 파일 계속·사용한 목록 재실행 거부",
+        "passed": true
+      },
+      {
+        "name": "새 가져오기 후 STOP 종료·외부 원본 보존·외부 요청0",
+        "passed": true
+      }
+    ],
+    "screens": [
+      {
+        "width": 1440,
+        "scroll": 1440,
+        "buttons": [
+          {
+            "label": "수집함 폴더 열기",
+            "width": 148.765625,
+            "scroll": 147,
+            "client": 147
+          },
+          {
+            "label": "폴더 선택",
+            "width": 96.390625,
+            "scroll": 94,
+            "client": 94
+          },
+          {
+            "label": "목록 확인",
+            "width": 96.390625,
+            "scroll": 94,
+            "client": 94
+          },
+          {
+            "label": "파일 가져오기",
+            "width": 128.390625,
+            "scroll": 126,
+            "client": 126
+          }
+        ]
+      },
+      {
+        "width": 390,
+        "scroll": 390,
+        "buttons": [
+          {
+            "label": "수집함 폴더 열기",
+            "width": 148.765625,
+            "scroll": 147,
+            "client": 147
+          },
+          {
+            "label": "폴더 선택",
+            "width": 160,
+            "scroll": 158,
+            "client": 158
+          },
+          {
+            "label": "목록 확인",
+            "width": 160,
+            "scroll": 158,
+            "client": 158
+          },
+          {
+            "label": "파일 가져오기",
+            "width": 128.390625,
+            "scroll": 126,
+            "client": 126
+          }
+        ]
+      },
+      {
+        "width": 320,
+        "scroll": 320,
+        "buttons": [
+          {
+            "label": "수집함 폴더 열기",
+            "width": 148.765625,
+            "scroll": 147,
+            "client": 147
+          },
+          {
+            "label": "폴더 선택",
+            "width": 125,
+            "scroll": 123,
+            "client": 123
+          },
+          {
+            "label": "목록 확인",
+            "width": 125,
+            "scroll": 123,
+            "client": 123
+          },
+          {
+            "label": "파일 가져오기",
+            "width": 128.390625,
+            "scroll": 126,
+            "client": 126
+          }
+        ]
+      }
+    ],
+    "picker": {
+      "supported": true,
+      "type": "Windows.Forms.FolderBrowserDialog",
+      "interactiveSelection": "manual-review",
+      "implementation": "Real Windows Forms FolderBrowserDialog; path input verified end-to-end"
+    },
+    "sourceIntegrity": [
+      {
+        "folder": "C:\\Users\\deric\\AppData\\Local\\Temp\\DJ_L02_IMPORT_71f4cf77-48cc-45fe-8d34-85c4b2dd170d_한글 공백\\프로젝트 '한글' [원본] 자료",
+        "files": 15,
+        "namesUnchanged": true,
+        "shaUnchanged": true,
+        "nestedUnchanged": true
+      }
+    ]
+  }
+}

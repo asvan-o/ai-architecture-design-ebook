@@ -1,0 +1,49 @@
+---
+import {getLesson07Manifest} from '../../../scripts/build-daejeon-lesson07-assets.mjs';
+import {lesson07ImageCopy} from '../content/lesson07-textbook';
+interface Props {assetKey:string;instance:string;title?:string;description?:string;rotateCounterclockwise?:boolean;}
+interface Asset {key:string;title:string;description:string;outputPath:string;width:number;height:number;downloadPath?:string;originalWidth?:number;originalHeight?:number;}
+const {assetKey,instance,title:captionTitle,description:captionDescription,rotateCounterclockwise=false}=Astro.props;
+const asset=(getLesson07Manifest().files as Asset[]).find(f=>f.key===assetKey);
+if(!asset)throw new Error('Unknown Lesson07 image '+assetKey);
+const title=captionTitle||lesson07ImageCopy[assetKey]?.title||asset.title;
+const description=captionDescription||lesson07ImageCopy[assetKey]?.description||asset.description;
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const href=base+'/'+asset.outputPath;
+const originalHref=base+'/'+(asset.downloadPath||asset.outputPath);
+const originalName=(asset.downloadPath||asset.outputPath).split('/').pop();
+const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
+const dialogId='l07-image-'+instance+'-'+assetKey;
+---
+<figure class="l07-asset" data-l07-asset={assetKey}>
+ {enabled&&(rotateCounterclockwise?<div class="l07-rotated-frame" data-l07-view-rotation="counterclockwise-90" style={`aspect-ratio:${asset.height}/${asset.width};--image-width:${asset.width/asset.height*100}%`}><img src={href} alt={title} width={asset.width} height={asset.height} loading="lazy" /></div>:<img src={href} alt={title} width={asset.width} height={asset.height} loading="lazy" />)}
+ <figcaption><strong>{title}</strong><p>{description}</p>
+ {enabled&&<div class="l07-actions"><button type="button" data-l07-open={dialogId} aria-haspopup="dialog">확대 보기</button><a href={originalHref} download={originalName}>원본 {/\.jpe?g$/i.test(originalName||'')?'JPEG':'PNG'} 다운로드</a></div>}
+ </figcaption>
+ {enabled&&<dialog id={dialogId} aria-labelledby={dialogId+'-title'}>
+  <header><h3 id={dialogId+'-title'}>{title}</h3><button type="button" data-l07-size aria-pressed="false">원본 크기로 보기</button><button type="button" data-l07-close>닫기</button></header>
+  <div class="l07-dialog-scroll"><img src={originalHref} alt={title} width={asset.originalWidth||asset.width} height={asset.originalHeight||asset.height} loading="lazy" /></div><p>Esc 키로 닫습니다. 원본 크기에서는 이미지 안에서 이동할 수 있습니다.</p>
+ </dialog>}
+</figure>
+<style>
+ .l07-asset{min-width:0;border:1px solid var(--line);background:var(--surface);break-inside:avoid}
+ .l07-rotated-frame{position:relative;width:100%;overflow:hidden;background:#fff}.l07-rotated-frame img{position:absolute;left:50%;top:50%;width:var(--image-width);max-width:none;height:auto;transform:translate(-50%,-50%) rotate(-90deg)}
+ figcaption{padding:1rem;margin:0!important;overflow-wrap:anywhere}figcaption strong{color:var(--ink);font-size:.98rem}figcaption p{margin:.5rem 0;font-size:.86rem}
+ .l07-actions{display:flex;flex-wrap:wrap;gap:.65rem;align-items:center;font-size:.83rem}
+ button{font:inherit;cursor:pointer;background:var(--paper);color:var(--ink);border:1px solid var(--line-dark);padding:.5rem .7rem}
+ dialog{max-width:min(94vw,90rem);width:90rem;max-height:92vh;padding:1rem;background:var(--paper);color:var(--ink);border:1px solid var(--line-dark);overflow:auto}
+ dialog::backdrop{background:rgb(0 0 0/.7)}dialog header{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}dialog h3{flex:1 1 14rem;margin:.2rem 0;font-size:1rem}
+ .l07-dialog-scroll{overflow:auto;max-height:70vh;margin-top:.8rem}.l07-dialog-scroll img{max-height:68vh;object-fit:contain}
+ dialog.is-original .l07-dialog-scroll img{width:auto;max-width:none;max-height:none}
+ @media print{dialog,.l07-actions{display:none!important}}
+</style>
+<script>
+ document.querySelectorAll<HTMLButtonElement>('[data-l07-open]').forEach(button=>{
+  const dialog=document.getElementById(button.dataset.l07Open||'') as HTMLDialogElement|null;
+  if(!dialog)return;
+  button.addEventListener('click',()=>{dialog.showModal();const img=dialog.querySelector('img');if(img)img.loading='eager';});
+  dialog.querySelector('[data-l07-close]')?.addEventListener('click',()=>dialog.close());
+  dialog.addEventListener('close',()=>button.focus());
+  dialog.querySelector<HTMLButtonElement>('[data-l07-size]')?.addEventListener('click',event=>{const large=dialog.classList.toggle('is-original'),target=event.currentTarget as HTMLButtonElement;target.textContent=large?'화면에 맞춰 보기':'원본 크기로 보기';target.setAttribute('aria-pressed',String(large));});
+ });
+</script>

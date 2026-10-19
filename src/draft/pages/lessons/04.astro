@@ -1,0 +1,120 @@
+---
+import ReviewLayout from '../../layouts/ReviewLayout.astro';
+import ReviewSection from '../../components/ReviewSection.astro';
+import TopicProgress from '../../components/TopicProgress.astro';
+import Lesson03AssetCard from '../../components/Lesson03AssetCard.astro';
+import Lesson03Comparison from '../../components/Lesson03Comparison.astro';
+import Lesson04Workbench from '../../components/Lesson04Workbench.astro';
+import Lesson04Techniques from '../../components/Lesson04Techniques.astro';
+import {lesson04ApplicationPrompts,lesson04ApplicationZip,lesson04ApplicationOther} from '../../../../scripts/daejeon-lesson04-applications.mjs';
+import ReviewPrompt from '../../components/ReviewPrompt.astro';
+import {lesson04Title,lesson04Sections,lesson04Periods,lesson04Next} from '../../content/daejeon-lesson04';
+import {lesson04Bases,lesson04References,lesson04Samples,lesson04Prompts,lesson04Prompt,lesson04Analysis} from '../../../../scripts/daejeon-lesson04-assets.mjs';
+import '../../styles/lesson03.css';
+import '../../styles/lesson04.css';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
+const tocGroups=lesson04Periods.map((p,i)=>({id:p.id,title:'Part '+(i+1)+' · '+p.title,items:p.sections}));
+const toc=tocGroups.flatMap(g=>g.items);
+const prompt=(key:string)=>{const p=lesson04Prompt[key];return{id:'l04-'+key,title:p.title,prompt:p.text,attachments:p.attachments,filename:p.file.split('/').pop(),href:enabled?base+'/'+p.outputPath:undefined};};
+const sample=(key:string)=>lesson04Samples.find(s=>s.key===key)!;
+const zip=lesson04ApplicationZip;
+---
+<ReviewLayout title={lesson04Title} lead="기존 건물의 형태와 주변은 지키고, 표면과 전면부의 다른 전략을 비교합니다." page="lesson" lessonId="04" eyebrow="LESSON 04 · EXTERIOR" sharedScreen {toc} {tocGroups}>
+<div class="lesson03-review lesson04-review" data-l04-workbench data-l04-bases={JSON.stringify(lesson04Bases.map(({id,type,keep,change})=>({id,type,keep,change})))}>
+
+
+  <TopicProgress lesson="04" items={[{topic:3,status:'계속',note:'실내에서 익힌 유지·변경 원칙을 건축 외관에 적용하고, 인페인팅 수정안과 래피드 대안을 비교하며 초기 기획 방향을 좁힙니다.'}]} />
+  <div class="l03-period-summary">{lesson04Periods.map((p,i)=><article><h2>Part {i+1} · {p.title}</h2></article>)}</div>
+  <aside class="review-callout"><h2>같은 건물에서 시작해 수정 범위를 비교합니다</h2><p>기본 실습은 <strong>클린업 → 표면 교체 A → 조경 등 선택 확장</strong>으로 이어집니다. B/A2·석양 조명·스케치·서브 시점은 적용 예시를 비교한 뒤 심화 실습으로 확장합니다.</p></aside>
+  {lesson04Periods.map((period,periodIndex)=><div class="day-period" id={period.id} data-period={periodIndex+1} data-teaching-minutes="50">
+    <header class="period-heading"><p>Part {periodIndex+1}</p><h2>{period.title}</h2></header>
+    {period.sections.map(section=><ReviewSection id={section.id} title={section.title} minutes={section.minutes} index={lesson04Sections.findIndex(s=>s.id===section.id)+1}>
+      <dl class="l03-step-context"><div><dt>지금 할 일</dt><dd>{section.action}</dd></div><div><dt>왜 하는가</dt><dd>{section.reason}</dd></div><div><dt>다음에 사용할 것</dt><dd>{section.next}</dd></div></dl>
+      {section.id==='l04-recap'&&<>
+        <p>지난 차시에는 실내 한 면을 수정하고, 디자인 방향 보드를 같은 공간의 새 콘셉트로 연결했습니다. 오늘은 건물 외관에서 유지·변경 경계를 더 세밀하게 나눕니다.</p>
+        <ol class="l03-workflow">{['클린업 제거','부위별 마감 교체 A/B','국소 보완 A2','조경·보행 광장·사람 추가','석양·경관조명 확장','스케치 래피드·다각도 뷰','종합 비교·선별'].map(t=><li>{t}</li>)}</ol>
+        <p>외장재·색상·창틀·출입구·사인 면·전면부의 <strong>기존 표면</strong>을 다룹니다. 개구부 이동·새 층·구조 변경은 이번 이미지 실습 범위가 아닙니다.</p>
+      </>}
+      {section.id==='l04-base'&&<>
+        <Lesson04Workbench area="base" />
+        <div class="l03-asset-grid" data-l04-bases-grid>{lesson04Bases.map(b=><Lesson03AssetCard image={b} title={b.title} description={b.description} instance="l04-base" />)}</div>
+        <h3>참고자료 5종 · 적용할 재질과 색감 선택</h3><p>기준 건물은 매스·개구부·카메라·주변 맥락의 기준입니다. 재질 Reference는 색·무늬·질감만 참고하며, 카드의 글자나 다른 공간의 구조와 배치를 옮기지 않습니다.</p>
+        <div class="l03-asset-grid" data-l04-reference-grid>{lesson04References.map(r=><div><Lesson03AssetCard image={r} title={r.title} description={r.description} instance="l04-ref" /></div>)}</div>
+        <p>재질 이미지는 실제 제품 규격·가격·내구성·난연성·시공법·내후 성능을 확정하는 자료가 아닙니다.</p>
+      </>}
+      {section.id==='l04-scope'&&<>
+        <Lesson04Techniques stage="cleanup" />
+        <h3>기법 2 · 표면 교체의 유지·변경 조건</h3>
+        <div class="l04-table"><table><thead><tr><th>구분</th><th>BASE 01 예제의 기준</th></tr></thead><tbody><tr><th>유지</th><td>3층 매스·상층 창 8개·쇼윈도 2개·중앙 출입문의 위치·크기·분할·캐노피 외곽·정면 카메라·거리 관계</td></tr><tr><th>A에서 변경</th><td>2~3층과 1층 좌우 회색 벽 전체 → 크림 라임스톤 / 포털·캐노피 하부 → 수직 목재 / 간판 띠·엣지·프레임 → 브론즈 / 기존 내부에 따뜻한 빛</td></tr><tr><th>B에서 변경</th><td>2~3층 외벽 전체 → 웜 테라코타·토프 / 1층 벽·포털·기단 → 차콜 스톤 / 간판 띠·캐노피·프레임 → 매트 블랙</td></tr><tr><th>제외</th><td>새 창·문·층·간판 구조·조경 추가, 내부 구조 재설계. 조경과 경관조명은 뒤의 별도 확장에서 다룹니다.</td></tr><tr><th>미확정</th><td>실제 치수·재료 제품·법규·구조 안전·시공비·단열·방화 성능</td></tr></tbody></table></div>
+        <p>“입구 주변”만 적기보다 원본에서 벽의 시작과 끝, 창틀·캐노피와 맞닿는 경계를 말합니다. 가려진 면의 치수는 임의로 만들지 않습니다.</p>
+        <details><summary>범위 정리용 7단 요청문</summary><ReviewPrompt {...prompt('scope-7step')} /></details>
+        {enabled&&<a href={base+'/'+lesson04Analysis[0].outputPath} download>기준 건물·참고자료 역할 안내 MD 다운로드</a>}
+      </>}
+      {section.id==='l04-prompt-a'&&<>
+        <p><strong>목적 / 맥락 / 입력자료 / 작업 단계 / 조건·제한 / 출력 형식 / 검토 기준</strong>으로 요청합니다. 수정할 기존 면과 손대지 않을 영역을 함께 씁니다.</p>
+        <Lesson04Workbench area="A" />
+        <p>BASE 01의 아래 7단 Prompt와 실행용 TXT는 실제 생성에 사용한 같은 원문입니다. 같은 입력·문구로도 도구·모델·실행마다 세부 결과가 달라질 수 있으므로, 목표 방향과 유지 조건을 다시 비교합니다.</p>
+        <details><summary>BASE 01 예제 · A의 7단 학습용 요청문</summary><ReviewPrompt {...prompt('A-7step')} /></details>
+        <ReviewPrompt {...prompt('A-short')} />
+      </>}
+      {section.id==='l04-run-a'&&<>
+        <ol class="review-flow"><li><div><strong>선택한 기준 이미지 첨부</strong><span>다른 건물이나 이전 실내 이미지가 섞이지 않았는지 봅니다.</span></div></li><li><div><strong>내 범위와 Prompt 읽고 실행</strong><span>Nano Banana 등 사용하는 이미지 편집 도구에서 지정 영역과 글 조건을 함께 사용합니다.</span></div></li><li><div><strong>실제 요청문·결과 저장</strong><span>입력 조건과 결과를 함께 남기고 원본과 비교합니다.</span></div></li></ol>
+        <Lesson03Comparison before={lesson04Bases[0]} after={sample('A')} beforeTitle="Before · 변경 전 기준 건물" afterTitle="After · 크림 라임스톤·우드 포털 A" beforeDescription="상층과 저층의 차가운 회색 벽, 기존 개구부·카메라 기준입니다." afterDescription={sample('A').description} instance="l04-base-a" />
+        <p>아래 A/B 예제는 BASE 01을 공통 기준으로 비교합니다. 직접 실습할 때는 검토한 클린업 결과 또는 제공 BASE 중 하나를 기준으로 정하고, 같은 입력과 시점을 유지합니다.</p>
+      </>}
+      {section.id==='l04-check-a'&&<>
+        <p>목재 포털이 잘 보이는 것과 원본이 유지되는 것은 별도로 봅니다. 원본과 A를 번갈아 확대하고 상층 창·쇼윈도·중앙 문·캐노피 테두리·이웃·도로를 비교합니다.</p>
+        <ul><li>목표: 상층까지 크림 석재로 바뀌고 목재 포털·브론즈 띠가 구분되는가?</li><li>유지: 층수·상층 창 8개·쇼윈도 2개·중앙 문·큰 비례·카메라·거리 관계가 유지됐는가?</li><li>비대상: 유리 반사·도로·이웃 표면·문 세부가 다시 표현됐는가?</li></ul>
+        <aside class="review-callout">상층 외벽의 재료 변경은 이번 목표에 포함됩니다. 석재 결·반사·주변 질감의 미세한 재표현은 별도로 대조합니다. 큰 관계가 유지돼 보이는 것과 정밀 형상이 검증된 것은 다릅니다.</aside>
+      </>}
+      {section.id==='l04-strategy-b'&&<>
+        <div class="review-cards"><article class="review-card"><h3>A · 밝은 크림 외벽과 목재 포털</h3><p>상층과 저층 전체를 밝은 석재로 묶고 수직 목재와 브론즈로 입구를 강조합니다.</p></article><article class="review-card"><h3>B · 웜 테라코타와 차콜의 층별 대비</h3><p>따뜻한 상층 외벽과 무게감 있는 저층 석재·검은 띠를 독립 대안으로 비교합니다.</p></article></div>
+        <p>A 위에 B를 덧입히지 않습니다. 같은 원본에서 시작해야 적용 영역과 사용 목적의 차이를 비교할 수 있습니다. BASE 02는 기존 루버와 전면 벽, BASE 03은 코너 포털과 기존 사인 면으로 범위를 구분합니다.</p>
+      </>}
+      {section.id==='l04-prompt-b'&&<>
+        <p>BASE 01은 상층·저층의 마감 조합까지 다르게 요청합니다. 다른 건물을 선택하면 그 건물의 기존 면에 맞춘 별도 연습 요청문으로 전환됩니다. BASE 02의 기존 루버는 위치·간격·수를 지키고, 새 부재를 임의로 더하지 않습니다.</p>
+        <Lesson04Workbench area="B" />
+        <details><summary>BASE 02 · 기존 루버 부분 수정 요청문</summary><ReviewPrompt {...prompt('EXT-BASE-02-practice-7step')} /></details>
+        <details><summary>BASE 01 예제 · B의 7단 요청문</summary><ReviewPrompt {...prompt('B-7step')} /></details>
+        <ReviewPrompt {...prompt('B-short')} />
+        <h3>A → A2 · 간판 띠와 캐노피 톤만 국소 보완</h3>
+        <p>A와 밝은 웜그레이 재질 참고를 첨부합니다. 상층 크림 석재와 포털의 수직 목재는 두고, 수평 간판 띠·캐노피 전면 및 하부를 밝게 바꿉니다.</p>
+        <details><summary>A2 · 보완 요청 7단 구조</summary><ReviewPrompt {...prompt('A2-7step')} /></details><ReviewPrompt {...prompt('A2-short')} />
+        <Lesson03Comparison before={sample('A')} after={sample('A2')} beforeTitle="Before · 보완 전 A" afterTitle="After · 밝은 간판 띠·캐노피 A2" beforeDescription="어두운 브론즈 띠와 목재 캐노피 하부가 있는 A입니다." afterDescription={sample('A2').description} instance="l04-a-a2" />
+        <aside class="review-callout"><strong>보완 결과에도 확인이 필요합니다.</strong><p>띠·전면·하부가 밝아진 목표 변화와 석재 결·반사의 미세한 재표현을 분리해 봅니다. 보완안이 항상 더 우수한 선택이라는 뜻은 아닙니다.</p></aside>
+      </>}
+      {section.id==='l04-run-b'&&<>
+        <p class="l03-flow">처음 원본 첨부 → B의 범위와 유지 조건 확인 → 실행 → 같은 원본·A·B 비교</p>
+        <Lesson03Comparison before={lesson04Bases[0]} after={sample('B')} beforeTitle="Before · 변경 전 같은 기준 건물" afterTitle="After · 테라코타·차콜·블랙 B" beforeDescription="A와 동일한 처음 원본에서 독립 실행했습니다." afterDescription={sample('B').description} instance="l04-base-b" />
+        <p>좌우 개구부와 매스는 같은 기준으로 두고, 중앙 진입부 강조와 전면부 재료 대비 중 어떤 목적에 더 맞는지 봅니다. B를 비교한 뒤 주간 A에서 조경 추가로 이어갈 수 있습니다.</p><Lesson04Techniques stage="landscape" />
+      </>}
+      {section.id==='l04-gemini'&&<>
+        <Lesson04Techniques stage="dusk" />
+        <details><summary>비교 내용을 Gemini로 정리하는 보조 Workflow</summary>
+        <p>Gemini에 원본·A·B와 실제 Prompt를 함께 제공합니다. AI의 비교는 초안입니다. <strong>직접 관찰 / 제공 조건 / 추정 / 미확정</strong>을 구분하고, 사람이 원본과 대조한 항목만 보완 요청에 사용합니다.</p>
+        <details><summary>Gemini 비교 분석 · 7단 요청문</summary><ReviewPrompt {...prompt('gemini-7step')} /></details><ReviewPrompt {...prompt('gemini-short')} />
+
+        </details>
+      </>}
+      {section.id==='l04-refine'&&<>
+        <Lesson04Techniques stage="sketch" />
+        <Lesson04Techniques stage="angles" />
+      </>}
+      {section.id==='l04-compare'&&<>
+        <p>앞의 14개 전후 비교를 다시 훑고 선택 이유를 정리합니다. A/B는 처음 원본의 독립 대안, A2는 A의 국소 보완입니다. 조경·보행 광장·사람은 단계별 추가, 석양과 다각도는 각각 정한 메인에서의 확장입니다. 스케치 분기는 당시의 별도 입력을 기준으로 비교합니다.</p>
+        <div class="l04-table"><table><thead><tr><th>비교 기준</th><th>함께 볼 것</th></tr></thead><tbody><tr><th>목적</th><td>입구 인지성 / 전면부 통일감 / 목재 적용 범위</td></tr><tr><th>유지</th><td>매스·층수·창·문·캐노피 외곽·카메라·주변 맥락</td></tr><tr><th>범위 준수</th><td>지정 면 밖 마감·반사·도로·이웃의 재표현</td></tr><tr><th>선택 이유</th><td>목적에 맞는 방향·남은 한계·추가 확인 조건</td></tr></tbody></table></div>
+        <details><summary>대안 선별용 7단 요청문</summary><ReviewPrompt {...prompt('compare-7step')} /></details>
+        <p>법규 적법성·구조 안전·실제 시공비·단열·방화 성능은 이미지 비교만으로 확정하지 않습니다. 실무 적용 전 도면·제품 정보·현장 조건과 해당 전문 검토가 필요합니다.</p>
+      </>}
+      {section.id==='l04-next'&&<>
+        <h3>오늘 남길 자료</h3><ul><li>같은 기준 건물과 실제 첨부한 Reference</li><li>A/B의 실제 Prompt와 결과 또는 실행 상태</li><li>사람이 검토한 분석과 한 부위 보완 요청</li><li>조경·석양·스케치·서브 시점의 비교 메모와 선택 실행 기록</li><li>보완 결과·선택 이유·요청 밖 변화·미확정 조건</li></ul>
+        <p>다른 BASE와 추가 요소는 선택 확장입니다. 필수 실행을 늘리지 않고 기록과 비교를 마무리합니다.</p>
+        <details data-l04-downloads><summary>제4차시 자료·Prompt 전체 다운로드</summary>{enabled?<><p><a class="review-download" href={base+'/'+zip.outputPath} download>통합 실습자료 ZIP 다운로드</a></p><p>기준 건물 3종 · 재질 Reference 5종 · A/B/A2 · 응용 이미지 13종 · Prompt TXT 42종 · 스케치 분기 입력 참고</p><ul>{[...lesson04Prompts,...lesson04ApplicationPrompts].map(p=><li><a href={base+'/'+p.outputPath} download>{p.title} TXT</a></li>)}</ul><ul>{[lesson04Analysis[0],...lesson04ApplicationOther].map(a=><li><a href={base+'/'+a.outputPath} download>{a.title} 다운로드</a></li>)}<li><a href={base+'/practice/DJ-L04/application/manifest.json'} download>추가 응용 이미지·Prompt SHA manifest</a></li></ul></>:<p>실습자료는 로컬 검수 자료에서 확인합니다.</p>}</details>
+        <p data-l04-next>{lesson04Next}</p><p><a href={base+'/lessons/05/'}>제5차시 · 도면 인페인팅으로 이어가기 →</a></p>
+      </>}
+    </ReviewSection>)}
+  </div>)}
+</div>
+</ReviewLayout>
+<script>import '../../scripts/lesson04-workbench';</script>

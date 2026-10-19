@@ -1,0 +1,119 @@
+{
+  "checkedAt": "2026-10-07T15:49:36.370Z",
+  "method": "HEAD",
+  "publicBase": "https://asvan-o.github.io/ai-architecture-design-ebook/",
+  "items": [
+    {
+      "url": "https://asvan-o.github.io/ai-architecture-design-ebook/downloads/ai-architecture-design-lesson-01_2026-08-27.pdf",
+      "downloadName": null,
+      "publicHttpStatus": 200,
+      "contentType": "application/pdf",
+      "localSha256": "c8d51de3f1fa7cb793a976060135cdbd71d93f61753deca1208e366419496557",
+      "note": "기존 공개 경로 HEAD 확인. 원격 본문 해시 비교는 수행하지 않음"
+    },
+    {
+      "url": "https://asvan-o.github.io/ai-architecture-design-ebook/downloads/ai-architecture-design-lesson-02_2026-08-27.pdf",
+      "downloadName": null,
+      "publicHttpStatus": 200,
+      "contentType": "application/pdf",
+      "localSha256": "f61cb312980bbf8e4effab01d0c0394a67bfe0e1ab5d03bad83330fd0b7ca6c5",
+      "note": "기존 공개 경로 HEAD 확인. 원격 본문 해시 비교는 수행하지 않음"
+    },
+    {
+      "url": "https://asvan-o.github.io/ai-architecture-design-ebook/_astro/base-01.B66lWVxv.jpeg",
+      "downloadName": "lesson-02-empty-space-base-01.jpeg",
+      "publicHttpStatus": 200,
+      "contentType": "image/jpeg",
+      "localSha256": "79e66e751e7c9dbce017144c842d7ceb89632e680836446873655b8c01723ca7",
+      "note": "기존 공개 경로 HEAD 확인. 원격 본문 해시 비교는 수행하지 않음"
+    },
+    {
+      "url": "https://asvan-o.github.io/ai-architecture-design-ebook/_astro/base-02.CGwjpbb_.jpeg",
+      "downloadName": "lesson-02-empty-space-base-02.jpeg",
+      "publicHttpStatus": 200,
+      "contentType": "image/jpeg",
+      "localSha256": "a7eeaf62441041de43778068c1db2f3c02ed45c09a8964e666b4b0b4350133fc",
+      "note": "기존 공개 경로 HEAD 확인. 원격 본문 해시 비교는 수행하지 않음"
+    },
+    {
+      "url": "https://asvan-o.github.io/ai-architecture-design-ebook/_astro/base-03.Bg3zmJMP.jpeg",
+      "downloadName": "lesson-02-empty-space-base-03.jpeg",
+      "publicHttpStatus": 200,
+      "contentType": "image/jpeg",
+      "localSha256": "4cb5ad7f1cd477132944a624056f5748b624c5e1215c8a98c9900ce9ee6280f3",
+      "note": "기존 공개 경로 HEAD 확인. 원격 본문 해시 비교는 수행하지 않음"
+    },
+    {
+      "url": "https://asvan-o.github.io/ai-architecture-design-ebook/_astro/base-04.B9W4-nM6.jpeg",
+      "downloadName": "lesson-02-empty-space-base-04.jpeg",
+      "publicHttpStatus": 200,
+      "contentType": "image/jpeg",
+      "localSha256": "5403a0756bd657386a27cc84e6707b1c5e411e74bec3ab8ae2081c7d52af07a4",
+      "note": "기존 공개 경로 HEAD 확인. 원격 본문 해시 비교는 수행하지 않음"
+    },
+    {
+      "url": "https://asvan-o.github.io/ai-architecture-design-ebook/_astro/base-05.CicMu2Ey.jpeg",
+      "downloadName": "lesson-02-empty-space-base-05.jpeg",
+      "publicHttpStatus": 200,
+      "contentType": "image/jpeg",
+      "localSha256": "f50c4a8a41870395affa318a5fa7145a7c02aadbf6ee42d66415f0192806854c",
+      "note": "기존 공개 경로 HEAD 확인. 원격 본문 해시 비교는 수행하지 않음"
+    },
+    {
+      "url": "https://asvan-o.github.io/ai-architecture-design-ebook/downloads/ai-architecture-design-lesson-03_2026-08-27.pdf",
+      "downloadName": null,
+      "publicHttpStatus": 200,
+      "contentType": "application/pdf",
+      "localSha256": "7990987e0e81def4f1cc5faea01d18817326b91cf06dbee7f03de672fabe7c90",
+      "note": "기존 공개 경로 HEAD 확인. 원격 본문 해시 비교는 수행하지 않음"
+    },
+    {
+      "url": "https://asvan-o.github.io/ai-architecture-design-ebook/_astro/A_쉼터_정면기준.G25PmCBX.jpeg",
+      "downloadName": "A_쉼터_정면기준.jpeg",
+      "publicHttpStatus": 200,
+      "contentType": "image/jpeg",
+      "localSha256": "f9cf31c010716e4fea2154b252ad689e525d4dce527f1c88378df421e1f778da",
+      "note": "기존 공개 경로 HEAD 확인. 원격 본문 해시 비교는 수행하지 않음"
+    },
+    {
+      "url": "https://asvan-o.github.io/ai-architecture-design-ebook/_astro/B_쉼터_주변환경참고.RH41JjAy.jpeg",
+      "downloadName": "B_쉼터_주변환경참고.jpeg",
+      "publicHttpStatus": 200,
+      "contentType": "image/jpeg",
+      "localSha256": "3c9dc7cf74eaa27611dd82ce2f4cb3ab71739f8c9f3109bed19841e132ac966e",
+      "note": "기존 공개 경로 HEAD 확인. 원격 본문 해시 비교는 수행하지 않음"
+    },
+    {
+      "url": "https://asvan-o.github.io/ai-architecture-design-ebook/_astro/lesson-03-campus-lounge-rfp-v1.2.BupCM2EB.pdf",
+      "downloadName": "lesson-03-campus-lounge-rfp-v1.2.pdf",
+      "publicHttpStatus": 200,
+      "contentType": "application/pdf",
+      "localSha256": "95b9756fd818d8f86847ca72d1e094b9dd6c2e4b9d1dfbc029169d057e638c2e",
+      "note": "기존 공개 경로 HEAD 확인. 원격 본문 해시 비교는 수행하지 않음"
+    },
+    {
+      "url": "https://asvan-o.github.io/ai-architecture-design-ebook/_astro/campus-lounge-existing-plan.CNBRZoH8.png",
+      "downloadName": "lesson-03-04-campus-lounge-existing-plan.png",
+      "publicHttpStatus": 200,
+      "contentType": "image/png",
+      "localSha256": "66327a24f46af1b0c7107e9621963970ebcdab6ca8d1100026899e9825308228",
+      "note": "기존 공개 경로 HEAD 확인. 원격 본문 해시 비교는 수행하지 않음"
+    },
+    {
+      "url": "https://asvan-o.github.io/ai-architecture-design-ebook/_astro/campus-lounge-existing-view-01.CEKXDeib.jpeg",
+      "downloadName": "lesson-03-04-campus-lounge-existing-view-01.jpeg",
+      "publicHttpStatus": 200,
+      "contentType": "image/jpeg",
+      "localSha256": "00d924b2aa3ea679d186048af39fea2df306d2baa365bc075b5cfa3c9eba0bab",
+      "note": "기존 공개 경로 HEAD 확인. 원격 본문 해시 비교는 수행하지 않음"
+    },
+    {
+      "downloadName": "gemini-rfp-analysis-prompt-v1.2.txt",
+      "transport": "inline-data-url",
+      "localDecodedSha256": "26105cad362c1961128394b2c1774b1ae26b3b52a5a557e60d216c4c494670e6",
+      "localDecodedMatchesSource": true,
+      "publicHttpStatus": null,
+      "note": "본문에 삽입된 TXT 다운로드; HTTP 파일 요청 아님"
+    }
+  ]
+}

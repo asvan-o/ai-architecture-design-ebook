@@ -1,0 +1,16 @@
+---
+import {lesson02ProgramFiles} from '../../../scripts/daejeon-file-sorter-assets.mjs';
+const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const descriptions:Record<string,string>={
+  program:'Windows 로컬 실행 예제입니다. Node.js 실행환경이 필요합니다.',
+  test:'분류를 확인할 실습파일 11개입니다. 모델·캐시 확장자의 파일은 분류 시험용입니다.',
+  readme:'준비사항, 실행, 파일 넣기, 사람확인, 종료 방법과 알려진 한계를 안내합니다.',
+};
+---
+<div class="lesson02-asset-grid" data-sorter-downloads>
+  {lesson02ProgramFiles.map(file=><article class="lesson02-asset-card"><div class="lesson02-asset-copy">
+    <h4>{file.title}</h4><p>{descriptions[file.key]||file.description}</p>
+    {enabled ? <a class="review-download" href={base+'/'+file.outputPath} download={file.file} data-sorter-download={file.key}>{file.title}</a> : <p>실습자료는 제공받은 파일을 사용합니다.</p>}
+  </div></article>)}
+</div>

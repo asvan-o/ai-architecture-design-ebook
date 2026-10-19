@@ -1,0 +1,9 @@
+---
+import ReviewLayout from '../../layouts/ReviewLayout.astro';
+import DaejeonLesson08Draft from '../../components/DaejeonLesson08Draft.astro';
+import {lesson08Title,lesson08Sections,lesson08Parts} from '../../content/daejeon-lesson08';
+const tocGroups=lesson08Parts.map((part,i)=>({id:part.id,title:'Part '+(i+1)+' · '+part.title,items:part.sections}));
+---
+<ReviewLayout title={lesson08Title} lead="같은 원본 도면의 근거를 확인하고, 판독 기준표·클린 선화·검증한 공간 관계와 Graphviz 다이어그램을 기준으로 정리하고 Blender MCP 연결과 첫 3D 공간 생성을 실습합니다." page="lesson" lessonId="08" eyebrow="LESSON 08 · FLOORPLAN / NOTEBOOKLM / GRAPHVIZ / BLENDER MCP" toc={lesson08Sections} {tocGroups}>
+ <DaejeonLesson08Draft />
+</ReviewLayout>

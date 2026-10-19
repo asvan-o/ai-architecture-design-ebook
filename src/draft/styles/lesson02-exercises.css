@@ -1,0 +1,33 @@
+.l02-ab { min-width:0; }
+.l02-ab-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.15rem; margin:1.4rem 0; }
+.l02-ab-card { min-width:0; padding:1.35rem; border:1px solid #ccd8d7; border-radius:16px; background:#f8faf9; }
+.l02-ab-card h3 { margin-top:0; }
+.l02-ab-label { color:#386259; font-size:.83rem; font-weight:800; letter-spacing:.04em; }
+.l02-ab-card dt { margin-top:.85rem; font-weight:750; }
+.l02-ab-card dd { margin:.25rem 0 0; }
+.l02-ab-preview { margin:1.1rem 0; }
+.l02-ab-preview img { width:100%; height:260px; object-fit:cover; object-position:top; display:block; border:1px solid #ccd8d7; border-radius:8px; }
+.l02-ab-preview figcaption { margin-top:.5rem; color:#596663; font-size:.82rem; }
+.l02-ab-downloads { display:flex; flex-wrap:wrap; align-items:stretch; gap:.5rem; margin:1rem 0; }
+.l02-ab .review-download { max-width:100%; white-space:normal; overflow-wrap:anywhere; text-align:left; }
+.l02-ab .l02-ab-primary { background:#173f39; color:#fff; }
+.l02-ab details { margin:1rem 0; min-width:0; }
+.l02-ab summary { cursor:pointer; padding:.7rem 0; font-weight:750; }
+.l02-ab summary:focus-visible,.l02-ab a:focus-visible { outline:3px solid #ce8027; outline-offset:4px; }
+.l02-ab li { margin-bottom:.6rem; }
+.l02-ab-flow { display:flex; flex-wrap:wrap; gap:.6rem; padding:0; list-style:none; }
+.l02-ab-flow li { background:#e9f0ed; border-radius:8px; padding:.6rem .85rem; margin:0; }
+.l02-ab-flow li:not(:last-child)::after { content:' →'; color:#56736b; }
+.l02-ab-run { border-top:2px solid #b9cdc6; margin-top:2rem; padding-top:1rem; }
+.l02-ab code,.l02-ab pre,.l02-ab p,.l02-ab li,.l02-ab td,.l02-ab th { overflow-wrap:anywhere; }
+.l02-ab .l02-ab-table th,.l02-ab .l02-ab-table td { white-space:normal; }
+@media(max-width:760px) {
+ .l02-ab-grid { grid-template-columns:1fr; }
+ .l02-ab-card { padding:1rem; }
+ .l02-ab-downloads { flex-direction:column; }
+ .l02-ab .l02-ab-table table,.l02-ab .l02-ab-table tbody,.l02-ab .l02-ab-table tr,.l02-ab .l02-ab-table td,.l02-ab .l02-ab-table th { display:block; width:100%; }
+ .l02-ab .l02-ab-table thead { display:none; }
+ .l02-ab .l02-ab-table tr { border:1px solid #ccd8d7; border-radius:8px; margin-bottom:.8rem; overflow:hidden; }
+ .l02-ab .l02-ab-table td::before,.l02-ab .l02-ab-table th::before { content:attr(data-label); display:block; font-size:.75rem; color:#52645e; margin-bottom:.25rem; }
+}
+@media print { .l02-ab details:not([open]) > :not(summary) { display:none; } .l02-ab-card,.l02-ab-preview { break-inside:avoid; } }

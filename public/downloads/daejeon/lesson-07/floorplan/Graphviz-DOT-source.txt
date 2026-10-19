@@ -1,0 +1,51 @@
+digraph G {
+    rankdir=LR;
+    bgcolor="#FFFFFF";
+    node [fontname="Malgun Gothic, Apple SD Gothic Neo, DejaVu Sans", fontsize=10, style=filled, shape=box, penwidth=1.5];
+    edge [fontname="Malgun Gothic, Apple SD Gothic Neo, DejaVu Sans", fontsize=8, color="#595959", penwidth=1.2];
+
+    Office [label="사무소\n(업무)", fillcolor="#D9EAD3", color="#38761D"];
+    Director [label="소장실\n(업무)", fillcolor="#D9EAD3", color="#38761D"];
+    Meeting [label="회의실\n(회의·협업)", fillcolor="#D9EAF7", color="#0B5394"];
+    Model [label="모형실\n(회의·협업)", fillcolor="#D9EAF7", color="#0B5394"];
+    CentralPassage [label="중앙 공용통로\n(전체 복도 경계 REVIEW)", fillcolor="#EEF3F5", color="#455A64", style="filled,dashed"];
+    OpenFlow [label="공용동선\n(통로 측 개방영역·경계 REVIEW)", fillcolor="#FFF7E6", color="#CC7A00", style="filled,dashed"];
+    Stairs [label="계단실\nUP / DN", fillcolor="#EEF3F5", color="#455A64"];
+    Elevator [label="엘리베이터\n상·하층", fillcolor="#EEF3F5", color="#455A64"];
+    Pantry [label="탕비실\n(지원·서비스)", fillcolor="#FCE4D6", color="#C65911"];
+    Storage [label="창고\n(지원·서비스)", fillcolor="#FCE4D6", color="#C65911"];
+    PS [label="P.S\n(일반 보행 접근 REVIEW)", fillcolor="#FCE4D6", color="#C65911", style="filled,dashed"];
+    TOM [label="TO.M\n(위생)", fillcolor="#E8D9F2", color="#7030A0"];
+    TOW [label="TO.W\n(위생)", fillcolor="#E8D9F2", color="#7030A0"];
+    Deck1 [label="휴게데크-1\n(외부·휴게)", fillcolor="#FFF2CC", color="#E65100"];
+    Deck2 [label="휴게데크-2\n(외부·휴게)", fillcolor="#FFF2CC", color="#E65100"];
+    Deck3 [label="휴게데크-3\n(외부·휴게)", fillcolor="#FFF2CC", color="#E65100"];
+    Upper [label="상부 층", shape=ellipse, fillcolor="#FCE5CD", color="#CC0000"];
+    Lower [label="하부 층", shape=ellipse, fillcolor="#FCE5CD", color="#CC0000"];
+
+    Office -> Director [dir=both, label="직접문 / KEEP"];
+    Office -> Stairs [dir=both, label="직접문 / KEEP"];
+    Office -> Deck1 [dir=both, label="직접문 / KEEP"];
+    Director -> Deck2 [dir=both, label="직접문 / KEEP"];
+    Meeting -> Deck3 [dir=both, label="직접문 / KEEP"];
+    Model -> Storage [dir=both, label="직접문 / KEEP"];
+    TOW -> CentralPassage [dir=both, label="직접문 / KEEP"];
+    TOM -> CentralPassage [dir=both, label="직접문 / KEEP"];
+    CentralPassage -> Stairs [dir=both, label="개방 연속 / KEEP"];
+    Elevator -> Stairs [dir=both, label="출입면을 통한 수평 접근 / KEEP"];
+
+    Stairs -> Upper [label="UP"];
+    Stairs -> Lower [label="DN"];
+    Elevator -> Upper [label="상층 이동"];
+    Elevator -> Lower [label="하층 이동"];
+
+    edge [style=dashed, color="#CC7A00", arrowhead=none];
+    Pantry -> Storage [label="경계·연속 방식 REVIEW"];
+    Model -> OpenFlow [label="통로 측 개방영역 REVIEW"];
+    Meeting -> OpenFlow [label="통로 측 개방영역 REVIEW"];
+    CentralPassage -> PS [label="일반 보행 접근 REVIEW"];
+
+    edge [style=dotted, color="#777777", arrowhead=none];
+    Meeting -> Model [label="벽 공유 · 직접문 없음"];
+    Office -> Pantry [label="직접문 없음"];
+}

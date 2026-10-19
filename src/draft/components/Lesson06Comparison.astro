@@ -1,0 +1,8 @@
+---
+import Lesson03Comparison from './Lesson03Comparison.astro';
+import {lesson06Image} from '../../../scripts/daejeon-lesson06-assets.mjs';
+interface Props {before:string;after:string;instance:string;beforeTitle?:string;afterTitle?:string;}
+const {before,after,instance,beforeTitle,afterTitle}=Astro.props;
+const first=lesson06Image[before],second=lesson06Image[after];
+---
+<Lesson03Comparison before={first} after={second} beforeTitle={beforeTitle||'Before · '+first.title} afterTitle={afterTitle||'After · '+second.title} beforeDescription={first.description} afterDescription={second.description} {instance} beforeDownloadName={first.file.split('/').pop()} afterDownloadName={second.file.split('/').pop()} beforeDownloadLabel={/\.jpe?g$/i.test(first.file)?'원본 JPEG 다운로드':'원본 PNG 다운로드'} afterDownloadLabel={/\.jpe?g$/i.test(second.file)?'원본 JPEG 다운로드':'원본 PNG 다운로드'} />

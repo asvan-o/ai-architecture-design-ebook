@@ -1,0 +1,25 @@
+---
+import {getPromptPlatformGuide} from '../content/prompt-platform-guides';
+import type {PromptPlatformGuide as PlatformGuideData} from '../content/prompt-platform-guides';
+interface Props {guide?:PlatformGuideData & {purpose?:string;variables?:string;};id:string;platform?:string;howToUse?:string;}
+const {id,platform,howToUse,guide:override}=Astro.props;
+const guide=override||getPromptPlatformGuide(id);
+---
+<aside class="prompt-platform-guide" data-prompt-platform={id} data-platform-kind={guide.kind}>
+  <p data-guide-field="platform"><strong>{guide.kind==='terminal'?'실행 환경':'실행 플랫폼'}</strong><span>{platform||guide.platform}</span></p>
+  <p data-guide-field="howToUse"><strong>준비·실행</strong><span>{howToUse||guide.howToUse}</span></p>
+  {override?.purpose?<div class="four-step-guide" data-four-step-guide>
+    <p data-guide-field="purpose"><strong>이 프롬프트가 하는 일</strong><span>{override.purpose}</span></p>
+    <p data-guide-field="derivation"><strong>왜 이런 순서로 적는가</strong><span>{guide.derivation}</span></p>
+    <p data-guide-field="variables"><strong>수강생이 바꿀 변수</strong><span>{override.variables}</span></p>
+    <p data-guide-field="aiPromptTip"><strong>AI에게 프롬프트 작성을 요청하는 법</strong><span>{guide.aiPromptTip}</span></p>
+  </div>:<>
+  <p data-guide-field="derivation"><strong>설계·유추 원리</strong><span>{guide.derivation}</span></p>
+  <p data-guide-field="aiPromptTip"><strong>AI로 작성 요청</strong><span>{guide.aiPromptTip}</span></p>
+  </>}
+</aside>
+<style>
+ .prompt-platform-guide{min-width:0;margin:.8rem 0 0;padding:.8rem 1rem;border:1px solid var(--line);border-left:3px solid var(--accent-dark);background:var(--surface);font-size:.86rem;overflow-wrap:anywhere;break-inside:avoid}
+ .four-step-guide{margin-top:.55rem}p{display:grid;grid-template-columns:7rem minmax(0,1fr);gap:.5rem;margin:0;min-width:0}p+p{margin-top:.55rem}span{min-width:0}strong{color:var(--accent-dark)}
+ @media(max-width:600px){p{grid-template-columns:minmax(0,1fr);gap:.2rem}.prompt-platform-guide{padding:.8rem}}
+</style>

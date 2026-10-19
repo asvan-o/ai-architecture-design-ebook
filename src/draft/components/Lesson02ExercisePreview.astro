@@ -1,0 +1,9 @@
+---
+import {automationFiles} from '../../../scripts/daejeon-automation-ab-assets.mjs';
+interface Props { exercise:'A'|'B'; }
+const {exercise}=Astro.props;
+const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const file=automationFiles[exercise].desktop;
+---
+{enabled&&<figure class="l02-ab-preview" data-exercise-preview={exercise}><a href={base+'/'+file.outputPath} target="_blank" rel="noreferrer" aria-label={'실습 '+exercise+' 실제 실행 화면 크게 보기'}><img src={base+'/'+file.outputPath} alt={exercise==='A'?'파일 정리 자동화의 처리 상태와 사람확인 목록':'도면 제출 전 빠른 점검의 요약 카드와 파일별 확인 결과'} width="1440" height="1000" loading="lazy" /></a><figcaption>실습 {exercise} 실제 실행 화면 · 이미지를 누르면 크게 볼 수 있습니다.</figcaption></figure>}

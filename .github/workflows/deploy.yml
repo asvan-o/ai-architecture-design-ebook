@@ -41,12 +41,20 @@ jobs:
         run: npm run validate:content
       - name: Validate course profiles and protected baseline
         run: npm run validate:courses
+      - name: Test course and asset integrity
+        run: npm test
       - name: Build public courses and reuse approved PDFs
         run: npm run build:student-with-pdf
+      - name: Prepare Pages and verify immutable Release mapping
+        run: npm run prepare:pages
+      - name: Verify published Release bytes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/verify-release-upload.mjs
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: dist/site
+          path: dist/pages
 
   deploy:
     needs: build

@@ -1,0 +1,40 @@
+---
+import Lesson10CoreLogic from './Lesson10CoreLogic.astro';
+import TopicProgress from './TopicProgress.astro';
+import GwangjuLesson10LegalContent from './GwangjuLesson10LegalContent.astro';
+import GwangjuLesson11LegalContent from './GwangjuLesson11LegalContent.astro';
+import integration from '../content/lesson10-grounded-map.json';
+const {sectionMap}=integration;
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
+const timePlan=integration.lesson.parts.map((p,index)=>({label:p.title,minutes:50,mode:index===2?'review' as const:'practice' as const}));
+const common={lessonId:'10',sectionMap,timePlan};
+---
+<div class="grounded-legal-layout" data-daejeon-grounded-legal>
+ <Lesson10CoreLogic />
+ <TopicProgress lesson="10" items={[{topic:6,status:'시작',note:'원자료 정리 → 조건 기준서를 노트북 B로 전달 → 공식 법규 대조 → 체크리스트 → 교차검증 → 사람 확인'}]} />
+ <p class="grounded-status">수업 150분 · 50분 × 3 Part (쉬는 시간·운영 별도)</p>
+ <blockquote class="grounded-key">자료를 정리하고, 근거를 찾고, 서로 다른 AI로 반복 검증하되 최종 판단은 사람이 한다.</blockquote>
+ <nav class="grounded-parts" aria-label="제10차시 3-Part">{integration.lesson.parts.map(p=><a href={'#'+p.id}>{p.title}<strong>50분</strong></a>)}</nav>
+ {enabled&&<aside class="grounded-downloads"><strong>실습자료 다운로드</strong><p>원문 Prompt 13개와 기존 예시 표를 제공합니다. 반다비 프로젝트 PDF·공식 법규·강사 DOCX는 아래 각 단계에서 구분해 내려받습니다.</p><div><a href={base+'/downloads/daejeon/lesson-10/DJ-L10_법규검토_프롬프트_실습팩.zip'} download>DJ-L10_법규검토_프롬프트_실습팩.zip 다운로드</a><a href={base+'/downloads/daejeon/lesson-10/DJ-L10_전체실습자료_사용안내.md'} download>DJ-L10_전체실습자료_사용안내.md 다운로드</a><a href={base+'/downloads/daejeon/lesson-10/manifest.json'} download>자료 목록·SHA-256</a></div></aside>}
+ <div id="l10-part-1" data-legal-part="1"><header class="period-heading"><p>PART 1 · 50분</p><h2>{integration.lesson.parts[0].title}</h2></header>
+  <GwangjuLesson10LegalContent {...common} selectedSections={['01','02','03','04','05','06','07','08']} />
+ </div>
+ <div id="l10-part-2" data-legal-part="2"><header class="period-heading"><p>PART 2 · 50분</p><h2>{integration.lesson.parts[1].title}</h2></header>
+  <GwangjuLesson11LegalContent {...common} selectedSections={['03','04','05','06','07']} />
+  <GwangjuLesson10LegalContent {...common} selectedSections={['11']} deferChecklistPrompt />
+  <GwangjuLesson11LegalContent {...common} selectedSections={['08']} />
+  <GwangjuLesson10LegalContent {...common} selectedSections={['09']} />
+  <GwangjuLesson11LegalContent {...common} selectedSections={['09']} />
+  <GwangjuLesson10LegalContent {...common} selectedSections={['12']} />
+ </div>
+ <div id="l10-part-3" data-legal-part="3"><header class="period-heading"><p>PART 3 · 50분</p><h2>{integration.lesson.parts[2].title}</h2></header>
+  <GwangjuLesson11LegalContent {...common} selectedSections={['01','10']} />
+  <GwangjuLesson10LegalContent {...common} selectedSections={['10']} />
+  <GwangjuLesson11LegalContent {...common} selectedSections={['11','12','13','14','15','16','17','18']} />
+ </div>
+</div>
+<style>
+ .grounded-legal-layout{min-width:0;max-width:100%;overflow-wrap:anywhere}.grounded-status{font-size:.85rem;color:var(--muted)}.grounded-key{margin:1rem 0;padding:1.2rem;border-left:5px solid var(--accent-dark);background:var(--paper-deep);font-size:1.15rem;font-weight:800}.grounded-parts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:1.5rem 0}.grounded-parts a{display:grid;gap:.5rem;padding:1rem;border:1px solid var(--line);text-decoration:none;min-width:0}.grounded-downloads{padding:1rem;border:1px solid var(--line);background:var(--surface);margin:1rem 0}.grounded-downloads div{display:flex;flex-wrap:wrap;gap:.8rem}.grounded-legal-layout :global(.lesson-section){min-width:0;max-width:100%;padding-bottom:2rem}.grounded-legal-layout :global(.section-heading){display:flex;gap:1rem;align-items:baseline}.grounded-legal-layout :global(.section-heading h2){font-size:1.4rem;min-width:0}.grounded-legal-layout :global(.prompt-copy-block){min-width:0;max-width:100%}
+ @media(max-width:760px){.grounded-parts{grid-template-columns:minmax(0,1fr)}.grounded-legal-layout :global(.section-heading){align-items:flex-start}.grounded-legal-layout :global(.section-heading h2){font-size:1.15rem}}
+</style>

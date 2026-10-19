@@ -1,0 +1,49 @@
+{
+  "notebookPlanAnalysisPrompt": "첨부된 평면도 PDF만을 기준으로 도면 정보를 분석해 주세요.\n\n새로운 설계안을 제안하거나 도면에 없는 정보를 추정하지 마세요.\n\n다음 항목을 구분해서 정리해 주세요.\n\n* 도면에서 확인되는 공간명\n* 각 공간의 위치와 인접 관계\n* 외곽 벽체와 주요 내부 벽체\n* 출입구와 문 위치\n* 창호 위치\n* 계단 위치와 진행 방향\n* 주요 고정설비와 가구\n* 도면에서 직접 확인되는 치수\n* 현재 도면만으로 확인할 수 없는 정보\n\n특히 계단은 UP/DOWN 표기와 연결되는 층 방향을 확인 가능한 범위에서 별도로 정리해 주세요.\n\n각 정보에는 가능하면 해당 내용을 확인한 원본 위치 또는 근거를 함께 표시해 주세요.\n\n이번 출력은 확정본이 아니라 원도면 재검수가 필요한 1차 분석 초안입니다.\n각 항목을 KEEP 후보 / REVIEW / UNKNOWN으로 구분하고,\n원도면과 교차검수하기 전에는 직접 연결이나 높이를 확정하지 마세요.",
+  "floorPlanCriteriaPrompt": "첨부한 원본 1층 평면도 PDF와 NotebookLM 1차 분석 결과를 다시 대조하여,\n후속 3D·관계도·조닝 작업에 사용할 「최종 확정 도면 기준표」를 작성해 주세요.\n\nNotebookLM 1차 분석은 검토가 필요한 초안입니다.\n두 자료가 충돌하면 원본 평면도의 선·문·실명·치수·레벨 표기를 우선하세요.\n새로운 설계안을 제안하거나 원본에 없는 정보를 추정하지 마세요.\n\n기준표:\n\n| 구분 | 항목 | 원본 도면에서 확인된 내용 | 상태 | 후속 작업 지시 | 원본 근거 |\n\n상태:\n\n* KEEP: 원본에서 직접 확인되어 유지할 정보\n* REVIEW: 흔적이나 표기는 있으나 이 한 장의 평면도만으로 경계·의미·접근 방식 등을 하나로 확정하기 어려운 정보\n* UNKNOWN: 현재 평면도에서 확인할 수 없는 정보\n\n반드시 포함:\n\n* 건물 외곽과 주요 내부 벽체·공간 구획\n* 각 공간 명칭·위치·직접문·개구부·창호\n* 사무소↔소장실, 사무소↔계단실, 사무소↔휴게데크-1\n* 소장실↔휴게데크-2, 회의실↔휴게데크-3, 모형실↔창고\n* TO.W↔중앙 공용통로, TO.M↔중앙 공용통로, 중앙 공용통로↔계단실\n* 회의실↔모형실과 사무소↔탕비실은 직접문이 확인되지 않는다는 사실\n* 탕비실↔창고 경계, 통로 측 개방영역, P.S 접근, 복도 전체 경계, 계단참 실제 높이 관계는 REVIEW\n* 계단 UP/DN과 엘리베이터 상·하층 이동은 별도 수직동선\n* 엘리베이터↔계단실/공용홀은 승강기 출입면을 통한 수평 접근\n* 마감레벨 ±0과 구조레벨 일반 실 -30·화장실 -60의 구분\n\n규칙:\n\n* -30/-60을 완성바닥 문턱 단차로 해석하지 않음\n* 계단참 EL+2,200 표기를 1층 기준 확정 높이로 해석하지 않음\n* 복도를 모든 실을 잇는 확정 허브로 확대하지 않음\n* 확인되지 않는 높이·재질·조명·성능·시공 디테일을 임의 설정하지 않음\n* KEEP에는 원본 근거를 기록하고 REVIEW와 UNKNOWN은 확정 표현을 사용하지 않음\n\n마지막에 절대 변경 금지 조건, 사람의 추가 검토 항목, 현재 자료에서 확인할 수 없는 정보를 분리해 주세요.",
+  "topViewPrompt": "첨부한 자료를 다음 우선순위로 사용해 구조 검토용 Top View Cutaway 3D 이미지를 제작해 주세요.\n\n1. 원본 평면도 PDF: 사실 확인의 최우선 기준\n2. 최종 확정 도면 기준표: KEEP·REVIEW·UNKNOWN 조건\n3. 원본과 대조한 교육용 클린 선화 이미지: 선을 읽기 쉽게 만든 입력 보조자료\n\n목적:\n현실적인 인테리어 렌더보다 원본의 공간 구조와 관계를 검토하기 쉬운 Top View 3D를 만드는 것입니다.\n\n반드시 유지:\n* 건물 외곽 형태와 주요 내부 벽체\n* 공간 구획과 주요 공간 위치\n* 출입구와 창호\n* 계단 위치와 UP/DN 방향, 엘리베이터의 별도 수직동선\n* 엘리베이터와 P.S 위치\n\n금지:\n* 새 공간·문·창·계단 추가\n* 임의 구조 변경\n* REVIEW·UNKNOWN 관계를 확정 연결이나 확정 수치로 표현\n* 도면에서 확인되지 않는 높이·재질·조명·시공 정보를 실제 정보처럼 확정\n\n확인할 수 없는 높이는 일반값을 임의 적용하지 말고, 개념 시각화에 필요한 최소 표현으로만 처리해 주세요.\n결과와 함께 원본과 다시 비교해야 할 항목을 짧게 정리해 주세요.",
+  "spatialAnalysisPrompt": "첨부한 원본 1층 평면도와 최종 확정 기준표만을 사실 기준으로 사용하여,\n후속 2D 공간 관계 다이어그램에 필요한 공간 기능·인접 관계·동선을 정리해 주세요.\n\n3D 이미지는 사실 기준에서 제외합니다.\n최종 확정 기준표는 보조 기준이며 충돌하면 원본 평면도가 우선입니다.\n\n상태는 KEEP / REVIEW / UNKNOWN으로 구분하세요.\nKEEP만 실선 직접 연결로 확정하고, REVIEW는 점선 또는 주석으로 남기며, UNKNOWN은 만들지 마세요.\n\n1. 공간 기능 분석\n* 업무: 사무소, 소장실\n* 회의·협업: 회의실, 모형실\n* 이동·공용: 복도, 중앙 공용통로, 계단실, 엘리베이터\n* 지원·서비스: 탕비실, 창고, P.S\n* 위생: TO.W, TO.M\n* 외부·휴게: 휴게데크-1, 휴게데크-2, 휴게데크-3\n\n이 기능 분류는 원본의 공식 조닝이 아니라 후속 분석을 위한 기능 분석 레이어입니다.\n\n2. 공간 인접 관계\n다음 KEEP 직접 관계를 원본 문·개구부 근거와 함께 기록하세요.\n* 사무소↔소장실, 사무소↔계단실, 사무소↔휴게데크-1\n* 소장실↔휴게데크-2, 회의실↔휴게데크-3, 모형실↔창고\n* TO.W↔중앙 공용통로, TO.M↔중앙 공용통로, 중앙 공용통로↔계단실\n\n다음은 직접 연결선 금지로 기록하세요.\n* 회의실↔모형실, 사무소↔탕비실, 휴게데크-1↔회의실, 휴게데크-3↔계단실\n\n다음은 REVIEW로 기록하세요.\n* 탕비실↔창고의 정확한 경계·연속 방식\n* 모형실·회의실 좌측 출입문 바깥 개방영역의 정확한 실명·경계\n* P.S 일반 보행 접근, 복도의 정확한 전체 경계\n\n3. 주요 동선\n* 계단의 UP/DN 수직동선과 엘리베이터의 상·하층 수직동선을 별도로 표시\n* 엘리베이터↔계단실/공용홀은 승강기 출입면을 통한 수평 접근으로 표시\n* 중앙 공용통로는 확인된 범위만 사용하고 전체 복도 허브로 확대하지 않음\n\n이동거리·보행시간·통로폭·계단참 실제 높이는 추정하지 마세요.\n마지막에 공간 관계 데이터와 주요 동선 데이터를 상태·원본 근거와 함께 표로 정리해 주세요.",
+  "validationPrompt": "방금 작성한 공간 기능·인접관계·동선 분석 결과를\n원본 1층 평면도 PDF와 최종 확정 기준표에 다시 대조하여 검증해 주세요.\n\n이번 단계에서는 후속 2D 공간 관계 다이어그램 제작에 사용할\n“최종 검증본 1개”만 작성합니다.\n\n원칙:\n\n1. 원본 평면도를 최우선으로 사용하고 최종 확정 기준표는 보조 기준으로 사용\n2. 사용자 수·활동 방식·자연환기·접근성·관리 방식 등 원본 근거 없는 해석 삭제 또는 해석 표시\n3. 위치·인접관계·직접 연결 여부가 충돌하면 원본 재확인\n4. 확정할 수 없으면 REVIEW 또는 UNKNOWN\n5. 새로운 관계·동선 추가 금지\n6. 휴게데크-1·2·3 위치와 실내 연결 여부 재확인\n7. 사무소↔탕비실은 직접문 없음, 탕비실↔창고 경계는 REVIEW인지 재확인\n8. 계단 UP/DN과 엘리베이터 상·하층 이동을 분리하고 두 요소 사이는 수평 접근인지 재확인\n9. 복도 전체 경계를 확정 허브로 확대하지 않았는지 재확인\n\n출력:\n\n### 최종 공간 목록\n\n| 공간명 | 도면에서 확인되는 기능/용도 | 분류 | 근거 상태 |\n\n근거 상태:\n\n* KEEP\n* REVIEW\n* UNKNOWN\n\n### 최종 공간 인접 관계\n\n| 공간 A | 공간 B | 관계 | 연결 방식 | 근거 상태 |\n\n### 최종 주요 동선\n\n| 시작 | 경유 | 도착 | 동선 유형 | 근거 상태 |\n\n### Graphviz 제작용 최종 데이터\n\n검증된 공간과 관계만 간결하게 정리합니다.\n\n이전 답변의 반복본은 출력하지 않고 최종본 1개만 작성합니다.",
+  "graphvizPrompt": "방금 검증 완료한 최종 공간 목록·인접관계·동선 데이터만 사용하여\nGraphviz DOT 코드를 작성해 주세요.\n\n목적은 실제 평면도를 재현하는 것이 아니라\n공간의 기능과 연결 관계를 보여주는 2D 공간 관계 다이어그램입니다.\n\n규칙:\n\n* 원본 평면도와 최종 확정 기준표에서 검증한 공간명만 사용\n* 새로운 공간 또는 관계 추가 금지\n* KEEP 직접 연결은 실선\n* REVIEW와 인접하지만 직접 연결되지 않음은 점선과 상태 라벨\n* UNKNOWN 관계는 생성하지 않음\n* 주요 이동 관계는 화살표\n* 계단 UP/DN과 엘리베이터 상·하층 수직동선을 별도 표시\n* 엘리베이터↔계단실/공용홀은 수평 접근으로 표시\n* 중앙 공용통로만 확인된 동선으로 사용하고 복도 전체 경계를 확정하지 않음\n* 계단참 높이와 -30/-60 구조레벨을 관계 노드에 넣지 않음\n* 실제 치수·면적·벽 형상 표현 금지\n* 모든 노드명은 한글 공간명 유지\n\nGraphviz DOT 코드만 별도 코드블록으로 출력해 주세요.",
+  "actualDotCode": "digraph G {\n    rankdir=LR;\n    bgcolor=\"#FFFFFF\";\n    node [fontname=\"Malgun Gothic, Apple SD Gothic Neo, DejaVu Sans\", fontsize=10, style=filled, shape=box, penwidth=1.5];\n    edge [fontname=\"Malgun Gothic, Apple SD Gothic Neo, DejaVu Sans\", fontsize=8, color=\"#595959\", penwidth=1.2];\n\n    Office [label=\"사무소\\n(업무)\", fillcolor=\"#D9EAD3\", color=\"#38761D\"];\n    Director [label=\"소장실\\n(업무)\", fillcolor=\"#D9EAD3\", color=\"#38761D\"];\n    Meeting [label=\"회의실\\n(회의·협업)\", fillcolor=\"#D9EAF7\", color=\"#0B5394\"];\n    Model [label=\"모형실\\n(회의·협업)\", fillcolor=\"#D9EAF7\", color=\"#0B5394\"];\n    CentralPassage [label=\"중앙 공용통로\\n(전체 복도 경계 REVIEW)\", fillcolor=\"#EEF3F5\", color=\"#455A64\", style=\"filled,dashed\"];\n    OpenFlow [label=\"공용동선\\n(통로 측 개방영역·경계 REVIEW)\", fillcolor=\"#FFF7E6\", color=\"#CC7A00\", style=\"filled,dashed\"];\n    Stairs [label=\"계단실\\nUP / DN\", fillcolor=\"#EEF3F5\", color=\"#455A64\"];\n    Elevator [label=\"엘리베이터\\n상·하층\", fillcolor=\"#EEF3F5\", color=\"#455A64\"];\n    Pantry [label=\"탕비실\\n(지원·서비스)\", fillcolor=\"#FCE4D6\", color=\"#C65911\"];\n    Storage [label=\"창고\\n(지원·서비스)\", fillcolor=\"#FCE4D6\", color=\"#C65911\"];\n    PS [label=\"P.S\\n(일반 보행 접근 REVIEW)\", fillcolor=\"#FCE4D6\", color=\"#C65911\", style=\"filled,dashed\"];\n    TOM [label=\"TO.M\\n(위생)\", fillcolor=\"#E8D9F2\", color=\"#7030A0\"];\n    TOW [label=\"TO.W\\n(위생)\", fillcolor=\"#E8D9F2\", color=\"#7030A0\"];\n    Deck1 [label=\"휴게데크-1\\n(외부·휴게)\", fillcolor=\"#FFF2CC\", color=\"#E65100\"];\n    Deck2 [label=\"휴게데크-2\\n(외부·휴게)\", fillcolor=\"#FFF2CC\", color=\"#E65100\"];\n    Deck3 [label=\"휴게데크-3\\n(외부·휴게)\", fillcolor=\"#FFF2CC\", color=\"#E65100\"];\n    Upper [label=\"상부 층\", shape=ellipse, fillcolor=\"#FCE5CD\", color=\"#CC0000\"];\n    Lower [label=\"하부 층\", shape=ellipse, fillcolor=\"#FCE5CD\", color=\"#CC0000\"];\n\n    Office -> Director [dir=both, label=\"직접문 / KEEP\"];\n    Office -> Stairs [dir=both, label=\"직접문 / KEEP\"];\n    Office -> Deck1 [dir=both, label=\"직접문 / KEEP\"];\n    Director -> Deck2 [dir=both, label=\"직접문 / KEEP\"];\n    Meeting -> Deck3 [dir=both, label=\"직접문 / KEEP\"];\n    Model -> Storage [dir=both, label=\"직접문 / KEEP\"];\n    TOW -> CentralPassage [dir=both, label=\"직접문 / KEEP\"];\n    TOM -> CentralPassage [dir=both, label=\"직접문 / KEEP\"];\n    CentralPassage -> Stairs [dir=both, label=\"개방 연속 / KEEP\"];\n    Elevator -> Stairs [dir=both, label=\"출입면을 통한 수평 접근 / KEEP\"];\n\n    Stairs -> Upper [label=\"UP\"];\n    Stairs -> Lower [label=\"DN\"];\n    Elevator -> Upper [label=\"상층 이동\"];\n    Elevator -> Lower [label=\"하층 이동\"];\n\n    edge [style=dashed, color=\"#CC7A00\", arrowhead=none];\n    Pantry -> Storage [label=\"경계·연속 방식 REVIEW\"];\n    Model -> OpenFlow [label=\"통로 측 개방영역 REVIEW\"];\n    Meeting -> OpenFlow [label=\"통로 측 개방영역 REVIEW\"];\n    CentralPassage -> PS [label=\"일반 보행 접근 REVIEW\"];\n\n    edge [style=dotted, color=\"#777777\", arrowhead=none];\n    Meeting -> Model [label=\"벽 공유 · 직접문 없음\"];\n    Office -> Pantry [label=\"직접문 없음\"];\n}",
+  "reviewRows": [
+    "전체 외곽 형태",
+    "내부 벽체",
+    "공간명",
+    "공간 위치",
+    "출입구",
+    "창호",
+    "KEEP 직접 연결 9개",
+    "휴게데크 1·2·3 연결 실",
+    "중앙 공용통로와 복도 경계",
+    "계단 UP/DN과 엘리베이터",
+    "계단참·구조레벨 해석",
+    "P.S와 REVIEW 관계"
+  ],
+  "functionGroups": [
+    [
+      "업무 영역",
+      "사무소 · 소장실"
+    ],
+    [
+      "회의·협업 영역",
+      "회의실 · 모형실"
+    ],
+    [
+      "이동·공용 영역",
+      "중앙 공용통로 · 복도 기능(경계 REVIEW) · 계단실 · 엘리베이터"
+    ],
+    [
+      "지원·서비스 영역",
+      "탕비실 · 창고 · P.S"
+    ],
+    [
+      "위생 영역",
+      "TO.M · TO.W"
+    ],
+    [
+      "외부·휴게 영역",
+      "휴게데크-1 · 휴게데크-2 · 휴게데크-3"
+    ]
+  ]
+}

@@ -1,0 +1,25 @@
+---
+import { officialTopics, type TopicProgressItem } from '../content/course-roadmap';
+interface Props { lesson: string; items: readonly TopicProgressItem[]; transition?: string; }
+const {lesson,items,transition} = Astro.props;
+---
+<section class="topic-progress" data-topic-progress data-lesson={lesson} aria-label={'제'+Number(lesson)+'차시 대주제 진행'}>
+  <h2>제{Number(lesson)}차시 · 대주제 진행</h2>
+  {items.map((item,index)=><>
+    {index>0&&transition&&<p class="topic-progress-transition">{transition}</p>}
+    <div class="topic-progress-item" data-topic-number={item.topic}>
+      <p class="topic-progress-state">대주제 {item.topic} · {item.status}</p>
+      <h3 data-official-title>{officialTopics[item.topic-1]}</h3>
+      {item.note&&<p class="topic-progress-note">{item.note}</p>}
+    </div>
+  </>)}
+</section>
+<style>
+  .topic-progress { padding:1.2rem 1.4rem; border-left:3px solid var(--blue); background:var(--paper-deep); margin:0 0 1.5rem; break-inside:avoid; }
+  h2 { margin:0 0 .8rem; font-size:.82rem; font-weight:800; color:var(--muted); }
+  .topic-progress-state { font-weight:800; color:var(--accent-dark); font-size:.86rem; margin:0 0 .2rem; }
+  h3 { font-size:1.05rem; line-height:1.65; margin:0; overflow-wrap:anywhere; }
+  .topic-progress-note { font-size:.88rem; margin:.4rem 0 0; overflow-wrap:anywhere; }
+  .topic-progress-transition { margin:.8rem 0; color:var(--muted); font-size:.86rem; }
+  @media(max-width:600px) { .topic-progress { padding:1rem; } }
+</style>

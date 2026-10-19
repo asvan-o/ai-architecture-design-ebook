@@ -1,0 +1,77 @@
+.lesson02-review { --lesson02-accent: #346458; }
+.lesson02-review .lesson02-status { margin: 0 0 1.5rem; padding: 1rem 1.25rem; background: #eef3ee; border: 1px solid #c8d8cc; }
+.lesson02-review .lesson02-status strong { display: block; color: #234e40; }
+.lesson02-review .lesson02-status p { margin: .35rem 0 0; }
+.lesson02-review .lesson02-summary { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: .8rem; margin: 1.5rem 0; }
+.lesson02-review .lesson02-summary article { padding: 1rem; border: 1px solid var(--line-dark); background: var(--surface); min-width: 0; }
+.lesson02-review .lesson02-summary h2 { margin: 0 0 .55rem; font-size: 1.03rem; line-height: 1.6; }
+.lesson02-review .lesson02-summary p { margin: 0; font-size: .9rem; }
+.lesson02-review .lesson02-goals { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .45rem 2rem; padding-left: 1.4rem; }
+.lesson02-review .lesson02-timing { display: flex; flex-wrap: wrap; gap: .5rem; list-style: none; padding: 0; margin: 1rem 0 0; }
+.lesson02-review .lesson02-timing li { font-size: .8rem; padding: .4rem .65rem; border: 1px solid #728d7f; background: #334c41; }
+.lesson02-review .lesson02-placeholder { padding: 1.15rem 1.25rem; margin: 1rem 0; border: 1px dashed #667f74; background: #f4f7f2; }
+.lesson02-review .lesson02-placeholder h3 { margin-top: 0; font-size: 1.03rem; }
+.lesson02-review .lesson02-placeholder p { font-size: .92rem; }
+.lesson02-review .lesson02-placeholder dl { margin: .8rem 0 0; }
+.lesson02-review .lesson02-placeholder dt { font-weight: 700; }
+.lesson02-review .lesson02-placeholder dd { margin: .1rem 0 .65rem; color: var(--muted); }
+.lesson02-review .lesson02-checklist { padding-left: 1.3rem; }
+.lesson02-review .lesson02-reference-pair { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; }
+.lesson02-review .lesson02-reference-pair .l02-infographic { margin:0 0 1.5rem; }
+.lesson02-review [data-djml-inputs] li { margin:.65rem 0; overflow-wrap:anywhere; }
+@media(max-width:700px) { .lesson02-review .lesson02-reference-pair { grid-template-columns:1fr; gap:0; } }
+.lesson02-review .lesson02-checklist li { padding: .35rem 0; }
+.lesson02-review .lesson02-label { display: inline-block; color: #244c3e; background: #e7eee7; border: 1px solid #c4d5c6; padding: .15rem .5rem; margin: .1rem .2rem .1rem 0; font-size: .79rem; }
+.lesson02-review .lesson02-extensions { line-height: 2; }
+.lesson02-review .lesson02-extensions code { white-space: nowrap; display: inline-block; margin-right: .45rem; }
+.lesson02-review .lesson02-program-tree { line-height: 1.7; font-size: .85rem; }
+.lesson02-review .lesson02-table { overflow-x: auto; margin: 1rem 0; }
+.lesson02-review .lesson02-table:focus-visible { outline: 3px solid #315b66; outline-offset: 4px; }
+.lesson02-review .lesson02-table caption { font-weight: 700; text-align: left; padding: 0 0 .6rem; }
+.lesson02-review .lesson02-table th { min-width: 6rem; }
+.lesson02-review .lesson02-table td { overflow-wrap: anywhere; }
+.lesson02-review .lesson02-table code { font-size: .9em; }
+.lesson02-review .lesson02-decision { padding: 1.1rem 1.25rem; border-left: 4px solid var(--lesson02-accent); background: #edf3ef; margin: 1.25rem 0; }
+.lesson02-review .lesson02-decision h3 { margin: 0 0 .5rem; }
+.lesson02-review .lesson02-decision p:last-child { margin-bottom: 0; }
+.lesson02-review .lesson02-appendix { margin-top: 2rem; }
+.lesson02-review .lesson02-appendix > summary { color: #244c3e; }
+.lesson02-review .lesson02-appendix h3 { margin-top: 1.75rem; }
+.lesson02-review .lesson02-sources { padding: 1.5rem 0 0; border-top: 1px solid var(--line); font-size: .85rem; }
+.lesson02-review .lesson02-sources ul { padding-left: 1.2rem; }
+@media(max-width:700px) { .lesson02-review .lesson02-summary,.lesson02-review .lesson02-goals { grid-template-columns: 1fr; } .lesson02-review .lesson02-summary { gap: .6rem; } .lesson02-review .lesson02-table table { font-size: .8rem; } .lesson02-review .lesson02-table th,.lesson02-review .lesson02-table td { padding: .65rem; } }
+@media print { .lesson02-review .lesson02-status,.lesson02-review .lesson02-decision,.lesson02-review .lesson02-placeholder { break-inside: avoid; } .lesson02-review .lesson02-timing li { color: var(--ink); background: var(--paper-deep); } .lesson02-review .lesson02-appendix { display: none; } }
+
+.lesson02-review .lesson02-project-subtitle{font-size:1.08rem;}
+.lesson02-review .lesson02-project-id{font-size:.75rem;color:var(--muted);margin-top:-.5rem;}
+.lesson02-review .lesson02-asset-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1.2rem 0;}
+.lesson02-review .lesson02-asset-card{min-width:0;border:1px solid var(--line-dark);background:var(--surface);}
+.lesson02-review .lesson02-asset-card>img{display:block;width:100%;height:auto;}
+.lesson02-review .lesson02-asset-copy{padding:1rem;overflow-wrap:anywhere;}
+.lesson02-review .lesson02-asset-copy h4{font-size:1.05rem;line-height:1.5;margin:.25rem 0 .6rem;}
+.lesson02-review .lesson02-asset-copy p{font-size:.88rem;margin:.5rem 0;}
+.lesson02-review .lesson02-asset-id,.lesson02-review .lesson02-category{font-size:.76rem;color:var(--muted);}
+.lesson02-review .lesson02-asset-actions{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.9rem;}
+.lesson02-review .lesson02-asset-actions button,.lesson02-review .lesson02-asset-actions a,.lesson02-review .lesson02-asset-dialog button{border:1px solid #7f9c8d;background:#f0f5f1;color:#244c3e;font:inherit;font-size:.82rem;padding:.55rem .7rem;cursor:pointer;text-decoration:none;}
+.lesson02-review .lesson02-asset-actions :focus-visible,.lesson02-review .lesson02-asset-dialog button:focus-visible,.lesson02-review .lesson02-input-grid :focus-visible{outline:3px solid #315b66;outline-offset:3px;}
+.lesson02-review .lesson02-asset-dialog{width:min(95vw,1450px);max-width:95vw;max-height:92dvh;box-sizing:border-box;padding:1rem;border:1px solid #7f9c8d;background:#fff;color:#152b44;}
+.lesson02-review .lesson02-asset-dialog::backdrop{background:rgba(10,24,43,.72);}
+.lesson02-review .lesson02-asset-dialog header{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;}
+.lesson02-review .lesson02-asset-dialog header h3{flex:1 1 15rem;min-width:0;overflow-wrap:anywhere;margin:0;}
+.lesson02-review .lesson02-dialog-scroll{overflow:auto;max-height:65dvh;}
+.lesson02-review .lesson02-dialog-scroll img{display:block;max-width:100%;height:auto;}
+.lesson02-review .lesson02-asset-dialog.is-original img{max-width:none;width:auto;}
+.lesson02-review .lesson02-asset-dialog>p{font-size:.8rem;}
+.lesson02-review .lesson02-input-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;background:#edf3ef;padding:1rem;margin:1rem 0;}
+.lesson02-review .lesson02-input-grid label{min-width:0;font-weight:700;font-size:.9rem;}
+.lesson02-review .lesson02-input-grid select,.lesson02-review .lesson02-input-grid input{display:block;width:100%;max-width:100%;min-width:0;box-sizing:border-box;padding:.7rem;margin-top:.4rem;border:1px solid #7f9c8d;font:inherit;font-weight:400;background:#fff;color:var(--ink);}
+.lesson02-review .lesson02-input-grid p{margin:0;font-size:.85rem;overflow-wrap:anywhere;}
+.lesson02-review .lesson02-practice-status{font-size:.86rem;color:#244c3e;}
+.lesson02-review .lesson02-architecture-flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem;list-style:none;padding:0;margin:1.5rem 0;counter-reset:role;}
+.lesson02-review .lesson02-architecture-flow li{position:relative;min-width:0;padding:1rem;border:1px solid #7f9c8d;background:#edf3ef;overflow-wrap:anywhere;counter-increment:role;}
+.lesson02-review .lesson02-architecture-flow li:before{content:counter(role,decimal-leading-zero) " →";display:block;color:#346458;font-size:.8rem;margin-bottom:.5rem;}
+.lesson02-review .lesson02-architecture-flow span{display:block;font-size:.75rem;color:var(--muted);}
+.lesson02-review .lesson02-architecture-flow strong{display:block;font-size:.98rem;}
+.lesson02-review .lesson02-architecture-flow p{font-size:.87rem;margin:.5rem 0 0;}
+@media(max-width:700px){.lesson02-review .lesson02-asset-grid,.lesson02-review .lesson02-input-grid,.lesson02-review .lesson02-architecture-flow{grid-template-columns:1fr;}.lesson02-review .lesson02-input-grid select{font-size:.8rem;}.lesson02-review .lesson02-asset-dialog{padding:.7rem;}}
+@media print{.lesson02-review .lesson02-asset-card{break-inside:avoid;}.lesson02-review .lesson02-asset-actions,.lesson02-review .lesson02-input-grid{display:none;}.lesson02-review .lesson02-asset-dialog:not([open]){display:none;}}

@@ -1,0 +1,277 @@
+{
+  "schemaVersion": 1,
+  "port": 4174,
+  "pollMs": 250,
+  "stableMs": 2000,
+  "folders": [
+    {
+      "label": "CAD도면",
+      "folder": "01_CAD도면"
+    },
+    {
+      "label": "BIM건축모델",
+      "folder": "02_BIM건축모델"
+    },
+    {
+      "label": "Reference",
+      "folder": "03_레퍼런스"
+    },
+    {
+      "label": "이미지결과",
+      "folder": "04_이미지결과"
+    },
+    {
+      "label": "3D모델",
+      "folder": "05_3D모델"
+    },
+    {
+      "label": "포인트클라우드",
+      "folder": "06_포인트클라우드"
+    },
+    {
+      "label": "문서",
+      "folder": "07_문서"
+    },
+    {
+      "label": "영상",
+      "folder": "08_영상"
+    },
+    {
+      "label": "데이터",
+      "folder": "09_데이터"
+    },
+    {
+      "label": "압축파일",
+      "folder": "10_압축파일"
+    },
+    {
+      "label": "디자인소스",
+      "folder": "11_디자인소스"
+    },
+    {
+      "label": "기타",
+      "folder": "99_분류확인"
+    }
+  ],
+  "direct": [
+    {
+      "label": "CAD / 도면",
+      "folder": "01_CAD도면",
+      "extensions": [
+        ".dwg",
+        ".dxf",
+        ".dgn",
+        ".dwf",
+        ".dwfx"
+      ]
+    },
+    {
+      "label": "BIM / 건축 모델",
+      "folder": "02_BIM건축모델",
+      "extensions": [
+        ".rvt",
+        ".rfa",
+        ".rte",
+        ".ifc",
+        ".ifczip",
+        ".pln",
+        ".pla",
+        ".gsm",
+        ".skp"
+      ]
+    },
+    {
+      "label": "일반 3D / DCC / 교환 모델",
+      "folder": "05_3D모델",
+      "extensions": [
+        ".blend",
+        ".fbx",
+        ".obj",
+        ".abc",
+        ".glb",
+        ".gltf",
+        ".3ds",
+        ".dae",
+        ".stl",
+        ".ply",
+        ".usd",
+        ".usda",
+        ".usdc",
+        ".usdz",
+        ".3dm",
+        ".c4d",
+        ".max",
+        ".ma",
+        ".mb",
+        ".step",
+        ".stp",
+        ".iges",
+        ".igs",
+        ".sat"
+      ]
+    },
+    {
+      "label": "포인트클라우드 / Scan",
+      "folder": "06_포인트클라우드",
+      "extensions": [
+        ".e57",
+        ".las",
+        ".laz",
+        ".rcp",
+        ".rcs",
+        ".pts",
+        ".pcd"
+      ]
+    },
+    {
+      "label": "문서",
+      "folder": "07_문서",
+      "extensions": [
+        ".doc",
+        ".docx",
+        ".hwp",
+        ".hwpx",
+        ".txt",
+        ".md",
+        ".rtf",
+        ".odt",
+        ".ppt",
+        ".pptx"
+      ]
+    },
+    {
+      "label": "영상",
+      "folder": "08_영상",
+      "extensions": [
+        ".mp4",
+        ".mov",
+        ".avi",
+        ".mkv",
+        ".webm",
+        ".m4v"
+      ]
+    },
+    {
+      "label": "데이터",
+      "folder": "09_데이터",
+      "extensions": [
+        ".xlsx",
+        ".xls",
+        ".csv",
+        ".json",
+        ".xml",
+        ".yaml",
+        ".yml"
+      ]
+    },
+    {
+      "label": "압축",
+      "folder": "10_압축파일",
+      "extensions": [
+        ".zip",
+        ".7z",
+        ".rar",
+        ".tar",
+        ".gz",
+        ".tgz"
+      ]
+    },
+    {
+      "label": "디자인 Source",
+      "folder": "11_디자인소스",
+      "extensions": [
+        ".psd",
+        ".ai",
+        ".eps",
+        ".indd"
+      ]
+    }
+  ],
+  "ambiguous": [
+    ".png",
+    ".jpg",
+    ".jpeg",
+    ".webp",
+    ".tif",
+    ".tiff",
+    ".bmp",
+    ".gif",
+    ".heic",
+    ".svg",
+    ".pdf"
+  ],
+  "keywords": [
+    {
+      "label": "도면 후보",
+      "folder": "01_CAD도면",
+      "words": [
+        "floorplan",
+        "plan",
+        "elevation",
+        "section",
+        "drawing",
+        "detail",
+        "cad",
+        "평면",
+        "평면도",
+        "입면",
+        "입면도",
+        "단면",
+        "단면도",
+        "도면",
+        "상세도"
+      ]
+    },
+    {
+      "label": "Reference 후보",
+      "folder": "03_레퍼런스",
+      "words": [
+        "ref",
+        "reference",
+        "material",
+        "texture",
+        "lighting",
+        "moodboard",
+        "mood",
+        "재질",
+        "텍스처",
+        "조명",
+        "레퍼런스",
+        "무드보드"
+      ]
+    },
+    {
+      "label": "이미지 결과 후보",
+      "folder": "04_이미지결과",
+      "words": [
+        "render",
+        "output",
+        "result",
+        "generated",
+        "concept",
+        "selected",
+        "final",
+        "렌더",
+        "결과",
+        "시안",
+        "콘셉트",
+        "선택안"
+      ]
+    },
+    {
+      "label": "문서 후보",
+      "folder": "07_문서",
+      "words": [
+        "rfp",
+        "brief",
+        "report",
+        "proposal",
+        "contract",
+        "제안서",
+        "보고서",
+        "계약서",
+        "브리프"
+      ]
+    }
+  ]
+}

@@ -3,6 +3,7 @@ import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import path from 'node:path';
 import {chromium} from 'playwright';
+import ts from 'typescript';
 import {getCourseProfile,getCourseProfiles,validateCourseProfiles,courseOutput} from './course-registry.mjs';
 import {verifyDraftOutput} from './draft-output.mjs';
 import {reviewOutput,packages,originalPath} from './daejeon-review-assets.mjs';
@@ -17,8 +18,8 @@ assert.deepEqual(profile.release.releasedPdfLessonIds,[]);
 assert.equal(profile.pdfs.policy,'not-issued');
 assert.equal(profile.course.reviewDraft.lessons[0].durationMinutes,300);
 const invalid=structuredClone(getCourseProfiles());
-invalid.find((p)=>p.course.courseId==='daejeon-2026').course.reviewDraft.lessons.push({id:'02',durationMinutes:300});
-assert.throws(()=>validateCourseProfiles(invalid),/authorized lesson 01 scope/);
+invalid.find((p)=>p.course.courseId==='daejeon-2026').course.reviewDraft.lessons.push({id:'03',durationMinutes:150});
+assert.throws(()=>validateCourseProfiles(invalid),/authorized lesson 01\/02 scope/);
 for(const mode of ['student','instructor','pdf-review']) verifyDraftOutput(profile.course,courseOutput(profile.course.courseId,mode));
 verifyDraftOutput(profile.course,reviewOutput,{localReviewAssets:true});
 const manifest=JSON.parse(readFileSync(path.join(reviewOutput,'review-assets.json'),'utf8'));
@@ -30,8 +31,11 @@ const base=JSON.parse(readFileSync(path.join(reviewOutput,'course-build.json'),'
 const server=createStaticServer(reviewOutput,base); await listen(server,port,'127.0.0.1');
 const browser=await chromium.launch({headless:true});
 const context=await browser.newContext({permissions:['clipboard-read','clipboard-write'],acceptDownloads:true});
-const report={passed:false,courseStatus:'design-pending',approvedLessons:0,reviewPages:3,periodMinutes:[],breakMinutes:[],assetFiles:manifest.files.length,promptCopies:0,promptDownloads:0,downloadUrls:0,reusedImageDownloads:[],viewports:[],scenarios:[]};
+const report={passed:false,courseStatus:'design-pending',approvedLessons:0,reviewPages:2+profile.course.reviewDraft.lessons.length,periodMinutes:[],breakMinutes:[],assetFiles:manifest.files.length,promptCopies:0,promptDownloads:0,downloadUrls:0,reusedImageDownloads:[],viewports:[],scenarios:[]};
 const normalize=(text)=>text.replaceAll('\r\n','\n').trim();
+const dayCode=ts.transpileModule(readFileSync('src/draft/content/daejeon-2026.ts','utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022}}).outputText;
+const day=await import(`data:text/javascript;base64,${Buffer.from(dayCode).toString('base64')}`);
+assert.deepEqual(day.periods.map(p=>p.timing.reduce((total,[,minutes])=>total+minutes,0)),[50,50,50,50,50,50]);
 mkdirSync('tmp/day01-implementation',{recursive:true});
 try {
   const page=await context.newPage(); const errors=[]; page.on('pageerror',(error)=>errors.push(error.message));
@@ -50,8 +54,10 @@ try {
       assert.deepEqual(badBase,[]);
       if(route==='/course-overview/') {
         assert.equal(await page.locator('[data-review-section]').count(),8);
-        assert.equal(await page.locator('.review-flow li').count(),11);
-        assert.deepEqual(await page.locator('.review-flow strong').allTextContents(),['실무자료','조건 분석','Design Brief','이미지 시각화','도면 활용','Astra','MCP + Blender','NotebookLM 법규 검토','GPT 교차검증','Portfolio','Project Result Report']);
+        assert.equal(await page.locator('.review-flow li').count(),10);
+        assert.deepEqual(await page.locator('.review-flow strong').allTextContents(),['교육용 실습 예제','요청·조건 이해','디자인 기준 정리','이미지 생성·수정','도면 활용','AI 해석','3D 모델링','법규 확인','독립 교차검증','결과 정리']);
+        assert.equal(await page.locator('[data-official-topic]').count(),7);
+        assert.equal(await page.locator('.course-roadmap-position').count(),0);
         if(viewport.width===1440) await page.screenshot({path:'tmp/day01-implementation/overview-desktop.png'});
       }
       if(route==='/lessons/01/') {
@@ -60,17 +66,16 @@ try {
         assert.equal(await page.locator('.review-toc a').count(),35);
         const minutes=await page.locator('[data-teaching-minutes]').evaluateAll((periods)=>periods.map((p)=>Number(p.dataset.teachingMinutes)));
         assert.deepEqual(minutes,[50,50,50,50,50,50]); report.periodMinutes=minutes;
-        const timings=await page.locator('[data-period]').evaluateAll((periods)=>periods.map((p)=>[...p.querySelectorAll('[data-timing-minutes]')].reduce((sum,s)=>sum+Number(s.dataset.timingMinutes),0)));
-        assert.deepEqual(timings,minutes);
+        assert.equal(await page.locator('[data-timing-minutes]').count(),0,'Detailed operating timings are internal only');
         const breaks=await page.locator('[data-break-minutes]').evaluateAll((breaks)=>breaks.map((b)=>Number(b.dataset.breakMinutes)));
-        assert.deepEqual(breaks,[10,10,10,10,10]);report.breakMinutes=breaks;
+        assert.deepEqual(breaks,[],'Reading pages do not render break schedules');report.breakMinutes=breaks;
         assert.equal(await page.locator('[data-prompt-rule]').count(),7);
         assert.equal(await page.locator('[data-prompt-step]').count(),7);
         assert.equal(await page.locator('[data-analysis-table] tbody tr').count(),10);
         assert.equal(await page.locator('[data-simple-brief] li').count(),10);
-        assert.equal(await page.locator('[data-instructor-reference][open]').count(),0);
+        assert.equal(await page.locator('[data-instructor-reference]').count(),0,'No internal references in the shared-screen DOM');
         assert.equal(await page.locator('#period-2 a[href$="RFP-draft.pdf"]').count(),0);
-        assert.equal(await page.locator('#period-2 img').count(),10);
+        assert.equal(await page.locator('#period-2 img').count(),8);
         assert.equal(await page.locator('[data-empty-base]').count(),5);
         assert.equal(await page.locator('[data-flower-cafe-comparison] img').count(),2);
         assert.equal(await page.locator('.review-toc-group').count(),6);
@@ -136,7 +141,7 @@ try {
           for(const file of reusedLesson02Files) assert(readFileSync(path.join(reviewOutput,'practice/GW-L02',file.file)).equals(readFileSync(path.join(process.cwd(),file.source))));
           await page.locator('[data-example-gate]').screenshot({path:'tmp/day01-implementation/instructor-examples.png'});
           await page.emulateMedia({media:'print'});
-          assert.equal(await page.locator('.instructor-notes').first().isVisible(),false,'No repeated small timings in print');
+          assert.equal(await page.locator('.instructor-notes').count(),0,'No operating notes in print');
           await page.emulateMedia({media:'screen'});
         } else {
           await page.locator('main details').evaluateAll((details)=>details.forEach((d)=>d.open=true));
@@ -147,9 +152,9 @@ try {
     }
     report.viewports.push(viewport.width);
   }
-  assert.equal((await page.request.get(`http://127.0.0.1:${port}${base}/lessons/02/`)).status(),404);
+  assert.equal((await page.request.get(`http://127.0.0.1:${port}${base}/lessons/03/`)).status(),404);
   assert.deepEqual(errors,[]);
-  report.scenarios=['six 50-minute periods; breaks outside teaching; overview included','28 sections; 35 TOC targets; keyboard and mobile navigation','7 original rules/formula; 10 analysis and 10 Brief headings','instructor examples closed; no early RFP disclosure','all actual clipboard, TXT downloads, asset SHA and image decode checks','desktop/mobile 1440/390/320 without overflow, including expanded references','design-pending, no approved release/PDFs/day02; default builds contain no practice assets'];
+  report.scenarios=['six 50-minute periods; breaks outside teaching; overview included','28 sections; 35 TOC targets; keyboard and mobile navigation','7 original rules/formula; 10 analysis and 10 Brief headings','instructor examples closed; no early RFP disclosure','all actual clipboard, TXT downloads, asset SHA and image decode checks','desktop/mobile 1440/390/320 without overflow, including expanded references','design-pending, no approved release/PDFs; separate lesson02 draft allowed; default builds contain no practice assets'];
   report.passed=true;
 } finally {await browser.close();await closeServer(server);writeFileSync('tmp/day01-implementation/ui-verification.json',JSON.stringify(report,null,2)+'\n');}
 console.log(JSON.stringify(report,null,2));

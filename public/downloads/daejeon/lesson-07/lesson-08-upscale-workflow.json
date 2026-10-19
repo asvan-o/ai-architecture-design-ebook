@@ -1,0 +1,643 @@
+{
+  "id": "c18b6245-782d-47e4-b474-c70bf05cef46",
+  "revision": 0,
+  "last_node_id": 16,
+  "last_link_id": 17,
+  "nodes": [
+    {
+      "id": 11,
+      "type": "SaveImage",
+      "pos": [
+        2542.18142744299,
+        267.93568484430614
+      ],
+      "size": [
+        315,
+        270.00000953674316
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 11
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.31.0",
+        "Node name for S&R": "SaveImage",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.8",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "Images\\plan_lanczos_realesrgan\\realesrgan_"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "SaveImage",
+      "pos": [
+        2551.911600589651,
+        -154.84019466151338
+      ],
+      "size": [
+        315,
+        270.00000953674316
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 14
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.31.0",
+        "Node name for S&R": "SaveImage",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.8",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "Images\\인테리어_lanczos\\lanczos_"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "SaveImage",
+      "pos": [
+        2539.9608647101627,
+        868.1931258943268
+      ],
+      "size": [
+        315,
+        270.00000953674316
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 15
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.31.0",
+        "Node name for S&R": "SaveImage",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.8",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "Images\\plan_lanczos\\lanczos_UltraSharp_"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "ImageUpscaleWithModel",
+      "pos": [
+        2201.559636970491,
+        886.4301763968481
+      ],
+      "size": [
+        241.79998779296875,
+        46
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "upscale_model",
+          "type": "UPSCALE_MODEL",
+          "link": 16
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 17
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "slot_index": 0,
+          "links": [
+            15
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.31.0",
+        "Node name for S&R": "ImageUpscaleWithModel",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.8",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 10,
+      "type": "ImageUpscaleWithModel",
+      "pos": [
+        2178.7561611135857,
+        433.41972799403845
+      ],
+      "size": [
+        241.79998779296875,
+        46
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "upscale_model",
+          "type": "UPSCALE_MODEL",
+          "link": 9
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 13
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "slot_index": 0,
+          "links": [
+            11
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.31.0",
+        "Node name for S&R": "ImageUpscaleWithModel",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.8",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 9,
+      "type": "UpscaleModelLoader",
+      "pos": [
+        1733.2925488744306,
+        224.37676615602967
+      ],
+      "size": [
+        315,
+        58
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "UPSCALE_MODEL",
+          "type": "UPSCALE_MODEL",
+          "slot_index": 0,
+          "links": [
+            9
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.31.0",
+        "Node name for S&R": "UpscaleModelLoader",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.8",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "RealESRGAN_x2.pth"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "UpscaleModelLoader",
+      "pos": [
+        1760.11858617761,
+        729.845696781291
+      ],
+      "size": [
+        315,
+        58
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "UPSCALE_MODEL",
+          "type": "UPSCALE_MODEL",
+          "slot_index": 0,
+          "links": [
+            16
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.31.0",
+        "Node name for S&R": "UpscaleModelLoader",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.8",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "4x-UltraSharp.pth"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "ImageScale",
+      "pos": [
+        1287.6565197492673,
+        391.3244694875625
+      ],
+      "size": [
+        315,
+        130
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 1
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": 2
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "slot_index": 0,
+          "links": [
+            13,
+            14,
+            17
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.31.0",
+        "Node name for S&R": "ImageScale",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "width": true,
+            "height": true
+          },
+          "version": "7.8",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "lanczos",
+        1120,
+        1074,
+        "disabled"
+      ]
+    },
+    {
+      "id": 1,
+      "type": "VHS_LoadImages",
+      "pos": [
+        774.7707315531541,
+        33.03021601975238
+      ],
+      "size": [
+        315,
+        194
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "meta_batch",
+          "shape": 7,
+          "type": "VHS_BatchManager",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "slot_index": 0,
+          "links": [
+            1
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        },
+        {
+          "name": "frame_count",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-videohelpersuite",
+        "ver": "4ee72c065db22c9d96c2427954dc69e7b908444b",
+        "Node name for S&R": "VHS_LoadImages",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.8",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": {
+        "directory": "평면도_v1",
+        "image_load_cap": 0,
+        "skip_first_images": 0,
+        "select_every_nth": 1,
+        "videopreview": {
+          "hidden": false,
+          "paused": false,
+          "params": {
+            "filename": "평면도_v1",
+            "type": "input",
+            "format": "folder",
+            "image_load_cap": 0,
+            "skip_first_images": 0,
+            "select_every_nth": 1
+          }
+        }
+      },
+      "color": "#323",
+      "bgcolor": "#535"
+    },
+    {
+      "id": 3,
+      "type": "PrimitiveNode",
+      "pos": [
+        786.744598737248,
+        409.9402292993615
+      ],
+      "size": [
+        210,
+        82
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "slot_index": 0,
+          "links": [
+            2
+          ]
+        }
+      ],
+      "title": "Width",
+      "properties": {
+        "Run widget replace on values": false,
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.8",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        1120,
+        "fixed"
+      ],
+      "color": "#332922",
+      "bgcolor": "#593930"
+    },
+    {
+      "id": 4,
+      "type": "PrimitiveNode",
+      "pos": [
+        789.0187196171797,
+        668.4699935804692
+      ],
+      "size": [
+        210,
+        82
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "slot_index": 0,
+          "links": [
+            3
+          ]
+        }
+      ],
+      "title": "Height",
+      "properties": {
+        "Run widget replace on values": false,
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.8",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        1074,
+        "fixed"
+      ],
+      "color": "#332922",
+      "bgcolor": "#593930"
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      2,
+      0,
+      "IMAGE"
+    ],
+    [
+      2,
+      3,
+      0,
+      2,
+      1,
+      "INT"
+    ],
+    [
+      3,
+      4,
+      0,
+      2,
+      2,
+      "INT"
+    ],
+    [
+      9,
+      9,
+      0,
+      10,
+      0,
+      "UPSCALE_MODEL"
+    ],
+    [
+      11,
+      10,
+      0,
+      11,
+      0,
+      "IMAGE"
+    ],
+    [
+      13,
+      2,
+      0,
+      10,
+      1,
+      "IMAGE"
+    ],
+    [
+      14,
+      2,
+      0,
+      12,
+      0,
+      "IMAGE"
+    ],
+    [
+      15,
+      15,
+      0,
+      16,
+      0,
+      "IMAGE"
+    ],
+    [
+      16,
+      14,
+      0,
+      15,
+      0,
+      "UPSCALE_MODEL"
+    ],
+    [
+      17,
+      2,
+      0,
+      15,
+      1,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ue_links": [],
+    "links_added_by_ue": [],
+    "ds": {
+      "scale": 0.5978510324605483,
+      "offset": [
+        -180.95157660749337,
+        467.411990822747
+      ]
+    },
+    "frontendVersion": "1.48.7",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}

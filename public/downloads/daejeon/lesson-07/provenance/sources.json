@@ -1,0 +1,27 @@
+[
+  {
+    "file": "workflow_triposplat.json",
+    "url": "https://raw.githubusercontent.com/Comfy-Org/workflow_templates/main/templates/3d_triposplat_image_to_gaussian_splat.json",
+    "downloadedAt": "2026-10-16T11:38:08.496Z"
+  },
+  {
+    "file": "workflow-templates-LICENSE",
+    "url": "https://raw.githubusercontent.com/Comfy-Org/workflow_templates/main/LICENSE",
+    "downloadedAt": "2026-10-16T11:38:08.498Z"
+  },
+  {
+    "file": "single-image-super-resolution-1033.xml",
+    "url": "https://storage.openvinotoolkit.org/repositories/open_model_zoo/2023.0/models_bin/1/single-image-super-resolution-1033/FP16/single-image-super-resolution-1033.xml",
+    "downloadedAt": "2026-10-16T11:38:08.498Z"
+  },
+  {
+    "file": "single-image-super-resolution-1033.bin",
+    "url": "https://storage.openvinotoolkit.org/repositories/open_model_zoo/2023.0/models_bin/1/single-image-super-resolution-1033/FP16/single-image-super-resolution-1033.bin",
+    "downloadedAt": "2026-10-16T11:38:08.498Z"
+  },
+  {
+    "file": "open-model-zoo-LICENSE",
+    "url": "https://raw.githubusercontent.com/openvinotoolkit/open_model_zoo/master/LICENSE",
+    "downloadedAt": "2026-10-16T11:38:08.498Z"
+  }
+]

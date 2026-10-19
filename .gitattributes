@@ -1,0 +1,11 @@
+# Preserve byte-exact teaching materials and their original whitespace.
+public/downloads/daejeon/** -text whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol
+public/images/daejeon/** -text whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol
+public/practice/** -text whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol
+review/daejeon/** -text whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol
+
+# PDF and model bytes must never be interpreted as text patches.
+*.pdf binary
+*.fbx binary
+*.glb binary
+*.dwg binary

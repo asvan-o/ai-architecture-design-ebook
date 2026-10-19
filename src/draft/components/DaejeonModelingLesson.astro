@@ -1,0 +1,46 @@
+---
+import ReviewSection from './ReviewSection.astro';
+import ReviewPrompt from './ReviewPrompt.astro';
+import TopicProgress from './TopicProgress.astro';
+import Lesson0910Asset from './Lesson0910Asset.astro';
+import Lesson09CameraColormap from './Lesson09CameraColormap.astro';
+import Lesson09WalkthroughClips from './Lesson09WalkthroughClips.astro';
+import source from '../content/lesson0910-source.json';
+import type {PromptPlatformGuide} from '../content/prompt-platform-guides';
+import '../styles/lesson0910.css';
+interface Props {lesson:'09'|'10';}
+const {lesson}=Astro.props;
+const data=source.lessons[lesson];
+const prompts=source.prompts as Record<string,typeof source.prompts['l09-step1-build']>;
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
+const downloadRoot=base+'/downloads/daejeon/lesson-'+lesson+'/';
+const href=(link:{href?:string;download?:string;internal?:boolean})=>link.download?downloadRoot+link.download:link.internal?base+link.href:link.href;
+---
+<div class="modeling-lesson" data-modeling-lesson={lesson} data-modeling-revision="DJ-L08-L09-L10-ALL-IN-ONE">
+ {lesson==='09'&&<section class="modeling-preview" aria-label="모던 3층 주택 실습 미리보기" data-result-first>
+  <h2>이번에 직접 만들어 볼 모던 3층 단독주택</h2>
+  <div class="modeling-image-row modeling-image-row--three">{['house_astra_1f_iso','house_astra_2f_iso','house_astra_3f_hero'].map(key=><Lesson0910Asset assetKey={key} instance="preview" />)}</div>
+  <p>실내와 옥상 가구까지 들어 있는 자체 제작 예제입니다. 아래 Step 1~3에서 Codex (Astra)와 Argon (Antigravity)를 같은 시점으로 비교합니다. 도면과 두 버전의 Blender 원본·FBX·GLB를 내려받아 층별로 살펴보고 수정할 수 있습니다.</p>
+ </section>}
+ <TopicProgress {lesson} items={[{topic:lesson==='09'?5:6,status:lesson==='09'?'완결':'시작',note:lesson==='09'?'주택 도면 → 층별 공간·가구 → 재질·조명 → 카메라 이동·파일 저장':'공식 법령 원문 → 프로젝트 사실 → 적용 조건·측정 대조 → 건축사 검토'}]} />
+ <p class="modeling-status">수업 150분 · 50분 × 3교시 (쉬는 시간·운영 별도)</p>
+ <nav class="modeling-part-links" aria-label="이번 차시 작업 단계">{data.parts.map((part,index)=><a href={'#l'+lesson+'-part-'+(index+1)}><strong>{part.title}</strong><span>{data.sections.slice(part.start,part.end).reduce((sum,section)=>sum+section.minutes,0)}분</span></a>)}</nav>
+ <aside class="modeling-downloads"><h2>실습·검토 자료</h2><p>{lesson==='09'?'주택 도면 PNG 6장·CAD용 DXF 6파일, 두 버전의 렌더 8쌍·Blender 원본·FBX·GLB와 공통 실습 프롬프트를 제공합니다. 모델 묶음에서 Codex (Astra)와 Argon (Antigravity) 폴더를 구분해 열어 보세요. Argon의 FBX·GLB는 다른 프로그램에서도 색을 유지하도록 배포용으로 다시 내보낸 파일입니다. 원본 Blender 파일은 그대로 제공합니다. 외부 실무 원도면과 상업시설 모델은 주택 패키지에 포함하지 않습니다.':'Prompt·법규 검토 보고서·프로젝트 기준표 빈 양식을 제공합니다. 최신 법령 원문은 공식 사이트에서 기준일·시행일을 직접 확인해 준비합니다.'}</p>{enabled&&<div><a href={downloadRoot+(lesson==='09'?'DJ-L09-House-3F-Drawings.zip':'DJ-L10-Legal-Review-Pack.zip')} download>{lesson==='09'?'주택 도면 PNG·DXF ZIP':'제10차시 자료 ZIP'}</a>{lesson==='09'&&<><a href={downloadRoot+'DJ-L09-House-3F-Models.zip'} download>두 버전 Blender·FBX·GLB 묶음</a><a href={downloadRoot+'DJ-L09-House-3F-Prompts.zip'} download>주택 프롬프트 묶음</a></>}<a href={downloadRoot+'README.md'} download>사용방법 README</a><a href={downloadRoot+'manifest.json'} download>자료 목록·SHA-256</a></div>}</aside>
+ {data.parts.map((part,partIndex)=><div id={'l'+lesson+'-part-'+(partIndex+1)} class="modeling-part" data-modeling-part={partIndex+1}>
+  <header class="period-heading"><p>LESSON {lesson} · PART {partIndex+1}</p><h2>{part.title}</h2></header>
+  {data.sections.slice(part.start,part.end).map((section,index)=><ReviewSection id={section.id} title={section.title} minutes={section.minutes} index={part.start+index+1}>
+   {section.paragraphs.map(text=><p>{text}</p>)}
+   {lesson==='09'&&section.id==='l09-moving-3'&&<Lesson09WalkthroughClips />}
+   {section.id==='l09-preview'&&<details class="commercial-reference" data-commercial-reference><summary>참고 사례 · 복합 상업시설 도면의 3D 적층 구현 예시</summary><p>아래는 이전 참고 사례입니다. 이번에 따라 만들 주택과 구분하며, 실습에는 위의 자체 제작 주택 도면을 사용합니다.</p><div class="modeling-image-row modeling-image-row--three">{['astra-1f-iso','astra-2f-iso','astra-3f-hero'].map(key=><Lesson0910Asset assetKey={key} instance="commercial-reference" />)}</div></details>}
+   {section.tables.map(table=><div class="modeling-table-wrap" role="region" aria-label={table.title} tabindex="0"><table><caption>{table.title}</caption><thead><tr>{table.headers.map(h=><th scope="col">{h}</th>)}</tr></thead><tbody>{table.rows.map(row=><tr>{row.map((cell,i)=>i===0?<th scope="row">{cell}</th>:<td>{cell}</td>)}</tr>)}</tbody></table></div>)}
+   {section.imageRows.map((row,rowIndex)=><div class:list={['modeling-image-row',{'modeling-image-row--pair':row.length>1}]}>{row.map(key=><Lesson0910Asset assetKey={key} instance={section.id+'-'+rowIndex} />)}</div>)}
+   {section.steps.length>0&&<ol class="modeling-steps">{section.steps.map(text=><li>{text}</li>)}</ol>}
+   {section.callouts.map(text=><aside class="modeling-note">{text}</aside>)}
+   {section.links.length>0&&<div class="modeling-links">{section.links.filter(link=>!('download' in link)||enabled).map(link=><a href={href(link)} download={'download' in link?true:undefined} target={'href' in link&&!('internal' in link)?'_blank':undefined} rel="noreferrer">{link.title}</a>)}</div>}
+   {section.promptIds.map(id=>{const p=prompts[id];return <ReviewPrompt id={id} title={p.title} prompt={p.text} guide={p.guide as PromptPlatformGuide & {purpose:string;variables:string}} href={enabled?downloadRoot+p.filename:undefined} filename={p.filename} />;})}
+   {lesson==='09'&&section.id==='l09-moving-3'&&<Lesson09CameraColormap />}
+  </ReviewSection>)}
+ </div>)}
+ <aside class="modeling-sources"><h2>{lesson==='10'?'공식 원문·도구 참고':'도구 동작 참고'}</h2><ul>{data.sources.map(item=><li><a href={item.url} target="_blank" rel="noreferrer">{item.title}</a></li>)}</ul><p>{lesson==='10'?'인용·시행일·별표와 부칙은 검토 기준일에 다시 확인합니다. 두 노트북 사이의 근거 전달은 사람이 수행하고 미확정은 보류합니다.':'3D 모델링·렌더·기하 치수 확인은 설계 검토를 돕는 과정이며, 실제 건축 인허가·구조·법규 적합성 판정은 건축사와 관련 전문가의 최종 확인을 거칩니다.'}</p></aside>
+</div>

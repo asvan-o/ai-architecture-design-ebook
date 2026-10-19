@@ -1,0 +1,27 @@
+---
+interface Props { id: string; src: string; alt: string; }
+const { id, src, alt } = Astro.props;
+const dialogId = `day01-image-${id}`;
+---
+<img {src} {alt} loading="lazy" />
+<button type="button" class="review-download" data-day01-image-open={dialogId} aria-haspopup="dialog">이미지 확대 보기</button>
+<dialog id={dialogId} class="day01-image-dialog" aria-label={alt}>
+  <header><strong>{alt}</strong><button type="button" class="review-download" data-day01-image-close>닫기</button></header>
+  <img {src} {alt} />
+</dialog>
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-day01-image-open]').forEach(button => {
+    const dialog = document.getElementById(button.dataset.day01ImageOpen || '') as HTMLDialogElement | null;
+    if (!dialog) return;
+    button.addEventListener('click', () => dialog.showModal());
+    dialog.querySelector<HTMLButtonElement>('[data-day01-image-close]')?.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('close', () => button.focus());
+  });
+</script>
+<style>
+  .day01-image-dialog { width: min(94vw, 1440px); max-width: 94vw; max-height: 92dvh; padding: 1rem; border: 1px solid #cbd5e1; border-radius: .8rem; }
+  .day01-image-dialog::backdrop { background: rgb(15 23 42 / 75%); }
+  .day01-image-dialog header { display: flex; align-items: center; justify-content: space-between; gap: .75rem; flex-wrap: wrap; }
+  .day01-image-dialog img { display: block; width: 100%; height: auto; margin-top: .75rem; }
+  @media print { [data-day01-image-open], .day01-image-dialog { display: none !important; } }
+</style>

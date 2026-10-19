@@ -36,3 +36,7 @@ release/
 *.pid
 *.port
 lecture-kit.log
+
+# 배포에 사용하지 않는 대용량 검수용 중복 ZIP
+/review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/DJ-L04_PRACTICE_REVIEW.zip
+/review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/DJ-L04_FIVE_TECHNIQUES_REVIEW.zip

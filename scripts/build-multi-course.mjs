@@ -33,6 +33,10 @@ for (const file of gwangju.pdfs.approvedManifest.files) {
 }
 await cp(path.join(courseOutput('gwangju-2026', 'student'), 'downloads', 'pdf-manifest.json'), path.join(siteOutput, 'downloads', 'pdf-manifest.json'));
 await cp(path.join(courseOutput('gwangju-2026', 'student'), 'search-index.json'), path.join(siteOutput, 'search-index.json'));
+await rm(portalOutput, { recursive: true, force: true });
+for (const { course } of profiles) {
+  await rm(courseOutput(course.courseId, 'student'), { recursive: true, force: true });
+}
 await writeFile(path.join(siteOutput, 'course-builds.json'), `${JSON.stringify({
   schemaVersion: 1, portalBase, courses: profiles.map(({ course }) => ({ courseId: course.courseId, routeSlug: course.routeSlug, contentStatus: course.contentStatus, mode: 'student' })),
 }, null, 2)}\n`);

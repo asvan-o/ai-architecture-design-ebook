@@ -1,13 +1,47 @@
 ---
+import {reviewNavigation} from '../content/review-navigation';
+import {officialTopics} from '../content/course-roadmap';
+import {alignedLessons, topicLessonLinks} from '../content/lesson-topic-alignment';
+import ReviewLessonNavigation from '../components/ReviewLessonNavigation.astro';
 import { activeCourse } from '../../lib/courses';
 import '../../styles/global.css';
 import '../styles/review.css';
-import { reviewDate } from '../content/daejeon-2026';
 interface TocItem { id: string; title: string; }
-interface Props { title: string; lead: string; page: 'home' | 'overview' | 'lesson'; toc?: readonly TocItem[]; tocGroups?: readonly {id:string;title:string;items:readonly TocItem[]}[]; }
-const { title, lead, page, toc = [], tocGroups = [] } = Astro.props;
+interface Props { title: string; lead: string; page: 'home' | 'overview' | 'lesson'; lessonId?:'01'|'02'|'03'|'04'|'05'|'06'|'07'|'08'|'09'|'10'|'11'|'12'|'13'; eyebrow?:string; sharedScreen?:boolean; toc?: readonly TocItem[]; tocGroups?: readonly {id:string;title:string;items:readonly TocItem[]}[]; }
+const { title, lead, page, lessonId='01', eyebrow, toc = [], tocGroups = [] } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const portalHref = base.replace(new RegExp(`/${activeCourse.routeSlug}$`), '') + '/';
+const lessonById = new Map(alignedLessons.map((item) => [item.id, item]));
+const topicGroups = officialTopics.map((topicTitle, index) => {
+  const links = topicLessonLinks[index] ?? [];
+  const isCurrentTopic = page === 'lesson' && links.some((item) => item.id === lessonId);
+  return {
+    number: index + 1,
+    code: String(index + 1).padStart(2, '0'),
+    title: topicTitle,
+    isCurrentTopic,
+    lessons: links.map((link) => {
+      const info = lessonById.get(link.id);
+      const shortTitle = info ? info.title.replace(/^제\d+차시\s*·\s*/, '') : link.label;
+      return {
+        ...link,
+        shortTitle,
+        href: `${base}/lessons/${link.id}/`,
+        isCurrent: page === 'lesson' && link.id === lessonId,
+      };
+    }),
+  };
+});
+const currentTopics = topicGroups.filter((group) => group.isCurrentTopic);
+const pdfHref = page === 'overview'
+  ? `${base}/downloads/daejeon/pdf/ai-architecture-design-daejeon-course-overview.pdf`
+  : page === 'lesson'
+    ? `${base}/downloads/daejeon/pdf/ai-architecture-design-daejeon-lesson-${lessonId}.pdf`
+    : null;
+const pdfLabel = page === 'overview'
+  ? '과정 개요 교보재 PDF 다운로드'
+  : page === 'lesson'
+    ? `제${Number(lessonId)}차시 교보재 PDF 다운로드`
+    : '';
 ---
 <!doctype html>
 <html lang="ko" data-course-id={activeCourse.courseId}>
@@ -15,32 +49,92 @@ const portalHref = base.replace(new RegExp(`/${activeCourse.routeSlug}$`), '') +
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="robots" content="noindex, nofollow, noarchive" />
-    <title>{title} | 대전 AI Lecture · 검토용 초안</title>
+    <title>{title} | 대전 AI Lecture</title>
   </head>
   <body class="review-page">
     <a class="skip-link" href="#main">본문으로 바로가기</a>
     <header class="review-header">
       <a class="review-brand" href={`${base}/`}>AI LECTURE <span>ARCHITECTURE DESIGN · DAEJEON</span></a>
-      <nav aria-label="대전 검토용 자료">
-        <a href={`${base}/course-overview/`} aria-current={page === 'overview' ? 'page' : undefined}>COURSE OVERVIEW</a>
-        <a href={`${base}/lessons/01/`} aria-current={page === 'lesson' ? 'page' : undefined}>1일차 · 6교시</a>
-        <a href={portalHref}>과정 선택</a>
+      <nav aria-label="대전 과정 안내">
+        {reviewNavigation.map(item=><a href={base+'/'+item.path} aria-current={(page==='lesson'?lessonId:page==='overview'?'overview':'home')===item.id?'page':undefined}>{item.label}</a>)}
       </nav>
     </header>
-    <div class="review-notice" role="note">대전 e-book draft · design-pending · 정식 공개·PDF 발행 승인 전 · {reviewDate}</div>
-    <div class:list={['review-shell', { 'review-shell--toc': toc.length > 0 }]}>
-      {toc.length > 0 && <nav class="review-toc" aria-label="현재 차시 내부 목차"><details open><summary>현재 차시 내부 목차</summary>{tocGroups.length>0 ? tocGroups.map((group)=><details class="review-toc-group" data-toc-period={group.id} open><summary>{group.title}</summary><ol>{group.items.map((item)=><li><a href={`#${item.id}`}>{item.title}</a></li>)}</ol></details>) : <ol>{toc.map((item) => <li><a href={`#${item.id}`}>{item.title}</a></li>)}</ol>}</details></nav>}
+    <div class="review-shell review-shell--toc">
+      <aside class="review-sidebar" aria-label="대전 과정 목차">
+        {toc.length > 0 && (
+          <nav class="review-toc" aria-label="현재 차시 내부 목차">
+            {currentTopics.length > 0 && (
+              <div class="review-toc-current-topic">
+                {currentTopics.map((topic) => (
+                  <p>
+                    <span>대주제 {topic.code}</span>
+                    <strong>{topic.title}</strong>
+                  </p>
+                ))}
+              </div>
+            )}
+            <details open>
+              <summary>현재 차시 내부 목차</summary>
+              {tocGroups.length>0 ? tocGroups.map((group)=><details class="review-toc-group" data-toc-period={group.id} open><summary>{group.title}</summary><ol>{group.items.map((item)=><li><a href={`#${item.id}`}>{item.title}</a></li>)}</ol></details>) : <ol>{toc.map((item) => <li><a href={`#${item.id}`}>{item.title}</a></li>)}</ol>}
+            </details>
+          </nav>
+        )}
+        <nav class="review-course-toc" aria-label="7개 대주제별 전체 목차">
+          <details class="review-course-toc__details" open>
+            <summary>전체 목차 · 7개 대주제 / 13차시</summary>
+            <div class="review-course-toc__Overview">
+              <a href={`${base}/`} aria-current={page === 'home' ? 'page' : undefined}>대전 과정 홈</a>
+              <a href={`${base}/course-overview/`} aria-current={page === 'overview' ? 'page' : undefined}>과정 전체 안내 · 7개 대주제 Roadmap</a>
+            </div>
+            <ol class="review-course-toc__topics">
+              {topicGroups.map((group) => (
+                <li class:list={['review-course-toc__topic', { 'is-current-topic': group.isCurrentTopic }]}>
+                  <p class="review-course-toc__heading">
+                    <span>대주제 {group.code}</span>
+                    <strong>{group.title}</strong>
+                  </p>
+                  <ul class="review-course-toc__lessons">
+                    {group.lessons.map((lesson) => (
+                      <li>
+                        <a href={lesson.href} aria-current={lesson.isCurrent ? 'page' : undefined}>
+                          <span class="review-course-toc__badge">{lesson.label}</span>
+                          <span class="review-course-toc__lesson-title">{lesson.shortTitle}</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ol>
+          </details>
+        </nav>
+      </aside>
       <main id="main" tabindex="-1" data-course-status="design-pending" data-review-status="instructor-review" data-review-page={page}>
-        <div class="review-intro"><p class="review-eyebrow">DAEJEON · {page === 'overview' ? 'COURSE OVERVIEW' : page === 'lesson' ? 'DAY 01 / 6 × 50 MIN' : 'COURSE DESIGN'}</p><h1>{title}</h1><p class="review-lead">{lead}</p></div>
+        <div class="review-intro">
+          <p class="review-eyebrow">DAEJEON · {eyebrow || (page === 'overview' ? 'COURSE OVERVIEW' : page === 'lesson' ? 'LESSON 01' : 'COURSE DESIGN')}</p>
+          <h1>{title}</h1>
+          <p class="review-lead">{lead}</p>
+          {pdfHref && (
+            <div class="pdf-textbook-download-bar">
+              <a class="review-download" href={pdfHref} download>📄 {pdfLabel} (A4 교보재)</a>
+            </div>
+          )}
+        </div>
         <slot />
+        <ReviewLessonNavigation {page} {lessonId} />
       </main>
     </div>
     <footer class="review-footer">AI는 제안하고, 디자이너는 판단한다. <a href={`${base}/`}>대전 과정 안내</a></footer>
     <script>
-      const toc = document.querySelector<HTMLDetailsElement>('.review-toc details');
+      const toc = document.querySelector<HTMLDetailsElement>('.review-toc > details');
+      const courseToc = document.querySelector<HTMLDetailsElement>('.review-course-toc__details');
       const media = matchMedia('(max-width: 1000px)');
       const groups=[...document.querySelectorAll<HTMLDetailsElement>('.review-toc-group')];
-      const adaptToc = () => { if (toc) toc.open = !media.matches; groups.forEach((group)=>group.open=!media.matches); };
+      const adaptToc = () => {
+        if (toc) toc.open = !media.matches;
+        if (courseToc) courseToc.open = !media.matches;
+        groups.forEach((group)=>group.open=!media.matches);
+      };
       adaptToc(); media.addEventListener('change', adaptToc);
       const links = [...document.querySelectorAll<HTMLAnchorElement>('.review-toc a')];
       links.forEach((link) => link.addEventListener('click', () => { if (toc && media.matches) toc.open = false; }));

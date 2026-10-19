@@ -5,10 +5,11 @@ import process from 'node:process';
 import { getCourseProfile, courseOutput, courseBuildEnvironment } from './course-registry.mjs';
 import { reuseApprovedPdfs } from './approved-pdfs.mjs';
 import { verifyDraftOutput } from './draft-output.mjs';
+import { writeDaejeonLocalAssets } from './daejeon-local-assets.mjs';
 
 const [command, mode, ...argumentsList] = process.argv.slice(2);
 const courseArgument = argumentsList.find((item) => item.startsWith('--course='));
-const profile = getCourseProfile(courseArgument?.slice('--course='.length) || process.env.COURSE_ID);
+const profile = getCourseProfile(courseArgument?.slice('--course='.length) || process.env.COURSE_ID || (command === 'dev' ? 'daejeon-2026' : undefined));
 const outDir = courseOutput(profile.course.courseId, mode);
 const extraArguments = argumentsList.filter((item) => item !== courseArgument);
 const allowedCommands = ['dev', 'build'];
@@ -28,7 +29,8 @@ const gitHead = spawnSync('git', ['rev-parse', 'HEAD'], {
 }).stdout?.trim();
 const runtimeEnvironment = courseBuildEnvironment(profile, mode, gitHead || 'local-working-tree');
 // Exercise packages belong only to the isolated local review build.
-runtimeEnvironment.PUBLIC_DAEJEON_REVIEW_ASSETS = 'false';
+runtimeEnvironment.PUBLIC_DAEJEON_REVIEW_ASSETS = profile.course.courseId === 'daejeon-2026' ? 'true' : 'false';
+if (profile.course.courseId === 'daejeon-2026') runtimeEnvironment.PUBLIC_ENABLE_DAEJEON_PREVIEW = 'true';
 runtimeEnvironment.PUBLIC_PDF_DOWNLOADS_ENABLED = profile.pdfs.policy === 'preserve-approved-artifact' ? 'true' : 'false';
 if (extraArguments.some((argument) => !argument.startsWith('-') || /^(?:--outDir|--mode|--base)(?:=|$)/.test(argument))) {
   throw new Error('Output, base and mode are managed by the course profile. Use --course=<courseId>.');
@@ -61,7 +63,9 @@ if (result.status !== 0) {
 
 if (command === 'build') {
   if (profile.course.contentStatus === 'design-pending') {
-    const routes = verifyDraftOutput(profile.course, outDir);
+    const isDaejeon = profile.course.courseId === 'daejeon-2026';
+    if (isDaejeon) writeDaejeonLocalAssets(outDir);
+    const routes = verifyDraftOutput(profile.course, outDir, { localReviewAssets: isDaejeon });
     console.log(`[draft] ${profile.course.courseId}/${mode}: design-pending; ${routes.length} review/landing pages; no approved curriculum or PDFs`);
     writeFileSync(path.join(outDir, 'course-build.json'), JSON.stringify({ courseId: profile.course.courseId, mode, basePath: runtimeEnvironment.BASE_PATH, buildId: runtimeEnvironment.PUBLIC_LECTURE_BUILD_ID }));
     process.exit(0);

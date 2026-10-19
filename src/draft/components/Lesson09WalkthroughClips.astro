@@ -1,0 +1,13 @@
+---
+import Lesson0910Asset from './Lesson0910Asset.astro';
+import source from '../content/lesson0910-source.json';
+const data=source.lessons['09'].cameraWalkthroughClips;
+---
+<aside id={data.id} class="walkthrough-clips" aria-labelledby="l09-b-clips-title">
+ <h3 id="l09-b-clips-title">{data.title}</h3>
+ {data.paragraphs.map(text=><p>{text}</p>)}
+ {data.groups.map((group,index)=><div><h4>{group.title}</h4><div class:list={['modeling-image-row',group.keys.length===3?'modeling-image-row--three':'modeling-image-row--pair']}>{group.keys.map(key=><Lesson0910Asset assetKey={key} instance={'b-walkthrough-clips-'+index} />)}</div></div>)}
+</aside>
+<style>
+.walkthrough-clips{min-width:0;padding:1.2rem;margin:1.5rem 0;border:1px solid var(--line);background:var(--surface);overflow-wrap:anywhere}.walkthrough-clips h3{font-size:1.15rem;line-height:1.5;margin:0 0 .8rem}.walkthrough-clips h4{font-size:1.03rem;margin:1.5rem 0 .5rem}.walkthrough-clips p{font-size:.9rem}@media(max-width:600px){.walkthrough-clips{padding:.7rem}}
+</style>

@@ -1,0 +1,30 @@
+---
+import {getLesson07FloorplanManifest} from '../../../scripts/daejeon-lesson07-floorplan-assets.mjs';
+import {getLesson08Manifest} from '../../../scripts/daejeon-lesson08-assets.mjs';
+interface Props {assetKey:string;lesson?:'07'|'08';title?:string;description?:string;}
+const {assetKey,lesson='07',title:captionTitle,description:captionDescription}=Astro.props;
+const asset=(lesson==='08'?getLesson08Manifest():getLesson07FloorplanManifest()).files.find((f:{key?:string})=>f.key===assetKey);
+if(!asset)throw new Error('Unknown floorplan asset '+assetKey);
+const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
+const title=captionTitle||asset.title,description=captionDescription||asset.description;
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const href=base+'/'+asset.outputPath,dialogId='l'+lesson+'-floorplan-image-'+assetKey;
+---
+<figure class="l07-floorplan-asset" data-l07-floorplan-asset={assetKey}>
+ {enabled&&<img src={href} alt={title} width={asset.width} height={asset.height} loading="lazy" />}
+ <figcaption><strong>{title}</strong><p>{description}</p>{enabled&&<div class="l07-fp-actions"><button type="button" data-l07-fp-open={dialogId} aria-haspopup="dialog">확대 보기</button><a href={href} download>원본 {/\.png$/.test(asset.outputPath)?'PNG':'JPEG'} 다운로드</a></div>}</figcaption>
+ {enabled&&<dialog id={dialogId} aria-labelledby={dialogId+'-title'}><header><h3 id={dialogId+'-title'}>{title}</h3><button type="button" data-l07-fp-size aria-pressed="false">원본 크기로 보기</button><button type="button" data-l07-fp-close>닫기</button></header><div class="l07-fp-scroll"><img src={href} alt={title} width={asset.width} height={asset.height} loading="lazy" /></div><p>Esc 키로 닫습니다. 원본 크기에서는 이미지 안에서 이동합니다.</p></dialog>}
+</figure>
+<style>
+ .l07-floorplan-asset{min-width:0;margin:0;border:1px solid var(--line);background:var(--surface);break-inside:avoid}.l07-floorplan-asset>img{width:100%;height:auto}figcaption{padding:1rem;overflow-wrap:anywhere;font-size:.9rem}figcaption p{margin:.6rem 0}.l07-fp-actions{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center}button{font:inherit;background:var(--paper);color:var(--ink);border:1px solid var(--line-dark);padding:.5rem .7rem;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+ dialog{width:90rem;max-width:94vw;max-height:92vh;padding:1rem;background:var(--paper);color:var(--ink);border:1px solid var(--line-dark);overflow:auto}dialog::backdrop{background:#000b}dialog header{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}dialog h3{flex:1 1 14rem;font-size:1rem}.l07-fp-scroll{overflow:auto;max-height:70vh;margin-top:.8rem}.l07-fp-scroll img{width:100%;height:auto;max-height:68vh;object-fit:contain}dialog.is-original img{width:auto;max-width:none;max-height:none}
+ @media print{dialog,.l07-fp-actions{display:none!important}}
+</style>
+<script>
+ document.querySelectorAll<HTMLButtonElement>('[data-l07-fp-open]').forEach(button=>{
+  const dialog=document.getElementById(button.dataset.l07FpOpen||'') as HTMLDialogElement|null;if(!dialog)return;
+  button.addEventListener('click',()=>{dialog.showModal();const img=dialog.querySelector('img');if(img)img.loading='eager';});
+  dialog.querySelector('[data-l07-fp-close]')?.addEventListener('click',()=>dialog.close());dialog.addEventListener('close',()=>button.focus());
+  dialog.querySelector<HTMLButtonElement>('[data-l07-fp-size]')?.addEventListener('click',event=>{const large=dialog.classList.toggle('is-original'),target=event.currentTarget as HTMLButtonElement;target.textContent=large?'화면에 맞춰 보기':'원본 크기로 보기';target.setAttribute('aria-pressed',String(large));});
+ });
+</script>

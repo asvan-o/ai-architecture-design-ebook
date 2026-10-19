@@ -1,0 +1,77 @@
+---
+import ReviewPrompt from './ReviewPrompt.astro';
+import {mcpBlocks,mcpReferences,blenderShortcutGroups,cameraViewSteps,modelExportFormats} from '../content/lesson08-mcp';
+interface Props {sectionId:string;}
+const {sectionId}=Astro.props;
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
+const url=(file:string)=>base+'/downloads/daejeon/lesson-08/'+file;
+const block=(id:string)=>mcpBlocks.find(row=>row.id===id)!;
+---
+<div class="l08-mcp-content">
+ {sectionId==='l08-mcp-concept-ecosystem'&&<>
+  <h3>Codex가 요청하고 Blender가 실제 씬을 바꿉니다</h3>
+  <p>MCP는 AI 앱이 외부 도구에 정해진 형식으로 작업을 요청하는 연결 방식입니다. 이번 실습은 Codex 채팅 → 로컬 MCP 서버 → Blender 애드온 → 현재 씬으로 이어집니다.</p>
+  <ol class="mcp-flow"><li>Codex · 목표와 범위 입력</li><li>uvx · MCP 서버 실행</li><li>애드온 · localhost:9876</li><li>Blender · 객체 생성·조회</li></ol>
+  <p>빈 실습 파일에서 시작하고 실제 연결·객체·치수를 다시 조회합니다. 연결 설정만 끝냈다고 모델링이 성공한 것은 아닙니다.</p>
+ </>}
+ {sectionId==='l08-blender-mcp-setup'&&<>
+  <div class="mcp-downloads">{enabled&&<><a href={url('DJ-L08-Blender-MCP-Starter-Pack.zip')} download>Blender MCP 시작 패키지 ZIP</a><a href={url('blender_mcp_addon.py')} download>애드온 PY</a><a href={url('BLENDER-MCP-README.md')} download>시작 가이드 README</a></>}</div>
+  <h3>Step 1 · uv(uvx) 설치와 경로 확인</h3>
+  <p>PowerShell에서 아래 한 줄을 실행합니다. 이미 uvx가 설치됐다면 경로 확인으로 진행합니다.</p>
+  <ReviewPrompt {...block('l08-mcp-uv-install')} href={enabled?url('uv-install.txt'):undefined} />
+  <p>설치가 끝났으면 새 PowerShell 창을 열고 <code>where.exe uvx</code>를 입력해 보세요. 내 컴퓨터의 윈도우 아이디(&lt;사용자명&gt;)가 포함된 정확한 설치 위치(예: <code>C:\Users\홍길동\.local\bin\uvx.exe</code>)가 화면에 한 줄로 출력됩니다. 이 주소를 그대로 복사해서 다음 Step 3의 <code>command = '...'</code> 자리에 붙여넣으면 됩니다.</p>
+  <h3>Step 2 · Blender 애드온 설치와 서버 켜기</h3>
+  <ol><li><strong>Edit → Preferences → Add-ons → Install from Disk</strong>에서 <code>blender_mcp_addon.py</code>를 선택합니다.</li><li><strong>Interface: MCP for Blender</strong>를 활성화합니다.</li><li>3D 뷰포트에 마우스를 놓고 <strong>N → MCP for Blender → Start MCP Server</strong>를 누릅니다.</li><li><strong>localhost:9876</strong> 상태를 확인합니다. 이미 실행 중인 다른 실습 서버는 임의 종료하거나 중복 실행하지 않습니다. 버튼 표기는 애드온 버전에 따라 다를 수 있습니다.</li></ol>
+  <h3>Step 3 · Codex config.toml 편집과 완전 재시작</h3>
+  <p>메모장으로 <code>C:\Users\&lt;사용자명&gt;\.codex\config.toml</code>을 열고 기존 설정을 보존한 채 아래 네 줄을 추가합니다. 같은 <code>[mcp_servers.blender]</code> 항목이 있으면 중복 추가하지 않습니다. 사용자명·uvx 경로는 Step 1의 실제 값으로 바꿉니다.</p>
+  <ReviewPrompt {...block('l08-mcp-codex-config')} href={enabled?url('codex-config.example.toml'):undefined} />
+  <p>TOML은 PowerShell 명령이 아닙니다. 저장한 뒤 <strong>Codex 앱을 완전히 종료하고 재실행</strong>합니다. Blender 도구가 나타나면 다음 섹션에서 실제 씬을 조회해 연결을 확인합니다.</p>
+ </>}
+ {sectionId==='l08-blender-mcp-hello-world'&&<>
+  <p>Blender에서 새 빈 실습 파일을 열고 <strong>아래 통합 요청 하나를 Codex 채팅창에 입력</strong>합니다. 연결 확인과 새 실습 씬의 기본 객체 정리, 단위 설정이 첫 단계에 포함되어 있습니다. 기존 프로젝트가 열려 있으면 삭제하지 않고 멈추도록 요청합니다.</p>
+  <ReviewPrompt {...block('l08-mcp-room')} href={enabled?url('MCP-01-hello-room.txt'):undefined} />
+  {enabled&&<figure><img src={base+'/images/daejeon/lesson-08/mcp-room-flow.svg'} alt="Codex 채팅에서 로컬 MCP 서버와 포트 9876의 Blender 애드온을 거쳐 슬래브, 세 벽, 북측 창과 카메라를 만드는 흐름" loading="lazy" width="1080" height="540" /><figcaption>직접 제작한 구성 안내도입니다. 실제 Blender 실행 캡처가 아닙니다. 남측은 열고 북측 중앙에는 관통 창을 만듭니다.</figcaption></figure>}
+  <h3>완료 확인 · 실제 씬을 다시 읽습니다</h3>
+  <ul><li><code>Floor_Slab</code>의 외곽 6×4m·두께 0.2m와 북·서·동 3면 벽의 높이 2.8m를 확인합니다.</li><li>벽을 실제로 뚫어 창문 구멍을 냈는지 확인합니다. 임시 구멍내기 박스만 지우고, 반투명 보기를 끈 사선·카메라 화면에서 빛과 시선이 통하는지 봅니다.</li><li><code>Cam_EyeLevel</code>의 높이 1.6m·24mm, 창 방향과 Sun Light를 확인합니다.</li><li>사용할 폴더를 직접 정한 뒤 <strong>File → Save As</strong>로 <code>L08_MCP_Hello_Room.blend</code>를 저장합니다. 같은 이름의 기존 파일은 덮어쓰지 않습니다.</li></ul>
+  <p>연결 실패·미생성·치수 불일치는 완료로 표시하지 않습니다. 객체 목록·치수와 뷰포트 캡처를 함께 남깁니다. 설치가 지연된 경우에는 실행 상태와 막힌 지점을 기록합니다.</p>
+
+  <section class="mcp-shortcuts" data-blender-shortcuts aria-labelledby="l08-blender-shortcuts-title">
+   <h3 id="l08-blender-shortcuts-title">건축 3D 모델 검수용 Blender 필수 마우스·단축키 치트시트</h3>
+   <p>마우스를 <strong>3D 뷰포트 위</strong>에 놓고 사용합니다. Windows의 Blender 기본 키맵·Object Mode 기준입니다. 다른 키맵이나 편집 모드에서는 일부 동작이 다를 수 있습니다.</p>
+   <p>숫자패드가 없는 노트북은 숫자 1 왼쪽의 <kbd>~ / `</kbd> 키로 View 파이 메뉴를 엽니다. <strong>Shift 없이 백틱 키를 누르며</strong>, 키보드 배열에 따라 위치가 다르면 View 메뉴 또는 우측 상단 기즈모를 사용합니다.</p>
+   {blenderShortcutGroups.map((group,index)=><div class="mcp-shortcut-group" data-shortcut-group={index+1}>
+    <h4>{group.title}</h4>
+    <div class="mcp-table mcp-mobile-cards"><table aria-label={group.title}><thead><tr><th scope="col">할 일</th><th scope="col">마우스·단축키</th><th scope="col">노트북 대안·확인할 점</th></tr></thead><tbody>{group.rows.map(row=><tr><th scope="row">{row.action}</th><td data-label="마우스·단축키"><kbd>{row.keys}</kbd></td><td data-label="노트북 대안·확인할 점">{row.note}</td></tr>)}</tbody></table></div>
+   </div>)}
+   <p class="mcp-small"><strong>노트북 보조 설정</strong> · Edit → Preferences → Input → Emulate Numpad를 켜면 상단 일반 숫자키 1~0을 숫자패드처럼 쓸 수 있습니다. 해당 숫자키의 원래 기능은 달라지며, Numpad .은 위 표의 View Selected 대안을 사용합니다.</p>
+  </section>
+
+  <h3>Blender에서 카메라 뷰 확인·조절·PNG 저장</h3>
+  <div class="mcp-table mcp-mobile-cards" data-camera-view-guide><table aria-label="카메라 뷰와 PNG 저장"><thead><tr><th scope="col">단계</th><th scope="col">메뉴·직접 조작</th><th scope="col">확인할 점</th></tr></thead><tbody>{cameraViewSteps.map(step=><tr><th scope="row">{step.title}</th><td data-label="메뉴·직접 조작">{step.action}</td><td data-label="확인할 점">{step.check}</td></tr>)}</tbody></table></div>
+  <p>처음에는 생성한 <code>Cam_EyeLevel</code>의 1.6m·24mm 상태를 확인하고 캡처합니다. 직접 구도를 바꿔 본 경우에는 원본 카메라 조건과 달라진 점을 기록합니다. <strong>Camera to View는 조정 후 반드시 해제</strong>해 실수로 카메라가 움직이지 않게 합니다.</p>
+  <h3>작업 원본 저장과 3D 모델 내보내기</h3>
+  <p><strong>File → Save As(Ctrl + Shift + S)</strong> → <code>L08_MCP_Hello_Room.blend</code>로 작업 원본을 저장합니다. Export는 다른 도구에 전달할 사본을 만드는 작업이며 <code>.blend</code> 원본 저장을 대신하지 않습니다.</p>
+  <div class="mcp-table mcp-mobile-cards" data-model-export-formats><table><thead><tr><th>형식</th><th>주요 용도</th><th>메뉴·설정 확인</th></tr></thead><tbody>{modelExportFormats.map(row=><tr><th>{row.format}</th><td data-label="주요 용도">{row.use}</td><td data-label="메뉴·설정 확인">{row.tip}</td></tr>)}</tbody></table></div>
+  <p>내보낸 파일을 대상 앱에서 다시 열고 크기·축·관통 창·재질을 확인합니다. 파일 확장자만 바꾸는 것은 형식 변환이 아니며, 3D 모양을 담은 파일에 건축 정보나 법규 검증 결과까지 자동으로 생기는 것은 아닙니다.</p>
+  <aside class="mcp-note"><strong>제9차시로 이어갑니다</strong><p>오늘 구축한 Blender + MCP 환경과 도면 판독 기준표를 바탕으로, 제9차시에서는 도면 기반 Step 1~3 모델링·재질·조명과 Step 4 카메라 무빙 실습을 진행합니다.</p></aside>
+
+ </>}
+ <p class="mcp-small">참고: {mcpReferences.map(([title,href])=><a href={href} target="_blank" rel="noreferrer">{title} · </a>)} (배포 애드온과 호환되는 blender-mcp 명령 사용)</p>
+</div>
+<style>
+ .mcp-origin{border:1px solid var(--line);border-left:3px solid var(--accent-dark);padding:1rem;margin:0 0 1.4rem;background:var(--surface)}.mcp-origin h3{margin-top:0}.mcp-choice-badge{display:inline-block;border:1px solid var(--accent-dark);padding:.45rem .65rem;font-weight:700}.mcp-small{font-size:.84rem;color:var(--muted)}.mcp-path{padding:.8rem;border:1px solid var(--line);background:var(--surface);overflow-wrap:anywhere}
+ .l08-mcp-content{min-width:0;overflow-wrap:anywhere}
+ .mcp-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1.2rem 0}.mcp-two article,.mcp-note{padding:1rem;border:1px solid var(--line);background:var(--surface);min-width:0}.mcp-note{border-left:3px solid var(--accent-dark);margin:1rem 0}
+ .mcp-flow{display:flex;flex-wrap:wrap;list-style:none;padding:0;gap:.7rem;margin:1.2rem 0}.mcp-flow li{flex:1 1 10rem;min-width:0;border:1px solid var(--line);padding:.8rem;background:var(--surface)}.mcp-flow li:not(:last-child)::after{content:' →';color:var(--accent-dark)}.mcp-flow p{font-size:.85rem}
+ .mcp-table{max-width:100%;margin:1.2rem 0}.mcp-table table{width:100%;table-layout:fixed}.mcp-table th,.mcp-table td{padding:.65rem;overflow-wrap:anywhere}
+ .mcp-downloads{display:flex;flex-wrap:wrap;gap:.7rem;margin:1rem 0}.mcp-downloads a{min-width:0;max-width:100%}
+ figure{margin:1.2rem 0}figure img{display:block;max-width:100%;height:auto;border:1px solid var(--line)}figcaption{font-size:.82rem;color:var(--muted);margin-top:.5rem}
+ h3{font-size:1.14rem;margin-top:1.8rem}h4{font-size:1rem;margin-top:.2rem}li+li{margin-top:.45rem}code{overflow-wrap:anywhere}
+ @media(max-width:700px){.mcp-two{grid-template-columns:minmax(0,1fr)}.mcp-table td,.mcp-table th{font-size:.78rem;padding:.4rem}.mcp-flow li{flex-basis:100%}}
+ @media(max-width:700px){.mcp-mobile-cards table,.mcp-mobile-cards tbody,.mcp-mobile-cards tr,.mcp-mobile-cards th,.mcp-mobile-cards td{display:block;box-sizing:border-box;width:100%}.mcp-mobile-cards thead{display:none}.mcp-mobile-cards tr{border:1px solid var(--line);margin:.8rem 0;padding:.5rem}.mcp-mobile-cards th,.mcp-mobile-cards td{font-size:.9rem;padding:.6rem;border:0}.mcp-mobile-cards td::before{content:attr(data-label);display:block;font-weight:700;color:var(--accent-dark);margin-bottom:.3rem}}
+ @media print{.mcp-note,.mcp-two article,figure{break-inside:avoid}}
+ .mcp-json-client{border:1px solid var(--line);padding:1rem;margin:1.4rem 0;min-width:0}.mcp-client-steps{list-style:none;padding:0}.mcp-client-steps li+li{margin-top:1rem}.mcp-client-steps p{margin:.35rem 0 0}
+ .mcp-shortcuts{margin:1.8rem 0}.mcp-shortcut-group{margin:1.4rem 0}.mcp-shortcut-group h4{margin-bottom:.5rem}.mcp-shortcuts kbd{font:inherit;font-weight:600;white-space:normal;overflow-wrap:anywhere}.mcp-shortcut-group th:first-child{width:24%}.mcp-shortcut-group th:nth-child(2){width:27%}
+ @media(max-width:700px){.mcp-shortcut-group th:first-child,.mcp-shortcut-group th:nth-child(2){width:100%}}
+</style>

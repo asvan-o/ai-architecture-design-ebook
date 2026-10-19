@@ -1,0 +1,168 @@
+---
+import ReviewSection from './ReviewSection.astro';
+import ReviewPrompt from './ReviewPrompt.astro';
+import TopicProgress from './TopicProgress.astro';
+import Lesson07Asset from './Lesson07Asset.astro';
+import Lesson07OpenVino from './Lesson07OpenVino.astro';
+import {lesson07Meta,lesson07Parts,lesson07Sections,lesson07Prompts,lesson07Boundary,lesson07Routes,lesson07Checks} from '../content/daejeon-lesson07';
+import {gaussianProperties,gaussianErrors,stabilityRoles,installationSteps,hardwareRecommendations,practiceRouteOptions,tripoNodes,tripoSettings,viewpointChecks,renderCriteria,candidateSelection,partialChecks,upscaleMethods,floorPlanChecks,upscaleNodes,hitlItems,comparisonMethods,deliverables,closingPrinciples} from '../content/lesson07-textbook';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
+const href=(file:string)=>base+'/downloads/daejeon/lesson-07/'+file;
+const packages=[['DJ-L07-Starter-Pack.zip','제7차시 전체 실습자료'],['DJ-L07-Gaussian-Views-Pack.zip','TripoSplat · 입력 · 시점 탐색 자료'],['DJ-L07-Realistic-Render-Pack.zip','현실화 · 비교 · 부분 보정 자료'],['DJ-L07-OpenVINO-SR1033-Pack.zip','OpenVINO SR1033 CPU 실행 패키지'],['DJ-L07-Checklist-And-Prompts.md','검토 체크리스트와 Prompt'],['README.md','자료 사용 방법']] as const;
+---
+<div class="lesson07-review" data-lesson07-revision={lesson07Meta.revision}>
+ <TopicProgress lesson="07" items={[{topic:4,status:'완결',note:'시점·구도를 먼저 확보하고, 현실화·부분 보정·초해상화 결과를 원자료와 대조해 제안서용 렌더링으로 정리합니다.'}]} />
+ <ol class="l07-flow" aria-label="제7차시 작업 흐름">{['2D 평면도·3D 입체화','Gaussian 구도·시점 확보','Cross-Generation 이미지 고도화','국소 보정','AI 초해상화','제안서용 고화질 렌더링 검수'].map(t=><li>{t}</li>)}</ol>
+ <aside class="review-callout"><strong>제안 이미지와 설계 근거를 구분합니다</strong><p>{lesson07Boundary}</p></aside>
+ <aside class="l07-readiness" data-l07-readiness><h2>이번 차시 실습자료</h2><p>입력과 시점 탐색부터 현실화·업스케일까지, 각 단계의 자료를 연결해 사용합니다.</p><ul><li>TripoSplat 워크플로우 JSON 2종과 입력 이미지</li><li>Gaussian 시점 캡처와 현실화 5경로 비교 샘플</li><li>ComfyUI Upscale JSON 2종과 모델별 출력 이미지</li><li>OpenVINO SR1033 CPU 실행 패키지와 원본·Bicubic·AI 비교 자료</li></ul>{enabled&&<a class="review-download" href={href('DJ-L07-Starter-Pack.zip')} download>전체 실습자료 다운로드</a>}</aside>
+ <div class="l07-part-grid">{lesson07Parts.map((part,i)=><a href={'#'+part.id}><span>Part {i+1}</span><strong>{part.title}</strong></a>)}</div>
+ {lesson07Parts.map((part,partIndex)=><div class="day-period" id={part.id} data-teaching-minutes={part.sections.reduce((total,section)=>total+section.minutes,0)}>
+  <header class="period-heading"><p>Part {partIndex+1}</p><h2>{part.title}</h2></header>
+  {part.sections.map(section=><ReviewSection id={section.id} title={section.title} minutes={section.minutes} index={lesson07Sections.findIndex(s=>s.id===section.id)+1}>
+   <dl class="l07-context"><div><dt>지금 할 일</dt><dd>{section.action}</dd></div><div><dt>왜 하는가</dt><dd>{section.reason}</dd></div><div><dt>다음에 사용할 것</dt><dd>{section.next}</dd></div></dl>
+   {section.id==='l07-comfyui-env'&&<aside class="l07-note" data-l07-environment-routes>
+    <h3>내 노트북 사양 확인과 환경별 실습 경로 선택</h3>
+    <p><strong>Ctrl + Shift + Esc → 작업 관리자 → 성능 → GPU</strong>를 엽니다. GPU 항목을 모두 살펴 <strong>NVIDIA GeForce RTX</strong>가 있는지, <strong>AMD Radeon(TM) Graphics / Intel Iris Xe</strong> 내장 그래픽만 있는지 확인합니다.</p>
+    <div class="l07-grid">{practiceRouteOptions.map(route=><article><h4>{route.title}</h4><p>{route.description}</p><p><strong>{route.flow}</strong></p></article>)}</div>
+    <p>이번 TripoSplat 로컬 생성·렌더링 실습은 NVIDIA CUDA 환경을 기준으로 준비합니다. 내장 그래픽만 있는 PC에서 CUDA 기반 노드를 Queue하면 지원 오류가 발생할 수 있으므로 웹 경로로 진행합니다. ComfyUI 전체가 NVIDIA 전용이라는 뜻은 아닙니다.</p>
+    <p><a href="https://huggingface.co/spaces/VAST-AI/TripoSplat" target="_blank" rel="noreferrer">TripoSplat Web Demo</a>에서 생성·시점을 탐색하거나 제공 캡처로 관찰합니다. 현실화·부분 보정은 ChatGPT / Gemini(Nano Banana), 확대 비교는 OpenVINO SR1033 CPU 또는 <a href="https://huggingface.co/spaces/Phips/Upscaler" target="_blank" rel="noreferrer">Image Upscaler</a>로 이어갑니다.</p>
+    {enabled&&<a class="review-download" href={href('DJ-L07-Gaussian-Views-Pack.zip')} download>Gaussian 입력·템플릿·캡처 실습 패키지</a>}
+    <p>CPU 경로는 AMD Ryzen · Intel CPU에서 작은 입력으로 CPU 인식과 첫 실행을 확인합니다. 처리 속도는 PC·입력 크기에 따라 달라집니다. 웹 도구는 서버 상태·사용량·업로드 권한을 확인합니다.</p>
+   </aside>}
+   {section.id==='l07-comfyui-upscale'&&<aside class="l07-note" data-l07-upscale-route-note>
+    <h3>환경별 업스케일 실습 안내</h3>
+    <p>NVIDIA RTX 외장 GPU 환경(경로 A)에서는 아래 ComfyUI Upscale JSON 워크플로우를 직접 실행해 모델별 결과를 비교할 수 있습니다.</p>
+    <p>내장 그래픽 노트북(경로 B · AMD Radeon / Intel Iris Xe)에서는 아래에 제공된 원본·Lanczos·RealESRGAN·UltraSharp 결과를 같은 위치에서 확대 대조한 뒤, 이어지는 OpenVINO SR1033 CPU 실행 또는 웹 업스케일러(Image Upscaler · Tile Upscaler)로 직접 확대를 실습합니다.</p>
+   </aside>}
+   {section.id==='l07-recap'&&<>
+    <p>지난 차시에는 평면을 Top View 3D·아이소메트릭·Z축 분해도와 실내 서브 시점으로 설명하고, 기능·연결 관계를 2D 개념 조닝으로 정리했습니다. 이번에는 그 이미지에서 카메라를 움직여 볼 수 있는 표현으로 확장합니다.</p>
+    <div class="l07-grid"><article><h3>이미지 한 장</h3><p>한 카메라에서 본 표현입니다. 화면 밖 공간과 물체 뒷면은 별도로 확인해야 합니다.</p></article><article><h3>Gaussian 시점 탐색</h3><p>입력에서 3D 표현을 추정하고 다른 구도를 살핍니다. 새로 보이는 면에는 모델의 추정이 포함됩니다.</p></article></div>
+    <Lesson07Asset assetKey="input-candidate" instance="recap" />
+    <p>제6차시 오피스 입체 이미지를 <strong>새 Gaussian 시점 탐색용 입력</strong>으로 사용합니다. 벽·창·가구의 위치를 먼저 기록하고, 생성 후 전면과 측면에서 그 관계가 어떻게 보이는지 비교합니다. 이어지는 거실 캡처는 현실화·비교 연습의 기준 자료로 사용합니다.</p>
+   </>}
+   {section.id==='l07-mesh-vs-gs'&&<>
+    <div class="l07-cards l07-three"><article><span class="l07-mesh" aria-hidden="true">△ ◇ △</span><h3>Mesh · 연결된 면</h3><p>정점과 선을 연결한 면으로 물체의 표면을 구성합니다. 기하 편집과 재질 연결에 사용합니다.</p></article><article><span class="l07-point" aria-hidden="true">●</span><h3>Point · 한 위치</h3><p>공간의 한 위치를 가리키는 작은 점입니다. 많은 점의 집합인 Point Cloud도 연결된 면과는 다릅니다.</p></article><article><span class="l07-gaussian" aria-hidden="true"></span><h3>3D Gaussian · 부드러운 입자</h3><p>중심은 진하고 바깥으로 갈수록 부드럽게 희미해집니다. 길쭉하거나 납작한 타원형과 방향을 가질 수 있습니다.</p></article></div>
+    <h3>Gaussian 하나가 가진 속성</h3><div class="l07-cards">{gaussianProperties.map(([title,text])=><article><h4>{title}</h4><p>{text}</p></article>)}</div>
+    <div class="l07-equation"><article><strong>GAUSSIAN</strong><p>크기·방향·색상·투명도를 가진 부드러운 3D 요소</p></article><b aria-hidden="true">+</b><article><strong>SPLATTING</strong><p>그 요소를 카메라 화면에 투영하고 겹쳐 그리는 과정</p></article></div>
+    <p>수많은 Gaussian을 공간에 배치하고 앞뒤 순서와 투명도를 고려해 합성하면, 벽·바닥·가구로 이루어진 장면처럼 보입니다.</p>
+    <ol class="l07-flow l07-concept" aria-label="Gaussian Splatting 작동 흐름">{[['POINT','위치'],['GAUSSIAN','부드러운 3D 요소'],['MANY','많은 Gaussian'],['CAMERA','투영·합성'],['SCENE','최종 장면']].map(([label,note],i)=><li><span>{String(i+1).padStart(2,'0')} {label}</span><small>{note}</small></li>)}</ol>
+    <p class="l07-note">입체적으로 보이는 장면과 CAD/BIM 설계정보는 다릅니다. Mesh와 Gaussian 모두 표현 방식만으로 실측 정밀도나 구조 정보를 보장하지 않습니다.</p>
+    <aside class="l07-note" data-l07-mesh-tools><h3>참고 · 웹에서 바로 확인하는 AI 3D Mesh 생성 도구</h3><p>단일 이미지나 텍스트에서 Polygon Mesh(.fbx, .glb, .obj)를 생성하는 대표적인 웹 도구입니다. 이번에는 Gaussian Splatting 기반 시점 탐색에 집중하고, 제8차시에서는 먼저 실무 도면과 공간 관계를 검증하고, 3D Mesh를 설계 공간에 결합하는 후속 작업의 기준을 준비합니다. 내보내기 형식은 서비스와 사용 조건에서 확인합니다.</p><ul><li><a href="https://www.meshy.ai/" target="_blank" rel="noreferrer">Meshy AI</a> — 웹 기반 Image-to-3D / Text-to-3D 폴리곤 메쉬 생성</li><li><a href="https://www.tripo3d.ai/" target="_blank" rel="noreferrer">Tripo AI</a> — 단일 이미지 기반 3D 메쉬 오브젝트 생성</li></ul></aside>
+   </>}
+   {section.id==='l07-gs-role'&&<>
+    <div class="l07-grid"><article><span>CLASSIC 3DGS</span><h3>여러 시점 + 카메라 정보</h3><p>여러 사진·영상 프레임과 카메라 정보를 바탕으로 장면을 최적화합니다.</p></article><article><span>TRIPOSPLAT</span><h3>Single 2D Image → 3D Gaussian Splat</h3><p>단일 입체 이미지에서 Gaussian 표현을 예측합니다. 보이지 않는 면은 관측된 사실에 모델의 추정이 더해집니다.</p></article></div>
+    <ol class="l07-flow">{['Top View 3D 한 장','Gaussian 기반 3D 표현','카메라 회전','다른 시점 관찰'].map(t=><li>{t}</li>)}</ol>
+    <h3>단일 이미지 기반 3D에서 살필 오류</h3><div class="l07-cards">{gaussianErrors.map(t=><article><strong>{t}</strong></article>)}</div>
+    <p>한 방향에서 자연스럽게 보여도 모든 방향이 정확한 것은 아닙니다. 볼륨·가림·시선 관계를 탐색하고, 실제 후면·측면의 구조와 정확한 치수는 원자료에서 확인합니다.</p>
+   </>}
+   {section.id==='l07-comfyui-env'&&<>
+    <h3>Stability Matrix란?</h3><p>Windows에서 ComfyUI 같은 생성형 AI 패키지를 설치·업데이트·실행·관리하는 데스크톱 패키지 관리자입니다.</p>
+    <div class="l07-cards">{stabilityRoles.map(t=><article><strong>{t}</strong></article>)}</div>
+    <h3>ComfyUI란?</h3><p>이미지 입력, 모델 처리, 미리보기와 저장 같은 작업 단계를 <strong>Node</strong>로 만들고 선으로 연결하는 인터페이스입니다. 연결 순서를 JSON 워크플로우로 저장하고 다시 불러옵니다.</p>
+    <ol class="l07-flow">{['INPUT · 이미지','MODEL · TripoSplat / Upscale','OUTPUT · 미리보기·파일'].map(t=><li>{t}</li>)}</ol>
+    <h3>설치와 실행 순서</h3><p><a href="https://lykos.ai/" target="_blank" rel="noreferrer">Stability Matrix 공식 웹사이트</a>의 Stability Matrix 항목에서 시작합니다. Windows 10/11 64-bit용 <code>StabilityMatrix-win-x64.zip</code>을 내려받아 압축을 풉니다. 버전에 따라 메뉴의 위치와 이름은 달라질 수 있습니다.</p>
+    <ol class="l07-steps">{installationSteps.map((t,i)=><li><strong>{String(i+1).padStart(2,'0')}</strong><p>{t}</p></li>)}</ol>
+    <aside class="l07-note"><span>실습 TIP 01</span><h3>브라우저 화면과 로컬 서버는 서로 다른 역할을 합니다</h3><ol class="l07-flow">{['Stability Matrix 실행','ComfyUI 선택','Launch','로컬 서버 실행','브라우저 접속'].map(t=><li>{t}</li>)}</ol><p>기본 연결 주소는 <code>http://127.0.0.1:8188</code>입니다. 접속되지 않으면 실행 로그에 표시된 실제 호스트·포트를 확인합니다.</p></aside>
+    <aside class="l07-note"><span>실습 TIP 02</span><h3>바로가기는 화면을 열고, 서버가 실제 연산을 합니다</h3><div class="l07-grid"><article><h4>ComfyUI 웹 바로가기</h4><p>브라우저 화면을 빠르게 엽니다.</p></article><article><h4>ComfyUI 로컬 서버</h4><p>모델을 불러오고 워크플로우를 실행합니다.</p></article></div><ol class="l07-flow">{['ComfyUI 서버 OFF','웹 바로가기 실행','127.0.0.1 접속 실패 가능'].map(t=><li>{t}</li>)}</ol><h4>Chrome 바로가기 만들기</h4><ol><li>서버를 실행하고 Chrome에서 실제 접속 주소를 엽니다.</li><li>오른쪽 위 메뉴의 ‘전송, 저장 및 공유 → 바로가기 만들기’를 선택합니다.</li><li>이름을 정하고 만들기를 선택합니다. 아이콘은 서버를 실행한 뒤 사용합니다.</li></ol><p><a href="https://support.google.com/chrome/answer/15085120?hl=ko" target="_blank" rel="noreferrer">Chrome 공식 바로가기 안내</a></p><details><summary>선택 실행 옵션 · Stability Matrix에서 ComfyUI 함께 실행</summary><pre><code>{'"StabilityMatrix.exe" --launch-package ComfyUI'}</code></pre><p>실행 파일 바로가기의 대상에 설치 위치와 옵션을 지정합니다. PowerShell에서 직접 실행할 때는 <code>&amp; "실제 설치 경로\StabilityMatrix.exe" --launch-package ComfyUI</code> 형식으로 호출합니다. Stability Matrix 창도 함께 열립니다. 버전에 따라 동작이 다르면 Packages의 Launch를 사용합니다.</p><a href="https://github.com/LykosAI/StabilityMatrix/discussions/1052" target="_blank" rel="noreferrer">공식 저장소 실행 옵션 안내</a></details></aside>
+    <h3>실행 준비를 위한 권장 사양</h3><div class="l07-cards">{hardwareRecommendations.map(([title,text])=><article><h4>{title}</h4><p>{text}</p></article>)}</div><p>준비를 위한 권장값이며 실행 보장은 아닙니다. 모델·입력 크기·Gaussian 개수·워크플로우에 따라 메모리와 처리 부담이 달라집니다.</p>
+   </>}
+   {section.id==='l07-gs-practice'&&<>
+    <p>템플릿을 불러온 뒤 입력 이미지와 활성화된 저장 노드를 먼저 확인합니다. <code>SplatToFile3D</code>의 SPZ 경로와 별도의 Mesh 변환 경로를 구별합니다.</p>
+    <div class="l07-cards">{tripoNodes.map(([label,title,text])=><article><span>{label}</span><h3>{title}</h3><p>{text}</p></article>)}</div>
+    {enabled&&<div class="l07-actions"><a class="review-download" href={href('workflow_triposplat_modified.json')} download>TripoSplat · 수정 JSON 다운로드</a><a class="review-download" href={href('workflow_triposplat_optimized.json')} download>TripoSplat · 최적화 JSON 다운로드</a></div>}
+    <p>두 템플릿의 LoadImage를 본인의 입력 파일로 바꾸고 배경 처리 옵션을 비교합니다. 파일 이름만으로 품질이나 속도를 판단하지 않고 실제 설정과 결과를 함께 봅니다.</p>
+    <div class="l07-table"><table><thead><tr><th>설정</th><th>역할</th><th>확인 포인트</th></tr></thead><tbody>{tripoSettings.map(row=><tr>{row.map((cell,i)=>i===0?<th>{cell}</th>:<td>{cell}</td>)}</tr>)}</tbody></table></div>
+    <ol class="l07-flow">{['기준 이미지','Queue','Gaussian 결과','Orbit 확인','파일 저장'].map(t=><li>{t}</li>)}</ol>
+    <div class="l07-cards"><article><h3>Orbit Preview</h3><p>카메라 회전 영상으로 큰 형태 오류를 빠르게 살핍니다.</p></article><article><h3>SPZ</h3><p>Gaussian Splat 데이터를 저장하는 형식입니다. 저장 노드의 경로와 파일을 확인합니다.</p></article><article><h3>GLB</h3><p>3D 교환용 컨테이너입니다. Gaussian 저장과 Mesh 변환은 다른 경로이므로 노드 상태와 파일 내용을 확인합니다.</p></article></div>
+    <h3>입력 샘플 선택</h3><p>아래 오피스 자료는 자체 제작 교육용 도면에서 만든 같은 입체 예시의 크기·저장 형식별 파생본입니다. 거실 Gaussian 캡처의 실제 생성 입력이나 TripoSplat 실행 결과가 아닙니다. 이 오피스의 원본 도면·문자 오류 비교는 제8차시에서 이어갑니다.</p><div class="l07-grid">{['gs-input-128','gs-input-256','gs-input-512','gs-lecture-input','gs-topview','gs-3d-reference'].map(key=><Lesson07Asset assetKey={key} instance={'gs-'+key} />)}</div>
+    <h3>시점 탐색과 캡처 관찰 · 원본에서 같은 공간을 따라갑니다</h3>
+    <ol class="l07-flow" aria-label="거실·주방 Gaussian 캡처의 원본 연결"><li>① 원본 2D 평면도</li><li>② 3D 아이소메트릭 입체화</li><li>③ Gaussian 다각도 시점 캡처</li></ol>
+    <div class="l07-grid" data-l07-gaussian-source-chain><Lesson07Asset assetKey="gaussian-plan-source" instance="gaussian-2d-source" /><Lesson07Asset assetKey="gaussian-isometric-source" instance="gaussian-3d-source" /></div>
+    <p>원본 <strong>도면 2.png</strong>에서 하단 거실의 ㄱ자 회색 소파·사각 우드 테이블·갈색 암체어 두 개, 중앙의 8인용 다크 다이닝 식탁·좌측 벽면 키큰 수납장, 상단의 화이트 마블 주방 아일랜드·냉장고를 차례로 찾습니다. 같은 공간의 <strong>도면 2_iso.png</strong> 입체화와 아래 Gaussian 캡처를 나란히 보며, 카메라 고도를 낮추고 회전했을 때 가림과 상대 위치가 어떻게 달라지는지 관찰합니다.</p>
+    <Lesson07Asset assetKey="gaussian" instance="practice" />
+    <p>세 자료는 같은 원본 공간에서 이어지는 학습 흐름입니다. 제공된 Gaussian 캡처는 보관된 수업 결과이며, 현재의 문·개구부 교정 참고본으로 새로 실행한 캡처라는 뜻은 아닙니다. 가려진 면은 추정 영역으로 두고 공간 관계를 원도면과 대조합니다.</p>
+    <div class="l07-grid"><article><h4>ComfyUI에서 탐색합니다</h4><ol><li>기준 입력을 선택하고 Queue를 실행합니다.</li><li>Orbit 또는 뷰어에서 작은 각도부터 움직입니다.</li><li>전면·측면·후면의 벽과 가구를 대조합니다.</li><li>사용할 시점을 캡처하고 선택 이유를 남깁니다.</li></ol></article><article><h4>제공 캡처를 관찰합니다</h4><ol><li>벽·창·소파·식탁 관계를 읽습니다.</li><li>흐린 경계·늘어진 면·가림을 표시합니다.</li><li>현실화에서 유지할 기준을 적습니다.</li><li>이 캡처를 다음 현실화 입력으로 사용합니다.</li></ol></article></div>
+    {enabled&&<a class="review-download" href={href('DJ-L07-Gaussian-Views-Pack.zip')} download>Gaussian 입력·템플릿·캡처 자료 다운로드</a>}
+    <aside class="l07-note"><h3>로컬 실행이 어려울 때 · TripoSplat Web Demo</h3><a href="https://huggingface.co/spaces/VAST-AI/TripoSplat" target="_blank" rel="noreferrer">TripoSplat Web Demo 열기</a><ul><li>사용 가능 여부와 무료 범위를 실행 전에 확인합니다.</li><li>대기열·서버 상태·기능·UI가 달라질 수 있습니다.</li><li>웹 출력 형식과 로컬 템플릿의 출력 범위를 구별합니다.</li><li>업무자료의 외부 전송 권한과 서비스 이용 조건을 확인합니다.</li></ul></aside>
+   </>}
+   {section.id==='l07-gs-inspection'&&<>
+    <p>후처리에 적합한 화면을 선택합니다. 구도가 좋아 보여도 구조·가구·경계가 무너지면 다음 단계에서 오류가 커질 수 있습니다.</p><ul>{viewpointChecks.map(t=><li>{t}</li>)}</ul>
+    <div class="l07-cards"><article><h3>전면</h3><p>기준 입력에서 읽은 벽·개구부·가구의 상대 위치를 대조합니다.</p></article><article><h3>측면</h3><p>벽이 얇아지거나 끊기는지, 가구 뒷면과 바닥 경계가 늘어나는지 살핍니다.</p></article><article><h3>후면</h3><p>입력에서 보이지 않았던 부분은 추정 영역으로 표시합니다. 새 창·문·가구를 실제 현황으로 확정하지 않습니다.</p></article></div>
+    <p>사용할 구도와 제외할 구도를 나누고, 현실화에서 유지할 공간 관계와 정돈할 경계를 메모합니다.</p>
+   </>}
+   {section.id==='l07-render-bridge'&&<>
+    <h3>크로스 제너레이션 파이프라인 · 형태와 렌더링 품질을 따로 검수합니다</h3>
+    <ol class="l07-flow">{['2D 평면도 → 3D·Gaussian으로 구도·시점 확보','렌더링 도구로 이관 → 이미지 고도화','초해상화 → 제안서·발표용 고화질 렌더링'].map(t=><li>{t}</li>)}</ol>
+    <p>먼저 원도면과 대조해 공간 비례와 카메라 구도를 작업 기준으로 고정합니다. 그 기준을 다른 생성·렌더링 도구에 넘기는 <strong>Cross-Generation</strong> 단계에서 재질의 질감·자연광·간접조명을 고도화합니다. <strong>형태 정확성과 렌더링 품질의 상충 관계</strong>를 줄이기 위해, 보기 좋은 질감과 벽·개구부·가구의 보존 여부를 별도로 확인합니다. 시점을 확보했다는 사실만으로 실측 정밀도가 보증되지는 않습니다.</p>
+    <div class="l07-cards"><article><h3>유지</h3><p>카메라 시점, 벽체·개구부, 주요 가구 위치와 공간 비례를 지정합니다.</p></article><article><h3>현실화</h3><p>재질의 표면감, 자연스러운 빛, 그림자와 흐린 경계 표현을 개선합니다.</p></article><article><h3>금지</h3><p>새 창·문·가구·구조를 임의로 추가하거나 실제 설계조건으로 확정하지 않습니다.</p></article></div>
+    <p class="l07-note">현실적으로 보인다는 것과 실제 설계가 정확하다는 것은 다릅니다. 입자 번짐을 정돈하는 요청이 공간 재설계로 바뀌지 않도록 전후를 비교합니다.</p>
+   </>}
+   {section.id==='l07-render-prompt'&&<>
+    <h3>어디에 입력하는 프롬프트인가?</h3><p>ComfyUI(TripoSplat) 또는 Web Demo에서 캡처한 시점 이미지(<strong>gaussian-source.png</strong>)를 <strong>ChatGPT(GPT 이미지 생성)</strong> 또는 <strong>Gemini(Nano Banana)</strong> 채팅창에 첨부합니다. 아래 현실화 실행 프롬프트를 입력해 실사풍 실내 제안 이미지로 변환합니다. 제공된 캡처를 입력으로 사용해도 됩니다.</p><ol><li>캡처에서 보이는 벽·개구부·주요 가구를 확인합니다.</li><li>정돈할 재질과 경계를 좁게 지정합니다.</li><li>실행 프롬프트를 복사해 입력과 같은 구도로 생성을 요청합니다.</li><li>사용한 요청문과 결과를 함께 저장합니다.</li></ol>
+   </>}
+   {section.id==='l07-render-compare'&&<>
+    <div class="l07-grid"><Lesson07Asset assetKey="gaussian" instance="render-before" /><Lesson07Asset assetKey="route-01" instance="render-after" /></div>
+    <p>왼쪽 창틀과 천장 경계, 검은 식탁·의자, 오른쪽 카운터를 차례로 따라갑니다. 재질·조명의 선명도 개선과 입력에 없던 디테일을 구별합니다. 같은 구도에서도 창 분할·가구 형상·천장 표현은 달라질 수 있습니다.</p>
+   </>}
+   {section.id==='l07-five-routes'&&<>
+    <p>도구의 성능 순위를 정하는 자료가 아니라, 같은 공간을 서로 다른 서비스와 작업 방식으로 처리했을 때 무엇이 달라지는지 관찰하는 자료입니다.</p>
+    <h3>INPUT · Gaussian 시점 캡처</h3><Lesson07Asset assetKey="gaussian" instance="routes-input" />
+    <div class="l07-grid">{lesson07Routes.map(([key,title],i)=><article><h3>경로 {i+1} · {title}</h3><Lesson07Asset assetKey={key} instance={'routes-'+i} /></article>)}</div>
+    <h3>같은 기준으로 결과 비교</h3><div class="l07-cards">{renderCriteria.map(([title,text])=><article><h4>{title}</h4><p>{text}</p></article>)}</div>
+    <h3>최종 후보 선택 순서</h3><ol>{candidateSelection.map(t=><li>{t}</li>)}</ol><p>관찰한 위치와 선택 이유를 기록합니다. 가려져 판단하기 어려운 항목은 확인 필요로 남깁니다.</p>
+   </>}
+   {section.id==='l07-partial-fix'&&<>
+    <h3>어디에 입력하는 프롬프트인가?</h3><p>선택한 현실화 후보 이미지(<strong>route-01.png</strong>)를 <strong>ChatGPT 이미지 편집</strong> 또는 <strong>Gemini(Nano Banana)</strong>에 업로드합니다. ChatGPT에서 영역 선택 브러시 도구가 제공되면 가운데 뒤쪽 검은 식탁 앞의 등받이가 끊어진 검은 의자 영역만 지정한 뒤, 아래 부분 보정 실행 프롬프트를 입력합니다.</p><p>영역 선택 도구가 없는 화면에서는 수정할 의자를 표시한 이미지와 위치 설명을 함께 사용합니다. 결과에서 주변 영역도 대조합니다.</p>
+    <ol class="l07-flow">{['오류 위치 표시','유지 영역 지정','필요한 영역만 수정','수정 전후 비교'].map(t=><li>{t}</li>)}</ol>
+    <p>현실화 렌더링의 재질·자연광·간접조명 표현을 높인 다음에도 형태가 틀어진 위치는 남을 수 있습니다. 후보 전체를 다시 생성하면 잘 유지된 구조와 구도까지 바뀔 수 있습니다. 부분 수정 또는 인페인팅으로 오류 영역만 좁게 보정합니다.</p>
+    <Lesson07Asset assetKey="route-01" instance="partial-input" />
+    <p>이 후보의 가운데 뒤쪽 <strong>검은 식탁 앞 검은 의자</strong>를 선택합니다. 등받이와 지지대 연결만 정돈하고 위치·크기·재질과 주변 소파·식탁·주방은 유지 조건으로 지정합니다.</p><ol><li>수정할 요소 한 개와 마스크 범위를 정합니다.</li><li>아래 요청문으로 국소 보정을 실행합니다.</li><li>대상 안의 개선과 대상 밖 변화를 나누어 비교합니다.</li><li>채택·재수정·원본 유지 중 사용할 결과를 결정합니다.</li></ol><ul>{partialChecks.map(t=><li>{t}</li>)}</ul>
+    {enabled&&<a class="review-download" href={href('DJ-L07-Realistic-Render-Pack.zip')} download>현실화·비교·부분 보정 Prompt 자료 다운로드</a>}
+   </>}
+   {section.id==='l07-upscale-principle'&&<>
+    <ol class="l07-flow l07-concept"><li><strong>LOW RESOLUTION</strong><small>작은 이미지</small></li><li><strong>UPSCALE</strong><small>더 큰 해상도로 사용할 수 있게 확대·재구성</small></li></ol><p>발표자료·큰 화면·상세 크롭에 사용할 수 있도록 이미지를 확대합니다. 원본에 숨어 있던 실제 정보를 되찾는 과정은 아닙니다.</p>
+    <div class="l07-cards">{upscaleMethods.map(([label,title,text])=><article><span>{label}</span><h3>{title}</h3><p>{text}</p></article>)}</div>
+    <div class="l07-grid"><article><h3>활용 가능성</h3><ul><li>큰 화면과 발표자료 활용성 향상</li><li>확대 시 픽셀 깨짐 감소</li><li>재질과 경계의 선명한 표현</li><li>크롭·상세 이미지와 후속 편집</li></ul></article><article><h3>확인해야 할 변화</h3><ul><li>원본에 없던 세부 표현</li><li>벽선·창호·가구 형상 변화</li><li>재질 패턴 변화</li><li>작은 문자·숫자·치수 왜곡</li></ul></article></div>
+    <p class="l07-note">도면에서는 원본 정보 보존이 우선입니다. 예를 들어 <code>3600</code>이 <code>3800</code>처럼 달라지면 더 선명해 보여도 잘못된 정보입니다. 없는 획·숫자·경계가 생기는 현상을 Hallucination으로 이해하고 원본과 대조합니다.</p>
+    <ol class="l07-flow">{['AI 결과','원본 확대 대조','변경 항목 표시','사람이 사용 여부 결정'].map(t=><li>{t}</li>)}</ol>
+    <h3>교육용 평면도 원본 · 2배 일반 확대 비교</h3><p>같은 원본을 Lanczos 방식으로 2배 리사이즈한 비교본입니다. AI가 새 디테일을 복원한 실행 결과가 아닙니다. 확대해도 겹친 주석이 분리되거나 글자의 사실성이 보증되지는 않습니다.</p><div class="l07-grid" data-l07-floorplan-comparison><Lesson07Asset assetKey="comfy-before" instance="plan-before" /><Lesson07Asset assetKey="comfy-after" instance="plan-after" /></div><h4>같은 영역을 확대해 확인합니다</h4><ul>{floorPlanChecks.map(t=><li>{t}</li>)}</ul>
+   </>}
+   {section.id==='l07-comfyui-upscale'&&<>
+    <p>이미지 고도화 후보를 제안서·클라이언트 발표용 고화질 렌더링으로 마감합니다. ComfyUI의 <strong>4x-UltraSharp 4배 경로</strong>와 RealESRGAN_x2 2배 비교 경로를 구분하고, 이어지는 OpenVINO SR1033은 고정 3배 초해상화로 대조합니다. 입력·크기 조정·모델별 확대·저장 노드를 따라갑니다. 각 단계의 역할을 읽고 같은 위치에서 결과의 차이를 비교합니다.</p><div class="l07-cards">{upscaleNodes.map(([label,title,text])=><article><span>{label}</span><h3>{title}</h3><p>{text}</p></article>)}</div>
+    <p>수정형은 폴더 입력과 두 모델의 비교 경로입니다. 기본형은 <code>LoadImage → Upscale Model Loader → ImageUpscaleWithModelBatched → SaveImageAdvanced</code>를 사용합니다. 입력 폴더를 본인 위치로 바꾸고, 필요한 사용자 노드와 <code>models/upscale_models</code>의 모델 파일을 확인합니다.</p>
+    {enabled&&<div class="l07-actions"><a class="review-download" href={href('upscale_basic.json')} download>Upscale · 기본 JSON 다운로드</a><a class="review-download" href={href('upscale_modified.json')} download>Upscale · 수정 JSON 다운로드</a></div>}
+    <h3>원본 · Lanczos · RealESRGAN · UltraSharp 비교</h3><div class="l07-grid">{['comfy-source','comfy-lanczos','comfy-realesrgan','comfy-ultrasharp'].map(key=><Lesson07Asset assetKey={key} instance={'up-'+key} />)}</div>
+    <p>이미지 카드를 전체 구도와 같은 영역 확대에서 번갈아 비교합니다. 예제 원본·Lanczos는 1777 × 885, RealESRGAN은 3554 × 1770, UltraSharp는 7108 × 3540입니다. 노드에 기록된 전처리 크기와 예제 출력의 비율은 구별하고, 직접 실행할 때 원본 비율을 유지합니다.</p><p>웹 미리보기는 축소본이며 확대 보기·다운로드에서는 원본 PNG를 엽니다. UltraSharp 원본은 약 31MB이므로 불러오는 동안 기다립니다.</p>
+    <h3>추가 선택 입력 · 저해상도 입체 이미지</h3><div class="l07-grid">{['upscale-input-256','upscale-input-low','upscale-input-photo'].map(key=><Lesson07Asset assetKey={key} instance={'optional-'+key} />)}</div><ol><li>전체 구도와 비율을 대조합니다.</li><li>같은 문자·벽선·가구선을 확대합니다.</li><li>선명도 개선과 형태·패턴 변형을 따로 기록합니다.</li><li>직접 실행한 결과도 같은 기준으로 비교합니다.</li></ol>
+   </>}
+   {section.id==='l07-openvino-sr1033'&&<Lesson07OpenVino />}
+   {section.id==='l07-final-check'&&<>
+    <h3>제안서·발표용 고화질 렌더링 최종 검수</h3><p>구도·시점 확보 → 렌더링 도구 이관과 이미지 고도화 → AI 초해상화의 세 단계를 함께 정리합니다. 대형 패널·건축 제안서·발표 자료에 넣기 전에 배치 크기와 글자·선·질감을 확인하고, 통과한 이미지만 최종 후보로 사용합니다. 확대 배수만으로 실제 인쇄 품질이나 도면 정확도를 보증하지 않습니다.</p><h3>동일 원본을 기준으로 네 방식을 비교합니다</h3><div class="l07-cards">{comparisonMethods.map(([label,title,text])=><article><span>{label}</span><h3>{title}</h3><p>{text}</p></article>)}</div><p>비교할 때 같은 원본·같은 위치·같은 표시 크기를 사용합니다. 선명도 향상과 원본 정보 변경을 구별하고, 개선이 필요한 위치를 표시합니다.</p>
+    <h3>HITL · 사람이 원본과 대조해 판단합니다</h3><div class="l07-table"><table><thead><tr><th>검토 항목</th><th>유지됨</th><th>변화 있음</th><th>확인 필요</th></tr></thead><tbody>{hitlItems.map(t=><tr><th>{t}</th><td>□</td><td>□</td><td>□</td></tr>)}</tbody></table></div>
+    <h3>단계별 종합 검수</h3><div class="l07-table"><table><thead><tr><th>단계</th><th>대조할 것</th><th>확정하지 않을 것</th></tr></thead><tbody>{lesson07Checks.map(row=><tr>{row.map((cell,i)=>i===0?<th>{cell}</th>:<td>{cell}</td>)}</tr>)}</tbody></table></div><p>단계별 입력·사용한 요청문·결과·비교 메모를 함께 정리합니다. 변화가 있는 항목은 사용할 수 있는 표현인지, 다시 보정할 오류인지 판단합니다. 문자·치수·벽선은 선명도만으로 확정하지 않습니다.</p>
+   </>}
+   {section.id==='l07-handover'&&<>
+    <h3>시점 탐색·현실화·업스케일 산출물 정리</h3><div class="l07-cards">{deliverables.map((t,i)=><article><span>{String(i+1).padStart(2,'0')}</span><strong>{t}</strong></article>)}</div><p>선택한 결과와 함께 입력 파일·실행 요청·비교 메모를 보관합니다. 표현 이미지와 실제 도면·설계정보를 구별해 다음 작업에 넘깁니다.</p><ul>{closingPrinciples.map(t=><li>{t}</li>)}</ul>
+    <h3>제8차시 · 실무 도면 판독과 관계 구조화로 이어가기</h3><p>이번 차시의 이미지 고도화·고화질 렌더링을 마치고, 제8차시에는 <a href="#l07-upscale-principle">앞서 확대 비교에서 본 같은 1층 오피스 평면도</a>를 다시 사용합니다. 2배 확대만으로 겹친 치수선·주석이나 글자 왜곡이 해결되지는 않습니다. 원본 PDF의 NotebookLM 판독과 사람의 교차검수로 기준표를 만들고, 클린 선화·공간 관계·Graphviz 다이어그램을 원도면과 대조합니다.</p><p><a href={base+'/lessons/08/'}>제8차시 도면 판독·Graphviz로 이동</a> · 실제 도면·치수·공간명·사용 권한·미확정 조건을 정리해 준비합니다.</p>
+    {enabled&&<div class="l07-downloads"><h3>제7차시 실습자료 모음</h3>{packages.map(([file,title])=><a href={href(file)} download>{title}</a>)}</div>}
+   </>}
+   {lesson07Prompts.filter(p=>p.section===section.id&&['realistic-render','partial-fix'].includes(p.key)).map(prompt=><div class="l07-prompt-pair" data-l07-prompt={prompt.key}><ReviewPrompt id={'l07-'+prompt.key+'-execution'} title={prompt.key==='realistic-render'?'현실화 실행 프롬프트':'부분 보정 실행 프롬프트'} prompt={prompt.execution} href={enabled?href(prompt.key+'-execution.txt'):undefined} filename={prompt.key+'-execution.txt'} /><details><summary>학습용 상세 지시 구조 참고</summary><ReviewPrompt id={'l07-'+prompt.key+'-learning'} title="학습용 · 7단 구조" prompt={prompt.learning} href={enabled?href(prompt.key+'-learning.txt'):undefined} filename={prompt.key+'-learning.txt'} /></details></div>)}
+  </ReviewSection>)}
+ </div>)}
+ <details><summary>공식 참고 문서</summary><ul><li><a href="https://docs.comfy.org/tutorials/3d/triposplat" target="_blank" rel="noreferrer">ComfyUI · TripoSplat 입력·출력과 템플릿 안내</a></li><li><a href="https://docs.openvino.ai/2023.3/omz_models_model_single_image_super_resolution_1033.html" target="_blank" rel="noreferrer">OpenVINO · SR1033 모델 사양</a></li><li><a href="https://lykos.ai/" target="_blank" rel="noreferrer">Stability Matrix · 설치와 패키지 관리</a></li></ul><p>설치 화면과 모델 구성이 달라졌다면 공식 문서와 실제 실행 로그를 함께 확인합니다.</p></details>
+</div>
+<style>
+ .lesson07-review{min-width:0;overflow-wrap:anywhere}
+ .l07-flow{display:flex;flex-wrap:wrap;gap:.6rem;list-style:none;padding:0;margin:1.5rem 0}.l07-flow li{min-width:0;padding:.6rem .8rem;border:1px solid var(--line);background:var(--surface);font-size:.9rem}.l07-flow li:not(:last-child)::after{content:' →';color:var(--accent-dark)}.l07-concept small{display:block;margin-top:.4rem}
+ .l07-readiness,.l07-note{padding:1.2rem;margin:1.5rem 0;border:1px solid var(--line);border-left:4px solid var(--accent-dark);background:var(--surface)}.l07-readiness h2{font-size:1.15rem;margin:.1rem 0 .7rem}
+ .l07-part-grid,.l07-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1.4rem 0}.l07-part-grid a{display:grid;gap:.4rem;padding:1rem;border:1px solid var(--line);background:var(--surface);text-decoration:none}.l07-part-grid span,.l07-cards article>span{font-size:.78rem;color:var(--muted);display:block;margin-bottom:.4rem}
+ .l07-context{font-size:.87rem;padding:1rem;border-left:2px solid var(--accent);background:var(--surface)}.l07-context div{display:grid;grid-template-columns:7.5rem minmax(0,1fr);gap:.5rem;margin:.3rem 0}.l07-context dt{font-weight:700}.l07-context dd{margin:0}
+ .l07-grid>article,.l07-cards>article,.l07-equation>article{min-width:0;padding:1rem;border:1px solid var(--line);background:var(--surface)}.l07-grid h3,.l07-cards h3,.l07-cards h4{font-size:1.05rem;margin:.1rem 0 .7rem}.l07-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,14rem),1fr));gap:.8rem;margin:1.4rem 0}.l07-three{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .l07-equation{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:.8rem;align-items:center;margin:1.5rem 0}.l07-mesh,.l07-point{display:block;text-align:center;font-size:2rem;color:#315b66;padding:1rem}.l07-gaussian{display:block;width:4rem;height:3rem;margin:1rem auto;border-radius:50%;background:radial-gradient(ellipse,#315b66 5%,#6f969e88 42%,transparent 72%);transform:rotate(-20deg)}
+ .l07-table{margin:1.3rem 0;max-width:100%}.l07-table table{width:100%;table-layout:fixed}.l07-table th,.l07-table td{overflow-wrap:anywhere;word-break:normal;padding:.7rem}
+ .l07-steps{list-style:none;padding:0}.l07-steps li{display:flex;gap:1rem;align-items:baseline;padding:.7rem 0;border-bottom:1px solid var(--line)}.l07-steps strong{color:var(--accent-dark);flex:0 0 2rem}.l07-steps p{margin:0}
+ .l07-downloads{display:grid;gap:.7rem;padding:1rem;border:1px solid var(--line);margin:1.5rem 0}.l07-downloads a{padding:.6rem;background:var(--surface);border:1px solid var(--line)}.l07-actions{display:flex;flex-wrap:wrap;gap:.7rem}.l07-prompt-pair{margin-top:1.5rem}pre{max-width:100%;white-space:pre-wrap;overflow-wrap:anywhere}code{overflow-wrap:anywhere}
+ @media(max-width:700px){.l07-grid,.l07-part-grid,.l07-three{grid-template-columns:minmax(0,1fr)}.l07-context div{grid-template-columns:minmax(0,1fr);gap:.1rem;margin:.65rem 0}.l07-table th,.l07-table td{padding:.4rem;font-size:.77rem}.l07-equation{grid-template-columns:minmax(0,1fr)}.l07-equation>b{text-align:center}}
+ @media print{.l07-readiness,.l07-part-grid a,.l07-cards article{break-inside:avoid}.l07-prompt-pair details:not([open])>div{display:none}.l07-downloads a::after{content:' (PDF에서는 표시만 됩니다)'}}
+</style>

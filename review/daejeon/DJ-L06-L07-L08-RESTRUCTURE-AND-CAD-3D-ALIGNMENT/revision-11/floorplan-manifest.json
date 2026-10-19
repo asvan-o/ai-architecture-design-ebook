@@ -1,0 +1,156 @@
+{
+  "revision": "DJ-L06-L07-ORIGINAL-HOUSE-PLAN-AND-DOOR-STAIR-PRECISION-FIX/revision-10",
+  "localReviewOnly": true,
+  "authorship": "self-authored educational office",
+  "sourceGeometry": "review/daejeon/DJ-ALL-LESSONS-FLOORPLAN-STAIR-AND-DOOR-AUDIT-FIX/revision-9/source/office-geometry.json",
+  "excluded": [
+    "external-participant-original.pdf",
+    "internal-criteria.docx"
+  ],
+  "includedOriginalPdf": true,
+  "files": [
+    {
+      "outputPath": "images/daejeon/lesson-07/floorplan/01-clean-line.jpg",
+      "sizeBytes": 166125,
+      "sha256": "da15b44d9b08cd85e180bce7492c85f48bd95dded9c5c9d11fb792889650ffb4",
+      "kind": "image",
+      "key": "clean-line",
+      "title": "사람이 정리한 AI 입력용 클린 선화",
+      "description": "원본의 외곽·벽·문·창은 유지하고 불필요한 선을 정리한 입력 보조자료입니다.",
+      "width": 1680,
+      "height": 1188,
+      "authorship": "self-authored educational synthetic office / revision-9 door correction",
+      "createdFrom": "review/daejeon/DJ-ALL-LESSONS-FLOORPLAN-STAIR-AND-DOOR-AUDIT-FIX/revision-9/source/office-geometry.json"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-07/floorplan/02-top-view-3d.jpeg",
+      "sizeBytes": 454035,
+      "sha256": "13ffc3eb3eabadde64ed7b7d8d5c3bf99d4fc0cb850dab8a26db5fe0bae2ee7a",
+      "kind": "image",
+      "key": "top-view",
+      "title": "구조 검토용 Top View 3D 비교본",
+      "description": "구조가 일치하는지 원본 평면도와 다시 대조하는 비교 이미지입니다.",
+      "width": 1492,
+      "height": 1054,
+      "authorship": "self-authored educational synthetic office / revision-10 door and stair precision correction",
+      "createdFrom": "review/daejeon/DJ-L06-L07-ORIGINAL-HOUSE-PLAN-AND-DOOR-STAIR-PRECISION-FIX/revision-10/source/topview-final.png"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-07/floorplan/03-notebooklm-graphviz.png",
+      "sizeBytes": 161137,
+      "sha256": "d5392f047d06f7c527edf9890857e641a645bccf739e6b1df77871bb1b4bbfc4",
+      "kind": "image",
+      "key": "notebook-diagram",
+      "title": "방법 A · NotebookLM 기반 관계 구조화 다이어그램",
+      "description": "공간 관계를 단순화한 예시입니다. 노드 위치는 실제 평면의 거리·면적을 뜻하지 않습니다.",
+      "width": 1666,
+      "height": 2000,
+      "authorship": "self-authored educational synthetic office / revision-7",
+      "createdFrom": "review/daejeon/DJ-L01-L07-PROMPT-DERIVATION-AND-L07-SYNTHETIC-PLAN/revision-7/source/office-geometry.json"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-07/floorplan/04-chatgpt-graphviz.png",
+      "sizeBytes": 98503,
+      "sha256": "8507f7b29ab3abf5b9f6b132ad1ded3a2a15579de3bb9314e298d07a85d598a2",
+      "kind": "image",
+      "key": "chatgpt-diagram",
+      "title": "방법 B · ChatGPT 기반 관계 구조화 다이어그램",
+      "description": "같은 공간의 기능·연결·동선 표현을 비교하고 원도면 근거와 다시 대조합니다.",
+      "width": 1386,
+      "height": 995,
+      "authorship": "self-authored educational synthetic office / revision-7",
+      "createdFrom": "review/daejeon/DJ-L01-L07-PROMPT-DERIVATION-AND-L07-SYNTHETIC-PLAN/revision-7/source/office-geometry.json"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-07/floorplan/notebook-plan-analysis.txt",
+      "sizeBytes": 1050,
+      "sha256": "facb632f736a6ee6c07f665886d8a420fe34b0b546d4e5d13d553ed3de1e2457",
+      "kind": "prompt",
+      "key": "notebookPlanAnalysisPrompt",
+      "title": "원본 평면도 정보 분석 프롬프트"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-07/floorplan/floor-plan-criteria.txt",
+      "sizeBytes": 2292,
+      "sha256": "b1fc719ecc0327a3a5b647fe191f661d0545c7db3675f8a78c06fa9fbfe10407",
+      "kind": "prompt",
+      "key": "floorPlanCriteriaPrompt",
+      "title": "후속 AI용 최종 확정 도면 기준표 프롬프트"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-07/floorplan/top-view-structure.txt",
+      "sizeBytes": 1211,
+      "sha256": "a7ee01fc613269d01c36a303a9005d7ea69b82d0648b5e226449f42a07e25fdc",
+      "kind": "prompt",
+      "key": "topViewPrompt",
+      "title": "구조 검토용 Top View 3D 생성 프롬프트"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-07/floorplan/spatial-analysis.txt",
+      "sizeBytes": 2254,
+      "sha256": "85e9e7d71418ce3e0d2ea600cecf1ddd8974fffd018ec8b5af899300a14dbdb3",
+      "kind": "prompt",
+      "key": "spatialAnalysisPrompt",
+      "title": "공간 기능·공간 인접 관계·주요 동선 분석 프롬프트"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-07/floorplan/spatial-validation.txt",
+      "sizeBytes": 1616,
+      "sha256": "d7a2cbb5ce80178871f9ca39e0705f9343614ed612c7fe5ff42c691b00891ac6",
+      "kind": "prompt",
+      "key": "validationPrompt",
+      "title": "분석 결과 검증 및 최종 인계본 정리 프롬프트"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-07/floorplan/graphviz-generation.txt",
+      "sizeBytes": 1114,
+      "sha256": "689bf07c32177859c373ef3df739a5d45f2085f616b851cb0df3b04b637dced3",
+      "kind": "prompt",
+      "key": "graphvizPrompt",
+      "title": "Graphviz(DOT) 코드 생성 프롬프트"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-07/floorplan/Graphviz-DOT-source.txt",
+      "sizeBytes": 3255,
+      "sha256": "d775fe4b611588082ba1ccaeaac41b7bae121320051adf224ae42de53b246c20",
+      "kind": "dot",
+      "title": "실습용 Graphviz DOT 코드"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-07/floorplan/DJ-L07-Floorplan-Checklist.md",
+      "sizeBytes": 970,
+      "sha256": "6b5891f6d57f958c9ce631ed8889f4b54a32827929960abbeff1d115910510df",
+      "kind": "checklist"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-07/floorplan/README.md",
+      "sizeBytes": 1428,
+      "sha256": "fa7625fbbf62fc35b41b5071283dd207892cef6c96010086a617c7340469e7d8",
+      "kind": "readme"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-07/floorplan/DJ-L07-Floorplan-Graphviz-Pack.zip",
+      "kind": "zip",
+      "sha256": "135ccc4dc2289d62b52a056646f10d8c6232adcbca80ac2feeeae5dd1f53ac32",
+      "sizeBytes": 860596
+    },
+    {
+      "kind": "original-pdf",
+      "key": "office-original-pdf",
+      "title": "자체 제작 교육용 1층 오피스 원본 PDF",
+      "outputPath": "downloads/daejeon/lesson-07/floorplan/DJ-L07-Office-Floorplan-Original.pdf",
+      "authorship": "self-authored educational synthetic office / revision-9 door correction",
+      "sha256": "5bc0ceaacb6491a98d23b11cde290fe5768e0c5fdbfc7894067496f69d776f91",
+      "sizeBytes": 45816,
+      "createdFrom": "review/daejeon/DJ-ALL-LESSONS-FLOORPLAN-STAIR-AND-DOOR-AUDIT-FIX/revision-9/source/office-geometry.json"
+    },
+    {
+      "kind": "prompt",
+      "key": "clean-line-preprocess",
+      "title": "클린 선화 전처리 프롬프트",
+      "outputPath": "downloads/daejeon/lesson-07/floorplan/DJ-L07-clean-line-preprocess.txt",
+      "sha256": "8bddfad6e4ce24b92e84f01267501e786635970062fe251b4cf5dfa49d55957e",
+      "sizeBytes": 2746
+    }
+  ]
+}

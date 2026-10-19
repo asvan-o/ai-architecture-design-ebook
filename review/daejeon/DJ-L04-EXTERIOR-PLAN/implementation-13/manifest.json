@@ -1,0 +1,726 @@
+{
+  "localOnly": true,
+  "status": "instructor-review",
+  "courseStatus": "design-pending",
+  "sectionCount": 13,
+  "bases": [
+    {
+      "id": "EXT-BASE-01",
+      "type": "3층 복합 상업 건물 · 연속 예제",
+      "observed": "정면 입면, 중앙 후퇴 유리 출입구와 포털·기존 캐노피, 좌우 쇼윈도 2개, 빈 수평 사인 띠, 2·3층 각 창4개.",
+      "keep": "3층 매스·파라펫·상층 창 8개·쇼윈도 2개·중앙 출입문의 위치/크기/분할, 캐노피 외곽·이웃·보도·도로·정면 카메라.",
+      "change": "A: 상층·저층 벽 전체를 크림 석재, 포털·하부를 수직 목재, 띠·프레임은 브론즈. B: 상층 테라코타·저층 차콜·띠와 프레임 매트 블랙.",
+      "start": "A/B는 같은 원본에서 독립 실행. A2와 조경은 새 A, 석양·서브 시점은 새 조경안을 사용.",
+      "prompt": "A",
+      "key": "EXT-BASE-01",
+      "title": "EXT-BASE-01 · 3층 복합 상업 건물",
+      "file": "bases/EXT-BASE-01.png",
+      "description": "상층 창 8개·쇼윈도 2개·중앙 출입구를 고정하고 상층까지 외장 마감의 대조를 비교합니다.",
+      "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871",
+      "bytes": 2417644
+    },
+    {
+      "id": "EXT-BASE-02",
+      "type": "2층 소형 오피스·스튜디오",
+      "observed": "긴 수평 주 매스와 좌측 수직 진입부, 기존 수직 루버, 좌측 유리 출입구, 정면 상층 창3개와 하층 창2개. 우측 측벽에도 창이 보임.",
+      "keep": "전체 2층 매스·지붕선·좌측 진입부의 높이/폭·기존 창과 문 배열·루버 위치/간격/수·우측 측벽 개구부·배수관·보도·거리·카메라.",
+      "change": "첫 실습은 좌측 기존 루버의 재질·색감만 선택. 확장은 전면 불투명 벽 한 구획 또는 기존 프레임 색 중 하나. 새 루버/개구부를 추가하지 않음.",
+      "start": "같은 BASE 02에서 시작하고 루버 면과 그 밖을 구분. 루버 색으로 내부 구조·차양 성능을 추정하지 않음.",
+      "prompt": "EXT-BASE-02-practice",
+      "key": "EXT-BASE-02",
+      "title": "EXT-BASE-02 · 2층 소형 오피스·스튜디오",
+      "file": "bases/EXT-BASE-02.png",
+      "description": "긴 수평 주 매스와 좌측 수직 진입부, 기존 수직 루버, 좌측 유리 출입구, 정면 상층 창3개와 하층 창2개. 우측 측벽에도 창이 보임. 같은 BASE 02에서 시작하고 루버 면과 그 밖을 구분. 루버 색으로 내부 구조·차양 성능을 추정하지 않음.",
+      "sha256": "85b2d24b2fa912214ffcc3deeef5efedc59d158fcf281cd9c782124a0fadc141",
+      "bytes": 2322064
+    },
+    {
+      "id": "EXT-BASE-03",
+      "type": "2층 코너 문화 라운지·쇼룸",
+      "observed": "두 입면과 코너 후퇴 출입구, 기존 코너 캐노피·포털, 양쪽 쇼윈도, 쇼윈도 위의 빈 사인 면, 모서리 보도와 도로·횡단보도.",
+      "keep": "2층 매스·코너 각도·두 입면의 창/문 위치·캐노피 깊이/외곽·쇼윈도 분할·수목·보도 모서리·경계석·차선·원근과 카메라.",
+      "change": "첫 실습은 코너 입구 양옆의 기존 불투명 포털 벽 한 구획. 확장은 기존 캐노피 하부나 양쪽 사인 면 중 하나를 골라 별도 실행. 새 출입구/기둥/보도 시설물 추가 금지.",
+      "start": "모서리 양쪽의 같은 경계가 동시에 유지되는지 원본과 비교. 포털 표면 수정과 캐노피 구조 변경을 구분.",
+      "prompt": "EXT-BASE-03-practice",
+      "key": "EXT-BASE-03",
+      "title": "EXT-BASE-03 · 2층 코너 문화 라운지·쇼룸",
+      "file": "bases/EXT-BASE-03.png",
+      "description": "두 입면과 코너 후퇴 출입구, 기존 코너 캐노피·포털, 양쪽 쇼윈도, 쇼윈도 위의 빈 사인 면, 모서리 보도와 도로·횡단보도. 모서리 양쪽의 같은 경계가 동시에 유지되는지 원본과 비교. 포털 표면 수정과 캐노피 구조 변경을 구분.",
+      "sha256": "6a206db291893e5935385409e5fd567d727a46246e2ded81bcc3e34e4fb10154",
+      "bytes": 2850976
+    }
+  ],
+  "refs": [
+    {
+      "id": "M-21",
+      "title": "Dark Walnut",
+      "description": "A의 포털·캐노피 하부에 적용할 짙은 목재의 색·세로결 참고입니다. 부재 형상이나 외장 제품의 내후·방화 사양을 뜻하지 않습니다.",
+      "file": "references/m-21-dark-walnut.png",
+      "source": "src/assets/lessons/04/material-reference-review/m-21-dark-walnut.png",
+      "sha256": "e6d9256b0382dd6e6fabd49248bae8dc122dd288bc136c58bee65077c0eb135d",
+      "kind": "기존 재질 카드",
+      "bytes": 1470541
+    },
+    {
+      "id": "M-02",
+      "title": "Almond Limestone",
+      "description": "A의 2~3층과 1층 벽에 적용할 밝은 크림 석재의 색·무늬·질감 참고입니다. 실제 석종·두께·부착 방식·가격·성능은 확정하지 않습니다.",
+      "file": "references/m-02-almond-limestone.png",
+      "source": "src/assets/lessons/04/material-reference-review/m-02-almond-limestone.png",
+      "sha256": "647e6cb2535395a444f421130edb5763f753b3463738aa519cce1e96663eec3f",
+      "kind": "기존 재질 카드",
+      "bytes": 781749
+    },
+    {
+      "id": "M-10",
+      "title": "Charcoal Microcement",
+      "description": "B의 저층 차콜 석재에 적용할 어두운 색·질감 방향 참고입니다. 실제 현무암 제품이나 마감 성능을 증명하는 자료는 아닙니다.",
+      "file": "references/m-10-charcoal-microcement.png",
+      "source": "src/assets/lessons/04/material-reference-review/m-10-charcoal-microcement.png",
+      "sha256": "0474bc338e8c296a9405993afbfbfb4cd84b54c11566b69e279f14da1a109247",
+      "kind": "기존 재질 카드",
+      "bytes": 655398
+    },
+    {
+      "id": "M-24",
+      "title": "Natural Oak",
+      "description": "밝은 목재 대안을 선택할 때 색·결·질감을 참고합니다. 외장 제품의 내후·방화 성능을 뜻하지 않습니다.",
+      "name": "Natural Oak",
+      "file": "references/m-24-natural-oak.png",
+      "source": "src/assets/lessons/04/material-reference-review/m-24-natural-oak.png",
+      "sha256": "14a62a4acd460543c25b823ecf4c59ac8f049330c812def72b141f97a5a23ebb",
+      "kind": "기존 자산 보조 카드",
+      "byteIdentical": true,
+      "usedInHistoricalImageCalls": false,
+      "bytes": 820059
+    },
+    {
+      "id": "M-20",
+      "title": "Light Grey Microcement",
+      "description": "A2의 간판 띠·캐노피 전면과 하부에 적용할 밝은 웜그레이 톤 참고입니다. 실제 외벽·천장 시공 사양은 확정하지 않습니다.",
+      "name": "Light Grey Microcement",
+      "file": "references/m-20-light-grey-microcement.png",
+      "source": "src/assets/lessons/04/material-reference-review/m-20-light-grey-microcement.png",
+      "sha256": "9558eb14d2c675b9ebaefe6d1813348587dd38409cee59a21eed12e82457b298",
+      "kind": "기존 자산 보조 카드",
+      "byteIdentical": true,
+      "usedInHistoricalImageCalls": false,
+      "bytes": 731890
+    }
+  ],
+  "samples": [
+    {
+      "key": "A",
+      "title": "수정안 A · 크림 라임스톤과 우드 포털",
+      "description": "상층과 저층 벽을 크림 석재로, 포털을 수직 목재로 바꾸고 브론즈 띠·프레임과 따뜻한 빛을 적용했습니다. 석재 무늬·반사는 재표현됐습니다.",
+      "file": "samples/02_partial-edit-a.png",
+      "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf",
+      "bytes": 2333851
+    },
+    {
+      "key": "B",
+      "title": "수정안 B · 테라코타와 차콜 스톤",
+      "description": "상층은 웜 테라코타, 저층은 차콜 석재, 띠·캐노피·프레임은 매트 블랙으로 구분됩니다. 재료의 표현은 실제 제품 사양이 아닙니다.",
+      "file": "samples/03_partial-edit-b.png",
+      "sha256": "2d303ea720cc32805a5b2ae1d6914113c73c5a036ad40133ad47b038d49ea271",
+      "bytes": 2322127
+    },
+    {
+      "key": "A2",
+      "title": "보완안 A2 · 밝은 간판 띠와 캐노피",
+      "description": "A의 크림 외벽과 수직 목재 포털을 두고 간판 띠·캐노피 전면과 하부를 밝게 보완했습니다. 석재 결·반사의 미세한 변화도 대조합니다.",
+      "file": "samples/04_revised-concept.png",
+      "sha256": "68af0e4f7e55b9949332f9ad28dd9cc10786af929c76bfeb84a3d39218bea879",
+      "bytes": 2269804
+    }
+  ],
+  "prompts": [
+    {
+      "key": "A-7step",
+      "title": "수정안 A · 크림 라임스톤과 우드 포털 · 7단 생성 원문",
+      "file": "prompts/A-7step.txt",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/prompts/A-7step.txt",
+      "attachments": [
+        {
+          "file": "bases/01_base-building.png",
+          "role": "편집 원본·건물/카메라 기준",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+        },
+        {
+          "file": "references/m-21-dark-walnut.png",
+          "role": "목재 색·결",
+          "outputPath": "practice/DJ-L04/references/m-21-dark-walnut.png",
+          "sha256": "e6d9256b0382dd6e6fabd49248bae8dc122dd288bc136c58bee65077c0eb135d"
+        },
+        {
+          "file": "references/m-02-almond-limestone.png",
+          "role": "크림 석재 색·질감",
+          "outputPath": "practice/DJ-L04/references/m-02-almond-limestone.png",
+          "sha256": "647e6cb2535395a444f421130edb5763f753b3463738aa519cce1e96663eec3f"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim",
+      "sha256": "7447951e53f8822aa4cf9bf57b1b5dd51a5ca477fd4982b93a517307ec4e69e6",
+      "bytes": 2152
+    },
+    {
+      "key": "A-short",
+      "title": "수정안 A · 크림 라임스톤과 우드 포털 · 실행용 원문",
+      "file": "prompts/A-short.txt",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/prompts/A-short.txt",
+      "attachments": [
+        {
+          "file": "bases/01_base-building.png",
+          "role": "편집 원본·건물/카메라 기준",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+        },
+        {
+          "file": "references/m-21-dark-walnut.png",
+          "role": "목재 색·결",
+          "outputPath": "practice/DJ-L04/references/m-21-dark-walnut.png",
+          "sha256": "e6d9256b0382dd6e6fabd49248bae8dc122dd288bc136c58bee65077c0eb135d"
+        },
+        {
+          "file": "references/m-02-almond-limestone.png",
+          "role": "크림 석재 색·질감",
+          "outputPath": "practice/DJ-L04/references/m-02-almond-limestone.png",
+          "sha256": "647e6cb2535395a444f421130edb5763f753b3463738aa519cce1e96663eec3f"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim",
+      "sha256": "7447951e53f8822aa4cf9bf57b1b5dd51a5ca477fd4982b93a517307ec4e69e6",
+      "bytes": 2152
+    },
+    {
+      "key": "B-7step",
+      "title": "수정안 B · 테라코타와 차콜 스톤 · 7단 생성 원문",
+      "file": "prompts/B-7step.txt",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/prompts/B-7step.txt",
+      "attachments": [
+        {
+          "file": "bases/01_base-building.png",
+          "role": "편집 원본·건물/카메라 기준",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+        },
+        {
+          "file": "references/m-10-charcoal-microcement.png",
+          "role": "차콜 색·질감 방향만 참고; 현무암 제품 정보 아님",
+          "outputPath": "practice/DJ-L04/references/m-10-charcoal-microcement.png",
+          "sha256": "0474bc338e8c296a9405993afbfbfb4cd84b54c11566b69e279f14da1a109247"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim",
+      "sha256": "3d02c23671c7ffafb96f0eac97476c34e77959298df181fe0dab8568a83c4bbc",
+      "bytes": 1926
+    },
+    {
+      "key": "B-short",
+      "title": "수정안 B · 테라코타와 차콜 스톤 · 실행용 원문",
+      "file": "prompts/B-short.txt",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/prompts/B-short.txt",
+      "attachments": [
+        {
+          "file": "bases/01_base-building.png",
+          "role": "편집 원본·건물/카메라 기준",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+        },
+        {
+          "file": "references/m-10-charcoal-microcement.png",
+          "role": "차콜 색·질감 방향만 참고; 현무암 제품 정보 아님",
+          "outputPath": "practice/DJ-L04/references/m-10-charcoal-microcement.png",
+          "sha256": "0474bc338e8c296a9405993afbfbfb4cd84b54c11566b69e279f14da1a109247"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim",
+      "sha256": "3d02c23671c7ffafb96f0eac97476c34e77959298df181fe0dab8568a83c4bbc",
+      "bytes": 1926
+    },
+    {
+      "key": "A2-7step",
+      "title": "보완안 A2 · 밝은 간판 띠와 캐노피 · 7단 생성 원문",
+      "file": "prompts/A2-7step.txt",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/prompts/A2-7step.txt",
+      "attachments": [
+        {
+          "file": "samples/02_partial-edit-a.png",
+          "role": "편집 대상 A",
+          "outputPath": "practice/DJ-L04/samples/02_partial-edit-a.png",
+          "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf"
+        },
+        {
+          "file": "references/m-20-light-grey-microcement.png",
+          "role": "밝은 웜그레이 톤 참고",
+          "outputPath": "practice/DJ-L04/references/m-20-light-grey-microcement.png",
+          "sha256": "9558eb14d2c675b9ebaefe6d1813348587dd38409cee59a21eed12e82457b298"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim",
+      "sha256": "2b18675bafd6b07dad023085054196dd4edce33949e3d87e657d9d79500990be",
+      "bytes": 1735
+    },
+    {
+      "key": "A2-short",
+      "title": "보완안 A2 · 밝은 간판 띠와 캐노피 · 실행용 원문",
+      "file": "prompts/A2-short.txt",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/prompts/A2-short.txt",
+      "attachments": [
+        {
+          "file": "samples/02_partial-edit-a.png",
+          "role": "편집 대상 A",
+          "outputPath": "practice/DJ-L04/samples/02_partial-edit-a.png",
+          "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf"
+        },
+        {
+          "file": "references/m-20-light-grey-microcement.png",
+          "role": "밝은 웜그레이 톤 참고",
+          "outputPath": "practice/DJ-L04/references/m-20-light-grey-microcement.png",
+          "sha256": "9558eb14d2c675b9ebaefe6d1813348587dd38409cee59a21eed12e82457b298"
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim",
+      "sha256": "2b18675bafd6b07dad023085054196dd4edce33949e3d87e657d9d79500990be",
+      "bytes": 1735
+    },
+    {
+      "key": "EXT-BASE-02-practice-7step",
+      "title": "기존 루버 부분 수정 · 7단 구조",
+      "file": "prompts/EXT-BASE-02-practice-7step.txt",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/prompts/EXT-BASE-02-practice-7step.txt",
+      "attachments": [
+        {
+          "file": "bases/EXT-BASE-02.png",
+          "role": "선택 건물·편집 대상",
+          "outputPath": "practice/DJ-L04/bases/EXT-BASE-02.png",
+          "sha256": "85b2d24b2fa912214ffcc3deeef5efedc59d158fcf281cd9c782124a0fadc141"
+        },
+        {
+          "file": "references/m-24-natural-oak.png",
+          "role": "색·결 참고",
+          "outputPath": "practice/DJ-L04/references/m-24-natural-oak.png",
+          "sha256": "14a62a4acd460543c25b823ecf4c59ac8f049330c812def72b141f97a5a23ebb"
+        }
+      ],
+      "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
+      "sha256": "7ba2335dc7e3a30aec3ec87620286768306a69f7aa7329270d805bf9f6889355",
+      "bytes": 1649
+    },
+    {
+      "key": "EXT-BASE-02-practice-short",
+      "title": "기존 루버 부분 수정 · 짧은 실행용",
+      "file": "prompts/EXT-BASE-02-practice-short.txt",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/prompts/EXT-BASE-02-practice-short.txt",
+      "attachments": [
+        {
+          "file": "bases/EXT-BASE-02.png",
+          "role": "선택 건물·편집 대상",
+          "outputPath": "practice/DJ-L04/bases/EXT-BASE-02.png",
+          "sha256": "85b2d24b2fa912214ffcc3deeef5efedc59d158fcf281cd9c782124a0fadc141"
+        },
+        {
+          "file": "references/m-24-natural-oak.png",
+          "role": "색·결 참고",
+          "outputPath": "practice/DJ-L04/references/m-24-natural-oak.png",
+          "sha256": "14a62a4acd460543c25b823ecf4c59ac8f049330c812def72b141f97a5a23ebb"
+        }
+      ],
+      "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
+      "sha256": "888add16b7f2c163548480271d5c8ad4de7db89fa9a1d9f34113966733168a22",
+      "bytes": 497
+    },
+    {
+      "key": "EXT-BASE-03-practice-7step",
+      "title": "코너 포털 부분 수정 · 7단 구조",
+      "file": "prompts/EXT-BASE-03-practice-7step.txt",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/prompts/EXT-BASE-03-practice-7step.txt",
+      "attachments": [
+        {
+          "file": "bases/EXT-BASE-03.png",
+          "role": "선택 건물·편집 대상",
+          "outputPath": "practice/DJ-L04/bases/EXT-BASE-03.png",
+          "sha256": "6a206db291893e5935385409e5fd567d727a46246e2ded81bcc3e34e4fb10154"
+        }
+      ],
+      "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
+      "sha256": "feb6fdca13474c1b950f10c3890ab7a436932cdc5e3af17521d381f59698fc75",
+      "bytes": 1706
+    },
+    {
+      "key": "EXT-BASE-03-practice-short",
+      "title": "코너 포털 부분 수정 · 짧은 실행용",
+      "file": "prompts/EXT-BASE-03-practice-short.txt",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/prompts/EXT-BASE-03-practice-short.txt",
+      "attachments": [
+        {
+          "file": "bases/EXT-BASE-03.png",
+          "role": "선택 건물·편집 대상",
+          "outputPath": "practice/DJ-L04/bases/EXT-BASE-03.png",
+          "sha256": "6a206db291893e5935385409e5fd567d727a46246e2ded81bcc3e34e4fb10154"
+        }
+      ],
+      "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
+      "sha256": "3d0bb57648258f3b0dd921d7c0462cd8229278845a3c12e2184ead90bfcecc9a",
+      "bytes": 510
+    },
+    {
+      "key": "scope-7step",
+      "title": "유지·변경 범위 정리 · 7단 구조",
+      "file": "prompts/scope-7step.txt",
+      "source": "사용자 승인된 제4차시 구현 범위에 따라 작성",
+      "attachments": [
+        {
+          "file": "bases/01_base-building.png",
+          "role": "범위 분석 기준",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+        }
+      ],
+      "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
+      "sha256": "1bff09f5dd05f136a07664c59d32889819feb02442f73ed1ce9b62a2f5e11027",
+      "bytes": 1284
+    },
+    {
+      "key": "scope-short",
+      "title": "유지·변경 범위 정리 · 짧은 실행용",
+      "file": "prompts/scope-short.txt",
+      "source": "사용자 승인된 제4차시 구현 범위에 따라 작성",
+      "attachments": [
+        {
+          "file": "bases/01_base-building.png",
+          "role": "범위 분석 기준",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+        }
+      ],
+      "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
+      "sha256": "1bff09f5dd05f136a07664c59d32889819feb02442f73ed1ce9b62a2f5e11027",
+      "bytes": 1284
+    },
+    {
+      "key": "gemini-7step",
+      "title": "Gemini 비교 분석 · 7단 구조",
+      "file": "prompts/gemini-7step.txt",
+      "source": "사용자 승인된 제4차시 구현 범위에 따라 작성",
+      "attachments": [
+        {
+          "file": "bases/01_base-building.png",
+          "role": "처음 원본",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+        },
+        {
+          "file": "samples/02_partial-edit-a.png",
+          "role": "A 결과",
+          "outputPath": "practice/DJ-L04/samples/02_partial-edit-a.png",
+          "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf"
+        },
+        {
+          "file": "samples/03_partial-edit-b.png",
+          "role": "B 결과",
+          "outputPath": "practice/DJ-L04/samples/03_partial-edit-b.png",
+          "sha256": "2d303ea720cc32805a5b2ae1d6914113c73c5a036ad40133ad47b038d49ea271"
+        }
+      ],
+      "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
+      "sha256": "7a9af055aee3fbbe272e4ce3aba6ab955c7dd7f3f53922ec0bafb4788f68829b",
+      "bytes": 1353
+    },
+    {
+      "key": "gemini-short",
+      "title": "Gemini 비교 분석 · 짧은 실행용",
+      "file": "prompts/gemini-short.txt",
+      "source": "사용자 승인된 제4차시 구현 범위에 따라 작성",
+      "attachments": [
+        {
+          "file": "bases/01_base-building.png",
+          "role": "처음 원본",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+        },
+        {
+          "file": "samples/02_partial-edit-a.png",
+          "role": "A 결과",
+          "outputPath": "practice/DJ-L04/samples/02_partial-edit-a.png",
+          "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf"
+        },
+        {
+          "file": "samples/03_partial-edit-b.png",
+          "role": "B 결과",
+          "outputPath": "practice/DJ-L04/samples/03_partial-edit-b.png",
+          "sha256": "2d303ea720cc32805a5b2ae1d6914113c73c5a036ad40133ad47b038d49ea271"
+        }
+      ],
+      "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
+      "sha256": "7a9af055aee3fbbe272e4ce3aba6ab955c7dd7f3f53922ec0bafb4788f68829b",
+      "bytes": 1353
+    },
+    {
+      "key": "compare-7step",
+      "title": "대안 선별·다음 보완 · 7단 구조",
+      "file": "prompts/compare-7step.txt",
+      "source": "사용자 승인된 제4차시 구현 범위에 따라 작성",
+      "attachments": [
+        {
+          "file": "bases/01_base-building.png",
+          "role": "처음 원본",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+        },
+        {
+          "file": "samples/02_partial-edit-a.png",
+          "role": "A 결과",
+          "outputPath": "practice/DJ-L04/samples/02_partial-edit-a.png",
+          "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf"
+        },
+        {
+          "file": "samples/03_partial-edit-b.png",
+          "role": "B 결과",
+          "outputPath": "practice/DJ-L04/samples/03_partial-edit-b.png",
+          "sha256": "2d303ea720cc32805a5b2ae1d6914113c73c5a036ad40133ad47b038d49ea271"
+        },
+        {
+          "file": "samples/04_revised-concept.png",
+          "role": "A2 결과",
+          "outputPath": "practice/DJ-L04/samples/04_revised-concept.png",
+          "sha256": "68af0e4f7e55b9949332f9ad28dd9cc10786af929c76bfeb84a3d39218bea879"
+        }
+      ],
+      "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
+      "sha256": "afdaf8fd7f6c795c739dd4a16340084dd8c143b2ef6b0780b9a691e7f57c9162",
+      "bytes": 1390
+    },
+    {
+      "key": "compare-short",
+      "title": "대안 선별·다음 보완 · 짧은 실행용",
+      "file": "prompts/compare-short.txt",
+      "source": "사용자 승인된 제4차시 구현 범위에 따라 작성",
+      "attachments": [
+        {
+          "file": "bases/01_base-building.png",
+          "role": "처음 원본",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+        },
+        {
+          "file": "samples/02_partial-edit-a.png",
+          "role": "A 결과",
+          "outputPath": "practice/DJ-L04/samples/02_partial-edit-a.png",
+          "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf"
+        },
+        {
+          "file": "samples/03_partial-edit-b.png",
+          "role": "B 결과",
+          "outputPath": "practice/DJ-L04/samples/03_partial-edit-b.png",
+          "sha256": "2d303ea720cc32805a5b2ae1d6914113c73c5a036ad40133ad47b038d49ea271"
+        },
+        {
+          "file": "samples/04_revised-concept.png",
+          "role": "A2 결과",
+          "outputPath": "practice/DJ-L04/samples/04_revised-concept.png",
+          "sha256": "68af0e4f7e55b9949332f9ad28dd9cc10786af929c76bfeb84a3d39218bea879"
+        }
+      ],
+      "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
+      "sha256": "afdaf8fd7f6c795c739dd4a16340084dd8c143b2ef6b0780b9a691e7f57c9162",
+      "bytes": 1390
+    }
+  ],
+  "analysis": [
+    {
+      "key": "base-guide",
+      "title": "기준 건물·참고자료 역할 안내",
+      "file": "analysis/DJ-L04_BASE-AND-REFERENCE.md",
+      "sha256": "b2079ea8bacc9a4bf4bb63c9ad2f98621c1d63209a4c8e3cf74eae90a472ea7b",
+      "bytes": 643
+    },
+    {
+      "key": "compare-guide",
+      "title": "A/B/보완안 비교 기록",
+      "file": "analysis/DJ-L04_COMPARE-AND-SELECT.md",
+      "sha256": "11088e835fd5e3e55629d7cbe821626ca4e640de2aaf306793c0f8305c3debec",
+      "bytes": 521
+    }
+  ],
+  "files": [
+    {
+      "file": "bases/EXT-BASE-01.png",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/bases/EXT-BASE-01.png",
+      "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871",
+      "bytes": 2417644
+    },
+    {
+      "file": "bases/EXT-BASE-02.png",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/bases/EXT-BASE-02.png",
+      "sha256": "85b2d24b2fa912214ffcc3deeef5efedc59d158fcf281cd9c782124a0fadc141",
+      "bytes": 2322064
+    },
+    {
+      "file": "bases/EXT-BASE-03.png",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/bases/EXT-BASE-03.png",
+      "sha256": "6a206db291893e5935385409e5fd567d727a46246e2ded81bcc3e34e4fb10154",
+      "bytes": 2850976
+    },
+    {
+      "file": "references/m-21-dark-walnut.png",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/references/m-21-dark-walnut.png",
+      "sha256": "e6d9256b0382dd6e6fabd49248bae8dc122dd288bc136c58bee65077c0eb135d",
+      "bytes": 1470541
+    },
+    {
+      "file": "references/m-02-almond-limestone.png",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/references/m-02-almond-limestone.png",
+      "sha256": "647e6cb2535395a444f421130edb5763f753b3463738aa519cce1e96663eec3f",
+      "bytes": 781749
+    },
+    {
+      "file": "references/m-10-charcoal-microcement.png",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/references/m-10-charcoal-microcement.png",
+      "sha256": "0474bc338e8c296a9405993afbfbfb4cd84b54c11566b69e279f14da1a109247",
+      "bytes": 655398
+    },
+    {
+      "file": "references/m-24-natural-oak.png",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/references/m-24-natural-oak.png",
+      "sha256": "14a62a4acd460543c25b823ecf4c59ac8f049330c812def72b141f97a5a23ebb",
+      "bytes": 820059
+    },
+    {
+      "file": "references/m-20-light-grey-microcement.png",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/references/m-20-light-grey-microcement.png",
+      "sha256": "9558eb14d2c675b9ebaefe6d1813348587dd38409cee59a21eed12e82457b298",
+      "bytes": 731890
+    },
+    {
+      "file": "samples/02_partial-edit-a.png",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/samples/02_partial-edit-a.png",
+      "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf",
+      "bytes": 2333851
+    },
+    {
+      "file": "samples/03_partial-edit-b.png",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/samples/03_partial-edit-b.png",
+      "sha256": "2d303ea720cc32805a5b2ae1d6914113c73c5a036ad40133ad47b038d49ea271",
+      "bytes": 2322127
+    },
+    {
+      "file": "samples/04_revised-concept.png",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/samples/04_revised-concept.png",
+      "sha256": "68af0e4f7e55b9949332f9ad28dd9cc10786af929c76bfeb84a3d39218bea879",
+      "bytes": 2269804
+    },
+    {
+      "file": "prompts/A-7step.txt",
+      "sha256": "7447951e53f8822aa4cf9bf57b1b5dd51a5ca477fd4982b93a517307ec4e69e6",
+      "bytes": 2152
+    },
+    {
+      "file": "prompts/A-short.txt",
+      "sha256": "7447951e53f8822aa4cf9bf57b1b5dd51a5ca477fd4982b93a517307ec4e69e6",
+      "bytes": 2152
+    },
+    {
+      "file": "prompts/B-7step.txt",
+      "sha256": "3d02c23671c7ffafb96f0eac97476c34e77959298df181fe0dab8568a83c4bbc",
+      "bytes": 1926
+    },
+    {
+      "file": "prompts/B-short.txt",
+      "sha256": "3d02c23671c7ffafb96f0eac97476c34e77959298df181fe0dab8568a83c4bbc",
+      "bytes": 1926
+    },
+    {
+      "file": "prompts/A2-7step.txt",
+      "sha256": "2b18675bafd6b07dad023085054196dd4edce33949e3d87e657d9d79500990be",
+      "bytes": 1735
+    },
+    {
+      "file": "prompts/A2-short.txt",
+      "sha256": "2b18675bafd6b07dad023085054196dd4edce33949e3d87e657d9d79500990be",
+      "bytes": 1735
+    },
+    {
+      "file": "prompts/EXT-BASE-02-practice-7step.txt",
+      "sha256": "7ba2335dc7e3a30aec3ec87620286768306a69f7aa7329270d805bf9f6889355",
+      "bytes": 1649
+    },
+    {
+      "file": "prompts/EXT-BASE-02-practice-short.txt",
+      "sha256": "888add16b7f2c163548480271d5c8ad4de7db89fa9a1d9f34113966733168a22",
+      "bytes": 497
+    },
+    {
+      "file": "prompts/EXT-BASE-03-practice-7step.txt",
+      "sha256": "feb6fdca13474c1b950f10c3890ab7a436932cdc5e3af17521d381f59698fc75",
+      "bytes": 1706
+    },
+    {
+      "file": "prompts/EXT-BASE-03-practice-short.txt",
+      "sha256": "3d0bb57648258f3b0dd921d7c0462cd8229278845a3c12e2184ead90bfcecc9a",
+      "bytes": 510
+    },
+    {
+      "file": "prompts/scope-7step.txt",
+      "sha256": "1bff09f5dd05f136a07664c59d32889819feb02442f73ed1ce9b62a2f5e11027",
+      "bytes": 1284
+    },
+    {
+      "file": "prompts/scope-short.txt",
+      "sha256": "1bff09f5dd05f136a07664c59d32889819feb02442f73ed1ce9b62a2f5e11027",
+      "bytes": 1284
+    },
+    {
+      "file": "prompts/gemini-7step.txt",
+      "sha256": "7a9af055aee3fbbe272e4ce3aba6ab955c7dd7f3f53922ec0bafb4788f68829b",
+      "bytes": 1353
+    },
+    {
+      "file": "prompts/gemini-short.txt",
+      "sha256": "7a9af055aee3fbbe272e4ce3aba6ab955c7dd7f3f53922ec0bafb4788f68829b",
+      "bytes": 1353
+    },
+    {
+      "file": "prompts/compare-7step.txt",
+      "sha256": "afdaf8fd7f6c795c739dd4a16340084dd8c143b2ef6b0780b9a691e7f57c9162",
+      "bytes": 1390
+    },
+    {
+      "file": "prompts/compare-short.txt",
+      "sha256": "afdaf8fd7f6c795c739dd4a16340084dd8c143b2ef6b0780b9a691e7f57c9162",
+      "bytes": 1390
+    },
+    {
+      "file": "analysis/DJ-L04_BASE-AND-REFERENCE.md",
+      "sha256": "b2079ea8bacc9a4bf4bb63c9ad2f98621c1d63209a4c8e3cf74eae90a472ea7b",
+      "bytes": 643
+    },
+    {
+      "file": "analysis/DJ-L04_COMPARE-AND-SELECT.md",
+      "sha256": "11088e835fd5e3e55629d7cbe821626ca4e640de2aaf306793c0f8305c3debec",
+      "bytes": 521
+    },
+    {
+      "file": "README.txt",
+      "sha256": "4168acbf04412d98d7019a0125eecd7eddc19f15fb290481393d023ba0622075",
+      "bytes": 2574
+    },
+    {
+      "file": "bases/01_base-building.png",
+      "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871",
+      "bytes": 2417644
+    }
+  ],
+  "executionInputs": [
+    {
+      "key": "original-filename",
+      "file": "bases/01_base-building.png",
+      "title": "01_base-building.png · 원래 파일명 기준 이미지",
+      "description": "EXT-BASE-01과 같은 바이트의 원본 첨부용 파일입니다.",
+      "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871",
+      "bytes": 2417644
+    }
+  ],
+  "revision": "04"
+}

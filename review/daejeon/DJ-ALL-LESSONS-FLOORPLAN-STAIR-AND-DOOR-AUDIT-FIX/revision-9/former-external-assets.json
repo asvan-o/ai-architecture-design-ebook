@@ -1,0 +1,77 @@
+[
+  {
+    "key": "comfy-before",
+    "file": "public/images/daejeon/lesson-07/comfy-reference-before.png",
+    "sha256": "bd0af9b8808beef8f34823879915256d0f03c50b4bd2583579cb6b6306d5cad4"
+  },
+  {
+    "key": "comfy-after",
+    "file": "public/images/daejeon/lesson-07/comfy-reference-after-2x.png",
+    "sha256": "c30e7ad71c82b1f87402a6b87dd4f7b1bfab3cd3ed3d8973e51b181223fceaeb"
+  },
+  {
+    "key": "gs-topview",
+    "file": "public/images/daejeon/lesson-07/gaussian-topview-input.png",
+    "sha256": "ac9b5dd90b770884a3bdec4a3ad3ea13caa9fafcdc45738ca18f08fc570ca716"
+  },
+  {
+    "key": "gs-lecture-input",
+    "file": "public/images/daejeon/lesson-07/gaussian-lecture-input.jpeg",
+    "sha256": "6c355ae8cacdbda179ffdfb45648295182282768f7b4dc35bb92ebe4f0203929"
+  },
+  {
+    "key": "gs-3d-reference",
+    "file": "public/images/daejeon/lesson-07/gaussian-3d-reference.png",
+    "sha256": "b3eb8a314a21333bb2f26aa45cbe680734aaaa5cc003265a7f7835075097e3b5"
+  },
+  {
+    "key": "gs-input-128",
+    "file": "public/images/daejeon/lesson-07/gaussian-input-128.jpg",
+    "sha256": "42082d93133b20ac0c96407e59e249335f86458892ec7aa77e2ebf4433ee7c16"
+  },
+  {
+    "key": "gs-input-256",
+    "file": "public/images/daejeon/lesson-07/gaussian-input-256.jpg",
+    "sha256": "91d5db025e0976d5d5c175b68a8c82335c2c99bac916c782d07962c66c2ba0a0"
+  },
+  {
+    "key": "gs-input-512",
+    "file": "public/images/daejeon/lesson-07/gaussian-input-512.jpg",
+    "sha256": "d09cb9468bf009a83e28911527a6c9ebfca5f28263772c885d0ba7886dca6a76"
+  },
+  {
+    "key": "upscale-input-256",
+    "file": "public/images/daejeon/lesson-07/upscale-input-256.png",
+    "sha256": "56d8500a7bc69eb76f7e9055b0dbf3bcdaba891808a4b767ab4b914177728eee"
+  },
+  {
+    "key": "upscale-input-low",
+    "file": "public/images/daejeon/lesson-07/upscale-input-low.png",
+    "sha256": "32666cbd659ad34045c42dbb8920713d3dcb57d31780c845994917158c18af94"
+  },
+  {
+    "key": "upscale-input-photo",
+    "file": "public/images/daejeon/lesson-07/upscale-input-photo.png",
+    "sha256": "9212d1be454145cbcabf5cb5c7984d7815047889e20eeb07a549977ba5941ba6"
+  },
+  {
+    "key": "clean-line",
+    "file": "public/images/daejeon/lesson-07/floorplan/01-clean-line.jpg",
+    "sha256": "67f4b82e266a0b448722be0f49a368013b83cbc4ddd6af1f3ab252f936565df4"
+  },
+  {
+    "key": "top-view",
+    "file": "public/images/daejeon/lesson-07/floorplan/02-top-view-3d.jpeg",
+    "sha256": "3e076b4a0b3e1769047f3e0d61c615e3ac12270a11b055010aaaf783cdb72502"
+  },
+  {
+    "key": "notebook-diagram",
+    "file": "public/images/daejeon/lesson-07/floorplan/03-notebooklm-graphviz.png",
+    "sha256": "5b9037a65abf5063af6afc68fb6432252eaf63c9c1393493be09381407f65e4b"
+  },
+  {
+    "key": "chatgpt-diagram",
+    "file": "public/images/daejeon/lesson-07/floorplan/04-chatgpt-graphviz.png",
+    "sha256": "327efe0736862458fd5b86e66ab8d83609d76bcd5c59a9bd1a026f4fbceb540e"
+  }
+]

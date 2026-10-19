@@ -1,0 +1,34 @@
+{
+  "sources": [
+    {
+      "path": "src/components/content/Lesson10GroundedLegalReview.astro",
+      "gwangjuSha256": "fc3b56b9827b664d963d53d7104194687428db3195d04ab9a6a968f1a3c4b383",
+      "daejeonSha256": "fc3b56b9827b664d963d53d7104194687428db3195d04ab9a6a968f1a3c4b383",
+      "identical": true
+    },
+    {
+      "path": "src/components/content/Lesson11LegalCrossValidation.astro",
+      "gwangjuSha256": "37f671b62e6933401ba295469ece039dfc289b00f5fc5a211cde7a9bec84c814",
+      "daejeonSha256": "37f671b62e6933401ba295469ece039dfc289b00f5fc5a211cde7a9bec84c814",
+      "identical": true
+    },
+    {
+      "path": "src/lib/lesson10-grounded-legal-review.ts",
+      "gwangjuSha256": "4d540eae5140503eda04b4620b452f83966ab0f644d611a6ac2e768f4da61360",
+      "daejeonSha256": "4d540eae5140503eda04b4620b452f83966ab0f644d611a6ac2e768f4da61360",
+      "identical": true
+    },
+    {
+      "path": "src/lib/lesson11-legal-cross-validation.ts",
+      "gwangjuSha256": "ae7ade0bd7eb368fcb61640cbdf44e49031b62f524d48035daf50433e4221885",
+      "daejeonSha256": "ae7ade0bd7eb368fcb61640cbdf44e49031b62f524d48035daf50433e4221885",
+      "identical": true
+    }
+  ],
+  "adaptation": "광주 원본 source와 실행 프롬프트 본문은 보존하고, 대전 학생 화면의 도입·용어·도출 가이드·파일명을 이해하기 쉽게 보완했습니다.",
+  "originalDocumentsIncluded": true,
+  "originalDocumentsScope": "서산시 공개 반다비 프로젝트 원자료 및 사용자 제공 교육용 PDF·강사 예시만 포함. 황인수 원도면 제외.",
+  "bandabiSourceIndex": "DJ-L10_반다비_출처_판본_자료목록.json",
+  "checkedAt": "2026-10-19",
+  "beginnerGuide": "파일명·사용 순서·용어 설명은 DJ-L10_반다비자료_시작안내.md 및 DJ-L10_반다비_출처_판본_자료목록.json를 참고하세요."
+}

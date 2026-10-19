@@ -1,0 +1,9 @@
+---
+import ReviewLayout from '../../layouts/ReviewLayout.astro';
+import DaejeonLesson07Draft from '../../components/DaejeonLesson07Draft.astro';
+import {lesson07Title,lesson07Sections,lesson07Parts} from '../../content/daejeon-lesson07';
+const tocGroups=lesson07Parts.map((part,i)=>({id:part.id,title:'Part '+(i+1)+' · '+part.title,items:part.sections}));
+---
+<ReviewLayout title={lesson07Title} lead="같은 콘셉트의 구도·시점을 먼저 확보하고, 렌더링 도구 이관과 부분 보정으로 이미지를 고도화한 뒤 AI 초해상화 결과를 대조해 제안서·발표용 고화질 렌더링으로 정리합니다." page="lesson" lessonId="07" eyebrow="LESSON 07 · GAUSSIAN / RENDER / UPSCALE" toc={lesson07Sections} {tocGroups}>
+ <DaejeonLesson07Draft />
+</ReviewLayout>

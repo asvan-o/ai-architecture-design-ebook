@@ -1,0 +1,44 @@
+---
+interface Props {
+  image: {key:string;file:string;outputPath:string;width:number;height:number};
+  title: string; description: string; category?:string; instance:string;
+  materialId?:string; beforeId?:string;
+}
+const {image,title,description,category,instance,materialId,beforeId}=Astro.props;
+const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
+const href=`${import.meta.env.BASE_URL.replace(/\/$/,'')}/${image.outputPath}`;
+const dialogId=`l02-card-${instance}-${image.key}`;
+---
+<article class="lesson02-asset-card" data-material-id={materialId} data-before-id={beforeId} data-asset-file={image.file}>
+  {enabled ? <img src={href} alt={title} width={image.width} height={image.height} loading="lazy" /> : <p>원본 이미지는 로컬 검수용 화면에서 제공합니다.</p>}
+  <div class="lesson02-asset-copy">
+    {materialId && <p class="lesson02-asset-id">{materialId}</p>}
+    <h4>{title}</h4>
+    <p data-asset-description>{description}</p>
+    {category && <p class="lesson02-category" data-asset-category>{category}</p>}
+    {enabled && <div class="lesson02-asset-actions">
+      <button type="button" data-asset-open={dialogId} aria-haspopup="dialog">확대 보기</button>
+      <a href={href} download={image.file}>원본 PNG 다운로드</a>
+    </div>}
+  </div>
+  {enabled && <dialog id={dialogId} class="lesson02-asset-dialog" aria-labelledby={`${dialogId}-title`}>
+    <header><h3 id={`${dialogId}-title`}>{materialId && `${materialId} · `}{title}</h3><button type="button" data-asset-size aria-pressed="false">원본 크기로 보기</button><button type="button" data-asset-close>닫기</button></header>
+    <div class="lesson02-dialog-scroll"><img src={href} alt={title} width={image.width} height={image.height} /></div>
+    <p>Esc 키로 닫습니다. 원본 크기에서는 이미지 안에서 가로·세로로 이동할 수 있습니다.</p>
+  </dialog>}
+</article>
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-asset-open]').forEach(opener=>{
+    const dialog=document.getElementById(opener.dataset.assetOpen||'') as HTMLDialogElement|null;
+    if(!dialog)return;
+    opener.addEventListener('click',()=>dialog.showModal());
+    dialog.querySelector<HTMLButtonElement>('[data-asset-close]')?.addEventListener('click',()=>dialog.close());
+    dialog.addEventListener('close',()=>opener.focus());
+    const size=dialog.querySelector<HTMLButtonElement>('[data-asset-size]');
+    size?.addEventListener('click',()=>{
+      const original=dialog.classList.toggle('is-original');
+      size.textContent=original?'화면에 맞춰 보기':'원본 크기로 보기';
+      size.setAttribute('aria-pressed',String(original));
+    });
+  });
+</script>

@@ -1,0 +1,114 @@
+{
+  "project": "DJ-HOUSE-3F · 자체 제작 교육용 모던 3층 단독주택",
+  "variant": "Argon",
+  "collections": {
+    "1": {
+      "name": "[Step 1] 1F_House_Interior",
+      "meshCount": 546,
+      "objects": 597
+    },
+    "2": {
+      "name": "[Step 2] 2F_House_Rooms",
+      "meshCount": 533,
+      "objects": 580
+    },
+    "3": {
+      "name": "[Step 3] 3F_Roof_Facade",
+      "meshCount": 455,
+      "objects": 502
+    },
+    "4": {
+      "name": "[Step 4] Cameras_Lighting",
+      "meshCount": 1,
+      "objects": 22
+    }
+  },
+  "furnitureAssemblies": 65,
+  "materials": 18,
+  "textures": 7,
+  "wallOpenings": 31,
+  "modelMeshCount": 1534,
+  "renders": [
+    {
+      "file": "house_argon_1f_top.png",
+      "level": 1,
+      "mode": "top",
+      "camera": "Cam_1F_Top",
+      "resolution": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "file": "house_argon_1f_iso.png",
+      "level": 1,
+      "mode": "iso",
+      "camera": "Cam_1F_Cutaway",
+      "resolution": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "file": "house_argon_1f_eye.png",
+      "level": 1,
+      "mode": "eye",
+      "camera": "Cam_1F_Eye",
+      "resolution": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "file": "house_argon_2f_top.png",
+      "level": 2,
+      "mode": "top",
+      "camera": "Cam_2F_Top",
+      "resolution": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "file": "house_argon_2f_iso.png",
+      "level": 2,
+      "mode": "iso",
+      "camera": "Cam_2F_Cutaway",
+      "resolution": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "file": "house_argon_3f_hero.png",
+      "level": 3,
+      "mode": "full",
+      "camera": "Cam_Exterior_Hero",
+      "resolution": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "file": "house_argon_3f_iso.png",
+      "level": 3,
+      "mode": "full",
+      "camera": "Cam_Exterior_Iso",
+      "resolution": [
+        1920,
+        1200
+      ]
+    },
+    {
+      "file": "house_argon_3f_rooftop.png",
+      "level": 3,
+      "mode": "roof",
+      "camera": "Cam_Rooftop",
+      "resolution": [
+        1920,
+        1200
+      ]
+    }
+  ],
+  "status": "Argon master model, 8 renders, and FBX/GLB exports complete"
+}

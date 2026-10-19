@@ -1,0 +1,1485 @@
+{
+  "passed": true,
+  "tests": [
+    {
+      "test": "Independent fixture summary",
+      "expected": {
+        "total": 29,
+        "checked": 24,
+        "drawings": 9,
+        "needsCheck": 8,
+        "previous": 4,
+        "excluded": 5
+      },
+      "actual": {
+        "total": 29,
+        "checked": 24,
+        "drawings": 9,
+        "needsCheck": 8,
+        "previous": 4,
+        "excluded": 5
+      },
+      "passed": true,
+      "evidence": "sample-manifest hand-authored expectations"
+    },
+    {
+      "test": "A-101_1층평면도_R01.pdf",
+      "expected": {
+        "status": "이전 리비전",
+        "latest": "R02"
+      },
+      "actual": {
+        "status": "이전 리비전",
+        "latest": "R02"
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": "A-101_1층평면도_R02.pdf",
+      "expected": {
+        "status": "정상",
+        "latest": "R02"
+      },
+      "actual": {
+        "status": "정상",
+        "latest": "R02"
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": "A-101_1층평면도_R02.dwg",
+      "expected": {
+        "status": "정상",
+        "latest": "R02"
+      },
+      "actual": {
+        "status": "정상",
+        "latest": "R02"
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": "A-102_2층평면도_R01.pdf",
+      "expected": {
+        "status": "정상",
+        "latest": "R01"
+      },
+      "actual": {
+        "status": "정상",
+        "latest": "R01"
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": "A-102_2층평면도_R01.dwg",
+      "expected": {
+        "status": "정상",
+        "latest": "R01"
+      },
+      "actual": {
+        "status": "정상",
+        "latest": "R01"
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": "A-102_2층평면도_R01.dxf",
+      "expected": {
+        "status": "정상",
+        "latest": "R01"
+      },
+      "actual": {
+        "status": "정상",
+        "latest": "R01"
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": "A-103_천장평면도_R01.pdf",
+      "expected": {
+        "status": "확인 필요",
+        "latest": "R01"
+      },
+      "actual": {
+        "status": "확인 필요",
+        "latest": "R01"
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": "A-104_입면도_R01.dwg",
+      "expected": {
+        "status": "확인 필요",
+        "latest": "R01"
+      },
+      "actual": {
+        "status": "확인 필요",
+        "latest": "R01"
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": "A-105_단면도_R01.dxf",
+      "expected": {
+        "status": "확인 필요",
+        "latest": "R01"
+      },
+      "actual": {
+        "status": "확인 필요",
+        "latest": "R01"
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": "A101_입면도_최종.pdf",
+      "expected": {
+        "status": "파일명 확인",
+        "latest": ""
+      },
+      "actual": {
+        "status": "파일명 확인",
+        "latest": ""
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": "A-106_단면도.pdf",
+      "expected": {
+        "status": "파일명 확인",
+        "latest": ""
+      },
+      "actual": {
+        "status": "파일명 확인",
+        "latest": ""
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": "A-107__R01.pdf",
+      "expected": {
+        "status": "파일명 확인",
+        "latest": ""
+      },
+      "actual": {
+        "status": "파일명 확인",
+        "latest": ""
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": "A-108_상세도_R01.pdf",
+      "expected": {
+        "status": "이전 리비전",
+        "latest": "R03"
+      },
+      "actual": {
+        "status": "이전 리비전",
+        "latest": "R03"
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": "A-108_상세도_R02.pdf",
+      "expected": {
+        "status": "이전 리비전",
+        "latest": "R03"
+      },
+      "actual": {
+        "status": "이전 리비전",
+        "latest": "R03"
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": "A-108_상세도_R03.pdf",
+      "expected": {
+        "status": "정상",
+        "latest": "R03"
+      },
+      "actual": {
+        "status": "정상",
+        "latest": "R03"
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": "A-108_상세도_R03.dwg",
+      "expected": {
+        "status": "정상",
+        "latest": "R03"
+      },
+      "actual": {
+        "status": "정상",
+        "latest": "R03"
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": "A-109_배치도_R02.pdf",
+      "expected": {
+        "status": "이전 리비전",
+        "latest": "R10"
+      },
+      "actual": {
+        "status": "이전 리비전",
+        "latest": "R10"
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": "A-109_배치도_R10.pdf",
+      "expected": {
+        "status": "정상",
+        "latest": "R10"
+      },
+      "actual": {
+        "status": "정상",
+        "latest": "R10"
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": "A-109_배치도_R10.dwg",
+      "expected": {
+        "status": "정상",
+        "latest": "R10"
+      },
+      "actual": {
+        "status": "정상",
+        "latest": "R10"
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": "원본/A-110_계단상세_R02.pdf",
+      "expected": {
+        "status": "확인 필요",
+        "latest": "R02"
+      },
+      "actual": {
+        "status": "확인 필요",
+        "latest": "R02"
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": "복사본/A-110_계단상세_R02.pdf",
+      "expected": {
+        "status": "확인 필요",
+        "latest": "R02"
+      },
+      "actual": {
+        "status": "확인 필요",
+        "latest": "R02"
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": "A-110_계단상세_R02.dwg",
+      "expected": {
+        "status": "정상",
+        "latest": "R02"
+      },
+      "actual": {
+        "status": "정상",
+        "latest": "R02"
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": "A-111_로비_벽체상세_R01.pdf",
+      "expected": {
+        "status": "정상",
+        "latest": "R01"
+      },
+      "actual": {
+        "status": "정상",
+        "latest": "R01"
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": "A-111_로비_벽체상세_R01.dwg",
+      "expected": {
+        "status": "정상",
+        "latest": "R01"
+      },
+      "actual": {
+        "status": "정상",
+        "latest": "R01"
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": "설명.txt",
+      "expected": {
+        "status": "제외",
+        "reason": "지원하지 않는 형식"
+      },
+      "actual": {
+        "status": "제외",
+        "reason": "지원하지 않는 형식"
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": "A-112_임시도면_R01.pdf.tmp",
+      "expected": {
+        "status": "제외",
+        "reason": "임시·백업 파일"
+      },
+      "actual": {
+        "status": "제외",
+        "reason": "임시·백업 파일"
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": ".숨김.pdf",
+      "expected": {
+        "status": "제외",
+        "reason": "숨김 이름 또는 숨김 폴더"
+      },
+      "actual": {
+        "status": "제외",
+        "reason": "숨김 이름 또는 숨김 폴더"
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": ".숨김폴더/A-113_검토도면_R01.pdf",
+      "expected": {
+        "status": "제외",
+        "reason": "숨김 이름 또는 숨김 폴더"
+      },
+      "actual": {
+        "status": "제외",
+        "reason": "숨김 이름 또는 숨김 폴더"
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": "~$A-114_임시도면_R01.dwg",
+      "expected": {
+        "status": "제외",
+        "reason": "임시·백업 파일"
+      },
+      "actual": {
+        "status": "제외",
+        "reason": "임시·백업 파일"
+      },
+      "passed": true,
+      "evidence": "rules.js actual output against declared expected status"
+    },
+    {
+      "test": "numeric R10 latest",
+      "expected": "R10",
+      "actual": "R10",
+      "passed": true,
+      "evidence": "R02 and R10 physical fixtures"
+    },
+    {
+      "test": "DXF alone requires PDF and DWG",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "evidence": "latest pair rule"
+    },
+    {
+      "test": "case and numeric equivalent revision duplicates",
+      "expected": 2,
+      "actual": 2,
+      "passed": true,
+      "evidence": "R2=R02; case-insensitive drawing/format"
+    },
+    {
+      "test": "same drawing different titles",
+      "expected": 2,
+      "actual": 2,
+      "passed": true,
+      "evidence": "unexpected name mismatch must be visible"
+    },
+    {
+      "test": "gaps do not imply missing drawings",
+      "expected": 0,
+      "actual": 0,
+      "passed": true,
+      "evidence": "no missing number inference"
+    },
+    {
+      "test": "CSV formula-safe \"=1+1\"",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "evidence": "formula-leading text neutralized"
+    },
+    {
+      "test": "CSV formula-safe \"+SUM(A1)\"",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "evidence": "formula-leading text neutralized"
+    },
+    {
+      "test": "CSV formula-safe \"-3+4\"",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "evidence": "formula-leading text neutralized"
+    },
+    {
+      "test": "CSV formula-safe \"@SUM(A1)\"",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "evidence": "formula-leading text neutralized"
+    },
+    {
+      "test": "CSV formula-safe \"  =1\"",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "evidence": "formula-leading text neutralized"
+    },
+    {
+      "test": "CSV formula-safe \"\\t=1\"",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "evidence": "formula-leading text neutralized"
+    },
+    {
+      "test": "CSV quote and newline escaping",
+      "expected": "\"메모,\"\"큰따옴표\"\"\n다음\"",
+      "actual": "\"메모,\"\"큰따옴표\"\"\n다음\"",
+      "passed": true,
+      "evidence": "RFC-style field escaping"
+    },
+    {
+      "test": "NFC filename normalization",
+      "expected": "1층평면도",
+      "actual": "1층평면도",
+      "passed": true,
+      "evidence": "decomposed Korean filename"
+    },
+    {
+      "test": "ZIP runtime index.html",
+      "expected": "fd81ef21e50e774635d8ad8f5dc67875af79c00a207cb74f2f48bb93ab792115",
+      "actual": "fd81ef21e50e774635d8ad8f5dc67875af79c00a207cb74f2f48bb93ab792115",
+      "passed": true,
+      "evidence": "clean extraction matches source bytes"
+    },
+    {
+      "test": "ZIP runtime app.js",
+      "expected": "18afb7e831e0eb0ce97c034e9cffbc244e4d781c62aa7f2523631d9e78877785",
+      "actual": "18afb7e831e0eb0ce97c034e9cffbc244e4d781c62aa7f2523631d9e78877785",
+      "passed": true,
+      "evidence": "clean extraction matches source bytes"
+    },
+    {
+      "test": "ZIP runtime rules.js",
+      "expected": "819441f2432971db0dd081bbb3b63154963b407b0612f45b01a49b160b00ec39",
+      "actual": "819441f2432971db0dd081bbb3b63154963b407b0612f45b01a49b160b00ec39",
+      "passed": true,
+      "evidence": "clean extraction matches source bytes"
+    },
+    {
+      "test": "ZIP runtime style.css",
+      "expected": "61dd59dea4ccc091c6caae70407e417c8cd7e05b3f8770835c418e157ab64f9f",
+      "actual": "61dd59dea4ccc091c6caae70407e417c8cd7e05b3f8770835c418e157ab64f9f",
+      "passed": true,
+      "evidence": "clean extraction matches source bytes"
+    },
+    {
+      "test": "ZIP runtime sample-data.js",
+      "expected": "fbd3b6caeb44636c14b3c71e3e351c8e2fb264e7567fe9105ca629c396e2d70b",
+      "actual": "fbd3b6caeb44636c14b3c71e3e351c8e2fb264e7567fe9105ca629c396e2d70b",
+      "passed": true,
+      "evidence": "clean extraction matches source bytes"
+    },
+    {
+      "test": "ZIP runtime sample-manifest.json",
+      "expected": "db45b45114af8f56d1d2391a9775ea77b8132ddf4ab806237562f7ceec2a5a62",
+      "actual": "db45b45114af8f56d1d2391a9775ea77b8132ddf4ab806237562f7ceec2a5a62",
+      "passed": true,
+      "evidence": "clean extraction matches source bytes"
+    },
+    {
+      "test": "ZIP runtime README.txt",
+      "expected": "8e62cddc7435f74c5f700f61dd1fd96d7fb17308107b11b486402d54cb7bd979",
+      "actual": "8e62cddc7435f74c5f700f61dd1fd96d7fb17308107b11b486402d54cb7bd979",
+      "passed": true,
+      "evidence": "clean extraction matches source bytes"
+    },
+    {
+      "test": "physical stub count",
+      "expected": 29,
+      "actual": 29,
+      "passed": true,
+      "evidence": "clean extracted DRAWING_TEST"
+    },
+    {
+      "test": "file:// empty next action",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "evidence": "fresh ZIP extraction"
+    },
+    {
+      "test": "empty CSV disabled",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "evidence": "no empty CSV download"
+    },
+    {
+      "test": "keyboard skip link",
+      "expected": "점검 결과로 이동",
+      "actual": "점검 결과로 이동",
+      "passed": true,
+      "evidence": "keyboard first focus"
+    },
+    {
+      "test": "keyboard folder button",
+      "expected": "choose-folder",
+      "actual": "choose-folder",
+      "passed": true,
+      "evidence": "visible action keyboard focus"
+    },
+    {
+      "test": "sample rows",
+      "expected": 24,
+      "actual": 24,
+      "passed": true,
+      "evidence": "sample-data.js static file, no fetch"
+    },
+    {
+      "test": "sample summary total",
+      "expected": "29",
+      "actual": "29",
+      "passed": true,
+      "evidence": "visible card"
+    },
+    {
+      "test": "sample summary drawings",
+      "expected": "9",
+      "actual": "9",
+      "passed": true,
+      "evidence": "visible card"
+    },
+    {
+      "test": "sample summary needs",
+      "expected": "8",
+      "actual": "8",
+      "passed": true,
+      "evidence": "visible card"
+    },
+    {
+      "test": "sample summary previous",
+      "expected": "4",
+      "actual": "4",
+      "passed": true,
+      "evidence": "visible card"
+    },
+    {
+      "test": "sample exclusions",
+      "expected": 5,
+      "actual": 5,
+      "passed": true,
+      "evidence": "explicit ignored reasons"
+    },
+    {
+      "test": "filter normal",
+      "expected": 12,
+      "actual": 12,
+      "passed": true,
+      "evidence": "actual filter click"
+    },
+    {
+      "test": "filter needs",
+      "expected": 8,
+      "actual": 8,
+      "passed": true,
+      "evidence": "actual filter click"
+    },
+    {
+      "test": "filter previous",
+      "expected": 4,
+      "actual": 4,
+      "passed": true,
+      "evidence": "actual filter click"
+    },
+    {
+      "test": "filter all",
+      "expected": 24,
+      "actual": 24,
+      "passed": true,
+      "evidence": "actual filter click"
+    },
+    {
+      "test": "download CSV BOM",
+      "expected": "efbbbf",
+      "actual": "efbbbf",
+      "passed": true,
+      "evidence": "browser Blob download"
+    },
+    {
+      "test": "download CSV exact sample",
+      "expected": "﻿\"상태\",\"파일명\",\"상대경로\",\"도면번호\",\"도면명\",\"이 파일 리비전\",\"최신 후보\",\"파일형식\",\"최신 후보 보유 형식\",\"확인사항\",\"크기(byte)\"\r\n\"파일명 확인\",\"A-106_단면도.pdf\",\"A-106_단면도.pdf\",\"\",\"\",\"\",\"\",\"PDF\",\"\",\"[도면번호]_[도면명]_R[숫자].[pdf|dwg|dxf] 형식을 확인하세요.\",\"95\"\r\n\"파일명 확인\",\"A-107__R01.pdf\",\"A-107__R01.pdf\",\"\",\"\",\"\",\"\",\"PDF\",\"\",\"[도면번호]_[도면명]_R[숫자].[pdf|dwg|dxf] 형식을 확인하세요.\",\"90\"\r\n\"파일명 확인\",\"A101_입면도_최종.pdf\",\"A101_입면도_최종.pdf\",\"\",\"\",\"\",\"\",\"PDF\",\"\",\"[도면번호]_[도면명]_R[숫자].[pdf|dwg|dxf] 형식을 확인하세요.\",\"101\"\r\n\"정상\",\"A-101_1층평면도_R02.dwg\",\"A-101_1층평면도_R02.dwg\",\"A-101\",\"1층평면도\",\"R02\",\"R02\",\"DWG\",\"DWG · PDF\",\"여러 리비전: R01 / R02\",\"103\"\r\n\"정상\",\"A-101_1층평면도_R02.pdf\",\"A-101_1층평면도_R02.pdf\",\"A-101\",\"1층평면도\",\"R02\",\"R02\",\"PDF\",\"DWG · PDF\",\"여러 리비전: R01 / R02\",\"103\"\r\n\"이전 리비전\",\"A-101_1층평면도_R01.pdf\",\"A-101_1층평면도_R01.pdf\",\"A-101\",\"1층평면도\",\"R01\",\"R02\",\"PDF\",\"DWG · PDF\",\"여러 리비전: R01 / R02 / 이전 리비전 · 최신 후보 R02\",\"103\"\r\n\"정상\",\"A-102_2층평면도_R01.dwg\",\"A-102_2층평면도_R01.dwg\",\"A-102\",\"2층평면도\",\"R01\",\"R01\",\"DWG\",\"DWG · DXF · PDF\",\"파일명 규칙과 최신 후보 PDF/DWG 짝 확인됨\",\"103\"\r\n\"정상\",\"A-102_2층평면도_R01.dxf\",\"A-102_2층평면도_R01.dxf\",\"A-102\",\"2층평면도\",\"R01\",\"R01\",\"DXF\",\"DWG · DXF · PDF\",\"파일명 규칙과 최신 후보 PDF/DWG 짝 확인됨\",\"103\"\r\n\"정상\",\"A-102_2층평면도_R01.pdf\",\"A-102_2층평면도_R01.pdf\",\"A-102\",\"2층평면도\",\"R01\",\"R01\",\"PDF\",\"DWG · DXF · PDF\",\"파일명 규칙과 최신 후보 PDF/DWG 짝 확인됨\",\"103\"\r\n\"확인 필요\",\"A-103_천장평면도_R01.pdf\",\"A-103_천장평면도_R01.pdf\",\"A-103\",\"천장평면도\",\"R01\",\"R01\",\"PDF\",\"PDF\",\"형식 확인 필요 · 최신 후보에 DWG 없음\",\"105\"\r\n\"확인 필요\",\"A-104_입면도_R01.dwg\",\"A-104_입면도_R01.dwg\",\"A-104\",\"입면도\",\"R01\",\"R01\",\"DWG\",\"DWG\",\"형식 확인 필요 · 최신 후보에 PDF 없음\",\"99\"\r\n\"확인 필요\",\"A-105_단면도_R01.dxf\",\"A-105_단면도_R01.dxf\",\"A-105\",\"단면도\",\"R01\",\"R01\",\"DXF\",\"DXF\",\"형식 확인 필요 · 최신 후보에 PDF·DWG 없음\",\"99\"\r\n\"정상\",\"A-108_상세도_R03.dwg\",\"A-108_상세도_R03.dwg\",\"A-108\",\"상세도\",\"R03\",\"R03\",\"DWG\",\"DWG · PDF\",\"여러 리비전: R01 / R02 / R03\",\"99\"\r\n\"정상\",\"A-108_상세도_R03.pdf\",\"A-108_상세도_R03.pdf\",\"A-108\",\"상세도\",\"R03\",\"R03\",\"PDF\",\"DWG · PDF\",\"여러 리비전: R01 / R02 / R03\",\"99\"\r\n\"이전 리비전\",\"A-108_상세도_R02.pdf\",\"A-108_상세도_R02.pdf\",\"A-108\",\"상세도\",\"R02\",\"R03\",\"PDF\",\"DWG · PDF\",\"여러 리비전: R01 / R02 / R03 / 이전 리비전 · 최신 후보 R03\",\"99\"\r\n\"이전 리비전\",\"A-108_상세도_R01.pdf\",\"A-108_상세도_R01.pdf\",\"A-108\",\"상세도\",\"R01\",\"R03\",\"PDF\",\"DWG · PDF\",\"여러 리비전: R01 / R02 / R03 / 이전 리비전 · 최신 후보 R03\",\"99\"\r\n\"정상\",\"A-109_배치도_R10.dwg\",\"A-109_배치도_R10.dwg\",\"A-109\",\"배치도\",\"R10\",\"R10\",\"DWG\",\"DWG · PDF\",\"여러 리비전: R02 / R10\",\"99\"\r\n\"정상\",\"A-109_배치도_R10.pdf\",\"A-109_배치도_R10.pdf\",\"A-109\",\"배치도\",\"R10\",\"R10\",\"PDF\",\"DWG · PDF\",\"여러 리비전: R02 / R10\",\"99\"\r\n\"이전 리비전\",\"A-109_배치도_R02.pdf\",\"A-109_배치도_R02.pdf\",\"A-109\",\"배치도\",\"R02\",\"R10\",\"PDF\",\"DWG · PDF\",\"여러 리비전: R02 / R10 / 이전 리비전 · 최신 후보 R10\",\"99\"\r\n\"확인 필요\",\"A-110_계단상세_R02.pdf\",\"복사본/A-110_계단상세_R02.pdf\",\"A-110\",\"계단상세\",\"R02\",\"R02\",\"PDF\",\"DWG · PDF\",\"중복 후보 · 같은 도면번호·리비전·형식\",\"112\"\r\n\"확인 필요\",\"A-110_계단상세_R02.pdf\",\"원본/A-110_계단상세_R02.pdf\",\"A-110\",\"계단상세\",\"R02\",\"R02\",\"PDF\",\"DWG · PDF\",\"중복 후보 · 같은 도면번호·리비전·형식\",\"109\"\r\n\"정상\",\"A-110_계단상세_R02.dwg\",\"A-110_계단상세_R02.dwg\",\"A-110\",\"계단상세\",\"R02\",\"R02\",\"DWG\",\"DWG · PDF\",\"파일명 규칙과 최신 후보 PDF/DWG 짝 확인됨\",\"102\"\r\n\"정상\",\"A-111_로비_벽체상세_R01.dwg\",\"A-111_로비_벽체상세_R01.dwg\",\"A-111\",\"로비_벽체상세\",\"R01\",\"R01\",\"DWG\",\"DWG · PDF\",\"파일명 규칙과 최신 후보 PDF/DWG 짝 확인됨\",\"109\"\r\n\"정상\",\"A-111_로비_벽체상세_R01.pdf\",\"A-111_로비_벽체상세_R01.pdf\",\"A-111\",\"로비_벽체상세\",\"R01\",\"R01\",\"PDF\",\"DWG · PDF\",\"파일명 규칙과 최신 후보 PDF/DWG 짝 확인됨\",\"109\"\r\n\"제외\",\"설명.txt\",\"설명.txt\",\"\",\"\",\"\",\"\",\"\",\"\",\"지원하지 않는 형식\",\"86\"\r\n\"제외\",\"A-112_임시도면_R01.pdf.tmp\",\"A-112_임시도면_R01.pdf.tmp\",\"\",\"\",\"\",\"\",\"\",\"\",\"임시·백업 파일\",\"106\"\r\n\"제외\",\".숨김.pdf\",\".숨김.pdf\",\"\",\"\",\"\",\"\",\"\",\"\",\"숨김 이름 또는 숨김 폴더\",\"87\"\r\n\"제외\",\"A-113_검토도면_R01.pdf\",\".숨김폴더/A-113_검토도면_R01.pdf\",\"\",\"\",\"\",\"\",\"\",\"\",\"숨김 이름 또는 숨김 폴더\",\"116\"\r\n\"제외\",\"~$A-114_임시도면_R01.dwg\",\"~$A-114_임시도면_R01.dwg\",\"\",\"\",\"\",\"\",\"\",\"\",\"임시·백업 파일\",\"104\"\r\n",
+      "actual": "﻿\"상태\",\"파일명\",\"상대경로\",\"도면번호\",\"도면명\",\"이 파일 리비전\",\"최신 후보\",\"파일형식\",\"최신 후보 보유 형식\",\"확인사항\",\"크기(byte)\"\r\n\"파일명 확인\",\"A-106_단면도.pdf\",\"A-106_단면도.pdf\",\"\",\"\",\"\",\"\",\"PDF\",\"\",\"[도면번호]_[도면명]_R[숫자].[pdf|dwg|dxf] 형식을 확인하세요.\",\"95\"\r\n\"파일명 확인\",\"A-107__R01.pdf\",\"A-107__R01.pdf\",\"\",\"\",\"\",\"\",\"PDF\",\"\",\"[도면번호]_[도면명]_R[숫자].[pdf|dwg|dxf] 형식을 확인하세요.\",\"90\"\r\n\"파일명 확인\",\"A101_입면도_최종.pdf\",\"A101_입면도_최종.pdf\",\"\",\"\",\"\",\"\",\"PDF\",\"\",\"[도면번호]_[도면명]_R[숫자].[pdf|dwg|dxf] 형식을 확인하세요.\",\"101\"\r\n\"정상\",\"A-101_1층평면도_R02.dwg\",\"A-101_1층평면도_R02.dwg\",\"A-101\",\"1층평면도\",\"R02\",\"R02\",\"DWG\",\"DWG · PDF\",\"여러 리비전: R01 / R02\",\"103\"\r\n\"정상\",\"A-101_1층평면도_R02.pdf\",\"A-101_1층평면도_R02.pdf\",\"A-101\",\"1층평면도\",\"R02\",\"R02\",\"PDF\",\"DWG · PDF\",\"여러 리비전: R01 / R02\",\"103\"\r\n\"이전 리비전\",\"A-101_1층평면도_R01.pdf\",\"A-101_1층평면도_R01.pdf\",\"A-101\",\"1층평면도\",\"R01\",\"R02\",\"PDF\",\"DWG · PDF\",\"여러 리비전: R01 / R02 / 이전 리비전 · 최신 후보 R02\",\"103\"\r\n\"정상\",\"A-102_2층평면도_R01.dwg\",\"A-102_2층평면도_R01.dwg\",\"A-102\",\"2층평면도\",\"R01\",\"R01\",\"DWG\",\"DWG · DXF · PDF\",\"파일명 규칙과 최신 후보 PDF/DWG 짝 확인됨\",\"103\"\r\n\"정상\",\"A-102_2층평면도_R01.dxf\",\"A-102_2층평면도_R01.dxf\",\"A-102\",\"2층평면도\",\"R01\",\"R01\",\"DXF\",\"DWG · DXF · PDF\",\"파일명 규칙과 최신 후보 PDF/DWG 짝 확인됨\",\"103\"\r\n\"정상\",\"A-102_2층평면도_R01.pdf\",\"A-102_2층평면도_R01.pdf\",\"A-102\",\"2층평면도\",\"R01\",\"R01\",\"PDF\",\"DWG · DXF · PDF\",\"파일명 규칙과 최신 후보 PDF/DWG 짝 확인됨\",\"103\"\r\n\"확인 필요\",\"A-103_천장평면도_R01.pdf\",\"A-103_천장평면도_R01.pdf\",\"A-103\",\"천장평면도\",\"R01\",\"R01\",\"PDF\",\"PDF\",\"형식 확인 필요 · 최신 후보에 DWG 없음\",\"105\"\r\n\"확인 필요\",\"A-104_입면도_R01.dwg\",\"A-104_입면도_R01.dwg\",\"A-104\",\"입면도\",\"R01\",\"R01\",\"DWG\",\"DWG\",\"형식 확인 필요 · 최신 후보에 PDF 없음\",\"99\"\r\n\"확인 필요\",\"A-105_단면도_R01.dxf\",\"A-105_단면도_R01.dxf\",\"A-105\",\"단면도\",\"R01\",\"R01\",\"DXF\",\"DXF\",\"형식 확인 필요 · 최신 후보에 PDF·DWG 없음\",\"99\"\r\n\"정상\",\"A-108_상세도_R03.dwg\",\"A-108_상세도_R03.dwg\",\"A-108\",\"상세도\",\"R03\",\"R03\",\"DWG\",\"DWG · PDF\",\"여러 리비전: R01 / R02 / R03\",\"99\"\r\n\"정상\",\"A-108_상세도_R03.pdf\",\"A-108_상세도_R03.pdf\",\"A-108\",\"상세도\",\"R03\",\"R03\",\"PDF\",\"DWG · PDF\",\"여러 리비전: R01 / R02 / R03\",\"99\"\r\n\"이전 리비전\",\"A-108_상세도_R02.pdf\",\"A-108_상세도_R02.pdf\",\"A-108\",\"상세도\",\"R02\",\"R03\",\"PDF\",\"DWG · PDF\",\"여러 리비전: R01 / R02 / R03 / 이전 리비전 · 최신 후보 R03\",\"99\"\r\n\"이전 리비전\",\"A-108_상세도_R01.pdf\",\"A-108_상세도_R01.pdf\",\"A-108\",\"상세도\",\"R01\",\"R03\",\"PDF\",\"DWG · PDF\",\"여러 리비전: R01 / R02 / R03 / 이전 리비전 · 최신 후보 R03\",\"99\"\r\n\"정상\",\"A-109_배치도_R10.dwg\",\"A-109_배치도_R10.dwg\",\"A-109\",\"배치도\",\"R10\",\"R10\",\"DWG\",\"DWG · PDF\",\"여러 리비전: R02 / R10\",\"99\"\r\n\"정상\",\"A-109_배치도_R10.pdf\",\"A-109_배치도_R10.pdf\",\"A-109\",\"배치도\",\"R10\",\"R10\",\"PDF\",\"DWG · PDF\",\"여러 리비전: R02 / R10\",\"99\"\r\n\"이전 리비전\",\"A-109_배치도_R02.pdf\",\"A-109_배치도_R02.pdf\",\"A-109\",\"배치도\",\"R02\",\"R10\",\"PDF\",\"DWG · PDF\",\"여러 리비전: R02 / R10 / 이전 리비전 · 최신 후보 R10\",\"99\"\r\n\"확인 필요\",\"A-110_계단상세_R02.pdf\",\"복사본/A-110_계단상세_R02.pdf\",\"A-110\",\"계단상세\",\"R02\",\"R02\",\"PDF\",\"DWG · PDF\",\"중복 후보 · 같은 도면번호·리비전·형식\",\"112\"\r\n\"확인 필요\",\"A-110_계단상세_R02.pdf\",\"원본/A-110_계단상세_R02.pdf\",\"A-110\",\"계단상세\",\"R02\",\"R02\",\"PDF\",\"DWG · PDF\",\"중복 후보 · 같은 도면번호·리비전·형식\",\"109\"\r\n\"정상\",\"A-110_계단상세_R02.dwg\",\"A-110_계단상세_R02.dwg\",\"A-110\",\"계단상세\",\"R02\",\"R02\",\"DWG\",\"DWG · PDF\",\"파일명 규칙과 최신 후보 PDF/DWG 짝 확인됨\",\"102\"\r\n\"정상\",\"A-111_로비_벽체상세_R01.dwg\",\"A-111_로비_벽체상세_R01.dwg\",\"A-111\",\"로비_벽체상세\",\"R01\",\"R01\",\"DWG\",\"DWG · PDF\",\"파일명 규칙과 최신 후보 PDF/DWG 짝 확인됨\",\"109\"\r\n\"정상\",\"A-111_로비_벽체상세_R01.pdf\",\"A-111_로비_벽체상세_R01.pdf\",\"A-111\",\"로비_벽체상세\",\"R01\",\"R01\",\"PDF\",\"DWG · PDF\",\"파일명 규칙과 최신 후보 PDF/DWG 짝 확인됨\",\"109\"\r\n\"제외\",\"설명.txt\",\"설명.txt\",\"\",\"\",\"\",\"\",\"\",\"\",\"지원하지 않는 형식\",\"86\"\r\n\"제외\",\"A-112_임시도면_R01.pdf.tmp\",\"A-112_임시도면_R01.pdf.tmp\",\"\",\"\",\"\",\"\",\"\",\"\",\"임시·백업 파일\",\"106\"\r\n\"제외\",\".숨김.pdf\",\".숨김.pdf\",\"\",\"\",\"\",\"\",\"\",\"\",\"숨김 이름 또는 숨김 폴더\",\"87\"\r\n\"제외\",\"A-113_검토도면_R01.pdf\",\".숨김폴더/A-113_검토도면_R01.pdf\",\"\",\"\",\"\",\"\",\"\",\"\",\"숨김 이름 또는 숨김 폴더\",\"116\"\r\n\"제외\",\"~$A-114_임시도면_R01.dwg\",\"~$A-114_임시도면_R01.dwg\",\"\",\"\",\"\",\"\",\"\",\"\",\"임시·백업 파일\",\"104\"\r\n",
+      "passed": true,
+      "evidence": "all statuses and exclusions preserved"
+    },
+    {
+      "test": "reset rows",
+      "expected": 0,
+      "actual": 0,
+      "passed": true,
+      "evidence": "reset leaves source files intact"
+    },
+    {
+      "test": "reset summary",
+      "expected": "0",
+      "actual": "0",
+      "passed": true,
+      "evidence": "reset"
+    },
+    {
+      "test": "actual multiple files",
+      "expected": 29,
+      "actual": 29,
+      "passed": true,
+      "evidence": "browser FileChooser with physical stubs"
+    },
+    {
+      "test": "multiple selection basename duplicate",
+      "expected": 2,
+      "actual": 2,
+      "passed": true,
+      "evidence": "same filename chosen from two folders"
+    },
+    {
+      "test": "actual folder file count",
+      "expected": 29,
+      "actual": 29,
+      "passed": true,
+      "evidence": "browser webkitdirectory FileChooser, including subfolders"
+    },
+    {
+      "test": "folder excluded paths",
+      "expected": 5,
+      "actual": 5,
+      "passed": true,
+      "evidence": "hidden-named folder retained and excluded"
+    },
+    {
+      "test": "folder duplicates across relative paths",
+      "expected": 2,
+      "actual": 2,
+      "passed": true,
+      "evidence": "원본 and 복사본 paths preserved"
+    },
+    {
+      "test": "folder actual A-101_1층평면도_R01.pdf",
+      "expected": "이전 리비전",
+      "actual": "이전 리비전",
+      "passed": true,
+      "evidence": "rendered result for physical path"
+    },
+    {
+      "test": "folder actual A-101_1층평면도_R02.pdf",
+      "expected": "정상",
+      "actual": "정상",
+      "passed": true,
+      "evidence": "rendered result for physical path"
+    },
+    {
+      "test": "folder actual A-101_1층평면도_R02.dwg",
+      "expected": "정상",
+      "actual": "정상",
+      "passed": true,
+      "evidence": "rendered result for physical path"
+    },
+    {
+      "test": "folder actual A-102_2층평면도_R01.pdf",
+      "expected": "정상",
+      "actual": "정상",
+      "passed": true,
+      "evidence": "rendered result for physical path"
+    },
+    {
+      "test": "folder actual A-102_2층평면도_R01.dwg",
+      "expected": "정상",
+      "actual": "정상",
+      "passed": true,
+      "evidence": "rendered result for physical path"
+    },
+    {
+      "test": "folder actual A-102_2층평면도_R01.dxf",
+      "expected": "정상",
+      "actual": "정상",
+      "passed": true,
+      "evidence": "rendered result for physical path"
+    },
+    {
+      "test": "folder actual A-103_천장평면도_R01.pdf",
+      "expected": "확인 필요",
+      "actual": "확인 필요",
+      "passed": true,
+      "evidence": "rendered result for physical path"
+    },
+    {
+      "test": "folder actual A-104_입면도_R01.dwg",
+      "expected": "확인 필요",
+      "actual": "확인 필요",
+      "passed": true,
+      "evidence": "rendered result for physical path"
+    },
+    {
+      "test": "folder actual A-105_단면도_R01.dxf",
+      "expected": "확인 필요",
+      "actual": "확인 필요",
+      "passed": true,
+      "evidence": "rendered result for physical path"
+    },
+    {
+      "test": "folder actual A101_입면도_최종.pdf",
+      "expected": "파일명 확인",
+      "actual": "파일명 확인",
+      "passed": true,
+      "evidence": "rendered result for physical path"
+    },
+    {
+      "test": "folder actual A-106_단면도.pdf",
+      "expected": "파일명 확인",
+      "actual": "파일명 확인",
+      "passed": true,
+      "evidence": "rendered result for physical path"
+    },
+    {
+      "test": "folder actual A-107__R01.pdf",
+      "expected": "파일명 확인",
+      "actual": "파일명 확인",
+      "passed": true,
+      "evidence": "rendered result for physical path"
+    },
+    {
+      "test": "folder actual A-108_상세도_R01.pdf",
+      "expected": "이전 리비전",
+      "actual": "이전 리비전",
+      "passed": true,
+      "evidence": "rendered result for physical path"
+    },
+    {
+      "test": "folder actual A-108_상세도_R02.pdf",
+      "expected": "이전 리비전",
+      "actual": "이전 리비전",
+      "passed": true,
+      "evidence": "rendered result for physical path"
+    },
+    {
+      "test": "folder actual A-108_상세도_R03.pdf",
+      "expected": "정상",
+      "actual": "정상",
+      "passed": true,
+      "evidence": "rendered result for physical path"
+    },
+    {
+      "test": "folder actual A-108_상세도_R03.dwg",
+      "expected": "정상",
+      "actual": "정상",
+      "passed": true,
+      "evidence": "rendered result for physical path"
+    },
+    {
+      "test": "folder actual A-109_배치도_R02.pdf",
+      "expected": "이전 리비전",
+      "actual": "이전 리비전",
+      "passed": true,
+      "evidence": "rendered result for physical path"
+    },
+    {
+      "test": "folder actual A-109_배치도_R10.pdf",
+      "expected": "정상",
+      "actual": "정상",
+      "passed": true,
+      "evidence": "rendered result for physical path"
+    },
+    {
+      "test": "folder actual A-109_배치도_R10.dwg",
+      "expected": "정상",
+      "actual": "정상",
+      "passed": true,
+      "evidence": "rendered result for physical path"
+    },
+    {
+      "test": "folder actual 원본/A-110_계단상세_R02.pdf",
+      "expected": "확인 필요",
+      "actual": "확인 필요",
+      "passed": true,
+      "evidence": "rendered result for physical path"
+    },
+    {
+      "test": "folder actual 복사본/A-110_계단상세_R02.pdf",
+      "expected": "확인 필요",
+      "actual": "확인 필요",
+      "passed": true,
+      "evidence": "rendered result for physical path"
+    },
+    {
+      "test": "folder actual A-110_계단상세_R02.dwg",
+      "expected": "정상",
+      "actual": "정상",
+      "passed": true,
+      "evidence": "rendered result for physical path"
+    },
+    {
+      "test": "folder actual A-111_로비_벽체상세_R01.pdf",
+      "expected": "정상",
+      "actual": "정상",
+      "passed": true,
+      "evidence": "rendered result for physical path"
+    },
+    {
+      "test": "folder actual A-111_로비_벽체상세_R01.dwg",
+      "expected": "정상",
+      "actual": "정상",
+      "passed": true,
+      "evidence": "rendered result for physical path"
+    },
+    {
+      "test": "file body APIs called",
+      "expected": [],
+      "actual": [],
+      "passed": true,
+      "evidence": "text/arrayBuffer/stream/FileReader instrumented to fail"
+    },
+    {
+      "test": "overflow 1440",
+      "expected": 1440,
+      "actual": 1440,
+      "passed": true,
+      "evidence": "document horizontal size"
+    },
+    {
+      "test": "buttons fit 1440",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "evidence": "44px minimum touch target and no clipped button"
+    },
+    {
+      "test": "overflow 390",
+      "expected": 390,
+      "actual": 390,
+      "passed": true,
+      "evidence": "document horizontal size"
+    },
+    {
+      "test": "buttons fit 390",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "evidence": "44px minimum touch target and no clipped button"
+    },
+    {
+      "test": "mobile cards 390",
+      "expected": "block",
+      "actual": "block",
+      "passed": true,
+      "evidence": "table switches to stacked labelled cards"
+    },
+    {
+      "test": "overflow 320",
+      "expected": 320,
+      "actual": 320,
+      "passed": true,
+      "evidence": "document horizontal size"
+    },
+    {
+      "test": "buttons fit 320",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "evidence": "44px minimum touch target and no clipped button"
+    },
+    {
+      "test": "mobile cards 320",
+      "expected": "block",
+      "actual": "block",
+      "passed": true,
+      "evidence": "table switches to stacked labelled cards"
+    },
+    {
+      "test": "filename HTML not interpreted",
+      "expected": 0,
+      "actual": 0,
+      "passed": true,
+      "evidence": "textContent rendering"
+    },
+    {
+      "test": "malicious text preserved visibly",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "evidence": "no HTML rendering"
+    },
+    {
+      "test": "HTTP demo rows equal file mode",
+      "expected": 24,
+      "actual": 24,
+      "passed": true,
+      "evidence": "same clean extracted files served by temporary local static server"
+    },
+    {
+      "test": "external network requests",
+      "expected": [],
+      "actual": [],
+      "passed": true,
+      "evidence": "browser request event through file:// and local HTTP flow"
+    },
+    {
+      "test": "browser errors",
+      "expected": [],
+      "actual": [],
+      "passed": true,
+      "evidence": "pageerror listener"
+    },
+    {
+      "test": "source fixture unchanged .숨김.pdf",
+      "expected": "0f4d5cb7003f442c1914099d785557572dc986bff96b264acdb3f1e36ef5f73e",
+      "actual": "0f4d5cb7003f442c1914099d785557572dc986bff96b264acdb3f1e36ef5f73e",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source fixture unchanged .숨김폴더\\A-113_검토도면_R01.pdf",
+      "expected": "fc476e6652730cb29d31c5814c9000816d2e447b3b6c7627c55a6b79b8d77dbe",
+      "actual": "fc476e6652730cb29d31c5814c9000816d2e447b3b6c7627c55a6b79b8d77dbe",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source fixture unchanged A-101_1층평면도_R01.pdf",
+      "expected": "3285141ad2b4feeaa784b644e2fcc5d6c3453edac89bcc63105343086852ba2c",
+      "actual": "3285141ad2b4feeaa784b644e2fcc5d6c3453edac89bcc63105343086852ba2c",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source fixture unchanged A-101_1층평면도_R02.dwg",
+      "expected": "4b2d3fe8aa6b9b24334d6c63fdf3b00381c4951c6a386ea93b1e8a58833259fa",
+      "actual": "4b2d3fe8aa6b9b24334d6c63fdf3b00381c4951c6a386ea93b1e8a58833259fa",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source fixture unchanged A-101_1층평면도_R02.pdf",
+      "expected": "1f443102562f12a75cc1a898df869c7fa188873962a9834d4dac10da7418876b",
+      "actual": "1f443102562f12a75cc1a898df869c7fa188873962a9834d4dac10da7418876b",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source fixture unchanged A-102_2층평면도_R01.dwg",
+      "expected": "6ac29102d6bccde8c16a89ca2d5cfc51a0beac7a6a760b4a23b93b66fc6b4799",
+      "actual": "6ac29102d6bccde8c16a89ca2d5cfc51a0beac7a6a760b4a23b93b66fc6b4799",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source fixture unchanged A-102_2층평면도_R01.dxf",
+      "expected": "f0368e91de1acdcf4e33841e1f255ff168a5da8bb8c20a0aa8de85cb03eab914",
+      "actual": "f0368e91de1acdcf4e33841e1f255ff168a5da8bb8c20a0aa8de85cb03eab914",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source fixture unchanged A-102_2층평면도_R01.pdf",
+      "expected": "c6a2562e9e27ae7ac41cd18c5ec81df82a7706d6366a61051bb8d9431ad4aea5",
+      "actual": "c6a2562e9e27ae7ac41cd18c5ec81df82a7706d6366a61051bb8d9431ad4aea5",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source fixture unchanged A-103_천장평면도_R01.pdf",
+      "expected": "bdab18eebaf29a922dc7bb525ac5f95ca246e935d5d5cc143de31d811e2bffb6",
+      "actual": "bdab18eebaf29a922dc7bb525ac5f95ca246e935d5d5cc143de31d811e2bffb6",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source fixture unchanged A-104_입면도_R01.dwg",
+      "expected": "0c7e87567fbade7834c67bbaa71ef056821f44870baf08b59868f4d57670a31d",
+      "actual": "0c7e87567fbade7834c67bbaa71ef056821f44870baf08b59868f4d57670a31d",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source fixture unchanged A-105_단면도_R01.dxf",
+      "expected": "8b3c735910695f91f6257a1288ce684d16b69ae8995458daba438f09018872aa",
+      "actual": "8b3c735910695f91f6257a1288ce684d16b69ae8995458daba438f09018872aa",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source fixture unchanged A-106_단면도.pdf",
+      "expected": "6a9678627d714b6da8f91aad44be3e42a685acf957c53fe6d5515330def0d827",
+      "actual": "6a9678627d714b6da8f91aad44be3e42a685acf957c53fe6d5515330def0d827",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source fixture unchanged A-107__R01.pdf",
+      "expected": "1f58a293a65ececef521d5b175810075756fb0892e5facc549b17b6d97b7654e",
+      "actual": "1f58a293a65ececef521d5b175810075756fb0892e5facc549b17b6d97b7654e",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source fixture unchanged A-108_상세도_R01.pdf",
+      "expected": "b6676218aee47324f1de94acfb8e4a2fbed7b71852207b400ab19e4525a0038a",
+      "actual": "b6676218aee47324f1de94acfb8e4a2fbed7b71852207b400ab19e4525a0038a",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source fixture unchanged A-108_상세도_R02.pdf",
+      "expected": "d9cb3efacaeb3078f451213be7ec83e8f60c3c74beed94d4eef83459f13fdc79",
+      "actual": "d9cb3efacaeb3078f451213be7ec83e8f60c3c74beed94d4eef83459f13fdc79",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source fixture unchanged A-108_상세도_R03.dwg",
+      "expected": "c5aeb9fc8470b4b180bbb17a6620de0996031ae042e233e2cf1603ba59dad3db",
+      "actual": "c5aeb9fc8470b4b180bbb17a6620de0996031ae042e233e2cf1603ba59dad3db",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source fixture unchanged A-108_상세도_R03.pdf",
+      "expected": "f9a6ca03db31cac22b23e83d62a6470c4c03240c2556f766108a08e6a537797c",
+      "actual": "f9a6ca03db31cac22b23e83d62a6470c4c03240c2556f766108a08e6a537797c",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source fixture unchanged A-109_배치도_R02.pdf",
+      "expected": "eb5ff623b63db13703eda9f3488ee80a5ad4b32a6ef98a93288844e86902946a",
+      "actual": "eb5ff623b63db13703eda9f3488ee80a5ad4b32a6ef98a93288844e86902946a",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source fixture unchanged A-109_배치도_R10.dwg",
+      "expected": "6e7a6025b622f13b361a781ed890d55e62204f9a97ef377734b975afc1e63fda",
+      "actual": "6e7a6025b622f13b361a781ed890d55e62204f9a97ef377734b975afc1e63fda",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source fixture unchanged A-109_배치도_R10.pdf",
+      "expected": "e136cba8e5d7bb5910949b0af59d83d9e76bad042c2dc918334398dcb7fe67cb",
+      "actual": "e136cba8e5d7bb5910949b0af59d83d9e76bad042c2dc918334398dcb7fe67cb",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source fixture unchanged A-110_계단상세_R02.dwg",
+      "expected": "2e92c9e1da7051e196d7fad2b63fd3cd767e82cf8df2ae5d209082bbc5b74dfe",
+      "actual": "2e92c9e1da7051e196d7fad2b63fd3cd767e82cf8df2ae5d209082bbc5b74dfe",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source fixture unchanged A-111_로비_벽체상세_R01.dwg",
+      "expected": "b282da1e8005601f826967652d9058d20759055a513da2ea2120abd2c84b91e8",
+      "actual": "b282da1e8005601f826967652d9058d20759055a513da2ea2120abd2c84b91e8",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source fixture unchanged A-111_로비_벽체상세_R01.pdf",
+      "expected": "618c06075d04172b0a4f067114d4dc799d73581154f8e40789ae6e7eab278b91",
+      "actual": "618c06075d04172b0a4f067114d4dc799d73581154f8e40789ae6e7eab278b91",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source fixture unchanged A-112_임시도면_R01.pdf.tmp",
+      "expected": "e3e17774d4c9e39ac51f84cd472879c75f6b79ae324e7382f016991d5702f0f8",
+      "actual": "e3e17774d4c9e39ac51f84cd472879c75f6b79ae324e7382f016991d5702f0f8",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source fixture unchanged A101_입면도_최종.pdf",
+      "expected": "1d2fc1c924af941614ec45569049606b861614f598db96da362afae7f767dfec",
+      "actual": "1d2fc1c924af941614ec45569049606b861614f598db96da362afae7f767dfec",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source fixture unchanged ~$A-114_임시도면_R01.dwg",
+      "expected": "1af88c2edb4a8cb78b7cbb6028d6e31d05b549cdef87f87356c9196b1873d584",
+      "actual": "1af88c2edb4a8cb78b7cbb6028d6e31d05b549cdef87f87356c9196b1873d584",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source fixture unchanged 복사본\\A-110_계단상세_R02.pdf",
+      "expected": "bff779b6194590f5aae8de8dea201fc0915306cb28c566f5014ba9296607310a",
+      "actual": "bff779b6194590f5aae8de8dea201fc0915306cb28c566f5014ba9296607310a",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source fixture unchanged 설명.txt",
+      "expected": "bba47a5c05ce6f2a01159406b3431a788b9d42c9d8724b126f916c2740ac8665",
+      "actual": "bba47a5c05ce6f2a01159406b3431a788b9d42c9d8724b126f916c2740ac8665",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source fixture unchanged 원본\\A-110_계단상세_R02.pdf",
+      "expected": "42cbd5ea077be434cdea35829acb465ef21a754eeb0d5d31448075375bccbd06",
+      "actual": "42cbd5ea077be434cdea35829acb465ef21a754eeb0d5d31448075375bccbd06",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source runtime unchanged index.html",
+      "expected": "fd81ef21e50e774635d8ad8f5dc67875af79c00a207cb74f2f48bb93ab792115",
+      "actual": "fd81ef21e50e774635d8ad8f5dc67875af79c00a207cb74f2f48bb93ab792115",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source runtime unchanged app.js",
+      "expected": "18afb7e831e0eb0ce97c034e9cffbc244e4d781c62aa7f2523631d9e78877785",
+      "actual": "18afb7e831e0eb0ce97c034e9cffbc244e4d781c62aa7f2523631d9e78877785",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source runtime unchanged rules.js",
+      "expected": "819441f2432971db0dd081bbb3b63154963b407b0612f45b01a49b160b00ec39",
+      "actual": "819441f2432971db0dd081bbb3b63154963b407b0612f45b01a49b160b00ec39",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source runtime unchanged style.css",
+      "expected": "61dd59dea4ccc091c6caae70407e417c8cd7e05b3f8770835c418e157ab64f9f",
+      "actual": "61dd59dea4ccc091c6caae70407e417c8cd7e05b3f8770835c418e157ab64f9f",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source runtime unchanged sample-data.js",
+      "expected": "fbd3b6caeb44636c14b3c71e3e351c8e2fb264e7567fe9105ca629c396e2d70b",
+      "actual": "fbd3b6caeb44636c14b3c71e3e351c8e2fb264e7567fe9105ca629c396e2d70b",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source runtime unchanged sample-manifest.json",
+      "expected": "db45b45114af8f56d1d2391a9775ea77b8132ddf4ab806237562f7ceec2a5a62",
+      "actual": "db45b45114af8f56d1d2391a9775ea77b8132ddf4ab806237562f7ceec2a5a62",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "source runtime unchanged README.txt",
+      "expected": "8e62cddc7435f74c5f700f61dd1fd96d7fb17308107b11b486402d54cb7bd979",
+      "actual": "8e62cddc7435f74c5f700f61dd1fd96d7fb17308107b11b486402d54cb7bd979",
+      "passed": true,
+      "evidence": "pre/post SHA-256"
+    },
+    {
+      "test": "actual Excel Korean",
+      "expected": true,
+      "actual": true,
+      "passed": true,
+      "evidence": "Microsoft Excel COM opened browser-generated CSV without saving"
+    }
+  ],
+  "screens": [
+    {
+      "width": 1440,
+      "height": 1000,
+      "file": "review/daejeon/DRAWING_QUICK_CHECK_STUDENT/DRAWING_QUICK_CHECK_DESKTOP.png",
+      "scroll": 1440,
+      "buttons": [
+        {
+          "id": "choose-folder",
+          "width": 134.828125,
+          "height": 46.8125,
+          "left": 137,
+          "right": 271.828125
+        },
+        {
+          "id": "choose-files",
+          "width": 155.15625,
+          "height": 46.8125,
+          "left": 279.828125,
+          "right": 434.984375
+        },
+        {
+          "id": "load-sample",
+          "width": 129.53125,
+          "height": 46.8125,
+          "left": 442.984375,
+          "right": 572.515625
+        },
+        {
+          "id": "download-csv",
+          "width": 97.578125,
+          "height": 46.8125,
+          "left": 580.515625,
+          "right": 678.09375
+        },
+        {
+          "id": "reset",
+          "width": 79.125,
+          "height": 46.8125,
+          "left": 686.09375,
+          "right": 765.21875
+        },
+        {
+          "id": "all",
+          "width": 62.171875,
+          "height": 44,
+          "left": 112,
+          "right": 174.171875
+        },
+        {
+          "id": "normal",
+          "width": 62.171875,
+          "height": 44,
+          "left": 182.171875,
+          "right": 244.34375
+        },
+        {
+          "id": "needs",
+          "width": 95.28125,
+          "height": 44,
+          "left": 252.34375,
+          "right": 347.625
+        },
+        {
+          "id": "previous",
+          "width": 109.359375,
+          "height": 44,
+          "left": 355.625,
+          "right": 464.984375
+        }
+      ],
+      "mobile": false,
+      "tableDisplay": "table"
+    },
+    {
+      "width": 390,
+      "height": 1000,
+      "file": "review/daejeon/DRAWING_QUICK_CHECK_STUDENT/DRAWING_QUICK_CHECK_MOBILE.png",
+      "scroll": 390,
+      "buttons": [
+        {
+          "id": "choose-folder",
+          "width": 158,
+          "height": 44.171875,
+          "left": 33,
+          "right": 191
+        },
+        {
+          "id": "choose-files",
+          "width": 158,
+          "height": 44.171875,
+          "left": 199,
+          "right": 357
+        },
+        {
+          "id": "load-sample",
+          "width": 324,
+          "height": 44.171875,
+          "left": 33,
+          "right": 357
+        },
+        {
+          "id": "download-csv",
+          "width": 158,
+          "height": 44.171875,
+          "left": 33,
+          "right": 191
+        },
+        {
+          "id": "reset",
+          "width": 158,
+          "height": 44.171875,
+          "left": 199,
+          "right": 357
+        },
+        {
+          "id": "all",
+          "width": 175,
+          "height": 44,
+          "left": 16,
+          "right": 191
+        },
+        {
+          "id": "normal",
+          "width": 175,
+          "height": 44,
+          "left": 199,
+          "right": 374
+        },
+        {
+          "id": "needs",
+          "width": 175,
+          "height": 44,
+          "left": 16,
+          "right": 191
+        },
+        {
+          "id": "previous",
+          "width": 175,
+          "height": 44,
+          "left": 199,
+          "right": 374
+        }
+      ],
+      "mobile": true,
+      "tableDisplay": "block"
+    },
+    {
+      "width": 320,
+      "height": 1000,
+      "file": "review/daejeon/DRAWING_QUICK_CHECK_STUDENT/DRAWING_QUICK_CHECK_MOBILE_320.png",
+      "scroll": 320,
+      "buttons": [
+        {
+          "id": "choose-folder",
+          "width": 123,
+          "height": 44.171875,
+          "left": 33,
+          "right": 156
+        },
+        {
+          "id": "choose-files",
+          "width": 123,
+          "height": 44.171875,
+          "left": 164,
+          "right": 287
+        },
+        {
+          "id": "load-sample",
+          "width": 254,
+          "height": 44.171875,
+          "left": 33,
+          "right": 287
+        },
+        {
+          "id": "download-csv",
+          "width": 123,
+          "height": 44.171875,
+          "left": 33,
+          "right": 156
+        },
+        {
+          "id": "reset",
+          "width": 123,
+          "height": 44.171875,
+          "left": 164,
+          "right": 287
+        },
+        {
+          "id": "all",
+          "width": 140,
+          "height": 44,
+          "left": 16,
+          "right": 156
+        },
+        {
+          "id": "normal",
+          "width": 140,
+          "height": 44,
+          "left": 164,
+          "right": 304
+        },
+        {
+          "id": "needs",
+          "width": 140,
+          "height": 44,
+          "left": 16,
+          "right": 156
+        },
+        {
+          "id": "previous",
+          "width": 140,
+          "height": 44,
+          "left": 164,
+          "right": 304
+        }
+      ],
+      "mobile": true,
+      "tableDisplay": "block"
+    }
+  ],
+  "network": {
+    "external": [],
+    "contentReads": []
+  },
+  "errors": [],
+  "cleanRoom": {
+    "path": "C:\\Users\\deric\\AppData\\Local\\Temp\\drawing-quick-check-1791981367500",
+    "fileUrl": "file:///C:/Users/deric/AppData/Local/Temp/drawing-quick-check-1791981367500/drawing-quick-check/index.html",
+    "httpUrl": "http://127.0.0.1:11582/",
+    "programFiles": 7,
+    "fixtureFiles": 29,
+    "absoluteSourceDependency": false,
+    "administratorRequired": false,
+    "nodeRequired": false,
+    "sourceAndZipBytesIdentical": true,
+    "programZipSha256": "7436724f70bc7649d5f2d209d2cb003dee5ffbb4e9f3c8b9ee98745aa3c80370",
+    "testZipSha256": "197cf08baf5d79e2d514fa32348e5bfff38dd04cc9954132e347d50451947323"
+  },
+  "excel": {
+    "version": "16.0",
+    "titleHeader": "도면명",
+    "status": "passed",
+    "columns": 11,
+    "header": "상태",
+    "hasKorean": true,
+    "rows": 30,
+    "application": "Microsoft Excel COM"
+  }
+}

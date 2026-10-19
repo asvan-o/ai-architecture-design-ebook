@@ -1,0 +1,4461 @@
+{
+  "status": "PASS",
+  "variant": "Argon distribution derivatives",
+  "sourceBlendSha256": "c54025af45a79ac676910741d27dd045f42d31e4a75ca22373e941b7130f9f83",
+  "geometryValidation": {
+    "sourceBlend": "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\review\\daejeon\\HOUSE_3F_SIMULATION\\argon_simulation\\House_3F_Step1_to_Step3_Master_Argon.blend",
+    "sourceBlendSha256": "c54025af45a79ac676910741d27dd045f42d31e4a75ca22373e941b7130f9f83",
+    "sourceDesignSha256": "6340e2f213b07d9c739d00348bfa5792860849fedad684369a2b34fa6c11338e",
+    "status": "PASS",
+    "meshCount": 1534,
+    "checkCount": 223,
+    "failedChecks": [],
+    "checks": [
+      {
+        "id": "all_design_furniture_assemblies",
+        "pass": true,
+        "evidence": {
+          "design": 65,
+          "actual": 65
+        }
+      },
+      {
+        "id": "assembly_Living_L_Sofa",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            2.5999999046325684,
+            2.700000047683716,
+            0.0
+          ],
+          "actual": [
+            2.5999999046325684,
+            2.700000047683716,
+            0.0
+          ],
+          "meshParts": 20
+        }
+      },
+      {
+        "id": "assembly_Living_Rug",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            2.799999952316284,
+            3.3499999046325684,
+            0.0
+          ],
+          "actual": [
+            2.799999952316284,
+            3.3499999046325684,
+            0.0
+          ],
+          "meshParts": 1
+        }
+      },
+      {
+        "id": "assembly_Living_Coffee",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            3.0,
+            3.9000000953674316,
+            0.0
+          ],
+          "actual": [
+            3.0,
+            3.9000000953674316,
+            0.0
+          ],
+          "meshParts": 6
+        }
+      },
+      {
+        "id": "assembly_Living_Armchair",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            4.949999809265137,
+            4.400000095367432,
+            0.0
+          ],
+          "actual": [
+            4.949999809265137,
+            4.400000095367432,
+            0.0
+          ],
+          "meshParts": 17
+        }
+      },
+      {
+        "id": "assembly_TV_Console",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            2.799999952316284,
+            5.650000095367432,
+            0.0
+          ],
+          "actual": [
+            2.799999952316284,
+            5.650000095367432,
+            0.0
+          ],
+          "meshParts": 8
+        }
+      },
+      {
+        "id": "assembly_Floor_Lamp",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            0.8999999761581421,
+            4.800000190734863,
+            0.0
+          ],
+          "actual": [
+            0.8999999761581421,
+            4.800000190734863,
+            0.0
+          ],
+          "meshParts": 3
+        }
+      },
+      {
+        "id": "assembly_Living_Plant1",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            1.649999976158142,
+            4.150000095367432,
+            0.0
+          ],
+          "actual": [
+            1.649999976158142,
+            4.150000095367432,
+            0.0
+          ],
+          "meshParts": 23
+        }
+      },
+      {
+        "id": "assembly_Living_Plant2",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            6.150000095367432,
+            4.599999904632568,
+            0.0
+          ],
+          "actual": [
+            6.150000095367432,
+            4.599999904632568,
+            0.0
+          ],
+          "meshParts": 23
+        }
+      },
+      {
+        "id": "assembly_Kitchen_Island",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            9.550000190734863,
+            2.0999999046325684,
+            0.0
+          ],
+          "actual": [
+            9.550000190734863,
+            2.0999999046325684,
+            0.0
+          ],
+          "meshParts": 17
+        }
+      },
+      {
+        "id": "assembly_Island_Stool1",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            8.699999809265137,
+            1.1200000047683716,
+            0.0
+          ],
+          "actual": [
+            8.699999809265137,
+            1.1200000047683716,
+            0.0
+          ],
+          "meshParts": 8
+        }
+      },
+      {
+        "id": "assembly_Island_Stool2",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            9.550000190734863,
+            1.1200000047683716,
+            0.0
+          ],
+          "actual": [
+            9.550000190734863,
+            1.1200000047683716,
+            0.0
+          ],
+          "meshParts": 8
+        }
+      },
+      {
+        "id": "assembly_Island_Stool3",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            10.399999618530273,
+            1.1200000047683716,
+            0.0
+          ],
+          "actual": [
+            10.399999618530273,
+            1.1200000047683716,
+            0.0
+          ],
+          "meshParts": 8
+        }
+      },
+      {
+        "id": "assembly_Kitchen_East",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            11.460000038146973,
+            3.4000000953674316,
+            0.0
+          ],
+          "actual": [
+            11.460000038146973,
+            3.4000000953674316,
+            0.0
+          ],
+          "meshParts": 19
+        }
+      },
+      {
+        "id": "assembly_Kitchen_North",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            10.649999618530273,
+            5.619999885559082,
+            0.0
+          ],
+          "actual": [
+            10.649999618530273,
+            5.619999885559082,
+            0.0
+          ],
+          "meshParts": 9
+        }
+      },
+      {
+        "id": "assembly_Fridge",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            11.300000190734863,
+            1.1200000047683716,
+            0.0
+          ],
+          "actual": [
+            11.300000190734863,
+            1.1200000047683716,
+            0.0
+          ],
+          "meshParts": 5
+        }
+      },
+      {
+        "id": "assembly_Dining_Six",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            9.550000190734863,
+            3.950000047683716,
+            0.0
+          ],
+          "actual": [
+            9.550000190734863,
+            3.950000047683716,
+            0.0
+          ],
+          "meshParts": 48
+        }
+      },
+      {
+        "id": "assembly_Entry_Bench",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            7.349999904632568,
+            0.6499999761581421,
+            0.0
+          ],
+          "actual": [
+            7.349999904632568,
+            0.6499999761581421,
+            0.0
+          ],
+          "meshParts": 4
+        }
+      },
+      {
+        "id": "assembly_Entry_ShoeCabinet",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            8.149999618530273,
+            0.550000011920929,
+            0.0
+          ],
+          "actual": [
+            8.149999618530273,
+            0.550000011920929,
+            0.0
+          ],
+          "meshParts": 5
+        }
+      },
+      {
+        "id": "assembly_Guest_Toilet",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            0.8999999761581421,
+            7.949999809265137,
+            0.0
+          ],
+          "actual": [
+            0.8999999761581421,
+            7.949999809265137,
+            0.0
+          ],
+          "meshParts": 4
+        }
+      },
+      {
+        "id": "assembly_Guest_Vanity",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            2.25,
+            7.400000095367432,
+            0.0
+          ],
+          "actual": [
+            2.25,
+            7.400000095367432,
+            0.0
+          ],
+          "meshParts": 5
+        }
+      },
+      {
+        "id": "assembly_Washer",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            3.200000047683716,
+            8.199999809265137,
+            0.0
+          ],
+          "actual": [
+            3.200000047683716,
+            8.199999809265137,
+            0.0
+          ],
+          "meshParts": 4
+        }
+      },
+      {
+        "id": "assembly_Dryer",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            4.019999980926514,
+            8.199999809265137,
+            0.0
+          ],
+          "actual": [
+            4.019999980926514,
+            8.199999809265137,
+            0.0
+          ],
+          "meshParts": 4
+        }
+      },
+      {
+        "id": "assembly_Utility_Shelves",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            3.2699999809265137,
+            6.5,
+            0.0
+          ],
+          "actual": [
+            3.2699999809265137,
+            6.5,
+            0.0
+          ],
+          "meshParts": 47
+        }
+      },
+      {
+        "id": "assembly_Pantry_Shelves",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            9.199999809265137,
+            7.849999904632568,
+            0.0
+          ],
+          "actual": [
+            9.199999809265137,
+            7.849999904632568,
+            0.0
+          ],
+          "meshParts": 67
+        }
+      },
+      {
+        "id": "assembly_Master_QueenBed",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            2.5999999046325684,
+            4.050000190734863,
+            3.200000047683716
+          ],
+          "actual": [
+            2.5999999046325684,
+            4.050000190734863,
+            3.200000047683716
+          ],
+          "meshParts": 11
+        }
+      },
+      {
+        "id": "assembly_Bedside1",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            1.3200000524520874,
+            4.800000190734863,
+            3.200000047683716
+          ],
+          "actual": [
+            1.3200000524520874,
+            4.800000190734863,
+            3.200000047683716
+          ],
+          "meshParts": 5
+        }
+      },
+      {
+        "id": "assembly_Bedside2",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            3.799999952316284,
+            4.800000190734863,
+            3.200000047683716
+          ],
+          "actual": [
+            3.799999952316284,
+            4.800000190734863,
+            3.200000047683716
+          ],
+          "meshParts": 5
+        }
+      },
+      {
+        "id": "assembly_Master_Wardrobe",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            5.150000095367432,
+            3.0399999618530273,
+            3.200000047683716
+          ],
+          "actual": [
+            5.150000095367432,
+            3.0399999618530273,
+            3.200000047683716
+          ],
+          "meshParts": 7
+        }
+      },
+      {
+        "id": "assembly_Master_Dressing",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            4.5,
+            5.699999809265137,
+            3.200000047683716
+          ],
+          "actual": [
+            4.5,
+            5.699999809265137,
+            3.200000047683716
+          ],
+          "meshParts": 5
+        }
+      },
+      {
+        "id": "assembly_Dressing_Stool",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            4.300000190734863,
+            4.849999904632568,
+            3.200000047683716
+          ],
+          "actual": [
+            4.300000190734863,
+            4.849999904632568,
+            3.200000047683716
+          ],
+          "meshParts": 8
+        }
+      },
+      {
+        "id": "assembly_Bedroom_SingleBed",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            10.199999809265137,
+            3.0,
+            3.200000047683716
+          ],
+          "actual": [
+            10.199999809265137,
+            3.0,
+            3.200000047683716
+          ],
+          "meshParts": 10
+        }
+      },
+      {
+        "id": "assembly_Bedroom_Desk",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            10.0,
+            0.8500000238418579,
+            3.200000047683716
+          ],
+          "actual": [
+            10.0,
+            0.8500000238418579,
+            3.200000047683716
+          ],
+          "meshParts": 9
+        }
+      },
+      {
+        "id": "assembly_Bedroom_Chair",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            10.0,
+            1.600000023841858,
+            3.200000047683716
+          ],
+          "actual": [
+            10.0,
+            1.600000023841858,
+            3.200000047683716
+          ],
+          "meshParts": 7
+        }
+      },
+      {
+        "id": "assembly_Bedroom_Bookshelf",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            10.800000190734863,
+            5.199999809265137,
+            3.200000047683716
+          ],
+          "actual": [
+            10.800000190734863,
+            5.199999809265137,
+            3.200000047683716
+          ],
+          "meshParts": 59
+        }
+      },
+      {
+        "id": "assembly_Bedroom_Wardrobe",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            8.369999885559082,
+            2.0999999046325684,
+            3.200000047683716
+          ],
+          "actual": [
+            8.369999885559082,
+            2.0999999046325684,
+            3.200000047683716
+          ],
+          "meshParts": 7
+        }
+      },
+      {
+        "id": "assembly_Family_Sofa",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            6.0,
+            2.700000047683716,
+            3.200000047683716
+          ],
+          "actual": [
+            6.0,
+            2.700000047683716,
+            3.200000047683716
+          ],
+          "meshParts": 15
+        }
+      },
+      {
+        "id": "assembly_Family_TeaTable",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            6.949999809265137,
+            2.700000047683716,
+            3.200000047683716
+          ],
+          "actual": [
+            6.949999809265137,
+            2.700000047683716,
+            3.200000047683716
+          ],
+          "meshParts": 6
+        }
+      },
+      {
+        "id": "assembly_Family_Bookshelf",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            5.800000190734863,
+            5.5,
+            3.200000047683716
+          ],
+          "actual": [
+            5.800000190734863,
+            5.5,
+            3.200000047683716
+          ],
+          "meshParts": 31
+        }
+      },
+      {
+        "id": "assembly_Bathroom_Tub",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            2.8499999046325684,
+            8.100000381469727,
+            3.200000047683716
+          ],
+          "actual": [
+            2.8499999046325684,
+            8.100000381469727,
+            3.200000047683716
+          ],
+          "meshParts": 3
+        }
+      },
+      {
+        "id": "assembly_Bathroom_Shower",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            1.149999976158142,
+            7.449999809265137,
+            3.200000047683716
+          ],
+          "actual": [
+            1.149999976158142,
+            7.449999809265137,
+            3.200000047683716
+          ],
+          "meshParts": 5
+        }
+      },
+      {
+        "id": "assembly_Bathroom_Toilet",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            2.799999952316284,
+            6.650000095367432,
+            3.200000047683716
+          ],
+          "actual": [
+            2.799999952316284,
+            6.650000095367432,
+            3.200000047683716
+          ],
+          "meshParts": 4
+        }
+      },
+      {
+        "id": "assembly_Bathroom_Vanity",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            4.400000095367432,
+            8.550000190734863,
+            3.200000047683716
+          ],
+          "actual": [
+            4.400000095367432,
+            8.550000190734863,
+            3.200000047683716
+          ],
+          "meshParts": 5
+        }
+      },
+      {
+        "id": "assembly_Balcony_Chair1",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            1.149999976158142,
+            0.6000000238418579,
+            3.200000047683716
+          ],
+          "actual": [
+            1.149999976158142,
+            0.6000000238418579,
+            3.200000047683716
+          ],
+          "meshParts": 17
+        }
+      },
+      {
+        "id": "assembly_Balcony_Chair2",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            3.25,
+            0.6000000238418579,
+            3.200000047683716
+          ],
+          "actual": [
+            3.25,
+            0.6000000238418579,
+            3.200000047683716
+          ],
+          "meshParts": 17
+        }
+      },
+      {
+        "id": "assembly_Balcony_Tea",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            2.200000047683716,
+            0.75,
+            3.200000047683716
+          ],
+          "actual": [
+            2.200000047683716,
+            0.75,
+            3.200000047683716
+          ],
+          "meshParts": 4
+        }
+      },
+      {
+        "id": "assembly_Balcony_Planter",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            0.44999998807907104,
+            1.0499999523162842,
+            3.200000047683716
+          ],
+          "actual": [
+            0.44999998807907104,
+            1.0499999523162842,
+            3.200000047683716
+          ],
+          "meshParts": 17
+        }
+      },
+      {
+        "id": "assembly_Studio_Sofa",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            9.75,
+            3.200000047683716,
+            6.199999809265137
+          ],
+          "actual": [
+            9.75,
+            3.200000047683716,
+            6.199999809265137
+          ],
+          "meshParts": 17
+        }
+      },
+      {
+        "id": "assembly_Studio_Rug",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            9.5,
+            3.8499999046325684,
+            6.199999809265137
+          ],
+          "actual": [
+            9.5,
+            3.8499999046325684,
+            6.199999809265137
+          ],
+          "meshParts": 1
+        }
+      },
+      {
+        "id": "assembly_Studio_Coffee",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            9.649999618530273,
+            4.400000095367432,
+            6.199999809265137
+          ],
+          "actual": [
+            9.649999618530273,
+            4.400000095367432,
+            6.199999809265137
+          ],
+          "meshParts": 6
+        }
+      },
+      {
+        "id": "assembly_HomeBar",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            10.0,
+            7.0,
+            6.199999809265137
+          ],
+          "actual": [
+            10.0,
+            7.0,
+            6.199999809265137
+          ],
+          "meshParts": 11
+        }
+      },
+      {
+        "id": "assembly_Bar_Stool1",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            9.600000381469727,
+            6.25,
+            6.199999809265137
+          ],
+          "actual": [
+            9.600000381469727,
+            6.25,
+            6.199999809265137
+          ],
+          "meshParts": 8
+        }
+      },
+      {
+        "id": "assembly_Bar_Stool2",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            10.449999809265137,
+            6.25,
+            6.199999809265137
+          ],
+          "actual": [
+            10.449999809265137,
+            6.25,
+            6.199999809265137
+          ],
+          "meshParts": 8
+        }
+      },
+      {
+        "id": "assembly_Studio_Desk",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            10.449999809265137,
+            5.449999809265137,
+            6.199999809265137
+          ],
+          "actual": [
+            10.449999809265137,
+            5.449999809265137,
+            6.199999809265137
+          ],
+          "meshParts": 9
+        }
+      },
+      {
+        "id": "assembly_Studio_Chair",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            10.5,
+            4.730000019073486,
+            6.199999809265137
+          ],
+          "actual": [
+            10.5,
+            4.730000019073486,
+            6.199999809265137
+          ],
+          "meshParts": 7
+        }
+      },
+      {
+        "id": "assembly_Studio_Cabinet",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            9.300000190734863,
+            8.149999618530273,
+            6.199999809265137
+          ],
+          "actual": [
+            9.300000190734863,
+            8.149999618530273,
+            6.199999809265137
+          ],
+          "meshParts": 5
+        }
+      },
+      {
+        "id": "assembly_Terrace_L_Sofa",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            2.0999999046325684,
+            6.599999904632568,
+            6.199999809265137
+          ],
+          "actual": [
+            2.0999999046325684,
+            6.599999904632568,
+            6.199999809265137
+          ],
+          "meshParts": 20
+        }
+      },
+      {
+        "id": "assembly_Terrace_Coffee",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            2.0,
+            5.300000190734863,
+            6.199999809265137
+          ],
+          "actual": [
+            2.0,
+            5.300000190734863,
+            6.199999809265137
+          ],
+          "meshParts": 6
+        }
+      },
+      {
+        "id": "assembly_Terrace_Dining",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            2.299999952316284,
+            2.549999952316284,
+            6.199999809265137
+          ],
+          "actual": [
+            2.299999952316284,
+            2.549999952316284,
+            6.199999809265137
+          ],
+          "meshParts": 48
+        }
+      },
+      {
+        "id": "assembly_Terrace_Parasol",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            2.299999952316284,
+            4.300000190734863,
+            6.199999809265137
+          ],
+          "actual": [
+            2.299999952316284,
+            4.300000190734863,
+            6.199999809265137
+          ],
+          "meshParts": 11
+        }
+      },
+      {
+        "id": "assembly_Terrace_Planter1",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            0.44999998807907104,
+            1.0,
+            6.199999809265137
+          ],
+          "actual": [
+            0.44999998807907104,
+            1.0,
+            6.199999809265137
+          ],
+          "meshParts": 17
+        }
+      },
+      {
+        "id": "assembly_Terrace_Planter2",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            0.44999998807907104,
+            4.099999904632568,
+            6.199999809265137
+          ],
+          "actual": [
+            0.44999998807907104,
+            4.099999904632568,
+            6.199999809265137
+          ],
+          "meshParts": 17
+        }
+      },
+      {
+        "id": "assembly_Terrace_Planter3",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            0.44999998807907104,
+            7.800000190734863,
+            6.199999809265137
+          ],
+          "actual": [
+            0.44999998807907104,
+            7.800000190734863,
+            6.199999809265137
+          ],
+          "meshParts": 17
+        }
+      },
+      {
+        "id": "assembly_Terrace_NorthPlanter",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            2.549999952316284,
+            8.5,
+            6.199999809265137
+          ],
+          "actual": [
+            2.549999952316284,
+            8.5,
+            6.199999809265137
+          ],
+          "meshParts": 32
+        }
+      },
+      {
+        "id": "assembly_Terrace_Tree",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            3.8499999046325684,
+            1.0,
+            6.199999809265137
+          ],
+          "actual": [
+            3.8499999046325684,
+            1.0,
+            6.199999809265137
+          ],
+          "meshParts": 23
+        }
+      },
+      {
+        "id": "assembly_Storage_Shelves",
+        "pass": true,
+        "evidence": {
+          "expected": [
+            10.449999809265137,
+            7.099999904632568,
+            3.200000047683716
+          ],
+          "actual": [
+            10.449999809265137,
+            7.099999904632568,
+            3.200000047683716
+          ],
+          "meshParts": 71
+        }
+      },
+      {
+        "id": "actual_aperture_W101",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "window_plane_W101",
+        "pass": true,
+        "evidence": {
+          "paneCount": 3,
+          "badPlanes": [],
+          "planeAxis": "H",
+          "plane": 0.1
+        }
+      },
+      {
+        "id": "actual_aperture_D101",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "actual_aperture_W102",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "window_plane_W102",
+        "pass": true,
+        "evidence": {
+          "paneCount": 3,
+          "badPlanes": [],
+          "planeAxis": "H",
+          "plane": 0.1
+        }
+      },
+      {
+        "id": "actual_aperture_W103",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "window_plane_W103",
+        "pass": true,
+        "evidence": {
+          "paneCount": 2,
+          "badPlanes": [],
+          "planeAxis": "H",
+          "plane": 8.9
+        }
+      },
+      {
+        "id": "actual_aperture_W104",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "window_plane_W104",
+        "pass": true,
+        "evidence": {
+          "paneCount": 2,
+          "badPlanes": [],
+          "planeAxis": "H",
+          "plane": 8.9
+        }
+      },
+      {
+        "id": "actual_aperture_W105",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "window_plane_W105",
+        "pass": true,
+        "evidence": {
+          "paneCount": 2,
+          "badPlanes": [],
+          "planeAxis": "H",
+          "plane": 8.9
+        }
+      },
+      {
+        "id": "actual_aperture_W106",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "window_plane_W106",
+        "pass": true,
+        "evidence": {
+          "paneCount": 2,
+          "badPlanes": [],
+          "planeAxis": "H",
+          "plane": 8.9
+        }
+      },
+      {
+        "id": "actual_aperture_W107",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "window_plane_W107",
+        "pass": true,
+        "evidence": {
+          "paneCount": 3,
+          "badPlanes": [],
+          "planeAxis": "V",
+          "plane": 0.1
+        }
+      },
+      {
+        "id": "actual_aperture_W108",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "window_plane_W108",
+        "pass": true,
+        "evidence": {
+          "paneCount": 3,
+          "badPlanes": [],
+          "planeAxis": "V",
+          "plane": 11.9
+        }
+      },
+      {
+        "id": "actual_aperture_W109",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "window_plane_W109",
+        "pass": true,
+        "evidence": {
+          "paneCount": 2,
+          "badPlanes": [],
+          "planeAxis": "V",
+          "plane": 11.9
+        }
+      },
+      {
+        "id": "actual_aperture_D102",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "actual_aperture_D103",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "actual_aperture_D104",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "actual_aperture_W201",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "window_plane_W201",
+        "pass": true,
+        "evidence": {
+          "paneCount": 2,
+          "badPlanes": [],
+          "planeAxis": "H",
+          "plane": 0.1
+        }
+      },
+      {
+        "id": "actual_aperture_W202",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "window_plane_W202",
+        "pass": true,
+        "evidence": {
+          "paneCount": 2,
+          "badPlanes": [],
+          "planeAxis": "H",
+          "plane": 0.1
+        }
+      },
+      {
+        "id": "actual_aperture_D201",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "window_plane_D201",
+        "pass": true,
+        "evidence": {
+          "paneCount": 2,
+          "badPlanes": [],
+          "planeAxis": "H",
+          "plane": 2
+        }
+      },
+      {
+        "id": "actual_aperture_W203",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "window_plane_W203",
+        "pass": true,
+        "evidence": {
+          "paneCount": 2,
+          "badPlanes": [],
+          "planeAxis": "H",
+          "plane": 8.9
+        }
+      },
+      {
+        "id": "actual_aperture_W204",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "window_plane_W204",
+        "pass": true,
+        "evidence": {
+          "paneCount": 2,
+          "badPlanes": [],
+          "planeAxis": "H",
+          "plane": 8.9
+        }
+      },
+      {
+        "id": "actual_aperture_W205",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "window_plane_W205",
+        "pass": true,
+        "evidence": {
+          "paneCount": 2,
+          "badPlanes": [],
+          "planeAxis": "H",
+          "plane": 8.9
+        }
+      },
+      {
+        "id": "actual_aperture_W206",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "window_plane_W206",
+        "pass": true,
+        "evidence": {
+          "paneCount": 2,
+          "badPlanes": [],
+          "planeAxis": "V",
+          "plane": 0.1
+        }
+      },
+      {
+        "id": "actual_aperture_W207",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "window_plane_W207",
+        "pass": true,
+        "evidence": {
+          "paneCount": 2,
+          "badPlanes": [],
+          "planeAxis": "V",
+          "plane": 0.1
+        }
+      },
+      {
+        "id": "actual_aperture_W208",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "window_plane_W208",
+        "pass": true,
+        "evidence": {
+          "paneCount": 3,
+          "badPlanes": [],
+          "planeAxis": "V",
+          "plane": 11.9
+        }
+      },
+      {
+        "id": "actual_aperture_W209",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "window_plane_W209",
+        "pass": true,
+        "evidence": {
+          "paneCount": 2,
+          "badPlanes": [],
+          "planeAxis": "V",
+          "plane": 11.9
+        }
+      },
+      {
+        "id": "actual_aperture_D202",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "actual_aperture_D203",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "actual_aperture_D204",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "actual_aperture_D205",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "actual_aperture_W301",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "window_plane_W301",
+        "pass": true,
+        "evidence": {
+          "paneCount": 6,
+          "badPlanes": [],
+          "planeAxis": "H",
+          "plane": 1.5
+        }
+      },
+      {
+        "id": "actual_aperture_D301",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "window_plane_D301",
+        "pass": true,
+        "evidence": {
+          "paneCount": 5,
+          "badPlanes": [],
+          "planeAxis": "V",
+          "plane": 4.5
+        }
+      },
+      {
+        "id": "actual_aperture_W302",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "window_plane_W302",
+        "pass": true,
+        "evidence": {
+          "paneCount": 4,
+          "badPlanes": [],
+          "planeAxis": "V",
+          "plane": 11.9
+        }
+      },
+      {
+        "id": "actual_aperture_W303",
+        "pass": true,
+        "evidence": {
+          "sampleCount": 9,
+          "blockingWallMeshes": []
+        }
+      },
+      {
+        "id": "window_plane_W303",
+        "pass": true,
+        "evidence": {
+          "paneCount": 2,
+          "badPlanes": [],
+          "planeAxis": "H",
+          "plane": 8.9
+        }
+      },
+      {
+        "id": "closed_2f_envelope_(4.6, 1.0, 4.5)",
+        "pass": true,
+        "evidence": {
+          "point": [
+            4.6,
+            1.0,
+            4.5
+          ],
+          "actualWallMeshes": [
+            "2F_BalconyReturn_Wall"
+          ]
+        }
+      },
+      {
+        "id": "closed_2f_envelope_(0.1, 2.0, 4.5)",
+        "pass": true,
+        "evidence": {
+          "point": [
+            0.1,
+            2.0,
+            4.5
+          ],
+          "actualWallMeshes": [
+            "2F_MasterSouth_Wall"
+          ]
+        }
+      },
+      {
+        "id": "closed_2f_envelope_(0.1, 2.15, 4.5)",
+        "pass": true,
+        "evidence": {
+          "point": [
+            0.1,
+            2.15,
+            4.5
+          ],
+          "actualWallMeshes": [
+            "2F_West_Wall"
+          ]
+        }
+      },
+      {
+        "id": "stair_1_eighteen_treads",
+        "pass": true,
+        "evidence": 18
+      },
+      {
+        "id": "stair_1_reaches_next_floor",
+        "pass": true,
+        "evidence": {
+          "actual": 3.200000047683716,
+          "expected": 3.2
+        }
+      },
+      {
+        "id": "stair_1_arrival_has_no_slot",
+        "pass": true,
+        "evidence": {
+          "treadFrontY": 5.650000095367432,
+          "slabEdgeY": 5.650000095367432,
+          "gap": 0.0
+        }
+      },
+      {
+        "id": "stair_2_eighteen_treads",
+        "pass": true,
+        "evidence": 18
+      },
+      {
+        "id": "stair_2_reaches_next_floor",
+        "pass": true,
+        "evidence": {
+          "actual": 6.200000286102295,
+          "expected": 6.2
+        }
+      },
+      {
+        "id": "stair_2_arrival_has_no_slot",
+        "pass": true,
+        "evidence": {
+          "treadFrontY": 5.650000095367432,
+          "slabEdgeY": 5.650000095367432,
+          "gap": 0.0
+        }
+      },
+      {
+        "id": "door_approach_D101_-1",
+        "pass": true,
+        "evidence": {
+          "depth": 0.8,
+          "strip": {
+            "min": [
+              5.5,
+              -0.8,
+              0.15
+            ],
+            "max": [
+              6.800000000000001,
+              0.0,
+              1.8
+            ]
+          },
+          "blockers": []
+        }
+      },
+      {
+        "id": "door_approach_D101_1",
+        "pass": true,
+        "evidence": {
+          "depth": 0.8,
+          "strip": {
+            "min": [
+              5.5,
+              0.2,
+              0.15
+            ],
+            "max": [
+              6.800000000000001,
+              1.0,
+              1.8
+            ]
+          },
+          "blockers": []
+        }
+      },
+      {
+        "id": "door_sweep_furniture_D101",
+        "pass": true,
+        "evidence": []
+      },
+      {
+        "id": "door_sweep_jamb_D101",
+        "pass": true,
+        "evidence": []
+      },
+      {
+        "id": "door_sweep_wall_D101",
+        "pass": true,
+        "evidence": []
+      },
+      {
+        "id": "door_approach_D102_-1",
+        "pass": true,
+        "evidence": {
+          "depth": 0.9,
+          "strip": {
+            "min": [
+              0.44999999999999996,
+              5.04,
+              0.15
+            ],
+            "max": [
+              1.25,
+              5.94,
+              1.8
+            ]
+          },
+          "blockers": []
+        }
+      },
+      {
+        "id": "door_approach_D102_1",
+        "pass": true,
+        "evidence": {
+          "depth": 0.9,
+          "strip": {
+            "min": [
+              0.44999999999999996,
+              6.06,
+              0.15
+            ],
+            "max": [
+              1.25,
+              6.96,
+              1.8
+            ]
+          },
+          "blockers": []
+        }
+      },
+      {
+        "id": "door_sweep_furniture_D102",
+        "pass": true,
+        "evidence": []
+      },
+      {
+        "id": "door_sweep_jamb_D102",
+        "pass": true,
+        "evidence": []
+      },
+      {
+        "id": "door_sweep_wall_D102",
+        "pass": true,
+        "evidence": []
+      },
+      {
+        "id": "door_approach_D103_-1",
+        "pass": true,
+        "evidence": {
+          "depth": 0.8,
+          "strip": {
+            "min": [
+              4.375,
+              5.140000000000001,
+              0.15
+            ],
+            "max": [
+              5.225,
+              5.94,
+              1.8
+            ]
+          },
+          "blockers": []
+        }
+      },
+      {
+        "id": "door_approach_D103_1",
+        "pass": true,
+        "evidence": {
+          "depth": 0.8,
+          "strip": {
+            "min": [
+              4.375,
+              6.06,
+              0.15
+            ],
+            "max": [
+              5.225,
+              6.859999999999999,
+              1.8
+            ]
+          },
+          "blockers": []
+        }
+      },
+      {
+        "id": "door_sweep_furniture_D103",
+        "pass": true,
+        "evidence": []
+      },
+      {
+        "id": "door_sweep_jamb_D103",
+        "pass": true,
+        "evidence": []
+      },
+      {
+        "id": "door_sweep_wall_D103",
+        "pass": true,
+        "evidence": []
+      },
+      {
+        "id": "door_approach_D104_-1",
+        "pass": true,
+        "evidence": {
+          "depth": 0.9,
+          "strip": {
+            "min": [
+              9.225,
+              5.04,
+              0.15
+            ],
+            "max": [
+              10.075000000000001,
+              5.94,
+              1.8
+            ]
+          },
+          "blockers": []
+        }
+      },
+      {
+        "id": "door_approach_D104_1",
+        "pass": true,
+        "evidence": {
+          "depth": 0.9,
+          "strip": {
+            "min": [
+              9.225,
+              6.06,
+              0.15
+            ],
+            "max": [
+              10.075000000000001,
+              6.96,
+              1.8
+            ]
+          },
+          "blockers": []
+        }
+      },
+      {
+        "id": "door_sweep_furniture_D104",
+        "pass": true,
+        "evidence": []
+      },
+      {
+        "id": "door_sweep_jamb_D104",
+        "pass": true,
+        "evidence": []
+      },
+      {
+        "id": "door_sweep_wall_D104",
+        "pass": true,
+        "evidence": []
+      },
+      {
+        "id": "door_approach_D201_-1",
+        "pass": true,
+        "evidence": {
+          "depth": 0.8,
+          "strip": {
+            "min": [
+              1.4500000000000002,
+              1.0999999999999999,
+              3.35
+            ],
+            "max": [
+              3.95,
+              1.9,
+              5.0
+            ]
+          },
+          "blockers": []
+        }
+      },
+      {
+        "id": "door_approach_D201_1",
+        "pass": true,
+        "evidence": {
+          "depth": 0.8,
+          "strip": {
+            "min": [
+              1.4500000000000002,
+              2.1,
+              3.35
+            ],
+            "max": [
+              3.95,
+              2.9000000000000004,
+              5.0
+            ]
+          },
+          "blockers": []
+        }
+      },
+      {
+        "id": "door_approach_D202_-1",
+        "pass": true,
+        "evidence": {
+          "depth": 0.8,
+          "strip": {
+            "min": [
+              4.640000000000001,
+              4.05,
+              3.35
+            ],
+            "max": [
+              5.44,
+              4.95,
+              5.0
+            ]
+          },
+          "blockers": []
+        }
+      },
+      {
+        "id": "door_approach_D202_1",
+        "pass": true,
+        "evidence": {
+          "depth": 0.8,
+          "strip": {
+            "min": [
+              5.56,
+              4.05,
+              3.35
+            ],
+            "max": [
+              6.359999999999999,
+              4.95,
+              5.0
+            ]
+          },
+          "blockers": []
+        }
+      },
+      {
+        "id": "door_sweep_furniture_D202",
+        "pass": true,
+        "evidence": []
+      },
+      {
+        "id": "door_sweep_jamb_D202",
+        "pass": true,
+        "evidence": []
+      },
+      {
+        "id": "door_sweep_wall_D202",
+        "pass": true,
+        "evidence": []
+      },
+      {
+        "id": "door_approach_D203_-1",
+        "pass": true,
+        "evidence": {
+          "depth": 0.8,
+          "strip": {
+            "min": [
+              4.640000000000001,
+              6.35,
+              3.35
+            ],
+            "max": [
+              5.44,
+              7.25,
+              5.0
+            ]
+          },
+          "blockers": []
+        }
+      },
+      {
+        "id": "door_approach_D203_1",
+        "pass": true,
+        "evidence": {
+          "depth": 0.8,
+          "strip": {
+            "min": [
+              5.56,
+              6.35,
+              3.35
+            ],
+            "max": [
+              6.359999999999999,
+              7.25,
+              5.0
+            ]
+          },
+          "blockers": []
+        }
+      },
+      {
+        "id": "door_sweep_furniture_D203",
+        "pass": true,
+        "evidence": []
+      },
+      {
+        "id": "door_sweep_jamb_D203",
+        "pass": true,
+        "evidence": []
+      },
+      {
+        "id": "door_sweep_wall_D203",
+        "pass": true,
+        "evidence": []
+      },
+      {
+        "id": "door_approach_D204_-1",
+        "pass": true,
+        "evidence": {
+          "depth": 0.8,
+          "strip": {
+            "min": [
+              7.140000000000001,
+              3.3499999999999996,
+              3.35
+            ],
+            "max": [
+              7.94,
+              4.25,
+              5.0
+            ]
+          },
+          "blockers": []
+        }
+      },
+      {
+        "id": "door_approach_D204_1",
+        "pass": true,
+        "evidence": {
+          "depth": 0.8,
+          "strip": {
+            "min": [
+              8.06,
+              3.3499999999999996,
+              3.35
+            ],
+            "max": [
+              8.860000000000001,
+              4.25,
+              5.0
+            ]
+          },
+          "blockers": []
+        }
+      },
+      {
+        "id": "door_sweep_furniture_D204",
+        "pass": true,
+        "evidence": []
+      },
+      {
+        "id": "door_sweep_jamb_D204",
+        "pass": true,
+        "evidence": []
+      },
+      {
+        "id": "door_sweep_wall_D204",
+        "pass": true,
+        "evidence": []
+      },
+      {
+        "id": "door_approach_D205_-1",
+        "pass": true,
+        "evidence": {
+          "depth": 0.8,
+          "strip": {
+            "min": [
+              9.05,
+              4.640000000000001,
+              3.35
+            ],
+            "max": [
+              9.95,
+              5.44,
+              5.0
+            ]
+          },
+          "blockers": []
+        }
+      },
+      {
+        "id": "door_approach_D205_1",
+        "pass": true,
+        "evidence": {
+          "depth": 0.8,
+          "strip": {
+            "min": [
+              9.05,
+              5.56,
+              3.35
+            ],
+            "max": [
+              9.95,
+              6.359999999999999,
+              5.0
+            ]
+          },
+          "blockers": []
+        }
+      },
+      {
+        "id": "door_sweep_furniture_D205",
+        "pass": true,
+        "evidence": []
+      },
+      {
+        "id": "door_sweep_jamb_D205",
+        "pass": true,
+        "evidence": []
+      },
+      {
+        "id": "door_sweep_wall_D205",
+        "pass": true,
+        "evidence": []
+      },
+      {
+        "id": "door_approach_D301_-1",
+        "pass": true,
+        "evidence": {
+          "depth": 0.8,
+          "strip": {
+            "min": [
+              3.6000000000000005,
+              2.0,
+              6.3500000000000005
+            ],
+            "max": [
+              4.4,
+              7.6,
+              8.0
+            ]
+          },
+          "blockers": []
+        }
+      },
+      {
+        "id": "door_approach_D301_1",
+        "pass": true,
+        "evidence": {
+          "depth": 0.8,
+          "strip": {
+            "min": [
+              4.6,
+              2.0,
+              6.3500000000000005
+            ],
+            "max": [
+              5.3999999999999995,
+              7.6,
+              8.0
+            ]
+          },
+          "blockers": []
+        }
+      },
+      {
+        "id": "solid_furniture_wall_clearance",
+        "pass": true,
+        "evidence": {
+          "penetrationTolerance": 0.005,
+          "intersections": []
+        }
+      },
+      {
+        "id": "window_cabinet_clearance_W101",
+        "pass": true,
+        "evidence": {
+          "nearZone": 0.4,
+          "allFurnitureKinds": true,
+          "blockers": []
+        }
+      },
+      {
+        "id": "window_cabinet_clearance_W102",
+        "pass": true,
+        "evidence": {
+          "nearZone": 0.4,
+          "allFurnitureKinds": true,
+          "blockers": []
+        }
+      },
+      {
+        "id": "window_cabinet_clearance_W103",
+        "pass": true,
+        "evidence": {
+          "nearZone": 0.4,
+          "allFurnitureKinds": true,
+          "blockers": []
+        }
+      },
+      {
+        "id": "window_cabinet_clearance_W104",
+        "pass": true,
+        "evidence": {
+          "nearZone": 0.4,
+          "allFurnitureKinds": true,
+          "blockers": []
+        }
+      },
+      {
+        "id": "window_cabinet_clearance_W105",
+        "pass": true,
+        "evidence": {
+          "nearZone": 0.4,
+          "allFurnitureKinds": true,
+          "blockers": []
+        }
+      },
+      {
+        "id": "window_cabinet_clearance_W106",
+        "pass": true,
+        "evidence": {
+          "nearZone": 0.4,
+          "allFurnitureKinds": true,
+          "blockers": []
+        }
+      },
+      {
+        "id": "window_cabinet_clearance_W107",
+        "pass": true,
+        "evidence": {
+          "nearZone": 0.4,
+          "allFurnitureKinds": true,
+          "blockers": []
+        }
+      },
+      {
+        "id": "window_cabinet_clearance_W108",
+        "pass": true,
+        "evidence": {
+          "nearZone": 0.4,
+          "allFurnitureKinds": true,
+          "blockers": []
+        }
+      },
+      {
+        "id": "window_cabinet_clearance_W109",
+        "pass": true,
+        "evidence": {
+          "nearZone": 0.4,
+          "allFurnitureKinds": true,
+          "blockers": []
+        }
+      },
+      {
+        "id": "window_cabinet_clearance_W201",
+        "pass": true,
+        "evidence": {
+          "nearZone": 0.4,
+          "allFurnitureKinds": true,
+          "blockers": []
+        }
+      },
+      {
+        "id": "window_cabinet_clearance_W202",
+        "pass": true,
+        "evidence": {
+          "nearZone": 0.4,
+          "allFurnitureKinds": true,
+          "blockers": []
+        }
+      },
+      {
+        "id": "window_cabinet_clearance_W203",
+        "pass": true,
+        "evidence": {
+          "nearZone": 0.4,
+          "allFurnitureKinds": true,
+          "blockers": []
+        }
+      },
+      {
+        "id": "window_cabinet_clearance_W204",
+        "pass": true,
+        "evidence": {
+          "nearZone": 0.4,
+          "allFurnitureKinds": true,
+          "blockers": []
+        }
+      },
+      {
+        "id": "window_cabinet_clearance_W205",
+        "pass": true,
+        "evidence": {
+          "nearZone": 0.4,
+          "allFurnitureKinds": true,
+          "blockers": []
+        }
+      },
+      {
+        "id": "window_cabinet_clearance_W206",
+        "pass": true,
+        "evidence": {
+          "nearZone": 0.4,
+          "allFurnitureKinds": true,
+          "blockers": []
+        }
+      },
+      {
+        "id": "window_cabinet_clearance_W207",
+        "pass": true,
+        "evidence": {
+          "nearZone": 0.4,
+          "allFurnitureKinds": true,
+          "blockers": []
+        }
+      },
+      {
+        "id": "window_cabinet_clearance_W208",
+        "pass": true,
+        "evidence": {
+          "nearZone": 0.4,
+          "allFurnitureKinds": true,
+          "blockers": []
+        }
+      },
+      {
+        "id": "window_cabinet_clearance_W209",
+        "pass": true,
+        "evidence": {
+          "nearZone": 0.4,
+          "allFurnitureKinds": true,
+          "blockers": []
+        }
+      },
+      {
+        "id": "window_cabinet_clearance_W301",
+        "pass": true,
+        "evidence": {
+          "nearZone": 0.4,
+          "allFurnitureKinds": true,
+          "blockers": []
+        }
+      },
+      {
+        "id": "window_cabinet_clearance_W302",
+        "pass": true,
+        "evidence": {
+          "nearZone": 0.4,
+          "allFurnitureKinds": true,
+          "blockers": []
+        }
+      },
+      {
+        "id": "window_cabinet_clearance_W303",
+        "pass": true,
+        "evidence": {
+          "nearZone": 0.4,
+          "allFurnitureKinds": true,
+          "blockers": []
+        }
+      },
+      {
+        "id": "furniture_assembly_xy_no_overlap",
+        "pass": true,
+        "evidence": {
+          "excludedKinds": [
+            "rug"
+          ],
+          "pairs": []
+        }
+      },
+      {
+        "id": "room_connected_1_거실",
+        "pass": true,
+        "evidence": {
+          "roomLabel": [
+            2.7,
+            1.0
+          ],
+          "testedCell": [
+            2.6750000000000003,
+            0.9750000000000001
+          ],
+          "connectedTo": [
+            6.15,
+            1.0
+          ],
+          "gridPitch": 0.05,
+          "method": "Actual wall mesh slices plus closed window barriers; door leaves movable, furniture checked separately."
+        }
+      },
+      {
+        "id": "room_connected_1_주방·다이닝",
+        "pass": true,
+        "evidence": {
+          "roomLabel": [
+            9.8,
+            3.15
+          ],
+          "testedCell": [
+            9.825000000000001,
+            3.125
+          ],
+          "connectedTo": [
+            6.15,
+            1.0
+          ],
+          "gridPitch": 0.05,
+          "method": "Actual wall mesh slices plus closed window barriers; door leaves movable, furniture checked separately."
+        }
+      },
+      {
+        "id": "room_connected_1_게스트 화장실",
+        "pass": true,
+        "evidence": {
+          "roomLabel": [
+            1.35,
+            7.1
+          ],
+          "testedCell": [
+            1.3250000000000002,
+            7.075
+          ],
+          "connectedTo": [
+            6.15,
+            1.0
+          ],
+          "gridPitch": 0.05,
+          "method": "Actual wall mesh slices plus closed window barriers; door leaves movable, furniture checked separately."
+        }
+      },
+      {
+        "id": "room_connected_1_다용도실",
+        "pass": true,
+        "evidence": {
+          "roomLabel": [
+            4,
+            7.2
+          ],
+          "testedCell": [
+            3.975,
+            7.175000000000001
+          ],
+          "connectedTo": [
+            6.15,
+            1.0
+          ],
+          "gridPitch": 0.05,
+          "method": "Actual wall mesh slices plus closed window barriers; door leaves movable, furniture checked separately."
+        }
+      },
+      {
+        "id": "room_connected_1_계단·통로",
+        "pass": true,
+        "evidence": {
+          "roomLabel": [
+            6.6,
+            5.3
+          ],
+          "testedCell": [
+            6.575,
+            5.275
+          ],
+          "connectedTo": [
+            6.15,
+            1.0
+          ],
+          "gridPitch": 0.05,
+          "method": "Actual wall mesh slices plus closed window barriers; door leaves movable, furniture checked separately."
+        }
+      },
+      {
+        "id": "room_connected_1_팬트리",
+        "pass": true,
+        "evidence": {
+          "roomLabel": [
+            10.5,
+            7.2
+          ],
+          "testedCell": [
+            10.475000000000001,
+            7.175000000000001
+          ],
+          "connectedTo": [
+            6.15,
+            1.0
+          ],
+          "gridPitch": 0.05,
+          "method": "Actual wall mesh slices plus closed window barriers; door leaves movable, furniture checked separately."
+        }
+      },
+      {
+        "id": "room_connected_1_현관",
+        "pass": true,
+        "evidence": {
+          "roomLabel": [
+            6.15,
+            0.35
+          ],
+          "testedCell": [
+            6.125,
+            0.325
+          ],
+          "connectedTo": [
+            6.15,
+            1.0
+          ],
+          "gridPitch": 0.05,
+          "method": "Actual wall mesh slices plus closed window barriers; door leaves movable, furniture checked separately."
+        }
+      },
+      {
+        "id": "room_connected_2_안방",
+        "pass": true,
+        "evidence": {
+          "roomLabel": [
+            2.7,
+            2.5
+          ],
+          "testedCell": [
+            2.725,
+            2.475
+          ],
+          "connectedTo": [
+            6.8,
+            4.8
+          ],
+          "gridPitch": 0.05,
+          "method": "Actual wall mesh slices plus closed window barriers; door leaves movable, furniture checked separately."
+        }
+      },
+      {
+        "id": "room_connected_2_침실 2",
+        "pass": true,
+        "evidence": {
+          "roomLabel": [
+            10.2,
+            2.25
+          ],
+          "testedCell": [
+            10.175,
+            2.275
+          ],
+          "connectedTo": [
+            6.8,
+            4.8
+          ],
+          "gridPitch": 0.05,
+          "method": "Actual wall mesh slices plus closed window barriers; door leaves movable, furniture checked separately."
+        }
+      },
+      {
+        "id": "room_connected_2_가족실·서재 홀",
+        "pass": true,
+        "evidence": {
+          "roomLabel": [
+            6.7,
+            1
+          ],
+          "testedCell": [
+            6.675000000000001,
+            0.9750000000000001
+          ],
+          "connectedTo": [
+            6.8,
+            4.8
+          ],
+          "gridPitch": 0.05,
+          "method": "Actual wall mesh slices plus closed window barriers; door leaves movable, furniture checked separately."
+        }
+      },
+      {
+        "id": "room_connected_2_메인 욕실",
+        "pass": true,
+        "evidence": {
+          "roomLabel": [
+            2.6,
+            7.4
+          ],
+          "testedCell": [
+            2.575,
+            7.375
+          ],
+          "connectedTo": [
+            6.8,
+            4.8
+          ],
+          "gridPitch": 0.05,
+          "method": "Actual wall mesh slices plus closed window barriers; door leaves movable, furniture checked separately."
+        }
+      },
+      {
+        "id": "room_connected_2_오픈 발코니",
+        "pass": true,
+        "evidence": {
+          "roomLabel": [
+            2.4,
+            0.28
+          ],
+          "testedCell": [
+            2.375,
+            0.275
+          ],
+          "connectedTo": [
+            6.8,
+            4.8
+          ],
+          "gridPitch": 0.05,
+          "method": "Actual wall mesh slices plus closed window barriers; door leaves movable, furniture checked separately."
+        }
+      },
+      {
+        "id": "room_connected_2_계단",
+        "pass": true,
+        "evidence": {
+          "roomLabel": [
+            7.7,
+            8.35
+          ],
+          "testedCell": [
+            7.675000000000001,
+            8.325000000000001
+          ],
+          "connectedTo": [
+            6.8,
+            4.8
+          ],
+          "gridPitch": 0.05,
+          "method": "Actual wall mesh slices plus closed window barriers; door leaves movable, furniture checked separately."
+        }
+      },
+      {
+        "id": "room_connected_2_수납실",
+        "pass": true,
+        "evidence": {
+          "roomLabel": [
+            10.6,
+            8.0
+          ],
+          "testedCell": [
+            10.575000000000001,
+            7.9750000000000005
+          ],
+          "connectedTo": [
+            6.8,
+            4.8
+          ],
+          "gridPitch": 0.05,
+          "method": "Actual wall mesh slices plus closed window barriers; door leaves movable, furniture checked separately."
+        }
+      },
+      {
+        "id": "room_connected_3_스튜디오·홈바",
+        "pass": true,
+        "evidence": {
+          "roomLabel": [
+            10,
+            2.1
+          ],
+          "testedCell": [
+            9.975000000000001,
+            2.075
+          ],
+          "connectedTo": [
+            6.0,
+            4.5
+          ],
+          "gridPitch": 0.05,
+          "method": "Actual wall mesh slices plus closed window barriers; door leaves movable, furniture checked separately."
+        }
+      },
+      {
+        "id": "room_connected_3_루프탑 테라스",
+        "pass": true,
+        "evidence": {
+          "roomLabel": [
+            2.4,
+            4.1
+          ],
+          "testedCell": [
+            2.375,
+            4.075
+          ],
+          "connectedTo": [
+            6.0,
+            4.5
+          ],
+          "gridPitch": 0.05,
+          "method": "Actual wall mesh slices plus closed window barriers; door leaves movable, furniture checked separately."
+        }
+      },
+      {
+        "id": "room_connected_3_계단",
+        "pass": true,
+        "evidence": {
+          "roomLabel": [
+            7.7,
+            8.35
+          ],
+          "testedCell": [
+            7.675000000000001,
+            8.325000000000001
+          ],
+          "connectedTo": [
+            6.0,
+            4.5
+          ],
+          "gridPitch": 0.05,
+          "method": "Actual wall mesh slices plus closed window barriers; door leaves movable, furniture checked separately."
+        }
+      },
+      {
+        "id": "stair_1_centerline_headroom",
+        "pass": true,
+        "evidence": {
+          "referenceThreshold": 2.1,
+          "meaning": "geometric screening, not code certification",
+          "minimum": {
+            "tread": "1F_Stair_Return_9",
+            "xy": [
+              8.3100004196167,
+              5.675000095367432
+            ],
+            "clearance": 2.869999647140503,
+            "obstruction": "2F_Stair_Return_9"
+          },
+          "samples": [
+            {
+              "tread": "1F_Stair_Up_1",
+              "xy": [
+                7.090000152587891,
+                5.675000095367432
+              ],
+              "clearance": 3.0588884353637695,
+              "obstruction": "2F_Stair_Up_1"
+            },
+            {
+              "tread": "1F_Stair_Up_1",
+              "xy": [
+                7.090000152587891,
+                5.775000095367432
+              ],
+              "clearance": 3.0588889122009277,
+              "obstruction": "2F_Stair_Up_1"
+            },
+            {
+              "tread": "1F_Stair_Up_1",
+              "xy": [
+                7.090000152587891,
+                5.875000095367431
+              ],
+              "clearance": 3.0588889122009277,
+              "obstruction": "2F_Stair_Up_1"
+            },
+            {
+              "tread": "1F_Stair_Return_1",
+              "xy": [
+                8.3100004196167,
+                7.675000095367432
+              ],
+              "clearance": 2.958888530731201,
+              "obstruction": "2F_Stair_Return_1"
+            },
+            {
+              "tread": "1F_Stair_Return_1",
+              "xy": [
+                8.3100004196167,
+                7.775000095367432
+              ],
+              "clearance": 2.9588890075683594,
+              "obstruction": "2F_Stair_Return_1"
+            },
+            {
+              "tread": "1F_Stair_Return_1",
+              "xy": [
+                8.3100004196167,
+                7.875000095367431
+              ],
+              "clearance": 2.9588890075683594,
+              "obstruction": "2F_Stair_Return_1"
+            },
+            {
+              "tread": "1F_Stair_Up_2",
+              "xy": [
+                7.090000152587891,
+                5.925000095367432
+              ],
+              "clearance": 3.047777384519577,
+              "obstruction": "2F_Stair_Up_2"
+            },
+            {
+              "tread": "1F_Stair_Up_2",
+              "xy": [
+                7.090000152587891,
+                6.025000095367432
+              ],
+              "clearance": 3.047777622938156,
+              "obstruction": "2F_Stair_Up_2"
+            },
+            {
+              "tread": "1F_Stair_Up_2",
+              "xy": [
+                7.090000152587891,
+                6.125000095367431
+              ],
+              "clearance": 3.047777622938156,
+              "obstruction": "2F_Stair_Up_2"
+            },
+            {
+              "tread": "1F_Stair_Return_2",
+              "xy": [
+                8.3100004196167,
+                7.425000095367432
+              ],
+              "clearance": 2.947777271270752,
+              "obstruction": "2F_Stair_Return_2"
+            },
+            {
+              "tread": "1F_Stair_Return_2",
+              "xy": [
+                8.3100004196167,
+                7.525000095367432
+              ],
+              "clearance": 2.94777774810791,
+              "obstruction": "2F_Stair_Return_2"
+            },
+            {
+              "tread": "1F_Stair_Return_2",
+              "xy": [
+                8.3100004196167,
+                7.625000095367431
+              ],
+              "clearance": 2.94777774810791,
+              "obstruction": "2F_Stair_Return_2"
+            },
+            {
+              "tread": "1F_Stair_Up_3",
+              "xy": [
+                7.090000152587891,
+                6.175000095367432
+              ],
+              "clearance": 3.03666615486145,
+              "obstruction": "2F_Stair_Up_3"
+            },
+            {
+              "tread": "1F_Stair_Up_3",
+              "xy": [
+                7.090000152587891,
+                6.275000095367432
+              ],
+              "clearance": 3.0366666316986084,
+              "obstruction": "2F_Stair_Up_3"
+            },
+            {
+              "tread": "1F_Stair_Up_3",
+              "xy": [
+                7.090000152587891,
+                6.375000095367431
+              ],
+              "clearance": 3.0366666316986084,
+              "obstruction": "2F_Stair_Up_3"
+            },
+            {
+              "tread": "1F_Stair_Return_3",
+              "xy": [
+                8.3100004196167,
+                7.175000095367432
+              ],
+              "clearance": 2.936666250228882,
+              "obstruction": "2F_Stair_Return_3"
+            },
+            {
+              "tread": "1F_Stair_Return_3",
+              "xy": [
+                8.3100004196167,
+                7.275000095367432
+              ],
+              "clearance": 2.936666250228882,
+              "obstruction": "2F_Stair_Return_3"
+            },
+            {
+              "tread": "1F_Stair_Return_3",
+              "xy": [
+                8.3100004196167,
+                7.375000095367431
+              ],
+              "clearance": 2.936666250228882,
+              "obstruction": "2F_Stair_Return_3"
+            },
+            {
+              "tread": "1F_Stair_Up_4",
+              "xy": [
+                7.090000152587891,
+                6.425000095367432
+              ],
+              "clearance": 3.0255553126335144,
+              "obstruction": "2F_Stair_Up_4"
+            },
+            {
+              "tread": "1F_Stair_Up_4",
+              "xy": [
+                7.090000152587891,
+                6.525000095367432
+              ],
+              "clearance": 3.0255555510520935,
+              "obstruction": "2F_Stair_Up_4"
+            },
+            {
+              "tread": "1F_Stair_Up_4",
+              "xy": [
+                7.090000152587891,
+                6.625000095367431
+              ],
+              "clearance": 3.0255555510520935,
+              "obstruction": "2F_Stair_Up_4"
+            },
+            {
+              "tread": "1F_Stair_Return_4",
+              "xy": [
+                8.3100004196167,
+                6.925000095367432
+              ],
+              "clearance": 2.925555467605591,
+              "obstruction": "2F_Stair_Return_4"
+            },
+            {
+              "tread": "1F_Stair_Return_4",
+              "xy": [
+                8.3100004196167,
+                7.025000095367432
+              ],
+              "clearance": 2.925555467605591,
+              "obstruction": "2F_Stair_Return_4"
+            },
+            {
+              "tread": "1F_Stair_Return_4",
+              "xy": [
+                8.3100004196167,
+                7.125000095367431
+              ],
+              "clearance": 2.925555467605591,
+              "obstruction": "2F_Stair_Return_4"
+            },
+            {
+              "tread": "1F_Stair_Up_5",
+              "xy": [
+                7.090000152587891,
+                6.675000095367432
+              ],
+              "clearance": 3.014444053173065,
+              "obstruction": "2F_Stair_Up_5"
+            },
+            {
+              "tread": "1F_Stair_Up_5",
+              "xy": [
+                7.090000152587891,
+                6.775000095367432
+              ],
+              "clearance": 3.0144442915916443,
+              "obstruction": "2F_Stair_Up_5"
+            },
+            {
+              "tread": "1F_Stair_Up_5",
+              "xy": [
+                7.090000152587891,
+                6.875000095367431
+              ],
+              "clearance": 3.0144442915916443,
+              "obstruction": "2F_Stair_Up_5"
+            },
+            {
+              "tread": "1F_Stair_Return_5",
+              "xy": [
+                8.3100004196167,
+                6.675000095367432
+              ],
+              "clearance": 2.9144437313079834,
+              "obstruction": "2F_Stair_Return_5"
+            },
+            {
+              "tread": "1F_Stair_Return_5",
+              "xy": [
+                8.3100004196167,
+                6.775000095367432
+              ],
+              "clearance": 2.9144442081451416,
+              "obstruction": "2F_Stair_Return_5"
+            },
+            {
+              "tread": "1F_Stair_Return_5",
+              "xy": [
+                8.3100004196167,
+                6.875000095367431
+              ],
+              "clearance": 2.9144442081451416,
+              "obstruction": "2F_Stair_Return_5"
+            },
+            {
+              "tread": "1F_Stair_Up_6",
+              "xy": [
+                7.090000152587891,
+                6.925000095367432
+              ],
+              "clearance": 3.00333309173584,
+              "obstruction": "2F_Stair_Up_6"
+            },
+            {
+              "tread": "1F_Stair_Up_6",
+              "xy": [
+                7.090000152587891,
+                7.025000095367432
+              ],
+              "clearance": 3.003333568572998,
+              "obstruction": "2F_Stair_Up_6"
+            },
+            {
+              "tread": "1F_Stair_Up_6",
+              "xy": [
+                7.090000152587891,
+                7.125000095367431
+              ],
+              "clearance": 3.003333568572998,
+              "obstruction": "2F_Stair_Up_6"
+            },
+            {
+              "tread": "1F_Stair_Return_6",
+              "xy": [
+                8.3100004196167,
+                6.425000095367432
+              ],
+              "clearance": 2.9033329486846924,
+              "obstruction": "2F_Stair_Return_6"
+            },
+            {
+              "tread": "1F_Stair_Return_6",
+              "xy": [
+                8.3100004196167,
+                6.525000095367432
+              ],
+              "clearance": 2.9033334255218506,
+              "obstruction": "2F_Stair_Return_6"
+            },
+            {
+              "tread": "1F_Stair_Return_6",
+              "xy": [
+                8.3100004196167,
+                6.625000095367431
+              ],
+              "clearance": 2.9033334255218506,
+              "obstruction": "2F_Stair_Return_6"
+            },
+            {
+              "tread": "1F_Stair_Up_7",
+              "xy": [
+                7.090000152587891,
+                7.175000095367432
+              ],
+              "clearance": 2.992222309112549,
+              "obstruction": "2F_Stair_Up_7"
+            },
+            {
+              "tread": "1F_Stair_Up_7",
+              "xy": [
+                7.090000152587891,
+                7.275000095367432
+              ],
+              "clearance": 2.992222309112549,
+              "obstruction": "2F_Stair_Up_7"
+            },
+            {
+              "tread": "1F_Stair_Up_7",
+              "xy": [
+                7.090000152587891,
+                7.375000095367431
+              ],
+              "clearance": 2.992222309112549,
+              "obstruction": "2F_Stair_Up_7"
+            },
+            {
+              "tread": "1F_Stair_Return_7",
+              "xy": [
+                8.3100004196167,
+                6.175000095367432
+              ],
+              "clearance": 2.8922221660614014,
+              "obstruction": "2F_Stair_Return_7"
+            },
+            {
+              "tread": "1F_Stair_Return_7",
+              "xy": [
+                8.3100004196167,
+                6.275000095367432
+              ],
+              "clearance": 2.8922221660614014,
+              "obstruction": "2F_Stair_Return_7"
+            },
+            {
+              "tread": "1F_Stair_Return_7",
+              "xy": [
+                8.3100004196167,
+                6.375000095367431
+              ],
+              "clearance": 2.8922221660614014,
+              "obstruction": "2F_Stair_Return_7"
+            },
+            {
+              "tread": "1F_Stair_Up_8",
+              "xy": [
+                7.090000152587891,
+                7.425000095367432
+              ],
+              "clearance": 2.9811105728149414,
+              "obstruction": "2F_Stair_Up_8"
+            },
+            {
+              "tread": "1F_Stair_Up_8",
+              "xy": [
+                7.090000152587891,
+                7.525000095367432
+              ],
+              "clearance": 2.9811110496520996,
+              "obstruction": "2F_Stair_Up_8"
+            },
+            {
+              "tread": "1F_Stair_Up_8",
+              "xy": [
+                7.090000152587891,
+                7.625000095367431
+              ],
+              "clearance": 2.981111526489258,
+              "obstruction": "2F_Stair_Up_8"
+            },
+            {
+              "tread": "1F_Stair_Return_8",
+              "xy": [
+                8.3100004196167,
+                5.925000095367432
+              ],
+              "clearance": 2.881110429763794,
+              "obstruction": "2F_Stair_Return_8"
+            },
+            {
+              "tread": "1F_Stair_Return_8",
+              "xy": [
+                8.3100004196167,
+                6.025000095367432
+              ],
+              "clearance": 2.881110906600952,
+              "obstruction": "2F_Stair_Return_8"
+            },
+            {
+              "tread": "1F_Stair_Return_8",
+              "xy": [
+                8.3100004196167,
+                6.125000095367431
+              ],
+              "clearance": 2.881110906600952,
+              "obstruction": "2F_Stair_Return_8"
+            },
+            {
+              "tread": "1F_Stair_Up_9",
+              "xy": [
+                7.090000152587891,
+                7.675000095367432
+              ],
+              "clearance": 2.9699997901916504,
+              "obstruction": "2F_Stair_Up_9"
+            },
+            {
+              "tread": "1F_Stair_Up_9",
+              "xy": [
+                7.090000152587891,
+                7.775000095367432
+              ],
+              "clearance": 2.9700002670288086,
+              "obstruction": "2F_Stair_Up_9"
+            },
+            {
+              "tread": "1F_Stair_Up_9",
+              "xy": [
+                7.090000152587891,
+                7.875000095367431
+              ],
+              "clearance": 2.9700002670288086,
+              "obstruction": "2F_Stair_Up_9"
+            },
+            {
+              "tread": "1F_Stair_Return_9",
+              "xy": [
+                8.3100004196167,
+                5.675000095367432
+              ],
+              "clearance": 2.869999647140503,
+              "obstruction": "2F_Stair_Return_9"
+            },
+            {
+              "tread": "1F_Stair_Return_9",
+              "xy": [
+                8.3100004196167,
+                5.775000095367432
+              ],
+              "clearance": 2.870000123977661,
+              "obstruction": "2F_Stair_Return_9"
+            },
+            {
+              "tread": "1F_Stair_Return_9",
+              "xy": [
+                8.3100004196167,
+                5.875000095367431
+              ],
+              "clearance": 2.870000123977661,
+              "obstruction": "2F_Stair_Return_9"
+            }
+          ]
+        }
+      },
+      {
+        "id": "stair_2_centerline_headroom",
+        "pass": true,
+        "evidence": {
+          "referenceThreshold": 2.1,
+          "meaning": "geometric screening, not code certification",
+          "minimum": {
+            "tread": "2F_Stair_Return_9",
+            "xy": [
+              8.3100004196167,
+              5.675000095367432
+            ],
+            "clearance": 2.5999999046325684,
+            "obstruction": "3F_ROOF_LID"
+          },
+          "samples": [
+            {
+              "tread": "2F_Stair_Up_1",
+              "xy": [
+                7.090000152587891,
+                5.675000095367432
+              ],
+              "clearance": 5.433333396911621,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Up_1",
+              "xy": [
+                7.090000152587891,
+                5.775000095367432
+              ],
+              "clearance": 5.433332443237305,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Up_1",
+              "xy": [
+                7.090000152587891,
+                5.875000095367431
+              ],
+              "clearance": 5.433333396911621,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Return_1",
+              "xy": [
+                8.3100004196167,
+                7.675000095367432
+              ],
+              "clearance": 3.933333396911621,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Return_1",
+              "xy": [
+                8.3100004196167,
+                7.775000095367432
+              ],
+              "clearance": 3.9333324432373047,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Return_1",
+              "xy": [
+                8.3100004196167,
+                7.875000095367431
+              ],
+              "clearance": 3.933333396911621,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Up_2",
+              "xy": [
+                7.090000152587891,
+                5.925000095367432
+              ],
+              "clearance": 5.266665935516357,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Up_2",
+              "xy": [
+                7.090000152587891,
+                6.025000095367432
+              ],
+              "clearance": 5.266665935516357,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Up_2",
+              "xy": [
+                7.090000152587891,
+                6.125000095367431
+              ],
+              "clearance": 5.266665935516357,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Return_2",
+              "xy": [
+                8.3100004196167,
+                7.425000095367432
+              ],
+              "clearance": 3.766666889190674,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Return_2",
+              "xy": [
+                8.3100004196167,
+                7.525000095367432
+              ],
+              "clearance": 3.766666889190674,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Return_2",
+              "xy": [
+                8.3100004196167,
+                7.625000095367431
+              ],
+              "clearance": 3.7666659355163574,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Up_3",
+              "xy": [
+                7.090000152587891,
+                6.175000095367432
+              ],
+              "clearance": 5.1000001430511475,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Up_3",
+              "xy": [
+                7.090000152587891,
+                6.275000095367432
+              ],
+              "clearance": 5.1000001430511475,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Up_3",
+              "xy": [
+                7.090000152587891,
+                6.375000095367431
+              ],
+              "clearance": 5.1000001430511475,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Return_3",
+              "xy": [
+                8.3100004196167,
+                7.175000095367432
+              ],
+              "clearance": 3.599998950958252,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Return_3",
+              "xy": [
+                8.3100004196167,
+                7.275000095367432
+              ],
+              "clearance": 3.5999999046325684,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Return_3",
+              "xy": [
+                8.3100004196167,
+                7.375000095367431
+              ],
+              "clearance": 3.599998950958252,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Up_4",
+              "xy": [
+                7.090000152587891,
+                6.425000095367432
+              ],
+              "clearance": 4.933332443237305,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Up_4",
+              "xy": [
+                7.090000152587891,
+                6.525000095367432
+              ],
+              "clearance": 4.933332443237305,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Up_4",
+              "xy": [
+                7.090000152587891,
+                6.625000095367431
+              ],
+              "clearance": 4.933332443237305,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Return_4",
+              "xy": [
+                8.3100004196167,
+                6.925000095367432
+              ],
+              "clearance": 3.433333396911621,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Return_4",
+              "xy": [
+                8.3100004196167,
+                7.025000095367432
+              ],
+              "clearance": 3.4333324432373047,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Return_4",
+              "xy": [
+                8.3100004196167,
+                7.125000095367431
+              ],
+              "clearance": 3.433333396911621,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Up_5",
+              "xy": [
+                7.090000152587891,
+                6.675000095367432
+              ],
+              "clearance": 4.766665935516357,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Up_5",
+              "xy": [
+                7.090000152587891,
+                6.775000095367432
+              ],
+              "clearance": 4.766665935516357,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Up_5",
+              "xy": [
+                7.090000152587891,
+                6.875000095367431
+              ],
+              "clearance": 4.766665935516357,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Return_5",
+              "xy": [
+                8.3100004196167,
+                6.675000095367432
+              ],
+              "clearance": 3.2666659355163574,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Return_5",
+              "xy": [
+                8.3100004196167,
+                6.775000095367432
+              ],
+              "clearance": 3.2666659355163574,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Return_5",
+              "xy": [
+                8.3100004196167,
+                6.875000095367431
+              ],
+              "clearance": 3.2666659355163574,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Up_6",
+              "xy": [
+                7.090000152587891,
+                6.925000095367432
+              ],
+              "clearance": 4.599998950958252,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Up_6",
+              "xy": [
+                7.090000152587891,
+                7.025000095367432
+              ],
+              "clearance": 4.599998950958252,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Up_6",
+              "xy": [
+                7.090000152587891,
+                7.125000095367431
+              ],
+              "clearance": 4.599998950958252,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Return_6",
+              "xy": [
+                8.3100004196167,
+                6.425000095367432
+              ],
+              "clearance": 3.0999999046325684,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Return_6",
+              "xy": [
+                8.3100004196167,
+                6.525000095367432
+              ],
+              "clearance": 3.099998950958252,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Return_6",
+              "xy": [
+                8.3100004196167,
+                6.625000095367431
+              ],
+              "clearance": 3.099998950958252,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Up_7",
+              "xy": [
+                7.090000152587891,
+                7.175000095367432
+              ],
+              "clearance": 4.433332443237305,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Up_7",
+              "xy": [
+                7.090000152587891,
+                7.275000095367432
+              ],
+              "clearance": 4.433332443237305,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Up_7",
+              "xy": [
+                7.090000152587891,
+                7.375000095367431
+              ],
+              "clearance": 4.433332443237305,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Return_7",
+              "xy": [
+                8.3100004196167,
+                6.175000095367432
+              ],
+              "clearance": 2.9333324432373047,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Return_7",
+              "xy": [
+                8.3100004196167,
+                6.275000095367432
+              ],
+              "clearance": 2.9333324432373047,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Return_7",
+              "xy": [
+                8.3100004196167,
+                6.375000095367431
+              ],
+              "clearance": 2.9333324432373047,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Up_8",
+              "xy": [
+                7.090000152587891,
+                7.425000095367432
+              ],
+              "clearance": 4.266665935516357,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Up_8",
+              "xy": [
+                7.090000152587891,
+                7.525000095367432
+              ],
+              "clearance": 4.266665935516357,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Up_8",
+              "xy": [
+                7.090000152587891,
+                7.625000095367431
+              ],
+              "clearance": 4.266666889190674,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Return_8",
+              "xy": [
+                8.3100004196167,
+                5.925000095367432
+              ],
+              "clearance": 2.7666659355163574,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Return_8",
+              "xy": [
+                8.3100004196167,
+                6.025000095367432
+              ],
+              "clearance": 2.7666659355163574,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Return_8",
+              "xy": [
+                8.3100004196167,
+                6.125000095367431
+              ],
+              "clearance": 2.7666659355163574,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Up_9",
+              "xy": [
+                7.090000152587891,
+                7.675000095367432
+              ],
+              "clearance": 4.099998950958252,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Up_9",
+              "xy": [
+                7.090000152587891,
+                7.775000095367432
+              ],
+              "clearance": 4.099998950958252,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Up_9",
+              "xy": [
+                7.090000152587891,
+                7.875000095367431
+              ],
+              "clearance": 4.099998950958252,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Return_9",
+              "xy": [
+                8.3100004196167,
+                5.675000095367432
+              ],
+              "clearance": 2.5999999046325684,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Return_9",
+              "xy": [
+                8.3100004196167,
+                5.775000095367432
+              ],
+              "clearance": 2.5999999046325684,
+              "obstruction": "3F_ROOF_LID"
+            },
+            {
+              "tread": "2F_Stair_Return_9",
+              "xy": [
+                8.3100004196167,
+                5.875000095367431
+              ],
+              "clearance": 2.5999999046325684,
+              "obstruction": "3F_ROOF_LID"
+            }
+          ]
+        }
+      },
+      {
+        "id": "third_floor_stair_front_guard",
+        "pass": true,
+        "evidence": {
+          "point": [
+            7.099999904632568,
+            5.650000095367432,
+            6.75
+          ],
+          "meshes": [
+            "3F_Glass_Railing.004"
+          ]
+        }
+      },
+      {
+        "id": "third_floor_east_terrace_guard",
+        "pass": true,
+        "evidence": {
+          "point": [
+            11.850000381469727,
+            0.800000011920929,
+            6.75
+          ],
+          "meshes": [
+            "3F_Glass_Railing.003",
+            "3F_Guard_Post.025"
+          ]
+        }
+      },
+      {
+        "id": "shower_front_access_opening",
+        "pass": true,
+        "evidence": {
+          "actualClearWidth": 0.75,
+          "referenceWidth": 0.7,
+          "meaning": "geometric access check, not code certification"
+        }
+      },
+      {
+        "id": "studio_cabinet_front_access",
+        "pass": true,
+        "evidence": {
+          "actualFrontNormal": [
+            1.0,
+            4.371138828673793e-08,
+            0.0
+          ],
+          "clearanceRayLength": 0.6,
+          "obstruction": null
+        }
+      },
+      {
+        "id": "cabinet_handles_Entry_ShoeCabinet",
+        "pass": true,
+        "evidence": {
+          "floating": []
+        }
+      },
+      {
+        "id": "cabinet_handles_Studio_Cabinet",
+        "pass": true,
+        "evidence": {
+          "floating": []
+        }
+      },
+      {
+        "id": "sink_interior_not_filled_by_cabinet",
+        "pass": true,
+        "evidence": {
+          "point": [
+            10.14799976348877,
+            2.0999999046325684,
+            0.800000011920929
+          ],
+          "upwardHit": null,
+          "hitZ": null
+        }
+      },
+      {
+        "id": "overall_envelope",
+        "pass": true,
+        "evidence": {
+          "min": [
+            0.0,
+            -0.015000000596046448,
+            -0.20000000298023224
+          ],
+          "max": [
+            12.0,
+            9.0,
+            9.600000381469727
+          ]
+        }
+      }
+    ],
+    "limits": "Model geometry and selected usability checks; not structural, regulatory, fire or accessibility certification."
+  },
+  "exports": [
+    {
+      "format": "fbx",
+      "file": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\House_3F_Full_Complete_Argon.fbx",
+      "bytes": 10823420,
+      "sha256": "183e9d991e94c27d51096f2bf4c79552c7ac8b067b5d02263d299ab06d677f6a",
+      "meshCount": 1534,
+      "materials": 17,
+      "images": 7,
+      "textures": 7,
+      "imageDatablocks": 15,
+      "bounds": {
+        "min": [
+          0.0,
+          -0.014999998733401299,
+          -0.20000146329402924
+        ],
+        "max": [
+          12.0,
+          9.000001907348633,
+          9.600000381469727
+        ]
+      },
+      "materialImages": {
+        "Argon_Anodized_Bronze_Metal": [],
+        "Argon_Brushed_Champagne_Steel": [],
+        "Argon_Ceramic_White": [],
+        "Argon_Charcoal_Basalt": [
+          "argon_baked_darkstone.png",
+          "argon_baked_darkstone.png.001"
+        ],
+        "Argon_Honed_Travertine": [
+          "argon_baked_terrazzo.png",
+          "argon_baked_terrazzo.png.001"
+        ],
+        "Argon_LowIron_Arch_Glass": [],
+        "Argon_Nordic_Honey_Oak": [
+          "argon_baked_oak.png",
+          "argon_baked_oak.png.001"
+        ],
+        "Argon_OLED_Display_Glass": [],
+        "Argon_Olive_Foliage": [],
+        "Argon_Organic_Soil": [],
+        "Argon_Sage_Foliage": [],
+        "Argon_Smoked_Espresso_Walnut": [
+          "argon_baked_walnut.png",
+          "argon_baked_walnut.png.001"
+        ],
+        "Argon_Soft_Oat_Linen": [],
+        "Argon_Terracotta_Velvet": [
+          "argon_baked_navy.png",
+          "argon_baked_navy.png.001"
+        ],
+        "Argon_Warm_Berber_Rug": [
+          "argon_baked_fabric.png",
+          "argon_baked_fabric.png.002"
+        ],
+        "Argon_Warm_Ivory_Boucle": [
+          "argon_baked_fabric.png",
+          "argon_baked_fabric.png.001"
+        ],
+        "Argon_Warm_Limestone_Plaster": [
+          "argon_baked_plaster.png",
+          "argon_baked_plaster.png.001"
+        ]
+      }
+    },
+    {
+      "format": "glb",
+      "file": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\House_3F_Full_Complete_Argon.glb",
+      "bytes": 10058008,
+      "sha256": "2e5869f0610448dc3ca9e50af0f01e904c326040d12e42768c40b91210bd39cf",
+      "meshCount": 1534,
+      "materials": 17,
+      "images": 7,
+      "textures": 7,
+      "imageDatablocks": 7,
+      "bounds": {
+        "min": [
+          0.0,
+          -0.015000000596046448,
+          -0.20000000298023224
+        ],
+        "max": [
+          12.0,
+          9.0,
+          9.600000381469727
+        ]
+      },
+      "materialImages": {
+        "Argon_Anodized_Bronze_Metal": [],
+        "Argon_Brushed_Champagne_Steel": [],
+        "Argon_Ceramic_White": [],
+        "Argon_Charcoal_Basalt": [
+          "argon_baked_darkstone"
+        ],
+        "Argon_Honed_Travertine": [
+          "argon_baked_terrazzo"
+        ],
+        "Argon_LowIron_Arch_Glass": [],
+        "Argon_Nordic_Honey_Oak": [
+          "argon_baked_oak"
+        ],
+        "Argon_OLED_Display_Glass": [],
+        "Argon_Olive_Foliage": [],
+        "Argon_Organic_Soil": [],
+        "Argon_Sage_Foliage": [],
+        "Argon_Smoked_Espresso_Walnut": [
+          "argon_baked_walnut"
+        ],
+        "Argon_Soft_Oat_Linen": [],
+        "Argon_Terracotta_Velvet": [
+          "argon_baked_navy"
+        ],
+        "Argon_Warm_Berber_Rug": [
+          "argon_baked_fabric"
+        ],
+        "Argon_Warm_Ivory_Boucle": [
+          "argon_baked_fabric"
+        ],
+        "Argon_Warm_Limestone_Plaster": [
+          "argon_baked_plaster"
+        ]
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "fbx_empty_scene",
+      "pass": true,
+      "data": 0
+    },
+    {
+      "id": "fbx_mesh_count",
+      "pass": true,
+      "data": 1534
+    },
+    {
+      "id": "fbx_bounds",
+      "pass": true,
+      "data": {
+        "min": [
+          0.0,
+          -0.014999998733401299,
+          -0.20000146329402924
+        ],
+        "max": [
+          12.0,
+          9.000001907348633,
+          9.600000381469727
+        ]
+      }
+    },
+    {
+      "id": "fbx_materials",
+      "pass": true,
+      "data": 17
+    },
+    {
+      "id": "fbx_textures",
+      "pass": true,
+      "data": {
+        "uniquePixelTextures": 7,
+        "imageDatablocks": 15,
+        "imagePixelHashes": {
+          "argon_baked_darkstone.png": "9d269554a26b733a97682057d5c9daf875198583bf4b8f2df2f1bd2d0856d691",
+          "argon_baked_darkstone.png.001": "9d269554a26b733a97682057d5c9daf875198583bf4b8f2df2f1bd2d0856d691",
+          "argon_baked_fabric.png": "3b7b11733316f9dcb6a19cb77528db14484919409f9c9b6566b1ca00270fc04a",
+          "argon_baked_fabric.png.001": "3b7b11733316f9dcb6a19cb77528db14484919409f9c9b6566b1ca00270fc04a",
+          "argon_baked_fabric.png.002": "3b7b11733316f9dcb6a19cb77528db14484919409f9c9b6566b1ca00270fc04a",
+          "argon_baked_navy.png": "7066d08fac02f7e66b02ee53f4b12c6baf359e5feb88e54981f307e007d69c85",
+          "argon_baked_navy.png.001": "7066d08fac02f7e66b02ee53f4b12c6baf359e5feb88e54981f307e007d69c85",
+          "argon_baked_oak.png": "2a78def461d581f2118220adcde86bd553b412436442a8dd0c602263d7d54a18",
+          "argon_baked_oak.png.001": "2a78def461d581f2118220adcde86bd553b412436442a8dd0c602263d7d54a18",
+          "argon_baked_plaster.png": "9246aa15175874f97ba26764f793e6782248cef82e7f9e1b8b4fa5de4747f7ac",
+          "argon_baked_plaster.png.001": "9246aa15175874f97ba26764f793e6782248cef82e7f9e1b8b4fa5de4747f7ac",
+          "argon_baked_terrazzo.png": "04d16eacae10f60e500c4973bfe555ee331a87a5fd1c34d615e2f640f0e91067",
+          "argon_baked_terrazzo.png.001": "04d16eacae10f60e500c4973bfe555ee331a87a5fd1c34d615e2f640f0e91067",
+          "argon_baked_walnut.png": "f932601c1d39f9d7f307acdf410622392701102a50fa6cc7be89c79f0df02b73",
+          "argon_baked_walnut.png.001": "f932601c1d39f9d7f307acdf410622392701102a50fa6cc7be89c79f0df02b73"
+        },
+        "note": "FBX importer may create multiple image datablocks for the same pixels used by separate material slots."
+      }
+    },
+    {
+      "id": "fbx_floor_groups",
+      "pass": true,
+      "data": [
+        "House_Floor_1F",
+        "House_Floor_2F",
+        "House_Floor_3F"
+      ]
+    },
+    {
+      "id": "fbx_eight_textured_materials",
+      "pass": true,
+      "data": {
+        "Argon_Anodized_Bronze_Metal": [],
+        "Argon_Brushed_Champagne_Steel": [],
+        "Argon_Ceramic_White": [],
+        "Argon_Charcoal_Basalt": [
+          "argon_baked_darkstone.png",
+          "argon_baked_darkstone.png.001"
+        ],
+        "Argon_Honed_Travertine": [
+          "argon_baked_terrazzo.png",
+          "argon_baked_terrazzo.png.001"
+        ],
+        "Argon_LowIron_Arch_Glass": [],
+        "Argon_Nordic_Honey_Oak": [
+          "argon_baked_oak.png",
+          "argon_baked_oak.png.001"
+        ],
+        "Argon_OLED_Display_Glass": [],
+        "Argon_Olive_Foliage": [],
+        "Argon_Organic_Soil": [],
+        "Argon_Sage_Foliage": [],
+        "Argon_Smoked_Espresso_Walnut": [
+          "argon_baked_walnut.png",
+          "argon_baked_walnut.png.001"
+        ],
+        "Argon_Soft_Oat_Linen": [],
+        "Argon_Terracotta_Velvet": [
+          "argon_baked_navy.png",
+          "argon_baked_navy.png.001"
+        ],
+        "Argon_Warm_Berber_Rug": [
+          "argon_baked_fabric.png",
+          "argon_baked_fabric.png.002"
+        ],
+        "Argon_Warm_Ivory_Boucle": [
+          "argon_baked_fabric.png",
+          "argon_baked_fabric.png.001"
+        ],
+        "Argon_Warm_Limestone_Plaster": [
+          "argon_baked_plaster.png",
+          "argon_baked_plaster.png.001"
+        ]
+      }
+    },
+    {
+      "id": "glb_empty_scene",
+      "pass": true,
+      "data": 0
+    },
+    {
+      "id": "glb_mesh_count",
+      "pass": true,
+      "data": 1534
+    },
+    {
+      "id": "glb_bounds",
+      "pass": true,
+      "data": {
+        "min": [
+          0.0,
+          -0.015000000596046448,
+          -0.20000000298023224
+        ],
+        "max": [
+          12.0,
+          9.0,
+          9.600000381469727
+        ]
+      }
+    },
+    {
+      "id": "glb_materials",
+      "pass": true,
+      "data": 17
+    },
+    {
+      "id": "glb_textures",
+      "pass": true,
+      "data": {
+        "uniquePixelTextures": 7,
+        "imageDatablocks": 7,
+        "imagePixelHashes": {
+          "argon_baked_darkstone": "9d269554a26b733a97682057d5c9daf875198583bf4b8f2df2f1bd2d0856d691",
+          "argon_baked_fabric": "3b7b11733316f9dcb6a19cb77528db14484919409f9c9b6566b1ca00270fc04a",
+          "argon_baked_navy": "7066d08fac02f7e66b02ee53f4b12c6baf359e5feb88e54981f307e007d69c85",
+          "argon_baked_oak": "2a78def461d581f2118220adcde86bd553b412436442a8dd0c602263d7d54a18",
+          "argon_baked_plaster": "9246aa15175874f97ba26764f793e6782248cef82e7f9e1b8b4fa5de4747f7ac",
+          "argon_baked_terrazzo": "04d16eacae10f60e500c4973bfe555ee331a87a5fd1c34d615e2f640f0e91067",
+          "argon_baked_walnut": "f932601c1d39f9d7f307acdf410622392701102a50fa6cc7be89c79f0df02b73"
+        },
+        "note": "FBX importer may create multiple image datablocks for the same pixels used by separate material slots."
+      }
+    },
+    {
+      "id": "glb_floor_groups",
+      "pass": true,
+      "data": [
+        "House_Floor_1F",
+        "House_Floor_2F",
+        "House_Floor_3F"
+      ]
+    },
+    {
+      "id": "glb_eight_textured_materials",
+      "pass": true,
+      "data": {
+        "Argon_Anodized_Bronze_Metal": [],
+        "Argon_Brushed_Champagne_Steel": [],
+        "Argon_Ceramic_White": [],
+        "Argon_Charcoal_Basalt": [
+          "argon_baked_darkstone"
+        ],
+        "Argon_Honed_Travertine": [
+          "argon_baked_terrazzo"
+        ],
+        "Argon_LowIron_Arch_Glass": [],
+        "Argon_Nordic_Honey_Oak": [
+          "argon_baked_oak"
+        ],
+        "Argon_OLED_Display_Glass": [],
+        "Argon_Olive_Foliage": [],
+        "Argon_Organic_Soil": [],
+        "Argon_Sage_Foliage": [],
+        "Argon_Smoked_Espresso_Walnut": [
+          "argon_baked_walnut"
+        ],
+        "Argon_Soft_Oat_Linen": [],
+        "Argon_Terracotta_Velvet": [
+          "argon_baked_navy"
+        ],
+        "Argon_Warm_Berber_Rug": [
+          "argon_baked_fabric"
+        ],
+        "Argon_Warm_Ivory_Boucle": [
+          "argon_baked_fabric"
+        ],
+        "Argon_Warm_Limestone_Plaster": [
+          "argon_baked_plaster"
+        ]
+      }
+    },
+    {
+      "id": "fbx_exact_baked_png_embedding",
+      "pass": true,
+      "data": {
+        "embeddedPngCount": 7
+      }
+    },
+    {
+      "id": "glb_embedded_no_external_images",
+      "pass": true,
+      "data": [
+        {
+          "bufferView": 4,
+          "mimeType": "image/png",
+          "name": "argon_baked_plaster"
+        },
+        {
+          "bufferView": 33,
+          "mimeType": "image/png",
+          "name": "argon_baked_terrazzo"
+        },
+        {
+          "bufferView": 38,
+          "mimeType": "image/png",
+          "name": "argon_baked_walnut"
+        },
+        {
+          "bufferView": 197,
+          "mimeType": "image/png",
+          "name": "argon_baked_oak"
+        },
+        {
+          "bufferView": 418,
+          "mimeType": "image/png",
+          "name": "argon_baked_fabric"
+        },
+        {
+          "bufferView": 552,
+          "mimeType": "image/png",
+          "name": "argon_baked_darkstone"
+        },
+        {
+          "bufferView": 674,
+          "mimeType": "image/png",
+          "name": "argon_baked_navy"
+        }
+      ]
+    },
+    {
+      "id": "source_geometry_223",
+      "pass": true,
+      "data": {
+        "status": "PASS",
+        "checkCount": 223,
+        "failedChecks": []
+      }
+    }
+  ],
+  "provenance": "export-provenance.json",
+  "shaderComparison": [
+    {
+      "sourceImage": "terrazzo.png",
+      "settings": {
+        "Hue": 0.49000000953674316,
+        "Saturation": 1.149999976158142,
+        "Value": 1.0399999618530273,
+        "Fac": 1.0
+      },
+      "bakedFile": "argon_baked_terrazzo.png",
+      "sha256": "106bee4c136cec22c687d2c2a2b7b481b106f9c5518a07688ab8876614cf1b32",
+      "materials": [
+        "Argon_Honed_Travertine"
+      ],
+      "resolution": [
+        512,
+        512
+      ],
+      "shaderReference": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\shader-comparison\\argon_baked_terrazzo-shader.png",
+      "bakedReference": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\shader-comparison\\argon_baked_terrazzo-baked.png",
+      "comparison": {
+        "space": "Normalized RGB channels from Blender-loaded 8-bit validation PNG",
+        "meanAbsoluteError": 0.0010307411199240353,
+        "p99AbsoluteError": 0.003921568393707275,
+        "maxAbsoluteError": 0.00784313678741455,
+        "pass": true,
+        "threshold": "mean<0.004, p99<0.018"
+      }
+    },
+    {
+      "sourceImage": "plaster.png",
+      "settings": {
+        "Hue": 0.49000000953674316,
+        "Saturation": 1.149999976158142,
+        "Value": 1.0399999618530273,
+        "Fac": 1.0
+      },
+      "bakedFile": "argon_baked_plaster.png",
+      "sha256": "c36fa435a8520b08be0ad0383e69c24c64dcff634680d3398ad9fe6cf3765899",
+      "materials": [
+        "Argon_Warm_Limestone_Plaster"
+      ],
+      "resolution": [
+        512,
+        512
+      ],
+      "shaderReference": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\shader-comparison\\argon_baked_plaster-shader.png",
+      "bakedReference": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\shader-comparison\\argon_baked_plaster-baked.png",
+      "comparison": {
+        "space": "Normalized RGB channels from Blender-loaded 8-bit validation PNG",
+        "meanAbsoluteError": 0.001137612468255611,
+        "p99AbsoluteError": 0.003921568393707275,
+        "maxAbsoluteError": 0.003921568393707275,
+        "pass": true,
+        "threshold": "mean<0.004, p99<0.018"
+      }
+    },
+    {
+      "sourceImage": "walnut.png",
+      "settings": {
+        "Hue": 0.49000000953674316,
+        "Saturation": 1.149999976158142,
+        "Value": 1.0399999618530273,
+        "Fac": 1.0
+      },
+      "bakedFile": "argon_baked_walnut.png",
+      "sha256": "ba9e8295fbcd0a0b788a7159cc6f902bcaca70f5adbe32cd59580dd939bafe80",
+      "materials": [
+        "Argon_Smoked_Espresso_Walnut"
+      ],
+      "resolution": [
+        512,
+        512
+      ],
+      "shaderReference": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\shader-comparison\\argon_baked_walnut-shader.png",
+      "bakedReference": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\shader-comparison\\argon_baked_walnut-baked.png",
+      "comparison": {
+        "space": "Normalized RGB channels from Blender-loaded 8-bit validation PNG",
+        "meanAbsoluteError": 0.0004928789567083905,
+        "p99AbsoluteError": 0.003921568393707275,
+        "maxAbsoluteError": 0.003921598196029663,
+        "pass": true,
+        "threshold": "mean<0.004, p99<0.018"
+      }
+    },
+    {
+      "sourceImage": "oak.png",
+      "settings": {
+        "Hue": 0.49000000953674316,
+        "Saturation": 1.149999976158142,
+        "Value": 1.0399999618530273,
+        "Fac": 1.0
+      },
+      "bakedFile": "argon_baked_oak.png",
+      "sha256": "490f1c89867c1b92f079763dd0a00590c0c30544987e1980c2ef52732ce4fc86",
+      "materials": [
+        "Argon_Nordic_Honey_Oak"
+      ],
+      "resolution": [
+        512,
+        512
+      ],
+      "shaderReference": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\shader-comparison\\argon_baked_oak-shader.png",
+      "bakedReference": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\shader-comparison\\argon_baked_oak-baked.png",
+      "comparison": {
+        "space": "Normalized RGB channels from Blender-loaded 8-bit validation PNG",
+        "meanAbsoluteError": 0.0004518446424602492,
+        "p99AbsoluteError": 0.003921568393707275,
+        "maxAbsoluteError": 0.003921583294868469,
+        "pass": true,
+        "threshold": "mean<0.004, p99<0.018"
+      }
+    },
+    {
+      "sourceImage": "fabric.png",
+      "settings": {
+        "Hue": 0.49000000953674316,
+        "Saturation": 1.149999976158142,
+        "Value": 1.0399999618530273,
+        "Fac": 1.0
+      },
+      "bakedFile": "argon_baked_fabric.png",
+      "sha256": "3cab45f5a33b07e128066daa9fe3b312d51b8b2a7723c938e014815e9192f4d5",
+      "materials": [
+        "Argon_Warm_Ivory_Boucle",
+        "Argon_Warm_Berber_Rug"
+      ],
+      "resolution": [
+        512,
+        512
+      ],
+      "shaderReference": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\shader-comparison\\argon_baked_fabric-shader.png",
+      "bakedReference": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\shader-comparison\\argon_baked_fabric-baked.png",
+      "comparison": {
+        "space": "Normalized RGB channels from Blender-loaded 8-bit validation PNG",
+        "meanAbsoluteError": 0.0004914825854787827,
+        "p99AbsoluteError": 0.003921568393707275,
+        "maxAbsoluteError": 0.003921627998352051,
+        "pass": true,
+        "threshold": "mean<0.004, p99<0.018"
+      }
+    },
+    {
+      "sourceImage": "navy.png",
+      "settings": {
+        "Hue": 0.49000000953674316,
+        "Saturation": 1.149999976158142,
+        "Value": 1.0399999618530273,
+        "Fac": 1.0
+      },
+      "bakedFile": "argon_baked_navy.png",
+      "sha256": "e47e22f53ba45390e4a88a2dde7ad5daa8a161dd16d23a09906fdc6a8c10a5df",
+      "materials": [
+        "Argon_Terracotta_Velvet"
+      ],
+      "resolution": [
+        512,
+        512
+      ],
+      "shaderReference": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\shader-comparison\\argon_baked_navy-shader.png",
+      "bakedReference": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\shader-comparison\\argon_baked_navy-baked.png",
+      "comparison": {
+        "space": "Normalized RGB channels from Blender-loaded 8-bit validation PNG",
+        "meanAbsoluteError": 0.000978706664341189,
+        "p99AbsoluteError": 0.003921568393707275,
+        "maxAbsoluteError": 0.003921598196029663,
+        "pass": true,
+        "threshold": "mean<0.004, p99<0.018"
+      }
+    },
+    {
+      "sourceImage": "darkstone.png",
+      "settings": {
+        "Hue": 0.49000000953674316,
+        "Saturation": 1.149999976158142,
+        "Value": 1.0399999618530273,
+        "Fac": 1.0
+      },
+      "bakedFile": "argon_baked_darkstone.png",
+      "sha256": "b0fbbe550584321431ee9d44b04ea96729a567a94faf5e6659427a1f3993a8eb",
+      "materials": [
+        "Argon_Charcoal_Basalt"
+      ],
+      "resolution": [
+        512,
+        512
+      ],
+      "shaderReference": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\shader-comparison\\argon_baked_darkstone-shader.png",
+      "bakedReference": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\house-comparison\\argon-validation\\derived-export\\shader-comparison\\argon_baked_darkstone-baked.png",
+      "comparison": {
+        "space": "Normalized RGB channels from Blender-loaded 8-bit validation PNG",
+        "meanAbsoluteError": 0.0009674271150288405,
+        "p99AbsoluteError": 0.003921568393707275,
+        "maxAbsoluteError": 0.003921568393707275,
+        "pass": true,
+        "threshold": "mean<0.004, p99<0.018"
+      }
+    }
+  ],
+  "limits": "Textures are baked to 8-bit PNG; minor quantization and cross-application glass/lighting differences remain."
+}

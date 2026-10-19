@@ -1,0 +1,260 @@
+{
+  "lesson": "12",
+  "localOnly": true,
+  "status": "design-pending",
+  "reviewStatus": "instructor-review",
+  "selfCreatedHouseOnly": true,
+  "externalHwangInsuDrawingsIncluded": false,
+  "files": [
+    {
+      "outputPath": "images/daejeon/lesson-12/보드01_포트폴리오_표지_모던3층단독주택.png",
+      "bytes": 2072594,
+      "sha256": "4e785fbe961deee76474ade02c9ca7818d0404e1601343453eba77d6f08d67cb"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/보드02_01_Intro_디자인컨셉과_내외장재무드보드.png",
+      "bytes": 2158863,
+      "sha256": "9500407c70fbdfcd9b8b7c221748b100c5543af697b9d07ec12aa0c1cbc42f79"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/보드03_02_Overview_입체아이소메트릭과_공간동선.png",
+      "bytes": 2537877,
+      "sha256": "f9b947d9ce3522c32def09d7e3ec75583e3006a4fb8a2fb58ead938a9b54623a"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/보드04_03_Verification_입단면도면과_법규검토요약.png",
+      "bytes": 145900,
+      "sha256": "904846cd521fa302448a74320dc606ed74eeb4621e07f9c14c44b7276665ac3b"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/슬라이드01_표지.png",
+      "bytes": 1503802,
+      "sha256": "c889eda997a16138f2df63ff529894a972944a1a04be93cfe416f2d1b9d200b1"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/슬라이드02_기획기준.png",
+      "bytes": 744286,
+      "sha256": "6b846d9b9ae7b00a8848509e6235efb93e176d1648c6a345aead82becadcd298"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/슬라이드03_콘셉트재료.png",
+      "bytes": 588007,
+      "sha256": "10758aff339667a3c8ea4567cb2c80f246ffa95b0cfbdddc4298ba3afb4145c9"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/슬라이드04_평면조닝.png",
+      "bytes": 113762,
+      "sha256": "1baf54712b9572b2bbbbcf0e34866b9ac845c87e178b71a28435439598915ad0"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/슬라이드05_1층2층3D공간.png",
+      "bytes": 1509151,
+      "sha256": "f2f3eebcb4ab631059a3a5f7018680b2d51796b60ca64125c08da011ca2ba037"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/슬라이드06_루프탑단면.png",
+      "bytes": 827732,
+      "sha256": "5c90746e71d85baa7e6eef5dd7e4dd49b183d23e18420c74591c6cf1dd9df1b4"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/슬라이드07_최종시각화.png",
+      "bytes": 1544719,
+      "sha256": "76780549ade05f3ed3ca34283215de2c4ca90b0dab1584e0fddfbf467f6bb075"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/슬라이드08_법규검증및결론.png",
+      "bytes": 98835,
+      "sha256": "0ded4d8ffb375c5a10ddaff2623aa16a3d2213bc62b4571f46f3e1ea83cd20dc"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/무드보드_모던3층단독주택_내외장재_컨셉보드.png",
+      "bytes": 1985370,
+      "sha256": "91a57ce16ce850a8d30c259b2e7bd0e8f57846acba7d888c8d7035c2029a647f"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/스튜디오_로고_ARCHI_NOVA.png",
+      "bytes": 220365,
+      "sha256": "bc105839c54ea49f00e5f60c6d5c77bfc3bf1e47d827b5977e13438659236ee1"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/실사형_01_1층_거실주방_아이소메트릭.png",
+      "bytes": 2079060,
+      "sha256": "690da7842093b2aeeb04d8cd9a3337a95b7fcb535c0231242baab7d5a0227fb1"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/실사형_02_2층_침실서재_아이소메트릭.png",
+      "bytes": 2297371,
+      "sha256": "91c2f0ea96179907d4267b8144825b75a6c2a87758ea09aca5496911967e477c"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/실사형_03_3층_다락루프탑_아이소메트릭.png",
+      "bytes": 1931696,
+      "sha256": "c4f86127c79c2f4cf429888516653f8b0be4269a0710f1c2e2fd192b91813f12"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/실내_1층_거실주방_재료조명_제안.png",
+      "bytes": 2115296,
+      "sha256": "11eadbff0a815de733c9bd298461abb3d58cf9957bfa375dc28ddc107afa90d3"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/실내_2층_침실_재료조명_제안.png",
+      "bytes": 2454154,
+      "sha256": "7625e69be2d86ef73ffbbc145bdb1a1363100e6b9fa8ed6695e540f102cdf695"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/실외_3층_루프탑라운지_제안.png",
+      "bytes": 2835118,
+      "sha256": "f848093b5ce9e57b90ec9a585c42cd65a1ca41ac6498db8469c6327baf270dbe"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/주택_주간_재료조명_제안렌더.png",
+      "bytes": 2491915,
+      "sha256": "bc2d143ac64a846df7a433e9b75ae0aefa112fed9d65bea54ce544b7ab3bbe50"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/주택_석양_조명_제안렌더.png",
+      "bytes": 2489531,
+      "sha256": "7a92e0b836c25b0beb27cec4dc90e0e7fa2a080ac866795e2c2a0487603fd0c0"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/가구조명_소파_식탁_아일랜드_컷아웃.png",
+      "bytes": 1505962,
+      "sha256": "edb7ee004650a23c01ecd75e29f37baf9dd4de46f3767a1b543b5c03676d4273"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/공간조닝_공용_사적_루프탑.png",
+      "bytes": 32426,
+      "sha256": "26315e41ca85ab67bccdfde1b40b9e7e785e6c06d2b19c0826a2af708f505eed"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/무드보드_AI레이아웃_시안.png",
+      "bytes": 2131289,
+      "sha256": "807f833b6aaac1fac981fbbff1987f09350ef542c3d0397126120a0653d4d62c"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/재료01_아이보리_트라버틴_질감참조.png",
+      "bytes": 349794,
+      "sha256": "5c7f934a40c171aa27ed8e9e4be9d6f8af3d5bf0e57cc56690469a8743006b78"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/재료02_크림_마이크로시멘트_질감참조.png",
+      "bytes": 158270,
+      "sha256": "3bee8002cfed858af7b7d09e179c4d1acb523a3520689370ff152fed1c436f26"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/재료03_내추럴_화이트오크_질감참조.png",
+      "bytes": 207384,
+      "sha256": "bcf05ba89e2827131f739f2cdc64bc89905d5e1203101bf4ee4054b96ab04a9b"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/재료04_다크월넛_타지마할스톤_질감참조.png",
+      "bytes": 683428,
+      "sha256": "36feae25c16f394ca3bc4aa146060fd01def4fd7b0116d210b38ae7487239e3b"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-12/모던3층단독주택_AI설계제안서_8장슬라이드.pptx",
+      "bytes": 24300155,
+      "sha256": "a9ea1523f80dc15b7e913dd091c657d7af4f1afeaad33c36c3ce4932e003ff72"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-12/모던3층단독주택_AI설계제안서_8장슬라이드.pdf",
+      "bytes": 10445628,
+      "sha256": "52fcd4e3dcb90160d2bdb236013609c2daf6b3951cedadf83470e26fbf05f085"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/참고_01-intro-layout-reference.jpeg",
+      "bytes": 245103,
+      "sha256": "290bd8d7175aca3b31f2370f57453c6742c9bda1973deb79547b70f684e9cf83"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/참고_02-overview-layout-reference.jpeg",
+      "bytes": 190238,
+      "sha256": "f779e66b80d295dbc17cf4790a2c6b52598eccc093dbdc95034078d8e300984f"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/참고_03-overview-trajectory-reference.jpeg",
+      "bytes": 257108,
+      "sha256": "5f053126e72f8776d0644316a70b06e8f7a3bb08b0a0039950ec02e57cd64ce6"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/참고_표지구도_01.jpeg",
+      "bytes": 191023,
+      "sha256": "3f42a4d90cf847bca8b924a2c6f6b7a3474ee2863fc12dbd1b347c6e833efdec"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/참고_표지구도_02.jpeg",
+      "bytes": 191925,
+      "sha256": "3528bd154f5022f9dcb00291e24cff5f7efc43be12621a556b42bd7070077847"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/참고_표지구도_03.jpeg",
+      "bytes": 267462,
+      "sha256": "cedb7aacba7353bb20163e823290d0f9d84174f0a25708fc48bd411b2949814d"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/참고_표지구도_04.jpeg",
+      "bytes": 244126,
+      "sha256": "e87387e0a39d25e995dc0dfb3e1d698bafc9a93e5e161c74b188be5b8a3c4a18"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/참고_표지구도_05.jpeg",
+      "bytes": 217765,
+      "sha256": "2cd58a5f190becdd68e82e2fd1717c0555197721f4bf0fc50c05e288969d478a"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/참고_표지구도_06.jpeg",
+      "bytes": 207909,
+      "sha256": "554adace9091424bd82e1a0e4e0416041b8f7a093aef725c318ecf0ab4fe89a5"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/참고_표지구도_07.jpeg",
+      "bytes": 195661,
+      "sha256": "8a807d47f05a3a6f28bb57ccf1c32d6c4cccc7e090b3d938805464a06eaa9b37"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/참고_표지구도_08.jpeg",
+      "bytes": 203662,
+      "sha256": "71bebdc298014b19d8e9e759cf6a7fb924f495b061b5a66631ec8030338a75ed"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/참고_표지구도_09.jpeg",
+      "bytes": 194844,
+      "sha256": "b430c2f980be784d30617535995a89398f8b654d679af32709fae373373a5a31"
+    },
+    {
+      "outputPath": "images/daejeon/lesson-12/참고_표지구도_10.jpeg",
+      "bytes": 214559,
+      "sha256": "e8a23f5aa512e13ae9ebed51f7334b42da2c5a334e65abec20914ed9da56344d"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-12/참고용_표지레이아웃_장문프롬프트_원문.txt",
+      "bytes": 15435,
+      "sha256": "e5bcd25558ba34fdf26b3f613fd643c8064c284a278e80be8ffa60e2c7963dc0"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-12/프롬프트02_내외장재_가구_무드보드.txt",
+      "bytes": 1773,
+      "sha256": "cf5b58ed6cba53bf5c82f73a0d93faae56d6291e13243a308aacdd26d385880e"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-12/프롬프트03_실사형_아이소메트릭_조닝.txt",
+      "bytes": 1336,
+      "sha256": "e1d0427c93c14a47966c11c19bbc054d683d17d7892dd75c2dd149d52bebbb4d"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-12/프롬프트04_스튜디오로고_표지_내지디자인.txt",
+      "bytes": 1462,
+      "sha256": "be59a644754505e8a65e786be4fcc63513d424417a71991f75b99bc4f05fef95"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-12/프롬프트05_PPT8장_헤드라인_설계카피_스펙표.txt",
+      "bytes": 1314,
+      "sha256": "1387d88da4e8d6172800a2daf2f37845b6ebd014b97553bd16ede1d443d63033"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-12/포트폴리오_보드4장_원본PNG.zip",
+      "bytes": 6852191,
+      "sha256": "e4b3d364ee998308595d24dc4c0c6ef40afd05ee640fe43d14d10021a3a61a67"
+    }
+  ]
+}

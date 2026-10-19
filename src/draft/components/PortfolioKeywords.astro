@@ -1,0 +1,22 @@
+---
+import {materialKeywordGroups} from '../../lib/lesson12-14-portfolio-project';
+const helps:Record<string,string>={'재질':'어느 벽·바닥·가구에 적용할지 먼저 정합니다.','색상':'밝은 기본색과 포인트를 나눠 선택합니다.','조명':'색감·밝기 인상을 설명하며 실제 조도·색온도 보증은 아닙니다.','환경':'계절·날씨를 바꿀 때 구조·시점은 유지합니다.','조경':'진입·보행 동선을 가리지 않는 범위로 제안합니다.','내부 스타일링':'가구 종류를 고르고 배치 변경 범위를 따로 적습니다.','외부 스타일링':'원본에 없는 요소 추가는 별도 승인한 경우에만 요청합니다.','사람·활동':'이번 주택 예시와 구분해 필요한 경우에만 선택합니다.','분위기·디자인 언어':'서로 상충하지 않는 방향을 적게 선택합니다.','카메라·시점':'재질 변경과 다른 단계로 나누고 원본과 대조합니다.','렌더링 표현':'표현이 사실·성능의 보증을 뜻하지 않습니다.'};
+---
+<div class="portfolio-keywords" data-portfolio-keywords>
+ <p>기존 재질·가구 프롬프트 라이브러리의 단어를 사용합니다. 필요한 단어를 최대 6개 고르고, 적용 위치는 직접 적습니다.</p>
+ <label>바꿀 위치 <input data-keyword-target type="text" value="거실 소파와 배경 벽" maxlength="100" /></label>
+ {materialKeywordGroups.map((group,index)=><details><summary>{group.label} · 단어 선택</summary><p>{helps[group.label]}</p><div class="keyword-options">{group.items.map((item,i)=><label><input type="checkbox" data-keyword value={item} id={'portfolio-key-'+index+'-'+i}/><span>{item}</span></label>)}</div></details>)}
+ <label>조합 메모 <textarea data-keyword-output rows="5" readonly aria-label="선택한 키워드 조합 메모"></textarea></label>
+ <p role="status" aria-live="polite" data-keyword-status>0개 선택</p>
+ <p>이 메모는 완성 프롬프트가 아닙니다. 검토한 프롬프트에 적용 위치·유지 조건·검토 기준을 붙이고 실제 제품·성능은 별도 확인합니다.</p>
+</div>
+<style>
+ .portfolio-keywords{min-width:0;padding:1rem;border:1px solid var(--line)}details{margin:.7rem 0;border-top:1px solid var(--line);padding-top:.7rem}summary{cursor:pointer;font-weight:700}.keyword-options{display:flex;gap:.6rem;flex-wrap:wrap}.keyword-options label{display:flex;gap:.3rem;align-items:center;padding:.3rem .5rem;border:1px solid var(--line);font-size:.86rem}input[type=text],textarea{display:block;width:100%;max-width:100%;box-sizing:border-box;font:inherit;color:inherit;background:var(--surface);border:1px solid var(--line);padding:.6rem;margin-top:.4rem}textarea{resize:vertical;font-size:.9rem}input:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+</style>
+<script>
+ document.querySelectorAll<HTMLElement>('[data-portfolio-keywords]').forEach(root=>{
+  const inputs=[...root.querySelectorAll<HTMLInputElement>('[data-keyword]')],target=root.querySelector<HTMLInputElement>('[data-keyword-target]')!,out=root.querySelector<HTMLTextAreaElement>('[data-keyword-output]')!,status=root.querySelector('[data-keyword-status]')!;
+  const update=(event?:Event)=>{let chosen=inputs.filter(i=>i.checked);if(chosen.length>6){(event?.target as HTMLInputElement).checked=false;chosen=inputs.filter(i=>i.checked);status.textContent='최대 6개까지 선택합니다.';}else status.textContent=chosen.length+'개 선택';out.value='원본의 구조·문·창·계단·카메라를 유지합니다.\n변경 위치: '+target.value+'\n선택 키워드: '+(chosen.map(i=>i.value).join(' / ')||'아직 선택하지 않음')+'\n선택하지 않은 영역은 바꾸지 않고 결과를 원본과 비교합니다.';};
+  inputs.forEach(i=>i.addEventListener('change',update));target.addEventListener('input',()=>update());update();
+ });
+</script>
