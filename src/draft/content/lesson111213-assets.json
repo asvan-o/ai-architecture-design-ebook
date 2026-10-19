@@ -126,8 +126,8 @@
     "title": "슬라이드 08 · 법규 검토·설계 개요",
     "caption": "확인한 근거와 다음 설계 과제를 인계 · 대지·법정 면적·구조·피난 미확정",
     "group": "slides",
-    "bytes": 98835,
-    "sha256": "0ded4d8ffb375c5a10ddaff2623aa16a3d2213bc62b4571f46f3e1ea83cd20dc",
+    "bytes": 99650,
+    "sha256": "f8e0f78cd0d8c36fb626ff646efb839f43b2b0fdc8a2caba7e8d912caf5b31a2",
     "width": 1920,
     "height": 1080
   },
@@ -324,8 +324,8 @@
     "title": "편집 가능한 PPT 제안서 8장",
     "caption": "제목·본문·표·로고·조닝 관계도와 이미지를 개별 선택해 편집합니다.",
     "group": "pptDownloads",
-    "bytes": 24300155,
-    "sha256": "a9ea1523f80dc15b7e913dd091c657d7af4f1afeaad33c36c3ce4932e003ff72"
+    "bytes": 24244775,
+    "sha256": "e373cb91961bafd0bcebd4045fb9e3bb0a04bc6a5c17ebda168854b46d88b626"
   },
   {
     "outputPath": "downloads/daejeon/lesson-12/모던3층단독주택_AI설계제안서_8장슬라이드.pdf",
@@ -333,8 +333,8 @@
     "title": "설계 제안서 PDF 8쪽",
     "caption": "편집 원본 PPTX와 같은 장면의 검수·배포본입니다.",
     "group": "pptDownloads",
-    "bytes": 10445628,
-    "sha256": "52fcd4e3dcb90160d2bdb236013609c2daf6b3951cedadf83470e26fbf05f085"
+    "bytes": 10527598,
+    "sha256": "b3bf360b27a806d3e620d5159cd07f20924fe516a94673a1beb4c42b7d9b310f"
   },
   {
     "outputPath": "images/daejeon/lesson-12/참고_01-intro-layout-reference.jpeg",
@@ -566,8 +566,8 @@
     "title": "설계 제안 결과보고서 예시 MD",
     "caption": "도면→콘셉트→재료·입체→브랜드·제안서→검수의 실제 과정과 한계를 기록했습니다.",
     "group": "reportDownloads",
-    "bytes": 4673,
-    "sha256": "dae9eacb8c0bf530dcdcdd092e159688bc9a0ed0283ea1ac817026c6b9ea102b"
+    "bytes": 4456,
+    "sha256": "6d1ddcf0b35399dd6569ce73fc147652408c90f1132bdf47f7833faf96bc622a"
   },
   {
     "outputPath": "downloads/daejeon/lesson-13/프로젝트결과보고서_작성양식_템플릿.md",
@@ -584,8 +584,8 @@
     "title": "설계 제안 결과보고서 PDF",
     "caption": "MD와 같은 내용을 읽기 편한 문서로 출력했습니다.",
     "group": "reportDownloads",
-    "bytes": 115485,
-    "sha256": "f1e7e9aff64c61f691f24eece294dca398794c816f4843fa1685c86a42ae0da9"
+    "bytes": 114460,
+    "sha256": "1b683e44dc2ff1addfec66f3d25b0ae2466f4f3ca07ad70211797fc1648a2613"
   },
   {
     "outputPath": "downloads/daejeon/lesson-13/이미지생성_실제프롬프트와_검수기록.md",
@@ -602,8 +602,8 @@
     "title": "원본·파생 이미지 출처",
     "caption": "파일별 바이트와 생성·크롭·편집 역할을 추적합니다.",
     "group": "sourceIndex",
-    "bytes": 30518,
-    "sha256": "321a26b2decdc05045e37e85d03d320253f98353c91cf6957f3f8a63cc80d873"
+    "bytes": 30720,
+    "sha256": "ff96affbd796a35e2fc991614f6d6d7cd5d36e54d34fd03d861e09edc49dbd8b"
   },
   {
     "outputPath": "downloads/daejeon/lesson-13/통합패키지_먼저읽기.txt",
@@ -611,8 +611,8 @@
     "title": "통합 패키지 사용 순서",
     "caption": "도면→설계 기획→시각화→제안서→보고서 실습 안내.",
     "group": "packageReadme",
-    "bytes": 1650,
-    "sha256": "701349bf368020513a9ff19523f71dde30545cfc9cc1fee68c707c444cf37680"
+    "bytes": 1521,
+    "sha256": "794773201e201b5cc4ad6ef83c6f903ea2d2c4ba4b59b1c18f8e091c00e6aa51"
   },
   {
     "outputPath": "downloads/daejeon/lesson-12/포트폴리오_보드4장_원본PNG.zip",
@@ -630,7 +630,7 @@
     "caption": "ZIP 내부 각 파일과 바이트를 대조합니다.",
     "group": "packageHashes",
     "bytes": 8111,
-    "sha256": "7ffb8841c2dad183d0316def7f5d28a64081f23beb194ddc698b26abc36543d7"
+    "sha256": "a011ecd81210a2f60584304ac833c6d3a3d385f6e62a085cebdb5970a49896cc"
   },
   {
     "outputPath": "downloads/daejeon/lesson-13/제11_13차시_포트폴리오_PPT_결과보고서_통합패키지.zip",
@@ -638,7 +638,7 @@
     "title": "제11~13차시 통합 실습 패키지",
     "caption": "보드·PPT·보고서·도면·재료·프롬프트를 받습니다. 중복 3D 원본과 기준 렌더는 제9차시에서 개별 다운로드합니다.",
     "group": "packageDownload",
-    "bytes": 79301127,
-    "sha256": "c323c3e0c26d3f8ecb9770bfc344151a7a5164bb5a1d53502f5c3052146712fb"
+    "bytes": 79308078,
+    "sha256": "494a8f7a1cb7976d87baefcc3572c3379a126241fa56ef7e8be1dd1f71a9ca34"
   }
 ]

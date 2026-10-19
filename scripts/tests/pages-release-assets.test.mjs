@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { shouldUseRelease, rewriteText, rewriteAssetUrl, defaultConfig } from '../pages-release-assets.mjs';
+import { shouldUseRelease, rewriteText, rewriteAssetUrl, defaultConfig, namedReleaseAsset } from '../pages-release-assets.mjs';
 const plan = { ...defaultConfig, files: [{ path: 'daejeon/downloads/실습 자료.zip', url: 'https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/test/pack.zip' }] };
 test('Pages keeps all fourteen Daejeon textbooks and same-origin GLB viewer models', () => {
   assert(!shouldUseRelease('daejeon/downloads/daejeon/pdf/ai-architecture-design-daejeon-lesson-07.pdf', 82_539_532));
@@ -29,4 +29,20 @@ test('Mobile wrapping is confined to the published Lesson04 output without editi
   assert(result.includes('overflow-wrap:anywhere'));
   assert(result.endsWith(original.slice(original.indexOf('<main'))));
   assert.equal(rewriteText(original,'gwangju/lessons/03/index.html',plan),original);
+});
+
+test('Student Release filenames identify the lesson and document without a content hash', () => {
+  const cases = [
+    ['lesson-10/DJ-L10_법규검토_프롬프트_실습팩.zip', 'DJ-L10-Prompt-Pack.zip'],
+    ['lesson-10/A01_건축기획서.pdf', 'DJ-L10-A01-Architecture-Plan.pdf'],
+    ['lesson-12/모던3층단독주택_AI설계제안서_8장슬라이드.pptx', 'DJ-L12-Modern3F-Proposal-8Slides.pptx'],
+    ['lesson-13/모던3층단독주택_프로젝트결과보고서_예시.pdf', 'DJ-L13-Modern3F-Result-Report.pdf'],
+    ['lesson-13/제11_13차시_포트폴리오_PPT_결과보고서_통합패키지.zip', 'DJ-L11-13-Portfolio-Full-Pack.zip'],
+  ];
+  for (const [relative, name] of cases) {
+    for (const prefix of ['daejeon/', 'gwangju/', '']) assert.equal(namedReleaseAsset(prefix + 'downloads/daejeon/' + relative), name);
+    assert(/^[A-Za-z0-9.-]+$/.test(name));
+  }
+  assert.equal(namedReleaseAsset('gwangju/downloads/lesson-10/original.pdf'), undefined);
+  assert.equal(namedReleaseAsset('daejeon/downloads/daejeon/lesson-09/original.zip'), undefined);
 });

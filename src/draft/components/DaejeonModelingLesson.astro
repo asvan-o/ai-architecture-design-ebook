@@ -37,7 +37,7 @@ const href=(link:{href?:string;download?:string;internal?:boolean})=>link.downlo
    {section.imageRows.map((row,rowIndex)=><div class:list={['modeling-image-row',{'modeling-image-row--pair':row.length>1}]}>{row.map(key=><Lesson0910Asset assetKey={key} instance={section.id+'-'+rowIndex} />)}</div>)}
    {section.steps.length>0&&<ol class="modeling-steps">{section.steps.map(text=><li>{text}</li>)}</ol>}
    {section.callouts.map(text=><aside class="modeling-note">{text}</aside>)}
-   {section.links.length>0&&<div class="modeling-links">{section.links.filter(link=>!('download' in link)||enabled).map(link=><a href={href(link)} download={'download' in link?true:undefined} target={'href' in link&&!('internal' in link)?'_blank':undefined} rel="noreferrer">{link.title}</a>)}</div>}
+   {section.links.length>0&&<div class="modeling-links">{section.links.filter(link=>!('download' in link)||enabled).map(link=><a href={href(link)} download={'download' in link?true:undefined} target={'href' in link&&!('internal' in link)?'_blank':undefined} rel="noreferrer">{link.title}</a>)}{lesson==='09'&&enabled&&section.links.some(link=>'download' in link&&link.download==='House_B_Walkthrough.html')&&<a href={downloadRoot+'House_B_Walkthrough.html'} target="_blank" rel="noopener noreferrer" data-walkthrough-open>새 탭에서 3D 뷰어 바로 열기</a>}</div>}
    {section.promptIds.map(id=>{const p=prompts[id];return <ReviewPrompt id={id} title={p.title} prompt={p.text} guide={p.guide as PromptPlatformGuide & {purpose:string;variables:string}} href={enabled?downloadRoot+p.filename:undefined} filename={p.filename} />;})}
    {lesson==='09'&&section.id==='l09-moving-3'&&<Lesson09CameraColormap />}
   </ReviewSection>)}

@@ -1,8 +1,15 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { cp, mkdir, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+
+const releaseNames = JSON.parse(readFileSync(new URL('../data/deployment/release-asset-names.json', import.meta.url), 'utf8'));
+export function namedReleaseAsset(relative) {
+  const key = relative.match(/(?:^|\/)downloads\/daejeon\/lesson-(?:10|12|13)\/.+$/)?.[0].replace(/^\//, '');
+  return key ? releaseNames[key] : undefined;
+}
 
 export const defaultConfig = {
   repository: 'asvan-o/ai-architecture-design-ebook',
@@ -42,9 +49,9 @@ export async function makeReleasePlan(root, config = defaultConfig) {
     const readable = originalName.slice(0, -ext.length).replace(/[^A-Za-z0-9._-]/g, '').replace(/_+/g, '_').replace(/^[._-]+|[._-]+$/g, '') || 'material';
     // GitHub strips Korean characters from asset names. Use stable ASCII URLs;
     // Korean teaching labels and original files inside ZIPs are preserved.
-    let assetName = /[^A-Za-z0-9._-]/.test(originalName)
+    let assetName = namedReleaseAsset(relative) ?? (/[^A-Za-z0-9._-]/.test(originalName)
       ? relative.split('/')[0] + '-' + readable + '-' + digest.slice(0, 10) + ext
-      : originalName;
+      : originalName);
     const existing = names.get(assetName.toLowerCase());
     if (existing && existing !== digest) assetName = digest.slice(0, 12) + '-' + assetName;
     assert(!names.has(assetName.toLowerCase()) || names.get(assetName.toLowerCase()) === digest, 'Release filename collision');

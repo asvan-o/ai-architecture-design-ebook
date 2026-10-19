@@ -82,8 +82,9 @@
       "원본": "artifacts/슬라이드08_법규검증및결론.png",
       "배포파일": "images/daejeon/lesson-12/슬라이드08_법규검증및결론.png",
       "원본SHA256": "0ded4d8ffb375c5a10ddaff2623aa16a3d2213bc62b4571f46f3e1ea83cd20dc",
-      "배포SHA256": "0ded4d8ffb375c5a10ddaff2623aa16a3d2213bc62b4571f46f3e1ea83cd20dc",
-      "동일바이트": true
+      "배포SHA256": "f8e0f78cd0d8c36fb626ff646efb839f43b2b0fdc8a2caba7e8d912caf5b31a2",
+      "동일바이트": false,
+      "수정내역": "사용자 승인 검수 반영: 학생용 표현 정리(2026-10-19)"
     },
     {
       "원본": "artifacts/무드보드_모던3층단독주택_내외장재_컨셉보드.png",
@@ -208,8 +209,9 @@
       "원본": "artifacts/모던3층단독주택_AI설계제안서_8장슬라이드.pptx",
       "배포파일": "downloads/daejeon/lesson-12/모던3층단독주택_AI설계제안서_8장슬라이드.pptx",
       "원본SHA256": "a9ea1523f80dc15b7e913dd091c657d7af4f1afeaad33c36c3ce4932e003ff72",
-      "배포SHA256": "a9ea1523f80dc15b7e913dd091c657d7af4f1afeaad33c36c3ce4932e003ff72",
-      "동일바이트": true
+      "배포SHA256": "e373cb91961bafd0bcebd4045fb9e3bb0a04bc6a5c17ebda168854b46d88b626",
+      "동일바이트": false,
+      "수정내역": "사용자 승인 검수 반영: 학생용 표현 정리(2026-10-19)"
     },
     {
       "원본": "src/assets/lessons/12-14/portfolio-follow-up-reference/01-intro-layout-reference.jpeg",
@@ -496,7 +498,7 @@
       "원본": "public/downloads/daejeon/lesson-09/House_3F_Full_Complete_Astra.fbx",
       "SHA256": "9a860c37a7eae0737d524a6f4f51eb6fddb723899560cb2919d4bb9285e57591",
       "동일바이트": true,
-      "개별다운로드": "https://asvan-o.github.io/ai-architecture-design-ebook/daejeon/downloads/daejeon/lesson-09/House_3F_Full_Complete_Astra.fbx",
+      "개별다운로드": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/House_3F_Full_Complete_Astra.fbx",
       "통합ZIP포함": false
     },
     {
