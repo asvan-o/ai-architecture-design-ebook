@@ -4,12 +4,16 @@ import {officialTopics} from '../content/course-roadmap';
 import {alignedLessons, topicLessonLinks} from '../content/lesson-topic-alignment';
 import ReviewLessonNavigation from '../components/ReviewLessonNavigation.astro';
 import { activeCourse } from '../../lib/courses';
+import { courseAccess as accessConfig } from '../../lib/course-access';
+import { isStudentBuild } from '../../lib/student-release';
+import EbookAccessGate from '../../components/EbookAccessGate.astro';
 import '../../styles/global.css';
 import '../styles/review.css';
 interface TocItem { id: string; title: string; }
 interface Props { title: string; lead: string; page: 'home' | 'overview' | 'lesson'; lessonId?:'01'|'02'|'03'|'04'|'05'|'06'|'07'|'08'|'09'|'10'|'11'|'12'|'13'; eyebrow?:string; sharedScreen?:boolean; toc?: readonly TocItem[]; tocGroups?: readonly {id:string;title:string;items:readonly TocItem[]}[]; }
 const { title, lead, page, lessonId='01', eyebrow, toc = [], tocGroups = [] } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const accessGateEnabled = isStudentBuild && Boolean(accessConfig.passwordHash);
 const lessonById = new Map(alignedLessons.map((item) => [item.id, item]));
 const topicGroups = officialTopics.map((topicTitle, index) => {
   const links = topicLessonLinks[index] ?? [];
@@ -44,22 +48,40 @@ const pdfLabel = page === 'overview'
     : '';
 ---
 <!doctype html>
-<html lang="ko" data-course-id={activeCourse.courseId}>
+<html lang="ko" data-course-id={activeCourse.courseId} data-ebook-access={accessGateEnabled ? 'locked' : 'disabled'}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="robots" content="noindex, nofollow, noarchive" />
     <title>{title} | 대전 AI Lecture</title>
+    {accessGateEnabled && <>
+      <style is:inline>
+        html[data-ebook-access="locked"] [data-ebook-protected] { display: none !important; }
+        html[data-ebook-access="unlocked"] .ebook-access-gate { display: none !important; }
+      </style>
+      <script is:inline define:vars={{sessionStorageKey: accessConfig.sessionStorageKey, expectedPasswordHash: accessConfig.passwordHash}}>
+        (() => {
+          try {
+            if (sessionStorage.getItem(sessionStorageKey) === expectedPasswordHash) {
+              document.documentElement.dataset.ebookAccess = 'unlocked';
+            }
+          } catch {
+            document.documentElement.dataset.ebookAccess = 'locked';
+          }
+        })();
+      </script>
+    </>}
   </head>
   <body class="review-page">
-    <a class="skip-link" href="#main">본문으로 바로가기</a>
-    <header class="review-header">
+    {accessGateEnabled && <EbookAccessGate />}
+    <a class="skip-link" href="#main" data-ebook-protected>본문으로 바로가기</a>
+    <header class="review-header" data-ebook-protected>
       <a class="review-brand" href={`${base}/`}>AI LECTURE <span>ARCHITECTURE DESIGN · DAEJEON</span></a>
       <nav aria-label="대전 과정 안내">
         {reviewNavigation.map(item=><a href={base+'/'+item.path} aria-current={(page==='lesson'?lessonId:page==='overview'?'overview':'home')===item.id?'page':undefined}>{item.label}</a>)}
       </nav>
     </header>
-    <div class="review-shell review-shell--toc">
+    <div class="review-shell review-shell--toc" data-ebook-protected>
       <aside class="review-sidebar" aria-label="대전 과정 목차">
         {toc.length > 0 && (
           <nav class="review-toc" aria-label="현재 차시 내부 목차">
@@ -112,7 +134,7 @@ const pdfLabel = page === 'overview'
       <main id="main" tabindex="-1" data-course-status="design-pending" data-review-status="instructor-review" data-review-page={page}>
         <div class="review-intro">
           <p class="review-eyebrow">DAEJEON · {eyebrow || (page === 'overview' ? 'COURSE OVERVIEW' : page === 'lesson' ? 'LESSON 01' : 'COURSE DESIGN')}</p>
-          <h1>{title}</h1>
+          <h1 id="main-content" tabindex="-1">{title}</h1>
           <p class="review-lead">{lead}</p>
           {pdfHref && (
             <div class="pdf-textbook-download-bar">
@@ -124,7 +146,7 @@ const pdfLabel = page === 'overview'
         <ReviewLessonNavigation {page} {lessonId} />
       </main>
     </div>
-    <footer class="review-footer">AI는 제안하고, 디자이너는 판단한다. <a href={`${base}/`}>대전 과정 안내</a></footer>
+    <footer class="review-footer" data-ebook-protected>AI는 제안하고, 디자이너는 판단한다. <a href={`${base}/`}>대전 과정 안내</a></footer>
     <script>
       const toc = document.querySelector<HTMLDetailsElement>('.review-toc > details');
       const courseToc = document.querySelector<HTMLDetailsElement>('.review-course-toc__details');
