@@ -1,0 +1,109 @@
+{
+  "fetchedAt": "2026-10-20T16:13:44.549Z",
+  "font": "IBM Plex Sans KR · SIL Open Font License 1.1",
+  "icons": "Lucide · ISC / Feather MIT notices retained",
+  "illustration": "unDraw Features overview · accent changed from #6c63ff to #964d38; embedded only in the homepage, not provided as a practice download",
+  "files": [
+    {
+      "file": "fonts/IBMPlexSansKR-Regular.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexsanskr/IBMPlexSansKR-Regular.ttf",
+      "bytes": 2797100
+    },
+    {
+      "file": "fonts/IBMPlexSansKR-Medium.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexsanskr/IBMPlexSansKR-Medium.ttf",
+      "bytes": 2866736
+    },
+    {
+      "file": "fonts/IBMPlexSansKR-SemiBold.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexsanskr/IBMPlexSansKR-SemiBold.ttf",
+      "bytes": 2854744
+    },
+    {
+      "file": "fonts/OFL.txt",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexsanskr/OFL.txt",
+      "bytes": 4455,
+      "modification": "라이선스 문구는 유지하고 원문의 줄 끝 공백 1개만 제거"
+    },
+    {
+      "file": "icons/arrow-up-right.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/arrow-up-right.svg",
+      "bytes": 260
+    },
+    {
+      "file": "icons/arrow-right.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/arrow-right.svg",
+      "bytes": 261
+    },
+    {
+      "file": "icons/arrow-down.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/arrow-down.svg",
+      "bytes": 262
+    },
+    {
+      "file": "icons/book-open.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/book-open.svg",
+      "bytes": 387
+    },
+    {
+      "file": "icons/download.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/download.svg",
+      "bytes": 318
+    },
+    {
+      "file": "icons/menu.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/menu.svg",
+      "bytes": 279
+    },
+    {
+      "file": "icons/layers.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/layers.svg",
+      "bytes": 510
+    },
+    {
+      "file": "icons/image.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/image.svg",
+      "bytes": 358
+    },
+    {
+      "file": "icons/mouse-pointer-2.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/mouse-pointer-2.svg",
+      "bytes": 356
+    },
+    {
+      "file": "icons/chevron-down.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/chevron-down.svg",
+      "bytes": 236
+    },
+    {
+      "file": "icons/file-text.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/file-text.svg",
+      "bytes": 444
+    },
+    {
+      "file": "icons/maximize.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/maximize.svg",
+      "bytes": 366
+    },
+    {
+      "file": "icons/external-link.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/external-link.svg",
+      "bytes": 332
+    },
+    {
+      "file": "icons/x.svg",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/x.svg",
+      "bytes": 260
+    },
+    {
+      "file": "icons/LICENSE",
+      "source": "https://raw.githubusercontent.com/lucide-icons/lucide/main/LICENSE",
+      "bytes": 3208
+    },
+    {
+      "file": "undraw-features-overview.svg",
+      "source": "https://cdn.undraw.co/illustrations/features-overview_uone.svg",
+      "bytes": 14918
+    }
+  ]
+}

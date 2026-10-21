@@ -1,0 +1,96 @@
+---
+import Icon from './HomeDesignIcon.astro';
+import EbookAccessGate from '../../components/EbookAccessGate.astro';
+import {activeCourse} from '../../lib/courses';
+import {courseAccess as accessConfig} from '../../lib/course-access';
+import {isStudentBuild} from '../../lib/student-release';
+import {officialTopics} from '../content/course-roadmap';
+import {alignedLessons,topicLessonLinks} from '../content/lesson-topic-alignment';
+import illustration from '../assets/home-design/undraw-features-overview.svg?raw';
+import '../styles/home-design-preview.css';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const accessGateEnabled=isStudentBuild&&Boolean(accessConfig.passwordHash);
+const lessonHref=(id:string)=>`${base}/lessons/${id}/`;
+const pdfHref=(id:string)=>`${base}/downloads/daejeon/pdf/ai-architecture-design-daejeon-${id==='overview'?'course-overview':'lesson-'+id}.pdf`;
+const house=base+'/images/daejeon/lesson-12/'+encodeURIComponent('주택_주간_재료조명_제안렌더.png');
+const interior=base+'/images/daejeon/lesson-12/'+encodeURIComponent('실사형_01_1층_거실주방_아이소메트릭.png');
+---
+<!doctype html>
+<html lang="ko" data-course-id={activeCourse.courseId} data-ebook-access={accessGateEnabled?'locked':'disabled'}>
+ <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="robots" content="noindex,nofollow,noarchive" />
+  <title>대전 과정 | AI 건축디자인</title>
+  <meta name="description" content="대전 AI 건축디자인 과정 · 7개 대주제와 제1~13차시 교재 및 실습자료 안내" />
+  {accessGateEnabled&&<>
+   <style is:inline>
+    html[data-ebook-access="locked"] [data-ebook-protected]{display:none!important}
+    html[data-ebook-access="unlocked"] .ebook-access-gate{display:none!important}
+   </style>
+   <script is:inline define:vars={{sessionStorageKey:accessConfig.sessionStorageKey,expectedPasswordHash:accessConfig.passwordHash}}>
+    (()=>{try{if(sessionStorage.getItem(sessionStorageKey)===expectedPasswordHash){document.documentElement.dataset.ebookAccess='unlocked';}}catch{document.documentElement.dataset.ebookAccess='locked';}})();
+   </script>
+  </>}
+ </head>
+ <body class="home-design">
+  {accessGateEnabled&&<EbookAccessGate />}
+  <a href="#main" class="design-skip" data-ebook-protected>본문으로 바로가기</a>
+  <header class="design-header design-container" data-ebook-protected>
+   <a class="design-brand" href={`${base}/`} aria-label="대전 AI 건축디자인 홈"><span class="design-brand-mark"><Icon name="layers" /></span><span><strong>AI 건축디자인</strong><small>대전 · 실무 워크북</small></span></a>
+   <nav aria-label="홈 주요 메뉴" class="design-desktop-nav"><a href="#curriculum">과정의 흐름</a><a href="#lessons">전체 차시</a><a href="#guide">교재 이용 안내</a></nav>
+   <details class="design-mobile-menu"><summary><Icon name="menu" /><span>메뉴</span></summary><nav aria-label="모바일 홈 주요 메뉴"><a href="#curriculum">과정의 흐름</a><a href="#lessons">전체 차시</a><a href="#guide">교재 이용 안내</a><a href={`${base}/course-overview/`}>과정 전체 안내</a></nav></details>
+   <a href={`${base}/course-overview/`} class="design-header-link">과정 안내 <Icon name="arrow-up-right" /></a>
+  </header>
+  <main id="main" class="design-container" data-course-status="design-pending" data-review-status="instructor-review" tabindex="-1" data-ebook-protected>
+   <section class="design-hero" aria-labelledby="main-content">
+    <div class="design-hero-copy">
+     <p class="design-eyebrow">ARCHITECTURE × AI · DAEJEON 2026</p>
+     <h1 id="main-content" tabindex="-1">AI와 함께,<br />건축의 생각을<br /><span>실무의 결과로.</span></h1>
+     <p class="design-hero-lead">AI 활용의 원칙을 익히고,<br class="desktop-break" /> 이미지·도면·업무 자동화 실습을<br class="desktop-break" /> 차례로 따라가는 교재입니다.</p>
+     <div class="design-hero-actions"><a href={lessonHref('01')} class="design-primary">제1차시부터 시작하기 <Icon name="arrow-right" /></a><a href="#lessons" class="design-text-action">차시별 교재 보기 <Icon name="arrow-down" /></a></div>
+     <dl class="design-course-stats"><div><dt>전체 교육시간</dt><dd>48<span>시간</span></dd></div><div><dt>실무 학습 단계</dt><dd>7<span>개 대주제</span></dd></div><div><dt>차시별 교재</dt><dd>13<span>차시</span></dd></div></dl>
+    </div>
+    <figure class="design-hero-figure">
+     <button type="button" class="design-image-button" data-design-image data-image-title="모던 3층 단독주택 · 주간 재료·조명 제안" aria-label="모던 3층 단독주택 예시 이미지 확대 보기"><img src={house} alt="밝은 석재 외장과 목재 포인트, 옥상 라운지가 있는 3층 단독주택의 주간 제안 렌더" width="1586" height="992" fetchpriority="high" /><span class="design-expand"><Icon name="maximize" />확대 보기</span></button>
+     <figcaption><span><b>교재 속 한 장면</b> 제12차시 · 모던 3층 단독주택</span><span>AI 재료·조명 제안 이미지</span></figcaption>
+    </figure>
+   </section>
+   <section class="design-overview-strip" aria-label="과정 안내 및 개요 교보재">
+    <div><span class="design-small-label">COURSE OVERVIEW</span><h2>전체 과정을 먼저 살펴보세요.</h2><p>과정 전체 방향과 7개 대주제 Roadmap, 도구 역할을 안내합니다.</p></div>
+    <div class="design-overview-actions"><a href={`${base}/course-overview/`}>과정 안내 읽기 <Icon name="arrow-up-right" /></a><a href={pdfHref('overview')} download><Icon name="download" />과정 개요 PDF</a></div>
+   </section>
+   <section id="curriculum" class="design-section" aria-labelledby="curriculum-title">
+    <div class="design-section-intro"><p class="design-eyebrow">01 / CURRICULUM</p><div><h2 id="curriculum-title">배움의 큰 흐름,<br />일곱 개의 대주제.</h2><p>상위 대주제 흐름을 먼저 확인하고,<br class="desktop-break" /> 각 대주제에 연결된 차시로 바로 이동할 수 있습니다.</p></div></div>
+    <ol class="design-topic-list">{officialTopics.map((title,index)=><li><span class="design-topic-number">{String(index+1).padStart(2,'0')}</span><div class="design-topic-body"><h3>{title}</h3><div class="design-topic-links">{(topicLessonLinks[index]??[]).map(lesson=><a href={lessonHref(lesson.id)}>{lesson.label}<Icon name="arrow-up-right" /></a>)}</div></div></li>)}</ol>
+   </section>
+   <section class="design-interlude" aria-labelledby="interlude-title">
+    <figure><button class="design-image-button" type="button" data-design-image data-image-title="1층 거실·주방 · 실사형 아이소메트릭" aria-label="1층 거실과 주방 아이소메트릭 이미지 확대 보기"><img src={interior} alt="거실과 주방, 식탁과 계단의 공간 구성이 함께 보이는 실사형 아이소메트릭" width="1586" height="992" loading="lazy" /><span class="design-expand"><Icon name="maximize" />확대 보기</span></button><figcaption>제12차시 · 1층 거실·주방 실사형 아이소메트릭 예시</figcaption></figure>
+    <div class="design-interlude-copy"><p class="design-eyebrow">FROM IDEAS TO PRACTICE</p><h2 id="interlude-title">AI는 제안하고,<br />디자이너는 판단한다.</h2><p>과정 안내와 제1~13차시 실습을 대주제 흐름에 따라 이어갑니다.</p><a href={lessonHref('12')} class="design-text-action">교재 속 실습 살펴보기 <Icon name="arrow-up-right" /></a></div>
+   </section>
+   <section id="lessons" class="design-section design-lessons" aria-labelledby="lessons-title">
+    <div class="design-list-heading"><div><p class="design-eyebrow">02 / LESSON INDEX</p><h2 id="lessons-title">오늘의 차시를 펼쳐보세요.</h2></div><p>제1~13차시 · 교보재 PDF 제공</p></div>
+    <div class="design-lesson-list">{alignedLessons.map(lesson=><article class="design-lesson-row" data-course-lesson-card={'lessons/'+lesson.id}><span class="design-lesson-number">{lesson.id}</span><div class="design-lesson-body"><p class="design-lesson-stage">{lesson.stage}</p><h3><a href={lessonHref(lesson.id)}>{lesson.title}</a></h3><p class="design-lesson-description">{lesson.description}</p><details class="design-lesson-schedule"><summary>학습 범위 <Icon name="chevron-down" /></summary><p>{lesson.schedule}</p></details></div><div class="design-lesson-actions"><a href={lessonHref(lesson.id)} aria-label={`제${Number(lesson.id)}차시 읽기`}><Icon name="book-open" />읽기</a><a href={pdfHref(lesson.id)} download aria-label={`제${Number(lesson.id)}차시 교보재 PDF 다운로드`}><Icon name="download" />PDF</a></div></article>)}</div>
+   </section>
+   <section id="guide" class="design-guide" aria-labelledby="guide-title">
+    <div class="design-guide-intro"><p class="design-eyebrow">03 / HOW TO USE</p><h2 id="guide-title">읽고, 비교하고,<br />직접 실행해 보세요.</h2><div class="design-illustration" aria-hidden="true" set:html={illustration} /></div>
+    <div class="design-guide-steps"><article><span>01</span><div><h3><Icon name="book-open" />차시별 본문 읽기</h3><p>전체 목차에서 오늘의 차시를 선택하고 학습 흐름을 따라갑니다.</p></div></article><article><span>02</span><div><h3><Icon name="image" />이미지 확대·비교하기</h3><p>실습 이미지를 크게 펼쳐 원본과 결과, 유지할 조건과 바뀐 부분을 비교합니다.</p></div></article><article><span>03</span><div><h3><Icon name="download" />자료와 프롬프트 활용하기</h3><p>각 차시에서 실습 이미지 확대 보기와 자료·Prompt·교보재 PDF 다운로드를 사용할 수 있습니다.</p></div></article></div>
+   </section>
+  </main>
+  <footer class="design-footer design-container" data-ebook-protected><div><strong>AI 건축디자인</strong><p>AI는 제안하고, 디자이너는 판단한다.</p></div><a href={`${base}/course-overview/`}>과정 전체 안내 <Icon name="arrow-up-right" /></a><a href="#main">맨 위로 <Icon name="arrow-up-right" /></a></footer>
+  <dialog class="design-image-dialog" aria-labelledby="design-dialog-title" data-ebook-protected><div class="design-dialog-top"><p id="design-dialog-title"></p><button type="button" data-design-close aria-label="확대 이미지 닫기"><Icon name="x" /></button></div><img src={house} alt="" /><p class="design-dialog-note">전체 이미지 · 원본 비율 유지</p></dialog>
+  <script>
+   const dialog=document.querySelector<HTMLDialogElement>('.design-image-dialog');
+   const title=document.querySelector<HTMLElement>('#design-dialog-title');
+   const image=dialog?.querySelector<HTMLImageElement>('img');
+   document.querySelectorAll<HTMLButtonElement>('[data-design-image]').forEach(button=>button.addEventListener('click',()=>{
+    const source=button.querySelector('img');if(!dialog||!title||!image||!source)return;
+    title.textContent=button.dataset.imageTitle||'';image.src=source.src;image.alt=source.alt;dialog.showModal();
+   }));
+   dialog?.querySelector('[data-design-close]')?.addEventListener('click',()=>dialog.close());
+   dialog?.addEventListener('click',event=>{if(event.target===dialog){const b=dialog.getBoundingClientRect();if(event.clientX<b.left||event.clientX>b.right||event.clientY<b.top||event.clientY>b.bottom)dialog.close();}});
+   const mobile=document.querySelector<HTMLDetailsElement>('.design-mobile-menu');
+   mobile?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mobile.open=false;}));
+  </script>
+ </body>
+</html>

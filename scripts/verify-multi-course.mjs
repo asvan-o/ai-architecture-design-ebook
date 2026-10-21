@@ -90,6 +90,10 @@ try {
   const daejeonAccess = JSON.parse(readFileSync(daejeonCourse.access.passwordConfig, 'utf8'));
   assert.notEqual(daejeonAccess.passwordHash, access.passwordHash);
   const daejeonKey = daejeonAccess.sessionStorageKey + ':course:daejeon-2026';
+  await page.goto(origins[0] + base + '/daejeon/');
+  assert.equal(await page.locator('html').getAttribute('data-ebook-access'), 'locked');
+  assert.equal(await page.locator('#main').isVisible(), false);
+  assert.equal(await page.locator('.design-header').isVisible(), false);
   await page.goto(origins[0] + base + '/daejeon/lessons/01/');
   assert.equal(await page.locator('html').getAttribute('data-ebook-access'), 'locked');
   assert.equal(await page.locator('#main').isVisible(), false);
@@ -101,6 +105,11 @@ try {
   await page.reload();
   assert.equal(await page.locator('html').getAttribute('data-ebook-access'), 'unlocked');
   assert.equal(await page.locator('#main').isVisible(), true);
+  await page.goto(origins[0] + base + '/daejeon/');
+  assert.equal(await page.locator('#main').isVisible(), true);
+  assert.equal(await page.locator('.design-header').isVisible(), true);
+  assert.equal(await page.locator('[data-course-lesson-card]').count(), 13);
+  assert.equal(await page.title(), '대전 과정 | AI 건축디자인');
   await page.goto(origins[0] + gwBase + '/');
   assert.equal(await page.locator('html').getAttribute('data-ebook-access'), 'unlocked');
   report.scenarios.push('Gwangju authorized session cannot unlock Daejeon; Daejeon wrong password rejected; independent Daejeon authorization preserves Gwangju');
