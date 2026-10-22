@@ -6,101 +6,117 @@
   "files": [
     {
       "filename": "ai-architecture-design-daejeon-course-overview.pdf",
-      "sizeBytes": 764561,
-      "sha256": "4552a89de4d9c7c3d172a811bd3d09aa6f259e54de077edd40523d4a81e76b19",
+      "sizeBytes": 786446,
+      "sha256": "cc735f8d8b412d7d8c5b94e26f57f1e493f73535ebf1ddf198ca4cb221a3a1e7",
       "pageCount": 5,
-      "encrypted": true
+      "encrypted": true,
+      "copyrightNoticePages": 5
     },
     {
       "filename": "ai-architecture-design-daejeon-lesson-01.pdf",
-      "sizeBytes": 17987132,
-      "sha256": "fbbb8de7034b187239922e001a8bd6c44fe848374939873cf5d5d8e452bbaf3c",
+      "sizeBytes": 18010349,
+      "sha256": "ab03922d377c431169e1532eca31e3f38fbd41fe9d17ae51c28ffc6a4b1df11e",
       "pageCount": 44,
-      "encrypted": true
+      "encrypted": true,
+      "copyrightNoticePages": 44
     },
     {
       "filename": "ai-architecture-design-daejeon-lesson-02.pdf",
-      "sizeBytes": 5862231,
-      "sha256": "d886e3dd67251bc2da8b8a717f9c2e5efbaac297de0c8a1f8babaad9716fb900",
+      "sizeBytes": 5884822,
+      "sha256": "f5711dbc3a0a32d20cdfb72e52904758433afa6d6084b9dfe4552ce528da2403",
       "pageCount": 28,
-      "encrypted": true
+      "encrypted": true,
+      "copyrightNoticePages": 28
     },
     {
       "filename": "ai-architecture-design-daejeon-lesson-03.pdf",
-      "sizeBytes": 79504441,
-      "sha256": "d48e0162bd6efa02c439bec575e696085ad18e147a90c533ed664538ee40161b",
+      "sizeBytes": 79527107,
+      "sha256": "63ac40d502690756d4058c3a87807a805280c5e02276274f382d83677acd7feb",
       "pageCount": 35,
-      "encrypted": true
+      "encrypted": true,
+      "copyrightNoticePages": 35
     },
     {
       "filename": "ai-architecture-design-daejeon-lesson-04.pdf",
-      "sizeBytes": 70311820,
-      "sha256": "3dab45c9be8e52be8ca54ca48f273d0f3e09f49d45dee5e2e0f78f75f5067588",
+      "sizeBytes": 70335265,
+      "sha256": "71e15d920bef9c0d35ac8189a95e49a556f85353e0800a17ad847d059e44fd60",
       "pageCount": 55,
-      "encrypted": true
+      "encrypted": true,
+      "copyrightNoticePages": 55
     },
     {
       "filename": "ai-architecture-design-daejeon-lesson-05.pdf",
-      "sizeBytes": 7412023,
-      "sha256": "6f7e6fd6409ec461e03646ba3970530f055c0928a5261e53806758bd66de21e6",
+      "sizeBytes": 7434330,
+      "sha256": "0f82e41f580fe2721a16f75e306b0c519cf4821ed96e35feac5ae40c738513ae",
       "pageCount": 23,
-      "encrypted": true
+      "encrypted": true,
+      "copyrightNoticePages": 23
     },
     {
       "filename": "ai-architecture-design-daejeon-lesson-06.pdf",
-      "sizeBytes": 38079967,
-      "sha256": "6bde45268278e4be840af102dccad3c99f5722c00a9323ec3a95c564c26494f0",
+      "sizeBytes": 38102407,
+      "sha256": "043b22649ad7954db39701330429de46b2bf9107ebe14eadb8fbd50684dde9c8",
       "pageCount": 28,
-      "encrypted": true
+      "encrypted": true,
+      "copyrightNoticePages": 28
     },
     {
       "filename": "ai-architecture-design-daejeon-lesson-07.pdf",
-      "sizeBytes": 82649019,
-      "sha256": "29858bf74cb6534c5d65eae74d79a1a8b95c2c37ab588beaaf4069566a287afa",
+      "sizeBytes": 82671924,
+      "sha256": "9a78e8129e5613a5063929f6dc42af5b4f0c64a144909fdd1d528ce6a173a45c",
       "pageCount": 38,
-      "encrypted": true
+      "encrypted": true,
+      "copyrightNoticePages": 38
     },
     {
       "filename": "ai-architecture-design-daejeon-lesson-08.pdf",
-      "sizeBytes": 3379867,
-      "sha256": "d223e2a7691c3cefb2b35b71d2870f116c90313f1b3fbb52025b440a7c418a10",
+      "sizeBytes": 3402391,
+      "sha256": "c318e747b7c75a0ad612889cbcc0fcf78fe4389026f46f54d4a05a745e465d58",
       "pageCount": 27,
-      "encrypted": true
+      "encrypted": true,
+      "copyrightNoticePages": 27
     },
     {
       "filename": "ai-architecture-design-daejeon-lesson-09.pdf",
-      "sizeBytes": 52752336,
-      "sha256": "4dfdba74c7c20e0100b36d8e64649d54db1c82de87562a352bffca572e278c22",
+      "sizeBytes": 52775133,
+      "sha256": "586d4654c045f62fc2c799c12b196df00ca5f797b5747956b92f5b0a6c4e1b79",
       "pageCount": 37,
-      "encrypted": true
+      "encrypted": true,
+      "copyrightNoticePages": 37
     },
     {
       "filename": "ai-architecture-design-daejeon-lesson-10.pdf",
-      "sizeBytes": 3272629,
-      "sha256": "91afd408a4e2a6ba749feb635d8814002e3c8ce33ecd6a8d87582be9aade22af",
+      "sizeBytes": 3296113,
+      "sha256": "519175acce4f10a7991e0b792084350df30f4c882673d6a59e6f36caff031544",
       "pageCount": 47,
-      "encrypted": true
+      "encrypted": true,
+      "copyrightNoticePages": 47
     },
     {
       "filename": "ai-architecture-design-daejeon-lesson-11.pdf",
-      "sizeBytes": 6982862,
-      "sha256": "e2433d114be2477cc37c31a9e12645e18990dea2ae56af7f710384f8bd7a35d5",
+      "sizeBytes": 7004819,
+      "sha256": "89ec0555d2508e27e48b84c4da5e9d3a1c6ee3a235ae3ec3536d2e7c15115161",
       "pageCount": 12,
-      "encrypted": true
+      "encrypted": true,
+      "copyrightNoticePages": 12
     },
     {
       "filename": "ai-architecture-design-daejeon-lesson-12.pdf",
-      "sizeBytes": 53847782,
-      "sha256": "b8e0b4e750a842fa93c5a7984df177919c7a0f14c4ab73742bfdc25f0b368348",
+      "sizeBytes": 53869914,
+      "sha256": "b21b4a855f5844e4eda654967c13d50084e31c4f81f4f3a0d2f0741a16d18e38",
       "pageCount": 19,
-      "encrypted": true
+      "encrypted": true,
+      "copyrightNoticePages": 19
     },
     {
       "filename": "ai-architecture-design-daejeon-lesson-13.pdf",
-      "sizeBytes": 1190228,
-      "sha256": "21c23521e30eb10073209cdfe1f03669e94409f53be0680f0c804cbd7a39badc",
+      "sizeBytes": 1212193,
+      "sha256": "e58dd1c41f1fb82fd934b0e3f97ef3bfaf6b45f1b8d1e72b44db49197437f8a5",
       "pageCount": 9,
-      "encrypted": true
+      "encrypted": true,
+      "copyrightNoticePages": 9
     }
-  ]
+  ],
+  "copyrightNotice": "© 2026 OKS · 수강생 전용 자료 · 무단 복제 및 배포 금지",
+  "copyrightNoticePlacement": "footer on every page"
 }
