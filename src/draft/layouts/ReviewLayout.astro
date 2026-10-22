@@ -4,6 +4,7 @@ import {officialTopics} from '../content/course-roadmap';
 import {alignedLessons, topicLessonLinks} from '../content/lesson-topic-alignment';
 import ReviewLessonNavigation from '../components/ReviewLessonNavigation.astro';
 import DaejeonMaterialProtection from '../components/DaejeonMaterialProtection.astro';
+import DaejeonCopyright from '../components/DaejeonCopyright.astro';
 import { activeCourse } from '../../lib/courses';
 import { courseAccess as accessConfig } from '../../lib/course-access';
 import { isStudentBuild } from '../../lib/student-release';
@@ -147,7 +148,7 @@ const pdfLabel = page === 'overview'
         <ReviewLessonNavigation {page} {lessonId} />
       </main>
     </div>
-    <footer class="review-footer" data-ebook-protected>AI는 제안하고, 디자이너는 판단한다. <a href={`${base}/`}>대전 과정 안내</a></footer>
+    <footer class="review-footer" data-ebook-protected><div>AI는 제안하고, 디자이너는 판단한다. <a href={`${base}/`}>대전 과정 안내</a></div><DaejeonCopyright /></footer>
     <script>
       const toc = document.querySelector<HTMLDetailsElement>('.review-toc > details');
       const courseToc = document.querySelector<HTMLDetailsElement>('.review-course-toc__details');
