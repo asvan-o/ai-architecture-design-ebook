@@ -17,16 +17,26 @@ import {getLesson08Assets} from './daejeon-lesson08-assets.mjs';
 import {getLesson0910Assets} from './daejeon-lesson0910-assets.mjs';
 import {getLesson111213Assets} from './daejeon-lesson111213-assets.mjs';
 const sha=b=>createHash('sha256').update(b).digest('hex');
+const textbookManifest=JSON.parse(readFileSync(path.join(repositoryRoot,'src/draft/content/textbook-pdf-manifest.json'),'utf8'));
+assert.equal(textbookManifest.courseId,'daejeon-2026');
+assert.equal(textbookManifest.encryption,'AES-256');
 const textbookPdfNames=[
   'ai-architecture-design-daejeon-course-overview.pdf',
   ...Array.from({length:13},(_,i)=>`ai-architecture-design-daejeon-lesson-${String(i+1).padStart(2,'0')}.pdf`),
 ];
 export function getDaejeonTextbookPdfs(){
+  assert.deepEqual(textbookManifest.files.map(f=>f.filename),textbookPdfNames);
   const pdfDir=path.join(repositoryRoot,'review','daejeon','PDF_TEXTBOOKS');
-  return textbookPdfNames
-    .map(name=>({outputPath:'downloads/daejeon/pdf/'+name,source:path.join(pdfDir,name)}))
-    .filter(item=>{try{return readFileSync(item.source).length>0;}catch{return false;}});
+  return textbookManifest.files.map(file=>{
+    assert.equal(file.encrypted,true,file.filename);
+    const source=path.join(pdfDir,file.filename),bytes=readFileSync(source);
+    assert.equal(bytes.length,file.sizeBytes,file.filename);
+    assert.equal(sha(bytes),file.sha256,file.filename);
+    assert(bytes.includes(Buffer.from('/Encrypt')),file.filename+' must remain encrypted');
+    return {outputPath:'downloads/daejeon/pdf/'+file.filename,source,sha256:file.sha256};
+  });
 }
+
 export function getDaejeonLocalAssets(){
   assertAutomationVerified();
   const sourceFiles=packages.flatMap(p=>p.assets.map(a=>({outputPath:'practice/'+p.id+'/'+a.file,source:originalPath(p.id,a.file)})));

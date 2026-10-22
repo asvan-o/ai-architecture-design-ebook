@@ -1,0 +1,73 @@
+---
+import config from '../../config/daejeon-pdf-access.json';
+import {activeCourse} from '../../lib/courses';
+const sessionKey=`${config.sessionStorageKey}:course:${activeCourse.courseId}`;
+---
+<div class="dj-material-protection" data-ebook-protected>
+ <div class="dj-screen-watermark" data-dj-watermark aria-hidden="true"></div>
+ <dialog class="dj-pdf-dialog" id="daejeon-pdf-password-dialog" data-dj-pdf-dialog data-password-hash={config.passwordHash} data-session-key={sessionKey} aria-labelledby="dj-pdf-title">
+  <div class="dj-pdf-heading"><h2 id="dj-pdf-title">교보재 PDF 다운로드</h2><button type="button" data-dj-pdf-close aria-label="PDF 다운로드 창 닫기">닫기</button></div>
+  <p>안내받은 PDF 비밀번호를 입력해 주세요. 다운로드한 파일을 열 때도 같은 비밀번호가 필요합니다.</p>
+  <form data-dj-pdf-form novalidate>
+   <label for="dj-pdf-password">PDF 비밀번호</label>
+   <input id="dj-pdf-password" type="password" autocomplete="off" required data-dj-pdf-input aria-describedby="dj-pdf-error" />
+   <p id="dj-pdf-error" class="dj-pdf-error" role="alert" aria-live="polite" data-dj-pdf-error hidden></p>
+   <button type="submit" data-dj-pdf-submit>확인하고 PDF 다운로드</button>
+  </form>
+ </dialog>
+</div>
+<script>
+ const dialog=document.querySelector<HTMLDialogElement>('[data-dj-pdf-dialog]');
+ const form=dialog?.querySelector<HTMLFormElement>('[data-dj-pdf-form]');
+ const input=dialog?.querySelector<HTMLInputElement>('[data-dj-pdf-input]');
+ const error=dialog?.querySelector<HTMLElement>('[data-dj-pdf-error]');
+ const submit=dialog?.querySelector<HTMLButtonElement>('[data-dj-pdf-submit]');
+ const expected=dialog?.dataset.passwordHash||'',key=dialog?.dataset.sessionKey||'';
+ let pending:HTMLAnchorElement|null=null;
+ const authorized=()=>{try{return sessionStorage.getItem(key)===expected;}catch{return false;}};
+ const textbookLink=(link:HTMLAnchorElement)=>{
+  const url=new URL(link.href,location.href);
+  return url.origin===location.origin&&/\/downloads\/daejeon\/pdf\/ai-architecture-design-daejeon-(?:course-overview|lesson-(?:0[1-9]|1[0-3]))\.pdf$/.test(url.pathname);
+ };
+ document.querySelectorAll<HTMLAnchorElement>('a[href]').forEach(a=>{if(textbookLink(a))a.setAttribute('aria-haspopup','dialog');});
+ document.addEventListener('click',event=>{
+  const target=event.target instanceof Element?event.target.closest('a[href]'):null;
+  if(!(target instanceof HTMLAnchorElement)||!textbookLink(target)||authorized())return;
+  if(!dialog||!input||!error)return;
+  event.preventDefault();pending=target;input.value='';input.removeAttribute('aria-invalid');error.hidden=true;dialog.showModal();input.focus();
+ },true);
+ dialog?.querySelector('[data-dj-pdf-close]')?.addEventListener('click',()=>dialog.close());
+ dialog?.addEventListener('close',()=>{pending?.focus();pending=null;});
+ form?.addEventListener('submit',async event=>{
+  event.preventDefault();if(!input||!error||!submit||!dialog||!pending)return;
+  error.hidden=true;input.removeAttribute('aria-invalid');submit.disabled=true;
+  try{
+   const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(input.value));
+   const hash=Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join('');
+   if(hash!==expected){error.textContent='PDF 비밀번호가 올바르지 않습니다.';error.hidden=false;input.value='';input.setAttribute('aria-invalid','true');input.focus();return;}
+   sessionStorage.setItem(key,expected);input.value='';
+   const original=pending,link=document.createElement('a');link.href=original.href;link.download=original.getAttribute('download')||new URL(original.href).pathname.split('/').pop()||'textbook.pdf';link.hidden=true;
+   document.body.append(link);dialog.close();link.click();link.remove();
+  }catch{error.textContent='비밀번호 확인을 처리하지 못했습니다. 새로고침 후 다시 시도해 주세요.';error.hidden=false;}
+  finally{submit.disabled=false;}
+ });
+</script>
+<style is:global>
+ .review-page,.home-design{--dj-screen-watermark:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22420%22%20height%3D%22240%22%20viewBox%3D%220%200%20420%20240%22%3E%3Cg%20transform%3D%22rotate(-24%20210%20120)%22%20fill%3D%22%2326342c%22%20fill-opacity%3D%22.1%22%20font-family%3D%22sans-serif%22%20text-anchor%3D%22middle%22%3E%3Ctext%20x%3D%22210%22%20y%3D%22115%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%3EKS%20%C2%B7%20%EC%88%98%EA%B0%95%EC%83%9D%20%EC%A0%84%EC%9A%A9%3C%2Ftext%3E%3Ctext%20x%3D%22210%22%20y%3D%22141%22%20font-size%3D%2214%22%3E%EB%AC%B4%EB%8B%A8%20%EB%B3%B5%EC%A0%9C%C2%B7%EB%B0%B0%ED%8F%AC%20%EA%B8%88%EC%A7%80%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E")}
+ .dj-screen-watermark{position:fixed;inset:0;z-index:450;pointer-events:none;user-select:none;background-image:var(--dj-screen-watermark);background-repeat:repeat;background-size:420px 240px}
+ .review-page dialog[open]:not([data-dj-pdf-dialog])::after,.home-design dialog[open]:not([data-dj-pdf-dialog])::after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;user-select:none;background-image:var(--dj-screen-watermark);background-repeat:repeat;background-size:420px 240px}
+ .dj-pdf-dialog{width:min(28rem,calc(100vw - 2rem));max-width:calc(100vw - 2rem);max-height:calc(100dvh - 2rem);overflow:auto;padding:1.5rem;border:1px solid var(--line-dark,#8f958e);background:var(--surface,#faf9f5);color:var(--ink,#252c28);font:inherit;line-height:1.75;box-sizing:border-box}
+ .dj-pdf-dialog::backdrop{background:#15221bb3}
+ .dj-pdf-heading{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+ .dj-pdf-dialog .dj-pdf-heading h2{font:inherit;font-size:1.25rem;font-weight:600;margin:0;line-height:1.5}
+ .dj-pdf-dialog>p{font-size:.9rem;line-height:1.8;margin:1rem 0 1.5rem;color:var(--muted,#656a62)}
+ .dj-pdf-dialog form{display:grid;gap:.75rem}
+ .dj-pdf-dialog label{font-size:.85rem;font-weight:600}
+ .dj-pdf-dialog input{box-sizing:border-box;min-width:0;width:100%;min-height:3rem;padding:.6rem .8rem;font:inherit;border:1px solid var(--line-dark,#8f958e);border-radius:0;background:#fff;color:var(--ink,#252c28)}
+ .dj-pdf-dialog button{font:inherit;cursor:pointer;border:1px solid var(--line-dark,#8f958e);background:var(--surface,#faf9f5);color:var(--ink,#252c28);padding:.5rem .75rem}
+ .dj-pdf-dialog button[type=submit]{min-height:3rem;background:var(--ink,#252c28);color:#fff;border-color:var(--ink,#252c28);font-size:.95rem}
+ .dj-pdf-dialog button:disabled{opacity:.65;cursor:wait}
+ .dj-pdf-dialog :is(button,input):focus-visible{outline:3px solid var(--accent-dark,#964d38);outline-offset:3px}
+ .dj-pdf-dialog .dj-pdf-error{margin:0;font-size:.85rem;color:var(--accent-dark,#964d38)}
+ @media(max-width:600px){.dj-screen-watermark,.review-page dialog[open]:not([data-dj-pdf-dialog])::after,.home-design dialog[open]:not([data-dj-pdf-dialog])::after{background-size:320px 200px}.dj-pdf-dialog{padding:1.2rem}.dj-pdf-dialog .dj-pdf-heading h2{font-size:1.1rem}}
+</style>

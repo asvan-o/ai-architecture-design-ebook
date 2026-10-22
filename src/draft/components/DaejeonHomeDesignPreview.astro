@@ -1,5 +1,6 @@
 ---
 import Icon from './HomeDesignIcon.astro';
+import DaejeonMaterialProtection from './DaejeonMaterialProtection.astro';
 import EbookAccessGate from '../../components/EbookAccessGate.astro';
 import {activeCourse} from '../../lib/courses';
 import {courseAccess as accessConfig} from '../../lib/course-access';
@@ -92,5 +93,6 @@ const interior=base+'/images/daejeon/lesson-12/'+encodeURIComponent('실사형_0
    const mobile=document.querySelector<HTMLDetailsElement>('.design-mobile-menu');
    mobile?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mobile.open=false;}));
   </script>
+ <DaejeonMaterialProtection />
  </body>
 </html>

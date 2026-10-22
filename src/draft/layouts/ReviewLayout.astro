@@ -3,6 +3,7 @@ import {reviewNavigation} from '../content/review-navigation';
 import {officialTopics} from '../content/course-roadmap';
 import {alignedLessons, topicLessonLinks} from '../content/lesson-topic-alignment';
 import ReviewLessonNavigation from '../components/ReviewLessonNavigation.astro';
+import DaejeonMaterialProtection from '../components/DaejeonMaterialProtection.astro';
 import { activeCourse } from '../../lib/courses';
 import { courseAccess as accessConfig } from '../../lib/course-access';
 import { isStudentBuild } from '../../lib/student-release';
@@ -169,5 +170,6 @@ const pdfLabel = page === 'overview'
       }, {rootMargin: '-5% 0px -70% 0px'});
       links.forEach((link) => { const target = document.getElementById(link.hash.slice(1)); if(target) observer.observe(target); });
     </script>
-  </body>
+  <DaejeonMaterialProtection />
+ </body>
 </html>
