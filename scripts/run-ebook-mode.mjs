@@ -6,6 +6,7 @@ import { getCourseProfile, courseOutput, courseBuildEnvironment } from './course
 import { reuseApprovedPdfs } from './approved-pdfs.mjs';
 import { verifyDraftOutput } from './draft-output.mjs';
 import { writeDaejeonLocalAssets } from './daejeon-local-assets.mjs';
+import {neutralizeWorkbookOutput} from './workbook-public-paths.mjs';
 
 const [command, mode, ...argumentsList] = process.argv.slice(2);
 const courseArgument = argumentsList.find((item) => item.startsWith('--course='));
@@ -66,6 +67,7 @@ if (command === 'build') {
     const isDaejeon = profile.course.courseId === 'daejeon-2026';
     if (isDaejeon) writeDaejeonLocalAssets(outDir);
     const routes = verifyDraftOutput(profile.course, outDir, { localReviewAssets: isDaejeon });
+    if(isDaejeon) neutralizeWorkbookOutput(outDir);
     console.log(`[draft] ${profile.course.courseId}/${mode}: design-pending; ${routes.length} review/landing pages; no approved curriculum or PDFs`);
     writeFileSync(path.join(outDir, 'course-build.json'), JSON.stringify({ courseId: profile.course.courseId, mode, basePath: runtimeEnvironment.BASE_PATH, buildId: runtimeEnvironment.PUBLIC_LECTURE_BUILD_ID }));
     process.exit(0);

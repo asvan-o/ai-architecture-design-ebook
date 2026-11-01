@@ -6,7 +6,7 @@ export function daejeonLocalAssetsPlugin(base){
     const assets=getDaejeonLocalAssets();
     server.middlewares.use((req,res,next)=>{
       let pathname;try{pathname=decodeURIComponent(new URL(req.url||'/', 'http://localhost').pathname);}catch{next();return;}
-      const relative=pathname.startsWith(base+'/')?pathname.slice(base.length+1):pathname.startsWith('/practice/')||/^\/(?:images|downloads)\/daejeon\/lesson-(?:0[789]|1[0-3])\//.test(pathname)?pathname.slice(1):null;
+      const relative=pathname.startsWith(base+'/')?pathname.slice(base.length+1):pathname.startsWith('/practice/')||/^\/(?:images|downloads)\/lesson-(?:0[789]|1[0-3])\//.test(pathname)?pathname.slice(1):null;
       const asset=relative&&assets.get(relative);if(!asset){next();return;}
       res.statusCode=200;res.setHeader('Content-Type',types[path.extname(asset.path)]||'application/octet-stream');res.setHeader('Content-Length',asset.sizeBytes);res.setHeader('Cache-Control','no-store');res.setHeader('X-Robots-Tag','noindex, nofollow');
       res.end(req.method==='HEAD'?undefined:asset.bytes);

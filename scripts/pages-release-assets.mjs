@@ -4,9 +4,12 @@ import { createHash } from 'node:crypto';
 import { cp, mkdir, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {publicReleasePath,legacyReleasePath} from './workbook-public-paths.mjs';
 
 const releaseNames = JSON.parse(readFileSync(new URL('../data/deployment/release-asset-names.json', import.meta.url), 'utf8'));
+const approvedRelease = JSON.parse(readFileSync(new URL('../data/deployment/release-assets.json',import.meta.url),'utf8'));
 export function namedReleaseAsset(relative) {
+  relative=legacyReleasePath(relative);
   const key = relative.match(/(?:^|\/)downloads\/daejeon\/lesson-(?:10|12|13)\/.+$/)?.[0].replace(/^\//, '');
   return key ? releaseNames[key] : undefined;
 }
@@ -32,7 +35,7 @@ export function shouldUseRelease(relative, size) {
   const ext = path.posix.extname(relative).toLowerCase();
   // GLB stays on Pages: the interactive 3D viewer needs same-origin fetch.
   if (['.zip', '.mp4', '.fbx', '.dwg', '.pptx', '.docx', '.hwp', '.hwpx'].includes(ext)) return true;
-  if (ext === '.pdf') return !relative.startsWith('daejeon/downloads/daejeon/pdf/');
+  if (ext === '.pdf') return !relative.startsWith('daejeon/downloads/daejeon/pdf/')&&!relative.startsWith('workbook/downloads/pdf/');
   return ['.png', '.jpg', '.jpeg', '.webp'].includes(ext) && size > 3_000_000;
 }
 export async function makeReleasePlan(root, config = defaultConfig) {
@@ -44,12 +47,14 @@ export async function makeReleasePlan(root, config = defaultConfig) {
     sourceBytes += bytes;
     if (!shouldUseRelease(relative, bytes)) continue;
     const digest = sha(await readFile(file));
+    const approved=approvedRelease.files.find(f=>f.path===legacyReleasePath(relative));
+    if(approved){assert.equal(digest,approved.sha256,'Approved Release bytes changed: '+relative);assert.equal(bytes,approved.bytes);}
     const originalName = path.posix.basename(relative).normalize('NFC');
     const ext = path.posix.extname(originalName);
     const readable = originalName.slice(0, -ext.length).replace(/[^A-Za-z0-9._-]/g, '').replace(/_+/g, '_').replace(/^[._-]+|[._-]+$/g, '') || 'material';
     // GitHub strips Korean characters from asset names. Use stable ASCII URLs;
     // Korean teaching labels and original files inside ZIPs are preserved.
-    let assetName = namedReleaseAsset(relative) ?? (/[^A-Za-z0-9._-]/.test(originalName)
+    let assetName = approved?.assetName ?? namedReleaseAsset(relative) ?? (/[^A-Za-z0-9._-]/.test(originalName)
       ? relative.split('/')[0] + '-' + readable + '-' + digest.slice(0, 10) + ext
       : originalName);
     const existing = names.get(assetName.toLowerCase());
@@ -58,7 +63,7 @@ export async function makeReleasePlan(root, config = defaultConfig) {
     names.set(assetName.toLowerCase(), digest);
     assert(bytes < 2 * 1024 ** 3, 'Release asset exceeds GitHub limit: ' + relative);
     files.push({ path: relative, assetName, bytes, sha256: digest,
-      url: `https://github.com/${config.repository}/releases/download/${config.tag}/${encodeURIComponent(assetName)}` });
+      url: approved?.url ?? `https://github.com/${config.repository}/releases/download/${config.tag}/${encodeURIComponent(assetName)}` });
   }
   return { schemaVersion: 1, ...config, sourceBytes, pagesBytesBeforeMetadata: sourceBytes - files.reduce((s, f) => s + f.bytes, 0), files };
 }
@@ -106,9 +111,11 @@ export async function preparePages({ root, output, manifest, config = defaultCon
     return plan;
   }
   const expected = JSON.parse(await readFile(manifest, 'utf8'));
-  for (const key of ['schemaVersion', 'repository', 'tag', 'basePath', 'maximumPagesBytes', 'files']) {
+  for (const key of ['schemaVersion', 'repository', 'tag', 'basePath', 'maximumPagesBytes']) {
     assert.deepEqual(plan[key], expected[key], 'Release manifest is stale: ' + key);
   }
+  const byPath=files=>files.toSorted((a,b)=>a.path.localeCompare(b.path));
+  assert.deepEqual(byPath(plan.files),byPath(expected.files.map(f=>({...f,path:publicReleasePath(f.path)}))),'Release mapping or immutable bytes differ');
   const moved = new Set(plan.files.map(file => file.path));
   // Both absolute paths are asserted above, and only generated dist/pages is replaced.
   await rm(output, { recursive: true, force: true });
@@ -132,8 +139,8 @@ export async function preparePages({ root, output, manifest, config = defaultCon
   let pagesBytes = 0;
   for (const file of await listFiles(output)) pagesBytes += (await stat(file)).size;
   assert(pagesBytes < config.maximumPagesBytes, `Pages exceeds safe size: ${pagesBytes}`);
-  assert.equal((await listFiles(path.join(output, 'daejeon/downloads/daejeon/pdf'))).filter(f => f.endsWith('.pdf')).length, 14);
-  const report = { passed: true, pagesBytes, releasePaths: plan.files.length, releaseFiles: new Set(plan.files.map(f => f.assetName)).size, daejeonPdfs: 14 };
+  assert.equal((await listFiles(path.join(output, 'workbook/downloads/pdf'))).filter(f => f.endsWith('.pdf')).length, 14);
+  const report = { passed: true, pagesBytes, releasePaths: plan.files.length, releaseFiles: new Set(plan.files.map(f => f.assetName)).size, workbookPdfs: 14, existingReleaseReused:true };
   await mkdir(path.join(path.dirname(root), '..', 'tmp'), { recursive: true });
   await writeFile(path.join(path.dirname(root), '..', 'tmp/pages-release-verification.json'), JSON.stringify(report, null, 2) + '\n');
   return report;

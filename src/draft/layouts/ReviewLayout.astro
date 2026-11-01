@@ -39,9 +39,9 @@ const topicGroups = officialTopics.map((topicTitle, index) => {
 });
 const currentTopics = topicGroups.filter((group) => group.isCurrentTopic);
 const pdfHref = page === 'overview'
-  ? `${base}/downloads/daejeon/pdf/ai-architecture-design-daejeon-course-overview.pdf`
+  ? `${base}/downloads/pdf/ai-architecture-design-course-overview.pdf`
   : page === 'lesson'
-    ? `${base}/downloads/daejeon/pdf/ai-architecture-design-daejeon-lesson-${lessonId}.pdf`
+    ? `${base}/downloads/pdf/ai-architecture-design-lesson-${lessonId}.pdf`
     : null;
 const pdfLabel = page === 'overview'
   ? '과정 개요 교보재 PDF 다운로드'
@@ -55,7 +55,7 @@ const pdfLabel = page === 'overview'
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="robots" content="noindex, nofollow, noarchive" />
-    <title>{title} | 대전 AI Lecture</title>
+    <title>{title} | AI 건축디자인</title>
     {accessGateEnabled && <>
       <style is:inline>
         html[data-ebook-access="locked"] [data-ebook-protected] { display: none !important; }
@@ -78,13 +78,13 @@ const pdfLabel = page === 'overview'
     {accessGateEnabled && <EbookAccessGate />}
     <a class="skip-link" href="#main" data-ebook-protected>본문으로 바로가기</a>
     <header class="review-header" data-ebook-protected>
-      <a class="review-brand" href={`${base}/`}>AI LECTURE <span>ARCHITECTURE DESIGN · DAEJEON</span></a>
-      <nav aria-label="대전 과정 안내">
+      <a class="review-brand" href={`${base}/`}>AI LECTURE <span>ARCHITECTURE DESIGN</span></a>
+      <nav aria-label="과정 안내">
         {reviewNavigation.map(item=><a href={base+'/'+item.path} aria-current={(page==='lesson'?lessonId:page==='overview'?'overview':'home')===item.id?'page':undefined}>{item.label}</a>)}
       </nav>
     </header>
     <div class="review-shell review-shell--toc" data-ebook-protected>
-      <aside class="review-sidebar" aria-label="대전 과정 목차">
+      <aside class="review-sidebar" aria-label="과정 목차">
         {toc.length > 0 && (
           <nav class="review-toc" aria-label="현재 차시 내부 목차">
             {currentTopics.length > 0 && (
@@ -107,7 +107,7 @@ const pdfLabel = page === 'overview'
           <details class="review-course-toc__details" open>
             <summary>전체 목차 · 7개 대주제 / 13차시</summary>
             <div class="review-course-toc__Overview">
-              <a href={`${base}/`} aria-current={page === 'home' ? 'page' : undefined}>대전 과정 홈</a>
+              <a href={`${base}/`} aria-current={page === 'home' ? 'page' : undefined}>과정 홈</a>
               <a href={`${base}/course-overview/`} aria-current={page === 'overview' ? 'page' : undefined}>과정 전체 안내 · 7개 대주제 Roadmap</a>
             </div>
             <ol class="review-course-toc__topics">
@@ -135,7 +135,7 @@ const pdfLabel = page === 'overview'
       </aside>
       <main id="main" tabindex="-1" data-course-status="design-pending" data-review-status="instructor-review" data-review-page={page}>
         <div class="review-intro">
-          <p class="review-eyebrow">DAEJEON · {eyebrow || (page === 'overview' ? 'COURSE OVERVIEW' : page === 'lesson' ? 'LESSON 01' : 'COURSE DESIGN')}</p>
+          <p class="review-eyebrow">ARCHITECTURE × AI · {eyebrow || (page === 'overview' ? 'COURSE OVERVIEW' : page === 'lesson' ? 'LESSON 01' : 'COURSE DESIGN')}</p>
           <h1 id="main-content" tabindex="-1">{title}</h1>
           <p class="review-lead">{lead}</p>
           {pdfHref && (
@@ -148,7 +148,7 @@ const pdfLabel = page === 'overview'
         <ReviewLessonNavigation {page} {lessonId} />
       </main>
     </div>
-    <footer class="review-footer" data-ebook-protected><div>AI는 제안하고, 디자이너는 판단한다. <a href={`${base}/`}>대전 과정 안내</a></div><DaejeonCopyright /></footer>
+    <footer class="review-footer" data-ebook-protected><div>AI는 제안하고, 디자이너는 판단한다. <a href={`${base}/`}>과정 안내</a></div><DaejeonCopyright /></footer>
     <script>
       const toc = document.querySelector<HTMLDetailsElement>('.review-toc > details');
       const courseToc = document.querySelector<HTMLDetailsElement>('.review-course-toc__details');

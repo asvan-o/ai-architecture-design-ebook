@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {workbookAssetPath} from './workbook-public-paths.mjs';
 import {readFileSync,mkdirSync,writeFileSync} from 'node:fs';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
@@ -21,19 +22,19 @@ const textbookManifest=JSON.parse(readFileSync(path.join(repositoryRoot,'src/dra
 assert.equal(textbookManifest.courseId,'daejeon-2026');
 assert.equal(textbookManifest.encryption,'AES-256');
 const textbookPdfNames=[
-  'ai-architecture-design-daejeon-course-overview.pdf',
-  ...Array.from({length:13},(_,i)=>`ai-architecture-design-daejeon-lesson-${String(i+1).padStart(2,'0')}.pdf`),
+  'ai-architecture-design-course-overview.pdf',
+  ...Array.from({length:13},(_,i)=>`ai-architecture-design-lesson-${String(i+1).padStart(2,'0')}.pdf`),
 ];
 export function getDaejeonTextbookPdfs(){
   assert.deepEqual(textbookManifest.files.map(f=>f.filename),textbookPdfNames);
   const pdfDir=path.join(repositoryRoot,'review','daejeon','PDF_TEXTBOOKS');
   return textbookManifest.files.map(file=>{
     assert.equal(file.encrypted,true,file.filename);
-    const source=path.join(pdfDir,file.filename),bytes=readFileSync(source);
+    const source=path.join(pdfDir,file.sourceFilename||file.filename),bytes=readFileSync(source);
     assert.equal(bytes.length,file.sizeBytes,file.filename);
     assert.equal(sha(bytes),file.sha256,file.filename);
     assert(bytes.includes(Buffer.from('/Encrypt')),file.filename+' must remain encrypted');
-    return {outputPath:'downloads/daejeon/pdf/'+file.filename,source,sha256:file.sha256};
+    return {outputPath:'downloads/pdf/'+file.filename,source,sha256:file.sha256};
   });
 }
 
@@ -48,8 +49,9 @@ export function getDaejeonLocalAssets(){
   for(const item of items){
     const bytes=item.source?readFileSync(item.source):Buffer.from(item.text);
     assert(bytes.length>0,item.outputPath);if(item.sha256)assert.equal(sha(bytes),item.sha256,item.outputPath);
-    assert(!entries.has(item.outputPath),'Duplicate local asset '+item.outputPath);
-    entries.set(item.outputPath,{path:item.outputPath,source:'source' in item?path.relative(repositoryRoot,item.source).replaceAll('\\','/'):'generated local review Prompt',sha256:sha(bytes),sizeBytes:bytes.length,bytes});
+    const publicPath=workbookAssetPath(item.outputPath);
+    assert(!entries.has(publicPath),'Duplicate local asset '+item.outputPath);
+    entries.set(publicPath,{path:publicPath,source:'source' in item?path.relative(repositoryRoot,item.source).replaceAll('\\','/'):'generated local review Prompt',sha256:sha(bytes),sizeBytes:bytes.length,bytes});
   }
   return entries;
 }

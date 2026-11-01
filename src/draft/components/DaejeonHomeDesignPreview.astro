@@ -13,7 +13,7 @@ import '../styles/home-design-preview.css';
 const base=import.meta.env.BASE_URL.replace(/\/$/,'');
 const accessGateEnabled=isStudentBuild&&Boolean(accessConfig.passwordHash);
 const lessonHref=(id:string)=>`${base}/lessons/${id}/`;
-const pdfHref=(id:string)=>`${base}/downloads/daejeon/pdf/ai-architecture-design-daejeon-${id==='overview'?'course-overview':'lesson-'+id}.pdf`;
+const pdfHref=(id:string)=>`${base}/downloads/pdf/ai-architecture-design-${id==='overview'?'course-overview':'lesson-'+id}.pdf`;
 const house=base+'/images/daejeon/lesson-12/'+encodeURIComponent('주택_주간_재료조명_제안렌더.png');
 const interior=base+'/images/daejeon/lesson-12/'+encodeURIComponent('실사형_01_1층_거실주방_아이소메트릭.png');
 ---
@@ -23,8 +23,8 @@ const interior=base+'/images/daejeon/lesson-12/'+encodeURIComponent('실사형_0
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width" />
   <meta name="robots" content="noindex,nofollow,noarchive" />
-  <title>대전 과정 | AI 건축디자인</title>
-  <meta name="description" content="대전 AI 건축디자인 과정 · 7개 대주제와 제1~13차시 교재 및 실습자료 안내" />
+  <title>AI 건축디자인 · 실무 워크북</title>
+  <meta name="description" content="AI 건축디자인 과정 · 7개 대주제와 제1~13차시 교재 및 실습자료 안내" />
   {accessGateEnabled&&<>
    <style is:inline>
     html[data-ebook-access="locked"] [data-ebook-protected]{display:none!important}
@@ -39,7 +39,7 @@ const interior=base+'/images/daejeon/lesson-12/'+encodeURIComponent('실사형_0
   {accessGateEnabled&&<EbookAccessGate />}
   <a href="#main" class="design-skip" data-ebook-protected>본문으로 바로가기</a>
   <header class="design-header design-container" data-ebook-protected>
-   <a class="design-brand" href={`${base}/`} aria-label="대전 AI 건축디자인 홈"><span class="design-brand-mark"><Icon name="layers" /></span><span><strong>AI 건축디자인</strong><small>대전 · 실무 워크북</small></span></a>
+   <a class="design-brand" href={`${base}/`} aria-label="AI 건축디자인 홈"><span class="design-brand-mark"><Icon name="layers" /></span><span><strong>AI 건축디자인</strong><small>실무 워크북</small></span></a>
    <nav aria-label="홈 주요 메뉴" class="design-desktop-nav"><a href="#curriculum">과정의 흐름</a><a href="#lessons">전체 차시</a><a href="#guide">교재 이용 안내</a></nav>
    <details class="design-mobile-menu"><summary><Icon name="menu" /><span>메뉴</span></summary><nav aria-label="모바일 홈 주요 메뉴"><a href="#curriculum">과정의 흐름</a><a href="#lessons">전체 차시</a><a href="#guide">교재 이용 안내</a><a href={`${base}/course-overview/`}>과정 전체 안내</a></nav></details>
    <a href={`${base}/course-overview/`} class="design-header-link">과정 안내 <Icon name="arrow-up-right" /></a>
@@ -47,7 +47,7 @@ const interior=base+'/images/daejeon/lesson-12/'+encodeURIComponent('실사형_0
   <main id="main" class="design-container" data-course-status="design-pending" data-review-status="instructor-review" tabindex="-1" data-ebook-protected>
    <section class="design-hero" aria-labelledby="main-content">
     <div class="design-hero-copy">
-     <p class="design-eyebrow">ARCHITECTURE × AI · DAEJEON 2026</p>
+     <p class="design-eyebrow">ARCHITECTURE × AI · 2026</p>
      <h1 id="main-content" tabindex="-1">AI와 함께,<br />건축의 생각을<br /><span>실무의 결과로.</span></h1>
      <p class="design-hero-lead">AI 활용의 원칙을 익히고,<br class="desktop-break" /> 이미지·도면·업무 자동화 실습을<br class="desktop-break" /> 차례로 따라가는 교재입니다.</p>
      <div class="design-hero-actions"><a href={lessonHref('01')} class="design-primary">제1차시부터 시작하기 <Icon name="arrow-right" /></a><a href="#lessons" class="design-text-action">차시별 교재 보기 <Icon name="arrow-down" /></a></div>

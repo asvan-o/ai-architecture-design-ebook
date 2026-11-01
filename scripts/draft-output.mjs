@@ -1,9 +1,10 @@
 import assert from 'node:assert/strict';
+import {workbookAssetPath,legacyWorkbookAssetPath} from './workbook-public-paths.mjs';
 import { readFileSync, readdirSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
 const drawingDemoRoute='practice/DJ-L02/automation/B/demo/index.html';
-const houseWalkthroughRoute='downloads/daejeon/lesson-09/House_B_Walkthrough.html';
+const houseWalkthroughRoute=workbookAssetPath('downloads/daejeon/lesson-09/House_B_Walkthrough.html');
 const automationAllowed=new Set([
   ...['A_FIRST_REQUEST.txt','A_STRUCTURE_CHECKLIST.txt','A_IMPLEMENTATION_APPROVAL.txt','A_README.txt','A_EXPECTED_RESULTS.csv','A_VERIFICATION_SUMMARY.txt','A_KNOWN_LIMITS.txt','A_UI_DESKTOP.png','A_UI_MOBILE.png','A_UI_PENDING.png','A_UI_AUTOMATIC.png'].map(file=>'practice/DJ-L02/automation/A/'+file),
   ...['A_INPUT_UI_DESKTOP.png','A_INPUT_UI_MOBILE.png','A_INPUT_UI_PENDING.png','A_INPUT_UI_AUTOMATIC.png'].map(file=>'practice/DJ-L02/automation/A/'+file),
@@ -25,28 +26,29 @@ export function verifyDraftOutput(course, output, { localReviewAssets = false } 
     const manifest = JSON.parse(readFileSync(path.join(output,'review-assets.json'),'utf8'));
     assert.equal(manifest.localOnly, true);
     assert.equal(manifest.pdfsIssued, false);
-    const practiceFiles = all.map((file)=>path.relative(output,file).replaceAll('\\','/')).filter((file)=>file.startsWith('practice/') || /^(?:images|downloads)\/daejeon\/(?:lesson-(?:0[789]|1[0-3])|pdf)\//.test(file)).sort();
+    const practiceFiles = all.map((file)=>path.relative(output,file).replaceAll('\\','/')).filter((file)=>file.startsWith('practice/') || /^(?:images|downloads)\/daejeon\/(?:lesson-(?:0[789]|1[0-3])|pdf)\//.test(legacyWorkbookAssetPath(file))).sort();
     assert.deepEqual(practiceFiles, manifest.files.map((file)=>file.path).sort(), 'Unexpected review asset');
     for (const file of manifest.files) {
-      if(/^(?:images|downloads)\/daejeon\/(?:lesson-(?:0[789]|1[0-3])|pdf)\//.test(file.path)) {
+      const boundaryPath=legacyWorkbookAssetPath(file.path);
+      if(/^(?:images|downloads)\/daejeon\/(?:lesson-(?:0[789]|1[0-3])|pdf)\//.test(boundaryPath)) {
         assert(!file.path.split('/').includes('..'),'Invalid Lesson07 local path');
         assert.equal(createHash('sha256').update(readFileSync(path.join(output,file.path))).digest('hex'),file.sha256);
         continue;
       }
-      if(automationAllowed.has(file.path)) {
+      if(automationAllowed.has(boundaryPath)) {
         assert.equal(createHash('sha256').update(readFileSync(path.join(output,file.path))).digest('hex'),file.sha256);
         continue;
       }
-      assert(/^practice\/gwangju-lesson02-reuse\/flower-cafe-sample\/00-empty-space\.png$/.test(file.path) || /^practice\/(?:DJ-CF-01|DJ-CF-02|DJ-L02|DJ-L02-B|DJ-ML-01|DJ-L03|DJ-L04|DJ-L05|DJ-L06)\//.test(file.path) || /^practice\/DJ-L02\/file-sorter\/DJ-L02_(?:FILE_SORTER_PROGRAM\.zip|SORT_TEST\.zip|FILE_SORTER_README\.txt|FILE_SORTER_MANIFEST\.json)$/.test(file.path) || /^practice\/DJ-CF-0[12]\/DJ-CF-0[12]_[a-zA-Z0-9.-]+$/.test(file.path) || /^practice\/GW-L02\/(?:0[1-4]-(?:original-prompt|original-result|revision-prompt|revised-result)\.(?:txt|jpeg)|base-0[1-5]\.jpeg)$/.test(file.path) || /^practice\/DJ-L02\/DJ-L02_(?:01_lighting-temperature-guide|02_auto-sort-flow|03_auto-sort-rules-guide)\.png$/.test(file.path) || /^practice\/DJ-ML-01\/DJ-ML-01_(?:BASE|MATERIAL_REFERENCE|LIGHTING_REFERENCE)\.png$/.test(file.path) || /^practice\/DJ-ML-01\/BEFORE-BASE\/DJ-ML-01_BEFORE_BASE_0[1-5]_(?:reception|meeting-room|consultation-lounge|work-break-lounge|waiting-area)\.png$/.test(file.path) || /^practice\/DJ-ML-01\/materials\/m-(?:0[1-9]|[12][0-9]|3[0-3])-[a-z0-9-]+\.png$/.test(file.path));
+      assert(/^practice\/gwangju-lesson02-reuse\/flower-cafe-sample\/00-empty-space\.png$/.test(boundaryPath) || /^practice\/(?:DJ-CF-01|DJ-CF-02|DJ-L02|DJ-L02-B|DJ-ML-01|DJ-L03|DJ-L04|DJ-L05|DJ-L06)\//.test(boundaryPath) || /^practice\/DJ-L02\/file-sorter\/DJ-L02_(?:FILE_SORTER_PROGRAM\.zip|SORT_TEST\.zip|FILE_SORTER_README\.txt|FILE_SORTER_MANIFEST\.json)$/.test(boundaryPath) || /^practice\/DJ-CF-0[12]\/DJ-CF-0[12]_[a-zA-Z0-9.-]+$/.test(boundaryPath) || /^practice\/GW-L02\/(?:0[1-4]-(?:original-prompt|original-result|revision-prompt|revised-result)\.(?:txt|jpeg)|base-0[1-5]\.jpeg)$/.test(boundaryPath) || /^practice\/DJ-L02\/DJ-L02_(?:01_lighting-temperature-guide|02_auto-sort-flow|03_auto-sort-rules-guide)\.png$/.test(boundaryPath) || /^practice\/DJ-ML-01\/DJ-ML-01_(?:BASE|MATERIAL_REFERENCE|LIGHTING_REFERENCE)\.png$/.test(boundaryPath) || /^practice\/DJ-ML-01\/BEFORE-BASE\/DJ-ML-01_BEFORE_BASE_0[1-5]_(?:reception|meeting-room|consultation-lounge|work-break-lounge|waiting-area)\.png$/.test(boundaryPath) || /^practice\/DJ-ML-01\/materials\/m-(?:0[1-9]|[12][0-9]|3[0-3])-[a-z0-9-]+\.png$/.test(boundaryPath));
       assert.equal(createHash('sha256').update(readFileSync(path.join(output,file.path))).digest('hex'), file.sha256);
     }
-    assert(all.every((file)=>! /\.(?:pdf|zip|png|jpe?g|webp|avif|svg)$/i.test(file) || /^(?:practice\/|(?:images|downloads)\/daejeon\/(?:lesson-(?:0[789]|1[0-3])|pdf)\/)/.test(path.relative(output,file).replaceAll('\\','/'))), 'Binary outside local review allowlist');
+    assert(all.every((file)=>! /\.(?:pdf|zip|png|jpe?g|webp|avif|svg)$/i.test(file) || /^(?:practice\/|(?:images|downloads)\/daejeon\/(?:lesson-(?:0[789]|1[0-3])|pdf)\/)/.test(legacyWorkbookAssetPath(path.relative(output,file).replaceAll('\\','/')))), 'Binary outside local review allowlist');
   } else {
     assert(!readdirSync(output).includes('practice'), `${course.courseId}: exercise package outside isolated review`);
     assert(all.every((file) => !/\.(?:pdf|zip|png|jpe?g|webp|avif)$/i.test(file)), `${course.courseId}: review must not inherit exercise assets or issue PDFs`);
   }
   assert(localReviewAssets || !readdirSync(output).includes('downloads'), `${course.courseId}: draft downloads forbidden`);
-  if(localReviewAssets){for(const folder of ['images','downloads']){const dir=path.join(output,folder);if(all.some(file=>file.startsWith(dir+path.sep)))assert(files(dir).every(file=>path.relative(dir,file).replaceAll('\\','/').match(/^daejeon\/(?:lesson-(?:0[789]|1[0-3])|pdf)\//)),'Unexpected review '+folder);}}
+  if(localReviewAssets){for(const folder of ['images','downloads']){const dir=path.join(output,folder);if(all.some(file=>file.startsWith(dir+path.sep)))assert(files(dir).every(file=>path.relative(dir,file).replaceAll('\\','/').replace(/^(lesson-\d+|pdf)\//,'daejeon/$1/').match(/^daejeon\/(?:lesson-(?:0[789]|1[0-3])|pdf)\//)),'Unexpected review '+folder);}}
   for (const route of html) {
     const source = readFileSync(path.join(output, route), 'utf8');
     if(localReviewAssets&&(route===drawingDemoRoute||route==='practice/DJ-L02-B/demo/index.html'||route===houseWalkthroughRoute)) {
