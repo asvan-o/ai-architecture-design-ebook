@@ -92,7 +92,7 @@ const zip=lesson04ApplicationZip;
       {section.id==='l04-gemini'&&<>
         <Lesson04Techniques stage="dusk" />
         <details><summary>비교 내용을 Gemini로 정리하는 보조 Workflow</summary>
-        <p>Gemini에 원본·A·B와 실제 Prompt를 함께 제공합니다. AI의 비교는 초안입니다. <strong>직접 관찰 / 제공 조건 / 추정 / 미확정</strong>을 구분하고, 사람이 원본과 대조한 항목만 보완 요청에 사용합니다.</p>
+        <p>Gemini에 원본·A·B·A2 네 장과 실제 Prompt를 함께 제공합니다. A/B는 같은 원본의 독립 대안, A2는 A의 국소 보완으로 구분합니다. AI의 비교는 초안입니다. <strong>직접 관찰 / 제공 조건 / 추정 / 미확정</strong>을 구분하고, 사람이 원본과 대조한 항목만 보완 요청에 사용합니다.</p>
         <details><summary>Gemini 비교 분석 · 7단 요청문</summary><ReviewPrompt {...prompt('gemini-7step')} /></details><ReviewPrompt {...prompt('gemini-short')} />
 
         </details>

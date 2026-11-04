@@ -6,10 +6,11 @@ import ReviewSection from './ReviewSection.astro';
 import PortfolioPrompt from './PortfolioPrompt.astro';
 import PortfolioAsset from './PortfolioAsset.astro';
 import PortfolioKeywords from './PortfolioKeywords.astro';
+import ReleaseDownloadGuide from './ReleaseDownloadGuide.astro';
 import type {PromptPlatformGuide} from '../content/prompt-platform-guides';
 interface Block {type:string;items?:string[];head?:string[];rows?:string[][];title?:string;body?:string;number?:number;group?:string;}
 interface Section {id:string;title:string;index:number;minutes:number;part:number;action:string;why:string;next:string;blocks:Block[];}
-interface Lesson {id:string;flow:string[];parts:string[];sections:Section[];}
+interface Lesson {id:string;flow:string[];parts:string[];sections:Section[];durationMinutes:number;optionalMinutes:number;}
 interface Props {lessonId:'11'|'12'|'13';}
 const {lessonId}=Astro.props;
 const lesson=(data.lessons as Record<string,Lesson>)[lessonId];
@@ -26,9 +27,10 @@ const legacyText="선행 제작 사례에서는 큰 투시도와 작은 도면·
 <div class="portfolio-lesson" data-portfolio-lesson={lessonId}>
  <section class="portfolio-core" aria-label="오늘의 핵심 흐름"><h2>오늘의 핵심 흐름</h2><ol>{lesson.flow.map((item,i)=><li><span>{i+1}단계</span><strong>{item}</strong></li>)}</ol></section>
  <TopicProgress lesson={lessonId} items={[{topic:7,status:lessonId==='11'?'시작':lessonId==='12'?'계속':'완결',note:'포트폴리오·발표 제안서·결과보고서를 연결하고 사람이 최종 판단합니다.'}]} />
- <aside class="portfolio-boundary">기본 수업 150분 · 50분 × 3교시 (쉬는 시간·운영 별도){lessonId!=='11'&&' · 선택 심화 50분은 기본 수업 밖에서 별도로 진행합니다.'}</aside>
+ <aside class="portfolio-boundary" data-lesson-duration={lesson.durationMinutes}>기본 수업 {lesson.durationMinutes}분 · 50분 × {lesson.durationMinutes/50}교시 (쉬는 시간·운영 별도){lesson.optionalMinutes>0&&` · 선택 심화 ${lesson.optionalMinutes}분은 기본 수업 밖에서 별도로 진행합니다.`}</aside>
+ {lessonId==='12'&&<ReleaseDownloadGuide lesson="12" />}
  {lesson.parts.map((part,pi)=><section class="portfolio-part" id={'l'+lessonId+'-part-'+(pi+1)} data-portfolio-part={pi+1}>
-  <header class="part-head"><p>Part {pi+1} · 50분</p><h2>{part}</h2></header>
+  <header class="part-head"><p>Part {pi+1} · {lesson.sections.filter(s=>s.part===pi+1).reduce((sum,s)=>sum+s.minutes,0)}분</p><h2>{part}</h2></header>
   {lesson.sections.filter(s=>s.part===pi+1).map(s=><ReviewSection id={s.id} title={s.title} index={s.index} minutes={s.minutes} tag={'제'+Number(lessonId)+'차시 · '+s.minutes+'분'}>
    <dl class="portfolio-action"><div><dt>지금 할 일</dt><dd>{s.action}</dd></div><div><dt>왜 하는가</dt><dd>{s.why}</dd></div><div><dt>다음에 사용할 것</dt><dd>{s.next}</dd></div></dl>
    {s.blocks.map((b,bi)=><>

@@ -1,5 +1,5 @@
 export const lesson03Title = '제3차시 · 초기 기획을 위한 실내 부분 인페인팅과 디자인보드 기반 래피드 콘셉트 도출';
-export const lesson03Schedule = '2026-10-27(화) · 18:00~21:00 · 3교시 × 50분';
+export const lesson03Schedule = '3교시 × 50분';
 export const lesson03Lead = '한 공간의 바꿀 부분을 정하고, 수정 이미지에서 읽은 디자인 방향을 보드와 새로운 실내 콘셉트로 이어갑니다.';
 export const lesson03Sections = [
   {id:'l03-recap',title:'지난 차시에서 오늘로 이어가기',minutes:5,action:'지난 차시의 작업 원칙을 짧게 돌아봅니다.',reason:'이미지 작업에서도 사람이 기준을 정하고 결과를 확인하기 위해서입니다.',next:'오늘의 연속 작업 흐름'},

@@ -20,13 +20,13 @@ test('Revision11 concentrates Lesson07 into 16 sections and six complete teachin
  assert.equal(content.lesson07Sections.reduce((n,s)=>n+s.minutes,0),300);
  assert.deepEqual(content.lesson07Parts.map(p=>p.sections.reduce((n,s)=>n+s.minutes,0)),[50,50,50,50,50,50]);
  assert.deepEqual(content.lesson07Parts.flatMap(p=>p.sections.map(s=>s.id)),ids);
- assert.equal(content.lesson07Meta.date,'2026.05.16 (토)');assert.equal(content.lesson07Meta.durationMinutes,300);
+ assert.equal(content.lesson07Meta.date,null);assert.equal(content.lesson07Meta.durationMinutes,300);
 });
 test('Lesson08 receives six preserved floorplan sections plus MCP in three 50-minute parts without guessing a date',()=>{
  assert.deepEqual(lesson08.lesson08Sections.map(s=>s.id),['l08-plan-prep-why','l08-notebooklm-plan','l08-clean-line-criteria','l08-spatial-validation','l08-graphviz-diagram','l08-part2-handover','l08-mcp-concept-ecosystem','l08-blender-mcp-setup','l08-blender-mcp-hello-world']);
  assert.deepEqual(lesson08.lesson08Sections.map(s=>s.minutes),[15,15,20,20,20,10,15,20,15]);
  assert.deepEqual(lesson08.lesson08Parts.map(p=>p.sections.reduce((n,s)=>n+s.minutes,0)),[50,50,50]);
- assert.equal(lesson08.lesson08Meta.durationMinutes,150);assert.equal(lesson08.lesson08Meta.weekday,'월요일');assert.equal(lesson08.lesson08Meta.date,null);
+ assert.equal(lesson08.lesson08Meta.durationMinutes,150);assert.equal('weekday' in lesson08.lesson08Meta,false);assert.equal(lesson08.lesson08Meta.date,null);
  assert.equal(lesson08.lesson08Meta.status,'design-pending');assert.equal(lesson08.lesson08Meta.reviewStatus,'instructor-review');
 });
 test('Draft authorization adds Lesson08 without publishing or approving the course',()=>{

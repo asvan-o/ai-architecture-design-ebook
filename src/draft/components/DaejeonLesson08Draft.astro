@@ -12,9 +12,9 @@ const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
  <ol class="l08-flow" aria-label="제8차시 작업 흐름">{['원본 도면·사용 권한 확인','NotebookLM 판독','사람이 확정 기준표 작성','클린 선화와 교차검증','Graphviz 관계도','Blender MCP 연결·첫 3D 룸'].map(text=><li>{text}</li>)}</ol>
  <aside class="review-callout"><strong>원도면의 사실과 표현 이미지를 구분합니다</strong><p>{lesson08Boundary}</p></aside>
  <aside class="l08-note"><h2>이번 차시 실습자료</h2><p>제7차시의 평면도 확대 비교를 이어받아, 같은 자체 제작 오피스의 원본 PDF·클린 선화·문자 오류 비교 입체 이미지와 관계도 예시를 사용합니다. 새로운 원본 도면으로 바뀌는 실습이 아닙니다.</p>{enabled&&<a class="review-download" href={base+'/downloads/daejeon/lesson-08/DJ-L08-Floorplan-Graphviz-Pack.zip'} download>제8차시 도면 판독·Graphviz 실습자료 ZIP 다운로드</a>}</aside>
- <div class="l08-part-grid">{lesson08Parts.map((part,i)=><a href={'#'+part.id}><span>Part {i+1}</span><strong>{part.title}</strong><span>{part.time} · 50분</span></a>)}</div>
+ <div class="l08-part-grid">{lesson08Parts.map((part,i)=><a href={'#'+part.id}><span>Part {i+1}</span><strong>{part.title}</strong><span>{part.time}</span></a>)}</div>
  {lesson08Parts.map((part,partIndex)=><div class="day-period" id={part.id} data-teaching-minutes={part.sections.reduce((sum,section)=>sum+section.minutes,0)}>
-  <header class="period-heading"><p>Part {partIndex+1}</p><h2>{part.title}</h2><p>{part.time} · 50분</p></header>
+  <header class="period-heading"><p>Part {partIndex+1}</p><h2>{part.title}</h2><p>{part.time}</p></header>
   {part.sections.map(section=><ReviewSection id={section.id} title={section.title} minutes={section.minutes} index={lesson08Sections.findIndex(row=>row.id===section.id)+1}>
    <dl class="l08-context"><div><dt>지금 할 일</dt><dd>{section.action}</dd></div><div><dt>왜 하는가</dt><dd>{section.reason}</dd></div><div><dt>다음에 사용할 것</dt><dd>{section.next}</dd></div></dl>
    {partIndex<2?<Lesson07FloorplanPart sectionId={section.id} />:<Lesson08McpPart sectionId={section.id} />}

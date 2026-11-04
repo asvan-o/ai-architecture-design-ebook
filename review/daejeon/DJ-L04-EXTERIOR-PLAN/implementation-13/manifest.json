@@ -379,8 +379,8 @@
         }
       ],
       "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
-      "sha256": "1bff09f5dd05f136a07664c59d32889819feb02442f73ed1ce9b62a2f5e11027",
-      "bytes": 1284
+      "sha256": "f6aa519afb54f7dc3c75bb73072241145492531f57f1f6076dadca52871d0437",
+      "bytes": 2013
     },
     {
       "key": "scope-short",
@@ -396,8 +396,8 @@
         }
       ],
       "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
-      "sha256": "1bff09f5dd05f136a07664c59d32889819feb02442f73ed1ce9b62a2f5e11027",
-      "bytes": 1284
+      "sha256": "ebdaa9a6dbd5431843d6ee6fab62a69d4675e1d1568439650921fc39fff94648",
+      "bytes": 734
     },
     {
       "key": "gemini-7step",
@@ -422,11 +422,17 @@
           "role": "B 결과",
           "outputPath": "practice/DJ-L04/samples/03_partial-edit-b.png",
           "sha256": "2d303ea720cc32805a5b2ae1d6914113c73c5a036ad40133ad47b038d49ea271"
+        },
+        {
+          "file": "samples/04_revised-concept.png",
+          "role": "A에서 간판 띠·캐노피 전면과 하부만 밝게 보완한 A2 비교 대상",
+          "outputPath": "practice/DJ-L04/samples/04_revised-concept.png",
+          "sha256": "68af0e4f7e55b9949332f9ad28dd9cc10786af929c76bfeb84a3d39218bea879"
         }
       ],
       "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
-      "sha256": "7a9af055aee3fbbe272e4ce3aba6ab955c7dd7f3f53922ec0bafb4788f68829b",
-      "bytes": 1353
+      "sha256": "07dbac5cdfa7ab5f32e6a75b9c84802fe6c26489c975dd9d798116f04bfd6a41",
+      "bytes": 1404
     },
     {
       "key": "gemini-short",
@@ -451,11 +457,17 @@
           "role": "B 결과",
           "outputPath": "practice/DJ-L04/samples/03_partial-edit-b.png",
           "sha256": "2d303ea720cc32805a5b2ae1d6914113c73c5a036ad40133ad47b038d49ea271"
+        },
+        {
+          "file": "samples/04_revised-concept.png",
+          "role": "A에서 간판 띠·캐노피 전면과 하부만 밝게 보완한 A2 비교 대상",
+          "outputPath": "practice/DJ-L04/samples/04_revised-concept.png",
+          "sha256": "68af0e4f7e55b9949332f9ad28dd9cc10786af929c76bfeb84a3d39218bea879"
         }
       ],
       "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
-      "sha256": "7a9af055aee3fbbe272e4ce3aba6ab955c7dd7f3f53922ec0bafb4788f68829b",
-      "bytes": 1353
+      "sha256": "07dbac5cdfa7ab5f32e6a75b9c84802fe6c26489c975dd9d798116f04bfd6a41",
+      "bytes": 1404
     },
     {
       "key": "compare-7step",
@@ -663,23 +675,23 @@
     },
     {
       "file": "prompts/scope-7step.txt",
-      "sha256": "1bff09f5dd05f136a07664c59d32889819feb02442f73ed1ce9b62a2f5e11027",
-      "bytes": 1284
+      "sha256": "f6aa519afb54f7dc3c75bb73072241145492531f57f1f6076dadca52871d0437",
+      "bytes": 2013
     },
     {
       "file": "prompts/scope-short.txt",
-      "sha256": "1bff09f5dd05f136a07664c59d32889819feb02442f73ed1ce9b62a2f5e11027",
-      "bytes": 1284
+      "sha256": "ebdaa9a6dbd5431843d6ee6fab62a69d4675e1d1568439650921fc39fff94648",
+      "bytes": 734
     },
     {
       "file": "prompts/gemini-7step.txt",
-      "sha256": "7a9af055aee3fbbe272e4ce3aba6ab955c7dd7f3f53922ec0bafb4788f68829b",
-      "bytes": 1353
+      "sha256": "07dbac5cdfa7ab5f32e6a75b9c84802fe6c26489c975dd9d798116f04bfd6a41",
+      "bytes": 1404
     },
     {
       "file": "prompts/gemini-short.txt",
-      "sha256": "7a9af055aee3fbbe272e4ce3aba6ab955c7dd7f3f53922ec0bafb4788f68829b",
-      "bytes": 1353
+      "sha256": "07dbac5cdfa7ab5f32e6a75b9c84802fe6c26489c975dd9d798116f04bfd6a41",
+      "bytes": 1404
     },
     {
       "file": "prompts/compare-7step.txt",

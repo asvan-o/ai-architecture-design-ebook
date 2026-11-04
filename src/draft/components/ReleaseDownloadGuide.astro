@@ -1,0 +1,17 @@
+---
+import names from '../../../data/deployment/release-asset-names.json';
+interface Props {lesson:'10'|'12';}
+const {lesson}=Astro.props;
+const prefix=`downloads/daejeon/lesson-${lesson}/`;
+const rows=Object.entries(names).filter(([key])=>key.startsWith(prefix)).map(([key,english])=>({korean:key.slice(prefix.length),english}));
+---
+<aside class="release-download-guide">
+ <p>개별 다운로드 시 코드 번호가 포함된 영문 파일명으로 저장됩니다. {lesson==='10'?'A01~A07·N02~N10·B01~B99 등의 코드로 본문 자료와 대응합니다.':'제12차시 제안서·보드의 문서명으로 대응합니다.'} 한글 파일명 묶음은 {lesson==='10'?'원자료·공식 법규·강사 예시 ZIP':'보드 원본 ZIP과 제13차시 통합 ZIP'}을 내려받아 사용하세요.</p>
+ <details><summary>본문의 한글명과 실제 영문 저장명 대응 보기</summary><div class="release-download-guide__table"><table><thead><tr><th scope="col">본문·ZIP의 한글 파일명</th><th scope="col">개별 다운로드의 영문 저장명</th></tr></thead><tbody>{rows.map(row=><tr><td>{row.korean}</td><td>{row.english}</td></tr>)}</tbody></table></div></details>
+</aside>
+<style>
+ .release-download-guide{margin:1rem 0;font-size:.9rem;line-height:1.7;overflow-wrap:anywhere}
+ .release-download-guide__table{overflow-x:auto;margin-top:.75rem}
+ table{border-collapse:collapse;width:100%;table-layout:fixed}th,td{padding:.6rem;text-align:left;vertical-align:top;border:1px solid var(--line,#d7d3cb);overflow-wrap:anywhere}th{background:var(--paper-deep,#eeeae2)}
+ @media print{.release-download-guide__table{overflow:visible}tr{break-inside:avoid}}
+</style>

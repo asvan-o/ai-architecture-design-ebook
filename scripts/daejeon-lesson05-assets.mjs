@@ -5,7 +5,9 @@ import assert from 'node:assert/strict';
 import {repositoryRoot} from './course-registry.mjs';
 import {ebookText} from './daejeon-ebook-language.mjs';
 
-/** @typedef {{key:string,file:string,title:string,description:string,source:string,originalSource:string,outputPath:string,sha256:string,width:number,height:number,text:string,attachments?:{file:string,role:string,outputPath:string}[]}} PlanAsset */
+/** @typedef {{file:string,role:string,outputPath:string}} PromptAttachment */
+/** @typedef {{id:string,title:string,attachments:PromptAttachment[]}} PromptAttachmentBundle */
+/** @typedef {{key:string,file:string,title:string,description:string,source:string,originalSource:string,outputPath:string,sha256:string,width:number,height:number,text:string,attachments?:PromptAttachment[],attachmentBundles?:PromptAttachmentBundle[]}} PlanAsset */
 /** @typedef {{id:string,title:string,description:string,target:string,base:PlanAsset,marked:PlanAsset,result:PlanAsset,overlay:PlanAsset}} PlanSet */
 const root=path.join(repositoryRoot,'review/daejeon/DJ-L05-FLOORPLAN-INPAINTING/revision-review8-20261016');
 const manifest=JSON.parse(fs.readFileSync(path.join(root,'manifest.json'),'utf8'));

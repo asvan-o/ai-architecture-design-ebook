@@ -1,6 +1,4 @@
 # Blender MCP 시작 가이드 · 핵심 3단계
-review/draft · instructor-review · design-pending
-확인일: 2026-10-19
 
 ## Step 1 · uv(uvx) 설치
 Windows PowerShell에서 실행합니다.

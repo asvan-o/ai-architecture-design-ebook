@@ -20,9 +20,9 @@ export const sections = [
   {id:'l02-wrap-up',title:'결과 정리와 다음 차시 연결',minutes:5},
 ] as const;
 export const periods = [
-  {id:'l02-period-1',title:'업무 자동화 이해하고 실습 환경 준비하기',time:'18:00–18:50',output:'자동화할 일과 사람이 판단할 일을 구분하고 실습 폴더를 연결합니다.',sections:sections.slice(0,4)},
-  {id:'l02-period-2',title:'프로그램의 구조를 만들고 요청 준비하기',time:'19:00–19:50',output:'자연어 요청에 대한 구조 제안을 읽고 보완할 조건을 정합니다.',sections:sections.slice(4,9)},
-  {id:'l02-period-3',title:'Codex로 구현하고 직접 확인하기',time:'20:00–20:50',output:'구현한 파일을 확인하고 프로그램을 실행해 기대 결과와 실제 결과를 비교합니다.',sections:sections.slice(9)},
+  {id:'l02-period-1',title:'업무 자동화 이해하고 실습 환경 준비하기',time:'50분',output:'자동화할 일과 사람이 판단할 일을 구분하고 실습 폴더를 연결합니다.',sections:sections.slice(0,4)},
+  {id:'l02-period-2',title:'프로그램의 구조를 만들고 요청 준비하기',time:'50분',output:'자연어 요청에 대한 구조 제안을 읽고 보완할 조건을 정합니다.',sections:sections.slice(4,9)},
+  {id:'l02-period-3',title:'Codex로 구현하고 직접 확인하기',time:'50분',output:'구현한 파일을 확인하고 프로그램을 실행해 기대 결과와 실제 결과를 비교합니다.',sections:sections.slice(9)},
 ] as const;
 export const goals = [
   '사람이 먼저 작업 목표와 범위를 정하고 AI에게 계획을 요청합니다.',

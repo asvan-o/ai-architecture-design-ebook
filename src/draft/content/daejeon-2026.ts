@@ -1,6 +1,6 @@
 // Review-only Day 01. Approved curriculum and release arrays remain empty.
 export const reviewStatus = 'instructor-review';
-export const reviewDate = '2026-10-09';
+export const reviewDate = '교육용 자료';
 export const overviewSections = [
   { id: 'learn', title: '이번 과정에서 배우는 것', summary: '교육용 예제로 기본을 익히고, 이미지에서 도면과 3D로 단계적으로 확장합니다.' },
   { id: 'roles', title: 'AI와 디자이너의 역할', summary: 'AI는 제안하고, 디자이너는 판단합니다.' },

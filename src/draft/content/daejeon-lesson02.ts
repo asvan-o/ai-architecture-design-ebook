@@ -39,9 +39,9 @@ export const lesson02Sections = [
   {id:'l02-handover',title:'결과 검토와 다음 차시 연결',minutes:5},
 ] as const;
 export const lesson02Periods = [
-  {id:'l02-period-1',title:'오피스 공간의 재질·조명 바꾸기',time:'18:00~18:50',output:'선택한 공간·재질·벽면과 실행 Prompt, 첫 결과 또는 실행 상태 기록',sectionIds:['l02-recap','l02-reference','l02-temperature','l02-material-practice']},
-  {id:'l02-period-2',title:'프로그램을 만들기 전에 구조부터',time:'19:00~19:50',output:'기능의 역할·관계와 폴더·파일 구조를 구분한 개발 순서',sectionIds:['l02-vibe-coding','l02-architecture','l02-hierarchy','l02-process','l02-codex']},
-  {id:'l02-period-3',title:'자연어 첫 요청에서 구현 명세까지',time:'20:00~20:50',output:'자연어 요청, 사람이 검토한 구조와 상세 구현 명세, 테스트 계획',sectionIds:['l02-rules','l02-plan','l02-plan-review','l02-implementation','l02-tests','l02-handover']},
+  {id:'l02-period-1',title:'오피스 공간의 재질·조명 바꾸기',time:'50분',output:'선택한 공간·재질·벽면과 실행 Prompt, 첫 결과 또는 실행 상태 기록',sectionIds:['l02-recap','l02-reference','l02-temperature','l02-material-practice']},
+  {id:'l02-period-2',title:'프로그램을 만들기 전에 구조부터',time:'50분',output:'기능의 역할·관계와 폴더·파일 구조를 구분한 개발 순서',sectionIds:['l02-vibe-coding','l02-architecture','l02-hierarchy','l02-process','l02-codex']},
+  {id:'l02-period-3',title:'자연어 첫 요청에서 구현 명세까지',time:'50분',output:'자연어 요청, 사람이 검토한 구조와 상세 구현 명세, 테스트 계획',sectionIds:['l02-rules','l02-plan','l02-plan-review','l02-implementation','l02-tests','l02-handover']},
 ] as const;
 export const recapChecks = ['목적','입력자료','유지','변경','금지','결과 확인'] as const;
 export const recapPrompt = `아래 작은 요청에서 빠진 조건을 찾아주세요. 의뢰서와 작업 기준서의 조건을 이미지 수정 요청으로 옮기는 연습입니다.

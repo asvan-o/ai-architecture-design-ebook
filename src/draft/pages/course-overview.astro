@@ -4,10 +4,12 @@ import ReviewSection from '../components/ReviewSection.astro';
 import CourseRoadmap from '../components/CourseRoadmap.astro';
 import {alignedLessons} from '../content/lesson-topic-alignment';
 import { overviewSections, workflow } from '../content/daejeon-2026';
+import {courseTiming} from '../content/course-timing';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const toc = [{id:'course-roadmap',title:'7개 대주제 Roadmap'},...overviewSections];
 ---
 <ReviewLayout title="AI와 함께 설계하고, 사람의 판단을 남기다" lead="교육용 실습 예제를 통해 AI 활용의 기본을 익히고, 이미지 생성·수정에서 도면 이해, 3D 모델링과 검토까지 단계적으로 확장하는 과정입니다." page="overview" sharedScreen {toc}>
+  <p data-course-teaching-time>운영 {courseTiming.operatingHours}시간 · 실수업 총 {courseTiming.teachingMinutes.toLocaleString('ko-KR')}분 · {courseTiming.periodMinutes}분 수업 {courseTiming.periodCount}교시입니다. 제1·7·13차시는 각 6교시, 나머지 차시는 각 3교시이며 쉬는 시간·운영은 실수업과 구분합니다.</p>
   <CourseRoadmap />
   <div class="review-cards" data-overview-lesson-grid>
     {alignedLessons.map(lesson=><article class="review-card" {...{['data-lesson'+lesson.id+'-overview-card']:true}}><h2>{lesson.title}</h2><p><strong>{lesson.stage}</strong></p><p>{lesson.description}</p><a href={base+'/lessons/'+lesson.id+'/'}>제{Number(lesson.id)}차시 바로가기 →</a></article>)}

@@ -1,0 +1,180 @@
+{
+  "approval": "사용자가 승인한 C13/C16/C18/C20/C22 프롬프트 정합성 및 내부 지역 라벨의 한정 수정",
+  "baseRevision": "bc4c7d141ade0c3689cf42ff18f00fe52d13618d",
+  "guideFiles": [
+    {
+      "file": "src/draft/content/prompt-platform-guides.ts",
+      "baseSha256": "b6d5db17570e3839ff5066c0c1a5340433b1c4396ff4e6885df7b28d3f5b4c78",
+      "preservedSourceSha256": "6d7512a42ac796d6ee00b27b30cdab88cace0e2a9b2925316b46286bebeafaa2",
+      "baseExcludedFirstPromptIds": [
+        "l04-scope-7step",
+        "l07-realistic-render-execution",
+        "l07-plan-criteria",
+        "l07-graphviz-prompt"
+      ],
+      "approvedCurrentLines": [
+        {
+          "firstPromptId": "l04-scope-7step",
+          "sha256": "4745265e60298fa293e96c610f88e23c291747d31e4f9334d2eb62a79d247833"
+        },
+        {
+          "firstPromptId": "l04-gemini-7step",
+          "sha256": "ea6f00f29ba678fce79b866f135e943d2e7c744deb31c3fbefb542138c7894fe"
+        },
+        {
+          "firstPromptId": "l04-compare-7step",
+          "sha256": "7816ecbf1a7fb33d0561b7aada46a50217e6839d0a6e632dce4dc512ae5891e7"
+        },
+        {
+          "firstPromptId": "l07-realistic-render-execution",
+          "sha256": "f1b7c3382ff5d80da30e649af55eab52e81c9dd97c2287336524fb125bda0be2"
+        },
+        {
+          "firstPromptId": "l07-plan-criteria",
+          "sha256": "edfd6a2495e16850581730109cd09defb601a6014a7f0324545212888c085d00"
+        },
+        {
+          "firstPromptId": "l07-graphviz-prompt",
+          "sha256": "efe7c6c1d4623ffb5f526bbc455b496dcbd27fb94548e745a4833d6e0a150805"
+        }
+      ]
+    },
+    {
+      "file": "src/draft/content/prompt-derivations.ts",
+      "baseSha256": "4b14fab3eea92f09cc23329b0a1a9053fb02810a165d7d385c6663a436ae3daf",
+      "preservedSourceSha256": "8c74429eceb53589635da3f1f5cb4c7c8c07ce9d706291ec59b1302f7b2ba359",
+      "baseExcludedFirstPromptIds": [
+        "l03-board-edit-prompt",
+        "l03-my-new-concept",
+        "l04-gemini-7step",
+        "l04-my-A",
+        "l04-my-B",
+        "l04-A2-7step",
+        "l06-office-warm"
+      ],
+      "approvedCurrentLines": [
+        {
+          "firstPromptId": "l03-board-edit-prompt",
+          "sha256": "fe9ac56d4cc0b02e9a3c64d62643db8f3bc968f101eff9dbfd3205e837463ac4"
+        },
+        {
+          "firstPromptId": "l03-my-new-concept",
+          "sha256": "ee9712a6a03d6d97c5a65bf1216a2d5edcfc0a8a7f70f27c06d97acdabe48709"
+        },
+        {
+          "firstPromptId": "l04-gemini-7step",
+          "sha256": "b29d79dfcd000654db11d4d8d839b851826ae2d795dea12749902cdbd1375360"
+        },
+        {
+          "firstPromptId": "l04-my-A",
+          "sha256": "99f23aa5f2039c992ff90891bf98bdcf0c7358dc34c206ee7bd6df096c6a2e03"
+        },
+        {
+          "firstPromptId": "l04-my-B",
+          "sha256": "8e3c1fff09ae4e247332b4726c405122487e6750ee8226f494ebbdc17d536afa"
+        },
+        {
+          "firstPromptId": "l04-A2-7step",
+          "sha256": "2f396b6af4d3b8ca1a62353a75b46bc69a3cd1fe8ab320e7c431c1ab65da6a6f"
+        },
+        {
+          "firstPromptId": "l06-office-warm",
+          "sha256": "67d6238969c8e4659115460e1a4d00b11a4d5914d1a364a0897be094d5962ae3"
+        }
+      ]
+    }
+  ],
+  "labelAssets": [
+    {
+      "key": "office-original-png",
+      "kind": "image",
+      "aliases": [
+        "public/downloads/daejeon/lesson-08/00-office-floorplan-original.png",
+        "public/images/daejeon/lesson-07/comfy-reference-before.png"
+      ],
+      "beforeSha256": "4bb46b5e7ff47999a97881118a9f8310de7e0b3bffd660140b85b2165d350810",
+      "afterSha256": "2be20d1397ae1cc50df824006f4ac256ee1fe430fa1b68423db0c6e168308b54",
+      "changes": [
+        "footer · DAEJEON 제거. 모형실·13인승·REVIEW 상태 및 교육상 주의문구 보존"
+      ],
+      "precision": {
+        "method": "PNG 무손실 픽셀 편집",
+        "boxes": [
+          [
+            127,
+            1127,
+            180,
+            1138
+          ]
+        ],
+        "size": [
+          1680,
+          1188
+        ],
+        "outsideBboxChangedPixelsAllChannels": 0
+      }
+    },
+    {
+      "key": "clean-line",
+      "kind": "image",
+      "aliases": [
+        "public/images/daejeon/lesson-07/floorplan/01-clean-line.jpg",
+        "public/images/daejeon/lesson-08/floorplan/01-clean-line.jpg"
+      ],
+      "beforeSha256": "da15b44d9b08cd85e180bce7492c85f48bd95dded9c5c9d11fb792889650ffb4",
+      "afterSha256": "716b19c7f1afa9bfec3d860c62b6e8d625d9b1da9df83b1ccca45f3fa1098f2a",
+      "changes": [
+        "footer · DAEJEON 제거. 2개 의도적 문자 오류와 교육용 비교물 주의문구 보존"
+      ],
+      "precision": {
+        "method": "jpeglib DCT ROI edit; JPEG 형식/양자화표/해상도 보존",
+        "boxes": [
+          [
+            128,
+            1120,
+            184,
+            1144
+          ]
+        ],
+        "size": [
+          1680,
+          1188
+        ],
+        "outsideBboxChangedPixelsAllChannels": 0
+      }
+    },
+    {
+      "key": "office-original-pdf",
+      "kind": "original-pdf",
+      "aliases": [
+        "public/downloads/daejeon/lesson-07/floorplan/DJ-L07-Office-Floorplan-Original.pdf",
+        "public/downloads/daejeon/lesson-08/DJ-L07-Office-Floorplan-Original.pdf"
+      ],
+      "beforeSha256": "5bc0ceaacb6491a98d23b11cde290fe5768e0c5fdbfc7894067496f69d776f91",
+      "afterSha256": "d6b434d50a7e36913a4fb4c46bd64723a5253297bae494513c41c4d955ded6b3",
+      "changes": [
+        "footer · DAEJEON 제거; 교육용 REVIEW 상태 6개 보존"
+      ],
+      "precision": {
+        "method": "PDF 텍스트 라벨 한정 제거; 144dpi 렌더 대조",
+        "pages": [
+          {
+            "page": 1,
+            "pointRects": [
+              [
+                90.9071044921875,
+                799.37158203125,
+                125.47560119628906,
+                806.4581909179688
+              ]
+            ],
+            "outsideBboxChangedPixels": 0
+          }
+        ],
+        "educationReviewStatesBefore": 6,
+        "educationReviewStatesAfter": 6,
+        "metadataPreserved": true
+      }
+    }
+  ]
+}

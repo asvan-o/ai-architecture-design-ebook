@@ -1,5 +1,5 @@
 export const lesson05Title = '제5차시 · 초기 기획 레이아웃 검토를 위한 2D 평면도 판독과 도면 인페인팅 실무';
-export const lesson05Schedule='2026-10-29(목) · 18:00~21:00 · 3시간';
+export const lesson05Schedule='3교시 × 50분';
 export const lesson05Sections=[
  {id:'l05-recap',title:'사진 인페인팅에서 2D 도면 인페인팅으로 이어가기',minutes:5,action:'사진과 도면의 수정 기준을 구분합니다.',reason:'도면은 이미지의 인상과 함께 선·문자·기호의 연결을 확인해야 합니다.',next:'도면의 고정 기준'},
  {id:'l05-elements',title:'평면도의 구성 요소 읽기',minutes:10,action:'벽·기둥·문과 개폐호·창·가구·치수·기호를 찾습니다.',reason:'수정 뒤 대조할 원본 기준을 먼저 확보하기 위해서입니다.',next:'판독 항목 목록'},
@@ -16,8 +16,8 @@ export const lesson05Sections=[
  {id:'l05-next',title:'도면 인페인팅의 적용 범위와 다음 단계',minutes:10,action:'검토 메모·실제 Prompt·결과·원본을 함께 보존합니다.',reason:'검토한 평면을 다음 입체화·조닝 단계에 전달하기 위해서입니다.',next:'3D 입체화·조닝으로 넘길 기준'},
 ] as const;
 export const lesson05Periods=[
- {id:'l05-period-1',title:'평면도 읽기·판독 검증',time:'18:00~18:50',sections:lesson05Sections.slice(0,5)},
- {id:'l05-period-2',title:'구조는 고정하고 가구 부분 수정',time:'19:00~19:50',sections:lesson05Sections.slice(5,9)},
- {id:'l05-period-3',title:'부분 확대·문 이동·전체 재반영',time:'20:00~20:50',sections:lesson05Sections.slice(9)},
+ {id:'l05-period-1',title:'평면도 읽기·판독 검증',time:'50분',sections:lesson05Sections.slice(0,5)},
+ {id:'l05-period-2',title:'구조는 고정하고 가구 부분 수정',time:'50분',sections:lesson05Sections.slice(5,9)},
+ {id:'l05-period-3',title:'부분 확대·문 이동·전체 재반영',time:'50분',sections:lesson05Sections.slice(9)},
 ] as const;
 export const lesson05Boundary='이미지 기반 도면 수정은 초기 기획·레이아웃 대안 검토에 사용합니다. 실제 설계 적용에는 원도면·현장 치수와 법규·구조·소방·설비 등 해당 분야의 검토가 필요합니다.';

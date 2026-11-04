@@ -7,6 +7,23 @@ import {verifyLesson08Assets} from '../daejeon-lesson08-assets.mjs';
 import {createHash} from 'node:crypto';
 const source=JSON.parse(fs.readFileSync('src/draft/content/lesson07-floorplan-source.json','utf8'));
 const original=fs.readFileSync('src/components/content/Lesson09SpatialZoning.astro','utf8');
+const approvedRemediation=JSON.parse(fs.readFileSync(new URL('./fixtures/approved-workbook-remediation.json',import.meta.url),'utf8'));
+const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
+function verifyApprovedGuide(file,snapshot){
+ const policy=approvedRemediation.guideFiles.find(item=>item.file===file);assert(policy,file);
+ assert.equal(approvedRemediation.baseRevision,'bc4c7d141ade0c3689cf42ff18f00fe52d13618d');
+ assert.equal(policy.baseSha256,snapshot.files.find(item=>item.file===file).sha256,'The immutable guide baseline must not change: '+file);
+ const lines=fs.readFileSync(file,'utf8').replaceAll('\r\n','\n').split('\n');
+ const firstPromptId=line=>line.match(/^\s*\[\[\s*['"]([^'"]+)/)?.[1];
+ const approvedIds=new Set(policy.approvedCurrentLines.map(item=>item.firstPromptId));
+ for(const row of policy.approvedCurrentLines){
+  const selected=lines.filter(line=>firstPromptId(line)===row.firstPromptId);
+  assert.equal(selected.length,1,'An approved guide row must occur exactly once: '+row.firstPromptId);
+  assert.equal(hash(selected[0]),row.sha256,'Only the explicitly approved wording is allowed: '+row.firstPromptId);
+ }
+ const preserved=lines.filter(line=>!approvedIds.has(firstPromptId(line))).join('\n');
+ assert.equal(hash(preserved),policy.preservedSourceSha256,'Guide source outside the approved rows must match bc4: '+file);
+}
 test('Full source prompts retain protected wording except explicit synthetic-source adaptations',()=>{
  for(const key of [...floorplanPromptDefinitions.map(p=>p[0]),'actualDotCode']){
   const marker='const '+key+' = `',start=original.indexOf(marker),end=original.indexOf('`;',start+marker.length);
@@ -53,21 +70,28 @@ print('Lesson07/08 former-source exclusion and PDF migration PASS')`;
  const r=spawnSync(process.env.PYTHON||'python',['-c',script],{encoding:'utf8',windowsHide:true});assert.equal(r.status,0,r.stderr);assert.match(r.stdout,/PDF migration PASS/);
 });
 
-test('Eight moved copy blocks keep their IDs and source expressions while original assets remain byte-identical',()=>{
+test('Eight moved copy blocks retain their IDs and protected source except exact approved guide and label edits',()=>{
  const expected=['l07-plan-analysis','l07-plan-criteria','l07-clean-line-prompt','l07-plan-topview','l07-spatial-analysis','l07-spatial-validation-prompt','l07-graphviz-prompt','l07-actual-dot'];
  const component=fs.readFileSync('src/draft/components/Lesson07FloorplanPart.astro','utf8');
  assert.deepEqual([...component.matchAll(/<ReviewPrompt\b[^>]*\bid="([^"]+)"/g)].map(m=>m[1]),expected);
  const manifest=verifyLesson08Assets(),protectedManifest=JSON.parse(fs.readFileSync('review/daejeon/DJ-L06-L07-ORIGINAL-HOUSE-PLAN-AND-DOOR-STAIR-PRECISION-FIX/revision-10/floorplan-manifest.json','utf8'));
- const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
  const snapshot=JSON.parse(fs.readFileSync('review/daejeon/DJ-L06-L07-L08-RESTRUCTURE-AND-CAD-3D-ALIGNMENT/revision-11/before.json','utf8'));
- for(const file of ['src/draft/content/lesson07-floorplan-source.json','src/draft/content/lesson07-floorplan.ts','src/draft/content/lesson07-prompts.json','src/draft/content/prompt-platform-guides.ts','src/draft/content/prompt-derivations.ts'])assert.equal(hash(file==='src/draft/content/lesson07-floorplan.ts'?Buffer.from(fs.readFileSync(file,'utf8').replace('원본 도면 이미지 00-office-floorplan-original.png(또는 comfy-reference-before.png)','원본 도면 이미지(comfy-reference-before.png 또는 같은 원본 평면도 이미지)').replaceAll('Viz.js / WebGraphviz','WebGraphviz / Viz.js')):fs.readFileSync(file)),snapshot.files.find(f=>f.file===file).sha256,'Protected Prompt / four-field guide source changed: '+file);
+ for(const file of ['src/draft/content/lesson07-floorplan-source.json','src/draft/content/lesson07-floorplan.ts','src/draft/content/lesson07-prompts.json'])assert.equal(hash(file==='src/draft/content/lesson07-floorplan.ts'?Buffer.from(fs.readFileSync(file,'utf8').replace('원본 도면 이미지 00-office-floorplan-original.png(또는 comfy-reference-before.png)','원본 도면 이미지(comfy-reference-before.png 또는 같은 원본 평면도 이미지)').replaceAll('Viz.js / WebGraphviz','WebGraphviz / Viz.js')):fs.readFileSync(file)),snapshot.files.find(f=>f.file===file).sha256,'Protected Prompt source changed: '+file);
+ for(const file of ['src/draft/content/prompt-platform-guides.ts','src/draft/content/prompt-derivations.ts'])verifyApprovedGuide(file,snapshot);
  const expressions=['floorplanPrompts.notebookPlanAnalysisPrompt','floorplanPrompts.floorPlanCriteriaPrompt','cleanLinePrompt','floorplanPrompts.topViewPrompt','floorplanPrompts.spatialAnalysisPrompt','floorplanPrompts.validationPrompt','floorplanPrompts.graphvizPrompt','actualDotCode'];
  assert.deepEqual([...component.matchAll(/<ReviewPrompt[^>]* prompt=\{([^}]+)\}/g)].map(m=>m[1]),expressions);
  for(const file of manifest.files.filter(f=>f.kind==='image'||f.kind==='original-pdf')){
-  if(file.key==='office-original-png'){assert.equal(hash(fs.readFileSync('public/'+file.outputPath)),hash(fs.readFileSync('public/images/daejeon/lesson-07/comfy-reference-before.png')));continue;}
+  const approvedLabel=approvedRemediation.labelAssets.find(item=>item.key===file.key&&item.kind===file.kind);
+  if(file.key==='office-original-png'){
+   assert(approvedLabel,'Original PNG needs an exact approved label-edit fingerprint');
+   assert.equal(hash(fs.readFileSync('public/'+file.outputPath)),approvedLabel.afterSha256,file.outputPath);
+   assert.equal(hash(fs.readFileSync('public/'+file.outputPath)),hash(fs.readFileSync('public/images/daejeon/lesson-07/comfy-reference-before.png')));continue;
+  }
   const protectedFile=protectedManifest.files.find(f=>f.key===file.key&&f.kind===file.kind);assert(protectedFile,file.key);
-  assert.equal(hash(fs.readFileSync('public/'+file.outputPath)),protectedFile.sha256,file.outputPath);
+  if(approvedLabel){assert.equal(approvedLabel.beforeSha256,protectedFile.sha256,'Historical asset fingerprint must remain unchanged: '+file.key);assert(approvedLabel.aliases.includes('public/'+file.outputPath));}
+  assert.equal(hash(fs.readFileSync('public/'+file.outputPath)),approvedLabel?.afterSha256||protectedFile.sha256,file.outputPath);
  }
+ for(const approvedLabel of approvedRemediation.labelAssets)for(const alias of approvedLabel.aliases)assert.equal(hash(fs.readFileSync(alias)),approvedLabel.afterSha256,'Exact approved label edit and all aliases must agree: '+alias);
  assert(fs.readFileSync('src/draft/components/DaejeonLesson08Draft.astro','utf8').includes('Lesson07FloorplanPart sectionId={section.id}'));
  assert(!fs.readFileSync('src/draft/components/DaejeonLesson07Draft.astro','utf8').includes('<Lesson07FloorplanPart'));
 });

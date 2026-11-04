@@ -1,4 +1,4 @@
-첨부 이미지: 01_base-building.png (처음 원본) + 02_partial-edit-a.png (A 결과) + 03_partial-edit-b.png (B 결과)
+첨부 이미지: 01_base-building.png (처음 원본) + 02_partial-edit-a.png (A 결과) + 03_partial-edit-b.png (B 결과) + 04_revised-concept.png (A2 국소 보완 결과)
 
 목적
 외관 대안의 목적 달성과 유지 여부를 비교한다.

@@ -23,11 +23,15 @@ const prompt=(key:string)=>{
 const choices=lesson05Plans.map((plan,index)=>{
  const asset=lesson05Prompt[index===0?'plan01-edit':'plan02-edit'];
  const crop=lesson05Crops[index];
- return {id:plan.id,title:plan.title,text:asset.text,cropPath:crop.outputPath,cropFilename:filename(crop),promptPath:asset.outputPath,promptFilename:filename(asset)};
+ return {id:plan.id,title:plan.title,text:asset.text,attachments:asset.attachments||[],cropPath:crop.outputPath,cropFilename:filename(crop),promptPath:asset.outputPath,promptFilename:filename(asset)};
 });
+const attachmentStages=(lesson05Prompt.recompose.attachmentBundles||[]).map(bundle=>({
+ id:bundle.id,title:bundle.title,recompose:bundle.attachments,
+ overlay:lesson05Prompt.overlay.attachmentBundles?.find(item=>item.id===bundle.id)?.attachments||[],
+}));
 ---
 <ReviewLayout title={lesson05Title} lead="평면도를 읽고 가구를 바꾼 뒤, 그 결과에 문 이동을 이어 적용합니다." page="lesson" lessonId="05" eyebrow="LESSON 05 · FLOOR PLAN INPAINTING" sharedScreen {toc} {tocGroups}>
-<div class="lesson03-review lesson04-review lesson05-review" data-l05-workbench data-l05-base={base} data-l05-prompts={JSON.stringify(choices)}>
+<div class="lesson03-review lesson04-review lesson05-review" data-l05-workbench data-l05-base={base} data-l05-assets-enabled={String(enabled)} data-l05-prompts={JSON.stringify(choices)} data-l05-attachment-stages={JSON.stringify(attachmentStages)}>
  <TopicProgress lesson="05" items={[{topic:3,status:'완결',note:'실내·외관 인페인팅에 이어 2D 평면도 부분 수정으로 초기 기획 인페인팅 과정을 마무리합니다.'}]} />
  <div class="l03-period-summary">{lesson05Periods.map((period,index)=><article><h2>Part {index+1} · {period.title}</h2></article>)}</div>
  <p>두 평면도의 외곽은 모두 <strong>14,400 × 8,400 mm</strong>입니다. 오피스는 회의실 4석을 6석으로 바꾼 다음 D2를 이동하고, 카페는 중앙 4석을 6석으로 바꾸며 우측 하단 2석을 유지합니다.</p>
@@ -98,8 +102,11 @@ const choices=lesson05Plans.map((plan,index)=>{
     <Lesson03AssetCard image={lesson05Door[4]} title={lesson05Door[4].title} description={lesson05Door[4].description} instance="l05-door-overlay" downloadName={filename(lesson05Door[4])} />
     <PlanOverlay before={lesson05Plans[0].result} after={lesson05Door[3]} id="l05-door-overlay-control" title="문 이동 전·후 겹쳐 보기" />
     <p>겹침 강도를 바꾸며 기존 문 자리·새 문 자리·D2 표기·벽 접합을 대조합니다. 색 중첩 도면은 입력과 결과의 선 위치를 비교하는 데 사용합니다.</p>
-    <details><summary>전체 재반영 Prompt</summary><ReviewPrompt {...prompt('recompose')} /></details>
-    <details><summary>중첩 검토 Prompt</summary><ReviewPrompt {...prompt('overlay')} /></details>
+    <label>재반영·중첩 요청에 사용할 단계<select data-l05-attachment-stage>{attachmentStages.map(stage=><option value={stage.id} selected={stage.id==='office-door'}>{stage.title}</option>)}</select></label>
+    <p data-l05-attachment-selection aria-live="polite">선택 단계: 오피스 D2 이동 · 앞 단계 6석 결과와 6석 유지·D2 이동본을 대조합니다.</p>
+    <p>아래 첨부 목록과 TXT의 같은 단계 파일을 사용합니다. 위 문 이동 비교 화면은 D2 예제이며, 선택에 따라 아래 두 요청문의 첨부 파일이 바뀝니다. 직접 실행한 경우에는 같은 역할의 본인 출력으로 바꿉니다.</p>
+    <details data-l05-recompose-panel><summary>전체 재반영 Prompt</summary><ReviewPrompt {...prompt('recompose')} /></details>
+    <details data-l05-overlay-panel><summary>중첩 검토 Prompt</summary><ReviewPrompt {...prompt('overlay')} /></details>
    </>}
    {section.id==='l05-next'&&<>
     <aside class="review-callout"><strong>실제 설계에 적용할 때</strong><p>{lesson05Boundary}</p></aside>

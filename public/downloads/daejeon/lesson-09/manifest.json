@@ -95,18 +95,18 @@
     },
     {
       "outputPath": "downloads/daejeon/lesson-09/DJ-L09-House-3F-Drawings.zip",
-      "bytes": 939663,
-      "sha256": "9ed9dad6dfcc5c6db8ad3909c9cf311c19538938cd78373bb8bdadaf0ec7a8c8"
+      "bytes": 930208,
+      "sha256": "285163fd5046ec9141d7f32e381bb6e0b75ce576265db0ca319a486e8f935d99"
     },
     {
       "outputPath": "downloads/daejeon/lesson-09/DJ-L09-House-3F-Models.zip",
-      "bytes": 59981604,
-      "sha256": "7cbc61a422712ae78646cfb02e75dc69c59b50ecc9b4cc2e35389539b003980c"
+      "bytes": 59933577,
+      "sha256": "9d695f8baf24df1c9600fcd8296f7e8bdd9bf03115d37db63508012e4c3a196a"
     },
     {
       "outputPath": "downloads/daejeon/lesson-09/DJ-L09-House-3F-Prompts.zip",
-      "bytes": 24221,
-      "sha256": "4b6dbf6322847e8aebddbad6d330da5ffe0e0ea52da76a1cffe52c4ca57c9011"
+      "bytes": 24171,
+      "sha256": "36845e1c3699934cf317c15632c9ac933715cfdd20f3c903408afbf85e4913d3"
     },
     {
       "outputPath": "downloads/daejeon/lesson-09/HOUSE-3F-CHECKLIST.md",
@@ -195,8 +195,8 @@
     },
     {
       "outputPath": "downloads/daejeon/lesson-09/README.md",
-      "bytes": 10826,
-      "sha256": "754fd7228f109bdee6fcc92f2acfafb151d5183285ced518d7195698472c5a25"
+      "bytes": 10689,
+      "sha256": "00864beb6f84ab37b7ec5620e0d9fadc691dcc971846c24c595270c02c08b607"
     },
     {
       "outputPath": "downloads/daejeon/lesson-09/l09-camera-brief.txt",

@@ -1,6 +1,6 @@
 import {lesson04Base01Prompts} from './lesson04-generation-prompts';
 export const lesson04Title = '제4차시 · 건축 외관 인페인팅 실무와 초기 기획 래피드 대안 도출·비교';
-export const lesson04Schedule='2026-10-28(수) · 18:00~21:00 · 3시간';
+export const lesson04Schedule='3교시 × 50분';
 export const lesson04Sections=[
   {id:'l04-recap',title:'실내에서 외관으로 이어가기',minutes:5,action:'실내의 유지·변경 원칙을 외관으로 연결합니다.',reason:'외관에서는 개구부와 주변 맥락까지 함께 보존해야 합니다.',next:'외관 기준 이미지'},
   {id:'l04-base',title:'기준 건물과 자료의 역할 읽기',minutes:8,action:'기준 건물 하나와 필요한 참고자료를 고릅니다.',reason:'구조 기준과 표면 참고를 혼동하지 않기 위해서입니다.',next:'오늘 계속 사용할 같은 원본'},
@@ -17,9 +17,9 @@ export const lesson04Sections=[
   {id:'l04-next',title:'선택 확장과 다음 차시 예고',minutes:10,action:'실제 자료·요청문·결과·상태를 정리합니다.',reason:'다음 설계 단계에서 판단 근거를 이어가기 위해서입니다.',next:'검토한 외관 수정 기록'},
 ] as const;
 export const lesson04Periods=[
-  {id:'l04-period-1',title:'클린업 → 표면 교체 A',time:'18:00~18:50',sections:lesson04Sections.slice(0,5)},
-  {id:'l04-period-2',title:'교체 B·국소 보완 → 조경 추가',time:'19:00~19:50',sections:lesson04Sections.slice(5,9)},
-  {id:'l04-period-3',title:'석양 조명 → 스케치·서브 시점 → 선별',time:'20:00~20:50',sections:lesson04Sections.slice(9)},
+  {id:'l04-period-1',title:'클린업 → 표면 교체 A',time:'50분',sections:lesson04Sections.slice(0,5)},
+  {id:'l04-period-2',title:'교체 B·국소 보완 → 조경 추가',time:'50분',sections:lesson04Sections.slice(5,9)},
+  {id:'l04-period-3',title:'석양 조명 → 스케치·서브 시점 → 선별',time:'50분',sections:lesson04Sections.slice(9)},
 ] as const;
 export const lesson04Next='다음 차시에는 사진에서 2D 평면도로 대상을 옮겨, 도면을 읽고 지정 영역만 부분 수정한 뒤 전체 원본과 대조합니다.';
 export interface ExteriorBase {id:string;type:string;keep:string;change:string;}

@@ -33,8 +33,8 @@
     },
     {
       "outputPath": "downloads/daejeon/lesson-13/이미지생성_실제프롬프트와_검수기록.md",
-      "bytes": 9928,
-      "sha256": "18c2a842559c5792f5aac1ea1bcbc2b471590a80d938d459888425bea9d4b8c4"
+      "bytes": 12373,
+      "sha256": "f671cb560e1f5ca8f0d7b4380aeb32c93d9c128fc733e0460620d37273de8e96"
     },
     {
       "outputPath": "downloads/daejeon/lesson-13/원본출처_파일명_SHA256.json",
@@ -49,12 +49,12 @@
     {
       "outputPath": "downloads/daejeon/lesson-13/통합패키지_파일해시_SHA256.txt",
       "bytes": 8111,
-      "sha256": "a011ecd81210a2f60584304ac833c6d3a3d385f6e62a085cebdb5970a49896cc"
+      "sha256": "fed49c66fd2a36822c9d65153d16aba330dd55b25b1ca4051bcb3d242af7fc24"
     },
     {
       "outputPath": "downloads/daejeon/lesson-13/제11_13차시_포트폴리오_PPT_결과보고서_통합패키지.zip",
-      "bytes": 79308078,
-      "sha256": "494a8f7a1cb7976d87baefcc3572c3379a126241fa56ef7e8be1dd1f71a9ca34"
+      "bytes": 79308853,
+      "sha256": "2c55c08c82e3d4f7ab4002b06232b9e8f83b88089bbe8461a79248be4aeec47e"
     }
   ]
 }

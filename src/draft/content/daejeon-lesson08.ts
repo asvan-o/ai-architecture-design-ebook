@@ -1,7 +1,7 @@
 import type {Lesson07Section} from './daejeon-lesson07';
 
 export const lesson08Title='제8차시 · 도면 판독·공간 관계도와 Blender MCP 첫 연결';
-export const lesson08Meta={revision:'DJ-L08-CLASSROOM-REPRODUCIBILITY-REVISION-15',date:null,weekday:'월요일',schedule:'18:00~21:00',operationBuffer:'20:50~21:00 · 운영·질의·파일 저장·다음 차시 안내(수업 150분에 미포함)',durationMinutes:150,status:'design-pending',reviewStatus:'instructor-review'} as const;
+export const lesson08Meta={revision:'DJ-L08-CLASSROOM-REPRODUCIBILITY-REVISION-15',date:null,schedule:'3교시 × 50분 · 총 150분',durationMinutes:150,status:'design-pending',reviewStatus:'instructor-review'} as const;
 export const lesson08Sections:readonly Lesson07Section[]=[
   {
     "id": "l08-plan-prep-why",
@@ -56,8 +56,8 @@ export const lesson08Sections:readonly Lesson07Section[]=[
  {id:'l08-blender-mcp-hello-world',title:'실습 6 · 첫 MCP 연결과 간단한 3D 공간 예제',minutes:15,action:'새 실습 파일에서 연결을 확인하고 창이 있는 방과 카메라를 만듭니다.',reason:'실제 객체·치수·개구부를 조회해 첫 자동 모델링을 검증하기 위해서입니다.',next:'L08_MCP_Hello_Room.blend 저장과 제9차시 모델링 준비'}
 ];
 export const lesson08Parts=[
- {id:'l08-part-1',title:'실무 도면 전처리·NotebookLM 1차 판독과 클린 선화 기준표',time:'18:00~18:50',sections:lesson08Sections.slice(0,3)},
- {id:'l08-part-2',title:'공간 연결을 다시 확인하고 점과 선으로 그리기',time:'19:00~19:50',sections:lesson08Sections.slice(3,6)},
- {id:'l08-part-3',title:'MCP 이해와 Blender 연결·첫 3D 예제 생성',time:'20:00~20:50',sections:lesson08Sections.slice(6,9)},
+ {id:'l08-part-1',title:'실무 도면 전처리·NotebookLM 1차 판독과 클린 선화 기준표',time:'50분',sections:lesson08Sections.slice(0,3)},
+ {id:'l08-part-2',title:'공간 연결을 다시 확인하고 점과 선으로 그리기',time:'50분',sections:lesson08Sections.slice(3,6)},
+ {id:'l08-part-3',title:'MCP 이해와 Blender 연결·첫 3D 예제 생성',time:'50분',sections:lesson08Sections.slice(6,9)},
 ] as const;
 export const lesson08Boundary='원본 도면과 사람이 검토한 기준표를 사실 기준으로 사용합니다. 클린 선화·Top View·공간 관계 다이어그램은 검토 보조자료이며 실측·구조·법규·시공 정보를 확정하지 않습니다.';

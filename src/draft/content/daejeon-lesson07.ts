@@ -1,6 +1,6 @@
 import prompts from './lesson07-prompts.json';
 export const lesson07Title = '제7차시 · 3D Gaussian Splatting 시점 탐색과 이미지 고도화·고화질 렌더링';
-export const lesson07Meta={revision:'DJ-L07-GAUSSIAN-UPSCALE/revision-1',date:'2026.05.16 (토)',schedule:'10:00~17:00 · 점심 12:00~13:00',durationMinutes:300,status:'design-pending',reviewStatus:'instructor-review'} as const;
+export const lesson07Meta={revision:'DJ-L07-GAUSSIAN-UPSCALE/revision-1',date:null,schedule:'6교시 × 50분 · 총 300분',durationMinutes:300,status:'design-pending',reviewStatus:'instructor-review'} as const;
 export interface Lesson07Section {id:string;title:string;minutes:number;action:string;reason:string;next:string;}
 export const lesson07Sections: readonly Lesson07Section[]=[
  {id:'l07-recap',title:'제6차시에서 다각도 시점 탐색으로',minutes:15,action:'같은 평면에서 만든 입체·분해도·조닝과 대조 메모를 돌아봅니다.',reason:'이미지 한 장은 카메라를 자유롭게 돌릴 수 있는 3D 데이터와 다릅니다.',next:'시점을 확장할 기준 이미지와 고정할 공간 관계'},
@@ -21,12 +21,12 @@ export const lesson07Sections: readonly Lesson07Section[]=[
  {id:'l07-handover',title:'시점 탐색·현실화·업스케일 산출물 정리와 도면 판독 연결',minutes:5,action:'표현 자료와 실제 도면 데이터를 구별해 다음 단계의 준비물을 정리합니다.',reason:'이미지의 완성도를 모델·설계정보의 완성도로 오해하지 않기 위해서입니다.',next:'실무 도면 클린 선화 전처리와 판독 기준표 작성'},
 ];
 export const lesson07Parts=[
- {id:'l07-part-1',title:'제6차시 연결 복습과 3D Gaussian Splatting 원리 이해',time:'10:00~10:50',sections:lesson07Sections.slice(0,3)},
- {id:'l07-part-2',title:'ComfyUI 기반 생성 흐름과 다각도 시점 탐색',time:'11:00~11:50',sections:lesson07Sections.slice(3,6)},
- {id:'l07-part-3',title:'크로스 제너레이션 · 현실화 경로와 형태·품질 비교',time:'13:00~13:50',sections:lesson07Sections.slice(6,9)},
- {id:'l07-part-4',title:'현실화 렌더링 실행과 국부 오류 인페인팅 보정',time:'14:00~14:50',sections:lesson07Sections.slice(9,11)},
- {id:'l07-part-5',title:'제안서용 고화질 렌더링 · ComfyUI Upscale',time:'15:00~15:50',sections:lesson07Sections.slice(11,13)},
- {id:'l07-part-6',title:'OpenVINO CPU 초해상화와 최종 렌더링 검수',time:'16:00~16:50',sections:lesson07Sections.slice(13,16)},
+ {id:'l07-part-1',title:'제6차시 연결 복습과 3D Gaussian Splatting 원리 이해',time:'50분',sections:lesson07Sections.slice(0,3)},
+ {id:'l07-part-2',title:'ComfyUI 기반 생성 흐름과 다각도 시점 탐색',time:'50분',sections:lesson07Sections.slice(3,6)},
+ {id:'l07-part-3',title:'크로스 제너레이션 · 현실화 경로와 형태·품질 비교',time:'50분',sections:lesson07Sections.slice(6,9)},
+ {id:'l07-part-4',title:'현실화 렌더링 실행과 국부 오류 인페인팅 보정',time:'50분',sections:lesson07Sections.slice(9,11)},
+ {id:'l07-part-5',title:'제안서용 고화질 렌더링 · ComfyUI Upscale',time:'50분',sections:lesson07Sections.slice(11,13)},
+ {id:'l07-part-6',title:'OpenVINO CPU 초해상화와 최종 렌더링 검수',time:'50분',sections:lesson07Sections.slice(13,16)},
 ] as const;
 export const lesson07Prompts=prompts;
 export const lesson07Boundary='Gaussian 결과는 단일 이미지에서 추정한 시점 탐색용 표현입니다. 보이지 않던 측면·후면은 실제 공간의 증거가 아닙니다. 현실화·부분 보정·업스케일 결과는 제안용 시각자료이며 CAD/BIM 정밀 모델, 실측 도면, 구조·법규 검토나 시공 확정안을 대신하지 않습니다.';
@@ -42,4 +42,13 @@ export const lesson07Checks=[
  ['현실화','카메라·매스·주요 개구부·가구 수','선명해진 재질의 실제 제품·성능'],
  ['부분 보정','수정 대상과 대상 밖의 변화','지시만으로 보장되는 원본 보존'],
  ['세 배 업스케일','같은 위치의 윤곽·무늬·색·문자 변화','실측·시공·법적 적합성의 복원'],
+] as const;
+export const lesson07UpscaleDependencies=[
+ {name:'KJNodes',node:'ImageUpscaleWithModelBatched',role:'기본형에서 이미지를 작은 배치로 나누어 모델 확대합니다. per_batch는 한 번에 처리할 이미지 수입니다.',url:'https://github.com/kijai/ComfyUI-KJNodes',install:'Manager에서 ComfyUI-KJNodes를 찾습니다. 수동 설치는 원개발자 안내대로 custom_nodes에 저장소를 복제하고 ComfyUI가 쓰는 Python으로 requirements.txt를 설치합니다.'},
+ {name:'WAS Node Suite',node:'Upscale Model Loader',role:'기본형에서 RealESRGAN_x2.pth를 불러옵니다. 수정형의 UpscaleModelLoader는 ComfyUI 기본 노드입니다.',url:'https://github.com/WASasquatch/was-node-suite-comfyui',install:'Manager에서 WAS Node Suite를 찾습니다. 현재 배포판과 아카이브 JSON의 노드 호환성을 확인합니다. 수동 설치·호환 안내는 원개발자 README를 따릅니다.'},
+ {name:'VideoHelperSuite',node:'VHS_LoadImages',role:'수정형에서 ComfyUI/input 아래의 이미지 폴더를 읽습니다. 이름에 Video가 있어도 이 실습에서는 정지 이미지 묶음을 입력합니다.',url:'https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite',install:'Manager에서 ComfyUI-VideoHelperSuite를 찾습니다. 설치 후 directory를 본인의 입력 하위 폴더로 바꾸고 이미지 수·불러오기 제한을 확인합니다.'},
+] as const;
+export const lesson07UpscaleModels=[
+ {file:'RealESRGAN_x2.pth',scale:'2배 비교 경로',author:'ai-forever · Real-ESRGAN',url:'https://huggingface.co/ai-forever/Real-ESRGAN/blob/main/RealESRGAN_x2.pth',note:'동명의 파일을 원개발자 배포에서 받습니다. 이 구현은 xinntao의 원 논문 구현과 구분합니다.'},
+ {file:'4x-UltraSharp.pth',scale:'4배 확대 경로',author:'Kim2091 · UltraSharp',url:'https://huggingface.co/Kim2091/UltraSharp/blob/main/4x-UltraSharp.pth',note:'제작자 모델 카드와 사용 조건(CC BY-NC-SA 4.0)을 확인하고 받습니다.'},
 ] as const;

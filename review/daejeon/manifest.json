@@ -369,8 +369,8 @@
         },
         {
           "outputPath": "images/daejeon/lesson-07/comfy-reference-before.png",
-          "sha256": "4bb46b5e7ff47999a97881118a9f8310de7e0b3bffd660140b85b2165d350810",
-          "sizeBytes": 89894,
+          "sha256": "2be20d1397ae1cc50df824006f4ac256ee1fe430fa1b68423db0c6e168308b54",
+          "sizeBytes": 90174,
           "kind": "image",
           "key": "comfy-before",
           "title": "교육용 평면도 · 원본",
@@ -382,8 +382,8 @@
         },
         {
           "outputPath": "images/daejeon/lesson-07/comfy-reference-after-2x.png",
-          "sha256": "ce74f469d295d3184d30a0b29f54d70149985b323c5e033020aa60b9e4c5bee5",
-          "sizeBytes": 410195,
+          "sha256": "c5356fb676d5c27eb60944d64339c13757dfb4cc9be07de95a64f433e80f7cae",
+          "sizeBytes": 358950,
           "kind": "image",
           "key": "comfy-after",
           "title": "교육용 평면도 · 2배 일반 확대",
@@ -605,36 +605,36 @@
         },
         {
           "outputPath": "downloads/daejeon/lesson-07/README.md",
-          "sha256": "3985cbfdda7e55c24e9952495335281302d0fbb91997d8d5f05e257ecc80043f",
-          "sizeBytes": 5317,
+          "sha256": "72a64b2463ef0e555c2efe09a0a29591d413cf7312a503d7200dd1d15c6aad23",
+          "sizeBytes": 9546,
           "kind": "document",
           "title": "README.md"
         },
         {
           "outputPath": "downloads/daejeon/lesson-07/DJ-L07-Gaussian-Views-Pack.zip",
-          "sha256": "609c62e7c08e76bb0fe207a498f0831fc2f1459e3a05b261ad5e4d62ea3f1950",
-          "sizeBytes": 12891229,
+          "sha256": "5f0f0fac0402b9d9b9eb0815b7feb8088e63a27bfeece18aee22a15b9fee22f8",
+          "sizeBytes": 12891925,
           "kind": "zip",
           "title": "DJ-L07-Gaussian-Views-Pack.zip"
         },
         {
           "outputPath": "downloads/daejeon/lesson-07/DJ-L07-Realistic-Render-Pack.zip",
-          "sha256": "a72f1d55f717493b6948a2544cd02a6f1e92cc827c45b850b80e4c781a7fcd0a",
-          "sizeBytes": 61008180,
+          "sha256": "3b6d4dfebc8a3ff8943eb09b2e095e6581a3027914fdda8a28040659bbb8afee",
+          "sizeBytes": 60983438,
           "kind": "zip",
           "title": "DJ-L07-Realistic-Render-Pack.zip"
         },
         {
           "outputPath": "downloads/daejeon/lesson-07/DJ-L07-OpenVINO-SR1033-Pack.zip",
-          "sha256": "8bef20eff01591dffce6ae1d373937653598ca898b50d13d020e831f5283a5e5",
-          "sizeBytes": 22682676,
+          "sha256": "f9e749854eceb093625acd4de4ea145eb0ddae59e96ab0d6e601590952e20a92",
+          "sizeBytes": 21469592,
           "kind": "zip",
           "title": "DJ-L07-OpenVINO-SR1033-Pack.zip"
         },
         {
           "outputPath": "downloads/daejeon/lesson-07/DJ-L07-Starter-Pack.zip",
-          "sha256": "67864d8bf4ba1e484be78e10b28629f19982bb12dcb8677e23399ea4c9f2ca94",
-          "sizeBytes": 96615282,
+          "sha256": "247da1bde995355c59d4a21ea3c671475d99a03db8be2a58b96b51159424f78d",
+          "sizeBytes": 95378080,
           "kind": "zip",
           "title": "제7차시 전체 통합 실습팩 · 준비 상태 포함"
         },
@@ -680,8 +680,8 @@
       "files": [
         {
           "outputPath": "images/daejeon/lesson-08/floorplan/01-clean-line.jpg",
-          "sizeBytes": 166125,
-          "sha256": "da15b44d9b08cd85e180bce7492c85f48bd95dded9c5c9d11fb792889650ffb4",
+          "sizeBytes": 209319,
+          "sha256": "716b19c7f1afa9bfec3d860c62b6e8d625d9b1da9df83b1ccca45f3fa1098f2a",
           "kind": "image",
           "key": "clean-line",
           "title": "교육용 클린 선화 · 문자 오류 비교본",
@@ -813,8 +813,8 @@
         {
           "outputPath": "downloads/daejeon/lesson-08/DJ-L08-Floorplan-Graphviz-Pack.zip",
           "kind": "zip",
-          "sha256": "6936a83aa7cbaeef029e8813eccbb78124e5f2b372292e130e7fef533e39de8f",
-          "sizeBytes": 939917,
+          "sha256": "a7c16f9b180415323e848df70bbf23dabcc120039afc315e1ee56f9f874d33b0",
+          "sizeBytes": 948024,
           "title": "제8차시 도면 판독·Graphviz 실습자료",
           "migratedFrom": "downloads/daejeon/lesson-07/floorplan/DJ-L07-Floorplan-Graphviz-Pack.zip"
         },
@@ -824,8 +824,8 @@
           "title": "자체 제작 교육용 1층 오피스 원본 PDF",
           "outputPath": "downloads/daejeon/lesson-08/DJ-L07-Office-Floorplan-Original.pdf",
           "authorship": "self-authored educational synthetic office / revision-9 door correction",
-          "sha256": "5bc0ceaacb6491a98d23b11cde290fe5768e0c5fdbfc7894067496f69d776f91",
-          "sizeBytes": 45816,
+          "sha256": "d6b434d50a7e36913a4fb4c46bd64723a5253297bae494513c41c4d955ded6b3",
+          "sizeBytes": 50717,
           "createdFrom": "review/daejeon/DJ-ALL-LESSONS-FLOORPLAN-STAIR-AND-DOOR-AUDIT-FIX/revision-9/source/office-geometry.json",
           "migratedFrom": "downloads/daejeon/lesson-07/floorplan/DJ-L07-Office-Floorplan-Original.pdf"
         },
@@ -845,8 +845,8 @@
           "outputPath": "downloads/daejeon/lesson-08/00-office-floorplan-original.png",
           "createdFrom": "public/images/daejeon/lesson-07/comfy-reference-before.png",
           "authorship": "byte-identical copy of active self-authored educational original",
-          "sha256": "4bb46b5e7ff47999a97881118a9f8310de7e0b3bffd660140b85b2165d350810",
-          "sizeBytes": 89894
+          "sha256": "2be20d1397ae1cc50df824006f4ac256ee1fe430fa1b68423db0c6e168308b54",
+          "sizeBytes": 90174
         }
       ],
       "mcpFiles": [
@@ -895,24 +895,24 @@
           "key": "mcp-5",
           "title": "BLENDER-MCP-README.md",
           "outputPath": "downloads/daejeon/lesson-08/BLENDER-MCP-README.md",
-          "sha256": "6378f6b49c4b23807fb54cc853662182499a1dc19801921417e1d52665ff12a3",
-          "sizeBytes": 3060
+          "sha256": "a11b3f44efed8b522c8c9a1511d3ca5457eb9629fb3679d9947726d42281b94f",
+          "sizeBytes": 2945
         },
         {
           "kind": "mcp-starter",
           "key": "mcp-6",
           "title": "BLENDER-MCP-SHA256SUMS.txt",
           "outputPath": "downloads/daejeon/lesson-08/BLENDER-MCP-SHA256SUMS.txt",
-          "sha256": "cbf169b7b0cedb9ac877a1eb8821a868e2f125806399a766dc0dfe0886bfb168",
-          "sizeBytes": 532
+          "sha256": "1bbf859dda9bad5bfa19e1b6ee793b7a4885c1d2b8dc3bc4278090d6507ec7f9",
+          "sizeBytes": 526
         },
         {
           "kind": "mcp-starter",
           "key": "mcp-7",
           "title": "DJ-L08-Blender-MCP-Starter-Pack.zip",
           "outputPath": "downloads/daejeon/lesson-08/DJ-L08-Blender-MCP-Starter-Pack.zip",
-          "sha256": "a29292cb9504fa80a4feb84b8a6d6edeff2d295258edd80e0766c810fb89fe34",
-          "sizeBytes": 71105
+          "sha256": "a3e97630f2a2f5ae27e5a47ed28a29eba9e7bfb39d198280273bb4c65051cd2a",
+          "sizeBytes": 70460
         },
         {
           "kind": "diagram",

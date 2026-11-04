@@ -1,3 +1,10 @@
+선택 단계와 첨부 순서
+세 단계를 한꺼번에 처리하지 않고 화면에서 선택한 한 단계의 파일만 첨부한다. 직접 실습한 경우에는 같은 역할의 본인 출력 파일로 바꾼다.
+① 오피스 가구 4석→6석: PLAN-BASE-01.png → PLAN-BASE-01-result.png → PLAN-BASE-01-marked.png
+② 오피스 D2 이동: PLAN-BASE-01-result.png(앞 단계 6석 반영본) → PLAN-BASE-01-door-result.png(6석 유지·D2 이동본) → PLAN-BASE-01-door-marked.png
+③ 카페 가구 4석→6석: PLAN-BASE-02.png → PLAN-BASE-02-result.png → PLAN-BASE-02-marked.png
+수정 요청은 선택 단계에서 사용한 원문을 함께 제공한다.
+
 목적
 수정 전후의 같은 평면을 중첩해 의도한 변화와 유지 영역을 비교한다.
 

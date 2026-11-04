@@ -8,6 +8,7 @@ import {courseAccess as accessConfig} from '../../lib/course-access';
 import {isStudentBuild} from '../../lib/student-release';
 import {officialTopics} from '../content/course-roadmap';
 import {alignedLessons,topicLessonLinks} from '../content/lesson-topic-alignment';
+import {courseTiming} from '../content/course-timing';
 import illustration from '../assets/home-design/undraw-features-overview.svg?raw';
 import '../styles/home-design-preview.css';
 const base=import.meta.env.BASE_URL.replace(/\/$/,'');
@@ -51,7 +52,7 @@ const interior=base+'/images/daejeon/lesson-12/'+encodeURIComponent('실사형_0
      <h1 id="main-content" tabindex="-1">AI와 함께,<br />건축의 생각을<br /><span>실무의 결과로.</span></h1>
      <p class="design-hero-lead">AI 활용의 원칙을 익히고,<br class="desktop-break" /> 이미지·도면·업무 자동화 실습을<br class="desktop-break" /> 차례로 따라가는 교재입니다.</p>
      <div class="design-hero-actions"><a href={lessonHref('01')} class="design-primary">제1차시부터 시작하기 <Icon name="arrow-right" /></a><a href="#lessons" class="design-text-action">차시별 교재 보기 <Icon name="arrow-down" /></a></div>
-     <dl class="design-course-stats"><div><dt>전체 교육시간</dt><dd>48<span>시간</span></dd></div><div><dt>실무 학습 단계</dt><dd>7<span>개 대주제</span></dd></div><div><dt>차시별 교재</dt><dd>13<span>차시</span></dd></div></dl>
+     <dl class="design-course-stats"><div><dt>전체 교육시간</dt><dd>{courseTiming.operatingHours}<span>시간</span></dd></div><div><dt>실무 학습 단계</dt><dd>7<span>개 대주제</span></dd></div><div><dt>차시별 교재</dt><dd>13<span>차시</span></dd></div></dl>
     </div>
     <figure class="design-hero-figure">
      <button type="button" class="design-image-button" data-design-image data-image-title="모던 3층 단독주택 · 주간 재료·조명 제안" aria-label="모던 3층 단독주택 예시 이미지 확대 보기"><img src={house} alt="밝은 석재 외장과 목재 포인트, 옥상 라운지가 있는 3층 단독주택의 주간 제안 렌더" width="1586" height="992" fetchpriority="high" /><span class="design-expand"><Icon name="maximize" />확대 보기</span></button>
