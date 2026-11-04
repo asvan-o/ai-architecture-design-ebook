@@ -158,12 +158,13 @@ try{
   execFileSync(python,[path.join(repositoryRoot,'scripts/export-workbook-textbooks.py'),configPath],{cwd:repositoryRoot,windowsHide:true,stdio:['ignore','pipe','pipe'],maxBuffer:8*1024*1024});
   const pdfAudit=JSON.parse(fs.readFileSync(path.join(stage,target.key+'-pdf-report.json'),'utf8'));
   assert(pdfAudit.passed,target.key+' PDF QA failed');
-  report.files.push({...target,sourceHtml:path.relative(repositoryRoot,sourceHtml).replaceAll('\\','/'),sourceHtmlSha256:sha(fs.readFileSync(sourceHtml)),browser:audit,pdf:pdfAudit});
+  report.files.push({...target,sizeBytes:pdfAudit.sizeBytes,sha256:pdfAudit.sha256,pageCount:pdfAudit.pageCount,encrypted:true,copyrightNoticePages:pdfAudit.copyrightNoticePages,sourceHtml:path.relative(repositoryRoot,sourceHtml).replaceAll('\\','/'),sourceHtmlSha256:sha(fs.readFileSync(sourceHtml)),browser:audit,pdf:pdfAudit});
   fs.writeFileSync(path.join(workRoot,'book-export-report.json'),JSON.stringify(report,null,2)+'\n');
   console.log(`${target.key}: ${pdfAudit.pageCount} pages; ${(pdfAudit.sizeBytes/1024/1024).toFixed(2)} MiB; text, footer, link and encryption checks passed`);
   await page.close();
  }
  report.totalSizeBytes=report.files.reduce((n,f)=>n+f.pdf.sizeBytes,0);
+ report.totalPages=report.files.reduce((n,f)=>n+f.pdf.pageCount,0);
  assert(report.totalSizeBytes<990_000_000,'The textbook collection exceeds 990 MB.');
  assert.equal(sha(fs.readFileSync(path.join(siteRoot,'course-build.json'))),buildMetadataSha256,'The static build changed during export.');
  if(generate){
