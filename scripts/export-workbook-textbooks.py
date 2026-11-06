@@ -77,11 +77,41 @@ try:
     raw = Path(config["input"])
     assert raw.name == f"{key}-html.pdf", "Only freshly printed HTML input is accepted."
     doc = pdfium.PdfDocument(raw)
+    # Chromium can emit an empty trailing sheet for a final block's margin.
+    # Remove only a tail sheet with no text and no visible foreground artwork.
+    retained = len(doc)
+    while retained > 1:
+        tail = doc[retained-1]
+        tail_text = tail.get_textpage()
+        empty_text = not tail_text.get_text_range().strip()
+        tail_text.close()
+        pixels = np.asarray(page_image(tail))
+        foreground = float(np.mean(np.any(pixels < 190, axis=2)))
+        tail.close()
+        if not empty_text or foreground > .0001:
+            break
+        retained -= 1
+    trimmed = len(doc) - retained
+    if trimmed:
+        doc.close()
+        original_reader = PdfReader(raw)
+        trimmed_writer = PdfWriter()
+        for page in list(original_reader.pages)[:retained]:
+            trimmed_writer.add_page(page)
+        trimmed_file = work / f"{key}-html-trimmed.pdf"
+        with trimmed_file.open("wb") as stream:
+            trimmed_writer.write(stream)
+        raw = trimmed_file
+        doc = pdfium.PdfDocument(raw)
+    report["blankTrailingSheetsRemoved"] = trimmed
     raw_pages = []
     all_body_text = []
     contacts = []
     evidence = work / "renders" / key
     evidence.mkdir(parents=True, exist_ok=True)
+    assert evidence.resolve().is_relative_to(work.resolve())
+    for previous_render in evidence.glob("*.png"):
+        previous_render.unlink()
     for number in range(len(doc)):
         page = doc[number]
         width, height = page.get_size()
@@ -129,7 +159,7 @@ try:
     coverage = 1 - len(missing_blocks) / max(1, len(expected["blocks"]))
     report.update({"pageCount": len(raw_pages), "bodyPages": raw_pages, "headingCount": len(expected["headings"]), "missingHeadings": missing_headings, "bodyBlockCoverage": coverage, "missingBlocks": missing_blocks})
     assert not missing_headings, f"Missing print headings: {missing_headings[:5]}"
-    assert coverage >= .99, f"Visible body block coverage {coverage:.2%}; missing {len(missing_blocks)}"
+    assert not missing_blocks, f"Visible body block coverage {coverage:.2%}; missing {len(missing_blocks)}: {missing_blocks[:3]}"
     for address in config["expectedLocalAddresses"]:
         assert normalized(address) in full_body, f"Missing local connection address: {address}"
 

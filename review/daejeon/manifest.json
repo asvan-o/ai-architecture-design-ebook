@@ -754,8 +754,8 @@
         },
         {
           "outputPath": "downloads/daejeon/lesson-08/top-view-structure.txt",
-          "sizeBytes": 1211,
-          "sha256": "a7ee01fc613269d01c36a303a9005d7ea69b82d0648b5e226449f42a07e25fdc",
+          "sizeBytes": 1372,
+          "sha256": "e88c827aeee6a83d3aca5fe557369e8667f5f4f96b05ca700dc8acc1c1cb60c8",
           "kind": "prompt",
           "key": "topViewPrompt",
           "title": "구조 검토용 Top View 3D 생성 프롬프트",
@@ -805,16 +805,16 @@
         },
         {
           "outputPath": "downloads/daejeon/lesson-08/README.md",
-          "sizeBytes": 2053,
-          "sha256": "f37b8f909c5b774e97a55a5254e685910525ed2dcbd0cfab63debbed4133ded6",
+          "sizeBytes": 2439,
+          "sha256": "be203868de5710d5e85a365474dd05604899835193debb9303f03070c8b72c99",
           "kind": "readme",
           "migratedFrom": "downloads/daejeon/lesson-07/floorplan/README.md"
         },
         {
           "outputPath": "downloads/daejeon/lesson-08/DJ-L08-Floorplan-Graphviz-Pack.zip",
           "kind": "zip",
-          "sha256": "a7c16f9b180415323e848df70bbf23dabcc120039afc315e1ee56f9f874d33b0",
-          "sizeBytes": 948024,
+          "sha256": "dcf8e6a6a39572623e83f84fb05b101be626fba247de0b3ee881c8604a156757",
+          "sizeBytes": 948249,
           "title": "제8차시 도면 판독·Graphviz 실습자료",
           "migratedFrom": "downloads/daejeon/lesson-07/floorplan/DJ-L07-Floorplan-Graphviz-Pack.zip"
         },
@@ -834,8 +834,8 @@
           "key": "clean-line-preprocess",
           "title": "클린 선화 전처리 프롬프트",
           "outputPath": "downloads/daejeon/lesson-08/DJ-L07-clean-line-preprocess.txt",
-          "sha256": "7d6cf63231bafea666b26e6879caf8a622727487b36385ce2758a77a558dafeb",
-          "sizeBytes": 2745,
+          "sha256": "c8d39168b6b46acf898896143bae653ae14b4a03e551a2bd18be126f4b3681ab",
+          "sizeBytes": 2672,
           "migratedFrom": "downloads/daejeon/lesson-07/floorplan/DJ-L07-clean-line-preprocess.txt"
         },
         {

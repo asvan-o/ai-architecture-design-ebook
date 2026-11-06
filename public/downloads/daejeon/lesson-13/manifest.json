@@ -8,8 +8,8 @@
   "files": [
     {
       "outputPath": "downloads/daejeon/lesson-13/프롬프트06_왜곡검수_프로젝트결과보고서.txt",
-      "bytes": 1467,
-      "sha256": "b2c5a700e7fc6f63c4032d98ea86849886f8edfc640dd18d4106bc11c338448e"
+      "bytes": 1877,
+      "sha256": "73fa79e66b44b64a4d8f6cbb938082f658786576a5209fe9f6bf36b4d8b389d6"
     },
     {
       "outputPath": "downloads/daejeon/lesson-13/프롬프트_시안_의사결정_기록표.csv",
@@ -49,12 +49,12 @@
     {
       "outputPath": "downloads/daejeon/lesson-13/통합패키지_파일해시_SHA256.txt",
       "bytes": 8111,
-      "sha256": "fed49c66fd2a36822c9d65153d16aba330dd55b25b1ca4051bcb3d242af7fc24"
+      "sha256": "22565aa1c18fd5cb40c2a22da2ab09311ae7c0a6f0a5190c9eb969c5d49ac89e"
     },
     {
       "outputPath": "downloads/daejeon/lesson-13/제11_13차시_포트폴리오_PPT_결과보고서_통합패키지.zip",
-      "bytes": 79308853,
-      "sha256": "2c55c08c82e3d4f7ab4002b06232b9e8f83b88089bbe8461a79248be4aeec47e"
+      "bytes": 79309138,
+      "sha256": "81c6d20979210e67552a5641fac7cbedbeea78d4532f613b5106340737864c1e"
     }
   ]
 }

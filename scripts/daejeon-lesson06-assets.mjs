@@ -9,14 +9,21 @@ const root=path.join(repositoryRoot,'review/daejeon/DJ-L06-3D-ZONING/revision-re
 const manifest=JSON.parse(fs.readFileSync(path.join(root,'manifest.json'),'utf8'));
 assert.equal(manifest.sectionCount,12);assert.equal(manifest.durationMinutes,150);
 const read=item=>{const source=path.join(root,item.file),bytes=fs.readFileSync(source),sha256=createHash('sha256').update(bytes).digest('hex');const expected=manifest.files.find(row=>row.file===item.file);if(expected)assert.equal(sha256,expected.sha256,'Lesson06 asset changed: '+item.file);return{key:item.key||item.file.replace(/[^a-z0-9-]/gi,'-'),title:item.title||item.file,description:item.description||'',originalSource:item.originalSource||expected?.originalSource||'',width:item.width||0,height:item.height||0,text:/\.(txt|md|json)$/.test(item.file)?bytes.toString('utf8').trim():null,...item,source,outputPath:'practice/DJ-L06/'+item.file,sha256};};
+/** @type {Record<string,string>} */
+const doorReviewByKey={
+ 'office-warm':'요청문은 D1~D3 닫힘, 실제 예시에서는 D1~D3 열림. AI 조건 변경 REVIEW·재수정 사례이며 원 평면 대조가 필요합니다.',
+ 'office-modern':'요청문은 D1~D3 닫힘, 실제 예시에서는 D1~D3 열림. 메인 A와의 재료 비교와 문 상태 검수는 분리합니다.',
+ 'office-subview':'요청문은 닫힘, 실제 서브 뷰의 D2는 열림. 가려진 D1·D3는 확인 불가로 남깁니다.',
+};
+const withDoorReview=item=>doorReviewByKey[item.key]?{...item,doorState:doorReviewByKey[item.key],description:((item.description||'')+' '+doorReviewByKey[item.key]).trim()}:item;
 /** @type {Lesson06Asset[]} */
 export const lesson06Legacy=manifest.legacy.map(read);
 /** @type {Lesson06Asset[]} */
 export const lesson06Inputs=manifest.inputs.map(read);
 /** @type {Lesson06Asset[]} */
-export const lesson06Images=manifest.images.map(read);
+export const lesson06Images=manifest.images.map(item=>withDoorReview(read(item)));
 /** @type {Lesson06Asset[]} */
-export const lesson06Prompts=manifest.prompts.map(read);
+export const lesson06Prompts=manifest.prompts.map(item=>withDoorReview(read(item)));
 export const lesson06Image=Object.fromEntries([...lesson06Legacy,...lesson06Inputs,...lesson06Images].map(item=>[item.key,item]));
 export const lesson06Prompt=Object.fromEntries(lesson06Prompts.map(item=>[item.key,item]));
 /** @type {Lesson06Asset[]} */

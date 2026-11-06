@@ -136,10 +136,10 @@
     },
     {
       "file": "prompts/site-before-short.txt",
-      "sha256": "82c6b40edc9250b851f260b7037ce75aea32c9b6369f6c07871d93aa24a27181",
-      "bytes": 1168,
+      "sha256": "895d8d5b0c65d64a8658fe1b9644740378666d1c11204fa19b07d097cad473c8",
+      "bytes": 509,
       "key": "site-before-short",
-      "title": "정리 전 현장 · 예시 준비 · 실행용 원문",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
       "attachments": [
         {
           "file": "bases/01_base-building.png",
@@ -148,7 +148,8 @@
           "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
         }
       ],
-      "promptProvenance": "actual generation prompt; verbatim"
+      "promptProvenance": "actual generation prompt; verbatim",
+      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다."
     },
     {
       "file": "prompts/cleanup-7step.txt",
@@ -174,10 +175,10 @@
     },
     {
       "file": "prompts/cleanup-short.txt",
-      "sha256": "db041c44de3335fb6c7af7d61bbf7dace7761ed0c649acf23272ae45f6736750",
-      "bytes": 1144,
+      "sha256": "40b0681fa50a9a71b3441aca350472368249deb4ce95f6468d9fb86bf135e413",
+      "bytes": 551,
       "key": "cleanup-short",
-      "title": "기법 1 · 방해물 제거 · 실행용 원문",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
       "attachments": [
         {
           "file": "samples/00_site-before-cleanup.png",
@@ -192,7 +193,8 @@
           "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
         }
       ],
-      "promptProvenance": "actual generation prompt; verbatim"
+      "promptProvenance": "actual generation prompt; verbatim",
+      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다."
     },
     {
       "file": "prompts/landscape-7step.txt",
@@ -212,10 +214,10 @@
     },
     {
       "file": "prompts/landscape-short.txt",
-      "sha256": "2e6dbf0156c960a45b9eeeb5968c7534b3c7d95e4601048bcfc6536f3df8b1b7",
-      "bytes": 1453,
+      "sha256": "de7352061109c5fe023e4288589c39e47f8c08ce6c30e593c145859470b40db4",
+      "bytes": 653,
       "key": "landscape-short",
-      "title": "조경 추가 · 양쪽 플랜터와 열린 출입 · 실행용 원문",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
       "attachments": [
         {
           "file": "samples/02_partial-edit-a.png",
@@ -224,7 +226,8 @@
           "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf"
         }
       ],
-      "promptProvenance": "actual generation prompt; verbatim"
+      "promptProvenance": "actual generation prompt; verbatim",
+      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다."
     },
     {
       "file": "prompts/dusk-7step.txt",
@@ -244,10 +247,10 @@
     },
     {
       "file": "prompts/dusk-short.txt",
-      "sha256": "ec3585fae61208bb38b56a61753987106841ad541ec1db56df10efca02453684",
-      "bytes": 1471,
+      "sha256": "f9f43f7a6c7d91605efe5aa5f3356f12fbaea66e2146bbe0a5aba365369f9d91",
+      "bytes": 684,
       "key": "dusk-short",
-      "title": "석양·경관조명 · 같은 외관의 빛 확장 · 실행용 원문",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
       "attachments": [
         {
           "file": "samples/05_landscape-additive.png",
@@ -256,7 +259,8 @@
           "sha256": "008958280b8a6c14e5cfb79f4a02526911e8885601687c6ff6e79fb765f6dcfd"
         }
       ],
-      "promptProvenance": "actual generation prompt; verbatim"
+      "promptProvenance": "actual generation prompt; verbatim",
+      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다."
     },
     {
       "file": "prompts/subview-7step.txt",
@@ -276,10 +280,10 @@
     },
     {
       "file": "prompts/subview-short.txt",
-      "sha256": "3ba101927b5f8254c7fafc0888a02eaab37716233e05d94f039215ffc19face6",
-      "bytes": 1556,
+      "sha256": "46c42f7db424e08809af66049e96d212182ed15acdaae86f90e1632613a5bf4d",
+      "bytes": 741,
       "key": "subview-short",
-      "title": "입구 근접 서브 시점 · 재료 관계 확인 · 실행용 원문",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
       "attachments": [
         {
           "file": "samples/05_landscape-additive.png",
@@ -288,7 +292,8 @@
           "sha256": "008958280b8a6c14e5cfb79f4a02526911e8885601687c6ff6e79fb765f6dcfd"
         }
       ],
-      "promptProvenance": "actual generation prompt; verbatim"
+      "promptProvenance": "actual generation prompt; verbatim",
+      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다."
     },
     {
       "file": "prompts/rough-sketch-7step.txt",
@@ -308,10 +313,10 @@
     },
     {
       "file": "prompts/rough-sketch-short.txt",
-      "sha256": "c1ae47c46897974486fd3d69d0acdb65eafc950861749776aef1cafcd299dc6a",
-      "bytes": 1164,
+      "sha256": "a171830dc6796f17e13bb50a63c7f688f73b0c4a4f00715225b345410569734e",
+      "bytes": 527,
       "key": "rough-sketch-short",
-      "title": "기법 5 · 러프 선화 입력 · 실행용 원문",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
       "attachments": [
         {
           "file": "bases/01_base-building.png",
@@ -320,7 +325,8 @@
           "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
         }
       ],
-      "promptProvenance": "actual generation prompt; verbatim"
+      "promptProvenance": "actual generation prompt; verbatim",
+      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다."
     },
     {
       "file": "prompts/rapid-7step.txt",
@@ -346,10 +352,10 @@
     },
     {
       "file": "prompts/rapid-short.txt",
-      "sha256": "7b1dbb3b0e15e154af1bfb1da0e15c1e4d06a26a96b88bf0b2d419fb4b2b4665",
-      "bytes": 1432,
+      "sha256": "985ced4fe2f3e97de47eafc338869942085c87c891911b3e4384ddf88475c93d",
+      "bytes": 662,
       "key": "rapid-short",
-      "title": "스케치 → 래피드 콘셉트 · 실행용 원문",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
       "attachments": [
         {
           "file": "samples/08_exterior-rough-sketch.png",
@@ -364,7 +370,8 @@
           "sha256": "eb08c8ed1e16e89a1e63725bcd0ecde64c3ce6de5320a780d808d2c76af1f12d"
         }
       ],
-      "promptProvenance": "actual generation prompt; verbatim"
+      "promptProvenance": "actual generation prompt; verbatim",
+      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다."
     },
     {
       "file": "prompts/refined-7step.txt",
@@ -384,10 +391,10 @@
     },
     {
       "file": "prompts/refined-short.txt",
-      "sha256": "7ea846ab6f593610fd0e65d889f6bc4cd60cbfc94fe9774e5eabad2fe24563fd",
-      "bytes": 986,
+      "sha256": "138dfdd8a5c0ef04f850192b72f404ef2cbaef48824ccaa830bcb206cf2ca9e2",
+      "bytes": 532,
       "key": "refined-short",
-      "title": "래피드 콘셉트 → 한 면 보완 · 실행용 원문",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
       "attachments": [
         {
           "file": "samples/09_sketch-rapid-concept.png",
@@ -396,7 +403,8 @@
           "sha256": "88e8b32720f2cb0cbb677ac435162b8d6be62798cb8abef790cc87a92b0b7f38"
         }
       ],
-      "promptProvenance": "actual generation prompt; verbatim"
+      "promptProvenance": "actual generation prompt; verbatim",
+      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다."
     },
     {
       "key": "surrounding-landscape-7step",
@@ -417,7 +425,7 @@
     {
       "key": "surrounding-landscape-short",
       "file": "prompts/surrounding-landscape-short.txt",
-      "title": "주변 조경·보행 광장 종합안 · 동일 원문으로 실행",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
       "attachments": [
         {
           "file": "samples/05_landscape-additive.png",
@@ -427,8 +435,9 @@
         }
       ],
       "promptProvenance": "actual generation prompt; verbatim",
-      "sha256": "31f82acaaa2c44b1f6c5affc515b7e93073991cec18722c29ad33e994b2aa942",
-      "bytes": 2032
+      "sha256": "8c48c4d0c1802dc4fa18df0fc9aac1e7a8f15157f377556896665dd6ed6bbec2",
+      "bytes": 796,
+      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다."
     },
     {
       "key": "human-scale-7step",
@@ -449,7 +458,7 @@
     {
       "key": "human-scale-short",
       "file": "prompts/human-scale-short.txt",
-      "title": "사람 추가 · 휴먼 스케일과 공간 활력 · 동일 원문으로 실행",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
       "attachments": [
         {
           "file": "samples/11_surrounding-landscape-plaza.png",
@@ -459,8 +468,9 @@
         }
       ],
       "promptProvenance": "actual generation prompt; verbatim",
-      "sha256": "462d7b06d8653b50d3c86a2a0c557744bf82e8d9866cda0abaa1c9baae375269",
-      "bytes": 2161
+      "sha256": "d703de4b9440412eff20ab86c453d1809ab43ceaeecd41e3d7956700180304a0",
+      "bytes": 767,
+      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다."
     },
     {
       "key": "angle-corner-7step",
@@ -487,7 +497,7 @@
     {
       "key": "angle-corner-short",
       "file": "prompts/angle-corner-short.txt",
-      "title": "45도 코너 사선 거리 투시도 · 동일 원문으로 실행",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
       "attachments": [
         {
           "file": "samples/11_surrounding-landscape-plaza.png",
@@ -503,8 +513,9 @@
         }
       ],
       "promptProvenance": "actual generation prompt; verbatim",
-      "sha256": "dd200c552de2311c9f2d9e2c4af565b1224dd016e69dbe4fc7311a869a1d4a9e",
-      "bytes": 2047
+      "sha256": "ad2031a99929341b7ac00fe2912866949427d59b00a9328abc7b9648ba80e473",
+      "bytes": 869,
+      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다."
     },
     {
       "key": "angle-streetscape-7step",
@@ -525,7 +536,7 @@
     {
       "key": "angle-streetscape-short",
       "file": "prompts/angle-streetscape-short.txt",
-      "title": "보행자 측면 조경 진입 아이레벨 뷰 · 동일 원문으로 실행",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
       "attachments": [
         {
           "file": "samples/12_human-scale-entourage.png",
@@ -535,8 +546,9 @@
         }
       ],
       "promptProvenance": "actual generation prompt; verbatim",
-      "sha256": "ed77db72fe8ae27fcd4e8f2eb133ffe3b491c647611448768c0db2bcec22f1cb",
-      "bytes": 1953
+      "sha256": "c8d46d006a73271d1015589873ddb5355b1043c9896a3ddc4568c4aae0b0a258",
+      "bytes": 749,
+      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다."
     },
     {
       "key": "angle-elevated-7step",
@@ -563,7 +575,7 @@
     {
       "key": "angle-elevated-short",
       "file": "prompts/angle-elevated-short.txt",
-      "title": "반조감 · 건물과 보행 광장 전체 읽기 · 동일 원문으로 실행",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
       "attachments": [
         {
           "file": "samples/11_surrounding-landscape-plaza.png",
@@ -579,8 +591,9 @@
         }
       ],
       "promptProvenance": "actual generation prompt; verbatim",
-      "sha256": "87203ddcb42727279112434c9640d98a251caf7fb55b095a11782fa0de7d96ca",
-      "bytes": 2568
+      "sha256": "ad723381a4022bd4ffc66ea622e13bc1716014f7752451c7358d768109acff1c",
+      "bytes": 930,
+      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다."
     }
   ],
   "other": [
@@ -593,8 +606,8 @@
     },
     {
       "file": "README.txt",
-      "sha256": "4168acbf04412d98d7019a0125eecd7eddc19f15fb290481393d023ba0622075",
-      "bytes": 2574,
+      "sha256": "e98cae13f66b961c17725f72f48634cd0cff5ca2e4ca676ccdcacdc68e345ec9",
+      "bytes": 2593,
       "key": "README.txt",
       "title": "README.txt"
     },
@@ -697,8 +710,8 @@
     },
     {
       "file": "prompts/site-before-short.txt",
-      "sha256": "82c6b40edc9250b851f260b7037ce75aea32c9b6369f6c07871d93aa24a27181",
-      "bytes": 1168,
+      "sha256": "895d8d5b0c65d64a8658fe1b9644740378666d1c11204fa19b07d097cad473c8",
+      "bytes": 509,
       "key": "site-before-short",
       "title": "정리 전 현장 · 예시 준비 · 실행용 원문",
       "attachments": [
@@ -735,8 +748,8 @@
     },
     {
       "file": "prompts/cleanup-short.txt",
-      "sha256": "db041c44de3335fb6c7af7d61bbf7dace7761ed0c649acf23272ae45f6736750",
-      "bytes": 1144,
+      "sha256": "40b0681fa50a9a71b3441aca350472368249deb4ce95f6468d9fb86bf135e413",
+      "bytes": 551,
       "key": "cleanup-short",
       "title": "기법 1 · 방해물 제거 · 실행용 원문",
       "attachments": [
@@ -773,8 +786,8 @@
     },
     {
       "file": "prompts/landscape-short.txt",
-      "sha256": "2e6dbf0156c960a45b9eeeb5968c7534b3c7d95e4601048bcfc6536f3df8b1b7",
-      "bytes": 1453,
+      "sha256": "de7352061109c5fe023e4288589c39e47f8c08ce6c30e593c145859470b40db4",
+      "bytes": 653,
       "key": "landscape-short",
       "title": "조경 추가 · 양쪽 플랜터와 열린 출입 · 실행용 원문",
       "attachments": [
@@ -805,8 +818,8 @@
     },
     {
       "file": "prompts/dusk-short.txt",
-      "sha256": "ec3585fae61208bb38b56a61753987106841ad541ec1db56df10efca02453684",
-      "bytes": 1471,
+      "sha256": "f9f43f7a6c7d91605efe5aa5f3356f12fbaea66e2146bbe0a5aba365369f9d91",
+      "bytes": 684,
       "key": "dusk-short",
       "title": "석양·경관조명 · 같은 외관의 빛 확장 · 실행용 원문",
       "attachments": [
@@ -837,8 +850,8 @@
     },
     {
       "file": "prompts/subview-short.txt",
-      "sha256": "3ba101927b5f8254c7fafc0888a02eaab37716233e05d94f039215ffc19face6",
-      "bytes": 1556,
+      "sha256": "46c42f7db424e08809af66049e96d212182ed15acdaae86f90e1632613a5bf4d",
+      "bytes": 741,
       "key": "subview-short",
       "title": "입구 근접 서브 시점 · 재료 관계 확인 · 실행용 원문",
       "attachments": [
@@ -869,8 +882,8 @@
     },
     {
       "file": "prompts/rough-sketch-short.txt",
-      "sha256": "c1ae47c46897974486fd3d69d0acdb65eafc950861749776aef1cafcd299dc6a",
-      "bytes": 1164,
+      "sha256": "a171830dc6796f17e13bb50a63c7f688f73b0c4a4f00715225b345410569734e",
+      "bytes": 527,
       "key": "rough-sketch-short",
       "title": "기법 5 · 러프 선화 입력 · 실행용 원문",
       "attachments": [
@@ -907,8 +920,8 @@
     },
     {
       "file": "prompts/rapid-short.txt",
-      "sha256": "7b1dbb3b0e15e154af1bfb1da0e15c1e4d06a26a96b88bf0b2d419fb4b2b4665",
-      "bytes": 1432,
+      "sha256": "985ced4fe2f3e97de47eafc338869942085c87c891911b3e4384ddf88475c93d",
+      "bytes": 662,
       "key": "rapid-short",
       "title": "스케치 → 래피드 콘셉트 · 실행용 원문",
       "attachments": [
@@ -945,8 +958,8 @@
     },
     {
       "file": "prompts/refined-short.txt",
-      "sha256": "7ea846ab6f593610fd0e65d889f6bc4cd60cbfc94fe9774e5eabad2fe24563fd",
-      "bytes": 986,
+      "sha256": "138dfdd8a5c0ef04f850192b72f404ef2cbaef48824ccaa830bcb206cf2ca9e2",
+      "bytes": 532,
       "key": "refined-short",
       "title": "래피드 콘셉트 → 한 면 보완 · 실행용 원문",
       "attachments": [
@@ -968,8 +981,8 @@
     },
     {
       "file": "README.txt",
-      "sha256": "4168acbf04412d98d7019a0125eecd7eddc19f15fb290481393d023ba0622075",
-      "bytes": 2574,
+      "sha256": "e98cae13f66b961c17725f72f48634cd0cff5ca2e4ca676ccdcacdc68e345ec9",
+      "bytes": 2593,
       "key": "README.txt",
       "title": "README.txt"
     },
@@ -1060,8 +1073,8 @@
         }
       ],
       "promptProvenance": "actual generation prompt; verbatim",
-      "sha256": "31f82acaaa2c44b1f6c5affc515b7e93073991cec18722c29ad33e994b2aa942",
-      "bytes": 2032
+      "sha256": "8c48c4d0c1802dc4fa18df0fc9aac1e7a8f15157f377556896665dd6ed6bbec2",
+      "bytes": 796
     },
     {
       "key": "human-scale-7step",
@@ -1092,8 +1105,8 @@
         }
       ],
       "promptProvenance": "actual generation prompt; verbatim",
-      "sha256": "462d7b06d8653b50d3c86a2a0c557744bf82e8d9866cda0abaa1c9baae375269",
-      "bytes": 2161
+      "sha256": "d703de4b9440412eff20ab86c453d1809ab43ceaeecd41e3d7956700180304a0",
+      "bytes": 767
     },
     {
       "key": "angle-corner-7step",
@@ -1136,8 +1149,8 @@
         }
       ],
       "promptProvenance": "actual generation prompt; verbatim",
-      "sha256": "dd200c552de2311c9f2d9e2c4af565b1224dd016e69dbe4fc7311a869a1d4a9e",
-      "bytes": 2047
+      "sha256": "ad2031a99929341b7ac00fe2912866949427d59b00a9328abc7b9648ba80e473",
+      "bytes": 869
     },
     {
       "key": "angle-streetscape-7step",
@@ -1168,8 +1181,8 @@
         }
       ],
       "promptProvenance": "actual generation prompt; verbatim",
-      "sha256": "ed77db72fe8ae27fcd4e8f2eb133ffe3b491c647611448768c0db2bcec22f1cb",
-      "bytes": 1953
+      "sha256": "c8d46d006a73271d1015589873ddb5355b1043c9896a3ddc4568c4aae0b0a258",
+      "bytes": 749
     },
     {
       "key": "angle-elevated-7step",
@@ -1212,8 +1225,8 @@
         }
       ],
       "promptProvenance": "actual generation prompt; verbatim",
-      "sha256": "87203ddcb42727279112434c9640d98a251caf7fb55b095a11782fa0de7d96ca",
-      "bytes": 2568
+      "sha256": "ad723381a4022bd4ffc66ea622e13bc1716014f7752451c7358d768109acff1c",
+      "bytes": 930
     },
     {
       "key": "advanced-guide",

@@ -54,6 +54,7 @@ const attachmentStages=(lesson05Prompt.recompose.attachmentBundles||[]).map(bund
    {section.id==='l05-reading'&&<>
     <Lesson05Workbench area="selection" />
     <div class="l03-asset-grid" data-l05-plan-bases>{lesson05Plans.map(plan=><Lesson03AssetCard image={plan.base} title={plan.title+' · 원본'} description={plan.description} instance="l05-base" downloadName={filename(plan.base)} />)}</div>
+    <p><strong>이 단계는 공통 오피스 판독입니다.</strong> <code>PLAN-BASE-01.png</code> 원본 한 장을 사용합니다. 수정 영역 표시본은 섹션 07에서 준비합니다. 위 선택값은 Part 2 가구 실습만 바꾸며, 카페를 골라도 이 공통 분석의 입력은 오피스입니다.</p>
     <details><summary>평면도 분석 Prompt</summary><ReviewPrompt {...prompt('analysis')} /></details>
     <p>응답에서 원도면에 직접 보이는 항목, AI가 해석한 항목, 읽히지 않는 항목을 구분해 기록합니다.</p>
    </>}
@@ -71,6 +72,7 @@ const attachmentStages=(lesson05Prompt.recompose.attachmentBundles||[]).map(bund
     <h3>부분 수정 입력을 준비하는 두 가지 방법</h3>
     <div class="review-cards" data-l05-chatgpt-guide><article class="review-card"><h4>편집 화면에서 영역 선택</h4><ol><li>이미지를 열고 영역 선택·브러시를 제공하는 화면에서 가구와 의자를 선택합니다.</li><li>변경할 내용과 유지할 선을 Prompt에 적습니다.</li><li>결과에서 선택 영역의 경계와 주변 도면을 대조합니다.</li></ol></article><article class="review-card"><h4>제공된 부분 확대 도면 사용</h4><ol><li>선택한 도면의 Crop PNG를 입력으로 첨부합니다.</li><li>해당 단계의 Prompt를 실행하고 실제 부분 출력을 저장합니다.</li><li>고정 선을 맞춰 전체 도면의 원래 위치에 반영합니다.</li></ol></article></div>
     <div class="l03-asset-grid" data-l05-masks>{lesson05Plans.map(plan=><Lesson03AssetCard image={plan.marked} title={plan.title+' · 수정 영역'} description={plan.marked.description} instance="l05-mask" downloadName={filename(plan.marked)} />)}</div>
+    <aside class="review-callout"><strong>부분 출력 다음에 사용할 전체 도면</strong><p>AI는 가구나 문 후보가 있는 Crop을 생성합니다. 전체 원본에 정확히 붙이는 일은 이미지 편집기·CAD 레이어 또는 섹션 12의 Python 정합 연산으로 합니다. 아직 합성하지 못했다면 제공된 <code>PLAN-BASE-01-result.png</code>(6석 반영본)으로 D2 이동을 이어갑니다. 카페는 <code>PLAN-BASE-02-result.png</code>를 사용합니다. 자신의 Crop을 전체 완성본으로 간주하지 않습니다.</p></aside>
     <p>붉은 표시는 수정 범위 안내입니다. 편집 화면에서는 가구와 의자를 선택하고 벽·기둥·문·창·공간명·치수·기호를 제외합니다.</p>
    </>}
    {section.id==='l05-prompt-a'&&<>
@@ -82,7 +84,7 @@ const attachmentStages=(lesson05Prompt.recompose.attachmentBundles||[]).map(bund
     <div data-l05-results>{lesson05Plans.map(plan=><Lesson03Comparison before={plan.base} after={plan.result} beforeTitle={'Before · '+plan.title+' 원본'} afterTitle={'After · '+plan.title+' 가구 수정'} beforeDescription={plan.description} afterDescription={plan.result.description} beforeDownloadName={filename(plan.base)} afterDownloadName={filename(plan.result)} instance={'l05-furniture-'+plan.id} />)}</div>
     <h3>입력 Crop ↔ 실제 AI 부분 출력</h3>
     <div data-l05-raw-results>{lesson05Crops.slice(0,2).map((crop,index)=><Lesson03Comparison before={crop} after={lesson05RawOutputs[index]} beforeTitle={'Input · '+crop.title} afterTitle={'Output · '+lesson05RawOutputs[index].title} beforeDescription={crop.description} afterDescription={lesson05RawOutputs[index].description} beforeDownloadName={filename(crop)} afterDownloadName={filename(lesson05RawOutputs[index])} instance={'l05-raw-'+index} />)}</div>
-    <p>부분 출력에서는 3+3석·테이블 크기·선 두께를 보고, 전체 재반영본에서는 주변 도면과의 연결을 확인합니다.</p>
+    <p>부분 출력에서는 3+3석·테이블 크기·선 두께를 봅니다. 다음 D2 실습은 검수한 6석 전체 합성본 또는 제공된 <code>PLAN-BASE-01-result.png</code>로 이어갑니다. 합성·중첩의 상세 절차는 섹션 12에서 다루며, 생성형 AI의 부분 출력과 정밀 전체 재반영본을 구분합니다.</p>
    </>}
    {section.id==='l05-crop-flow'&&<>
     <ol class="l03-workflow">{['전체 도면 확인','수정할 부분 확대','변경 영역 지정','부분 도면 수정','원래 자리 전체 재반영'].map(text=><li>{text}</li>)}</ol>
@@ -98,15 +100,15 @@ const attachmentStages=(lesson05Prompt.recompose.attachmentBundles||[]).map(bund
     <p>위쪽 자리에 D2 글자가 남았는지, 새 문·개폐호가 한 세트인지, 문틀 사이가 벽으로 막히지 않았는지 확인합니다. 회의실 6석·업무 4석과 D3 진입도 유지합니다.</p>
    </>}
    {section.id==='l05-overlay'&&<>
-    <p>벽 교차점·개구부 등 고정 기준을 맞춰 부분 출력을 원래 위치에 반영합니다. 경계가 맞지 않으면 Crop과 정합 기준을 다시 확인합니다.</p>
+    <p><strong>여기서는 생성형 이미지 편집을 실행하지 않습니다.</strong> 부분 후보는 이미지 AI로 만들고, 전체 재반영과 색 차분은 이미지 편집기·CAD 레이어 또는 파일을 실제로 읽고 계산하는 Python/데이터 분석 도구로 수행합니다. 벽 교차점·개구부 등 고정 기준을 맞추지 못하면 합성을 중단하고 Crop과 정합 기준을 다시 확인합니다.</p>
     <Lesson03AssetCard image={lesson05Door[4]} title={lesson05Door[4].title} description={lesson05Door[4].description} instance="l05-door-overlay" downloadName={filename(lesson05Door[4])} />
     <PlanOverlay before={lesson05Plans[0].result} after={lesson05Door[3]} id="l05-door-overlay-control" title="문 이동 전·후 겹쳐 보기" />
     <p>겹침 강도를 바꾸며 기존 문 자리·새 문 자리·D2 표기·벽 접합을 대조합니다. 색 중첩 도면은 입력과 결과의 선 위치를 비교하는 데 사용합니다.</p>
     <label>재반영·중첩 요청에 사용할 단계<select data-l05-attachment-stage>{attachmentStages.map(stage=><option value={stage.id} selected={stage.id==='office-door'}>{stage.title}</option>)}</select></label>
     <p data-l05-attachment-selection aria-live="polite">선택 단계: 오피스 D2 이동 · 앞 단계 6석 결과와 6석 유지·D2 이동본을 대조합니다.</p>
     <p>아래 첨부 목록과 TXT의 같은 단계 파일을 사용합니다. 위 문 이동 비교 화면은 D2 예제이며, 선택에 따라 아래 두 요청문의 첨부 파일이 바뀝니다. 직접 실행한 경우에는 같은 역할의 본인 출력으로 바꿉니다.</p>
-    <details data-l05-recompose-panel><summary>전체 재반영 Prompt</summary><ReviewPrompt {...prompt('recompose')} /></details>
-    <details data-l05-overlay-panel><summary>중첩 검토 Prompt</summary><ReviewPrompt {...prompt('overlay')} /></details>
+    <details data-l05-recompose-panel><summary>파일 연산으로 전체 재반영 요청</summary><ReviewPrompt {...prompt('recompose')} /></details>
+    <details data-l05-overlay-panel><summary>파일 연산으로 색 차분·중첩 검토 요청</summary><ReviewPrompt {...prompt('overlay')} /></details>
    </>}
    {section.id==='l05-next'&&<>
     <aside class="review-callout"><strong>실제 설계에 적용할 때</strong><p>{lesson05Boundary}</p></aside>

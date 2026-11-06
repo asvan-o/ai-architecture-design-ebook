@@ -166,7 +166,7 @@
     },
     {
       "key": "A-short",
-      "title": "수정안 A · 크림 라임스톤과 우드 포털 · 실행용 원문",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
       "file": "prompts/A-short.txt",
       "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/prompts/A-short.txt",
       "attachments": [
@@ -190,8 +190,9 @@
         }
       ],
       "promptProvenance": "actual generation prompt; verbatim",
-      "sha256": "7447951e53f8822aa4cf9bf57b1b5dd51a5ca477fd4982b93a517307ec4e69e6",
-      "bytes": 2152
+      "sha256": "e91583dfd1fe54429bedaa74fdb18835ea41609e08935677e2c27f909af38c16",
+      "bytes": 794,
+      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다."
     },
     {
       "key": "B-7step",
@@ -218,7 +219,7 @@
     },
     {
       "key": "B-short",
-      "title": "수정안 B · 테라코타와 차콜 스톤 · 실행용 원문",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
       "file": "prompts/B-short.txt",
       "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/prompts/B-short.txt",
       "attachments": [
@@ -236,8 +237,9 @@
         }
       ],
       "promptProvenance": "actual generation prompt; verbatim",
-      "sha256": "3d02c23671c7ffafb96f0eac97476c34e77959298df181fe0dab8568a83c4bbc",
-      "bytes": 1926
+      "sha256": "c6e85610568228dd29abd7720eedd3b60d03e82017152cdf024bca1ba28c6c89",
+      "bytes": 731,
+      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다."
     },
     {
       "key": "A2-7step",
@@ -264,7 +266,7 @@
     },
     {
       "key": "A2-short",
-      "title": "보완안 A2 · 밝은 간판 띠와 캐노피 · 실행용 원문",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
       "file": "prompts/A2-short.txt",
       "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/prompts/A2-short.txt",
       "attachments": [
@@ -282,8 +284,9 @@
         }
       ],
       "promptProvenance": "actual generation prompt; verbatim",
-      "sha256": "2b18675bafd6b07dad023085054196dd4edce33949e3d87e657d9d79500990be",
-      "bytes": 1735
+      "sha256": "e52739667f021afc9bedc556fc6527ba78587ee1e2561e6cf0a28fe631701442",
+      "bytes": 727,
+      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다."
     },
     {
       "key": "EXT-BASE-02-practice-7step",
@@ -310,7 +313,7 @@
     },
     {
       "key": "EXT-BASE-02-practice-short",
-      "title": "기존 루버 부분 수정 · 짧은 실행용",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
       "file": "prompts/EXT-BASE-02-practice-short.txt",
       "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/prompts/EXT-BASE-02-practice-short.txt",
       "attachments": [
@@ -329,7 +332,8 @@
       ],
       "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
       "sha256": "888add16b7f2c163548480271d5c8ad4de7db89fa9a1d9f34113966733168a22",
-      "bytes": 497
+      "bytes": 497,
+      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다."
     },
     {
       "key": "EXT-BASE-03-practice-7step",
@@ -350,7 +354,7 @@
     },
     {
       "key": "EXT-BASE-03-practice-short",
-      "title": "코너 포털 부분 수정 · 짧은 실행용",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
       "file": "prompts/EXT-BASE-03-practice-short.txt",
       "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/prompts/EXT-BASE-03-practice-short.txt",
       "attachments": [
@@ -363,7 +367,8 @@
       ],
       "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
       "sha256": "3d0bb57648258f3b0dd921d7c0462cd8229278845a3c12e2184ead90bfcecc9a",
-      "bytes": 510
+      "bytes": 510,
+      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다."
     },
     {
       "key": "scope-7step",
@@ -384,7 +389,7 @@
     },
     {
       "key": "scope-short",
-      "title": "유지·변경 범위 정리 · 짧은 실행용",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
       "file": "prompts/scope-short.txt",
       "source": "사용자 승인된 제4차시 구현 범위에 따라 작성",
       "attachments": [
@@ -397,7 +402,8 @@
       ],
       "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
       "sha256": "ebdaa9a6dbd5431843d6ee6fab62a69d4675e1d1568439650921fc39fff94648",
-      "bytes": 734
+      "bytes": 734,
+      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다."
     },
     {
       "key": "gemini-7step",
@@ -436,7 +442,7 @@
     },
     {
       "key": "gemini-short",
-      "title": "Gemini 비교 분석 · 짧은 실행용",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
       "file": "prompts/gemini-short.txt",
       "source": "사용자 승인된 제4차시 구현 범위에 따라 작성",
       "attachments": [
@@ -466,8 +472,9 @@
         }
       ],
       "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
-      "sha256": "07dbac5cdfa7ab5f32e6a75b9c84802fe6c26489c975dd9d798116f04bfd6a41",
-      "bytes": 1404
+      "sha256": "e88dbbfd24830d718f978f55c570723aa872e99a3d5d0f17ac146f1e76d1ccce",
+      "bytes": 765,
+      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다."
     },
     {
       "key": "compare-7step",
@@ -506,7 +513,7 @@
     },
     {
       "key": "compare-short",
-      "title": "대안 선별·다음 보완 · 짧은 실행용",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
       "file": "prompts/compare-short.txt",
       "source": "사용자 승인된 제4차시 구현 범위에 따라 작성",
       "attachments": [
@@ -536,8 +543,9 @@
         }
       ],
       "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
-      "sha256": "afdaf8fd7f6c795c739dd4a16340084dd8c143b2ef6b0780b9a691e7f57c9162",
-      "bytes": 1390
+      "sha256": "fb832f989d145eba20c2103ea64d677d90346ec79885ec534c60ef96a22d9cc3",
+      "bytes": 714,
+      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다."
     }
   ],
   "analysis": [
@@ -630,8 +638,8 @@
     },
     {
       "file": "prompts/A-short.txt",
-      "sha256": "7447951e53f8822aa4cf9bf57b1b5dd51a5ca477fd4982b93a517307ec4e69e6",
-      "bytes": 2152
+      "sha256": "e91583dfd1fe54429bedaa74fdb18835ea41609e08935677e2c27f909af38c16",
+      "bytes": 794
     },
     {
       "file": "prompts/B-7step.txt",
@@ -640,8 +648,8 @@
     },
     {
       "file": "prompts/B-short.txt",
-      "sha256": "3d02c23671c7ffafb96f0eac97476c34e77959298df181fe0dab8568a83c4bbc",
-      "bytes": 1926
+      "sha256": "c6e85610568228dd29abd7720eedd3b60d03e82017152cdf024bca1ba28c6c89",
+      "bytes": 731
     },
     {
       "file": "prompts/A2-7step.txt",
@@ -650,8 +658,8 @@
     },
     {
       "file": "prompts/A2-short.txt",
-      "sha256": "2b18675bafd6b07dad023085054196dd4edce33949e3d87e657d9d79500990be",
-      "bytes": 1735
+      "sha256": "e52739667f021afc9bedc556fc6527ba78587ee1e2561e6cf0a28fe631701442",
+      "bytes": 727
     },
     {
       "file": "prompts/EXT-BASE-02-practice-7step.txt",
@@ -690,8 +698,8 @@
     },
     {
       "file": "prompts/gemini-short.txt",
-      "sha256": "07dbac5cdfa7ab5f32e6a75b9c84802fe6c26489c975dd9d798116f04bfd6a41",
-      "bytes": 1404
+      "sha256": "e88dbbfd24830d718f978f55c570723aa872e99a3d5d0f17ac146f1e76d1ccce",
+      "bytes": 765
     },
     {
       "file": "prompts/compare-7step.txt",
@@ -700,8 +708,8 @@
     },
     {
       "file": "prompts/compare-short.txt",
-      "sha256": "afdaf8fd7f6c795c739dd4a16340084dd8c143b2ef6b0780b9a691e7f57c9162",
-      "bytes": 1390
+      "sha256": "fb832f989d145eba20c2103ea64d677d90346ec79885ec534c60ef96a22d9cc3",
+      "bytes": 714
     },
     {
       "file": "analysis/DJ-L04_BASE-AND-REFERENCE.md",
@@ -715,8 +723,8 @@
     },
     {
       "file": "README.txt",
-      "sha256": "4168acbf04412d98d7019a0125eecd7eddc19f15fb290481393d023ba0622075",
-      "bytes": 2574
+      "sha256": "e98cae13f66b961c17725f72f48634cd0cff5ca2e4ca676ccdcacdc68e345ec9",
+      "bytes": 2593
     },
     {
       "file": "bases/01_base-building.png",

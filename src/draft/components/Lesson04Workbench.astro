@@ -5,7 +5,7 @@ import {exteriorWorkPrompt} from '../content/daejeon-lesson04';
 interface Props {area:'base'|'A'|'B';}
 const{area}=Astro.props;
 ---
-{area==='base'?<div class="l03-input-panel"><label>오늘 계속 사용할 기준 건물<select data-l04-base>{lesson04Bases.map(b=><option value={b.id}>{b.title}</option>)}</select></label><p data-l04-base-status aria-live="polite">연속 예제는 BASE 01입니다. 다른 건물 선택 시 아래 내 Prompt의 수정 범위도 함께 바뀝니다.</p></div>:<>
-  <p>BASE 01은 예시 이미지 생성에 사용한 원문입니다. 다른 건물을 선택하면 그 건물에 맞춘 별도 연습 요청문으로 바뀝니다. 첨부 순서와 역할을 확인합니다.</p>
+{area==='base'?<div class="l03-input-panel"><label>공통 BASE 01 / 자기 선택 실습 BASE 선택<select data-l04-base>{lesson04Bases.map(b=><option value={b.id}>{b.title}</option>)}</select></label><p data-l04-base-status aria-live="polite">연속 예제는 BASE 01입니다. 다른 건물 선택 시 아래 내 Prompt의 수정 범위도 함께 바뀝니다.</p></div>:<>
+  <p>공통 예제는 BASE 01입니다. BASE 02/03을 선택한 경우 이 ‘내 수정안’은 별도 자기 선택 실습용이며, 위의 BASE 01 고정 예제·클린업 결과와 이어 붙이지 않습니다. 선택한 같은 원본에서 A/B를 각각 시작하고 첨부 순서와 역할을 확인합니다.</p>
   <details data-l04-live-prompt><summary>내 수정안 {area} · 7단 Prompt 보기</summary><ReviewPrompt id={'l04-my-'+area} title={'선택한 건물 · 수정안 '+area} prompt={exteriorWorkPrompt(lesson04Bases[0],area)} filename={'제4차시-내-수정안-'+area+'-Prompt.txt'} /></details>
 </>}

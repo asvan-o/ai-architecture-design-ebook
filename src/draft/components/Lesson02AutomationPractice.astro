@@ -18,7 +18,7 @@ const base=import.meta.env.BASE_URL.replace(/\/$/,'');
 <div class="l02-ab" data-exercise-stage={stage}>
 {stage==='choose'&&<>
   <p><strong>실습 A를 공통 기본 예제로 진행합니다.</strong> 실습 B는 A를 마친 뒤 추가로 체험하거나, 자신의 업무와 더 가까운 예제로 선택할 수 있습니다.</p>
-  <p>선택한 예제의 구조를 먼저 제안받습니다. 직접 구현을 시도할 수 있고, 준비된 완성 예제를 실행해 기능을 확인할 수도 있습니다.</p>
+  <p>신규 제작 트랙은 빈 실습 폴더에서 시작합니다. 일반 ChatGPT 웹 대화창은 기획·명세 작성용이며 파일을 만들지 않습니다. 실제 구현은 실습 폴더 접근·실행 권한이 연결된 Codex·Claude Code·Antigravity 같은 코딩 에이전트에서 수행합니다.</p><p>선택한 예제의 구조를 먼저 제안받습니다. 직접 구현을 시도할 수 있고, 준비된 완성 예제를 실행해 기능을 확인할 수도 있습니다.</p>
   <div class="l02-ab-grid">{exercises.map(exercise=><article class="l02-ab-card" data-exercise-card={exercise.id}>
     <p class="l02-ab-label">실습 {exercise.id} · {exercise.id==='A'?'공통 기본 예제':'추가·선택 예제'}</p><h3>{exercise.title}</h3><p>{exercise.description}</p>
     {exercise.id==='A'&&<p data-classification-introduction><strong>{classificationExplanation.introduction}</strong> <a href="#l02-rules">무엇을 보고 분류하는지 보기</a></p>}
@@ -30,7 +30,7 @@ const base=import.meta.env.BASE_URL.replace(/\/$/,'');
     <Lesson02ExerciseDownloads exercise={exercise.id} compact />
   </article>)}</div>
   <div data-exercise-comparison><h3>{drawingComparison.title}</h3><div class="l02-ab-grid">{drawingComparison.items.map(item=><article class="l02-ab-card"><h4>{item.title}</h4><dl><dt>판단 근거</dt><dd>{item.basis}</dd><dt>목적</dt><dd>{item.purpose}</dd><dt>불확실할 때</dt><dd>{item.uncertain}</dd></dl></article>)}</div><p><strong>{drawingComparison.common}</strong></p></div>
-  <p>첫 요청의 목적은 코드 완성이 아니라 기능·화면·규칙·확인 방법을 제안받는 것입니다. AI 답변을 읽고 다음 단계에서 사람이 범위를 정합니다.</p>
+  <aside class="review-callout"><strong>제공 프로그램을 확장할 때만</strong><p>완성 예제를 복사해 보완하는 별도 트랙에서는 기존 WATCHER → CLASSIFIER → 사람판단·원본보관·중복 흐름을 재사용하고 새 분류기를 만들지 않습니다. 신규 제작 첫 요청과 혼합하지 않습니다.</p></aside><p>첫 요청의 목적은 코드 완성이 아니라 기능·화면·규칙·확인 방법을 제안받는 것입니다. AI 답변을 읽고 다음 단계에서 사람이 범위를 정합니다.</p>
 </>}
 {stage==='review'&&<>
   <p>AI가 제안한 내용과 자신이 요청한 범위를 비교합니다. 유지할 내용, 고칠 내용, 아직 결정하지 못한 질문을 구분합니다.</p>
@@ -40,14 +40,14 @@ const base=import.meta.env.BASE_URL.replace(/\/$/,'');
   <div class="review-task"><h3>사람이 확인한 내용 남기기</h3><p>실습 폴더, 접근 범위, 자동 처리와 사람 판단, 오류 처리, 기대 결과를 읽습니다. 검토한 계획과 만들 파일이 일치하는지 확인한 뒤 구현을 승인합니다.</p></div>
 </>}
 {stage==='spec'&&<>
-  <p>선택한 예제의 명세만 사용합니다. 작업 폴더·허용 파일·검토한 계획을 자신의 상황에 맞게 채우고, 결정되지 않은 조건을 확정된 것처럼 적지 않습니다.</p>
+  <p><strong>지금은 구현 전 명세 확정·검토 단계입니다. 코드를 만들지 않습니다.</strong> 다음 §11에서 확정한 명세를 코딩 에이전트에 전달해 한 번만 구현을 시작합니다.</p><p>표기 범례: [기술]은 고정 항목 제목, &lt;내 작업 폴더&gt;는 사용자가 치환할 빈칸입니다. B의 [영문 코드-숫자]_[도면명]_R[정수]는 파일명 규칙 설명이며 예시는 A-101_1층평면도_R02.pdf입니다. 항목 제목과 규칙의 대괄호를 삭제하라는 뜻이 아닙니다.</p><p>작성 예: [승인한 계획] “위 답변의 계획 v1” / [작업 폴더] “내 실습 프로젝트/AI_파일자동정리” / [승인 파일] “app/ 아래 명세에 적힌 파일”. 실제 경로와 검토한 파일 목록으로 바꿉니다.</p><p>선택한 예제의 명세만 사용합니다. 작업 폴더·허용 파일·검토한 계획을 자신의 상황에 맞게 채우고, 결정되지 않은 조건을 확정된 것처럼 적지 않습니다.</p>
   <div class="l02-ab-grid">{exercises.map(exercise=><article class="l02-ab-card"><h3>{exercise.id} · {exercise.title}</h3><ul data-implementation-summary={exercise.id}>{(exercise.id==='A'?specSummary:drawingSpec).map(([title,note])=><li><strong>{title}</strong><p>{note}</p></li>)}</ul>
-    <details data-implementation-spec={exercise.id}><summary>실습 {exercise.id} 상세 구현 명세 보기</summary><ReviewPrompt id={'l02-'+exercise.id+'-approval'} title={exercise.title+' · 구현 승인 Prompt'} prompt={automationPrompts[exercise.id].approval} filename={automationFiles[exercise.id].approval.file} href={enabled?base+'/'+automationFiles[exercise.id].approval.outputPath:undefined} /></details>
+    <details data-implementation-spec={exercise.id}><summary>실습 {exercise.id} 상세 구현 명세 보기</summary><ReviewPrompt id={'l02-'+exercise.id+'-approval'} title={exercise.title+' · 구현 전 명세 확정 Prompt'} prompt={automationPrompts[exercise.id].approval} filename={automationFiles[exercise.id].approval.file} href={enabled?base+'/'+automationFiles[exercise.id].approval.outputPath:undefined} /></details>
     {enabled&&<a class="review-download" href={base+'/'+automationFiles[exercise.id].approval.outputPath} download>실습 {exercise.id} 상세 Prompt TXT 다운로드</a>}
   </article>)}</div>
 </>}
 {stage==='implement'&&<>
-  <ol class="l02-ab-flow" aria-label="요청에서 완성 프로그램까지"><li>자연어 첫 요청</li><li>AI의 구조 제안</li><li>사람의 검토</li><li>구현 승인</li><li>수정·기능 확인</li><li>완성 프로그램</li></ol>
+  <p>명세가 확정됐을 때만 아래 구현 요청을 실행합니다. 일반 웹 채팅의 코드 제안과, 연결한 로컬 실습 폴더에서 파일을 실제 생성·실행하는 작업을 구분합니다.</p><ol class="l02-ab-flow" aria-label="요청에서 완성 프로그램까지"><li>자연어 첫 요청</li><li>AI의 구조 제안</li><li>사람의 검토</li><li>구현 승인</li><li>수정·기능 확인</li><li>완성 프로그램</li></ol>
   <ol class="lesson02-checklist">{implementSteps.map(([title,note])=><li><strong>{title}</strong><p>{note}</p></li>)}</ol>
   <details><summary>검토한 명세와 함께 전달할 구현 요청</summary><ReviewPrompt id="l02-implement-prompt" title="구현 요청 · 선택한 예제의 명세와 함께 전달하기" prompt={implementationRequest} filename="DJ-L02_codex-implementation-request-prompt.txt" /></details>
   <div class="review-task"><h3>수정이 필요하면 관찰한 내용을 전달합니다</h3><p>“기대 결과 / 실제 결과 / 재현 순서 / 유지할 기능”을 적어 수정 요청을 합니다. 파일이 생성됐다는 답변만으로 성공을 기록하지 않고, 실행과 종료까지 확인합니다.</p></div>

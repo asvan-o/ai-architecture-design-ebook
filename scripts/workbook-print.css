@@ -72,4 +72,12 @@
   .workbook-print-large { break-inside: auto !important; }
   .workbook-print-one-column { display: block !important; }
   .workbook-print-one-column > * + * { margin-top: 3mm !important; }
+  .l03-record-card, .result-card { break-inside: avoid-page !important; }
+  html[data-workbook-print-lesson="07"] #l07-handover { padding-top: 3mm !important; padding-bottom: 2mm !important; }
+  html[data-workbook-print-lesson="07"] #l07-handover p,
+  html[data-workbook-print-lesson="07"] #l07-handover li { margin: 1mm 0 !important; }
+  html[data-workbook-print-lesson="07"] #l07-handover h3 { margin: 2mm 0 !important; }
+  html[data-workbook-print-lesson="08"] .mcp-shortcuts table { line-height: 1.35 !important; }
+  html[data-workbook-print-lesson="08"] .mcp-shortcuts th,
+  html[data-workbook-print-lesson="08"] .mcp-shortcuts td { padding: 1.5mm !important; }
 }

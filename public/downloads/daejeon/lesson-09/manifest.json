@@ -95,18 +95,18 @@
     },
     {
       "outputPath": "downloads/daejeon/lesson-09/DJ-L09-House-3F-Drawings.zip",
-      "bytes": 930208,
-      "sha256": "285163fd5046ec9141d7f32e381bb6e0b75ce576265db0ca319a486e8f935d99"
+      "bytes": 932925,
+      "sha256": "87b0105a3aaabec8f9f801c45a8bd3fc0b5f67a63c375f49a6ae0aa758a1b4e0"
     },
     {
       "outputPath": "downloads/daejeon/lesson-09/DJ-L09-House-3F-Models.zip",
-      "bytes": 59933577,
-      "sha256": "9d695f8baf24df1c9600fcd8296f7e8bdd9bf03115d37db63508012e4c3a196a"
+      "bytes": 59935225,
+      "sha256": "10fb7a5c34365ad13d5f2f9a0ab6dec45321039974a201a9192f3d2bd91d4d2c"
     },
     {
       "outputPath": "downloads/daejeon/lesson-09/DJ-L09-House-3F-Prompts.zip",
-      "bytes": 24171,
-      "sha256": "36845e1c3699934cf317c15632c9ac933715cfdd20f3c903408afbf85e4913d3"
+      "bytes": 26952,
+      "sha256": "76e9c6ced8203955d5ea2c5a12e69e77a71945e59eb5bdd29aef5539718019b5"
     },
     {
       "outputPath": "downloads/daejeon/lesson-09/HOUSE-3F-CHECKLIST.md",
@@ -135,43 +135,43 @@
     },
     {
       "outputPath": "downloads/daejeon/lesson-09/l09-collection-switch.txt",
-      "bytes": 1536,
-      "sha256": "595bb570b0f281380c6a5b0a1654a305f8966319b06e858c03138d2dcc8d5bb7"
+      "bytes": 1845,
+      "sha256": "e597e3441da837e1645a5c38b20f6a1450ce6ac3a89183b109fa01182c93ad55"
     },
     {
       "outputPath": "downloads/daejeon/lesson-09/l09-export.txt",
-      "bytes": 1880,
-      "sha256": "bf1cf8b096e824551049cb5a806a1a6c926eb0ffe8429b2e7571ccef7d386085"
+      "bytes": 1881,
+      "sha256": "f00e8c996fe398dc70bd2c3a93406ffbf63caae1a9fe82d536ed54dea918fa55"
     },
     {
       "outputPath": "downloads/daejeon/lesson-09/l09-house-review.txt",
-      "bytes": 1634,
-      "sha256": "52372391c14fe400da410397ea62e3c291680d8d3aed7c7c83675c3e436c14e4"
+      "bytes": 1635,
+      "sha256": "877a7c55b7b444af7ecb13c17d15f2586897878f0ad072fd3792386f93cf11ed"
     },
     {
       "outputPath": "downloads/daejeon/lesson-09/l09-house-step2.txt",
-      "bytes": 2187,
-      "sha256": "a4aabdf60316dd049310b249f2a0a07bee2e78778d5b33b892d99ab892bb2f98"
+      "bytes": 2188,
+      "sha256": "3ee484819ccd258c4a63182ca1d07e7f7147164b421f048fbd4bff0f2613b393"
     },
     {
       "outputPath": "downloads/daejeon/lesson-09/l09-house-step3.txt",
-      "bytes": 2247,
-      "sha256": "d813a328cbf64cfe0daaf1c946ea7f544b68857143ba1a911cbc907968a43a2b"
+      "bytes": 2248,
+      "sha256": "fe1412235945e001b515f237da9e9b8f6a6f9338ed3bd51d8e2d93cbc819a144"
     },
     {
       "outputPath": "downloads/daejeon/lesson-09/l09-lighting.txt",
-      "bytes": 1668,
-      "sha256": "e3aaea2b30b12975e75abc1df2d748ecf8e5fa7eaecb6690f6268cee16591895"
+      "bytes": 1669,
+      "sha256": "ae9675742ec1686da5af5e9a6223d6daae214fe4f6ff281a3b58a7f1b7c22f3d"
     },
     {
       "outputPath": "downloads/daejeon/lesson-09/l09-move1.txt",
-      "bytes": 2409,
-      "sha256": "0fb383fd0d6de9a3e989f91834285ecc5ef948c4515ab9586aa62b384787cc23"
+      "bytes": 2410,
+      "sha256": "9334ce892ffa0ae79a8f4a78f8b667d3f6fe6bf5a216f76613055c1199170e80"
     },
     {
       "outputPath": "downloads/daejeon/lesson-09/l09-move2.txt",
-      "bytes": 2677,
-      "sha256": "1acfddcbed2326e42aff592a2aa7cbb7cd58976fea6b2d4c77a084f791d0de55"
+      "bytes": 2678,
+      "sha256": "1ae2e3a7124f4aae8c6d976df5b07584d13ceab9313eed76c6cc195d18e641cb"
     },
     {
       "outputPath": "downloads/daejeon/lesson-09/l09-move3.txt",
@@ -180,13 +180,13 @@
     },
     {
       "outputPath": "downloads/daejeon/lesson-09/l09-pbr-materials.txt",
-      "bytes": 1951,
-      "sha256": "c1135e6a3b6a6712cecb2a5e508e3740be4f83d6b88b535eeca4cc06e435820b"
+      "bytes": 2346,
+      "sha256": "0e5355f6219043caf1739e1ae9d8f8ee63481d312d8154c169aa4c2e0e3c33c0"
     },
     {
       "outputPath": "downloads/daejeon/lesson-09/l09-step1-build.txt",
-      "bytes": 2694,
-      "sha256": "bbc92644775928cf087f1df6e9a77a3e9c2981aafcf4fb9d00730eb8e0bf54b5"
+      "bytes": 2695,
+      "sha256": "643c6608b6f377ee29ad24be34ea4becbef476bb070072eae9b4882caa9c19c3"
     },
     {
       "outputPath": "downloads/daejeon/lesson-09/measurement-evidence.json",
@@ -195,8 +195,8 @@
     },
     {
       "outputPath": "downloads/daejeon/lesson-09/README.md",
-      "bytes": 10689,
-      "sha256": "00864beb6f84ab37b7ec5620e0d9fadc691dcc971846c24c595270c02c08b607"
+      "bytes": 11104,
+      "sha256": "d517c2ba7199b2be0e3a46adf6883c4911572437523e0fafbf88fc3d697d2b45"
     },
     {
       "outputPath": "downloads/daejeon/lesson-09/l09-camera-brief.txt",

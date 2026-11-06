@@ -4,8 +4,8 @@
   "tag": "course-materials-2026-10-19-v1",
   "basePath": "/ai-architecture-design-ebook",
   "maximumPagesBytes": 990000000,
-  "sourceBytes": 1957696477,
-  "pagesBytesBeforeMetadata": 610353841,
+  "sourceBytes": 1957962746,
+  "pagesBytesBeforeMetadata": 610617842,
   "files": [
     {
       "path": "daejeon/downloads/daejeon/lesson-07/DJ-L07-Gaussian-Views-Pack.zip",
@@ -66,29 +66,29 @@
     {
       "path": "daejeon/downloads/daejeon/lesson-08/DJ-L08-Floorplan-Graphviz-Pack.zip",
       "assetName": "DJ-L08-Floorplan-Graphviz-Pack.zip",
-      "bytes": 948024,
-      "sha256": "a7c16f9b180415323e848df70bbf23dabcc120039afc315e1ee56f9f874d33b0",
+      "bytes": 948249,
+      "sha256": "dcf8e6a6a39572623e83f84fb05b101be626fba247de0b3ee881c8604a156757",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L08-Floorplan-Graphviz-Pack.zip"
     },
     {
       "path": "daejeon/downloads/daejeon/lesson-09/DJ-L09-House-3F-Drawings.zip",
       "assetName": "DJ-L09-House-3F-Drawings.zip",
-      "bytes": 930208,
-      "sha256": "285163fd5046ec9141d7f32e381bb6e0b75ce576265db0ca319a486e8f935d99",
+      "bytes": 932925,
+      "sha256": "87b0105a3aaabec8f9f801c45a8bd3fc0b5f67a63c375f49a6ae0aa758a1b4e0",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L09-House-3F-Drawings.zip"
     },
     {
       "path": "daejeon/downloads/daejeon/lesson-09/DJ-L09-House-3F-Models.zip",
       "assetName": "DJ-L09-House-3F-Models.zip",
-      "bytes": 59933577,
-      "sha256": "9d695f8baf24df1c9600fcd8296f7e8bdd9bf03115d37db63508012e4c3a196a",
+      "bytes": 59935225,
+      "sha256": "10fb7a5c34365ad13d5f2f9a0ab6dec45321039974a201a9192f3d2bd91d4d2c",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L09-House-3F-Models.zip"
     },
     {
       "path": "daejeon/downloads/daejeon/lesson-09/DJ-L09-House-3F-Prompts.zip",
       "assetName": "DJ-L09-House-3F-Prompts.zip",
-      "bytes": 24171,
-      "sha256": "36845e1c3699934cf317c15632c9ac933715cfdd20f3c903408afbf85e4913d3",
+      "bytes": 26952,
+      "sha256": "76e9c6ced8203955d5ea2c5a12e69e77a71945e59eb5bdd29aef5539718019b5",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L09-House-3F-Prompts.zip"
     },
     {
@@ -353,8 +353,8 @@
     {
       "path": "daejeon/downloads/daejeon/lesson-10/DJ-L10_법규검토_프롬프트_실습팩.zip",
       "assetName": "DJ-L10-Prompt-Pack.zip",
-      "bytes": 31938,
-      "sha256": "0df6a904d3d5646d90ad1a12f0b73c854981feb1f86b88ab878777003c3d9ac2",
+      "bytes": 32312,
+      "sha256": "14a5e449764b26ded677b99ec92a35ed723e35df2434871b734a55ee52d559a9",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L10-Prompt-Pack.zip"
     },
     {
@@ -486,8 +486,8 @@
     {
       "path": "daejeon/downloads/daejeon/lesson-13/제11_13차시_포트폴리오_PPT_결과보고서_통합패키지.zip",
       "assetName": "DJ-L11-13-Portfolio-Full-Pack-Workbook-v2.zip",
-      "bytes": 79308853,
-      "sha256": "2c55c08c82e3d4f7ab4002b06232b9e8f83b88089bbe8461a79248be4aeec47e",
+      "bytes": 79309138,
+      "sha256": "81c6d20979210e67552a5641fac7cbedbeea78d4532f613b5106340737864c1e",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L11-13-Portfolio-Full-Pack-Workbook-v2.zip"
     },
     {
@@ -591,8 +591,8 @@
     {
       "path": "daejeon/practice/DJ-L04/application/DJ-L04-exterior-applications.zip",
       "assetName": "DJ-L04-exterior-applications.zip",
-      "bytes": 54465027,
-      "sha256": "574e8c23c0bc0ee039a08697a56ecaf3e4c549d9043843d8b2fa34ddcccf01c0",
+      "bytes": 54458053,
+      "sha256": "45f54f3196bc15736cd03c5a69b7a7aa34c7d98d34d2b7321bb851986c35715e",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L04-exterior-applications.zip"
     },
     {
@@ -612,15 +612,15 @@
     {
       "path": "daejeon/practice/DJ-L05/DJ-L05_PRACTICE_REVIEW.zip",
       "assetName": "DJ-L05_PRACTICE_REVIEW.zip",
-      "bytes": 5848600,
-      "sha256": "acc05a564a0cb47a41286c1feffdc6652f89cf880fb740e626c10bcf93cb8871",
+      "bytes": 5849657,
+      "sha256": "1a19f9f79323fad6662f363697b6d8b92b03dd7e3c10b351ce2a6262b92f0efc",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L05_PRACTICE_REVIEW.zip"
     },
     {
       "path": "daejeon/practice/DJ-L06/DJ-L06-3d-isometric-zoning.zip",
       "assetName": "DJ-L06-3d-isometric-zoning.zip",
-      "bytes": 26047764,
-      "sha256": "981bfbc1335f5d2090c566acefdea86026ea408d518586a123cc4f096b03f747",
+      "bytes": 26047919,
+      "sha256": "67a796c1d0447b5108ea55c7d78edf725ee1c2ee249329753a0cf50743abd11e",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L06-3d-isometric-zoning.zip"
     },
     {

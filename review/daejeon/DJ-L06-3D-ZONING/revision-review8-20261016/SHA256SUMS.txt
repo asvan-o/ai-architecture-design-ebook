@@ -1,5 +1,5 @@
 f51886e0310d84686adde62737cd9dfc005c1b123cd38e1903adb73a72db8a72  CHECKLIST.md
-c1d6af296275af264e977136dcd3c28ff79b0f5beab2bb900619863de772ec0e  README.txt
+212831d2b9cadfe93e003fd29d8108cf01c20b5f918e7d94088bf4f7bbda5d28  README.txt
 b013ff8001e5c703980a1b80bad74a17adeadadfb181f49a94370c608c343ca7  inputs/PLAN-BASE-01-door-result.png
 053a49acd205abf381ebf5d8935efd705f8f16e6de116fc5c56e6de425d2ebbd  inputs/PLAN-BASE-02-result.png
 130a2789dc5caab50ed971918a5d718b00de4be7e8d81f5651b0ddc157c16013  legacy-basic/01-small-room-plan.png

@@ -1,3 +1,4 @@
+import {workbookLesson01Text} from './workbook-lesson01-language.mjs';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -35,8 +36,8 @@ export const packages = [
       ['example-A-generation-prompt.txt','실제 생성 Prompt A · 생성 기록','evidence'],['example-B-generation-prompt.txt','실제 생성 Prompt B · 생성 기록','evidence']] },
 ].map((project)=>({...project, assets:project.assets.map(([suffix,label,stage])=>({file:`${project.id}_${suffix}`,label,stage}))}));
 export const originalPath = (id,file) => path.join(repositoryRoot, 'review','daejeon',id, ...(id==='DJ-CF-02' && file.endsWith('-generation-prompt.txt')?['instructor']:[]), file);
-export const promptText = (id,suffix) => readFileSync(originalPath(id, `${id}_${suffix}`),'utf8').trim();
-export const simpleBriefPrompt = (id) => `첨부한 ${id} RFP 분석표를 원문·기준 도면·현황자료와 대조한 뒤 검증된 핵심 조건으로 간단한 Design Brief를 작성해 주세요. 미검증 항목은 먼저 대조 대상으로 표시하세요.
+export const promptText = (id,suffix) => workbookLesson01Text(readFileSync(originalPath(id, `${id}_${suffix}`),'utf8').trim());
+export const simpleBriefPrompt = (id) => workbookLesson01Text(`첨부한 ${id} RFP 분석표를 원문·기준 도면·현황자료와 대조한 뒤 검증된 핵심 조건으로 간단한 Design Brief를 작성해 주세요. 미검증 항목은 먼저 대조 대상으로 표시하세요.
 RFP를 다시 요약하지 말고 다음 디자인 작업에 사용할 실행 기준으로 정리하세요.
 각 항목은 1~3문장으로 쓰세요.
 1. 프로젝트 목표
@@ -50,8 +51,8 @@ RFP를 다시 요약하지 말고 다음 디자인 작업에 사용할 실행 �
 9. 디자인 대안 전략 2개
 10. 결과 검토 기준
 각 판단에 RFP 요구 ID 또는 근거 자료·페이지를 붙이고 원문 조건과 새 설계 판단을 구분하세요. 없는 수치·예산·운영·철거 승인 조건을 채우지 마세요. 미확정 조건은 그대로 두고 임시 가정에는 확인할 질문을 붙이세요.
-전략 2개는 직접 정한 우선순위를 근거로 서로 다른 공간 사용 또는 외관 표현 방법으로 제안하세요. 색상만 바꾸지 말고 장점·한계·비교 기준을 적으세요. 제공된 A/B 예시를 정답으로 사용하지 마세요.
-같은 입력 이미지·시점·고정 조건으로 비교합니다. 제외 범위를 넘어가지 말고 실제 치수·구조·설비·시공·법규 적합성은 이미지로 확정하지 마세요. 추가 질문과 전문가 확인 항목은 분석표에 남기고 선택 전 다시 확인하세요.`;
+우선순위와 전략은 사람이 다음 단계에서 선택·보완할 후보 제안 초안입니다. 확정된 디자인 기준이라고 쓰지 마세요. 전략 2개는 검증한 조건을 근거로 서로 다른 공간 사용 또는 외관 표현 방법으로 제안하세요. 색상만 바꾸지 말고 장점·한계·비교 기준을 적으세요. 제공된 A/B 예시를 정답으로 사용하지 마세요.
+같은 입력 이미지·시점·고정 조건으로 비교합니다. 제외 범위를 넘어가지 말고 실제 치수·구조·설비·시공·법규 적합성은 이미지로 확정하지 마세요. 추가 질문과 전문가 확인 항목은 분석표에 남기고 선택 전 다시 확인하세요.`);
 export const generatedPrompts = () => [
   ...packages.map((p)=>({file:`practice/${p.id}/${p.id}_day01-design-brief-prompt.txt`,text:simpleBriefPrompt(p.id)})),
 ];

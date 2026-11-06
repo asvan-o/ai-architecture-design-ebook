@@ -156,8 +156,10 @@ const recheckPrompt = getPrompt('lesson11-prompt-06');
     <dl class="prompt-context" data-lesson11-prompt-context={checklistPrompt.id}>
       {promptContextLabels.map(([key, label]) => <div><dt>{label}</dt><dd>{humanizeLegalText(checklistPrompt.context[key])}</dd></div>)}
     </dl>
+    <aside class="boundary-box" data-checklist-execution-contract><h3>이 단계에서 저장할 체크리스트는 하나입니다</h3><p>필수 실행본은 먼저 표시되는 현행 자료 기준 7열 표입니다. B00과 실제 추가한 N자료를 사용하고 원문 대조 후 이 표 한 개만 B99로 저장합니다. 아래 별도 형식은 비교 참고이며 연속 실행해 B99를 덮어쓰지 않습니다.</p></aside>
     <PromptCopyBlock {...baseChecklistPrompt} />
-    <PromptCopyBlock {...checklistPrompt} />
+    <div class="boundary-box"><h4>구 코드와 이번 자료의 대응</h4><ul><li>B03 → N06 + 별표 6(주차장 조례)</li><li>B06 → N07 + 필요한 별표(건축법 시행령)</li><li>B07 → N04(도시계획 조례)</li><li>B08·B08-1 → N09 + 별표 1(편의시설 세부기준)</li><li>B05-1은 보관 참고. 적용 시 현행 공식 BF 인증지표 별도 확인</li></ul><p>대응은 자료의 역할을 나타냅니다. 서로 다른 판본의 내용 일치나 이 사업에 대한 적용을 보증하지 않습니다.</p></div>
+    <details><summary>비교 참고 · 다른 열·상태를 쓰는 체크리스트</summary><p>다른 형식의 원문 예시이며 필수본의 7열·4상태와 다릅니다. 비교하려면 별도 이름으로 저장하고 항목을 대응시킨 뒤 채택을 판단합니다. 다음 교차검증에는 사람이 확인한 B99 한 개를 전달합니다.</p><PromptCopyBlock {...checklistPrompt} /></details>
   </LessonSection></>}
 
   {selectedSections.includes('10')&&<><LessonSection id={sectionMap['gw11-10'].id} number={String(sectionMap['gw11-10'].index).padStart(2,'0')} minutes={sectionMap['gw11-10'].minutes} title={sectionMap['gw11-10'].title} lessonId={lessonId}>

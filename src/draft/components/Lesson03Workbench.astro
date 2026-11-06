@@ -21,11 +21,11 @@ const initial=workPrompts({space:'',target:'',intent:'',material:'Dark Walnut',n
   <p>실습 예제는 Dark Walnut입니다. 다른 재질을 고르면 바꿀 면과 적용 목적이 연결되는지 읽습니다.</p>
 </div>}
 {area==='first-prompt'&&<>
-  <p data-l03-prompt-status aria-live="polite">선택한 공간·면·재질이 아래 요청문에 반영됩니다. 대괄호가 남아 있으면 실행 전에 채웁니다.</p>
+  <p data-l03-prompt-status aria-live="polite">선택한 공간·면·재질이 아래 요청문에 반영됩니다. 꺾쇠 빈칸이 남아 있으면 실행 전에 채웁니다.</p>
   <details data-l03-live-prompt><summary>내 공간 일부 수정 Prompt 보기</summary><ReviewPrompt id="l03-my-first-edit" title="내 공간 일부 수정 Prompt · 7단 구조" prompt={initial.first} filename="내-공간-일부수정-Prompt.txt" /></details>
 </>}
 {area==='final-prompt'&&<>
-  <div class="l03-input-panel"><label>최종 콘셉트의 우드 방향<select data-l03-next-material>{lesson03Materials.map(material=><option value={material.id} selected={material.id==='M-24'}>{material.name}</option>)}</select></label><p>심화 예제은 Natural Oak·웜 스톤·오트밀입니다. 앞 단계의 한 면 수정과 달리 여러 기존 표면과 조명 인상을 함께 바꿉니다. 다른 재질을 고르면 보드와 실제 요청도 함께 맞춥니다.</p></div>
+  <div class="l03-input-panel"><label>최종 콘셉트의 주재료·포인트 방향<select data-l03-next-material>{lesson03Materials.map(material=><option value={material.id} selected={material.id==='M-24'}>{material.name}</option>)}</select></label><p>제공 warm 보드를 사용하는 기본 경로는 Natural Oak를 선택합니다. 다른 재료(석재·포세린 등)를 선택하는 자기 보드 경로는 먼저 그 재료와 일치하는 카드·팔레트로 보드를 수정한 뒤 사용합니다. 선택한 재질은 지정 면에만 적용하며 다른 마감과 조명은 첨부 보드에 맞춥니다.</p></div>
   <details data-l03-live-prompt><summary>내 새로운 공간 콘셉트 Prompt 보기</summary><ReviewPrompt id="l03-my-new-concept" title="내 새로운 공간 콘셉트 Prompt · 7단 구조" prompt={initial.final} filename="내-새로운-공간콘셉트-Prompt.txt" /></details>
 </>}
 {area==='records'&&<>

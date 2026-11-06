@@ -60,7 +60,9 @@ export const lesson03SamplePrompts=promptDefinitions.map(([key,file,title,downlo
   assert.equal(digest,newFile?.sha256||approvedSums.get('prompts/'+file)||digest,'Approved sample prompt changed: '+file);
   if(key!=='meta')assert(call&&bytes.toString('utf8').trimEnd()===call.actualPrompt.trimEnd(),'Actual image prompt mismatch: '+file);
   assert(!/\b(?:S0|S1|B1|B2|S2)\b|DJ-L03|\bx\s*=|\by\s*=|preservation correction/i.test(bytes.toString('utf8')),'Internal details in student prompt');
-  return {key,source,file,title,downloadName,text:bytes.toString('utf8').trim(),outputPath:'practice/DJ-L03/'+file,sha256:createHash('sha256').update(bytes).digest('hex')};
+  const adapted=path.join(sampleRoot,'workbook-prompts',file);
+  const studentSource=existsSync(adapted)?adapted:source,studentBytes=readFileSync(studentSource);
+  return {key,source:studentSource,file,title,downloadName,text:studentBytes.toString('utf8').trim(),outputPath:'practice/DJ-L03/'+file,sha256:createHash('sha256').update(studentBytes).digest('hex'),originalPromptSha256:digest};
 });
 export const lesson03SamplePrompt=Object.fromEntries(lesson03SamplePrompts.map(prompt=>[prompt.key,prompt]));
 export const lesson03SampleAnalysis=ebookText(readFileSync(path.join(sampleRoot,'analysis/DJ-L03_03_design-analysis.txt'),'utf8').trim());

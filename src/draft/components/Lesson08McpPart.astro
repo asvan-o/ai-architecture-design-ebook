@@ -54,7 +54,7 @@ const block=(id:string)=>mcpBlocks.find(row=>row.id===id)!;
   <p><strong>File → Save As(Ctrl + Shift + S)</strong> → <code>L08_MCP_Hello_Room.blend</code>로 작업 원본을 저장합니다. Export는 다른 도구에 전달할 사본을 만드는 작업이며 <code>.blend</code> 원본 저장을 대신하지 않습니다.</p>
   <div class="mcp-table mcp-mobile-cards" data-model-export-formats><table><thead><tr><th>형식</th><th>주요 용도</th><th>메뉴·설정 확인</th></tr></thead><tbody>{modelExportFormats.map(row=><tr><th>{row.format}</th><td data-label="주요 용도">{row.use}</td><td data-label="메뉴·설정 확인">{row.tip}</td></tr>)}</tbody></table></div>
   <p>내보낸 파일을 대상 앱에서 다시 열고 크기·축·관통 창·재질을 확인합니다. 파일 확장자만 바꾸는 것은 형식 변환이 아니며, 3D 모양을 담은 파일에 건축 정보나 법규 검증 결과까지 자동으로 생기는 것은 아닙니다.</p>
-  <aside class="mcp-note"><strong>제9차시로 이어갑니다</strong><p>오늘 구축한 Blender + MCP 환경과 도면 판독 기준표를 바탕으로, 제9차시에서는 도면 기반 Step 1~3 모델링·재질·조명과 Step 4 카메라 무빙 실습을 진행합니다.</p></aside>
+  <aside class="mcp-note"><strong>제9차시로 이어갑니다</strong><p>제9차시에서는 오피스 도면 대신 새로운 ‘모던 3층 단독주택’ 도면으로 프로젝트를 전환합니다. 오늘 구축한 Blender + MCP 환경과 기준표 작성·검증 방법을 적용하되 오피스의 실명·치수·관계를 복사하지 않습니다. 새 주택 기준표를 만든 뒤 Step 1~3 모델링·재질·조명과 Step 4 카메라 무빙을 진행합니다.</p></aside>
 
  </>}
  <p class="mcp-small">참고: {mcpReferences.map(([title,href])=><a href={href} target="_blank" rel="noreferrer">{title} · </a>)} (배포 애드온과 호환되는 blender-mcp 명령 사용)</p>

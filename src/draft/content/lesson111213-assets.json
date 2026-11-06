@@ -503,8 +503,8 @@
     "title": "내·외장재와 가구 디자인 콘셉트 무드보드 생성",
     "caption": "재료·가구·조명의 조합을 실제 질감 이미지로 시험하고 공간의 분위기를 한 장에서 비교합니다.",
     "group": "prompt",
-    "bytes": 1773,
-    "sha256": "cf5b58ed6cba53bf5c82f73a0d93faae56d6291e13243a308aacdd26d385880e"
+    "bytes": 1861,
+    "sha256": "510e6a67681302cfd252dbb3438510fe5c4725d30842e16128c9cdadc977cca8"
   },
   {
     "outputPath": "downloads/daejeon/lesson-12/프롬프트03_실사형_아이소메트릭_조닝.txt",
@@ -512,8 +512,8 @@
     "title": "2D 평면도 기반 실사형 3D 아이소메트릭과 공간 조닝 보드 생성",
     "caption": "벽·문·창·계단 관계를 지키며 공간을 입체로 설명하고 층별 생활과 동선을 색으로 구분합니다.",
     "group": "prompt",
-    "bytes": 1336,
-    "sha256": "e1d0427c93c14a47966c11c19bbc054d683d17d7892dd75c2dd149d52bebbb4d"
+    "bytes": 1576,
+    "sha256": "a62145ebf5d7bd6945630ec5cb86862375bc0ef90fc23ebcb90da6008e5ecc9d"
   },
   {
     "outputPath": "downloads/daejeon/lesson-12/프롬프트04_스튜디오로고_표지_내지디자인.txt",
@@ -521,8 +521,8 @@
     "title": "건축 스튜디오 로고와 AI 포트폴리오 표지·내지 레이아웃 생성",
     "caption": "브랜드 로고를 먼저 정하고 이미지 중심 디자인 시안과 정확한 편집 글자의 역할을 나눕니다.",
     "group": "prompt",
-    "bytes": 1462,
-    "sha256": "be59a644754505e8a65e786be4fcc63513d424417a71991f75b99bc4f05fef95"
+    "bytes": 1555,
+    "sha256": "51e544be9dcbf6bc315ef1f7406d79d2f44fae895f9898ed35e9199e976f377d"
   },
   {
     "outputPath": "downloads/daejeon/lesson-12/프롬프트05_PPT8장_헤드라인_설계카피_스펙표.txt",
@@ -539,8 +539,8 @@
     "title": "슬라이드·보드 왜곡 검수와 프로젝트 결과보고서 초안 작성",
     "caption": "시각 오류를 찾아 수정·보류하고 실제 실행·판단·미확정 사항이 남는 보고서를 작성합니다.",
     "group": "prompt",
-    "bytes": 1467,
-    "sha256": "b2c5a700e7fc6f63c4032d98ea86849886f8edfc640dd18d4106bc11c338448e"
+    "bytes": 1877,
+    "sha256": "73fa79e66b44b64a4d8f6cbb938082f658786576a5209fe9f6bf36b4d8b389d6"
   },
   {
     "outputPath": "downloads/daejeon/lesson-11/8장_PPT_스토리보드_작성표.md",
@@ -630,7 +630,7 @@
     "caption": "ZIP 내부 각 파일과 바이트를 대조합니다.",
     "group": "packageHashes",
     "bytes": 8111,
-    "sha256": "fed49c66fd2a36822c9d65153d16aba330dd55b25b1ca4051bcb3d242af7fc24"
+    "sha256": "22565aa1c18fd5cb40c2a22da2ab09311ae7c0a6f0a5190c9eb969c5d49ac89e"
   },
   {
     "outputPath": "downloads/daejeon/lesson-13/제11_13차시_포트폴리오_PPT_결과보고서_통합패키지.zip",
@@ -638,7 +638,7 @@
     "title": "제11~13차시 통합 실습 패키지",
     "caption": "보드·PPT·보고서·도면·재료·프롬프트를 받습니다. 중복 3D 원본과 기준 렌더는 제9차시에서 개별 다운로드합니다.",
     "group": "packageDownload",
-    "bytes": 79308853,
-    "sha256": "2c55c08c82e3d4f7ab4002b06232b9e8f83b88089bbe8461a79248be4aeec47e"
+    "bytes": 79309138,
+    "sha256": "81c6d20979210e67552a5641fac7cbedbeea78d4532f613b5106340737864c1e"
   }
 ]

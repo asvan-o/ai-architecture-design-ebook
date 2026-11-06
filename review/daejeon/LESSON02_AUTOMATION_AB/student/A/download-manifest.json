@@ -10,13 +10,13 @@
     },
     {
       "file": "A_FIRST_REQUEST.txt",
-      "bytes": 2009,
-      "sha256": "a076e5a968beea0e73eabf6cbab57027b79d1dfd5ce5dd0b1525a6f7c155485d"
+      "bytes": 2044,
+      "sha256": "f36afd38cb6c464927528cc4dc4cc8db708e80176b6c8a2196bd339fdfe10844"
     },
     {
       "file": "A_IMPLEMENTATION_APPROVAL.txt",
-      "bytes": 8192,
-      "sha256": "6d9ddab4a46eb1739de1686570fc88e270a84377ca68e959baad62d3dc9f2740"
+      "bytes": 8558,
+      "sha256": "2902dc4b46d76da79793108fa81b52a35a94a3993da2e0cc25cce6f9bd9ee171"
     },
     {
       "file": "A_INPUT_UI_AUTOMATIC.png",

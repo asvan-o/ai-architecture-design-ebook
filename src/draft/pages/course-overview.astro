@@ -18,7 +18,15 @@ const toc = [{id:'course-roadmap',title:'7개 대주제 Roadmap'},...overviewSec
     {section.id === 'learn' && <p>직접 만든 결과와 원본을 비교하며, 무엇을 유지하고 바꿀지 판단하는 연습을 합니다.</p>}
     {section.id === 'roles' && <p>구체적인 역할과 판단 사례는 제1차시에서 살펴봅니다.</p>}
     {section.id === 'workflow' && <ol class="review-flow" aria-label="전체 과정 방향">{workflow.map(([title, description]) => <li><div><strong>{title}</strong><span>{description}</span></div></li>)}</ol>}
-    {section.id === 'tools' && <p>요청 정리, 이미지 편집, 도면 해석, 3D 표현에 필요한 기능이 서로 다릅니다. 도구 이름보다 오늘 하려는 작업을 먼저 확인합니다.</p>}
+    {section.id === 'tools' && <><p>요청 정리, 이미지 편집, 도면 해석, 3D 표현에 필요한 기능이 서로 다릅니다. 도구 이름보다 오늘 하려는 작업을 먼저 확인합니다.</p>
+      <div class="review-card" data-prompt-role-legend><h3>요청문을 쓰기 전에 역할부터 확인합니다</h3><ol>
+        <li><strong>학습·오류 비교 예시:</strong> 문장 구조와 충돌 조건을 읽는 예시입니다. 생성 실행하지 않습니다.</li>
+        <li><strong>텍스트 분석·기획 요청:</strong> 자료를 읽고 기준표·계획·요청문 초안을 받습니다.</li>
+        <li><strong>이미지 생성·편집 요청:</strong> 편집 대상과 참고 자료를 구분해 이미지 한 장을 만듭니다. 표·비교 메모는 별도 텍스트 작업으로 진행합니다.</li>
+        <li><strong>로컬 코드·터미널·MCP 실행:</strong> 폴더 접근 권한, 실행 도구와 선행 파일·씬을 확인한 뒤 실행합니다. 일반 웹 채팅의 기획 응답은 실제 파일 생성·실행과 다릅니다.</li>
+        <li><strong>사람의 사후 검수 체크리스트:</strong> 생성 후 원자료와 나란히 대조하고 유지·수정·제외를 판단합니다.</li>
+      </ol><p>각 복사 블록의 역할·실행 플랫폼·준비 자료를 먼저 읽습니다. <code>[목적]</code> 같은 항목 제목은 그대로 두고, <code>&lt;내 조건&gt;</code>은 실제 값으로 바꿉니다. TOML·DOT·PowerShell 안의 대괄호는 코드 문법이므로 임의로 바꾸지 않습니다.</p><p>생성형 결과는 도구·모델 버전과 실행마다 달라질 수 있습니다. 카메라·도면 비례·개구부·문자·근거 자료처럼 고정할 기준은 요청문에 적고 결과에서 다시 확인합니다. 생성이 늦어지면 제공 예시로 비교를 이어갑니다. 정확한 픽셀 정합과 치수 검수는 이미지 편집기·CAD 또는 코드 연산으로 확인합니다.</p></div>
+    </>}
     {section.id === 'cycle' && <ol class="review-cycle" aria-label="반복 작업 순서">{['첫 제안','사람의 확인','수정과 비교'].map(item=><li>{item}</li>)}</ol>}
     {section.id === 'safe' && <p>개인정보·저작권·업로드 권한의 구체적인 확인 방법은 제1차시에서 다룹니다.</p>}
     {section.id === 'project' && <p>교육용 예제로 작업 방법을 익힌 뒤, 권한과 실제 조건을 확인한 자신의 프로젝트에 적용합니다.</p>}

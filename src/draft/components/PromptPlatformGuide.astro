@@ -1,13 +1,18 @@
 ---
 import {getPromptPlatformGuide} from '../content/prompt-platform-guides';
 import type {PromptPlatformGuide as PlatformGuideData} from '../content/prompt-platform-guides';
+import {applyPromptAlignment, promptRoleLabels} from '../content/prompt-alignment';
 interface Props {guide?:PlatformGuideData & {purpose?:string;variables?:string;};id:string;platform?:string;howToUse?:string;}
 const {id,platform,howToUse,guide:override}=Astro.props;
-const guide=override||getPromptPlatformGuide(id);
+const guide=applyPromptAlignment(id,override||getPromptPlatformGuide(id==='l04-compare-short'?'l04-compare-7step':id));
 ---
-<aside class="prompt-platform-guide" data-prompt-platform={id} data-platform-kind={guide.kind}>
+<aside class="prompt-platform-guide" data-prompt-platform={id} data-platform-kind={guide.kind} data-prompt-role={guide.role}>
+  <p data-guide-field="role"><strong>요청문 역할</strong><span>{promptRoleLabels[guide.role]} · {guide.execution}</span></p>
   <p data-guide-field="platform"><strong>{guide.kind==='terminal'?'실행 환경':'실행 플랫폼'}</strong><span>{platform||guide.platform}</span></p>
   <p data-guide-field="howToUse"><strong>준비·실행</strong><span>{howToUse||guide.howToUse}</span></p>
+  {guide.editTarget&&<p data-guide-field="editTarget"><strong>편집·분석 대상</strong><span>{guide.editTarget}</span></p>}
+  {guide.referenceInputs&&<p data-guide-field="referenceInputs"><strong>비교 참고 자료</strong><span>{guide.referenceInputs}</span></p>}
+  {guide.prerequisite&&<p data-guide-field="prerequisite"><strong>선행 준비 상태</strong><span>{guide.prerequisite}</span></p>}
   {override?.purpose?<div class="four-step-guide" data-four-step-guide>
     <p data-guide-field="purpose"><strong>이 프롬프트가 하는 일</strong><span>{override.purpose}</span></p>
     <p data-guide-field="derivation"><strong>왜 이런 순서로 적는가</strong><span>{guide.derivation}</span></p>

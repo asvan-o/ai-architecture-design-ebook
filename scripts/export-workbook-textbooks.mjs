@@ -58,7 +58,7 @@ try{
   await page.addInitScript(({storageKey,passwordHash})=>sessionStorage.setItem(storageKey,passwordHash),{storageKey:access.sessionStorageKey+':course:'+build.courseId,passwordHash:access.passwordHash});
   assert((await page.goto(`http://127.0.0.1:${port}${build.basePath}/${target.route}/`,{waitUntil:'networkidle'}))?.ok(),target.route);
   assert.equal(await page.locator('html').getAttribute('data-ebook-access'),'unlocked','Author export session must be unlocked.');
-  await page.emulateMedia({media:'print'});await page.addStyleTag({content:css});
+  await page.emulateMedia({media:'print'});await page.evaluate(key=>{document.documentElement.dataset.workbookPrintLesson=key;},target.key);await page.addStyleTag({content:css});
   const audit=await page.locator('main').evaluate((main,key)=>{
    const sourceText=main.textContent;
    const details=[...main.querySelectorAll('details')].map(d=>{

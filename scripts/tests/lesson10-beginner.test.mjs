@@ -17,7 +17,7 @@ test('프롬프트 13개마다 실행 자료·목적·통제 이유·짧은 요�
   for(const field of ['platform','howToUse','purpose','derivation','variables','aiPromptTip'])assert(g[field].length>12,field);
   assert(/[가-힣]/.test(g.filename));assert(fs.existsSync(root+'public/downloads/daejeon/lesson-10/'+g.filename));
  }
- const body=read(root+'src/draft/components/GwangjuLegalPrompt.astro');assert(body.includes('<PromptPlatformGuide'));assert(body.includes('{prompt}'));
+ const body=read(root+'src/draft/components/GwangjuLegalPrompt.astro');assert(body.includes('<PromptPlatformGuide'));assert(body.includes('prompt={executionPrompt}'));assert(body.includes('workbookChecklistPrompt'));
 });
 test('자료 48종에 한글 문서명이 있고 요청한 프로젝트 파일명이 정확히 대응한다',()=>{
  for(const i of data.items){assert(/[가-힣]/.test(i.file),i.file);assert(!i.file.startsWith('bandabi-'));}

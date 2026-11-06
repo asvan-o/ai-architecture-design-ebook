@@ -13,9 +13,11 @@ test('Daejeon uses byte-identical canonical legal data; no project or law source
  assert.deepEqual(copied10.legalSources.map(x=>x.code),['B03','B06','B07','B08','B08-1','B05-1','B90']);
  assert.match(copied10.projectSources[0].source,/서산시 반다비/);
 });
-test('All 13 canonical prompts retain their complete text in downloads and the taught workflow',()=>{
+test('Canonical prompts stay protected; the workbook checklist download uses its approved current-source adaptation',()=>{
  const prompts=[...copied10.lesson10Prompts,...copied11.lesson11Prompts];assert.equal(prompts.length,13);assert.equal(new Set(prompts.map(p=>p.id)).size,13);
- for(const p of prompts)assert.equal(read('public/downloads/daejeon/lesson-10/'+promptGuides[p.id].filename).replaceAll('\r\n','\n').trimEnd(),p.prompt.replaceAll('\r\n','\n').trimEnd(),p.id);
+ const adapted=read('src/draft/content/lesson10-workbook-prompts.ts').match(/export const workbookChecklistPrompt=`([\s\S]*?)`;/)[1];
+ assert.match(adapted,/N06[\s\S]*N07[\s\S]*N04[\s\S]*N09/);assert.match(adapted,/B99_법규검토_체크리스트/);
+ for(const p of prompts)assert.equal(read('public/downloads/daejeon/lesson-10/'+promptGuides[p.id].filename).replaceAll('\r\n','\n').trimEnd(),(p.id==='lesson10-prompt-b02'?adapted:p.prompt).replaceAll('\r\n','\n').trimEnd(),p.id);
  assert.deepEqual(copied11.lesson11Workflow,['프로젝트 원자료','NotebookLM A','B00 프로젝트 조건 기준서','GPT 법규 Research','공식 법규 Source 확보','NotebookLM B','1차 법규 검토 체크리스트','GPT 독립 교차검증','NotebookLM B 보완·GPT 재검증','사람 최종검수']);
  assert.match(copied10.lesson10Prompts.find(p=>p.id==='lesson10-prompt-a00').prompt,/프로젝트 원자료/);
  assert.match(copied11.lesson11Prompts.find(p=>p.id==='lesson11-prompt-03').prompt,/B00/);
@@ -31,7 +33,7 @@ test('29 integrated sections follow the requested original sequence and three 50
 test('Original scoped card styles are retained; temporary reversed-role materials are retired',()=>{
  for(const [n,file]of[['10','Lesson10GroundedLegalReview.astro'],['11','Lesson11LegalCrossValidation.astro']]){
   const a=read('src/components/content/'+file),b=read('src/draft/components/GwangjuLesson'+n+'LegalContent.astro');
-  assert.equal(a.slice(a.indexOf('<style>')),b.slice(b.indexOf('<style>')),file);
+  assert.equal(a.slice(a.indexOf('<style>')).replaceAll('\r\n','\n'),b.slice(b.indexOf('<style>')).replaceAll('\r\n','\n'),file);
  }
  const shared=JSON.parse(read('src/draft/content/lesson0910-source.json'));
  for(const id of ['l10-source-audit','l10-project-evidence','l10-site-check','l10-spatial-check','l10-hallucination-check','l10-final-report'])assert(!shared.prompts[id],id);

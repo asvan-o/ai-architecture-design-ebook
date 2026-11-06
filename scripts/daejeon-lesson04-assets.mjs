@@ -12,7 +12,7 @@ const asset=item=>{
   const source=path.join(root,item.file),bytes=readFileSync(source),sha256=createHash('sha256').update(bytes).digest('hex');
   const expected=manifest.files.find(f=>f.file===item.file);
   if(expected)assert.equal(sha256,expected.sha256,'Lesson04 asset changed: '+item.file);
-  return {...item,title:ebookText(item.title||''),description:ebookText(item.description||''),type:ebookText(item.type||''),originalSource:item.source||expected?.source||item.file,source,sha256,outputPath:'practice/DJ-L04/'+item.file,...(item.file.endsWith('.png')?{width:bytes.readUInt32BE(16),height:bytes.readUInt32BE(20)}:(/\.(?:txt|md|json)$/.test(item.file)?{text:bytes.toString('utf8').trim()}:{}))};
+  return {...item,title:ebookText(item.key?.endsWith('-short')?(item.title||'').replace(/(?:실제 생성 원문|같은 생성 원문|실행용 원문)/g,'짧은 실행 요청문'):(item.title||'')),description:ebookText(item.description||''),type:ebookText(item.type||''),originalSource:item.source||expected?.source||item.file,source,sha256,outputPath:'practice/DJ-L04/'+item.file,...(item.file.endsWith('.png')?{width:bytes.readUInt32BE(16),height:bytes.readUInt32BE(20)}:(/\.(?:txt|md|json)$/.test(item.file)?{text:bytes.toString('utf8').trim()}:{}))};
 };
 /** @type {Lesson04Asset[]} */
 export const lesson04Bases=manifest.bases.map(asset);

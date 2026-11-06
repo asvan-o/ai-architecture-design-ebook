@@ -15,7 +15,7 @@ export const openVinoProjectSetup = [
 export const openVinoVenvSetup = ['python -m venv .venv', 'Test-Path .\\.venv\\Scripts\\python.exe'].join('\n');
 export const openVinoPackageSetup = [
   '.\\.venv\\Scripts\\python.exe -m pip install --upgrade pip',
-  '.\\.venv\\Scripts\\python.exe -m pip install openvino opencv-python numpy',
+  '.\\.venv\\Scripts\\python.exe -m pip install -r .\\requirements-verified.txt',
 ].join('\n');
 export const openVinoFolderSetup = [
   'New-Item -ItemType Directory -Force -Path ".\\model" | Out-Null',
@@ -71,7 +71,7 @@ export const openVinoSteps = [
  {title:'Python 3.12 설치와 새 터미널 확인',description:'Python이 없으면 사용자 범위에 설치합니다. 설치 후 현재 PowerShell 창을 완전히 닫고 새 창에서 확인합니다. Python 3.12.x와 pip 버전을 확인한 뒤 계속합니다.',commands:[{title:'Python 3.12 설치',text:openVinoPythonInstall},{title:'새 PowerShell에서 Python과 pip 확인',text:openVinoPythonCheck}]},
  {title:'바탕화면에 프로젝트 폴더 생성',description:'DesktopDirectory로 Windows가 인식하는 실제 바탕화면을 찾습니다. OneDrive 바탕화면에서도 같은 방식으로 작업 위치를 정합니다.',commands:[{title:'OpenVINO_SR1033 만들기와 폴더 열기',text:openVinoProjectSetup}]},
  {title:'독립 가상환경 생성',description:'프로젝트 폴더에서 실행합니다. Test-Path 결과가 True인지 확인합니다. Activate 대신 가상환경 Python을 직접 호출합니다.',commands:[{title:'.venv 생성과 실행 파일 확인',text:openVinoVenvSetup}]},
- {title:'OpenVINO · OpenCV · NumPy 설치',description:'OpenVINO는 AI 모델 실행, OpenCV는 이미지 읽기·크기 변경·저장, NumPy는 이미지 배열 처리를 담당합니다.',commands:[{title:'pip 업데이트와 패키지 설치',text:openVinoPackageSetup}]},
+ {title:'OpenVINO · OpenCV · NumPy 설치',description:'먼저 CPU 실행 ZIP의 requirements-verified.txt를 현재 OpenVINO_SR1033 폴더에 둡니다. 이 파일에 기록된 고정 버전으로 설치합니다(OpenVINO 2026.4.1 · OpenCV 5.0.0.93 · NumPy 2.5.4). OpenVINO는 모델 실행, OpenCV는 이미지 입출력, NumPy는 배열 처리를 담당합니다.',commands:[{title:'pip 업데이트와 패키지 설치',text:openVinoPackageSetup}]},
  {title:'model · input · output 폴더 생성',description:'모델, 원본 입력, 결과를 서로 다른 폴더에 보관합니다.',commands:[{title:'실습 폴더 생성',text:openVinoFolderSetup}]},
  {title:'설치와 CPU 인식 확인',description:'OpenVINO·OpenCV·NumPy 버전과 장치 목록을 확인합니다. 목록에 CPU가 있어야 합니다. 실행 스크립트는 CPU를 지정합니다.',commands:[{title:'패키지와 실행 장치 확인',text:openVinoCpuCheck}]},
  {title:'SR1033 FP16 모델 다운로드',description:'Open Model Zoo의 XML과 BIN을 같은 model 폴더에 저장합니다. 두 파일의 이름을 바꾸지 않습니다.',commands:[{title:'공식 SR1033 XML · BIN 다운로드',text:openVinoDownloadCommands}]},

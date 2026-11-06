@@ -2,7 +2,8 @@
 import ReviewPrompt from './ReviewPrompt.astro';
 import Lesson07FloorplanAsset from './Lesson07FloorplanAsset.astro';
 import Lesson07Asset from './Lesson07Asset.astro';
-import {floorplanPrompts,actualDotCode,reviewRows,functionGroups,sourcePrinciples,criteriaStates,relationshipRules,floorplanDeliverables,floorplanPreparationTracks,floorplanPlatformFlow,floorplanStageIO,cleanLinePrompt,floorplanTextChecks} from '../content/lesson07-floorplan';
+import {floorplanPrompts,cleanLinePrompt} from '../content/lesson08-workbook-prompts';
+import {actualDotCode,reviewRows,functionGroups,sourcePrinciples,criteriaStates,relationshipRules,floorplanDeliverables,floorplanPreparationTracks,floorplanPlatformFlow,floorplanStageIO,floorplanTextChecks} from '../content/lesson07-floorplan';
 interface Props {sectionId:string;}
 const {sectionId}=Astro.props;
 const sourceSectionId=sectionId.replace(/^l08-/,'l07-');
@@ -49,7 +50,10 @@ const href=(file:string)=>base+'/downloads/daejeon/lesson-08/'+file;
   <h3>원본 → 선화 → Top View의 문자 변형 대조</h3><div class="l07-fp-table" data-l07-text-checks><table><thead><tr><th>원본</th><th>선화</th><th>Top View</th><th>검토·교정 기준</th></tr></thead><tbody>{floorplanTextChecks.map(row=><tr>{row.map(cell=><td>{cell}</td>)}</tr>)}</tbody></table></div>
   <h3>클린 선화와 구조 검토용 입체 이미지</h3><div class="l07-fp-grid"><Lesson07FloorplanAsset lesson="08" assetKey="top-view" /></div>
   <p>입체 비교본에도 모형실 → 이사실, 소장실 → 사장실, 계단참 → 계단창, 13인승 → 1.5인승을 교육용으로 의도했습니다. 실제 AI가 같은 오류를 재현했다는 뜻은 아닙니다. 원본 PDF·확정 기준표를 사실 기준으로 함께 입력하고, 입체의 가구·개구부·재료·문자도 원도면과 다시 비교합니다.</p>
+  <aside class="l07-fp-note"><strong>Top View 입력 준비</strong><p>ChatGPT에서는 현재 대화가 PDF 페이지의 시각 내용까지 읽는지 먼저 확인합니다. PDF가 텍스트로만 읽히거나 이미지 편집 입력으로 선택되지 않으면 해당 원본 페이지를 PNG로 내보내 첨부합니다. Google AI Studio의 Nano Banana에서는 이미지 입력 칸에 원본 페이지 PNG와 선화 이미지를 넣고 기준표는 텍스트로 붙여 넣습니다. 현재 선택한 모델이 PDF 페이지를 직접 이미지로 읽는다고 확인되지 않으면 PDF를 읽었다고 가정하지 않습니다. 어느 경로든 원본 페이지 → 선화 순서와 기준표를 명시합니다.</p></aside>
   <details><summary>보조 프롬프트 · 구조 검토용 Top View 3D 생성</summary><ReviewPrompt id="l07-plan-topview" title="구조 검토용 Top View 3D 생성 프롬프트" prompt={floorplanPrompts.topViewPrompt} href={enabled?href('top-view-structure.txt'):undefined} filename="top-view-structure.txt" /></details>
+
+  <aside class="l07-fp-note" data-image-human-review><strong>생성 뒤 사람이 하는 검수 · 이미지 요청문과 분리</strong><ul><li>원본과 생성 결과를 나란히 놓고 벽·문·창·계단·코어·데크의 위치를 대조합니다.</li><li>선화는 제거된 주석 / 유지된 구조 / 추가 확인할 부분으로 기록합니다. 글자·문 방향이 바뀌었으면 원본과 기준표로 바로잡습니다.</li><li>텍스트 AI의 도움을 받으려면 별도 대화에서 원본·결과·기준표를 함께 첨부하고 “두 이미지를 실제로 열람했는지 먼저 밝히고 위치별 일치·불일치·판독 불가만 표로 정리해 줘. 보이지 않는 부분은 추정하지 마.”라고 요청합니다.</li><li>AI의 자기 보고를 보존 증명으로 쓰지 않고 원본 위치를 직접 확인합니다.</li></ul></aside>
   <h3>원도면 대조 체크리스트</h3><div class="l07-fp-table"><table><thead><tr><th>검토 항목</th><th>일치</th><th>불일치</th><th>확인 불가</th><th>원본 근거</th></tr></thead><tbody>{reviewRows.map(row=><tr><th>{row}</th><td>□</td><td>□</td><td>□</td><td>페이지·도면 위치</td></tr>)}</tbody></table></div>
   <p>KEEP 직접 연결 9개와 승강기 출입면의 수평 접근을 구별합니다. -30/-60 구조레벨을 완성바닥 문턱 단차로, 계단참 EL+2,200을 확정 높이로 바꾸어 해석하지 않습니다.</p>
  </>}
@@ -77,7 +81,7 @@ const href=(file:string)=>base+'/downloads/daejeon/lesson-08/'+file;
   <p>원본 근거가 있는 정보와 추가 확인할 정보를 함께 보관합니다. 클린 선화·입체 이미지·관계도를 원도면의 대체물로 사용하지 않습니다.</p>
   {enabled&&<div class="l07-fp-downloads"><a class="review-download" href={href('DJ-L08-Floorplan-Graphviz-Pack.zip')} download>도면 판독·Graphviz 실습자료 ZIP 다운로드</a><a href={href('DJ-L07-Floorplan-Checklist.md')} download>원도면 대조 체크리스트 다운로드</a><a href={href('README.md')} download>도면 판독 실습자료 사용 방법</a></div>}
   <p>패키지는 자체 제작 원본 PDF·PNG·클린 선화·Top View 비교 이미지·다이어그램 A/B·전처리 및 판독 프롬프트·DOT 코드·체크리스트를 포함합니다. 외부 프로젝트 원본 PDF와 내부 검수용 DOCX는 넣지 않습니다.</p>{enabled&&<a class="review-download" href={href('DJ-L07-Office-Floorplan-Original.pdf')} download>교육용 1층 오피스 원본 PDF 다운로드</a>}
-  <h3>후속 3D 모델링으로 연결합니다</h3><p>전처리한 클린 도면과 공간 기준표·검증한 관계 데이터를 함께 준비합니다. 제9차시에서는 이 사실 기준과 추가 확인 항목을 도면 기반 Step 1~3 모델링, 부위별 재질·조명, Step 4 카메라 무빙으로 연결합니다.</p>
+  <h3>후속 3D 모델링으로 연결합니다</h3><p>전처리한 클린 도면과 공간 기준표·검증한 관계 데이터를 함께 준비합니다. 제9차시에서는 이 오피스의 사실 기준이나 치수를 옮기지 않고 새로운 ‘모던 3층 단독주택’ 도면으로 프로젝트를 전환합니다. 여기서 익힌 기준표 작성·원본 대조 방법론을 새 주택 도면에 적용한 뒤 Step 1~3 모델링, 재질·조명, Step 4 카메라 무빙으로 이어갑니다.</p>
  </>}
 </div>
 <style>

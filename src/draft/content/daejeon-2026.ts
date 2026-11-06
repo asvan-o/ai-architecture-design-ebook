@@ -51,13 +51,12 @@ export const sections = [
   ['prompt-basics','AI 작업 요청문(Prompt)'], ['rules','좋은 Prompt의 7가지 공통 규칙'], ['formula','Prompt 작성 7단 공식'], ['short-structured','짧은 요청 vs 구조화 요청'], ['bad-prompt','실습 1 · 잘못된 Prompt 찾기'], ['assemble','실습 2 · 작업지시서 조립'], ['apply','실습 3 · 실내 공간 / 건물 외관 적용'],
   ['first-generation','Nano Banana 첫 생성'], ['result-review','원본과 결과 검토'], ['revision','수정 Prompt와 재생성'], ['rfp-guide','의뢰서란?'], ['projects','실습 A / 실습 B 선택'], ['read-rfp','의뢰서와 도면·현황 이미지의 역할'], ['analysis','AI에게 의뢰서 분석 요청'], ['types','AI가 정리한 내용을 구분해보기'], ['evidence','근거와 확인 상태 표시'], ['next-verification','다음 단계 원문 대조·검증으로 연결'], ['verify-conditions','핵심조건 검증과 추가 질문'], ['brief','작업 기준서 만들기'], ['priorities','디자인 우선순위'], ['strategies','서로 다른 전략 2개'], ['learning-prompt','학습용 7단 Prompt'], ['execution-prompt','실행용 짧은 Prompt'], ['ab-generation','A/B 이미지 생성과 예시 비교'], ['compare','결과 비교·선택'], ['outputs','제1차시 결과물 정리'],
 ].map(([id,title]) => ({id,title}));
-export const revisionPrompt = `첨부한 원본과 첫 결과를 비교한 검토 기록을 기준으로 수정해 주세요.
-[유지] 원본의 [고정 요소]와 [카메라 시점]을 유지합니다.
-[수정] 첫 결과의 [문제 요소]를 [수정 방향]으로 바꿉니다.
-[변경하지 않을 것] 만족한 [요소]는 그대로 둡니다.
-[금지] 요청하지 않은 구조·개구부·문자·로고를 추가하지 않습니다.
-[출력] 같은 시점의 수정 이미지 1장.
-[검토] 원본 대비 고정 조건과 수정 범위를 다시 비교합니다. 실제 치수·구조·법규는 이미지로 확정하지 않습니다.`;
+export const revisionPrompt = `첨부 이미지 1(첫 생성 결과)을 편집하고, 이미지 2(원본 빈 공간)는 구조·카메라·개구부의 비교 기준으로 사용해 주세요.
+[유지] 원본의 <고정 요소: 예, 문·창 위치>와 <카메라 시점>을 유지합니다.
+[수정] 관찰 메모 <문제: 예, 테이블이 출입구를 막음>를 기준으로 <문제 요소>만 <수정 방향: 예, 테이블을 통로 밖으로 이동>으로 바꿉니다.
+[변경하지 않을 것] 만족한 <요소: 예, 벽색·바닥 마감>는 그대로 둡니다.
+[금지] 요청하지 않은 구조·개구부·가구·문자·로고를 추가하지 않습니다.
+[출력] 같은 시점의 수정 이미지 1장만 출력합니다. 실제 치수·구조·법규는 이미지로 확정하지 않습니다.`;
 export const provenance = [
   ['KEEP','GW overview · src/lib/course-overview.ts','AI 초안→사람 검토, 역할 분리, 판단 기록'],
   ['KEEP','GW 01 · src/content/lessons/01.mdx §04–07,15','생성형 AI/LLM/Multimodal, 역할, Hallucination/Grounding/HITL, 정보 유형과 확인 상태 분리, 검증 체크리스트'],

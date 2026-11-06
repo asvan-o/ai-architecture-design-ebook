@@ -22,7 +22,7 @@ if(root){
     const conditions=input(),prompts=workPrompts(conditions);
     setPrompt('l03-my-first-edit',prompts.first);setPrompt('l03-my-new-concept',prompts.final);
     root.querySelector<HTMLElement>('[data-l03-selection-status]')!.textContent=conditions.space?'오늘의 기준 공간: '+conditions.space+' · 오늘 계속 같은 원본을 사용합니다.':'한 공간을 선택하면 내 작업 Prompt에 반영됩니다.';
-    root.querySelector<HTMLElement>('[data-l03-prompt-status]')!.textContent=conditions.space&&conditions.target&&conditions.intent?'선택한 공간·지정 면·목적·재질을 반영했습니다. 첨부자료와 유지 조건을 읽고 실행합니다.':'선택한 조건은 반영되고 작성할 부분은 대괄호로 남습니다. 실행 전에 공간·면·목적을 채웁니다.';
+    root.querySelector<HTMLElement>('[data-l03-prompt-status]')!.textContent=conditions.space&&conditions.target&&conditions.intent?'선택한 공간·지정 면·목적·재질을 반영했습니다. 첨부자료와 유지 조건을 읽고 실행합니다.':'선택한 조건은 반영되고 작성할 부분은 꺾쇠 빈칸으로 남습니다. 실행 전에 공간·면·목적을 채웁니다.';
     root.querySelectorAll<HTMLButtonElement>('[data-l03-space-choice]').forEach(button=>{
       const selected=button.dataset.l03SpaceChoice===base.value;
       button.setAttribute('aria-pressed',String(selected));button.closest('.l03-asset-card')?.classList.toggle('is-selected',selected);

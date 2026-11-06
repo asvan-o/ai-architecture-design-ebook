@@ -38,7 +38,7 @@ const legacyText="선행 제작 사례에서는 큰 투시도와 작은 도면·
     {b.type==='list'&&<ul>{b.items?.map(p=><li>{p}</li>)}</ul>}
     {b.type==='steps'&&<ol class="portfolio-steps">{b.items?.map(p=><li>{p}</li>)}</ol>}
     {b.type==='table'&&<div class="portfolio-table"><table><thead><tr>{b.head?.map(v=><th scope="col">{v}</th>)}</tr></thead><tbody>{b.rows?.map(row=><tr>{row.map((v,i)=><td data-label={b.head?.[i]}>{v}</td>)}</tr>)}</tbody></table></div>}
-    {b.type==='note'&&<aside class="portfolio-note"><strong>{b.title}</strong><p>{b.body}</p></aside>}
+    {b.type==='note'&&<aside class="portfolio-note"><strong>{b.title}</strong><p>{b.body}</p>{lessonId==='13'&&b.body?.includes('Get-FileHash')&&enabled&&<p><a href={url('downloads/daejeon/lesson-13/manifest.json')} download="manifest.json">통합 ZIP 기준 해시 · manifest.json 다운로드</a></p>}</aside>}
     {b.type==='prompt'&&b.number&&<PortfolioPrompt id={prompt(b.number).id} title={'프롬프트 '+String(b.number).padStart(2,'0')+' · '+prompt(b.number).title} prompt={prompt(b.number).prompt} filename={prompt(b.number).filename} href={enabled?url(pAsset(b.number).outputPath):undefined} guide={prompt(b.number).guide as PromptPlatformGuide & {purpose:string;variables:string}} />}
     {b.type==='gallery'&&<div class:list={['portfolio-gallery',{'portfolio-gallery--wide':!['slides','daydusk','materials','isometrics'].includes(b.group||'')}]}>{getAssets(b.group||'').map((a,i)=><PortfolioAsset asset={a} instance={s.id+'-'+bi+'-'+i}/>)}</div>}
     {b.type==='keywords'&&<PortfolioKeywords/>}

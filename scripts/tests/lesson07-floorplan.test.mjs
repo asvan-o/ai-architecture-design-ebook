@@ -29,7 +29,9 @@ test('Full source prompts retain protected wording except explicit synthetic-sou
   const marker='const '+key+' = `',start=original.indexOf(marker),end=original.indexOf('`;',start+marker.length);
   const retained=Function('return '+original.slice(start+('const '+key+' = ').length,end+1))().replaceAll('사람이 정리한 선화 이미지','원본과 대조한 교육용 클린 선화 이미지').replaceAll('좌측 개방영역','통로 측 개방영역').replaceAll('좌측 문 바깥 영역','통로 측 개방영역');assert.equal(source[key],retained,key);
  }
- for(const [key,file] of floorplanPromptDefinitions){const bytes=fs.readFileSync('public/downloads/daejeon/lesson-08/'+file+'.txt','utf8');assert.equal(bytes,displayFloorplanPrompt(source[key])+'\n');assert(!/Gwangju|광주|14차시|42시간|승인본|검수본|초안/.test(bytes));}
+ const workbook=fs.readFileSync('src/draft/content/lesson08-workbook-prompts.ts','utf8');
+ const topView=JSON.parse(workbook.match(/topViewPrompt:("(?:\\.|[^"\\])*")/)[1]);
+ for(const [key,file] of floorplanPromptDefinitions){const bytes=fs.readFileSync('public/downloads/daejeon/lesson-08/'+file+'.txt','utf8');assert.equal(bytes,displayFloorplanPrompt(key==='topViewPrompt'?topView:source[key])+'\n');assert(!/Gwangju|광주|14차시|42시간|승인본|검수본|초안/.test(bytes));}
  assert.equal(source.reviewRows.length,12);assert.equal(source.functionGroups.length,6);
 });
 test('Direct relations and review boundaries remain explicit in the full DOT source',()=>{

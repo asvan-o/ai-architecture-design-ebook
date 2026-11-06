@@ -152,7 +152,8 @@
       "width": 1536,
       "height": 1024,
       "id": "office-warm",
-      "section": "l06-isometric-ab"
+      "section": "l06-isometric-ab",
+      "doorState": "요청: D1~D3 닫힘 / 실제 예시: D1~D3 열림 — REVIEW·재수정"
     },
     {
       "file": "samples/03_office-isometric-modern.png",
@@ -164,7 +165,8 @@
       "width": 1536,
       "height": 1024,
       "id": "office-modern",
-      "section": "l06-isometric-ab"
+      "section": "l06-isometric-ab",
+      "doorState": "요청: D1~D3 닫힘 / 실제 예시: D1~D3 열림 — REVIEW·재수정"
     },
     {
       "file": "samples/04_cafe-isometric-3d.png",
@@ -200,7 +202,8 @@
       "width": 1536,
       "height": 1024,
       "id": "office-subview",
-      "section": "l06-main-sub"
+      "section": "l06-main-sub",
+      "doorState": "요청: 닫힘 / 실제 예시: D2 열림, D1·D3 확인 불가 — REVIEW·재수정"
     },
     {
       "file": "samples/07_office-spatial-bubble-diagram.png",
@@ -482,9 +485,9 @@
     },
     {
       "file": "README.txt",
-      "sha256": "c1d6af296275af264e977136dcd3c28ff79b0f5beab2bb900619863de772ec0e",
-      "bytes": 225,
-      "sizeBytes": 225
+      "sha256": "212831d2b9cadfe93e003fd29d8108cf01c20b5f918e7d94088bf4f7bbda5d28",
+      "bytes": 891,
+      "sizeBytes": 891
     },
     {
       "file": "inputs/PLAN-BASE-01-door-result.png",

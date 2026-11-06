@@ -18,6 +18,7 @@ const href=(file:string)=>base+'/downloads/daejeon/lesson-07/'+file;
   <header><span>STEP {String(i+1).padStart(2,'0')}</span><h3>{step.title}</h3></header>
   <p>{step.description}</p>
   {i===4&&<div class="l07-sr-table"><table><thead><tr><th>패키지</th><th>역할</th></tr></thead><tbody><tr><th>OpenVINO</th><td>AI 모델 실행</td></tr><tr><th>OpenCV</th><td>이미지 읽기·크기 변경·저장</td></tr><tr><th>NumPy</th><td>이미지 배열 처리</td></tr></tbody></table></div>}
+  {i===4&&<aside class="l07-sr-note"><strong>설치 경로를 하나 선택합니다</strong><p>수업에서는 위의 고정 버전 설치를 권장합니다. ZIP을 쓰지 않았다면 <a href={href('requirements-verified.txt')} download>requirements-verified.txt 다운로드</a> 후 현재 프로젝트 폴더에 저장합니다. 최신 버전을 별도로 시험하려면 기존 환경과 분리한 가상환경에서 <code>.\.venv\Scripts\python.exe -m pip install openvino opencv-python numpy</code>를 사용합니다. 이 경로는 검증된 환경과 다를 수 있으므로 STEP 07에서 실제 패키지 버전을 기록하고 결과를 대조합니다. 두 설치 경로를 같은 환경에서 연속 실행하지 않습니다.</p></aside>}
   {i===5&&<pre><code>{'OpenVINO_SR1033/\n├─ .venv/\n├─ model/\n├─ input/\n├─ output/\n└─ run_sr1033.py'}</code></pre>}
   {i===8&&enabled&&<p><a class="review-download" href={href('run_sr1033.py')} download>run_sr1033.py 다운로드</a></p>}
   {step.commands.map((command,n)=><ReviewPrompt id={'l07-sr-step-'+(i+1)+'-'+n} title={command.title} prompt={command.text} filename={'DJ-L07-SR1033-step-'+String(i+1).padStart(2,'0')+'-'+(n+1)+'.txt'} />)}

@@ -20,6 +20,7 @@ const checklist=lesson06Downloads.find(asset=>asset.key==='checklist');
  <TopicProgress lesson="06" items={[{topic:4,status:'시작',note:'2D 평면도를 Top View 3D·아이소메트릭·분해도와 실내 서브 시점으로 확장하고, 다시 2D 공간 관계·개념 조닝 다이어그램으로 역추출합니다.'}]} />
  <div class="l03-period-summary">{lesson06Parts.map((part,i)=><article><h2>Part {i+1} · {part.title}</h2></article>)}</div>
  <aside class="review-callout"><h2>평면 → 입체 → 분해·시점 확장 → 공간 관계·개념 조닝</h2><p>같은 입력을 계속 기준으로 삼습니다. 원 평면의 배치·개구부·좌석을 따라가며, 높이·재료·조명과 공간 관계를 차례로 표현합니다.</p><p>{lesson06Boundary}</p></aside>
+ <aside class="review-callout"><h2>150분 안에서 실행 범위를 선택합니다</h2><p><strong>필수 실행:</strong> 실습 1 Top View 1회와 실습 2 웜 아이소메트릭 1회, 원 평면 대조 메모를 남깁니다. <strong>강사 예시 비교:</strong> 모던 B·분해도(실습 3)·서브 뷰(실습 4)·공간 관계도(실습 5)·조닝(실습 6)을 제공 이미지로 함께 읽습니다. <strong>선택 확장:</strong> 남은 시간에 이 중 필요한 한 단계만 직접 실행합니다.</p><p>생성이 지연되면 중복 요청을 반복하지 않고 실행 상태를 기록한 뒤 제공된 예시 이미지로 비교 활동을 이어갑니다. 생성 완료를 기다리느라 다음 검수 단계를 생략하지 않습니다.</p></aside>
  {lesson06Parts.map((part,partIndex)=><div class="day-period" id={part.id} data-period={partIndex+1} data-teaching-minutes="50">
   <header class="period-heading"><p>Part {partIndex+1}</p><h2>{part.title}</h2></header>
   {part.sections.map(section=><ReviewSection id={section.id} title={section.title} minutes={section.minutes} index={lesson06Sections.findIndex(s=>s.id===section.id)+1}>
@@ -48,6 +49,7 @@ const checklist=lesson06Downloads.find(asset=>asset.key==='checklist');
     <h3>같은 오피스 · 웜 오크 & 크림 스톤</h3>
     <Lesson06Comparison before="office-topview" after="office-warm" instance="l06-office-warm" />
     <p>유리 칸막이·오크·크림톤 벽·따뜻한 조명을 하나의 콘셉트로 읽습니다. 원 평면의 가벽 중심·D2·D3 개구부와 업무 4석·회의 6석을 공통 기준으로 삼습니다.</p>
+    <aside class="review-callout"><strong>문 개폐 조건은 REVIEW 대상입니다.</strong><p>원문 요청은 D1~D3를 닫힌 문으로 지시했지만, 승인된 웜 A와 모던 B 예시에서는 D1~D3가 열린 상태로 표현돼 있습니다. 프롬프트가 지켜졌다는 예가 아니라 AI가 조건을 임의로 바꾼 비교 사례입니다. 문 위치·경첩·열리는 방향을 원 평면과 대조하고, 닫힘이 필요한 결과는 재수정 대상으로 기록합니다. 기존 예시 이미지는 그대로 보존합니다.</p></aside>
     <Lesson06PromptPair stage="office-warm" />
     <h3>콘셉트 A/B · 같은 구획, 다른 재료</h3>
     <Lesson06Comparison before="office-warm" after="office-modern" beforeTitle="Concept A · 웜 오크 & 크림 스톤" afterTitle="Concept B · 모던 차콜 & 라이트 스톤" instance="l06-office-ab" />
@@ -74,6 +76,7 @@ const checklist=lesson06Downloads.find(asset=>asset.key==='checklist');
     <Lesson06Comparison before="office-warm" after="office-subview" beforeTitle="Main · 오피스 전체 아이소메트릭" afterTitle="Sub-view · 업무·회의 영역 아이레벨" instance="l06-office-main-sub" />
     <p><strong>Anchor</strong>는 시점이 달라져도 따라갈 공통 기준입니다. 웜 오크·크림톤·유리 프레임·따뜻한 조명과 D2·창·회의 6석의 관계를 함께 적습니다.</p>
     <ol><li>아래 요청문 원문에 맞춰 메인 콘셉트와 원 평면 두 장을 순서대로 첨부합니다. 상부 뷰는 배치 대조를 위한 선택 참고입니다.</li><li>카메라를 둘 위치와 바라볼 대상을 말로 좁힙니다.</li><li>가려진 요소를 억지로 옮겨 보여주지 않고, 보이는 개구부·가구·재료를 원 평면과 대조합니다.</li></ol>
+    <aside class="review-callout"><strong>메인–서브 문 상태 대조</strong><p>서브 뷰 요청문도 닫힘을 지시하지만 실제 예시의 D2는 열려 있습니다. 메인 A의 열린 문 표현을 그대로 따라간 부분까지 REVIEW로 남기고, 가려진 D1·D3의 상태는 이 시점에서 확인했다고 쓰지 않습니다. 보기 좋은 실내 시점과 원문 조건 준수는 따로 판단합니다.</p></aside>
     <Lesson06PromptPair stage="office-subview" />
     <p>업무공간에서 유리 가벽과 D2를 지나 회의 테이블을 바라보는 시점을 따라갑니다. 메인 뷰에서 찾은 문·창·가구의 관계를 실내 시점에서도 찾아봅니다.</p>
    </>}

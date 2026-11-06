@@ -347,9 +347,9 @@
     },
     {
       "file": "prompts/recompose.txt",
-      "sha256": "a5e57588fe288fbb9d7299fe1d1ac79e9cef4dc71bf602a72b6c384e302f1942",
-      "bytes": 2677,
-      "sizeBytes": 2677,
+      "sha256": "a8dcc6971baaa30858a45f8350fb38a3700d1efb1ebbba8865ca35aa8feef2ba",
+      "bytes": 3299,
+      "sizeBytes": 3299,
       "key": "recompose",
       "title": "부분 수정 결과를 전체 평면에 반영",
       "attachments": [
@@ -537,9 +537,9 @@
     },
     {
       "file": "prompts/overlay.txt",
-      "sha256": "dff3809b56f92aab67761958c2407c535897d13dee05a465377f925dc9ea00ba",
-      "bytes": 2249,
-      "sizeBytes": 2249,
+      "sha256": "0cbfa1a08f3a070cf05f458cec24a03498246ccd533ec5c12fb9e0ce28ec528a",
+      "bytes": 3023,
+      "sizeBytes": 3023,
       "key": "overlay",
       "title": "수정 전후 도면 중첩 비교",
       "attachments": [
@@ -689,9 +689,9 @@
   "analysis": [
     {
       "file": "analysis/DRAWING-READING-CHECKLIST.md",
-      "sha256": "92f881a7df75108ea741341df64b0d9c51b04eded16648c7f939706ca33ee1be",
-      "bytes": 1200,
-      "sizeBytes": 1200,
+      "sha256": "abde9b8223ba4b2e2825a2bd8fe2c3371084e1f57c9d67f481bc7928fed47676",
+      "bytes": 1833,
+      "sizeBytes": 1833,
       "key": "checklist",
       "title": "평면도 수정 체크리스트"
     }
@@ -705,9 +705,9 @@
     },
     {
       "file": "analysis/DRAWING-READING-CHECKLIST.md",
-      "sha256": "92f881a7df75108ea741341df64b0d9c51b04eded16648c7f939706ca33ee1be",
-      "bytes": 1200,
-      "sizeBytes": 1200
+      "sha256": "abde9b8223ba4b2e2825a2bd8fe2c3371084e1f57c9d67f481bc7928fed47676",
+      "bytes": 1833,
+      "sizeBytes": 1833
     },
     {
       "file": "legacy-A/01-original-first-floor-plan.png",
@@ -811,9 +811,9 @@
     },
     {
       "file": "prompts/overlay.txt",
-      "sha256": "dff3809b56f92aab67761958c2407c535897d13dee05a465377f925dc9ea00ba",
-      "bytes": 2249,
-      "sizeBytes": 2249
+      "sha256": "0cbfa1a08f3a070cf05f458cec24a03498246ccd533ec5c12fb9e0ce28ec528a",
+      "bytes": 3023,
+      "sizeBytes": 3023
     },
     {
       "file": "prompts/plan01-edit.txt",
@@ -829,9 +829,9 @@
     },
     {
       "file": "prompts/recompose.txt",
-      "sha256": "a5e57588fe288fbb9d7299fe1d1ac79e9cef4dc71bf602a72b6c384e302f1942",
-      "bytes": 2677,
-      "sizeBytes": 2677
+      "sha256": "a8dcc6971baaa30858a45f8350fb38a3700d1efb1ebbba8865ca35aa8feef2ba",
+      "bytes": 3299,
+      "sizeBytes": 3299
     },
     {
       "file": "results/PLAN-BASE-01-ai-raw.png",
