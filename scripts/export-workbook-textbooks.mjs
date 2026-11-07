@@ -11,6 +11,7 @@ import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
 import {chromium} from 'playwright';
 import {createStaticServer,listen,closeServer,findAvailablePorts} from './lecture-kit-static.mjs';
+import {drawingScaleNotice,drawingImagePattern} from './workbook-drawing-scale.mjs';
 
 const repositoryRoot=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const args=process.argv.slice(2);
@@ -59,6 +60,20 @@ try{
   assert((await page.goto(`http://127.0.0.1:${port}${build.basePath}/${target.route}/`,{waitUntil:'networkidle'}))?.ok(),target.route);
   assert.equal(await page.locator('html').getAttribute('data-ebook-access'),'unlocked','Author export session must be unlocked.');
   await page.emulateMedia({media:'print'});await page.evaluate(key=>{document.documentElement.dataset.workbookPrintLesson=key;},target.key);await page.addStyleTag({content:css});
+  const drawingScaleNotes=await page.locator('main').evaluate((main,{note,pattern})=>{
+   let count=0;
+   for(const img of main.querySelectorAll('img')){
+    if(img.closest('dialog'))continue;
+    let text=[img.getAttribute('src'),img.getAttribute('alt')].join(' ');
+    try{text=decodeURIComponent(text);}catch{/* A literal percent in a label is not a URL. */}
+    const drawing=new RegExp(pattern,'i').test(text);
+    if(!drawing)continue;
+    const host=img.closest('figure')||img.closest('article')||img.parentElement;
+    if(!host||host.querySelector('[data-print-drawing-scale-note]'))continue;
+    const p=document.createElement('p');p.dataset.printDrawingScaleNote='';p.className='workbook-print-drawing-scale-note';p.textContent=note;host.append(p);count++;
+   }
+   return count;
+  },{note:drawingScaleNotice,pattern:drawingImagePattern.source});
   const audit=await page.locator('main').evaluate((main,key)=>{
    const sourceText=main.textContent;
    const details=[...main.querySelectorAll('details')].map(d=>{
@@ -70,6 +85,7 @@ try{
    if(main.textContent!==sourceText)throw Error('Print preparation changed source body text.');
    return{title:main.querySelector('h1').textContent.trim(),details,sourceMainText:sourceText,sections:[...main.querySelectorAll('[data-review-section]')].map(e=>({id:e.id,title:e.querySelector('h2')?.textContent.trim(),minutes:+e.getAttribute('data-section-minutes')||0})),durationMinutes:+main.querySelector('[data-lesson-duration]')?.getAttribute('data-lesson-duration')||null,portfolioPartCount:main.querySelectorAll('[data-portfolio-part]').length,periodMinutes:[...main.querySelectorAll('[data-teaching-minutes]')].map(e=>+e.getAttribute('data-teaching-minutes'))};
   },target.key);
+  audit.drawingScaleNotes=drawingScaleNotes;
   await page.evaluate(()=>document.fonts.ready);
   // Allow tall prompts to split; keep only genuinely small cards together.
   audit.printSurfaces=await page.locator('main').evaluate(main=>{

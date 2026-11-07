@@ -369,8 +369,8 @@
         },
         {
           "outputPath": "images/daejeon/lesson-07/comfy-reference-before.png",
-          "sha256": "2be20d1397ae1cc50df824006f4ac256ee1fe430fa1b68423db0c6e168308b54",
-          "sizeBytes": 90174,
+          "sha256": "717cfdcbd41c59181a1a53c660c4ec9925df3ea3f5ac59269c9bcc13b206e6dc",
+          "sizeBytes": 99626,
           "kind": "image",
           "key": "comfy-before",
           "title": "교육용 평면도 · 원본",
@@ -382,8 +382,8 @@
         },
         {
           "outputPath": "images/daejeon/lesson-07/comfy-reference-after-2x.png",
-          "sha256": "c5356fb676d5c27eb60944d64339c13757dfb4cc9be07de95a64f433e80f7cae",
-          "sizeBytes": 358950,
+          "sha256": "0ecc62faf7c2fd6606814d9f21e4f10cd3d53e9031e558db6c41a3bd35692cec",
+          "sizeBytes": 523547,
           "kind": "image",
           "key": "comfy-after",
           "title": "교육용 평면도 · 2배 일반 확대",
@@ -605,36 +605,36 @@
         },
         {
           "outputPath": "downloads/daejeon/lesson-07/README.md",
-          "sha256": "72a64b2463ef0e555c2efe09a0a29591d413cf7312a503d7200dd1d15c6aad23",
-          "sizeBytes": 9546,
+          "sha256": "8019fff608891ffae49cea87d19b07a2b7f769e07ab1aeab28bdcbafff0ad5da",
+          "sizeBytes": 10825,
           "kind": "document",
           "title": "README.md"
         },
         {
           "outputPath": "downloads/daejeon/lesson-07/DJ-L07-Gaussian-Views-Pack.zip",
-          "sha256": "5f0f0fac0402b9d9b9eb0815b7feb8088e63a27bfeece18aee22a15b9fee22f8",
-          "sizeBytes": 12891925,
+          "sha256": "790633118b32b07b21f4e1c0765e3380ec0732939ac569220a1f8272aefb854d",
+          "sizeBytes": 12893478,
           "kind": "zip",
           "title": "DJ-L07-Gaussian-Views-Pack.zip"
         },
         {
           "outputPath": "downloads/daejeon/lesson-07/DJ-L07-Realistic-Render-Pack.zip",
-          "sha256": "3b6d4dfebc8a3ff8943eb09b2e095e6581a3027914fdda8a28040659bbb8afee",
-          "sizeBytes": 60983438,
+          "sha256": "5db2c095e5a922833db42f17d01e1e8695825e584a892656908e8fea984d2b1c",
+          "sizeBytes": 61135068,
           "kind": "zip",
           "title": "DJ-L07-Realistic-Render-Pack.zip"
         },
         {
           "outputPath": "downloads/daejeon/lesson-07/DJ-L07-OpenVINO-SR1033-Pack.zip",
-          "sha256": "f9e749854eceb093625acd4de4ea145eb0ddae59e96ab0d6e601590952e20a92",
-          "sizeBytes": 21469592,
+          "sha256": "f21b6f8787e76653fdf95756935990d2a47082448e4651a53116bfa7ea5e9310",
+          "sizeBytes": 21470995,
           "kind": "zip",
           "title": "DJ-L07-OpenVINO-SR1033-Pack.zip"
         },
         {
           "outputPath": "downloads/daejeon/lesson-07/DJ-L07-Starter-Pack.zip",
-          "sha256": "247da1bde995355c59d4a21ea3c671475d99a03db8be2a58b96b51159424f78d",
-          "sizeBytes": 95378080,
+          "sha256": "512dcdce8ffec08812e791cec6cd47cf9fde19e832877ece6d797e8b151d95ab",
+          "sizeBytes": 95509421,
           "kind": "zip",
           "title": "제7차시 전체 통합 실습팩 · 준비 상태 포함"
         },
@@ -664,7 +664,25 @@
         }
       ],
       "syntheticRevision": "DJ-L06-L07-ORIGINAL-HOUSE-PLAN-AND-DOOR-STAIR-PRECISION-FIX/revision-10",
-      "structureRevision": "DJ-L06-L07-L08-RESTRUCTURE-AND-CAD-3D-ALIGNMENT/revision-11"
+      "structureRevision": "DJ-L06-L07-L08-RESTRUCTURE-AND-CAD-3D-ALIGNMENT/revision-11",
+      "dimensionCorrection": {
+        "scope": "2D furniture only; existing 3D image bytes preserved",
+        "directorDeskMillimetres": [
+          1800,
+          800
+        ],
+        "conferenceTableMillimetres": [
+          3200,
+          1200
+        ],
+        "conferenceChairs": 8,
+        "axisEnvelopeMetres": [
+          24,
+          16
+        ],
+        "centerlinePolygonAreaSquareMetres": 348,
+        "approximatePyeong": 105.27
+      }
     },
     "08": {
       "revision": "DJ-L08-L09-PLAIN-HOUSE-3F",
@@ -674,14 +692,14 @@
       "sectionCount": 9,
       "partCount": 3,
       "localReviewOnly": true,
-      "sourceGeometry": "review/daejeon/DJ-ALL-LESSONS-FLOORPLAN-STAIR-AND-DOOR-AUDIT-FIX/revision-9/source/office-geometry.json",
+      "sourceGeometry": "public/downloads/daejeon/lesson-08/office-geometry.json",
       "sourceLesson": "07",
       "includedOriginalPdf": true,
       "files": [
         {
           "outputPath": "images/daejeon/lesson-08/floorplan/01-clean-line.jpg",
-          "sizeBytes": 209319,
-          "sha256": "716b19c7f1afa9bfec3d860c62b6e8d625d9b1da9df83b1ccca45f3fa1098f2a",
+          "sizeBytes": 283006,
+          "sha256": "6abd010225538580d9646f0940bb35eccdb5d4163d95a7b64d2999fb3fee003d",
           "kind": "image",
           "key": "clean-line",
           "title": "교육용 클린 선화 · 문자 오류 비교본",
@@ -699,7 +717,7 @@
           "kind": "image",
           "key": "top-view",
           "title": "교육용 Top View 3D · 문자 오류 비교본",
-          "description": "새 교육용 도면의 입체 표현입니다. 사장실·이사실·계단창·1.5인승은 의도한 문자 오류입니다. 재료·빛·높이·부가 연출은 표현이며 원본 PDF가 사실 기준입니다.",
+          "description": "기존 3D를 그대로 보존한 분위기·공간 관계 참고본입니다. 수정한 소장 책상·회의테이블 치수는 2D 원본 PDF·PNG·JSON에서 확인합니다. 사장실·이사실·계단창·1.5인승은 의도한 문자 오류이며 재료·빛·높이는 표현입니다.",
           "width": 1492,
           "height": 1054,
           "authorship": "self-authored educational synthetic office / revision-10 door and stair precision correction",
@@ -798,23 +816,23 @@
         },
         {
           "outputPath": "downloads/daejeon/lesson-08/DJ-L07-Floorplan-Checklist.md",
-          "sizeBytes": 970,
-          "sha256": "6b5891f6d57f958c9ce631ed8889f4b54a32827929960abbeff1d115910510df",
+          "sizeBytes": 1547,
+          "sha256": "4a2f4aca8d262be81665811f38e5c4c4dab0131093e7dbdd2216c5e630f2693e",
           "kind": "checklist",
           "migratedFrom": "downloads/daejeon/lesson-07/floorplan/DJ-L07-Floorplan-Checklist.md"
         },
         {
           "outputPath": "downloads/daejeon/lesson-08/README.md",
-          "sizeBytes": 2439,
-          "sha256": "be203868de5710d5e85a365474dd05604899835193debb9303f03070c8b72c99",
+          "sizeBytes": 3668,
+          "sha256": "4f01880deed3cc9bb65555b8998e6f918107082fc88e0e26d42f671dbe3c40d0",
           "kind": "readme",
           "migratedFrom": "downloads/daejeon/lesson-07/floorplan/README.md"
         },
         {
           "outputPath": "downloads/daejeon/lesson-08/DJ-L08-Floorplan-Graphviz-Pack.zip",
           "kind": "zip",
-          "sha256": "dcf8e6a6a39572623e83f84fb05b101be626fba247de0b3ee881c8604a156757",
-          "sizeBytes": 948249,
+          "sha256": "1546905e40f973496f4b08f47f6e21899d4043e5537aef49fbc1784af42ede59",
+          "sizeBytes": 1043376,
           "title": "제8차시 도면 판독·Graphviz 실습자료",
           "migratedFrom": "downloads/daejeon/lesson-07/floorplan/DJ-L07-Floorplan-Graphviz-Pack.zip"
         },
@@ -824,8 +842,8 @@
           "title": "자체 제작 교육용 1층 오피스 원본 PDF",
           "outputPath": "downloads/daejeon/lesson-08/DJ-L07-Office-Floorplan-Original.pdf",
           "authorship": "self-authored educational synthetic office / revision-9 door correction",
-          "sha256": "d6b434d50a7e36913a4fb4c46bd64723a5253297bae494513c41c4d955ded6b3",
-          "sizeBytes": 50717,
+          "sha256": "350555fc15787dea66b1b557aaa0157fa56cc8643f7722bbd035ec2c60a260df",
+          "sizeBytes": 89022,
           "createdFrom": "review/daejeon/DJ-ALL-LESSONS-FLOORPLAN-STAIR-AND-DOOR-AUDIT-FIX/revision-9/source/office-geometry.json",
           "migratedFrom": "downloads/daejeon/lesson-07/floorplan/DJ-L07-Office-Floorplan-Original.pdf"
         },
@@ -845,8 +863,24 @@
           "outputPath": "downloads/daejeon/lesson-08/00-office-floorplan-original.png",
           "createdFrom": "public/images/daejeon/lesson-07/comfy-reference-before.png",
           "authorship": "byte-identical copy of active self-authored educational original",
-          "sha256": "2be20d1397ae1cc50df824006f4ac256ee1fe430fa1b68423db0c6e168308b54",
-          "sizeBytes": 90174
+          "sha256": "717cfdcbd41c59181a1a53c660c4ec9925df3ea3f5ac59269c9bcc13b206e6dc",
+          "sizeBytes": 99626
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-08/office-geometry.json",
+          "key": "office-geometry",
+          "kind": "geometry",
+          "title": "교육용 오피스 좌표·가구 치수 기준",
+          "sha256": "0060c7a3a7928c2a42633a7f78947595cdf09e23e67c8951fc9fd018b25399b9",
+          "sizeBytes": 13253
+        },
+        {
+          "outputPath": "downloads/daejeon/lesson-08/SHA256SUMS.txt",
+          "key": "office-sha256",
+          "kind": "checksum",
+          "title": "도면 실습자료 SHA-256",
+          "sha256": "1de91dd8cb32ef2e99af6e8530ed50f2ff41b87a3b04f46d11cbfefbb099dfd3",
+          "sizeBytes": 1576
         }
       ],
       "mcpFiles": [
@@ -922,7 +956,25 @@
           "sha256": "0a673f5a621a4a122d19b9c303bee02b6ca263e474c213a384cdab3097ed3f40",
           "sizeBytes": 2675
         }
-      ]
+      ],
+      "dimensionCorrection": {
+        "scope": "2D furniture only; existing 3D image bytes preserved",
+        "directorDeskMillimetres": [
+          1800,
+          800
+        ],
+        "conferenceTableMillimetres": [
+          3200,
+          1200
+        ],
+        "conferenceChairs": 8,
+        "axisEnvelopeMetres": [
+          24,
+          16
+        ],
+        "centerlinePolygonAreaSquareMetres": 348,
+        "approximatePyeong": 105.27
+      }
     },
     "06": {
       "revision": "DJ-L08-BLENDER-MCP-SETUP-AND-L06-SUBVIEW-RESTORE/revision-13",

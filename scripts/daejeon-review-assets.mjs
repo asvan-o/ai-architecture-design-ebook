@@ -22,7 +22,7 @@ export const packages = [
     keep:'D1·W1·W2·C1·외곽 벽체, K1 위치, S1의 위치·기능·배경과 같은 카메라 시점',
     change:'고객공간 Z1의 가구·테이블·의자, 벽면 마감 재료·색감, 바닥 분위기, 조명·등기구, 브랜딩 없는 소품',
     exclude:'주방 신설·카운터 이전·구조 변경·설비 재설계·S1 상세 재설계·화장실 및 주방·설비 상세계획',
-    diagramRole:'기준 평면도는 교육용 치수·고정 요소의 근거입니다. 현황 02는 편집 원본, 01·03은 다른 시점 이해용입니다.',
+    diagramRole:'기준 평면도는 8×10m·명목 80㎡(약 24평)의 교육용 치수·고정 요소 근거입니다. 현황 02는 편집 원본, 01·03은 다른 시점 이해용인 AI 생성 시각 참고입니다.',
     strategyNames:['빠른 이용 / 픽업 편의 중심','짧은 체류 / 편안함 중심'],
     assets:[...common, ...['png','pdf'].map((ext)=>[`existing-plan.${ext}`,`기준 평면도 ${ext.toUpperCase()}`,'rfp']), ...['01','02','03'].map((n)=>[`existing-view-${n}.png`,`현황 이미지 ${n} PNG`,n==='02'?'early':'rfp']),
       ['example-A-generation-prompt.txt','실제 생성 Prompt A · 생성 기록','evidence'],['example-B-generation-prompt.txt','실제 생성 Prompt B · 생성 기록','evidence']] },
@@ -30,7 +30,7 @@ export const packages = [
     keep:'매스·2층·폭·높이·지붕선·D1·W1~W5·SZ1 위치와 영역, 주변 도로·보도 관계와 같은 카메라 시점',
     change:'외장 마감, 입구 강조, 소형 캐노피, SZ1 무문자 표현, 조명·소규모 조경 · 개구부와 보행 공간 유지',
     exclude:'출입구·창호 이동·확대·추가, 증축·구조 변경·발코니·도로 변경·실내/설비/시공 상세·문자·로고·보도 점유',
-    diagramRole:'기준 입면도는 교육용 치수·개구부의 근거입니다. IMAGE 01은 편집 원본, IMAGE 02는 같은 건물의 깊이 이해용입니다.',
+    diagramRole:'기준 입면도는 13.60×8.20×H9.60m·1층 명목 111.5㎡·두 층 223.0㎡의 교육용 설정입니다. IMAGE 01은 편집 원본, IMAGE 02는 측면 시각 참고이며 기존 이미지·A/B와 새 도면의 정밀 투영 일치를 보증하지 않습니다.',
     strategyNames:['입구의 한 점 강조','거리의 수평 리듬'],
     assets:[...common, ...['png','pdf'].map((ext)=>[`existing-elevation.${ext}`,`기준 입면도 ${ext.toUpperCase()}`,'rfp']), ...['01','02'].map((n)=>[`existing-view-${n}.png`,`현황 IMAGE ${n} PNG`,n==='01'?'early':'rfp']),
       ['example-A-generation-prompt.txt','실제 생성 Prompt A · 생성 기록','evidence'],['example-B-generation-prompt.txt','실제 생성 Prompt B · 생성 기록','evidence']] },
@@ -39,6 +39,7 @@ export const originalPath = (id,file) => path.join(repositoryRoot, 'review','dae
 export const promptText = (id,suffix) => workbookLesson01Text(readFileSync(originalPath(id, `${id}_${suffix}`),'utf8').trim());
 export const simpleBriefPrompt = (id) => workbookLesson01Text(`첨부한 ${id} RFP 분석표를 원문·기준 도면·현황자료와 대조한 뒤 검증된 핵심 조건으로 간단한 Design Brief를 작성해 주세요. 미검증 항목은 먼저 대조 대상으로 표시하세요.
 RFP를 다시 요약하지 말고 다음 디자인 작업에 사용할 실행 기준으로 정리하세요.
+의뢰서 분석 10개 영역은 원문 조건과 질문을 파악하는 단계입니다. 원문 대조 뒤 디자이너가 3. 핵심 설계 문제, 4. 설계 우선순위 1→2→3, 9. 디자인 대안 전략 2개를 결정·보완하여 실제 디자인에 쓸 작업 기준서 10개 항목으로 전환합니다. AI가 제안한 우선순위·전략은 사람이 선택하기 전까지 후보 초안입니다.
 각 항목은 1~3문장으로 쓰세요.
 1. 프로젝트 목표
 2. 주요 사용자

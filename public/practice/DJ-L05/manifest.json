@@ -1,0 +1,1100 @@
+{
+  "packageId": "DJ-L05-FLOORPLAN-INPAINTING",
+  "lesson": "05",
+  "revision": "revision-review8-20261016",
+  "newPlanCount": 2,
+  "plans": [
+    {
+      "id": "PLAN-BASE-01",
+      "title": "소형 오피스·회의실",
+      "description": "외곽 14,400 × 8,400 mm, 4석 테이블 1,800 × 1,000 mm의 교육용 평면입니다.",
+      "target": "회의실 테이블을 넓혀 상·하 3석씩 총 6석으로 바꿉니다.",
+      "file": "plans/PLAN-BASE-01.png",
+      "mask": "plans/PLAN-BASE-01-marked.png",
+      "base": {
+        "file": "plans/PLAN-BASE-01.png",
+        "sha256": "d572e93fe6d56b3bc688e538c14a21d6f6256ffe3164a8b41915e743b5d16082",
+        "bytes": 118151,
+        "sizeBytes": 118151,
+        "key": "PLAN-BASE-01",
+        "title": "소형 오피스·회의실 · 원본 평면",
+        "description": "외곽 14,400 × 8,400 mm, 4석 테이블 1,800 × 1,000 mm의 교육용 평면입니다.",
+        "width": 2400,
+        "height": 1650
+      },
+      "marked": {
+        "file": "plans/PLAN-BASE-01-marked.png",
+        "sha256": "7de4cb007447db46fb217dc82cb0c56a9b5fcd3105b027d61514cb7a5909e78e",
+        "bytes": 120799,
+        "sizeBytes": 120799,
+        "key": "PLAN-BASE-01-marked",
+        "title": "소형 오피스·회의실 · 수정 영역",
+        "width": 2400,
+        "height": 1650
+      },
+      "result": {
+        "file": "results/PLAN-BASE-01-result.png",
+        "sha256": "20e80f29a96b81ef04b688c0179af6c333c9d0c09fcc27ad6b821bd37a8d79a4",
+        "bytes": 118217,
+        "sizeBytes": 118217,
+        "key": "PLAN-BASE-01-result",
+        "title": "소형 오피스·회의실 · 6석 반영 결과",
+        "width": 2400,
+        "height": 1650,
+        "description": "중심과 깊이 1,000 mm를 유지한 2,700 mm 테이블·3+3석의 정밀 작도 결과입니다. AI 생성 성공을 주장하는 자료가 아닙니다."
+      },
+      "overlay": {
+        "file": "results/PLAN-BASE-01-furniture-overlay.png",
+        "sha256": "ee025e26f3b782019894b5c1dbe9f65d4364433dad1c1eda2de814c509baa284",
+        "bytes": 121052,
+        "sizeBytes": 121052,
+        "key": "PLAN-BASE-01-overlay",
+        "title": "소형 오피스·회의실 · 전후 중첩",
+        "width": 2400,
+        "height": 1650
+      },
+      "sha256": "d572e93fe6d56b3bc688e538c14a21d6f6256ffe3164a8b41915e743b5d16082",
+      "bytes": 118151,
+      "sizeBytes": 118151,
+      "width": 2400,
+      "height": 1650
+    },
+    {
+      "id": "PLAN-BASE-02",
+      "title": "카페·라운지",
+      "description": "외곽 14,400 × 8,400 mm, 4석 테이블 1,800 × 1,000 mm의 교육용 평면입니다.",
+      "target": "중앙 테이블을 상·하 3석씩 총 6석으로 바꾸고 하단 2석은 유지합니다.",
+      "file": "plans/PLAN-BASE-02.png",
+      "mask": "plans/PLAN-BASE-02-marked.png",
+      "base": {
+        "file": "plans/PLAN-BASE-02.png",
+        "sha256": "047731dee61a5de5ba9b075407b46c1e6ccc5e931562c5a80643997fbb12dbd3",
+        "bytes": 105223,
+        "sizeBytes": 105223,
+        "key": "PLAN-BASE-02",
+        "title": "카페·라운지 · 원본 평면",
+        "description": "외곽 14,400 × 8,400 mm, 4석 테이블 1,800 × 1,000 mm의 교육용 평면입니다.",
+        "width": 2400,
+        "height": 1650
+      },
+      "marked": {
+        "file": "plans/PLAN-BASE-02-marked.png",
+        "sha256": "1e7d88706d4275d969962eef08c5a793b0a5889946dcc2e516ce0710e95698b1",
+        "bytes": 107772,
+        "sizeBytes": 107772,
+        "key": "PLAN-BASE-02-marked",
+        "title": "카페·라운지 · 수정 영역",
+        "width": 2400,
+        "height": 1650
+      },
+      "result": {
+        "file": "results/PLAN-BASE-02-result.png",
+        "sha256": "133a28c32bbc1f2982e60c4a0a7a836f1cf5f788ea5ebb9689879282a3f740f6",
+        "bytes": 105317,
+        "sizeBytes": 105317,
+        "key": "PLAN-BASE-02-result",
+        "title": "카페·라운지 · 6석 반영 결과",
+        "width": 2400,
+        "height": 1650,
+        "description": "중심과 깊이 1,000 mm를 유지한 2,700 mm 테이블·3+3석의 정밀 작도 결과입니다. AI 생성 성공을 주장하는 자료가 아닙니다."
+      },
+      "overlay": {
+        "file": "results/PLAN-BASE-02-furniture-overlay.png",
+        "sha256": "174fdff6e83f912628fc61b1e45bcc2265385c5cbcac0f04d4362522616ebc6f",
+        "bytes": 96547,
+        "sizeBytes": 96547,
+        "key": "PLAN-BASE-02-overlay",
+        "title": "카페·라운지 · 전후 중첩",
+        "width": 2400,
+        "height": 1650
+      },
+      "sha256": "047731dee61a5de5ba9b075407b46c1e6ccc5e931562c5a80643997fbb12dbd3",
+      "bytes": 105223,
+      "sizeBytes": 105223,
+      "width": 2400,
+      "height": 1650
+    }
+  ],
+  "legacyImages": [
+    {
+      "file": "legacy-A/01-original-first-floor-plan.png",
+      "sha256": "70352b0d65b67b789f6023c9d27def96397238f33027d539e3674e9152044775",
+      "bytes": 81413,
+      "sizeBytes": 81413,
+      "key": "legacy-house-original",
+      "title": "단독주택 1층 원본 평면",
+      "originalSource": "src/assets/lessons/06/dwg-to-exploded/01-original-first-floor-plan.png",
+      "width": 1632,
+      "height": 1708
+    },
+    {
+      "file": "legacy-A/02-edit-area-marked-plan.png",
+      "sha256": "6eefbc391b526c93565b6042c057d8de2da812df929b10db604ffa777bdd621e",
+      "bytes": 799976,
+      "sizeBytes": 799976,
+      "key": "legacy-house-marked",
+      "title": "단독주택 식탁 수정 범위",
+      "originalSource": "src/assets/lessons/06/dwg-to-exploded/02-edit-area-marked-plan.png",
+      "width": 2058,
+      "height": 2146
+    },
+    {
+      "file": "legacy-A/03-modified-first-floor-plan.png",
+      "sha256": "72f9e1898863d74ac916f8423307ae49232d71dbddcbf9751cdb7946656a8fa7",
+      "bytes": 1035678,
+      "sizeBytes": 1035678,
+      "key": "legacy-house-result",
+      "title": "단독주택 식탁 8석 반영 평면",
+      "originalSource": "src/assets/lessons/06/dwg-to-exploded/03-modified-first-floor-plan.png",
+      "width": 1227,
+      "height": 1281
+    }
+  ],
+  "door": [
+    {
+      "file": "plans/PLAN-BASE-01-door-marked.png",
+      "sha256": "c93536ccbdcb1f36de1d32e306b6458fab4ba124e2203469ebee23f4e5b42ddf",
+      "bytes": 119931,
+      "sizeBytes": 119931,
+      "key": "door-marked",
+      "title": "D2 이동 · 수정 영역",
+      "width": 2400,
+      "height": 1650
+    },
+    {
+      "file": "plans/PLAN-BASE-01-door-crop.png",
+      "sha256": "33fbc313e5ad66d0681f66de202318c6742d8e84336b96f705d1cd5d6ee91649",
+      "bytes": 10910,
+      "sizeBytes": 10910,
+      "key": "door-crop",
+      "title": "D2 이동 · 회의실 6석 결과 부분 입력",
+      "width": 480,
+      "height": 580
+    },
+    {
+      "file": "results/PLAN-BASE-01-door-ai-raw.png",
+      "sha256": "c083ca3bd8d45485e17c1c75bc4d267ab3677b4b32e7e99660a0d03686d4f0f2",
+      "bytes": 1103108,
+      "sizeBytes": 1103108,
+      "key": "door-raw",
+      "title": "D2 이동 · 실제 AI 출력",
+      "width": 1141,
+      "height": 1379
+    },
+    {
+      "file": "results/PLAN-BASE-01-door-result.png",
+      "sha256": "787d833f0ff886b45b9bed33a7b03835f08a90cfd3b0e6049a591aa57b54b04f",
+      "bytes": 181038,
+      "sizeBytes": 181038,
+      "key": "door-result",
+      "title": "D2 이동 · 전체 반영 결과",
+      "width": 2400,
+      "height": 1650
+    },
+    {
+      "file": "results/PLAN-BASE-01-door-overlay.png",
+      "sha256": "0e679c01536a47724e02096499ece0fb3972856cd8d12ae9b75debde239d3553",
+      "bytes": 111671,
+      "sizeBytes": 111671,
+      "key": "door-overlay",
+      "title": "D2 이동 · 전후 중첩",
+      "width": 2400,
+      "height": 1650
+    }
+  ],
+  "rawOutputs": [
+    {
+      "file": "results/PLAN-BASE-01-ai-raw.png",
+      "sha256": "e4c1e7aeee0529c04f796bae70f4601e4ad1a223547592c7ab073acad5b9ec02",
+      "bytes": 1058094,
+      "sizeBytes": 1058094,
+      "key": "plan01-edit-raw",
+      "title": "회의 테이블 · 4석에서 6석으로 · 실제 AI 출력",
+      "width": 1436,
+      "height": 1095,
+      "description": "이전 가구 치수로 실행한 실제 AI 생성 기록입니다. 최신 2,700×1,000 mm 정밀 도면과 구분합니다."
+    },
+    {
+      "file": "results/PLAN-BASE-02-ai-raw.png",
+      "sha256": "1c5ae992d88c2da3b6fc1237de3175ddcaf3b4741edcc431b4e4ef8fe5852472",
+      "bytes": 1025396,
+      "sizeBytes": 1025396,
+      "key": "plan02-edit-raw",
+      "title": "카페 커뮤니티 테이블 · 4석에서 6석으로 · 실제 AI 출력",
+      "width": 1358,
+      "height": 1158,
+      "description": "이전 가구 치수로 실행한 실제 AI 생성 기록입니다. 최신 2,700×1,000 mm 정밀 도면과 구분합니다."
+    },
+    {
+      "file": "results/PLAN-BASE-01-door-ai-raw.png",
+      "sha256": "c083ca3bd8d45485e17c1c75bc4d267ab3677b4b32e7e99660a0d03686d4f0f2",
+      "bytes": 1103108,
+      "sizeBytes": 1103108,
+      "key": "door-edit-raw",
+      "title": "회의 6석 유지 · D2 위치 이동 · 실제 AI 출력",
+      "width": 1141,
+      "height": 1379,
+      "description": "이전 가구 치수로 실행한 실제 AI 생성 기록입니다. 최신 2,700×1,000 mm 정밀 도면과 구분합니다."
+    }
+  ],
+  "crops": [
+    {
+      "file": "plans/PLAN-BASE-01-crop.png",
+      "sha256": "39e3662e45f870c413d33840e00945b6af57b2dfa50994978bb854012250ea26",
+      "bytes": 13322,
+      "sizeBytes": 13322,
+      "key": "plan01-crop",
+      "title": "오피스 회의실 · 부분 입력",
+      "width": 760,
+      "height": 580
+    },
+    {
+      "file": "plans/PLAN-BASE-02-crop.png",
+      "sha256": "cc70f055488a662f5165937ad74034ad35faa1f92dab10836e12654a548f7392",
+      "bytes": 23119,
+      "sizeBytes": 23119,
+      "key": "plan02-crop",
+      "title": "카페 중앙 테이블 · 부분 입력",
+      "width": 1020,
+      "height": 870
+    },
+    {
+      "file": "plans/PLAN-BASE-01-door-crop.png",
+      "sha256": "33fbc313e5ad66d0681f66de202318c6742d8e84336b96f705d1cd5d6ee91649",
+      "bytes": 10910,
+      "sizeBytes": 10910,
+      "key": "door-crop",
+      "title": "회의실 6석 결과 · D2 부분 입력",
+      "width": 480,
+      "height": 580
+    }
+  ],
+  "prompts": [
+    {
+      "file": "prompts/analysis.txt",
+      "sha256": "c417f212fedb6c08b2aee1b0a73a393cd56fa22d24918d2615394b96c4355eba",
+      "bytes": 1722,
+      "sizeBytes": 1722,
+      "key": "analysis",
+      "title": "평면도 읽기와 수정 범위 확인",
+      "attachments": [
+        {
+          "file": "plans/PLAN-BASE-01.png",
+          "role": "치수·구획·문·창·가구의 기준 평면",
+          "outputPath": "practice/DJ-L05/plans/PLAN-BASE-01.png",
+          "sha256": "d572e93fe6d56b3bc688e538c14a21d6f6256ffe3164a8b41915e743b5d16082",
+          "bytes": 118151,
+          "sizeBytes": 118151,
+          "width": 2400,
+          "height": 1650
+        }
+      ]
+    },
+    {
+      "file": "prompts/plan01-edit.txt",
+      "sha256": "7ff22ebbf46ed5542bd2bfbef4042df412127ac5221b5560bae1469b2df226e9",
+      "bytes": 1547,
+      "sizeBytes": 1547,
+      "key": "plan01-edit",
+      "title": "회의 테이블 · 4석에서 6석으로",
+      "attachments": [
+        {
+          "file": "plans/PLAN-BASE-01-crop.png",
+          "role": "부분 편집 대상 · 원래 벽·창·문·문자와 선 스타일 기준",
+          "outputPath": "practice/DJ-L05/plans/PLAN-BASE-01-crop.png",
+          "sha256": "39e3662e45f870c413d33840e00945b6af57b2dfa50994978bb854012250ea26",
+          "bytes": 13322,
+          "sizeBytes": 13322,
+          "width": 760,
+          "height": 580
+        }
+      ]
+    },
+    {
+      "file": "prompts/plan02-edit.txt",
+      "sha256": "259ea7a30554fcb3eb7211809a1b0e79cd2e9568fae7e548034af2bc38cb4f71",
+      "bytes": 1291,
+      "sizeBytes": 1291,
+      "key": "plan02-edit",
+      "title": "카페 커뮤니티 테이블 · 4석에서 6석으로",
+      "attachments": [
+        {
+          "file": "plans/PLAN-BASE-02-crop.png",
+          "role": "부분 편집 대상 · 원래 벽·창·문·문자와 선 스타일 기준",
+          "outputPath": "practice/DJ-L05/plans/PLAN-BASE-02-crop.png",
+          "sha256": "cc70f055488a662f5165937ad74034ad35faa1f92dab10836e12654a548f7392",
+          "bytes": 23119,
+          "sizeBytes": 23119,
+          "width": 1020,
+          "height": 870
+        }
+      ]
+    },
+    {
+      "file": "prompts/door-edit.txt",
+      "sha256": "11bb0e1afad0ff30a5a54685458e4ff5327bc6f493046e957dc37363c15d96e1",
+      "bytes": 1525,
+      "sizeBytes": 1525,
+      "key": "door-edit",
+      "title": "회의 6석 유지 · D2 위치 이동",
+      "attachments": [
+        {
+          "file": "plans/PLAN-BASE-01-door-crop.png",
+          "role": "회의실6석 결과에서 추출한 문 이동 입력",
+          "outputPath": "practice/DJ-L05/plans/PLAN-BASE-01-door-crop.png",
+          "sha256": "33fbc313e5ad66d0681f66de202318c6742d8e84336b96f705d1cd5d6ee91649",
+          "bytes": 10910,
+          "sizeBytes": 10910,
+          "width": 480,
+          "height": 580
+        }
+      ]
+    },
+    {
+      "file": "prompts/recompose.txt",
+      "sha256": "9f92dc6102f33e4e7d8252c18b7dddff51eda75cf5c9261ec2062b70c3a89192",
+      "bytes": 3658,
+      "sizeBytes": 3658,
+      "key": "recompose",
+      "title": "부분 수정 결과를 전체 평면에 반영",
+      "attachments": [
+        {
+          "file": "results/PLAN-BASE-01-result.png",
+          "role": "선택 단계의 전체 기준 평면 · 앞 단계 회의실 6석 반영본",
+          "outputPath": "practice/DJ-L05/results/PLAN-BASE-01-result.png",
+          "sha256": "20e80f29a96b81ef04b688c0179af6c333c9d0c09fcc27ad6b821bd37a8d79a4",
+          "bytes": 118217,
+          "sizeBytes": 118217,
+          "width": 2400,
+          "height": 1650
+        },
+        {
+          "file": "plans/PLAN-BASE-01-door-crop.png",
+          "role": "선택 단계의 전체 기준에서 추출한 입력 Crop",
+          "outputPath": "practice/DJ-L05/plans/PLAN-BASE-01-door-crop.png",
+          "sha256": "33fbc313e5ad66d0681f66de202318c6742d8e84336b96f705d1cd5d6ee91649",
+          "bytes": 10910,
+          "sizeBytes": 10910,
+          "width": 480,
+          "height": 580
+        },
+        {
+          "file": "results/PLAN-BASE-01-door-precision-crop.png",
+          "role": "최신 정밀 부분 결과 또는 같은 역할의 본인 검수 결과; AI 생성 원본과 구분",
+          "outputPath": "practice/DJ-L05/results/PLAN-BASE-01-door-precision-crop.png",
+          "sha256": "6825eb7e07d3a61cc222ddfc59fafe670805b7758b20e1dee55e53c2920bb920",
+          "bytes": 63346,
+          "sizeBytes": 63346,
+          "width": 480,
+          "height": 580
+        },
+        {
+          "file": "plans/PLAN-BASE-01-door-marked.png",
+          "role": "선택 단계의 변경 허용 영역 표시",
+          "outputPath": "practice/DJ-L05/plans/PLAN-BASE-01-door-marked.png",
+          "sha256": "c93536ccbdcb1f36de1d32e306b6458fab4ba124e2203469ebee23f4e5b42ddf",
+          "bytes": 119931,
+          "sizeBytes": 119931,
+          "width": 2400,
+          "height": 1650
+        }
+      ],
+      "attachmentBundles": [
+        {
+          "id": "office-furniture",
+          "title": "오피스 가구 · 회의실 4석 → 6석",
+          "attachments": [
+            {
+              "file": "plans/PLAN-BASE-01.png",
+              "role": "선택 단계의 전체 기준 평면 · 가구 수정 전 원본",
+              "outputPath": "practice/DJ-L05/plans/PLAN-BASE-01.png",
+              "sha256": "d572e93fe6d56b3bc688e538c14a21d6f6256ffe3164a8b41915e743b5d16082",
+              "bytes": 118151,
+              "sizeBytes": 118151,
+              "width": 2400,
+              "height": 1650
+            },
+            {
+              "file": "plans/PLAN-BASE-01-crop.png",
+              "role": "선택 단계의 전체 기준에서 추출한 입력 Crop",
+              "outputPath": "practice/DJ-L05/plans/PLAN-BASE-01-crop.png",
+              "sha256": "39e3662e45f870c413d33840e00945b6af57b2dfa50994978bb854012250ea26",
+              "bytes": 13322,
+              "sizeBytes": 13322,
+              "width": 760,
+              "height": 580
+            },
+            {
+              "file": "results/PLAN-BASE-01-precision-crop.png",
+              "role": "최신 정밀 부분 결과 또는 같은 역할의 본인 검수 결과; AI 생성 원본과 구분",
+              "outputPath": "practice/DJ-L05/results/PLAN-BASE-01-precision-crop.png",
+              "sha256": "031ebe3c08d40253f83d1f4f9cab6b8a0ed420409fa3ca53383e97cf0cbf6588",
+              "bytes": 13457,
+              "sizeBytes": 13457,
+              "width": 760,
+              "height": 580
+            },
+            {
+              "file": "plans/PLAN-BASE-01-marked.png",
+              "role": "선택 단계의 변경 허용 영역 표시",
+              "outputPath": "practice/DJ-L05/plans/PLAN-BASE-01-marked.png",
+              "sha256": "7de4cb007447db46fb217dc82cb0c56a9b5fcd3105b027d61514cb7a5909e78e",
+              "bytes": 120799,
+              "sizeBytes": 120799,
+              "width": 2400,
+              "height": 1650
+            }
+          ]
+        },
+        {
+          "id": "office-door",
+          "title": "오피스 D2 이동 · 6석 결과 → 6석 유지·D2 이동",
+          "attachments": [
+            {
+              "file": "results/PLAN-BASE-01-result.png",
+              "role": "선택 단계의 전체 기준 평면 · 앞 단계 회의실 6석 반영본",
+              "outputPath": "practice/DJ-L05/results/PLAN-BASE-01-result.png",
+              "sha256": "20e80f29a96b81ef04b688c0179af6c333c9d0c09fcc27ad6b821bd37a8d79a4",
+              "bytes": 118217,
+              "sizeBytes": 118217,
+              "width": 2400,
+              "height": 1650
+            },
+            {
+              "file": "plans/PLAN-BASE-01-door-crop.png",
+              "role": "선택 단계의 전체 기준에서 추출한 입력 Crop",
+              "outputPath": "practice/DJ-L05/plans/PLAN-BASE-01-door-crop.png",
+              "sha256": "33fbc313e5ad66d0681f66de202318c6742d8e84336b96f705d1cd5d6ee91649",
+              "bytes": 10910,
+              "sizeBytes": 10910,
+              "width": 480,
+              "height": 580
+            },
+            {
+              "file": "results/PLAN-BASE-01-door-precision-crop.png",
+              "role": "최신 정밀 부분 결과 또는 같은 역할의 본인 검수 결과; AI 생성 원본과 구분",
+              "outputPath": "practice/DJ-L05/results/PLAN-BASE-01-door-precision-crop.png",
+              "sha256": "6825eb7e07d3a61cc222ddfc59fafe670805b7758b20e1dee55e53c2920bb920",
+              "bytes": 63346,
+              "sizeBytes": 63346,
+              "width": 480,
+              "height": 580
+            },
+            {
+              "file": "plans/PLAN-BASE-01-door-marked.png",
+              "role": "선택 단계의 변경 허용 영역 표시",
+              "outputPath": "practice/DJ-L05/plans/PLAN-BASE-01-door-marked.png",
+              "sha256": "c93536ccbdcb1f36de1d32e306b6458fab4ba124e2203469ebee23f4e5b42ddf",
+              "bytes": 119931,
+              "sizeBytes": 119931,
+              "width": 2400,
+              "height": 1650
+            }
+          ]
+        },
+        {
+          "id": "cafe-furniture",
+          "title": "카페 가구 · 중앙 4석 → 6석",
+          "attachments": [
+            {
+              "file": "plans/PLAN-BASE-02.png",
+              "role": "선택 단계의 전체 기준 평면 · 가구 수정 전 원본",
+              "outputPath": "practice/DJ-L05/plans/PLAN-BASE-02.png",
+              "sha256": "047731dee61a5de5ba9b075407b46c1e6ccc5e931562c5a80643997fbb12dbd3",
+              "bytes": 105223,
+              "sizeBytes": 105223,
+              "width": 2400,
+              "height": 1650
+            },
+            {
+              "file": "plans/PLAN-BASE-02-crop.png",
+              "role": "선택 단계의 전체 기준에서 추출한 입력 Crop",
+              "outputPath": "practice/DJ-L05/plans/PLAN-BASE-02-crop.png",
+              "sha256": "cc70f055488a662f5165937ad74034ad35faa1f92dab10836e12654a548f7392",
+              "bytes": 23119,
+              "sizeBytes": 23119,
+              "width": 1020,
+              "height": 870
+            },
+            {
+              "file": "results/PLAN-BASE-02-precision-crop.png",
+              "role": "최신 정밀 부분 결과 또는 같은 역할의 본인 검수 결과; AI 생성 원본과 구분",
+              "outputPath": "practice/DJ-L05/results/PLAN-BASE-02-precision-crop.png",
+              "sha256": "a4b85cf61f60b3304f324d2d057693fe429c26270e828cb41c11b6c41eafd934",
+              "bytes": 23219,
+              "sizeBytes": 23219,
+              "width": 1020,
+              "height": 870
+            },
+            {
+              "file": "plans/PLAN-BASE-02-marked.png",
+              "role": "선택 단계의 변경 허용 영역 표시",
+              "outputPath": "practice/DJ-L05/plans/PLAN-BASE-02-marked.png",
+              "sha256": "1e7d88706d4275d969962eef08c5a793b0a5889946dcc2e516ce0710e95698b1",
+              "bytes": 107772,
+              "sizeBytes": 107772,
+              "width": 2400,
+              "height": 1650
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "prompts/overlay.txt",
+      "sha256": "0cbfa1a08f3a070cf05f458cec24a03498246ccd533ec5c12fb9e0ce28ec528a",
+      "bytes": 3023,
+      "sizeBytes": 3023,
+      "key": "overlay",
+      "title": "수정 전후 도면 중첩 비교",
+      "attachments": [
+        {
+          "file": "results/PLAN-BASE-01-result.png",
+          "role": "선택 단계의 수정 전 전체 평면 · 회의실 6석 반영본",
+          "outputPath": "practice/DJ-L05/results/PLAN-BASE-01-result.png",
+          "sha256": "20e80f29a96b81ef04b688c0179af6c333c9d0c09fcc27ad6b821bd37a8d79a4",
+          "bytes": 118217,
+          "sizeBytes": 118217,
+          "width": 2400,
+          "height": 1650
+        },
+        {
+          "file": "results/PLAN-BASE-01-door-result.png",
+          "role": "선택 단계의 수정 후 전체 반영본",
+          "outputPath": "practice/DJ-L05/results/PLAN-BASE-01-door-result.png",
+          "sha256": "787d833f0ff886b45b9bed33a7b03835f08a90cfd3b0e6049a591aa57b54b04f",
+          "bytes": 181038,
+          "sizeBytes": 181038,
+          "width": 2400,
+          "height": 1650
+        },
+        {
+          "file": "plans/PLAN-BASE-01-door-marked.png",
+          "role": "선택 단계의 변경 허용 영역 표시",
+          "outputPath": "practice/DJ-L05/plans/PLAN-BASE-01-door-marked.png",
+          "sha256": "c93536ccbdcb1f36de1d32e306b6458fab4ba124e2203469ebee23f4e5b42ddf",
+          "bytes": 119931,
+          "sizeBytes": 119931,
+          "width": 2400,
+          "height": 1650
+        }
+      ],
+      "attachmentBundles": [
+        {
+          "id": "office-furniture",
+          "title": "오피스 가구 · 회의실 4석 → 6석",
+          "attachments": [
+            {
+              "file": "plans/PLAN-BASE-01.png",
+              "role": "선택 단계의 수정 전 전체 평면 · 4석 원본",
+              "outputPath": "practice/DJ-L05/plans/PLAN-BASE-01.png",
+              "sha256": "d572e93fe6d56b3bc688e538c14a21d6f6256ffe3164a8b41915e743b5d16082",
+              "bytes": 118151,
+              "sizeBytes": 118151,
+              "width": 2400,
+              "height": 1650
+            },
+            {
+              "file": "results/PLAN-BASE-01-result.png",
+              "role": "선택 단계의 수정 후 전체 반영본",
+              "outputPath": "practice/DJ-L05/results/PLAN-BASE-01-result.png",
+              "sha256": "20e80f29a96b81ef04b688c0179af6c333c9d0c09fcc27ad6b821bd37a8d79a4",
+              "bytes": 118217,
+              "sizeBytes": 118217,
+              "width": 2400,
+              "height": 1650
+            },
+            {
+              "file": "plans/PLAN-BASE-01-marked.png",
+              "role": "선택 단계의 변경 허용 영역 표시",
+              "outputPath": "practice/DJ-L05/plans/PLAN-BASE-01-marked.png",
+              "sha256": "7de4cb007447db46fb217dc82cb0c56a9b5fcd3105b027d61514cb7a5909e78e",
+              "bytes": 120799,
+              "sizeBytes": 120799,
+              "width": 2400,
+              "height": 1650
+            }
+          ]
+        },
+        {
+          "id": "office-door",
+          "title": "오피스 D2 이동 · 6석 결과 → 6석 유지·D2 이동",
+          "attachments": [
+            {
+              "file": "results/PLAN-BASE-01-result.png",
+              "role": "선택 단계의 수정 전 전체 평면 · 회의실 6석 반영본",
+              "outputPath": "practice/DJ-L05/results/PLAN-BASE-01-result.png",
+              "sha256": "20e80f29a96b81ef04b688c0179af6c333c9d0c09fcc27ad6b821bd37a8d79a4",
+              "bytes": 118217,
+              "sizeBytes": 118217,
+              "width": 2400,
+              "height": 1650
+            },
+            {
+              "file": "results/PLAN-BASE-01-door-result.png",
+              "role": "선택 단계의 수정 후 전체 반영본",
+              "outputPath": "practice/DJ-L05/results/PLAN-BASE-01-door-result.png",
+              "sha256": "787d833f0ff886b45b9bed33a7b03835f08a90cfd3b0e6049a591aa57b54b04f",
+              "bytes": 181038,
+              "sizeBytes": 181038,
+              "width": 2400,
+              "height": 1650
+            },
+            {
+              "file": "plans/PLAN-BASE-01-door-marked.png",
+              "role": "선택 단계의 변경 허용 영역 표시",
+              "outputPath": "practice/DJ-L05/plans/PLAN-BASE-01-door-marked.png",
+              "sha256": "c93536ccbdcb1f36de1d32e306b6458fab4ba124e2203469ebee23f4e5b42ddf",
+              "bytes": 119931,
+              "sizeBytes": 119931,
+              "width": 2400,
+              "height": 1650
+            }
+          ]
+        },
+        {
+          "id": "cafe-furniture",
+          "title": "카페 가구 · 중앙 4석 → 6석",
+          "attachments": [
+            {
+              "file": "plans/PLAN-BASE-02.png",
+              "role": "선택 단계의 수정 전 전체 평면 · 4석 원본",
+              "outputPath": "practice/DJ-L05/plans/PLAN-BASE-02.png",
+              "sha256": "047731dee61a5de5ba9b075407b46c1e6ccc5e931562c5a80643997fbb12dbd3",
+              "bytes": 105223,
+              "sizeBytes": 105223,
+              "width": 2400,
+              "height": 1650
+            },
+            {
+              "file": "results/PLAN-BASE-02-result.png",
+              "role": "선택 단계의 수정 후 전체 반영본",
+              "outputPath": "practice/DJ-L05/results/PLAN-BASE-02-result.png",
+              "sha256": "133a28c32bbc1f2982e60c4a0a7a836f1cf5f788ea5ebb9689879282a3f740f6",
+              "bytes": 105317,
+              "sizeBytes": 105317,
+              "width": 2400,
+              "height": 1650
+            },
+            {
+              "file": "plans/PLAN-BASE-02-marked.png",
+              "role": "선택 단계의 변경 허용 영역 표시",
+              "outputPath": "practice/DJ-L05/plans/PLAN-BASE-02-marked.png",
+              "sha256": "1e7d88706d4275d969962eef08c5a793b0a5889946dcc2e516ce0710e95698b1",
+              "bytes": 107772,
+              "sizeBytes": 107772,
+              "width": 2400,
+              "height": 1650
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "analysis": [
+    {
+      "file": "analysis/DRAWING-READING-CHECKLIST.md",
+      "sha256": "de7c0054727f46642f693a4b5c171a9ec9861a1724b8d28790e84f00cbb3f08c",
+      "bytes": 2375,
+      "sizeBytes": 2375,
+      "key": "checklist",
+      "title": "평면도 수정 체크리스트"
+    },
+    {
+      "file": "analysis/DIMENSION-AND-SCALE-GUIDE.md",
+      "key": "dimension-guide",
+      "title": "치수·축척·기존 3D 사용 기준",
+      "sha256": "edf443d8a680b874b3d687d12570df90ae671e0ea77d48033357550feb55251c",
+      "bytes": 2883,
+      "sizeBytes": 2883
+    }
+  ],
+  "files": [
+    {
+      "file": "README.txt",
+      "sha256": "348c3151909fa05e5b3b936251f6204889cd7335e9a8444f0554b82e5c8de56a",
+      "bytes": 1263,
+      "sizeBytes": 1263
+    },
+    {
+      "file": "analysis/DIMENSION-AND-SCALE-GUIDE.md",
+      "sha256": "edf443d8a680b874b3d687d12570df90ae671e0ea77d48033357550feb55251c",
+      "bytes": 2883,
+      "sizeBytes": 2883
+    },
+    {
+      "file": "analysis/DRAWING-READING-CHECKLIST.md",
+      "sha256": "de7c0054727f46642f693a4b5c171a9ec9861a1724b8d28790e84f00cbb3f08c",
+      "bytes": 2375,
+      "sizeBytes": 2375
+    },
+    {
+      "file": "legacy-A/01-original-first-floor-plan.png",
+      "sha256": "70352b0d65b67b789f6023c9d27def96397238f33027d539e3674e9152044775",
+      "bytes": 81413,
+      "sizeBytes": 81413,
+      "width": 1632,
+      "height": 1708
+    },
+    {
+      "file": "legacy-A/02-edit-area-marked-plan.png",
+      "sha256": "6eefbc391b526c93565b6042c057d8de2da812df929b10db604ffa777bdd621e",
+      "bytes": 799976,
+      "sizeBytes": 799976,
+      "width": 2058,
+      "height": 2146
+    },
+    {
+      "file": "legacy-A/03-modified-first-floor-plan.png",
+      "sha256": "72f9e1898863d74ac916f8423307ae49232d71dbddcbf9751cdb7946656a8fa7",
+      "bytes": 1035678,
+      "sizeBytes": 1035678,
+      "width": 1227,
+      "height": 1281
+    },
+    {
+      "file": "plans/PLAN-BASE-01-crop.png",
+      "sha256": "39e3662e45f870c413d33840e00945b6af57b2dfa50994978bb854012250ea26",
+      "bytes": 13322,
+      "sizeBytes": 13322,
+      "width": 760,
+      "height": 580
+    },
+    {
+      "file": "plans/PLAN-BASE-01-door-crop.png",
+      "sha256": "33fbc313e5ad66d0681f66de202318c6742d8e84336b96f705d1cd5d6ee91649",
+      "bytes": 10910,
+      "sizeBytes": 10910,
+      "width": 480,
+      "height": 580
+    },
+    {
+      "file": "plans/PLAN-BASE-01-door-marked.png",
+      "sha256": "c93536ccbdcb1f36de1d32e306b6458fab4ba124e2203469ebee23f4e5b42ddf",
+      "bytes": 119931,
+      "sizeBytes": 119931,
+      "width": 2400,
+      "height": 1650
+    },
+    {
+      "file": "plans/PLAN-BASE-01-marked.png",
+      "sha256": "7de4cb007447db46fb217dc82cb0c56a9b5fcd3105b027d61514cb7a5909e78e",
+      "bytes": 120799,
+      "sizeBytes": 120799,
+      "width": 2400,
+      "height": 1650
+    },
+    {
+      "file": "plans/PLAN-BASE-01.png",
+      "sha256": "d572e93fe6d56b3bc688e538c14a21d6f6256ffe3164a8b41915e743b5d16082",
+      "bytes": 118151,
+      "sizeBytes": 118151,
+      "width": 2400,
+      "height": 1650
+    },
+    {
+      "file": "plans/PLAN-BASE-02-crop.png",
+      "sha256": "cc70f055488a662f5165937ad74034ad35faa1f92dab10836e12654a548f7392",
+      "bytes": 23119,
+      "sizeBytes": 23119,
+      "width": 1020,
+      "height": 870
+    },
+    {
+      "file": "plans/PLAN-BASE-02-marked.png",
+      "sha256": "1e7d88706d4275d969962eef08c5a793b0a5889946dcc2e516ce0710e95698b1",
+      "bytes": 107772,
+      "sizeBytes": 107772,
+      "width": 2400,
+      "height": 1650
+    },
+    {
+      "file": "plans/PLAN-BASE-02.png",
+      "sha256": "047731dee61a5de5ba9b075407b46c1e6ccc5e931562c5a80643997fbb12dbd3",
+      "bytes": 105223,
+      "sizeBytes": 105223,
+      "width": 2400,
+      "height": 1650
+    },
+    {
+      "file": "precision/PLAN-BASE-01-door-result-precision-1-100-A3.pdf",
+      "sha256": "e5db16afd7ec7c6a212f492c6180aa3f6739592e55be335522460d9554148b53",
+      "bytes": 240750,
+      "sizeBytes": 240750
+    },
+    {
+      "file": "precision/PLAN-BASE-01-door-result-precision-1-100-A3.svg",
+      "sha256": "e5c17ad96b2e57455b5efbd87fcbc1ee405499ea81169da5b46e07e25261bfff",
+      "bytes": 241762,
+      "sizeBytes": 241762
+    },
+    {
+      "file": "precision/PLAN-BASE-01-precision-1-100-A3.pdf",
+      "sha256": "f174c4b67507e61b6184abf411328ac44ffae003b65de34351e58b501843d114",
+      "bytes": 164159,
+      "sizeBytes": 164159
+    },
+    {
+      "file": "precision/PLAN-BASE-01-precision-1-100-A3.svg",
+      "sha256": "9708ee5de29b51db82f88d9fcc8d7c391b295e9937a7bbcfd45aab3cfda5c6ff",
+      "bytes": 157900,
+      "sizeBytes": 157900
+    },
+    {
+      "file": "precision/PLAN-BASE-01-result-precision-1-100-A3.pdf",
+      "sha256": "b88735de6608225b09e0ef165eb53f6df3a57c8fb6124b1b0aebb4d56d1d717f",
+      "bytes": 164616,
+      "sizeBytes": 164616
+    },
+    {
+      "file": "precision/PLAN-BASE-01-result-precision-1-100-A3.svg",
+      "sha256": "3913caea939e04415cb175b45d280525dea290cae44e8bb35a2aa464290884b4",
+      "bytes": 157988,
+      "sizeBytes": 157988
+    },
+    {
+      "file": "precision/PLAN-BASE-02-precision-1-100-A3.pdf",
+      "sha256": "6a17d672adbeaac8275a0cb90b58376775ac892b7d5ba1800e2f4c0ff42b73b9",
+      "bytes": 145240,
+      "sizeBytes": 145240
+    },
+    {
+      "file": "precision/PLAN-BASE-02-precision-1-100-A3.svg",
+      "sha256": "f62c86b16c5946376b354dd5495d775b68ecc7e7462954e3c1c2101d3af03cd5",
+      "bytes": 140661,
+      "sizeBytes": 140661
+    },
+    {
+      "file": "precision/PLAN-BASE-02-result-precision-1-100-A3.pdf",
+      "sha256": "0cebb0e1be179fbc099d1fc96a30a9299682824284fcb496543216c7f30cad54",
+      "bytes": 145766,
+      "sizeBytes": 145766
+    },
+    {
+      "file": "precision/PLAN-BASE-02-result-precision-1-100-A3.svg",
+      "sha256": "7cb2c4d2ae398aab9d31bf128c3f82f7d9c0412c07c28f8b049e6c1ef9ffa32c",
+      "bytes": 140785,
+      "sizeBytes": 140785
+    },
+    {
+      "file": "precision/PLAN-GEOMETRY.json",
+      "sha256": "c0250dc363a6d46d24f6bf538d2debcae89559459d0b9198a57cddec4e8d2f77",
+      "bytes": 8148,
+      "sizeBytes": 8148
+    },
+    {
+      "file": "prompts/analysis.txt",
+      "sha256": "c417f212fedb6c08b2aee1b0a73a393cd56fa22d24918d2615394b96c4355eba",
+      "bytes": 1722,
+      "sizeBytes": 1722
+    },
+    {
+      "file": "prompts/door-edit.txt",
+      "sha256": "11bb0e1afad0ff30a5a54685458e4ff5327bc6f493046e957dc37363c15d96e1",
+      "bytes": 1525,
+      "sizeBytes": 1525
+    },
+    {
+      "file": "prompts/overlay.txt",
+      "sha256": "0cbfa1a08f3a070cf05f458cec24a03498246ccd533ec5c12fb9e0ce28ec528a",
+      "bytes": 3023,
+      "sizeBytes": 3023
+    },
+    {
+      "file": "prompts/plan01-edit.txt",
+      "sha256": "7ff22ebbf46ed5542bd2bfbef4042df412127ac5221b5560bae1469b2df226e9",
+      "bytes": 1547,
+      "sizeBytes": 1547
+    },
+    {
+      "file": "prompts/plan02-edit.txt",
+      "sha256": "259ea7a30554fcb3eb7211809a1b0e79cd2e9568fae7e548034af2bc38cb4f71",
+      "bytes": 1291,
+      "sizeBytes": 1291
+    },
+    {
+      "file": "prompts/recompose.txt",
+      "sha256": "9f92dc6102f33e4e7d8252c18b7dddff51eda75cf5c9261ec2062b70c3a89192",
+      "bytes": 3658,
+      "sizeBytes": 3658
+    },
+    {
+      "file": "results/PLAN-BASE-01-ai-raw.png",
+      "sha256": "e4c1e7aeee0529c04f796bae70f4601e4ad1a223547592c7ab073acad5b9ec02",
+      "bytes": 1058094,
+      "sizeBytes": 1058094,
+      "width": 1436,
+      "height": 1095
+    },
+    {
+      "file": "results/PLAN-BASE-01-door-ai-raw.png",
+      "sha256": "c083ca3bd8d45485e17c1c75bc4d267ab3677b4b32e7e99660a0d03686d4f0f2",
+      "bytes": 1103108,
+      "sizeBytes": 1103108,
+      "width": 1141,
+      "height": 1379
+    },
+    {
+      "file": "results/PLAN-BASE-01-door-overlay.png",
+      "sha256": "0e679c01536a47724e02096499ece0fb3972856cd8d12ae9b75debde239d3553",
+      "bytes": 111671,
+      "sizeBytes": 111671,
+      "width": 2400,
+      "height": 1650
+    },
+    {
+      "file": "results/PLAN-BASE-01-door-precision-crop.png",
+      "sha256": "6825eb7e07d3a61cc222ddfc59fafe670805b7758b20e1dee55e53c2920bb920",
+      "bytes": 63346,
+      "sizeBytes": 63346,
+      "width": 480,
+      "height": 580
+    },
+    {
+      "file": "results/PLAN-BASE-01-door-result.png",
+      "sha256": "787d833f0ff886b45b9bed33a7b03835f08a90cfd3b0e6049a591aa57b54b04f",
+      "bytes": 181038,
+      "sizeBytes": 181038,
+      "width": 2400,
+      "height": 1650
+    },
+    {
+      "file": "results/PLAN-BASE-01-furniture-overlay.png",
+      "sha256": "ee025e26f3b782019894b5c1dbe9f65d4364433dad1c1eda2de814c509baa284",
+      "bytes": 121052,
+      "sizeBytes": 121052,
+      "width": 2400,
+      "height": 1650
+    },
+    {
+      "file": "results/PLAN-BASE-01-precision-crop.png",
+      "sha256": "031ebe3c08d40253f83d1f4f9cab6b8a0ed420409fa3ca53383e97cf0cbf6588",
+      "bytes": 13457,
+      "sizeBytes": 13457,
+      "width": 760,
+      "height": 580
+    },
+    {
+      "file": "results/PLAN-BASE-01-result.png",
+      "sha256": "20e80f29a96b81ef04b688c0179af6c333c9d0c09fcc27ad6b821bd37a8d79a4",
+      "bytes": 118217,
+      "sizeBytes": 118217,
+      "width": 2400,
+      "height": 1650
+    },
+    {
+      "file": "results/PLAN-BASE-02-ai-raw.png",
+      "sha256": "1c5ae992d88c2da3b6fc1237de3175ddcaf3b4741edcc431b4e4ef8fe5852472",
+      "bytes": 1025396,
+      "sizeBytes": 1025396,
+      "width": 1358,
+      "height": 1158
+    },
+    {
+      "file": "results/PLAN-BASE-02-furniture-overlay.png",
+      "sha256": "174fdff6e83f912628fc61b1e45bcc2265385c5cbcac0f04d4362522616ebc6f",
+      "bytes": 96547,
+      "sizeBytes": 96547,
+      "width": 2400,
+      "height": 1650
+    },
+    {
+      "file": "results/PLAN-BASE-02-precision-crop.png",
+      "sha256": "a4b85cf61f60b3304f324d2d057693fe429c26270e828cb41c11b6c41eafd934",
+      "bytes": 23219,
+      "sizeBytes": 23219,
+      "width": 1020,
+      "height": 870
+    },
+    {
+      "file": "results/PLAN-BASE-02-result.png",
+      "sha256": "133a28c32bbc1f2982e60c4a0a7a836f1cf5f788ea5ebb9689879282a3f740f6",
+      "bytes": 105317,
+      "sizeBytes": 105317,
+      "width": 2400,
+      "height": 1650
+    }
+  ],
+  "precision": [
+    {
+      "file": "precision/PLAN-BASE-01-precision-1-100-A3.pdf",
+      "sha256": "f174c4b67507e61b6184abf411328ac44ffae003b65de34351e58b501843d114",
+      "bytes": 164159,
+      "sizeBytes": 164159,
+      "key": "office-base",
+      "title": "오피스 · 4석 원본 · A3 정밀 출력 PDF",
+      "description": "A3 가로 실제 크기/100% 출력에서 1:100; 외곽 144×84 mm·2m 스케일바 20 mm."
+    },
+    {
+      "file": "precision/PLAN-BASE-02-precision-1-100-A3.pdf",
+      "sha256": "6a17d672adbeaac8275a0cb90b58376775ac892b7d5ba1800e2f4c0ff42b73b9",
+      "bytes": 145240,
+      "sizeBytes": 145240,
+      "key": "cafe-base",
+      "title": "카페 · 4석 원본 · A3 정밀 출력 PDF",
+      "description": "A3 가로 실제 크기/100% 출력에서 1:100; 외곽 144×84 mm·2m 스케일바 20 mm."
+    },
+    {
+      "file": "precision/PLAN-BASE-01-result-precision-1-100-A3.pdf",
+      "sha256": "b88735de6608225b09e0ef165eb53f6df3a57c8fb6124b1b0aebb4d56d1d717f",
+      "bytes": 164616,
+      "sizeBytes": 164616,
+      "key": "office-six",
+      "title": "오피스 · 6석 결과 · A3 정밀 출력 PDF",
+      "description": "A3 가로 실제 크기/100% 출력에서 1:100; 외곽 144×84 mm·2m 스케일바 20 mm."
+    },
+    {
+      "file": "precision/PLAN-BASE-01-door-result-precision-1-100-A3.pdf",
+      "sha256": "e5db16afd7ec7c6a212f492c6180aa3f6739592e55be335522460d9554148b53",
+      "bytes": 240750,
+      "sizeBytes": 240750,
+      "key": "office-door",
+      "title": "오피스 · 6석 및 D2 이동 결과 · A3 정밀 출력 PDF",
+      "description": "A3 가로 실제 크기/100% 출력에서 1:100; 외곽 144×84 mm·2m 스케일바 20 mm."
+    },
+    {
+      "file": "precision/PLAN-BASE-02-result-precision-1-100-A3.pdf",
+      "sha256": "0cebb0e1be179fbc099d1fc96a30a9299682824284fcb496543216c7f30cad54",
+      "bytes": 145766,
+      "sizeBytes": 145766,
+      "key": "cafe-six",
+      "title": "카페 · 6석 결과 · A3 정밀 출력 PDF",
+      "description": "A3 가로 실제 크기/100% 출력에서 1:100; 외곽 144×84 mm·2m 스케일바 20 mm."
+    }
+  ],
+  "precisionCrops": [
+    {
+      "file": "results/PLAN-BASE-01-precision-crop.png",
+      "sha256": "031ebe3c08d40253f83d1f4f9cab6b8a0ed420409fa3ca53383e97cf0cbf6588",
+      "bytes": 13457,
+      "sizeBytes": 13457,
+      "width": 760,
+      "height": 580,
+      "key": "office-precision-crop",
+      "title": "오피스 · 최신 6석 정밀 부분 결과",
+      "description": "좌표로 작도한 비교 기준입니다. AI 생성 원본 출력이 아닙니다."
+    },
+    {
+      "file": "results/PLAN-BASE-02-precision-crop.png",
+      "sha256": "a4b85cf61f60b3304f324d2d057693fe429c26270e828cb41c11b6c41eafd934",
+      "bytes": 23219,
+      "sizeBytes": 23219,
+      "width": 1020,
+      "height": 870,
+      "key": "cafe-precision-crop",
+      "title": "카페 · 최신 6석 정밀 부분 결과",
+      "description": "좌표로 작도한 비교 기준입니다. AI 생성 원본 출력이 아닙니다."
+    },
+    {
+      "file": "results/PLAN-BASE-01-door-precision-crop.png",
+      "sha256": "6825eb7e07d3a61cc222ddfc59fafe670805b7758b20e1dee55e53c2920bb920",
+      "bytes": 63346,
+      "sizeBytes": 63346,
+      "width": 480,
+      "height": 580,
+      "key": "door-precision-crop",
+      "title": "오피스 · 최신 D2 이동 정밀 부분 결과",
+      "description": "좌표로 작도한 비교 기준입니다. AI 생성 원본 출력이 아닙니다."
+    }
+  ]
+}

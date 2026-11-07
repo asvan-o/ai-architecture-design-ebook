@@ -8,7 +8,7 @@ import {inheritsPublicSnapshot,preserveInheritedPublicSnapshot} from './inherite
 export function lesson07PreviewBoundary(scope={}){return{name:'lesson07-preview-boundary',hooks:{'astro:build:done':({dir})=>{
  const output=path.resolve(fileURLToPath(dir)),dist=path.resolve('dist');
  assert(output.startsWith(dist+path.sep),'Refuse to modify output outside repository dist');
- for(const folder of ['practice/DJ-L06','images/daejeon/lesson-07','downloads/daejeon/lesson-07','images/daejeon/lesson-08','downloads/daejeon/lesson-08','images/daejeon/lesson-09','downloads/daejeon/lesson-09','images/daejeon/lesson-10','downloads/daejeon/lesson-10']){
+ for(const folder of ['practice/DJ-L05','practice/DJ-L06','images/daejeon/lesson-07','downloads/daejeon/lesson-07','images/daejeon/lesson-08','downloads/daejeon/lesson-08','images/daejeon/lesson-09','downloads/daejeon/lesson-09','images/daejeon/lesson-10','downloads/daejeon/lesson-10']){
   const target=path.resolve(output,folder);
   assert(target.startsWith(output+path.sep)&&target!==output,'Invalid generated Lesson07 path');
   rmSync(target,{recursive:true,force:true});

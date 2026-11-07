@@ -108,9 +108,9 @@
   "inputs": [
     {
       "file": "inputs/PLAN-BASE-01-door-result.png",
-      "sha256": "b013ff8001e5c703980a1b80bad74a17adeadadfb181f49a94370c608c343ca7",
-      "bytes": 250941,
-      "sizeBytes": 250941,
+      "sha256": "787d833f0ff886b45b9bed33a7b03835f08a90cfd3b0e6049a591aa57b54b04f",
+      "bytes": 181038,
+      "sizeBytes": 181038,
       "key": "office-plan",
       "title": "D2 이동 완료 오피스 · 회의실 6석",
       "originalSource": "review/daejeon/DJ-L05-FLOORPLAN-INPAINTING/revision-review8-20261016/results/PLAN-BASE-01-door-result.png",
@@ -119,9 +119,9 @@
     },
     {
       "file": "inputs/PLAN-BASE-02-result.png",
-      "sha256": "053a49acd205abf381ebf5d8935efd705f8f16e6de116fc5c56e6de425d2ebbd",
-      "bytes": 178036,
-      "sizeBytes": 178036,
+      "sha256": "133a28c32bbc1f2982e60c4a0a7a836f1cf5f788ea5ebb9689879282a3f740f6",
+      "bytes": 105317,
+      "sizeBytes": 105317,
       "key": "cafe-plan",
       "title": "카페 · 중앙 6석과 하단 2석",
       "originalSource": "review/daejeon/DJ-L05-FLOORPLAN-INPAINTING/revision-review8-20261016/results/PLAN-BASE-02-result.png",
@@ -243,9 +243,9 @@
           "file": "inputs/PLAN-BASE-01-door-result.png",
           "role": "6석·D2 이동 반영 기준 평면",
           "outputPath": "practice/DJ-L06/inputs/PLAN-BASE-01-door-result.png",
-          "sha256": "b013ff8001e5c703980a1b80bad74a17adeadadfb181f49a94370c608c343ca7",
-          "bytes": 250941,
-          "sizeBytes": 250941,
+          "sha256": "787d833f0ff886b45b9bed33a7b03835f08a90cfd3b0e6049a591aa57b54b04f",
+          "bytes": 181038,
+          "sizeBytes": 181038,
           "width": 2400,
           "height": 1650
         }
@@ -266,9 +266,9 @@
           "file": "inputs/PLAN-BASE-01-door-result.png",
           "role": "배치·문·창·좌석 수의 우선 기준",
           "outputPath": "practice/DJ-L06/inputs/PLAN-BASE-01-door-result.png",
-          "sha256": "b013ff8001e5c703980a1b80bad74a17adeadadfb181f49a94370c608c343ca7",
-          "bytes": 250941,
-          "sizeBytes": 250941,
+          "sha256": "787d833f0ff886b45b9bed33a7b03835f08a90cfd3b0e6049a591aa57b54b04f",
+          "bytes": 181038,
+          "sizeBytes": 181038,
           "width": 2400,
           "height": 1650
         }
@@ -289,9 +289,9 @@
           "file": "inputs/PLAN-BASE-01-door-result.png",
           "role": "원래 배치 대조 기준",
           "outputPath": "practice/DJ-L06/inputs/PLAN-BASE-01-door-result.png",
-          "sha256": "b013ff8001e5c703980a1b80bad74a17adeadadfb181f49a94370c608c343ca7",
-          "bytes": 250941,
-          "sizeBytes": 250941,
+          "sha256": "787d833f0ff886b45b9bed33a7b03835f08a90cfd3b0e6049a591aa57b54b04f",
+          "bytes": 181038,
+          "sizeBytes": 181038,
           "width": 2400,
           "height": 1650
         },
@@ -322,9 +322,9 @@
           "file": "inputs/PLAN-BASE-02-result.png",
           "role": "바·백바·6석과2석·분리된 창호의 기준 평면",
           "outputPath": "practice/DJ-L06/inputs/PLAN-BASE-02-result.png",
-          "sha256": "053a49acd205abf381ebf5d8935efd705f8f16e6de116fc5c56e6de425d2ebbd",
-          "bytes": 178036,
-          "sizeBytes": 178036,
+          "sha256": "133a28c32bbc1f2982e60c4a0a7a836f1cf5f788ea5ebb9689879282a3f740f6",
+          "bytes": 105317,
+          "sizeBytes": 105317,
           "width": 2400,
           "height": 1650
         }
@@ -345,9 +345,9 @@
           "file": "inputs/PLAN-BASE-01-door-result.png",
           "role": "개구부가 열린 최종 수정 평면도",
           "outputPath": "practice/DJ-L06/inputs/PLAN-BASE-01-door-result.png",
-          "sha256": "b013ff8001e5c703980a1b80bad74a17adeadadfb181f49a94370c608c343ca7",
-          "bytes": 250941,
-          "sizeBytes": 250941,
+          "sha256": "787d833f0ff886b45b9bed33a7b03835f08a90cfd3b0e6049a591aa57b54b04f",
+          "bytes": 181038,
+          "sizeBytes": 181038,
           "width": 2400,
           "height": 1650
         },
@@ -398,9 +398,9 @@
           "file": "inputs/PLAN-BASE-01-door-result.png",
           "role": "D2/D3·창·4석/6석의 배치 기준",
           "outputPath": "practice/DJ-L06/inputs/PLAN-BASE-01-door-result.png",
-          "sha256": "b013ff8001e5c703980a1b80bad74a17adeadadfb181f49a94370c608c343ca7",
-          "bytes": 250941,
-          "sizeBytes": 250941,
+          "sha256": "787d833f0ff886b45b9bed33a7b03835f08a90cfd3b0e6049a591aa57b54b04f",
+          "bytes": 181038,
+          "sizeBytes": 181038,
           "width": 2400,
           "height": 1650
         }
@@ -421,9 +421,9 @@
           "file": "inputs/PLAN-BASE-01-door-result.png",
           "role": "두 독립 출입 경로와 기능 위치의 기준",
           "outputPath": "practice/DJ-L06/inputs/PLAN-BASE-01-door-result.png",
-          "sha256": "b013ff8001e5c703980a1b80bad74a17adeadadfb181f49a94370c608c343ca7",
-          "bytes": 250941,
-          "sizeBytes": 250941,
+          "sha256": "787d833f0ff886b45b9bed33a7b03835f08a90cfd3b0e6049a591aa57b54b04f",
+          "bytes": 181038,
+          "sizeBytes": 181038,
           "width": 2400,
           "height": 1650
         }
@@ -454,9 +454,9 @@
           "file": "inputs/PLAN-BASE-01-door-result.png",
           "role": "벽·문·창·가구 위치의 우선 기준",
           "outputPath": "practice/DJ-L06/inputs/PLAN-BASE-01-door-result.png",
-          "sha256": "b013ff8001e5c703980a1b80bad74a17adeadadfb181f49a94370c608c343ca7",
-          "bytes": 250941,
-          "sizeBytes": 250941,
+          "sha256": "787d833f0ff886b45b9bed33a7b03835f08a90cfd3b0e6049a591aa57b54b04f",
+          "bytes": 181038,
+          "sizeBytes": 181038,
           "width": 2400,
           "height": 1650
         }
@@ -469,39 +469,69 @@
   "downloads": [
     {
       "file": "CHECKLIST.md",
-      "sha256": "f51886e0310d84686adde62737cd9dfc005c1b123cd38e1903adb73a72db8a72",
-      "bytes": 1001,
-      "sizeBytes": 1001,
+      "sha256": "692476096861ad692db4203c80ad34ffa94902cf617f8c9ab9a3394176fbef24",
+      "bytes": 1534,
+      "sizeBytes": 1534,
       "key": "checklist",
       "title": "입체·분해도·조닝 체크리스트"
+    },
+    {
+      "file": "DIMENSION-AND-SCALE-GUIDE.md",
+      "key": "dimension-guide",
+      "title": "치수·축척·기존 3D 사용 기준",
+      "sha256": "edf443d8a680b874b3d687d12570df90ae671e0ea77d48033357550feb55251c",
+      "bytes": 2883,
+      "sizeBytes": 2883
+    },
+    {
+      "file": "precision/PLAN-BASE-01-door-result-precision-1-100-A3.pdf",
+      "sha256": "e5db16afd7ec7c6a212f492c6180aa3f6739592e55be335522460d9554148b53",
+      "bytes": 240750,
+      "sizeBytes": 240750,
+      "key": "precision-office-door",
+      "title": "오피스 · 6석 및 D2 이동 결과 · A3 정밀 출력 PDF"
+    },
+    {
+      "file": "precision/PLAN-BASE-02-result-precision-1-100-A3.pdf",
+      "sha256": "0cebb0e1be179fbc099d1fc96a30a9299682824284fcb496543216c7f30cad54",
+      "bytes": 145766,
+      "sizeBytes": 145766,
+      "key": "precision-cafe-six",
+      "title": "카페 · 6석 결과 · A3 정밀 출력 PDF"
     }
   ],
   "files": [
     {
       "file": "CHECKLIST.md",
-      "sha256": "f51886e0310d84686adde62737cd9dfc005c1b123cd38e1903adb73a72db8a72",
-      "bytes": 1001,
-      "sizeBytes": 1001
+      "sha256": "692476096861ad692db4203c80ad34ffa94902cf617f8c9ab9a3394176fbef24",
+      "bytes": 1534,
+      "sizeBytes": 1534
+    },
+    {
+      "file": "DIMENSION-AND-SCALE-GUIDE.md",
+      "sha256": "edf443d8a680b874b3d687d12570df90ae671e0ea77d48033357550feb55251c",
+      "bytes": 2883,
+      "sizeBytes": 2883
     },
     {
       "file": "README.txt",
-      "sha256": "212831d2b9cadfe93e003fd29d8108cf01c20b5f918e7d94088bf4f7bbda5d28",
-      "bytes": 891,
-      "sizeBytes": 891
+      "sha256": "cf5f0a1f2da6348485e818778312fd900c9429e2a7d848b5b6d2e514f609d5a1",
+      "bytes": 1507,
+      "sizeBytes": 1507
     },
     {
       "file": "inputs/PLAN-BASE-01-door-result.png",
-      "sha256": "b013ff8001e5c703980a1b80bad74a17adeadadfb181f49a94370c608c343ca7",
-      "bytes": 250941,
-      "sizeBytes": 250941,
+      "sha256": "787d833f0ff886b45b9bed33a7b03835f08a90cfd3b0e6049a591aa57b54b04f",
+      "bytes": 181038,
+      "sizeBytes": 181038,
       "width": 2400,
       "height": 1650
     },
     {
       "file": "inputs/PLAN-BASE-02-result.png",
-      "sha256": "053a49acd205abf381ebf5d8935efd705f8f16e6de116fc5c56e6de425d2ebbd",
-      "bytes": 178036,
-      "sizeBytes": 178036,
+      "sha256": "133a28c32bbc1f2982e60c4a0a7a836f1cf5f788ea5ebb9689879282a3f740f6",
+      "bytes": 105317,
+      "sizeBytes": 105317,
       "width": 2400,
       "height": 1650
     },
@@ -576,6 +606,18 @@
       "sizeBytes": 1530406,
       "width": 1145,
       "height": 1374
+    },
+    {
+      "file": "precision/PLAN-BASE-01-door-result-precision-1-100-A3.pdf",
+      "sha256": "e5db16afd7ec7c6a212f492c6180aa3f6739592e55be335522460d9554148b53",
+      "bytes": 240750,
+      "sizeBytes": 240750
+    },
+    {
+      "file": "precision/PLAN-BASE-02-result-precision-1-100-A3.pdf",
+      "sha256": "0cebb0e1be179fbc099d1fc96a30a9299682824284fcb496543216c7f30cad54",
+      "bytes": 145766,
+      "sizeBytes": 145766
     },
     {
       "file": "prompts/cafe-isometric.txt",

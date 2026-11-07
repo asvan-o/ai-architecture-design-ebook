@@ -106,7 +106,7 @@ def svg_plan():
         line(end,end-d*190+side,'stroke="#255c78" stroke-width="2.5"');line(end,end-d*190-side,'stroke="#255c78" stroke-width="2.5"')
         xx,yy=xy(*pos);parts.append(f'<circle cx="{xx}" cy="{yy}" r="7" fill="white" stroke="#255c78" stroke-width="2"/>');text(xx-12 if camera['id']=='03' else xx+12,yy-12,'CAM '+camera['id'],'sm','end' if camera['id']=='03' else 'start')
     text(980,210,'도면 읽기','label')
-    notes=[('01  유지 요소','D1 · W1 · W2 · C1 · K1 · S1 유지'),('02  변경 가능한 영역','Z1의 이동식 가구 / 마감 색감 / 조명 표현'),('03  서비스 영역','S1의 점선은 기능 구분선이며 벽체가 아님'),('04  개구부 높이','D1: H2200 / W1: 하단600~상단2400'),('','W2: 하단900~상단2200'),('05  공간 조건','천장 H3000 / 기준 영역 80㎡'),('','벽 두께 180은 시각화용 설정, 구조 판단 불가'),('06  카메라','01 남측 / 02 북서측 / 03 남서측'),('','눈높이 1500 / 기준 화각 28mm'),('07  과제 범위','12~16석은 교육용 목표, 법적 수용인원 아님'),('','완성 가구 배치 정답은 포함하지 않음')]
+    notes=[('01  유지 요소','D1 · W1 · W2 · C1 · K1 · S1 유지'),('02  변경 가능한 영역','Z1의 이동식 가구 / 마감 색감 / 조명 표현'),('03  서비스 영역','S1의 점선은 기능 구분선이며 벽체가 아님'),('04  개구부 높이','D1: H2200 / W1: 하단600~상단2400'),('','W2: 하단900~상단2200'),('05  공간 조건','천장 H3000 / 명목 80㎡ (약 24평)'),('','벽 두께 180은 시각화용 설정, 구조 판단 불가'),('06  카메라','01 남측 / 02 북서측 / 03 남서측'),('','눈높이 1500 / 기준 화각 28mm'),('07  과제 범위','12~16석은 교육용 목표, 법적 수용인원 아님'),('','완성 가구 배치 정답은 포함하지 않음')]
     yy=255
     for title,body in notes:
         if title:text(980,yy,title,'label');yy+=30
@@ -117,7 +117,7 @@ def svg_plan():
     # Exact 4 m scale bar = 80 mm on printed sheet.
     for i in range(4):parts.append(f'<rect x="{990+i*80}" y="1040" width="80" height="12" fill="'+('#172328' if i%2==0 else 'white')+'" stroke="#172328"/>')
     for i in range(5):text(990+i*80,1076,str(i)+('m' if i==4 else ''),'sm','middle')
-    text(72,1140,'A3 · 1:50 @ 100% · 단위 mm · 남서 실내 모서리 원점 · DJ-CF-01 / draft-01','sm')
+    text(72,1140,'A3 · 1:50 @ 100% · 단위 mm · 남서 실내 모서리 원점 · 교육용 기준도면','sm')
     parts.append('</svg>');(ROOT/'DJ-CF-01_existing-plan.svg').write_text('\n'.join(parts),encoding='utf-8')
 
 def geometry():

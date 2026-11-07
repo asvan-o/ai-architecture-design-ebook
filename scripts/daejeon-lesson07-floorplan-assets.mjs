@@ -21,7 +21,7 @@ const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 // Historical external samples remain read-only in their original audit. Active assets are synthetic.
 export const floorplanImageCopy={
  'clean-line':{title:'교육용 클린 선화 · 문자 오류 비교본',description:'자체 도면의 주석을 제거하고 모형실 → 이사실, 13인승 → 13연승을 의도적으로 넣은 교육용 비교본입니다. 실제 AI 오류의 증빙이 아니며 원본 PDF·기준표와 대조합니다.'},
- 'top-view':{title:'교육용 Top View 3D · 문자 오류 비교본',description:'새 교육용 도면의 입체 표현입니다. 사장실·이사실·계단창·1.5인승은 의도한 문자 오류입니다. 재료·빛·높이·부가 연출은 표현이며 원본 PDF가 사실 기준입니다.'},
+ 'top-view':{title:'교육용 Top View 3D · 문자 오류 비교본',description:'기존 3D를 그대로 보존한 분위기·공간 관계 참고본입니다. 소장 책상·회의테이블의 수정 치수는 2D 원본 PDF·PNG·JSON에서 확인합니다. 사장실·이사실·계단창·1.5인승은 의도한 문자 오류이며 재료·빛·높이는 표현입니다.'},
  'notebook-diagram':{title:'방법 A · 세로형 관계 구조화 예시',description:'교육용 원본에서 검증한 DOT를 세로로 렌더링했습니다. NotebookLM 분석을 관계표로 넘기는 방법의 예시이며 서비스 실행 화면은 아닙니다.'},
  'chatgpt-diagram':{title:'방법 B · 가로형 기능·관계 다이어그램',description:'같은 교육용 DOT를 가로로 렌더링했습니다. 모형실·소장실·계단실의 이름과 관계 의미를 유지하며 ChatGPT 서비스 실행 화면으로 제시하지 않습니다.'},
 };

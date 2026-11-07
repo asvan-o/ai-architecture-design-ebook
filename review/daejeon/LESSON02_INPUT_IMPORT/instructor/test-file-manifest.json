@@ -1,0 +1,93 @@
+{
+  "files": [
+    {
+      "file": "office_floorplan.png",
+      "type": "valid format",
+      "description": "유효 PNG · 기존 교육용 카페 평면도. 파일명은 분류 테스트용이며 오피스 실측도면이 아님.",
+      "bytes": 469991,
+      "sha256": "67ba7f2c5e04389433f75d15bf8486886c451ef0d9ac74c7ccdadde09eb2df0d",
+      "expectedFolder": "01_CAD도면"
+    },
+    {
+      "file": "front_elevation.pdf",
+      "type": "valid format",
+      "description": "유효 PDF · 기존 교육용 입면도 원본 동일 복사.",
+      "bytes": 215565,
+      "sha256": "65b4b26da4a1c88f8dcea6863c61988c2fa2c3b313f85dd2cc7c59507d38d212",
+      "expectedFolder": "01_CAD도면"
+    },
+    {
+      "file": "material_ref_oak.png",
+      "type": "valid format",
+      "description": "유효 PNG · 기존 White Oak 원본 동일 복사.",
+      "bytes": 1319388,
+      "sha256": "b526d4bee4b661026aff70cfd4f7b9f6f9fcee400e4b9a781785453f512b429c",
+      "expectedFolder": "03_레퍼런스"
+    },
+    {
+      "file": "lighting_ref_3000K.jpg",
+      "type": "valid format",
+      "description": "유효 JPEG · 기존 공간 이미지. lighting/3000K는 분류 키워드 테스트명이며 실제 색온도 참고자료가 아님.",
+      "bytes": 115546,
+      "sha256": "79e66e751e7c9dbce017144c842d7ceb89632e680836446873655b8c01723ca7",
+      "expectedFolder": "03_레퍼런스"
+    },
+    {
+      "file": "render_A_v01.png",
+      "type": "valid format",
+      "description": "유효 PNG · 기존 강사 결과 예시 원본 동일 복사.",
+      "bytes": 2185490,
+      "sha256": "04220fd1050b08640e56b204a6000f9203cac31429e7fc39235b74551b29337f",
+      "expectedFolder": "04_이미지결과"
+    },
+    {
+      "file": "project_brief.docx",
+      "type": "valid format",
+      "description": "유효 DOCX · 한 페이지 분류 테스트 문서. 교육과정 Design Brief 정답이 아님.",
+      "bytes": 36696,
+      "sha256": "b6aa93b455bfc2fc0bf181bb156c9864b60f19f9ddf34543a7cd92c099cb72f4",
+      "expectedFolder": "07_문서"
+    },
+    {
+      "file": "building_model.blend",
+      "type": "classification test stub",
+      "description": "classification test stub · 실제 Blender 파일이 아니며 Blender에서 열지 않음.",
+      "bytes": 81,
+      "sha256": "7a5bf503255bc0ffa41031ba6eddba43bdd9b3280b8596a56f7a39f8ae987d8d",
+      "expectedFolder": "05_3D모델"
+    },
+    {
+      "file": "animation_cache.abc",
+      "type": "classification test stub",
+      "description": "classification test stub · 실제 Alembic cache가 아니며 DCC에서 열지 않음.",
+      "bytes": 80,
+      "sha256": "302e7776cb78b49b846efae0d92acfd7113f9926a80fcc37b8795963e814b9d4",
+      "expectedFolder": "05_3D모델"
+    },
+    {
+      "file": "walkthrough.mp4",
+      "type": "valid format",
+      "description": "유효 MP4 · 기존 JPEG를 사용한 1초 정지영상. 실제 walkthrough가 아님.",
+      "bytes": 4971,
+      "sha256": "14d49fd349d5b86d92bb310264f103e9d56f2448192a09d74da3e95919edfa12",
+      "expectedFolder": "08_영상"
+    },
+    {
+      "file": "image001.png",
+      "type": "valid format",
+      "description": "유효 PNG · 기존 공간 이미지 원본 동일 복사. 파일명에 분류 근거 없음.",
+      "bytes": 2280398,
+      "sha256": "38866e5d5f2a0c6b1e456ee7cb79ac812817e43a8c658add4aec633bac2153fc",
+      "expectedFolder": "99_분류확인"
+    },
+    {
+      "file": "scan003.pdf",
+      "type": "valid format",
+      "description": "유효 PDF · 기존 기록지. 실제 스캔 문서가 아니며 파일명에 분류 근거 없음.",
+      "bytes": 90588,
+      "sha256": "19a4629ef4d01965e1bfb51727d6e9e40e3c0526f656322efc4863231b7190fe",
+      "expectedFolder": "99_분류확인"
+    }
+  ],
+  "fixtureContentSyncScope": "교육용 기준 도면/워크시트 수치·분석 항목 동기화. 분류 파일명·확장자·예상 폴더 및 프로그램 기능은 변경하지 않음. 과거 실행 결과와 이번 파일 내용·무결성 점검을 구분함."
+}

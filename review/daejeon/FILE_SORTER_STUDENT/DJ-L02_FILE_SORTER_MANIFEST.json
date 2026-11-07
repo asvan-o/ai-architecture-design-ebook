@@ -12,8 +12,8 @@
     },
     {
       "file": "DJ-L02_SORT_TEST.zip",
-      "bytes": 6178286,
-      "sha256": "9c8f3897169df9e69d984c9d592fbdb0f55177fbebbb23a5fc20a1ceda97acf5"
+      "bytes": 6187397,
+      "sha256": "383e72e279f8d3262ec0852e9211bc5d5c47539ad2b47a067d8813cdb5f36c8c"
     },
     {
       "file": "DJ-L02_FILE_SORTER_README.txt",
@@ -21,5 +21,6 @@
       "sha256": "1cbed93dedfa40d80157f10d1d3d1e899205d64cd06a299100f79629f6230022"
     }
   ],
-  "studentUiRevision": "A explicit top-level folder import; classifier/watcher/file-manager unchanged"
+  "studentUiRevision": "A explicit top-level folder import; classifier/watcher/file-manager unchanged",
+  "fixtureContentSyncScope": "교육용 기준 도면/워크시트 수치·분석 항목 동기화. 분류 파일명·확장자·예상 폴더 및 프로그램 기능은 변경하지 않음. 과거 실행 결과와 이번 파일 내용·무결성 점검을 구분함."
 }

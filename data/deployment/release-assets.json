@@ -4,35 +4,336 @@
   "tag": "course-materials-2026-10-19-v1",
   "basePath": "/ai-architecture-design-ebook",
   "maximumPagesBytes": 990000000,
-  "sourceBytes": 1957962746,
-  "pagesBytesBeforeMetadata": 610617842,
+  "sourceBytes": 1961665226,
+  "pagesBytesBeforeMetadata": 612075571,
   "files": [
+    {
+      "path": "downloads/ai-architecture-design-course_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-course_2026-08-27.pdf",
+      "bytes": 56943505,
+      "sha256": "c7af9e5fba4185cd9092c795d42da12e9d90d7d84109580ef7816bc6cd028aed",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-course_2026-08-27.pdf"
+    },
+    {
+      "path": "downloads/ai-architecture-design-lesson-01_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-lesson-01_2026-08-27.pdf",
+      "bytes": 3222138,
+      "sha256": "c8d51de3f1fa7cb793a976060135cdbd71d93f61753deca1208e366419496557",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-01_2026-08-27.pdf"
+    },
+    {
+      "path": "downloads/ai-architecture-design-lesson-02_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-lesson-02_2026-08-27.pdf",
+      "bytes": 9850991,
+      "sha256": "f61cb312980bbf8e4effab01d0c0394a67bfe0e1ab5d03bad83330fd0b7ca6c5",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-02_2026-08-27.pdf"
+    },
+    {
+      "path": "downloads/ai-architecture-design-lesson-03_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-lesson-03_2026-08-27.pdf",
+      "bytes": 5974095,
+      "sha256": "7990987e0e81def4f1cc5faea01d18817326b91cf06dbee7f03de672fabe7c90",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-03_2026-08-27.pdf"
+    },
+    {
+      "path": "downloads/ai-architecture-design-lesson-04_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-lesson-04_2026-08-27.pdf",
+      "bytes": 9249572,
+      "sha256": "460324968555dc94d5a6922f7d7ed414b17f26f5b5e198ab50b658811b1429ed",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-04_2026-08-27.pdf"
+    },
+    {
+      "path": "downloads/ai-architecture-design-lesson-05_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-lesson-05_2026-08-27.pdf",
+      "bytes": 6648742,
+      "sha256": "2ffd0936ec9cc3dd60d3148ebf4cf18fa5f74919125a9eb7e833ef494e35cfb7",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-05_2026-08-27.pdf"
+    },
+    {
+      "path": "downloads/ai-architecture-design-lesson-06_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-lesson-06_2026-08-27.pdf",
+      "bytes": 5378414,
+      "sha256": "14686195e10ded3c0b7bb3dea538bdcd39ed2f13036774d9896bb1181789ad48",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-06_2026-08-27.pdf"
+    },
+    {
+      "path": "downloads/ai-architecture-design-lesson-07_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-lesson-07_2026-08-27.pdf",
+      "bytes": 3443198,
+      "sha256": "9d1a084e6ce04104a6d7b39daffb1f236c5ca7b04862a469b3f3137c5a29428c",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-07_2026-08-27.pdf"
+    },
+    {
+      "path": "downloads/ai-architecture-design-lesson-08_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-lesson-08_2026-08-27.pdf",
+      "bytes": 5410427,
+      "sha256": "9eae1e0a7c202105c0a817eaeaae6b6f2a4b62005f50a5ddceef95e7edd167ba",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-08_2026-08-27.pdf"
+    },
+    {
+      "path": "downloads/ai-architecture-design-lesson-09_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-lesson-09_2026-08-27.pdf",
+      "bytes": 4757642,
+      "sha256": "de11599b08954c7063571dea75a0cd8316a0895d483d71e596ab8c2885a1480e",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-09_2026-08-27.pdf"
+    },
+    {
+      "path": "downloads/ai-architecture-design-lesson-10_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-lesson-10_2026-08-27.pdf",
+      "bytes": 2029150,
+      "sha256": "de5e96fb031c1844e318206397e16e68c29781c64e24847934c4c14a001d1620",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-10_2026-08-27.pdf"
+    },
+    {
+      "path": "downloads/ai-architecture-design-lesson-11_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-lesson-11_2026-08-27.pdf",
+      "bytes": 1615102,
+      "sha256": "77c0e407ffd167acde8397f4f45b4790048ca248adf73d27279200e70755a869",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-11_2026-08-27.pdf"
+    },
+    {
+      "path": "downloads/ai-architecture-design-lesson-12_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-lesson-12_2026-08-27.pdf",
+      "bytes": 1245589,
+      "sha256": "fc3b45099a4578320c95216d8cc17696c33782fa83fe270c42ab89f5a9d5ab28",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-12_2026-08-27.pdf"
+    },
+    {
+      "path": "downloads/ai-architecture-design-lesson-13_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-lesson-13_2026-08-27.pdf",
+      "bytes": 12168318,
+      "sha256": "7034b03a438d9b1d00307639f7a1685bf8a68faa0b70dbbb8c75dac46742786b",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-13_2026-08-27.pdf"
+    },
+    {
+      "path": "downloads/ai-architecture-design-lesson-14_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-lesson-14_2026-08-27.pdf",
+      "bytes": 1232318,
+      "sha256": "a2a6823d16f92941727633b8faf4a2f7178c790ce97d6243ca79dddc0a2b4b39",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-14_2026-08-27.pdf"
+    },
+    {
+      "path": "downloads/daejeon/lesson-12/모던3층단독주택_AI설계제안서_8장슬라이드.pdf",
+      "assetName": "DJ-L12-Modern3F-Proposal-8Slides.pdf",
+      "bytes": 10527598,
+      "sha256": "b3bf360b27a806d3e620d5159cd07f20924fe516a94673a1beb4c42b7d9b310f",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L12-Modern3F-Proposal-8Slides.pdf"
+    },
+    {
+      "path": "downloads/daejeon/lesson-12/모던3층단독주택_AI설계제안서_8장슬라이드.pptx",
+      "assetName": "DJ-L12-Modern3F-Proposal-8Slides.pptx",
+      "bytes": 24244775,
+      "sha256": "e373cb91961bafd0bcebd4045fb9e3bb0a04bc6a5c17ebda168854b46d88b626",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L12-Modern3F-Proposal-8Slides.pptx"
+    },
+    {
+      "path": "downloads/daejeon/lesson-12/포트폴리오_보드4장_원본PNG.zip",
+      "assetName": "DJ-L12-Portfolio-4Boards-PNG.zip",
+      "bytes": 6852191,
+      "sha256": "e4b3d364ee998308595d24dc4c0c6ef40afd05ee640fe43d14d10021a3a61a67",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L12-Portfolio-4Boards-PNG.zip"
+    },
+    {
+      "path": "downloads/daejeon/lesson-13/모던3층단독주택_프로젝트결과보고서_예시.pdf",
+      "assetName": "DJ-L13-Modern3F-Result-Report.pdf",
+      "bytes": 114460,
+      "sha256": "1b683e44dc2ff1addfec66f3d25b0ae2466f4f3ca07ad70211797fc1648a2613",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L13-Modern3F-Result-Report.pdf"
+    },
+    {
+      "path": "downloads/daejeon/lesson-13/제11_13차시_포트폴리오_PPT_결과보고서_통합패키지.zip",
+      "assetName": "DJ-L11-13-Portfolio-Full-Pack.zip",
+      "bytes": 79308078,
+      "sha256": "494a8f7a1cb7976d87baefcc3572c3379a126241fa56ef7e8be1dd1f71a9ca34",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L11-13-Portfolio-Full-Pack.zip"
+    },
+    {
+      "path": "gwangju/_astro/ARVEN_Headquarters_Interior_RFP_v1.2.CnHrHwH2.pdf",
+      "assetName": "ARVEN_Headquarters_Interior_RFP_v1.2.CnHrHwH2.pdf",
+      "bytes": 1407555,
+      "sha256": "49cf98e23c82ae26640399c780de96ee48cdedf96890482b1c47f0282a2f6a29",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ARVEN_Headquarters_Interior_RFP_v1.2.CnHrHwH2.pdf"
+    },
+    {
+      "path": "gwangju/_astro/lesson-03-campus-lounge-rfp-v1.2.BupCM2EB.pdf",
+      "assetName": "lesson-03-campus-lounge-rfp-v1.2.BupCM2EB.pdf",
+      "bytes": 642008,
+      "sha256": "95b9756fd818d8f86847ca72d1e094b9dd6c2e4b9d1dfbc029169d057e638c2e",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/lesson-03-campus-lounge-rfp-v1.2.BupCM2EB.pdf"
+    },
+    {
+      "path": "gwangju/_astro/two-story-house-source.C2pJDNSV.dwg",
+      "assetName": "two-story-house-source.C2pJDNSV.dwg",
+      "bytes": 3053689,
+      "sha256": "c5464c97884f7b18fa472f4c46fafccdc9ae072930468a26a2a154be21f31fdd",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/two-story-house-source.C2pJDNSV.dwg"
+    },
+    {
+      "path": "gwangju/downloads/ai-architecture-design-course_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-course_2026-08-27.pdf",
+      "bytes": 56943505,
+      "sha256": "c7af9e5fba4185cd9092c795d42da12e9d90d7d84109580ef7816bc6cd028aed",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-course_2026-08-27.pdf"
+    },
+    {
+      "path": "gwangju/downloads/ai-architecture-design-lesson-01_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-lesson-01_2026-08-27.pdf",
+      "bytes": 3222138,
+      "sha256": "c8d51de3f1fa7cb793a976060135cdbd71d93f61753deca1208e366419496557",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-01_2026-08-27.pdf"
+    },
+    {
+      "path": "gwangju/downloads/ai-architecture-design-lesson-02_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-lesson-02_2026-08-27.pdf",
+      "bytes": 9850991,
+      "sha256": "f61cb312980bbf8e4effab01d0c0394a67bfe0e1ab5d03bad83330fd0b7ca6c5",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-02_2026-08-27.pdf"
+    },
+    {
+      "path": "gwangju/downloads/ai-architecture-design-lesson-03_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-lesson-03_2026-08-27.pdf",
+      "bytes": 5974095,
+      "sha256": "7990987e0e81def4f1cc5faea01d18817326b91cf06dbee7f03de672fabe7c90",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-03_2026-08-27.pdf"
+    },
+    {
+      "path": "gwangju/downloads/ai-architecture-design-lesson-04_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-lesson-04_2026-08-27.pdf",
+      "bytes": 9249572,
+      "sha256": "460324968555dc94d5a6922f7d7ed414b17f26f5b5e198ab50b658811b1429ed",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-04_2026-08-27.pdf"
+    },
+    {
+      "path": "gwangju/downloads/ai-architecture-design-lesson-05_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-lesson-05_2026-08-27.pdf",
+      "bytes": 6648742,
+      "sha256": "2ffd0936ec9cc3dd60d3148ebf4cf18fa5f74919125a9eb7e833ef494e35cfb7",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-05_2026-08-27.pdf"
+    },
+    {
+      "path": "gwangju/downloads/ai-architecture-design-lesson-06_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-lesson-06_2026-08-27.pdf",
+      "bytes": 5378414,
+      "sha256": "14686195e10ded3c0b7bb3dea538bdcd39ed2f13036774d9896bb1181789ad48",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-06_2026-08-27.pdf"
+    },
+    {
+      "path": "gwangju/downloads/ai-architecture-design-lesson-07_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-lesson-07_2026-08-27.pdf",
+      "bytes": 3443198,
+      "sha256": "9d1a084e6ce04104a6d7b39daffb1f236c5ca7b04862a469b3f3137c5a29428c",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-07_2026-08-27.pdf"
+    },
+    {
+      "path": "gwangju/downloads/ai-architecture-design-lesson-08_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-lesson-08_2026-08-27.pdf",
+      "bytes": 5410427,
+      "sha256": "9eae1e0a7c202105c0a817eaeaae6b6f2a4b62005f50a5ddceef95e7edd167ba",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-08_2026-08-27.pdf"
+    },
+    {
+      "path": "gwangju/downloads/ai-architecture-design-lesson-09_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-lesson-09_2026-08-27.pdf",
+      "bytes": 4757642,
+      "sha256": "de11599b08954c7063571dea75a0cd8316a0895d483d71e596ab8c2885a1480e",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-09_2026-08-27.pdf"
+    },
+    {
+      "path": "gwangju/downloads/ai-architecture-design-lesson-10_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-lesson-10_2026-08-27.pdf",
+      "bytes": 2029150,
+      "sha256": "de5e96fb031c1844e318206397e16e68c29781c64e24847934c4c14a001d1620",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-10_2026-08-27.pdf"
+    },
+    {
+      "path": "gwangju/downloads/ai-architecture-design-lesson-11_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-lesson-11_2026-08-27.pdf",
+      "bytes": 1615102,
+      "sha256": "77c0e407ffd167acde8397f4f45b4790048ca248adf73d27279200e70755a869",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-11_2026-08-27.pdf"
+    },
+    {
+      "path": "gwangju/downloads/ai-architecture-design-lesson-12_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-lesson-12_2026-08-27.pdf",
+      "bytes": 1245589,
+      "sha256": "fc3b45099a4578320c95216d8cc17696c33782fa83fe270c42ab89f5a9d5ab28",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-12_2026-08-27.pdf"
+    },
+    {
+      "path": "gwangju/downloads/ai-architecture-design-lesson-13_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-lesson-13_2026-08-27.pdf",
+      "bytes": 12168318,
+      "sha256": "7034b03a438d9b1d00307639f7a1685bf8a68faa0b70dbbb8c75dac46742786b",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-13_2026-08-27.pdf"
+    },
+    {
+      "path": "gwangju/downloads/ai-architecture-design-lesson-14_2026-08-27.pdf",
+      "assetName": "ai-architecture-design-lesson-14_2026-08-27.pdf",
+      "bytes": 1232318,
+      "sha256": "a2a6823d16f92941727633b8faf4a2f7178c790ce97d6243ca79dddc0a2b4b39",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-14_2026-08-27.pdf"
+    },
+    {
+      "path": "gwangju/downloads/daejeon/lesson-12/모던3층단독주택_AI설계제안서_8장슬라이드.pdf",
+      "assetName": "DJ-L12-Modern3F-Proposal-8Slides.pdf",
+      "bytes": 10527598,
+      "sha256": "b3bf360b27a806d3e620d5159cd07f20924fe516a94673a1beb4c42b7d9b310f",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L12-Modern3F-Proposal-8Slides.pdf"
+    },
+    {
+      "path": "gwangju/downloads/daejeon/lesson-12/모던3층단독주택_AI설계제안서_8장슬라이드.pptx",
+      "assetName": "DJ-L12-Modern3F-Proposal-8Slides.pptx",
+      "bytes": 24244775,
+      "sha256": "e373cb91961bafd0bcebd4045fb9e3bb0a04bc6a5c17ebda168854b46d88b626",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L12-Modern3F-Proposal-8Slides.pptx"
+    },
+    {
+      "path": "gwangju/downloads/daejeon/lesson-12/포트폴리오_보드4장_원본PNG.zip",
+      "assetName": "DJ-L12-Portfolio-4Boards-PNG.zip",
+      "bytes": 6852191,
+      "sha256": "e4b3d364ee998308595d24dc4c0c6ef40afd05ee640fe43d14d10021a3a61a67",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L12-Portfolio-4Boards-PNG.zip"
+    },
+    {
+      "path": "gwangju/downloads/daejeon/lesson-13/모던3층단독주택_프로젝트결과보고서_예시.pdf",
+      "assetName": "DJ-L13-Modern3F-Result-Report.pdf",
+      "bytes": 114460,
+      "sha256": "1b683e44dc2ff1addfec66f3d25b0ae2466f4f3ca07ad70211797fc1648a2613",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L13-Modern3F-Result-Report.pdf"
+    },
+    {
+      "path": "gwangju/downloads/daejeon/lesson-13/제11_13차시_포트폴리오_PPT_결과보고서_통합패키지.zip",
+      "assetName": "DJ-L11-13-Portfolio-Full-Pack.zip",
+      "bytes": 79308078,
+      "sha256": "494a8f7a1cb7976d87baefcc3572c3379a126241fa56ef7e8be1dd1f71a9ca34",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L11-13-Portfolio-Full-Pack.zip"
+    },
     {
       "path": "daejeon/downloads/daejeon/lesson-07/DJ-L07-Gaussian-Views-Pack.zip",
       "assetName": "DJ-L07-Gaussian-Views-Pack.zip",
-      "bytes": 12891925,
-      "sha256": "5f0f0fac0402b9d9b9eb0815b7feb8088e63a27bfeece18aee22a15b9fee22f8",
+      "bytes": 12893478,
+      "sha256": "790633118b32b07b21f4e1c0765e3380ec0732939ac569220a1f8272aefb854d",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L07-Gaussian-Views-Pack.zip"
     },
     {
       "path": "daejeon/downloads/daejeon/lesson-07/DJ-L07-OpenVINO-SR1033-Pack.zip",
       "assetName": "DJ-L07-OpenVINO-SR1033-Pack.zip",
-      "bytes": 21469592,
-      "sha256": "f9e749854eceb093625acd4de4ea145eb0ddae59e96ab0d6e601590952e20a92",
+      "bytes": 21470995,
+      "sha256": "f21b6f8787e76653fdf95756935990d2a47082448e4651a53116bfa7ea5e9310",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L07-OpenVINO-SR1033-Pack.zip"
     },
     {
       "path": "daejeon/downloads/daejeon/lesson-07/DJ-L07-Realistic-Render-Pack.zip",
       "assetName": "DJ-L07-Realistic-Render-Pack.zip",
-      "bytes": 60983438,
-      "sha256": "3b6d4dfebc8a3ff8943eb09b2e095e6581a3027914fdda8a28040659bbb8afee",
+      "bytes": 61135068,
+      "sha256": "5db2c095e5a922833db42f17d01e1e8695825e584a892656908e8fea984d2b1c",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L07-Realistic-Render-Pack.zip"
     },
     {
       "path": "daejeon/downloads/daejeon/lesson-07/DJ-L07-Starter-Pack.zip",
       "assetName": "DJ-L07-Starter-Pack.zip",
-      "bytes": 95378080,
-      "sha256": "247da1bde995355c59d4a21ea3c671475d99a03db8be2a58b96b51159424f78d",
+      "bytes": 95509421,
+      "sha256": "512dcdce8ffec08812e791cec6cd47cf9fde19e832877ece6d797e8b151d95ab",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L07-Starter-Pack.zip"
     },
     {
@@ -52,8 +353,8 @@
     {
       "path": "daejeon/downloads/daejeon/lesson-08/DJ-L07-Office-Floorplan-Original.pdf",
       "assetName": "DJ-L07-Office-Floorplan-Original.pdf",
-      "bytes": 50717,
-      "sha256": "d6b434d50a7e36913a4fb4c46bd64723a5253297bae494513c41c4d955ded6b3",
+      "bytes": 89022,
+      "sha256": "350555fc15787dea66b1b557aaa0157fa56cc8643f7722bbd035ec2c60a260df",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L07-Office-Floorplan-Original.pdf"
     },
     {
@@ -66,8 +367,8 @@
     {
       "path": "daejeon/downloads/daejeon/lesson-08/DJ-L08-Floorplan-Graphviz-Pack.zip",
       "assetName": "DJ-L08-Floorplan-Graphviz-Pack.zip",
-      "bytes": 948249,
-      "sha256": "dcf8e6a6a39572623e83f84fb05b101be626fba247de0b3ee881c8604a156757",
+      "bytes": 1043376,
+      "sha256": "1546905e40f973496f4b08f47f6e21899d4043e5537aef49fbc1784af42ede59",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L08-Floorplan-Graphviz-Pack.zip"
     },
     {
@@ -521,43 +822,43 @@
     {
       "path": "daejeon/practice/DJ-CF-01/DJ-CF-01_RFP-draft.pdf",
       "assetName": "DJ-CF-01_RFP-draft.pdf",
-      "bytes": 8735718,
-      "sha256": "673d469deb8956df872f3913a083196896c851fcb55d8ccf06ed221d41e91bbc",
+      "bytes": 8552707,
+      "sha256": "4e782a8bd2fdad638364696b7f5b5bf9fdd5a3860ef44e573f4fa175607821f7",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-CF-01_RFP-draft.pdf"
     },
     {
       "path": "daejeon/practice/DJ-CF-01/DJ-CF-01_existing-plan.pdf",
       "assetName": "DJ-CF-01_existing-plan.pdf",
-      "bytes": 468259,
-      "sha256": "2572a9745aadcc28a706293be9a6c2b840a414e129087f6750d46f5fd884072d",
+      "bytes": 284207,
+      "sha256": "8be82f0e63be4699a07fb03da7022071e734730b4500d9aa1a0ba061f3bd0ed8",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-CF-01_existing-plan.pdf"
     },
     {
       "path": "daejeon/practice/DJ-CF-01/DJ-CF-01_participant-worksheet-draft.pdf",
       "assetName": "DJ-CF-01_participant-worksheet-draft.pdf",
-      "bytes": 82482,
-      "sha256": "d40b19d58e712e706068004a1e5f188c5da7ca5edd07789606c68f0f6ef60a31",
+      "bytes": 90588,
+      "sha256": "19a4629ef4d01965e1bfb51727d6e9e40e3c0526f656322efc4863231b7190fe",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-CF-01_participant-worksheet-draft.pdf"
     },
     {
       "path": "daejeon/practice/DJ-CF-02/DJ-CF-02_RFP-draft.pdf",
       "assetName": "DJ-CF-02_RFP-draft.pdf",
-      "bytes": 7352988,
-      "sha256": "dea11dfd4077bd070195fa0c25e79c556e4fa144be45b2e6a03e4eebc463f21a",
+      "bytes": 7219323,
+      "sha256": "7b77e51adbd5d80a17c174705aba7e966e294046886257e95ab86bd5ed670705",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-CF-02_RFP-draft.pdf"
     },
     {
       "path": "daejeon/practice/DJ-CF-02/DJ-CF-02_existing-elevation.pdf",
       "assetName": "DJ-CF-02_existing-elevation.pdf",
-      "bytes": 341502,
-      "sha256": "a97c7a20ded3448bc2c01eb0a51fa923ae3d07c432c6273d4d2a1b695e1098dd",
+      "bytes": 215565,
+      "sha256": "65b4b26da4a1c88f8dcea6863c61988c2fa2c3b313f85dd2cc7c59507d38d212",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-CF-02_existing-elevation.pdf"
     },
     {
       "path": "daejeon/practice/DJ-CF-02/DJ-CF-02_participant-worksheet-draft.pdf",
       "assetName": "DJ-CF-02_participant-worksheet-draft.pdf",
-      "bytes": 92697,
-      "sha256": "cbb15c3c8035672e865228dd9aa9ac1b0cf0695f2b74a5def8b3e84e3c57bd6b",
+      "bytes": 90210,
+      "sha256": "2e35ab7a430c676593d565be35394c0cf505ae62bfcccd6f0ef28d7969add26e",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-CF-02_participant-worksheet-draft.pdf"
     },
     {
@@ -584,8 +885,8 @@
     {
       "path": "daejeon/practice/DJ-L02/file-sorter/DJ-L02_SORT_TEST.zip",
       "assetName": "DJ-L02_SORT_TEST.zip",
-      "bytes": 6178286,
-      "sha256": "9c8f3897169df9e69d984c9d592fbdb0f55177fbebbb23a5fc20a1ceda97acf5",
+      "bytes": 6187397,
+      "sha256": "383e72e279f8d3262ec0852e9211bc5d5c47539ad2b47a067d8813cdb5f36c8c",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L02_SORT_TEST.zip"
     },
     {
@@ -612,317 +913,65 @@
     {
       "path": "daejeon/practice/DJ-L05/DJ-L05_PRACTICE_REVIEW.zip",
       "assetName": "DJ-L05_PRACTICE_REVIEW.zip",
-      "bytes": 5849657,
-      "sha256": "1a19f9f79323fad6662f363697b6d8b92b03dd7e3c10b351ce2a6262b92f0efc",
+      "bytes": 6867155,
+      "sha256": "13d4fc64105b8e152002a7929f9e5fb248fa05fb6699e27a399cb122b87aa8f8",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L05_PRACTICE_REVIEW.zip"
+    },
+    {
+      "path": "daejeon/practice/DJ-L05/precision/PLAN-BASE-01-door-result-precision-1-100-A3.pdf",
+      "assetName": "PLAN-BASE-01-door-result-precision-1-100-A3.pdf",
+      "bytes": 240750,
+      "sha256": "e5db16afd7ec7c6a212f492c6180aa3f6739592e55be335522460d9554148b53",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/PLAN-BASE-01-door-result-precision-1-100-A3.pdf"
+    },
+    {
+      "path": "daejeon/practice/DJ-L05/precision/PLAN-BASE-01-precision-1-100-A3.pdf",
+      "assetName": "PLAN-BASE-01-precision-1-100-A3.pdf",
+      "bytes": 164159,
+      "sha256": "f174c4b67507e61b6184abf411328ac44ffae003b65de34351e58b501843d114",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/PLAN-BASE-01-precision-1-100-A3.pdf"
+    },
+    {
+      "path": "daejeon/practice/DJ-L05/precision/PLAN-BASE-01-result-precision-1-100-A3.pdf",
+      "assetName": "PLAN-BASE-01-result-precision-1-100-A3.pdf",
+      "bytes": 164616,
+      "sha256": "b88735de6608225b09e0ef165eb53f6df3a57c8fb6124b1b0aebb4d56d1d717f",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/PLAN-BASE-01-result-precision-1-100-A3.pdf"
+    },
+    {
+      "path": "daejeon/practice/DJ-L05/precision/PLAN-BASE-02-precision-1-100-A3.pdf",
+      "assetName": "PLAN-BASE-02-precision-1-100-A3.pdf",
+      "bytes": 145240,
+      "sha256": "6a17d672adbeaac8275a0cb90b58376775ac892b7d5ba1800e2f4c0ff42b73b9",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/PLAN-BASE-02-precision-1-100-A3.pdf"
+    },
+    {
+      "path": "daejeon/practice/DJ-L05/precision/PLAN-BASE-02-result-precision-1-100-A3.pdf",
+      "assetName": "PLAN-BASE-02-result-precision-1-100-A3.pdf",
+      "bytes": 145766,
+      "sha256": "0cebb0e1be179fbc099d1fc96a30a9299682824284fcb496543216c7f30cad54",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/PLAN-BASE-02-result-precision-1-100-A3.pdf"
     },
     {
       "path": "daejeon/practice/DJ-L06/DJ-L06-3d-isometric-zoning.zip",
       "assetName": "DJ-L06-3d-isometric-zoning.zip",
-      "bytes": 26047919,
-      "sha256": "67a796c1d0447b5108ea55c7d78edf725ee1c2ee249329753a0cf50743abd11e",
+      "bytes": 26220701,
+      "sha256": "0504ae02d0b23565d82537656e29aa33d5b2856638302c52e6fc9cb19fa418df",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L06-3d-isometric-zoning.zip"
     },
     {
-      "path": "downloads/ai-architecture-design-course_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-course_2026-08-27.pdf",
-      "bytes": 56943505,
-      "sha256": "c7af9e5fba4185cd9092c795d42da12e9d90d7d84109580ef7816bc6cd028aed",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-course_2026-08-27.pdf"
+      "path": "daejeon/practice/DJ-L06/precision/PLAN-BASE-01-door-result-precision-1-100-A3.pdf",
+      "assetName": "PLAN-BASE-01-door-result-precision-1-100-A3.pdf",
+      "bytes": 240750,
+      "sha256": "e5db16afd7ec7c6a212f492c6180aa3f6739592e55be335522460d9554148b53",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/PLAN-BASE-01-door-result-precision-1-100-A3.pdf"
     },
     {
-      "path": "downloads/ai-architecture-design-lesson-01_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-lesson-01_2026-08-27.pdf",
-      "bytes": 3222138,
-      "sha256": "c8d51de3f1fa7cb793a976060135cdbd71d93f61753deca1208e366419496557",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-01_2026-08-27.pdf"
-    },
-    {
-      "path": "downloads/ai-architecture-design-lesson-02_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-lesson-02_2026-08-27.pdf",
-      "bytes": 9850991,
-      "sha256": "f61cb312980bbf8e4effab01d0c0394a67bfe0e1ab5d03bad83330fd0b7ca6c5",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-02_2026-08-27.pdf"
-    },
-    {
-      "path": "downloads/ai-architecture-design-lesson-03_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-lesson-03_2026-08-27.pdf",
-      "bytes": 5974095,
-      "sha256": "7990987e0e81def4f1cc5faea01d18817326b91cf06dbee7f03de672fabe7c90",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-03_2026-08-27.pdf"
-    },
-    {
-      "path": "downloads/ai-architecture-design-lesson-04_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-lesson-04_2026-08-27.pdf",
-      "bytes": 9249572,
-      "sha256": "460324968555dc94d5a6922f7d7ed414b17f26f5b5e198ab50b658811b1429ed",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-04_2026-08-27.pdf"
-    },
-    {
-      "path": "downloads/ai-architecture-design-lesson-05_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-lesson-05_2026-08-27.pdf",
-      "bytes": 6648742,
-      "sha256": "2ffd0936ec9cc3dd60d3148ebf4cf18fa5f74919125a9eb7e833ef494e35cfb7",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-05_2026-08-27.pdf"
-    },
-    {
-      "path": "downloads/ai-architecture-design-lesson-06_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-lesson-06_2026-08-27.pdf",
-      "bytes": 5378414,
-      "sha256": "14686195e10ded3c0b7bb3dea538bdcd39ed2f13036774d9896bb1181789ad48",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-06_2026-08-27.pdf"
-    },
-    {
-      "path": "downloads/ai-architecture-design-lesson-07_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-lesson-07_2026-08-27.pdf",
-      "bytes": 3443198,
-      "sha256": "9d1a084e6ce04104a6d7b39daffb1f236c5ca7b04862a469b3f3137c5a29428c",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-07_2026-08-27.pdf"
-    },
-    {
-      "path": "downloads/ai-architecture-design-lesson-08_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-lesson-08_2026-08-27.pdf",
-      "bytes": 5410427,
-      "sha256": "9eae1e0a7c202105c0a817eaeaae6b6f2a4b62005f50a5ddceef95e7edd167ba",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-08_2026-08-27.pdf"
-    },
-    {
-      "path": "downloads/ai-architecture-design-lesson-09_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-lesson-09_2026-08-27.pdf",
-      "bytes": 4757642,
-      "sha256": "de11599b08954c7063571dea75a0cd8316a0895d483d71e596ab8c2885a1480e",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-09_2026-08-27.pdf"
-    },
-    {
-      "path": "downloads/ai-architecture-design-lesson-10_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-lesson-10_2026-08-27.pdf",
-      "bytes": 2029150,
-      "sha256": "de5e96fb031c1844e318206397e16e68c29781c64e24847934c4c14a001d1620",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-10_2026-08-27.pdf"
-    },
-    {
-      "path": "downloads/ai-architecture-design-lesson-11_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-lesson-11_2026-08-27.pdf",
-      "bytes": 1615102,
-      "sha256": "77c0e407ffd167acde8397f4f45b4790048ca248adf73d27279200e70755a869",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-11_2026-08-27.pdf"
-    },
-    {
-      "path": "downloads/ai-architecture-design-lesson-12_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-lesson-12_2026-08-27.pdf",
-      "bytes": 1245589,
-      "sha256": "fc3b45099a4578320c95216d8cc17696c33782fa83fe270c42ab89f5a9d5ab28",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-12_2026-08-27.pdf"
-    },
-    {
-      "path": "downloads/ai-architecture-design-lesson-13_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-lesson-13_2026-08-27.pdf",
-      "bytes": 12168318,
-      "sha256": "7034b03a438d9b1d00307639f7a1685bf8a68faa0b70dbbb8c75dac46742786b",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-13_2026-08-27.pdf"
-    },
-    {
-      "path": "downloads/ai-architecture-design-lesson-14_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-lesson-14_2026-08-27.pdf",
-      "bytes": 1232318,
-      "sha256": "a2a6823d16f92941727633b8faf4a2f7178c790ce97d6243ca79dddc0a2b4b39",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-14_2026-08-27.pdf"
-    },
-    {
-      "path": "downloads/daejeon/lesson-12/모던3층단독주택_AI설계제안서_8장슬라이드.pdf",
-      "assetName": "DJ-L12-Modern3F-Proposal-8Slides.pdf",
-      "bytes": 10527598,
-      "sha256": "b3bf360b27a806d3e620d5159cd07f20924fe516a94673a1beb4c42b7d9b310f",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L12-Modern3F-Proposal-8Slides.pdf"
-    },
-    {
-      "path": "downloads/daejeon/lesson-12/모던3층단독주택_AI설계제안서_8장슬라이드.pptx",
-      "assetName": "DJ-L12-Modern3F-Proposal-8Slides.pptx",
-      "bytes": 24244775,
-      "sha256": "e373cb91961bafd0bcebd4045fb9e3bb0a04bc6a5c17ebda168854b46d88b626",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L12-Modern3F-Proposal-8Slides.pptx"
-    },
-    {
-      "path": "downloads/daejeon/lesson-12/포트폴리오_보드4장_원본PNG.zip",
-      "assetName": "DJ-L12-Portfolio-4Boards-PNG.zip",
-      "bytes": 6852191,
-      "sha256": "e4b3d364ee998308595d24dc4c0c6ef40afd05ee640fe43d14d10021a3a61a67",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L12-Portfolio-4Boards-PNG.zip"
-    },
-    {
-      "path": "downloads/daejeon/lesson-13/모던3층단독주택_프로젝트결과보고서_예시.pdf",
-      "assetName": "DJ-L13-Modern3F-Result-Report.pdf",
-      "bytes": 114460,
-      "sha256": "1b683e44dc2ff1addfec66f3d25b0ae2466f4f3ca07ad70211797fc1648a2613",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L13-Modern3F-Result-Report.pdf"
-    },
-    {
-      "path": "downloads/daejeon/lesson-13/제11_13차시_포트폴리오_PPT_결과보고서_통합패키지.zip",
-      "assetName": "DJ-L11-13-Portfolio-Full-Pack.zip",
-      "bytes": 79308078,
-      "sha256": "494a8f7a1cb7976d87baefcc3572c3379a126241fa56ef7e8be1dd1f71a9ca34",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L11-13-Portfolio-Full-Pack.zip"
-    },
-    {
-      "path": "gwangju/_astro/ARVEN_Headquarters_Interior_RFP_v1.2.CnHrHwH2.pdf",
-      "assetName": "ARVEN_Headquarters_Interior_RFP_v1.2.CnHrHwH2.pdf",
-      "bytes": 1407555,
-      "sha256": "49cf98e23c82ae26640399c780de96ee48cdedf96890482b1c47f0282a2f6a29",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ARVEN_Headquarters_Interior_RFP_v1.2.CnHrHwH2.pdf"
-    },
-    {
-      "path": "gwangju/_astro/lesson-03-campus-lounge-rfp-v1.2.BupCM2EB.pdf",
-      "assetName": "lesson-03-campus-lounge-rfp-v1.2.BupCM2EB.pdf",
-      "bytes": 642008,
-      "sha256": "95b9756fd818d8f86847ca72d1e094b9dd6c2e4b9d1dfbc029169d057e638c2e",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/lesson-03-campus-lounge-rfp-v1.2.BupCM2EB.pdf"
-    },
-    {
-      "path": "gwangju/_astro/two-story-house-source.C2pJDNSV.dwg",
-      "assetName": "two-story-house-source.C2pJDNSV.dwg",
-      "bytes": 3053689,
-      "sha256": "c5464c97884f7b18fa472f4c46fafccdc9ae072930468a26a2a154be21f31fdd",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/two-story-house-source.C2pJDNSV.dwg"
-    },
-    {
-      "path": "gwangju/downloads/ai-architecture-design-course_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-course_2026-08-27.pdf",
-      "bytes": 56943505,
-      "sha256": "c7af9e5fba4185cd9092c795d42da12e9d90d7d84109580ef7816bc6cd028aed",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-course_2026-08-27.pdf"
-    },
-    {
-      "path": "gwangju/downloads/ai-architecture-design-lesson-01_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-lesson-01_2026-08-27.pdf",
-      "bytes": 3222138,
-      "sha256": "c8d51de3f1fa7cb793a976060135cdbd71d93f61753deca1208e366419496557",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-01_2026-08-27.pdf"
-    },
-    {
-      "path": "gwangju/downloads/ai-architecture-design-lesson-02_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-lesson-02_2026-08-27.pdf",
-      "bytes": 9850991,
-      "sha256": "f61cb312980bbf8e4effab01d0c0394a67bfe0e1ab5d03bad83330fd0b7ca6c5",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-02_2026-08-27.pdf"
-    },
-    {
-      "path": "gwangju/downloads/ai-architecture-design-lesson-03_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-lesson-03_2026-08-27.pdf",
-      "bytes": 5974095,
-      "sha256": "7990987e0e81def4f1cc5faea01d18817326b91cf06dbee7f03de672fabe7c90",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-03_2026-08-27.pdf"
-    },
-    {
-      "path": "gwangju/downloads/ai-architecture-design-lesson-04_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-lesson-04_2026-08-27.pdf",
-      "bytes": 9249572,
-      "sha256": "460324968555dc94d5a6922f7d7ed414b17f26f5b5e198ab50b658811b1429ed",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-04_2026-08-27.pdf"
-    },
-    {
-      "path": "gwangju/downloads/ai-architecture-design-lesson-05_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-lesson-05_2026-08-27.pdf",
-      "bytes": 6648742,
-      "sha256": "2ffd0936ec9cc3dd60d3148ebf4cf18fa5f74919125a9eb7e833ef494e35cfb7",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-05_2026-08-27.pdf"
-    },
-    {
-      "path": "gwangju/downloads/ai-architecture-design-lesson-06_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-lesson-06_2026-08-27.pdf",
-      "bytes": 5378414,
-      "sha256": "14686195e10ded3c0b7bb3dea538bdcd39ed2f13036774d9896bb1181789ad48",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-06_2026-08-27.pdf"
-    },
-    {
-      "path": "gwangju/downloads/ai-architecture-design-lesson-07_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-lesson-07_2026-08-27.pdf",
-      "bytes": 3443198,
-      "sha256": "9d1a084e6ce04104a6d7b39daffb1f236c5ca7b04862a469b3f3137c5a29428c",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-07_2026-08-27.pdf"
-    },
-    {
-      "path": "gwangju/downloads/ai-architecture-design-lesson-08_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-lesson-08_2026-08-27.pdf",
-      "bytes": 5410427,
-      "sha256": "9eae1e0a7c202105c0a817eaeaae6b6f2a4b62005f50a5ddceef95e7edd167ba",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-08_2026-08-27.pdf"
-    },
-    {
-      "path": "gwangju/downloads/ai-architecture-design-lesson-09_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-lesson-09_2026-08-27.pdf",
-      "bytes": 4757642,
-      "sha256": "de11599b08954c7063571dea75a0cd8316a0895d483d71e596ab8c2885a1480e",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-09_2026-08-27.pdf"
-    },
-    {
-      "path": "gwangju/downloads/ai-architecture-design-lesson-10_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-lesson-10_2026-08-27.pdf",
-      "bytes": 2029150,
-      "sha256": "de5e96fb031c1844e318206397e16e68c29781c64e24847934c4c14a001d1620",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-10_2026-08-27.pdf"
-    },
-    {
-      "path": "gwangju/downloads/ai-architecture-design-lesson-11_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-lesson-11_2026-08-27.pdf",
-      "bytes": 1615102,
-      "sha256": "77c0e407ffd167acde8397f4f45b4790048ca248adf73d27279200e70755a869",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-11_2026-08-27.pdf"
-    },
-    {
-      "path": "gwangju/downloads/ai-architecture-design-lesson-12_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-lesson-12_2026-08-27.pdf",
-      "bytes": 1245589,
-      "sha256": "fc3b45099a4578320c95216d8cc17696c33782fa83fe270c42ab89f5a9d5ab28",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-12_2026-08-27.pdf"
-    },
-    {
-      "path": "gwangju/downloads/ai-architecture-design-lesson-13_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-lesson-13_2026-08-27.pdf",
-      "bytes": 12168318,
-      "sha256": "7034b03a438d9b1d00307639f7a1685bf8a68faa0b70dbbb8c75dac46742786b",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-13_2026-08-27.pdf"
-    },
-    {
-      "path": "gwangju/downloads/ai-architecture-design-lesson-14_2026-08-27.pdf",
-      "assetName": "ai-architecture-design-lesson-14_2026-08-27.pdf",
-      "bytes": 1232318,
-      "sha256": "a2a6823d16f92941727633b8faf4a2f7178c790ce97d6243ca79dddc0a2b4b39",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/ai-architecture-design-lesson-14_2026-08-27.pdf"
-    },
-    {
-      "path": "gwangju/downloads/daejeon/lesson-12/모던3층단독주택_AI설계제안서_8장슬라이드.pdf",
-      "assetName": "DJ-L12-Modern3F-Proposal-8Slides.pdf",
-      "bytes": 10527598,
-      "sha256": "b3bf360b27a806d3e620d5159cd07f20924fe516a94673a1beb4c42b7d9b310f",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L12-Modern3F-Proposal-8Slides.pdf"
-    },
-    {
-      "path": "gwangju/downloads/daejeon/lesson-12/모던3층단독주택_AI설계제안서_8장슬라이드.pptx",
-      "assetName": "DJ-L12-Modern3F-Proposal-8Slides.pptx",
-      "bytes": 24244775,
-      "sha256": "e373cb91961bafd0bcebd4045fb9e3bb0a04bc6a5c17ebda168854b46d88b626",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L12-Modern3F-Proposal-8Slides.pptx"
-    },
-    {
-      "path": "gwangju/downloads/daejeon/lesson-12/포트폴리오_보드4장_원본PNG.zip",
-      "assetName": "DJ-L12-Portfolio-4Boards-PNG.zip",
-      "bytes": 6852191,
-      "sha256": "e4b3d364ee998308595d24dc4c0c6ef40afd05ee640fe43d14d10021a3a61a67",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L12-Portfolio-4Boards-PNG.zip"
-    },
-    {
-      "path": "gwangju/downloads/daejeon/lesson-13/모던3층단독주택_프로젝트결과보고서_예시.pdf",
-      "assetName": "DJ-L13-Modern3F-Result-Report.pdf",
-      "bytes": 114460,
-      "sha256": "1b683e44dc2ff1addfec66f3d25b0ae2466f4f3ca07ad70211797fc1648a2613",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L13-Modern3F-Result-Report.pdf"
-    },
-    {
-      "path": "gwangju/downloads/daejeon/lesson-13/제11_13차시_포트폴리오_PPT_결과보고서_통합패키지.zip",
-      "assetName": "DJ-L11-13-Portfolio-Full-Pack.zip",
-      "bytes": 79308078,
-      "sha256": "494a8f7a1cb7976d87baefcc3572c3379a126241fa56ef7e8be1dd1f71a9ca34",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L11-13-Portfolio-Full-Pack.zip"
+      "path": "daejeon/practice/DJ-L06/precision/PLAN-BASE-02-result-precision-1-100-A3.pdf",
+      "assetName": "PLAN-BASE-02-result-precision-1-100-A3.pdf",
+      "bytes": 145766,
+      "sha256": "0cebb0e1be179fbc099d1fc96a30a9299682824284fcb496543216c7f30cad54",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/PLAN-BASE-02-result-precision-1-100-A3.pdf"
     }
   ]
 }

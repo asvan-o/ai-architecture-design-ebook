@@ -39,6 +39,10 @@ export const lesson05Prompts=manifest.prompts.map(read);
 export const lesson05Prompt=Object.fromEntries(lesson05Prompts.map(prompt=>[prompt.key,prompt]));
 /** @type {PlanAsset[]} */
 export const lesson05Analysis=manifest.analysis.map(read);
+/** @type {PlanAsset[]} */
+export const lesson05Precision=(manifest.precision||[]).map(read);
+/** @type {PlanAsset[]} */
+export const lesson05PrecisionCrops=(manifest.precisionCrops||[]).map(read);
 export const lesson05Zip=read({key:'zip',file:'DJ-L05_PRACTICE_REVIEW.zip',title:'제5차시 통합 실습자료'});
 /** @type {PlanAsset[]} */
 export const lesson05Assets=[...manifest.files.map(read),...['manifest.json','SHA256SUMS.txt'].map(file=>read({file})),lesson05Zip];

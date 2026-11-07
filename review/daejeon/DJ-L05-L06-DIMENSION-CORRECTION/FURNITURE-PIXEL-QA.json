@@ -1,0 +1,541 @@
+{
+  "schemaVersion": 1,
+  "method": "deterministic furniture ROI replacement; no image generation",
+  "units": "mm",
+  "pixelScalePxPerMm": 0.1,
+  "outsideFurnitureRoiChangedPixels": 0,
+  "furniture": {
+    "workFacingModule": [
+      1600,
+      1400
+    ],
+    "workIndividual": [
+      1600,
+      700
+    ],
+    "table4": [
+      1800,
+      1000
+    ],
+    "table6": [
+      2700,
+      1000
+    ]
+  },
+  "images": [
+    {
+      "file": "plans/PLAN-BASE-01.png",
+      "allowedFurnitureBoxesPx": [
+        [
+          575,
+          478,
+          865,
+          790
+        ],
+        [
+          890,
+          478,
+          1180,
+          790
+        ],
+        [
+          1380,
+          550,
+          1805,
+          838
+        ]
+      ],
+      "outsideRoiChangedPixels": 0,
+      "insideRoiChangedPixels": 139526,
+      "beforeSha256": "9bfd15c42464827dfdb4deac1161657b906da92aaa8f78be98d301c602fb0d5f",
+      "afterSha256": "d572e93fe6d56b3bc688e538c14a21d6f6256ffe3164a8b41915e743b5d16082"
+    },
+    {
+      "file": "plans/PLAN-BASE-01-marked.png",
+      "allowedFurnitureBoxesPx": [
+        [
+          575,
+          478,
+          865,
+          790
+        ],
+        [
+          890,
+          478,
+          1180,
+          790
+        ],
+        [
+          1380,
+          550,
+          1805,
+          838
+        ]
+      ],
+      "outsideRoiChangedPixels": 0,
+      "insideRoiChangedPixels": 197547,
+      "beforeSha256": "51020525ff43663036c611bf530278630e0b445122deb1efcf985ee9134db554",
+      "afterSha256": "7de4cb007447db46fb217dc82cb0c56a9b5fcd3105b027d61514cb7a5909e78e"
+    },
+    {
+      "file": "results/PLAN-BASE-01-result.png",
+      "allowedFurnitureBoxesPx": [
+        [
+          575,
+          478,
+          865,
+          790
+        ],
+        [
+          890,
+          478,
+          1180,
+          790
+        ],
+        [
+          1380,
+          550,
+          1805,
+          838
+        ]
+      ],
+      "outsideRoiChangedPixels": 0,
+      "insideRoiChangedPixels": 167035,
+      "beforeSha256": "7bc9cb4defddfa18660b0975270b5d6a66ddf2ebca75e4bad3fafa8589f7cea3",
+      "afterSha256": "20e80f29a96b81ef04b688c0179af6c333c9d0c09fcc27ad6b821bd37a8d79a4"
+    },
+    {
+      "file": "results/PLAN-BASE-01-furniture-overlay.png",
+      "allowedFurnitureBoxesPx": [
+        [
+          575,
+          478,
+          865,
+          790
+        ],
+        [
+          890,
+          478,
+          1180,
+          790
+        ],
+        [
+          1380,
+          550,
+          1805,
+          838
+        ]
+      ],
+      "outsideRoiChangedPixels": 0,
+      "insideRoiChangedPixels": 157751,
+      "beforeSha256": "1d53c29f2534dfdc4bd6245c5511ef3d2dd132c38a465ae001eeea723f47be4e",
+      "afterSha256": "ee025e26f3b782019894b5c1dbe9f65d4364433dad1c1eda2de814c509baa284"
+    },
+    {
+      "file": "plans/PLAN-BASE-01-door-marked.png",
+      "allowedFurnitureBoxesPx": [
+        [
+          575,
+          478,
+          865,
+          790
+        ],
+        [
+          890,
+          478,
+          1180,
+          790
+        ],
+        [
+          1380,
+          550,
+          1805,
+          838
+        ]
+      ],
+      "outsideRoiChangedPixels": 0,
+      "insideRoiChangedPixels": 169915,
+      "beforeSha256": "08c534ab2a3deb19973bdbcd3615a8db648bd54a81ae973cdb500d716bbb8649",
+      "afterSha256": "c93536ccbdcb1f36de1d32e306b6458fab4ba124e2203469ebee23f4e5b42ddf"
+    },
+    {
+      "file": "results/PLAN-BASE-01-door-result.png",
+      "allowedFurnitureBoxesPx": [
+        [
+          575,
+          478,
+          865,
+          790
+        ],
+        [
+          890,
+          478,
+          1180,
+          790
+        ],
+        [
+          1380,
+          550,
+          1805,
+          838
+        ]
+      ],
+      "outsideRoiChangedPixels": 0,
+      "insideRoiChangedPixels": 169623,
+      "beforeSha256": "b013ff8001e5c703980a1b80bad74a17adeadadfb181f49a94370c608c343ca7",
+      "afterSha256": "787d833f0ff886b45b9bed33a7b03835f08a90cfd3b0e6049a591aa57b54b04f"
+    },
+    {
+      "file": "results/PLAN-BASE-01-door-overlay.png",
+      "allowedFurnitureBoxesPx": [
+        [
+          575,
+          478,
+          865,
+          790
+        ],
+        [
+          890,
+          478,
+          1180,
+          790
+        ],
+        [
+          1380,
+          550,
+          1805,
+          838
+        ]
+      ],
+      "outsideRoiChangedPixels": 0,
+      "insideRoiChangedPixels": 110467,
+      "beforeSha256": "c16787a51b0821c3108c4d2fbf04f4a16d03069b064c069221fc3b52779c6642",
+      "afterSha256": "0e679c01536a47724e02096499ece0fb3972856cd8d12ae9b75debde239d3553"
+    },
+    {
+      "file": "plans/PLAN-BASE-02.png",
+      "allowedFurnitureBoxesPx": [
+        [
+          1260,
+          538,
+          1682,
+          830
+        ]
+      ],
+      "outsideRoiChangedPixels": 0,
+      "insideRoiChangedPixels": 49176,
+      "beforeSha256": "48499ab2c4784740103da33e24772ffc0e1e1b559069ce33a8c09bbda3839bf3",
+      "afterSha256": "047731dee61a5de5ba9b075407b46c1e6ccc5e931562c5a80643997fbb12dbd3"
+    },
+    {
+      "file": "plans/PLAN-BASE-02-marked.png",
+      "allowedFurnitureBoxesPx": [
+        [
+          1260,
+          538,
+          1682,
+          830
+        ]
+      ],
+      "outsideRoiChangedPixels": 0,
+      "insideRoiChangedPixels": 101834,
+      "beforeSha256": "8dc3e11ca39b6380553e38de8c080e72322fb06ef66000cbc0f668d8942af95f",
+      "afterSha256": "1e7d88706d4275d969962eef08c5a793b0a5889946dcc2e516ce0710e95698b1"
+    },
+    {
+      "file": "results/PLAN-BASE-02-result.png",
+      "allowedFurnitureBoxesPx": [
+        [
+          1260,
+          538,
+          1682,
+          830
+        ]
+      ],
+      "outsideRoiChangedPixels": 0,
+      "insideRoiChangedPixels": 77370,
+      "beforeSha256": "053a49acd205abf381ebf5d8935efd705f8f16e6de116fc5c56e6de425d2ebbd",
+      "afterSha256": "133a28c32bbc1f2982e60c4a0a7a836f1cf5f788ea5ebb9689879282a3f740f6"
+    },
+    {
+      "file": "results/PLAN-BASE-02-furniture-overlay.png",
+      "allowedFurnitureBoxesPx": [
+        [
+          1260,
+          538,
+          1682,
+          830
+        ]
+      ],
+      "outsideRoiChangedPixels": 0,
+      "insideRoiChangedPixels": 16007,
+      "beforeSha256": "3cab8b38340609df2368457123dab9c3448e32be3fe61d6b0378f7d9b5ecf6c2",
+      "afterSha256": "174fdff6e83f912628fc61b1e45bcc2265385c5cbcac0f04d4362522616ebc6f"
+    }
+  ],
+  "pdfs": [
+    {
+      "key": "office-base",
+      "file": "precision/PLAN-BASE-01-precision-1-100-A3.pdf",
+      "title": "오피스 · 4석 원본 · A3 정밀 출력 PDF",
+      "pageMm": [
+        420,
+        297
+      ],
+      "sheetPrintedMm": [
+        240,
+        165
+      ],
+      "buildingPrintedMm": [
+        144,
+        84
+      ],
+      "scaleBarPrintedMm": 20,
+      "scale": "1:100",
+      "sha256": "f174c4b67507e61b6184abf411328ac44ffae003b65de34351e58b501843d114"
+    },
+    {
+      "key": "cafe-base",
+      "file": "precision/PLAN-BASE-02-precision-1-100-A3.pdf",
+      "title": "카페 · 4석 원본 · A3 정밀 출력 PDF",
+      "pageMm": [
+        420,
+        297
+      ],
+      "sheetPrintedMm": [
+        240,
+        165
+      ],
+      "buildingPrintedMm": [
+        144,
+        84
+      ],
+      "scaleBarPrintedMm": 20,
+      "scale": "1:100",
+      "sha256": "6a17d672adbeaac8275a0cb90b58376775ac892b7d5ba1800e2f4c0ff42b73b9"
+    },
+    {
+      "key": "office-six",
+      "file": "precision/PLAN-BASE-01-result-precision-1-100-A3.pdf",
+      "title": "오피스 · 6석 결과 · A3 정밀 출력 PDF",
+      "pageMm": [
+        420,
+        297
+      ],
+      "sheetPrintedMm": [
+        240,
+        165
+      ],
+      "buildingPrintedMm": [
+        144,
+        84
+      ],
+      "scaleBarPrintedMm": 20,
+      "scale": "1:100",
+      "sha256": "b88735de6608225b09e0ef165eb53f6df3a57c8fb6124b1b0aebb4d56d1d717f"
+    },
+    {
+      "key": "office-door",
+      "file": "precision/PLAN-BASE-01-door-result-precision-1-100-A3.pdf",
+      "title": "오피스 · 6석 및 D2 이동 결과 · A3 정밀 출력 PDF",
+      "pageMm": [
+        420,
+        297
+      ],
+      "sheetPrintedMm": [
+        240,
+        165
+      ],
+      "buildingPrintedMm": [
+        144,
+        84
+      ],
+      "scaleBarPrintedMm": 20,
+      "scale": "1:100",
+      "sha256": "e5db16afd7ec7c6a212f492c6180aa3f6739592e55be335522460d9554148b53"
+    },
+    {
+      "key": "cafe-six",
+      "file": "precision/PLAN-BASE-02-result-precision-1-100-A3.pdf",
+      "title": "카페 · 6석 결과 · A3 정밀 출력 PDF",
+      "pageMm": [
+        420,
+        297
+      ],
+      "sheetPrintedMm": [
+        240,
+        165
+      ],
+      "buildingPrintedMm": [
+        144,
+        84
+      ],
+      "scaleBarPrintedMm": 20,
+      "scale": "1:100",
+      "sha256": "0cebb0e1be179fbc099d1fc96a30a9299682824284fcb496543216c7f30cad54"
+    }
+  ],
+  "protectedAssets": [
+    {
+      "file": "review/daejeon/DJ-L05-FLOORPLAN-INPAINTING/revision-review8-20261016/legacy-A/01-original-first-floor-plan.png",
+      "sha256": "70352b0d65b67b789f6023c9d27def96397238f33027d539e3674e9152044775"
+    },
+    {
+      "file": "review/daejeon/DJ-L05-FLOORPLAN-INPAINTING/revision-review8-20261016/legacy-A/02-edit-area-marked-plan.png",
+      "sha256": "6eefbc391b526c93565b6042c057d8de2da812df929b10db604ffa777bdd621e"
+    },
+    {
+      "file": "review/daejeon/DJ-L05-FLOORPLAN-INPAINTING/revision-review8-20261016/legacy-A/03-modified-first-floor-plan.png",
+      "sha256": "72f9e1898863d74ac916f8423307ae49232d71dbddcbf9751cdb7946656a8fa7"
+    },
+    {
+      "file": "review/daejeon/DJ-L05-FLOORPLAN-INPAINTING/revision-review8-20261016/results/PLAN-BASE-01-ai-raw.png",
+      "sha256": "e4c1e7aeee0529c04f796bae70f4601e4ad1a223547592c7ab073acad5b9ec02"
+    },
+    {
+      "file": "review/daejeon/DJ-L05-FLOORPLAN-INPAINTING/revision-review8-20261016/results/PLAN-BASE-01-door-ai-raw.png",
+      "sha256": "c083ca3bd8d45485e17c1c75bc4d267ab3677b4b32e7e99660a0d03686d4f0f2"
+    },
+    {
+      "file": "review/daejeon/DJ-L05-FLOORPLAN-INPAINTING/revision-review8-20261016/results/PLAN-BASE-02-ai-raw.png",
+      "sha256": "1c5ae992d88c2da3b6fc1237de3175ddcaf3b4741edcc431b4e4ef8fe5852472"
+    },
+    {
+      "file": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/legacy-basic/01-small-room-plan.png",
+      "sha256": "130a2789dc5caab50ed971918a5d718b00de4be7e8d81f5651b0ddc157c16013"
+    },
+    {
+      "file": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/legacy-basic/02-small-room-topview-3d.png",
+      "sha256": "2b62d416edf108db9aa3182f263d8bb527c80aaee7383aedde54cba8afe7b9de"
+    },
+    {
+      "file": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/legacy-basic/03-small-room-isometric.png",
+      "sha256": "9cd9ea4d3a3ca15ba7781b0445c809f9d24772db281ce9230a4b2676f708ab99"
+    },
+    {
+      "file": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/legacy-basic/04-living-kitchen-plan.png",
+      "sha256": "05a9cca51e0d7898310df83440e980406e8633734524d37c226630058e07d2b6"
+    },
+    {
+      "file": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/legacy-basic/05-living-kitchen-isometric-interior.png",
+      "sha256": "b8f6d6177d9c2e6ba18005bd008756647286d75365064e5b874bfdeff616b733"
+    },
+    {
+      "file": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/legacy-house/03-modified-first-floor-plan.png",
+      "sha256": "72f9e1898863d74ac916f8423307ae49232d71dbddcbf9751cdb7946656a8fa7"
+    },
+    {
+      "file": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/legacy-house/04-top-view-3d.png",
+      "sha256": "63ad6deb3a91d54d3e4a4265b612e95b12ca8b7398bbf9c0bdc7a4495fa0f13a"
+    },
+    {
+      "file": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/legacy-house/05-isometric.png",
+      "sha256": "a6e68c4ae2a898e785ce153d4d04096676f556a8da4d4175be5c05532d20b28f"
+    },
+    {
+      "file": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/legacy-house/06-exploded-isometric.png",
+      "sha256": "a49cda66cbfa38e5e836612cb29a856bdb26a870c0fd1890e83aef5a128a71e4"
+    },
+    {
+      "file": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/samples/01_office-topview-3d.png",
+      "sha256": "20c3be98160ba011ea3b90e06184e402b7071431f01091f7f7f5f5094d309823"
+    },
+    {
+      "file": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/samples/02_office-isometric-warm.png",
+      "sha256": "f0738c703b616415b2173267445d1014b50fd5fc408a570f8ce89ac7b3183193"
+    },
+    {
+      "file": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/samples/03_office-isometric-modern.png",
+      "sha256": "35a57bdacec3a64b871cb90ca3ea2e45384704accbf04225ca80675bb5e4af5a"
+    },
+    {
+      "file": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/samples/04_cafe-isometric-3d.png",
+      "sha256": "f6ee721d188ad5824c2dfb76b8f6fa20317da13a4fd07dc8bb2e81b181c22d3d"
+    },
+    {
+      "file": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/samples/05_office-exploded-isometric.png",
+      "sha256": "fa4b70075af032f55e5436c37fcb49cc19eb9151e5bc239a39bf4e26509c71f2"
+    },
+    {
+      "file": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/samples/06_office-interior-subview.png",
+      "sha256": "9fb25aac8ef8dc400da62ae66e8b63bd14eb4231750a85f1626380a92722615b"
+    },
+    {
+      "file": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/samples/07_office-spatial-bubble-diagram.png",
+      "sha256": "bb593f2adf600669c3e894db1be6fa460e230063c08c440b785400814ad900f4"
+    },
+    {
+      "file": "review/daejeon/DJ-L06-3D-ZONING/revision-review8-20261016/samples/08_office-2d-zoning-bridge.png",
+      "sha256": "357b027287c58421b90fccdbed7c1b267e341b3395e4f17b47cf6432bc794f3d"
+    }
+  ],
+  "actualRasterFurnitureMeasurements": [
+    {
+      "file": "plans/PLAN-BASE-01.png",
+      "darkInkBoundsPx": [
+        180,
+        100
+      ],
+      "dimensionsMm": [
+        1800,
+        1000
+      ]
+    },
+    {
+      "file": "results/PLAN-BASE-01-result.png",
+      "darkInkBoundsPx": [
+        270,
+        100
+      ],
+      "dimensionsMm": [
+        2700,
+        1000
+      ]
+    },
+    {
+      "file": "results/PLAN-BASE-01-door-result.png",
+      "darkInkBoundsPx": [
+        270,
+        100
+      ],
+      "dimensionsMm": [
+        2700,
+        1000
+      ]
+    },
+    {
+      "file": "plans/PLAN-BASE-02.png",
+      "darkInkBoundsPx": [
+        180,
+        100
+      ],
+      "dimensionsMm": [
+        1800,
+        1000
+      ]
+    },
+    {
+      "file": "results/PLAN-BASE-02-result.png",
+      "darkInkBoundsPx": [
+        270,
+        100
+      ],
+      "dimensionsMm": [
+        2700,
+        1000
+      ]
+    },
+    {
+      "file": "plans/PLAN-BASE-01.png",
+      "item": "work facing module",
+      "darkInkBoundsPx": [
+        160,
+        140
+      ],
+      "dimensionsMm": [
+        1600,
+        1400
+      ]
+    }
+  ]
+}

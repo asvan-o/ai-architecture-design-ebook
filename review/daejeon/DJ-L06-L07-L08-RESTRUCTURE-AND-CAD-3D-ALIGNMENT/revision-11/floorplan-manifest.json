@@ -2,7 +2,7 @@
   "revision": "DJ-L06-L07-ORIGINAL-HOUSE-PLAN-AND-DOOR-STAIR-PRECISION-FIX/revision-10",
   "localReviewOnly": true,
   "authorship": "self-authored educational office",
-  "sourceGeometry": "review/daejeon/DJ-ALL-LESSONS-FLOORPLAN-STAIR-AND-DOOR-AUDIT-FIX/revision-9/source/office-geometry.json",
+  "sourceGeometry": "public/downloads/daejeon/lesson-08/office-geometry.json",
   "excluded": [
     "external-participant-original.pdf",
     "internal-criteria.docx"
@@ -11,8 +11,8 @@
   "files": [
     {
       "outputPath": "images/daejeon/lesson-07/floorplan/01-clean-line.jpg",
-      "sizeBytes": 166125,
-      "sha256": "da15b44d9b08cd85e180bce7492c85f48bd95dded9c5c9d11fb792889650ffb4",
+      "sizeBytes": 283006,
+      "sha256": "6abd010225538580d9646f0940bb35eccdb5d4163d95a7b64d2999fb3fee003d",
       "kind": "image",
       "key": "clean-line",
       "title": "사람이 정리한 AI 입력용 클린 선화",
@@ -118,21 +118,21 @@
     },
     {
       "outputPath": "downloads/daejeon/lesson-07/floorplan/DJ-L07-Floorplan-Checklist.md",
-      "sizeBytes": 970,
-      "sha256": "6b5891f6d57f958c9ce631ed8889f4b54a32827929960abbeff1d115910510df",
+      "sizeBytes": 1547,
+      "sha256": "4a2f4aca8d262be81665811f38e5c4c4dab0131093e7dbdd2216c5e630f2693e",
       "kind": "checklist"
     },
     {
       "outputPath": "downloads/daejeon/lesson-07/floorplan/README.md",
-      "sizeBytes": 1428,
-      "sha256": "fa7625fbbf62fc35b41b5071283dd207892cef6c96010086a617c7340469e7d8",
+      "sizeBytes": 2652,
+      "sha256": "a7b3c85d878bc8d8557fe3ce6c74939c359985a3f3120ce8bef0312f3a9dcd17",
       "kind": "readme"
     },
     {
       "outputPath": "downloads/daejeon/lesson-07/floorplan/DJ-L07-Floorplan-Graphviz-Pack.zip",
       "kind": "zip",
-      "sha256": "135ccc4dc2289d62b52a056646f10d8c6232adcbca80ac2feeeae5dd1f53ac32",
-      "sizeBytes": 860596
+      "sha256": "bfdc07736ca230adc879c24dd7a9087ac4cf292e7c98c372c902a9952e94f25d",
+      "sizeBytes": 960823
     },
     {
       "kind": "original-pdf",
@@ -140,8 +140,8 @@
       "title": "자체 제작 교육용 1층 오피스 원본 PDF",
       "outputPath": "downloads/daejeon/lesson-07/floorplan/DJ-L07-Office-Floorplan-Original.pdf",
       "authorship": "self-authored educational synthetic office / revision-9 door correction",
-      "sha256": "5bc0ceaacb6491a98d23b11cde290fe5768e0c5fdbfc7894067496f69d776f91",
-      "sizeBytes": 45816,
+      "sha256": "350555fc15787dea66b1b557aaa0157fa56cc8643f7722bbd035ec2c60a260df",
+      "sizeBytes": 89022,
       "createdFrom": "review/daejeon/DJ-ALL-LESSONS-FLOORPLAN-STAIR-AND-DOOR-AUDIT-FIX/revision-9/source/office-geometry.json"
     },
     {
@@ -151,6 +151,40 @@
       "outputPath": "downloads/daejeon/lesson-07/floorplan/DJ-L07-clean-line-preprocess.txt",
       "sha256": "8bddfad6e4ce24b92e84f01267501e786635970062fe251b4cf5dfa49d55957e",
       "sizeBytes": 2746
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-07/floorplan/office-geometry.json",
+      "key": "office-geometry",
+      "kind": "geometry",
+      "title": "교육용 오피스 좌표·가구 치수 기준",
+      "sha256": "0060c7a3a7928c2a42633a7f78947595cdf09e23e67c8951fc9fd018b25399b9",
+      "sizeBytes": 13253
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-07/floorplan/SHA256SUMS.txt",
+      "key": "office-sha256",
+      "kind": "checksum",
+      "title": "도면 실습자료 SHA-256",
+      "sha256": "1a897537ede0b5e81459a8ce40a966312d1c1d40bddf36c5c776a0a978db606e",
+      "sizeBytes": 1470
     }
-  ]
+  ],
+  "dimensionCorrection": {
+    "scope": "2D furniture only; existing 3D image bytes preserved",
+    "directorDeskMillimetres": [
+      1800,
+      800
+    ],
+    "conferenceTableMillimetres": [
+      3200,
+      1200
+    ],
+    "conferenceChairs": 8,
+    "axisEnvelopeMetres": [
+      24,
+      16
+    ],
+    "centerlinePolygonAreaSquareMetres": 348,
+    "approximatePyeong": 105.27
+  }
 }

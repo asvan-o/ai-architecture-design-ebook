@@ -1,0 +1,167 @@
+{
+  "projectId": "DJ-CF-01",
+  "revision": "candidate-02",
+  "packageEdition": "practical-review-01",
+  "productionManifest": false,
+  "assets": [
+    {
+      "file": "DJ-CF-01_design-brief-prompt.txt",
+      "sha256": "28bbf1593adc94ec765e0e5017e9b013ce02d8e0d111638142ffc1dbcde88df5",
+      "bytes": 1898,
+      "status": "review-draft"
+    },
+    {
+      "file": "DJ-CF-01_design-brief-sample.md",
+      "sha256": "b2def743e33459af5a9427da1df1cd9ea45bd9ab6fbf6d0cbc7ff19ea281841a",
+      "bytes": 12245,
+      "status": "review-draft"
+    },
+    {
+      "file": "DJ-CF-01_example-A-generation-prompt.txt",
+      "sha256": "950cf7c883aa87f4744168731da878cc88d48c3d4867ab6485895b1a27b9f89b",
+      "bytes": 5403,
+      "status": "review-draft"
+    },
+    {
+      "file": "DJ-CF-01_example-A-prompt.txt",
+      "sha256": "1613e5451da8a8c95a54848f68ff2ccc5371fb6744d9a75d3c6449c9715484ee",
+      "bytes": 2114,
+      "status": "review-draft"
+    },
+    {
+      "file": "DJ-CF-01_example-A.png",
+      "sha256": "04220fd1050b08640e56b204a6000f9203cac31429e7fc39235b74551b29337f",
+      "bytes": 2185490,
+      "status": "review-draft",
+      "pixels": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "file": "DJ-CF-01_example-B-generation-prompt.txt",
+      "sha256": "003198069e1023539b063a02d3d210a9551dc23e61991f12b22b02a421a96501",
+      "bytes": 6868,
+      "status": "review-draft"
+    },
+    {
+      "file": "DJ-CF-01_example-B-prompt.txt",
+      "sha256": "b940a649386cf6c1c6ce135304947ebaa31f95b367881a7bca893043f563fb13",
+      "bytes": 2047,
+      "status": "review-draft"
+    },
+    {
+      "file": "DJ-CF-01_example-B.png",
+      "sha256": "4696cbdccdb570b2ccaa7c6178845cb367a8caa8af719c5e74fbb93ced7407e2",
+      "bytes": 2066424,
+      "status": "review-draft",
+      "pixels": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "file": "DJ-CF-01_examples-guide.txt",
+      "sha256": "5a44d18bd328ec2a61de933c4a54fc1b55c05268f6f784e1b91cf303a8192892",
+      "bytes": 4178,
+      "status": "review-draft"
+    },
+    {
+      "file": "DJ-CF-01_existing-plan.pdf",
+      "sha256": "8be82f0e63be4699a07fb03da7022071e734730b4500d9aa1a0ba061f3bd0ed8",
+      "bytes": 284207,
+      "status": "review-draft",
+      "pages": 1
+    },
+    {
+      "file": "DJ-CF-01_existing-plan.png",
+      "sha256": "67ba7f2c5e04389433f75d15bf8486886c451ef0d9ac74c7ccdadde09eb2df0d",
+      "bytes": 469991,
+      "status": "review-draft",
+      "pixels": [
+        3360,
+        2376
+      ]
+    },
+    {
+      "file": "DJ-CF-01_existing-plan.svg",
+      "sha256": "e3456ae931dfd42f2c3e804f1ce4e630725542a55f9e20537eaf4eb1f168c308",
+      "bytes": 14676,
+      "status": "review-draft"
+    },
+    {
+      "file": "DJ-CF-01_existing-view-01.png",
+      "sha256": "6c6c2c50299a24bc623e8ecb3f91615f58cf7fcc9b70e375c873b059cd1ee269",
+      "bytes": 2005564,
+      "status": "review-draft",
+      "pixels": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "file": "DJ-CF-01_existing-view-02.png",
+      "sha256": "d9682ec112386c2d2e58ded5402abab1dfed47a107e660a8af35c261ac96b63c",
+      "bytes": 1889370,
+      "status": "review-draft",
+      "pixels": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "file": "DJ-CF-01_existing-view-03.png",
+      "sha256": "50abd4d63b2e26474c45e8d59bcfed5d4d1c79ac2273566f86f8f7a5e8a5d8b1",
+      "bytes": 1931252,
+      "status": "review-draft",
+      "pixels": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "file": "DJ-CF-01_image-prompt-execution.txt",
+      "sha256": "69e5e3172069479b04791de0d108b88d5bd595ee0122b4b8ef01fd04b58b024a",
+      "bytes": 1060,
+      "status": "review-draft"
+    },
+    {
+      "file": "DJ-CF-01_image-prompt-from-brief.txt",
+      "sha256": "715d95e4865becc5971115520c72e28a5b74350d58a7029b5bd5d2d7b900ecdc",
+      "bytes": 1955,
+      "status": "review-draft"
+    },
+    {
+      "file": "DJ-CF-01_participant-worksheet-draft.pdf",
+      "sha256": "19a4629ef4d01965e1bfb51727d6e9e40e3c0526f656322efc4863231b7190fe",
+      "bytes": 90588,
+      "status": "review-draft",
+      "pages": 3
+    },
+    {
+      "file": "DJ-CF-01_rfp-analysis-core.md",
+      "sha256": "6279134b637b2459a19c21d5c99e3913c0368c56c8fd73d06c48146e34d24874",
+      "bytes": 6101,
+      "status": "review-draft"
+    },
+    {
+      "file": "DJ-CF-01_rfp-analysis-prompt.txt",
+      "sha256": "272079f87c3a0d18dff26a1a6efab14f4980d0e96e6a49d90e48dec942765cd0",
+      "bytes": 2331,
+      "status": "review-draft"
+    },
+    {
+      "file": "DJ-CF-01_rfp-analysis-verified.md",
+      "sha256": "df74569d1186a7a85f348da494a196c8adc57d4241301961832a990d5f919334",
+      "bytes": 6871,
+      "status": "review-draft"
+    },
+    {
+      "file": "DJ-CF-01_RFP-draft.pdf",
+      "sha256": "4e782a8bd2fdad638364696b7f5b5bf9fdd5a3860ef44e573f4fa175607821f7",
+      "bytes": 8552707,
+      "status": "review-draft",
+      "pages": 6
+    }
+  ]
+}

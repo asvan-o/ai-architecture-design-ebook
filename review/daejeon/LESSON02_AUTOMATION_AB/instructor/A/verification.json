@@ -8,7 +8,7 @@
   "absoluteRepositoryDependency": false,
   "artifacts": {
     "programZipSha256": "0a49126629e852702f22d9ce9f27aa0411b045739d128d8271c5c3824a5836ce",
-    "testZipSha256": "9c8f3897169df9e69d984c9d592fbdb0f55177fbebbb23a5fc20a1ceda97acf5"
+    "testZipSha256": "383e72e279f8d3262ec0852e9211bc5d5c47539ad2b47a067d8813cdb5f36c8c"
   },
   "programCoreIdentical": [
     "START.bat",
@@ -612,5 +612,120 @@
         "nestedUnchanged": true
       }
     ]
-  }
+  },
+  "historicalVerificationArtifacts": {
+    "programZipSha256": "0a49126629e852702f22d9ce9f27aa0411b045739d128d8271c5c3824a5836ce",
+    "testZipSha256": "9c8f3897169df9e69d984c9d592fbdb0f55177fbebbb23a5fc20a1ceda97acf5"
+  },
+  "fixtureContentReverification": {
+    "passed": true,
+    "revision": "workbook-dimension-correction-2026-11-07",
+    "scope": "현재 ZIP11개 실제 bytes/SHA와 원 프로그램 classifier/rules의 예상/실제 분류 재검증. GUI/Watcher/폴더선택 재실행 아님.",
+    "programZipSha256": "0a49126629e852702f22d9ce9f27aa0411b045739d128d8271c5c3824a5836ce",
+    "testZipSha256": "383e72e279f8d3262ec0852e9211bc5d5c47539ad2b47a067d8813cdb5f36c8c",
+    "automatic": 9,
+    "pending": 2,
+    "rows": [
+      {
+        "file": "office_floorplan.png",
+        "bytes": 469991,
+        "sha256": "67ba7f2c5e04389433f75d15bf8486886c451ef0d9ac74c7ccdadde09eb2df0d",
+        "expected": "01_CAD도면",
+        "actual": "01_CAD도면",
+        "mode": "automatic",
+        "passed": true
+      },
+      {
+        "file": "front_elevation.pdf",
+        "bytes": 215565,
+        "sha256": "65b4b26da4a1c88f8dcea6863c61988c2fa2c3b313f85dd2cc7c59507d38d212",
+        "expected": "01_CAD도면",
+        "actual": "01_CAD도면",
+        "mode": "automatic",
+        "passed": true
+      },
+      {
+        "file": "material_ref_oak.png",
+        "bytes": 1319388,
+        "sha256": "b526d4bee4b661026aff70cfd4f7b9f6f9fcee400e4b9a781785453f512b429c",
+        "expected": "03_레퍼런스",
+        "actual": "03_레퍼런스",
+        "mode": "automatic",
+        "passed": true
+      },
+      {
+        "file": "lighting_ref_3000K.jpg",
+        "bytes": 115546,
+        "sha256": "79e66e751e7c9dbce017144c842d7ceb89632e680836446873655b8c01723ca7",
+        "expected": "03_레퍼런스",
+        "actual": "03_레퍼런스",
+        "mode": "automatic",
+        "passed": true
+      },
+      {
+        "file": "render_A_v01.png",
+        "bytes": 2185490,
+        "sha256": "04220fd1050b08640e56b204a6000f9203cac31429e7fc39235b74551b29337f",
+        "expected": "04_이미지결과",
+        "actual": "04_이미지결과",
+        "mode": "automatic",
+        "passed": true
+      },
+      {
+        "file": "project_brief.docx",
+        "bytes": 36696,
+        "sha256": "b6aa93b455bfc2fc0bf181bb156c9864b60f19f9ddf34543a7cd92c099cb72f4",
+        "expected": "07_문서",
+        "actual": "07_문서",
+        "mode": "automatic",
+        "passed": true
+      },
+      {
+        "file": "building_model.blend",
+        "bytes": 81,
+        "sha256": "7a5bf503255bc0ffa41031ba6eddba43bdd9b3280b8596a56f7a39f8ae987d8d",
+        "expected": "05_3D모델",
+        "actual": "05_3D모델",
+        "mode": "automatic",
+        "passed": true
+      },
+      {
+        "file": "animation_cache.abc",
+        "bytes": 80,
+        "sha256": "302e7776cb78b49b846efae0d92acfd7113f9926a80fcc37b8795963e814b9d4",
+        "expected": "05_3D모델",
+        "actual": "05_3D모델",
+        "mode": "automatic",
+        "passed": true
+      },
+      {
+        "file": "walkthrough.mp4",
+        "bytes": 4971,
+        "sha256": "14d49fd349d5b86d92bb310264f103e9d56f2448192a09d74da3e95919edfa12",
+        "expected": "08_영상",
+        "actual": "08_영상",
+        "mode": "automatic",
+        "passed": true
+      },
+      {
+        "file": "image001.png",
+        "bytes": 2280398,
+        "sha256": "38866e5d5f2a0c6b1e456ee7cb79ac812817e43a8c658add4aec633bac2153fc",
+        "expected": "99_분류확인",
+        "actual": "99_분류확인",
+        "mode": "pending",
+        "passed": true
+      },
+      {
+        "file": "scan003.pdf",
+        "bytes": 90588,
+        "sha256": "19a4629ef4d01965e1bfb51727d6e9e40e3c0526f656322efc4863231b7190fe",
+        "expected": "99_분류확인",
+        "actual": "99_분류확인",
+        "mode": "pending",
+        "passed": true
+      }
+    ]
+  },
+  "historicalVerificationNotice": "기존 verifiedAt 및 cases/UI/clean-room 기록은 이전 fixture 바이트로 수행한 전체 기능 확인 기록입니다. 현재 ZIP은 프로그램 동일·파일명/규칙 동일 조건에서 새 도면3종의 bytes/SHA 및11개 실제 classifier 결과만 추가 확인했습니다."
 }

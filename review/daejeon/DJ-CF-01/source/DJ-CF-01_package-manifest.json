@@ -1,0 +1,213 @@
+{
+  "projectId": "DJ-CF-01",
+  "status": "review-draft",
+  "excludesSelf": true,
+  "fileCountIncludingManifest": 42,
+  "files": [
+    {
+      "file": "DJ-CF-01_design-brief-prompt.txt",
+      "sha256": "28bbf1593adc94ec765e0e5017e9b013ce02d8e0d111638142ffc1dbcde88df5",
+      "bytes": 1898
+    },
+    {
+      "file": "DJ-CF-01_design-brief-sample.md",
+      "sha256": "b2def743e33459af5a9427da1df1cd9ea45bd9ab6fbf6d0cbc7ff19ea281841a",
+      "bytes": 12245
+    },
+    {
+      "file": "DJ-CF-01_example-A-generation-prompt.txt",
+      "sha256": "950cf7c883aa87f4744168731da878cc88d48c3d4867ab6485895b1a27b9f89b",
+      "bytes": 5403
+    },
+    {
+      "file": "DJ-CF-01_example-A-prompt.txt",
+      "sha256": "1613e5451da8a8c95a54848f68ff2ccc5371fb6744d9a75d3c6449c9715484ee",
+      "bytes": 2114
+    },
+    {
+      "file": "DJ-CF-01_example-A.png",
+      "sha256": "04220fd1050b08640e56b204a6000f9203cac31429e7fc39235b74551b29337f",
+      "bytes": 2185490
+    },
+    {
+      "file": "DJ-CF-01_example-B-generation-prompt.txt",
+      "sha256": "003198069e1023539b063a02d3d210a9551dc23e61991f12b22b02a421a96501",
+      "bytes": 6868
+    },
+    {
+      "file": "DJ-CF-01_example-B-prompt.txt",
+      "sha256": "b940a649386cf6c1c6ce135304947ebaa31f95b367881a7bca893043f563fb13",
+      "bytes": 2047
+    },
+    {
+      "file": "DJ-CF-01_example-B.png",
+      "sha256": "4696cbdccdb570b2ccaa7c6178845cb367a8caa8af719c5e74fbb93ced7407e2",
+      "bytes": 2066424
+    },
+    {
+      "file": "DJ-CF-01_examples-guide.txt",
+      "sha256": "5a44d18bd328ec2a61de933c4a54fc1b55c05268f6f784e1b91cf303a8192892",
+      "bytes": 4178
+    },
+    {
+      "file": "DJ-CF-01_existing-plan.pdf",
+      "sha256": "8be82f0e63be4699a07fb03da7022071e734730b4500d9aa1a0ba061f3bd0ed8",
+      "bytes": 284207
+    },
+    {
+      "file": "DJ-CF-01_existing-plan.png",
+      "sha256": "67ba7f2c5e04389433f75d15bf8486886c451ef0d9ac74c7ccdadde09eb2df0d",
+      "bytes": 469991
+    },
+    {
+      "file": "DJ-CF-01_existing-plan.svg",
+      "sha256": "e3456ae931dfd42f2c3e804f1ce4e630725542a55f9e20537eaf4eb1f168c308",
+      "bytes": 14676
+    },
+    {
+      "file": "DJ-CF-01_existing-view-01.png",
+      "sha256": "6c6c2c50299a24bc623e8ecb3f91615f58cf7fcc9b70e375c873b059cd1ee269",
+      "bytes": 2005564
+    },
+    {
+      "file": "DJ-CF-01_existing-view-02.png",
+      "sha256": "d9682ec112386c2d2e58ded5402abab1dfed47a107e660a8af35c261ac96b63c",
+      "bytes": 1889370
+    },
+    {
+      "file": "DJ-CF-01_existing-view-03.png",
+      "sha256": "50abd4d63b2e26474c45e8d59bcfed5d4d1c79ac2273566f86f8f7a5e8a5d8b1",
+      "bytes": 1931252
+    },
+    {
+      "file": "DJ-CF-01_image-prompt-execution.txt",
+      "sha256": "69e5e3172069479b04791de0d108b88d5bd595ee0122b4b8ef01fd04b58b024a",
+      "bytes": 1060
+    },
+    {
+      "file": "DJ-CF-01_image-prompt-from-brief.txt",
+      "sha256": "715d95e4865becc5971115520c72e28a5b74350d58a7029b5bd5d2d7b900ecdc",
+      "bytes": 1955
+    },
+    {
+      "file": "DJ-CF-01_participant-worksheet-draft.pdf",
+      "sha256": "19a4629ef4d01965e1bfb51727d6e9e40e3c0526f656322efc4863231b7190fe",
+      "bytes": 90588
+    },
+    {
+      "file": "DJ-CF-01_rfp-analysis-core.md",
+      "sha256": "6279134b637b2459a19c21d5c99e3913c0368c56c8fd73d06c48146e34d24874",
+      "bytes": 6101
+    },
+    {
+      "file": "DJ-CF-01_rfp-analysis-prompt.txt",
+      "sha256": "272079f87c3a0d18dff26a1a6efab14f4980d0e96e6a49d90e48dec942765cd0",
+      "bytes": 2331
+    },
+    {
+      "file": "DJ-CF-01_rfp-analysis-verified.md",
+      "sha256": "df74569d1186a7a85f348da494a196c8adc57d4241301961832a990d5f919334",
+      "bytes": 6871
+    },
+    {
+      "file": "DJ-CF-01_RFP-draft.pdf",
+      "sha256": "4e782a8bd2fdad638364696b7f5b5bf9fdd5a3860ef44e573f4fa175607821f7",
+      "bytes": 8552707
+    },
+    {
+      "file": "source/DJ-CF-01_asset-inventory.json",
+      "sha256": "8eae44ef4764259ffec35bd870f9723bc69599886f78e20c3d781e35215981f9",
+      "bytes": 5058
+    },
+    {
+      "file": "source/DJ-CF-01_build.py",
+      "sha256": "f0fbe3c0ba2f353d9e09e1d9b279f07df135b7d4c20ec7d69a39f23976fa50ea",
+      "bytes": 15028
+    },
+    {
+      "file": "source/DJ-CF-01_documents.py",
+      "sha256": "8920d8e4401402b64523f6870ca67dd74bbbc2d103957d17d0cbcc171ba5e7ae",
+      "bytes": 34881
+    },
+    {
+      "file": "source/DJ-CF-01_example-generation-log.json",
+      "sha256": "52f51572893a1b6d904e9c9b1cee124c08798c5848e44f2d2ca407d4a391b372",
+      "bytes": 30200
+    },
+    {
+      "file": "source/DJ-CF-01_examples.json",
+      "sha256": "162eed3086c02cca1325e83294906c2cd2f5c94b8ab0e02e9c99c144b5934bb2",
+      "bytes": 9340
+    },
+    {
+      "file": "source/DJ-CF-01_generation-log.json",
+      "sha256": "4c66daa1d11712b992bffadb8a302ff74922191d21c9bbee98ca7205ed7743bf",
+      "bytes": 1756
+    },
+    {
+      "file": "source/DJ-CF-01_participant-revision-validation.json",
+      "sha256": "883bb8bf72ab3b4d2f08427ed4e5c9c26d498d7b3a15915f0911f00f2cd71061",
+      "bytes": 4468
+    },
+    {
+      "file": "source/DJ-CF-01_practice.json",
+      "sha256": "15aa8381380b509b18b70693774ad2ba0057d7d1de0c5214d7b9a92411fc69cb",
+      "bytes": 1331
+    },
+    {
+      "file": "source/DJ-CF-01_preview-check.json",
+      "sha256": "462f8e8fbaea6c322cce519a006ebe6810df018193fee6797e75692353e51790",
+      "bytes": 5963
+    },
+    {
+      "file": "source/DJ-CF-01_protection-check.json",
+      "sha256": "83d2e817561f87c02b46da16a1043e66d87d89d4440f880679da75ccb417698f",
+      "bytes": 272
+    },
+    {
+      "file": "source/DJ-CF-01_render.mjs",
+      "sha256": "de3aa27ff7d806e33b46956e5a73cdcf2a35df75a1b3c5aa0e3f2b04f8927d32",
+      "bytes": 6311
+    },
+    {
+      "file": "source/DJ-CF-01_rfp.json",
+      "sha256": "7f4fc5d59eedde64e1d7e198fc33ee09effbb342cddf4bb59956c9abdb46400a",
+      "bytes": 9579
+    },
+    {
+      "file": "source/DJ-CF-01_space.json",
+      "sha256": "29c680a3d269a8a95a2a71deb6fa587a356105aa77093d704108a7215090f894",
+      "bytes": 3165
+    },
+    {
+      "file": "source/DJ-CF-01_validation.json",
+      "sha256": "cce2be971ca0a4b4cfef8050a1d60f61aaa7d3b9e94ebc7f199113e9c94dd9a3",
+      "bytes": 9680
+    },
+    {
+      "file": "source/DJ-CF-01_view-01-prompt.txt",
+      "sha256": "9b22cd2a6e23fc709cd0d6ed69050729caac327215fffa26333c8f028f817b5b",
+      "bytes": 1762
+    },
+    {
+      "file": "source/DJ-CF-01_view-02-prompt.txt",
+      "sha256": "b014c697537dfad748d93b77ea2b7d9b0d5a03e28c308b56d7fb05bc7d602fd6",
+      "bytes": 1739
+    },
+    {
+      "file": "source/DJ-CF-01_view-03-final-prompt.txt",
+      "sha256": "434ee3252bb069403c8a97faa8442033676edd70cd46b2a057f0169fa9502454",
+      "bytes": 1365
+    },
+    {
+      "file": "source/DJ-CF-01_visual-review.json",
+      "sha256": "4b461eec5410c7b17f98501d80436227c1cbe7eb0792a3d811530a6b31f262e7",
+      "bytes": 4816
+    },
+    {
+      "file": "source/geometry/DJ-CF-01_geometry.json",
+      "sha256": "d34c5ed30fc2d719b2b078fe22039e8c7ffc783a118106b11083822282047bd4",
+      "bytes": 2180
+    }
+  ]
+}

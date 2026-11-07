@@ -7,6 +7,14 @@ import {repositoryRoot} from './course-registry.mjs';
 import {verifyLesson07Assets} from './build-daejeon-lesson07-assets.mjs';
 import {verifyLesson07FloorplanAssets} from './daejeon-lesson07-floorplan-assets.mjs';
 import {verifyLesson08Assets} from './daejeon-lesson08-assets.mjs';
+// Current approved workbook assets supersede old one-off, full-file freezes.
+// Validate in memory and leave all historical audit reports untouched. Retain
+// the legacy verification path for checkouts without the new approval fixture.
+if(fs.existsSync(path.join(repositoryRoot,'scripts/tests/fixtures/approved-workbook-dimension-correction.json'))){
+ const {checkCurrentWorkbookLesson07}=await import('./check-workbook-lesson07-current.mjs');
+ await checkCurrentWorkbookLesson07();
+ process.exit(0);
+}
 const platform16Audit=path.join(repositoryRoot,'review/daejeon/DJ-L08-CLAUDE-ANTIGRAVITY-REVISION-16');
 if(fs.existsSync(path.join(platform16Audit,'check-ebook.mjs'))){execFileSync(process.execPath,[path.join(platform16Audit,'check-ebook.mjs')],{cwd:repositoryRoot,stdio:'inherit',windowsHide:true});process.exit(0);}
 const classroom15Audit=path.join(repositoryRoot,'review/daejeon/DJ-L08-CLASSROOM-REPRODUCIBILITY-REVISION-15');

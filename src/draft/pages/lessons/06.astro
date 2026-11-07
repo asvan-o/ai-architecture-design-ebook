@@ -20,6 +20,7 @@ const checklist=lesson06Downloads.find(asset=>asset.key==='checklist');
  <TopicProgress lesson="06" items={[{topic:4,status:'시작',note:'2D 평면도를 Top View 3D·아이소메트릭·분해도와 실내 서브 시점으로 확장하고, 다시 2D 공간 관계·개념 조닝 다이어그램으로 역추출합니다.'}]} />
  <div class="l03-period-summary">{lesson06Parts.map((part,i)=><article><h2>Part {i+1} · {part.title}</h2></article>)}</div>
  <aside class="review-callout"><h2>평면 → 입체 → 분해·시점 확장 → 공간 관계·개념 조닝</h2><p>같은 입력을 계속 기준으로 삼습니다. 원 평면의 배치·개구부·좌석을 따라가며, 높이·재료·조명과 공간 관계를 차례로 표현합니다.</p><p>{lesson06Boundary}</p></aside>
+ <aside class="review-callout"><h2>정밀 치수는 2D, 기존 3D는 구획·분위기 비교</h2><p>최신 평면의 업무 2인 대면 모듈은 <strong>1,600 × 1,400 mm</strong>(1인 1,600 × 700 mm), 회의·카페 6석 테이블은 <strong>2,700 × 1,000 mm</strong>입니다. 4석 원본은 1,800 × 1,000 mm이며 깊이 1,000 mm를 유지해 확장했습니다.</p><p>기존 3D·아이소메트릭·분해도·서브 뷰는 그대로 보존한 구획·조닝·재료·조명 시각화입니다. 가구의 세부 크기와 비례가 최신 2D와 정밀하게 일치하지 않으므로 이미지를 재어 치수를 확정하지 않습니다. 치수·배치는 2D 도면과 정밀 출력 PDF를 기준으로 검토하고, 차이는 비교 기록에 남깁니다.</p></aside>
  <aside class="review-callout"><h2>150분 안에서 실행 범위를 선택합니다</h2><p><strong>필수 실행:</strong> 실습 1 Top View 1회와 실습 2 웜 아이소메트릭 1회, 원 평면 대조 메모를 남깁니다. <strong>강사 예시 비교:</strong> 모던 B·분해도(실습 3)·서브 뷰(실습 4)·공간 관계도(실습 5)·조닝(실습 6)을 제공 이미지로 함께 읽습니다. <strong>선택 확장:</strong> 남은 시간에 이 중 필요한 한 단계만 직접 실행합니다.</p><p>생성이 지연되면 중복 요청을 반복하지 않고 실행 상태를 기록한 뒤 제공된 예시 이미지로 비교 활동을 이어갑니다. 생성 완료를 기다리느라 다음 검수 단계를 생략하지 않습니다.</p></aside>
  {lesson06Parts.map((part,partIndex)=><div class="day-period" id={part.id} data-period={partIndex+1} data-teaching-minutes="50">
   <header class="period-heading"><p>Part {partIndex+1}</p><h2>{part.title}</h2></header>
@@ -37,6 +38,7 @@ const checklist=lesson06Downloads.find(asset=>asset.key==='checklist');
     <Lesson06Comparison before="living-plan" after="living-iso" instance="l06-basic-living" />
     <p>소형 객실과 거실·주방의 참고 예시에서 문·창·외곽·가구를 찾아봅니다. 상부 뷰로 구획을 익힌 뒤 사선 뷰에서 높이와 재료를 읽습니다.</p>
     <p>객실의 외곽 치수는 6,800 × 5,800 mm입니다. 33.00㎡는 비정형 객실의 교육용 실내면적 설정값이며, 외곽 직사각형 면적 39.44㎡와 구분합니다.</p>
+    <aside class="review-callout"><strong>기존 치수 표기 예시의 한계</strong><p>객실의 33.00㎡는 도면 픽셀로 계산한 면적이 아닙니다. 상단 6,800과 하단 3,600 구간의 픽셀 길이는 한 가지 축척으로 일치하지 않으므로, 이 래스터를 재어 정밀 좌표·실내면적을 산출하지 않습니다.</p><p>거실·주방 예시의 좌측 상단 세부값은 850 + 880 + 410 = 2,140 mm로 전체 표기 2,130 mm와 10 mm 차이가 있습니다. 식탁 2,400과 콘솔 3,000 표기도 실제 픽셀 길이 비와 일치하지 않습니다. 기존 이미지는 보존하며 원도면·실측으로 확인할 항목으로 남깁니다. 이미지 안의 1/50·1/40은 교보재 PDF의 실제 출력 축척을 보장하지 않습니다.</p></aside>
    </>}
    {section.id==='l06-topview'&&<>
     <Lesson06Workbench />
@@ -66,6 +68,7 @@ const checklist=lesson06Downloads.find(asset=>asset.key==='checklist');
     <Lesson06Comparison before="house-top" after="house-iso" instance="l06-house-iso" />
     <Lesson06Comparison before="house-iso" after="house-exploded" instance="l06-house-exploded" />
     <p>같은 한 층 주택의 차량 2대·식탁 8석·주방 스툴 4개·침대 1개·테라스 4석을 네 이미지에서 대조합니다. 침실은 침대, 기계실은 기계 설비를 유지합니다. 분해도는 상단 지붕·천장·퍼걸러·조명, 중간 벽·기둥·문·창, 하단 바닥·대지·가구·차량·설비·계단으로 나누며 요소는 한 번만 둡니다.</p>
+    <p>이 주택 래스터에는 건물 전체 치수·스케일바가 없어 문 폭 표기 하나로 전체 가구 크기나 면적을 역산하지 않습니다. 기존 주택 원도면과 입체 예시는 그대로 보존하고, 정밀 수치는 원 DWG·실측 자료에서 별도로 확인합니다.</p>
    </>}
    {section.id==='l06-exploded-run'&&<>
     <Lesson06Comparison before="office-warm" after="office-exploded" instance="l06-office-exploded" />
@@ -102,7 +105,7 @@ const checklist=lesson06Downloads.find(asset=>asset.key==='checklist');
    </>}
    {section.id==='l06-next'&&<>
     <h3>함께 보존할 산출물</h3><ul><li>처음 수정 평면과 실제로 첨부한 파일·순서</li><li>사용한 요청문과 실제 출력·실행 상태</li><li>Top View·아이소메트릭 A/B·분해도·실내 서브 뷰</li><li>공간 관계도·2D 개념 조닝과 원 평면 대조 메모</li></ul>
-    {enabled&&<div data-l06-downloads><p><a class="review-download" href={base+'/'+lesson06Zip.outputPath} download="DJ-L06-3d-isometric-zoning.zip">제6차시 통합 실습자료 ZIP 다운로드</a>{checklist&&<> <a class="review-download" href={base+'/'+checklist.outputPath} download={checklist.file.split('/').pop()}>{checklist.title} 다운로드</a></>}</p><p>참고 예시 {lesson06Legacy.length}종 · 기준 입력 {lesson06Inputs.length}종 · 새 이미지 {lesson06Images.length}종 · 단계별 Prompt TXT {lesson06Prompts.length}종을 포함합니다. 이미지와 개별 Prompt는 각 단계의 카드에서 받을 수 있습니다.</p></div>}
+    {enabled&&<div data-l06-downloads><p><a class="review-download" href={base+'/'+lesson06Zip.outputPath} download="DJ-L06-3d-isometric-zoning.zip">제6차시 통합 실습자료 ZIP 다운로드</a>{checklist&&<> <a class="review-download" href={base+'/'+checklist.outputPath} download={checklist.file.split('/').pop()}>{checklist.title} 다운로드</a></>}</p><ul>{lesson06Downloads.filter(asset=>asset.file.endsWith('.pdf')).map(asset=><li><a class="review-download" href={base+'/'+asset.outputPath} download={asset.file.split('/').pop()}>{asset.title} 다운로드</a></li>)}</ul><p>참고 예시 {lesson06Legacy.length}종 · 기준 입력 {lesson06Inputs.length}종 · 보존된 시각화 {lesson06Images.length}종 · 단계별 Prompt TXT {lesson06Prompts.length}종을 포함합니다. 별도 A3 PDF는 실제 크기/100% 인쇄에서 1:100이며, 기존 3D는 정밀 치수 기준이 아닙니다.</p></div>}
     <p>제7차시로는 오늘의 입체 표현·공간 관계·대조 메모를 넘깁니다. 같은 평면의 배치와 표현 대안을 함께 정리해 다음 설계 단계의 기준으로 사용합니다.</p>
    </>}
   </ReviewSection>)}

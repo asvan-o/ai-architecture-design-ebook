@@ -1,0 +1,434 @@
+{
+  "schemaVersion": 1,
+  "units": "mm",
+  "world": {
+    "origin": "outer northwest corner",
+    "x": "east",
+    "y": "south",
+    "width": 14400,
+    "height": 8400,
+    "aspectRatio": "12:7"
+  },
+  "canvas": {
+    "width": 2400,
+    "height": 1650,
+    "scalePxPerMm": 0.1,
+    "originPx": [
+      480,
+      380
+    ],
+    "buildingBoxPx": [
+      480,
+      380,
+      1920,
+      1220
+    ]
+  },
+  "transform": {
+    "worldToCanvas": "[480 + x * 0.1, 380 + y * 0.1]",
+    "canvasToWorld": "[(px - 480) / 0.1, (py - 380) / 0.1]"
+  },
+  "print": {
+    "svgWidthMm": 240,
+    "svgHeightMm": 165,
+    "printAtPercent": 100,
+    "scale": "1:100",
+    "buildingPrintedMm": [
+      144,
+      84
+    ]
+  },
+  "wallThicknessMm": {
+    "exterior": 200,
+    "lightweight": 100
+  },
+  "columnsMm": {
+    "size": [
+      400,
+      400
+    ],
+    "rectangles": [
+      [
+        0,
+        0,
+        400,
+        400
+      ],
+      [
+        14000,
+        0,
+        400,
+        400
+      ],
+      [
+        0,
+        8000,
+        400,
+        400
+      ],
+      [
+        14000,
+        8000,
+        400,
+        400
+      ]
+    ]
+  },
+  "gridDatum": "Educational outer-envelope and partition datum; not structural column centerlines.",
+  "office": {
+    "partitionCenterX": 7800,
+    "rightPartitionCenterY": 5400,
+    "gridX": [
+      0,
+      7800,
+      14400
+    ],
+    "gridY": [
+      0,
+      5400,
+      8400
+    ],
+    "windows": {
+      "W1": {
+        "wall": "north",
+        "start": 2100,
+        "width": 3600
+      },
+      "W2": {
+        "wall": "north",
+        "start": 9600,
+        "width": 3000
+      },
+      "W3": {
+        "wall": "east",
+        "startY": 1500,
+        "width": 2400
+      }
+    },
+    "doors": {
+      "D1": {
+        "wall": "south",
+        "startX": 2600,
+        "width": 1200
+      },
+      "D2_initial": {
+        "wallX": 7800,
+        "startY": 1400,
+        "width": 900,
+        "hinge": "upper",
+        "opens": "east into meeting"
+      },
+      "D2_moved": {
+        "wallX": 7800,
+        "startY": 4100,
+        "width": 900,
+        "hinge": "upper",
+        "opens": "east into meeting",
+        "clearDistanceToY5400": 400
+      },
+      "D3": {
+        "wallX": 7800,
+        "startY": 6500,
+        "width": 900,
+        "directAccess": "work / entry hall to pantry",
+        "opens": "east into pantry"
+      }
+    },
+    "initialSeatCount": {
+      "work": 4,
+      "meeting": 4
+    },
+    "finalSeatCount": {
+      "work": 4,
+      "meeting": 6
+    },
+    "pantryCounterMm": [
+      10300,
+      7350,
+      2800,
+      650
+    ],
+    "furnitureEdit": {
+      "contextCropPx": [
+        1190,
+        360,
+        1950,
+        940
+      ],
+      "maskWorldRect": [
+        9200,
+        1800,
+        4000,
+        2700
+      ],
+      "maskCanvasBoxPx": [
+        1400,
+        560,
+        1800,
+        830
+      ],
+      "maskWithinCropPx": [
+        210,
+        200,
+        610,
+        470
+      ],
+      "registration": {
+        "candidateCanvasBoxPx": [
+          1355,
+          540,
+          1840,
+          850
+        ],
+        "targetTableCenterCanvasPx": [
+          1590,
+          690
+        ],
+        "insideMaskMarginPx": 8,
+        "darkLineThreshold": 190
+      },
+      "retain": "room label, all walls, D2, windows, workstations, pantry"
+    },
+    "doorEdit": {
+      "sourceMustBe": "actual PLAN-BASE-01-result.png after six-seat edit",
+      "contextCropPx": [
+        1180,
+        360,
+        1660,
+        940
+      ],
+      "maskWorldRect": [
+        7200,
+        1000,
+        1900,
+        4250
+      ],
+      "maskCanvasBoxPx": [
+        1200,
+        480,
+        1390,
+        905
+      ],
+      "maskWithinCropPx": [
+        20,
+        120,
+        210,
+        545
+      ],
+      "oldLabelWorld": [
+        8080,
+        1290
+      ],
+      "newLabelWorld": [
+        8080,
+        3990
+      ],
+      "oldOpeningWorld": [
+        7735,
+        1400,
+        130,
+        900
+      ],
+      "newOpeningWorld": [
+        7735,
+        4100,
+        130,
+        900
+      ],
+      "retain": "six meeting seats, all meeting furniture, D3, horizontal partition and all other drawing pixels",
+      "note": "480×580 context includes room label, north wall/window and part of six-seat furniture. Narrow 190×425 editing strip includes old D2 label and both full door swings. No furniture mask overlap."
+    },
+    "furnitureDimensionsMm": {
+      "workFacingModule": [
+        1600,
+        1400
+      ],
+      "workIndividual": [
+        1600,
+        700
+      ],
+      "table4": [
+        1800,
+        1000
+      ],
+      "table6": [
+        2700,
+        1000
+      ]
+    },
+    "furnitureCentersCanvasPx": {
+      "workModules": [
+        [
+          720,
+          635
+        ],
+        [
+          1035,
+          635
+        ]
+      ],
+      "table": [
+        1590,
+        690
+      ]
+    }
+  },
+  "cafe": {
+    "partitionCenterX": 4800,
+    "gridX": [
+      0,
+      4800,
+      14400
+    ],
+    "gridY": [
+      0,
+      8400
+    ],
+    "windows": {
+      "W1": {
+        "wall": "north",
+        "start": 1200,
+        "width": 2400
+      },
+      "W2": {
+        "wall": "north",
+        "start": 7200,
+        "width": 4800
+      },
+      "W3": {
+        "wall": "east",
+        "startY": 2400,
+        "width": 3600
+      }
+    },
+    "doors": {
+      "D1": {
+        "wall": "south",
+        "startX": 8500,
+        "width": 1200
+      },
+      "D2": {
+        "wallX": 4800,
+        "startY": 6100,
+        "width": 900,
+        "opens": "east"
+      }
+    },
+    "frontBarWorldRect": [
+      600,
+      3500,
+      3600,
+      700
+    ],
+    "backBarWorldRect": [
+      600,
+      1800,
+      3600,
+      600
+    ],
+    "initialSeatCount": {
+      "central": 4,
+      "lowerRight": 2
+    },
+    "finalSeatCount": {
+      "central": 6,
+      "lowerRight": 2
+    },
+    "furnitureEdit": {
+      "contextCropPx": [
+        930,
+        360,
+        1950,
+        1230
+      ],
+      "maskWorldRect": [
+        8000,
+        1700,
+        3800,
+        2700
+      ],
+      "maskCanvasBoxPx": [
+        1280,
+        550,
+        1660,
+        820
+      ],
+      "maskWithinCropPx": [
+        350,
+        190,
+        730,
+        460
+      ],
+      "registration": {
+        "candidateCanvasBoxPx": [
+          1210,
+          535,
+          1720,
+          850
+        ],
+        "targetTableCenterCanvasPx": [
+          1470,
+          680
+        ],
+        "insideMaskMarginPx": 8,
+        "darkLineThreshold": 190
+      },
+      "retain": "bar, backbar, all walls and windows, lower-right two seats, doors and labels"
+    },
+    "furnitureDimensionsMm": {
+      "table4": [
+        1800,
+        1000
+      ],
+      "table6": [
+        2700,
+        1000
+      ]
+    },
+    "furnitureCentersCanvasPx": {
+      "table": [
+        1470,
+        680
+      ]
+    }
+  },
+  "assets": {
+    "base": [
+      "PLAN-BASE-01.svg",
+      "PLAN-BASE-02.svg"
+    ],
+    "marked": [
+      "PLAN-BASE-01-marked.svg",
+      "PLAN-BASE-02-marked.svg"
+    ],
+    "guides": [
+      "OFFICE-six-seat-layout-guide.svg",
+      "OFFICE-door-move-layout-guide.svg",
+      "OFFICE-door-marked-guide.svg",
+      "CAFE-six-seat-layout-guide.svg"
+    ],
+    "guidesAreNotAIResults": true
+  },
+  "precisionPrint": {
+    "page": "A3 landscape",
+    "pageMm": [
+      420,
+      297
+    ],
+    "sheetMm": [
+      240,
+      165
+    ],
+    "sheetLowerLeftMm": [
+      90,
+      66
+    ],
+    "scale": "1:100 at actual size / 100 percent",
+    "buildingPrintedMm": [
+      144,
+      84
+    ],
+    "scaleBar2mPrintedMm": 20,
+    "textbook": "Reduced illustration; not a fixed-scale construction drawing."
+  }
+}

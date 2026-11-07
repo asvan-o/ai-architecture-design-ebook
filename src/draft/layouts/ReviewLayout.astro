@@ -5,6 +5,7 @@ import {alignedLessons, topicLessonLinks} from '../content/lesson-topic-alignmen
 import ReviewLessonNavigation from '../components/ReviewLessonNavigation.astro';
 import DaejeonMaterialProtection from '../components/DaejeonMaterialProtection.astro';
 import DaejeonCopyright from '../components/DaejeonCopyright.astro';
+import WorkbookDrawingScaleGuide from '../components/WorkbookDrawingScaleGuide.astro';
 import { activeCourse } from '../../lib/courses';
 import { courseAccess as accessConfig } from '../../lib/course-access';
 import { isStudentBuild } from '../../lib/student-release';
@@ -144,6 +145,7 @@ const pdfLabel = page === 'overview'
             </div>
           )}
         </div>
+        {(page === 'overview' || page === 'lesson') && <WorkbookDrawingScaleGuide />}
         <slot />
         <ReviewLessonNavigation {page} {lessonId} />
       </main>

@@ -1,0 +1,128 @@
+{
+  "participant": [
+    [
+      "DJ-CF-02_RFP-draft.pdf",
+      "의뢰서 / 5쪽"
+    ],
+    [
+      "DJ-CF-02_existing-elevation.png",
+      "기준 입면도 / PNG"
+    ],
+    [
+      "DJ-CF-02_existing-elevation.pdf",
+      "기준 입면도 / PDF"
+    ],
+    [
+      "DJ-CF-02_existing-elevation.svg",
+      "기준 입면도 / SVG 원본"
+    ],
+    [
+      "DJ-CF-02_site-diagram.png",
+      "카메라·거리 관계도 / PNG"
+    ],
+    [
+      "DJ-CF-02_existing-view-01.png",
+      "현황 IMAGE 01 / 편집 원본"
+    ],
+    [
+      "DJ-CF-02_existing-view-02.png",
+      "현황 IMAGE 02 / 보조 시점"
+    ],
+    [
+      "DJ-CF-02_participant-worksheet-draft.pdf",
+      "수강생 실습 기록지 / 3쪽"
+    ],
+    [
+      "DJ-CF-02_rfp-analysis-prompt.txt",
+      "RFP 분석 Prompt"
+    ],
+    [
+      "DJ-CF-02_design-brief-prompt.txt",
+      "Design Brief Prompt"
+    ],
+    [
+      "DJ-CF-02_image-prompt-from-brief.txt",
+      "학습용 7단 Prompt"
+    ],
+    [
+      "DJ-CF-02_image-prompt-execution.txt",
+      "이미지 실행 Prompt"
+    ],
+    [
+      "DJ-CF-02_prompt-practice.txt",
+      "2교시 Exterior Prompt 연습"
+    ],
+    [
+      "DJ-CF-02_interior-exterior-card.md",
+      "Interior / Exterior 비교 카드"
+    ],
+    [
+      "DJ-CF-02_START-HERE.txt",
+      "사용 순서"
+    ]
+  ],
+  "instructor": [
+    [
+      "DJ-CF-02_design-brief-sample.md",
+      "강사용 Brief 예시"
+    ],
+    [
+      "DJ-CF-02_example-A.png",
+      "예시 A 이미지"
+    ],
+    [
+      "DJ-CF-02_example-B.png",
+      "예시 B 이미지"
+    ],
+    [
+      "DJ-CF-02_example-A-prompt.txt",
+      "예시 A / 7단 Prompt"
+    ],
+    [
+      "DJ-CF-02_example-A-execution-prompt.txt",
+      "예시 A / 짧은 실행 Prompt"
+    ],
+    [
+      "DJ-CF-02_example-B-prompt.txt",
+      "예시 B / 7단 Prompt"
+    ],
+    [
+      "DJ-CF-02_example-B-execution-prompt.txt",
+      "예시 B / 짧은 실행 Prompt"
+    ]
+  ],
+  "evidence": [
+    [
+      "instructor/DJ-CF-02_analysis-verified.md",
+      "분석·원문 대조 기록"
+    ],
+    [
+      "instructor/DJ-CF-02_generation-log.json",
+      "입력·Prompt·출력 생성 기록"
+    ],
+    [
+      "instructor/DJ-CF-02_visual-review.json",
+      "시각 검수와 수치 대조"
+    ],
+    [
+      "source/DJ-CF-02_building-camera.json",
+      "가상 좌표·카메라 기준"
+    ],
+    [
+      "instructor/DJ-CF-02_existing-view-01-generation-prompt.txt",
+      "existing-view-01 실제 생성 Prompt · 이전 교육 설정의 생성 기록 / 현재 치수 근거 아님"
+    ],
+    [
+      "instructor/DJ-CF-02_existing-view-02-generation-prompt.txt",
+      "existing-view-02 실제 생성 Prompt · 이전 교육 설정의 생성 기록 / 현재 치수 근거 아님"
+    ],
+    [
+      "instructor/DJ-CF-02_example-A-generation-prompt.txt",
+      "example-A 실제 생성 Prompt · 이전 교육 설정의 생성 기록 / 현재 치수 근거 아님"
+    ],
+    [
+      "instructor/DJ-CF-02_example-B-generation-prompt.txt",
+      "example-B 실제 생성 Prompt · 이전 교육 설정의 생성 기록 / 현재 치수 근거 아님"
+    ]
+  ]
+}

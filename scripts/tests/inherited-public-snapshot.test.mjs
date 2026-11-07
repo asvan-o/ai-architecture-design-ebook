@@ -41,8 +41,12 @@ test('The workbook build hook keeps its current source copy, and output guards r
  const output=temporaryOutput(),relative='downloads/daejeon/lesson-13/current-workbook.md';
  try{
   mkdirSync(path.dirname(path.join(output,relative)),{recursive:true});writeFileSync(path.join(output,relative),'current workbook');
+  for(const courseOnly of ['practice/DJ-L05','practice/DJ-L06']){
+   const folder=path.join(output,courseOnly);mkdirSync(folder,{recursive:true});writeFileSync(path.join(folder,'precision.pdf'),'workbook-only public source');
+  }
   lesson07PreviewBoundary({courseId:'daejeon-2026',buildTarget:'course'}).hooks['astro:build:done']({dir:pathToFileURL(output+path.sep)});
   assert.equal(readFileSync(path.join(output,relative),'utf8'),'current workbook');
+  for(const courseOnly of ['practice/DJ-L05','practice/DJ-L06'])assert(!existsSync(path.join(output,courseOnly)),'Workbook practice must be written by the isolated asset writer, not inherited public/: '+courseOnly);
   assert.throws(()=>preserveInheritedPublicSnapshot(root),/outside repository dist/);
   assert.throws(()=>preserveInheritedPublicSnapshot(output,{prefixes:['../src']}),/Invalid inherited public snapshot scope/);
  }finally{clean(output);}

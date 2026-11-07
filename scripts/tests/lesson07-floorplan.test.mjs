@@ -8,7 +8,15 @@ import {createHash} from 'node:crypto';
 const source=JSON.parse(fs.readFileSync('src/draft/content/lesson07-floorplan-source.json','utf8'));
 const original=fs.readFileSync('src/components/content/Lesson09SpatialZoning.astro','utf8');
 const approvedRemediation=JSON.parse(fs.readFileSync(new URL('./fixtures/approved-workbook-remediation.json',import.meta.url),'utf8'));
+const approvedDimensions=JSON.parse(fs.readFileSync(new URL('./fixtures/approved-workbook-dimension-correction.json',import.meta.url),'utf8'));
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
+function currentAssetHash(file,previousHash){
+ const change=approvedDimensions.files.find(item=>item.file===file);
+ if(!change)return previousHash;
+ assert.equal(approvedDimensions.baseRevision,'7f5924ca4e47e00c58a20446926819360a424acc');
+ assert.equal(change.beforeSha256,previousHash,'The prior approved fingerprint must remain intact: '+file);
+ return change.afterSha256;
+}
 function verifyApprovedGuide(file,snapshot){
  const policy=approvedRemediation.guideFiles.find(item=>item.file===file);assert(policy,file);
  assert.equal(approvedRemediation.baseRevision,'bc4c7d141ade0c3689cf42ff18f00fe52d13618d');
@@ -43,9 +51,9 @@ test('Direct relations and review boundaries remain explicit in the full DOT sou
  const plan=JSON.parse(fs.readFileSync(floorplanAudit+'/source/office-geometry.json','utf8'));assert.deepEqual(plan.outerDimensionMm,[24000,16000]);assert(!plan.directDoors.some(d=>[d.a,d.b].includes('회의실')&&[d.a,d.b].includes('모형실')));assert.equal(plan.directDoors.length,8);
 });
 test('Synthetic images and own original PDF are packaged; external PDFs and internal DOCX are excluded',()=>{
- const manifest=verifyLesson08Assets();assert.equal(manifest.files.filter(f=>f.kind==='image').length,5);assert.equal(manifest.files.length,17);assert.equal(manifest.includedOriginalPdf,true);
+ const manifest=verifyLesson08Assets();assert.equal(manifest.files.filter(f=>f.kind==='image').length,5);assert.equal(manifest.files.length,19);assert.equal(manifest.includedOriginalPdf,true);
  const pdf=manifest.files.find(f=>f.kind==='original-pdf');assert(pdf);assert.equal(fs.readFileSync('public/'+pdf.outputPath).subarray(0,5).toString(),'%PDF-');
- const r=spawnSync('python',['-c','import zipfile,sys;z=zipfile.ZipFile(sys.argv[1]);assert z.testzip() is None;ns=z.namelist();assert len(ns)==16;assert [n for n in ns if n.lower().endswith(".pdf")]==["DJ-L07-Office-Floorplan-Original.pdf"];assert not any(n.lower().endswith(".docx") for n in ns);assert sum(n.startswith("images/") for n in ns)==5;assert "Graphviz-DOT-source.txt" in ns;assert "DJ-L07-clean-line-preprocess.txt" in ns;print("Synthetic ZIP CRC / PDF / Prompt PASS")','public/downloads/daejeon/lesson-08/DJ-L08-Floorplan-Graphviz-Pack.zip'],{encoding:'utf8',windowsHide:true});assert.equal(r.status,0,r.stderr);
+ const r=spawnSync('python',['-c','import zipfile,sys;z=zipfile.ZipFile(sys.argv[1]);assert z.testzip() is None;ns=z.namelist();assert len(ns)==18;assert "office-geometry.json" in ns;assert "SHA256SUMS.txt" in ns;assert [n for n in ns if n.lower().endswith(".pdf")]==["DJ-L07-Office-Floorplan-Original.pdf"];assert not any(n.lower().endswith(".docx") for n in ns);assert sum(n.startswith("images/") for n in ns)==5;assert "Graphviz-DOT-source.txt" in ns;assert "DJ-L07-clean-line-preprocess.txt" in ns;print("Synthetic ZIP CRC / PDF / Prompt PASS")','public/downloads/daejeon/lesson-08/DJ-L08-Floorplan-Graphviz-Pack.zip'],{encoding:'utf8',windowsHide:true});assert.equal(r.status,0,r.stderr);
  assert(fs.existsSync(floorplanAudit+'/floorplan-manifest.json'));
 });
 test('Former participant hashes remain absent across Lesson07 and Lesson08 including nested ZIPs',()=>{
@@ -86,14 +94,14 @@ test('Eight moved copy blocks retain their IDs and protected source except exact
   const approvedLabel=approvedRemediation.labelAssets.find(item=>item.key===file.key&&item.kind===file.kind);
   if(file.key==='office-original-png'){
    assert(approvedLabel,'Original PNG needs an exact approved label-edit fingerprint');
-   assert.equal(hash(fs.readFileSync('public/'+file.outputPath)),approvedLabel.afterSha256,file.outputPath);
+   assert.equal(hash(fs.readFileSync('public/'+file.outputPath)),currentAssetHash('public/'+file.outputPath,approvedLabel.afterSha256),file.outputPath);
    assert.equal(hash(fs.readFileSync('public/'+file.outputPath)),hash(fs.readFileSync('public/images/daejeon/lesson-07/comfy-reference-before.png')));continue;
   }
   const protectedFile=protectedManifest.files.find(f=>f.key===file.key&&f.kind===file.kind);assert(protectedFile,file.key);
   if(approvedLabel){assert.equal(approvedLabel.beforeSha256,protectedFile.sha256,'Historical asset fingerprint must remain unchanged: '+file.key);assert(approvedLabel.aliases.includes('public/'+file.outputPath));}
-  assert.equal(hash(fs.readFileSync('public/'+file.outputPath)),approvedLabel?.afterSha256||protectedFile.sha256,file.outputPath);
+  assert.equal(hash(fs.readFileSync('public/'+file.outputPath)),currentAssetHash('public/'+file.outputPath,approvedLabel?.afterSha256||protectedFile.sha256),file.outputPath);
  }
- for(const approvedLabel of approvedRemediation.labelAssets)for(const alias of approvedLabel.aliases)assert.equal(hash(fs.readFileSync(alias)),approvedLabel.afterSha256,'Exact approved label edit and all aliases must agree: '+alias);
+ for(const approvedLabel of approvedRemediation.labelAssets)for(const alias of approvedLabel.aliases)assert.equal(hash(fs.readFileSync(alias)),currentAssetHash(alias,approvedLabel.afterSha256),'Exact approved label/furniture edit and all aliases must agree: '+alias);
  assert(fs.readFileSync('src/draft/components/DaejeonLesson08Draft.astro','utf8').includes('Lesson07FloorplanPart sectionId={section.id}'));
  assert(!fs.readFileSync('src/draft/components/DaejeonLesson07Draft.astro','utf8').includes('<Lesson07FloorplanPart'));
 });

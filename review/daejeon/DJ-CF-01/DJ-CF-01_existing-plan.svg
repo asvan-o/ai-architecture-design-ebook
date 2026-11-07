@@ -133,7 +133,7 @@
 <text x="980" y="501" class="sm" text-anchor="start">D1: H2200 / W1: 하단600~상단2400</text>
 <text x="980" y="543" class="sm" text-anchor="start">W2: 하단900~상단2200</text>
 <text x="980" y="585" class="label" text-anchor="start">05  공간 조건</text>
-<text x="980" y="615" class="sm" text-anchor="start">천장 H3000 / 기준 영역 80㎡</text>
+<text x="980" y="615" class="sm" text-anchor="start">천장 H3000 / 명목 80㎡ (약 24평)</text>
 <text x="980" y="657" class="sm" text-anchor="start">벽 두께 180은 시각화용 설정, 구조 판단 불가</text>
 <text x="980" y="699" class="label" text-anchor="start">06  카메라</text>
 <text x="980" y="729" class="sm" text-anchor="start">01 남측 / 02 북서측 / 03 남서측</text>
@@ -154,5 +154,5 @@
 <text x="1150" y="1076" class="sm" text-anchor="middle">2</text>
 <text x="1230" y="1076" class="sm" text-anchor="middle">3</text>
 <text x="1310" y="1076" class="sm" text-anchor="middle">4m</text>
-<text x="72" y="1140" class="sm" text-anchor="start">A3 · 1:50 @ 100% · 단위 mm · 남서 실내 모서리 원점 · DJ-CF-01 / draft-01</text>
+<text x="72" y="1140" class="sm" text-anchor="start">A3 · 1:50 @ 100% · 단위 mm · 남서 실내 모서리 원점 · 교육용 기준도면</text>
 </svg>

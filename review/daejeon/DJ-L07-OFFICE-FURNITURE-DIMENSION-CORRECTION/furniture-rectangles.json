@@ -1,0 +1,247 @@
+{
+  "baselineCommit": "7f5924ca4e47e00c58a20446926819360a424acc",
+  "baselineFiles": [
+    {
+      "file": "baseline/original.pdf",
+      "source": "public/downloads/daejeon/lesson-08/DJ-L07-Office-Floorplan-Original.pdf",
+      "bytes": 50717,
+      "sha256": "d6b434d50a7e36913a4fb4c46bd64723a5253297bae494513c41c4d955ded6b3"
+    },
+    {
+      "file": "baseline/original.png",
+      "source": "public/images/daejeon/lesson-07/comfy-reference-before.png",
+      "bytes": 90174,
+      "sha256": "2be20d1397ae1cc50df824006f4ac256ee1fe430fa1b68423db0c6e168308b54"
+    },
+    {
+      "file": "baseline/clean-line.jpg",
+      "source": "public/images/daejeon/lesson-08/floorplan/01-clean-line.jpg",
+      "bytes": 209319,
+      "sha256": "716b19c7f1afa9bfec3d860c62b6e8d625d9b1da9df83b1ccca45f3fa1098f2a"
+    }
+  ],
+  "modelUnits": "metres",
+  "paperUnits": "millimetres",
+  "paperToWorld": {
+    "x": "(paperX - 60) / 10",
+    "y": "(paperY - 70) / 10",
+    "length": "paperLength / 10"
+  },
+  "paperScale": "1:100 on A3 landscape",
+  "pngPixelsPerModelMetre": 40,
+  "furnitureRectangles": [
+    {
+      "role": "director-desk",
+      "beforePaperMm": [
+        72,
+        83,
+        28,
+        12
+      ],
+      "afterPaperMm": [
+        77,
+        85,
+        18,
+        8
+      ]
+    },
+    {
+      "role": "director-chair",
+      "beforePaperMm": [
+        81,
+        96,
+        7.5,
+        6.5
+      ],
+      "afterPaperMm": [
+        82.25,
+        95,
+        7.5,
+        6.5
+      ]
+    },
+    {
+      "role": "conference-table",
+      "beforePaperMm": [
+        195,
+        155,
+        56,
+        21
+      ],
+      "afterPaperMm": [
+        207,
+        159.5,
+        32,
+        12
+      ]
+    },
+    {
+      "role": "conference-chair-north-1",
+      "beforePaperMm": [
+        198,
+        148,
+        8.5,
+        5.5
+      ],
+      "afterPaperMm": [
+        207.5,
+        152.5,
+        7,
+        5.5
+      ]
+    },
+    {
+      "role": "conference-chair-south-1",
+      "beforePaperMm": [
+        198,
+        178,
+        8.5,
+        5.5
+      ],
+      "afterPaperMm": [
+        207.5,
+        173,
+        7,
+        5.5
+      ]
+    },
+    {
+      "role": "conference-chair-north-2",
+      "beforePaperMm": [
+        211,
+        148,
+        8.5,
+        5.5
+      ],
+      "afterPaperMm": [
+        215.5,
+        152.5,
+        7,
+        5.5
+      ]
+    },
+    {
+      "role": "conference-chair-south-2",
+      "beforePaperMm": [
+        211,
+        178,
+        8.5,
+        5.5
+      ],
+      "afterPaperMm": [
+        215.5,
+        173,
+        7,
+        5.5
+      ]
+    },
+    {
+      "role": "conference-chair-north-3",
+      "beforePaperMm": [
+        224,
+        148,
+        8.5,
+        5.5
+      ],
+      "afterPaperMm": [
+        223.5,
+        152.5,
+        7,
+        5.5
+      ]
+    },
+    {
+      "role": "conference-chair-south-3",
+      "beforePaperMm": [
+        224,
+        178,
+        8.5,
+        5.5
+      ],
+      "afterPaperMm": [
+        223.5,
+        173,
+        7,
+        5.5
+      ]
+    },
+    {
+      "role": "conference-chair-north-4",
+      "beforePaperMm": [
+        237,
+        148,
+        8.5,
+        5.5
+      ],
+      "afterPaperMm": [
+        231.5,
+        152.5,
+        7,
+        5.5
+      ]
+    },
+    {
+      "role": "conference-chair-south-4",
+      "beforePaperMm": [
+        237,
+        178,
+        8.5,
+        5.5
+      ],
+      "afterPaperMm": [
+        231.5,
+        173,
+        7,
+        5.5
+      ]
+    }
+  ],
+  "originalExistingTextPreserved": true,
+  "newNote": "축선 기준 최대 24×16m · 중심선 다각형 348㎡(약 105평) | 소장 책상 1,800×800mm · 8인 테이블 3,200×1,200mm | 교육용 설정 · 실측/법정 면적 아님",
+  "existingThreeDimensionalBytesPreserved": true,
+  "finalDistributionAssets": [
+    {
+      "path": "public/downloads/daejeon/lesson-08/00-office-floorplan-original.png",
+      "beforeSha256": "2be20d1397ae1cc50df824006f4ac256ee1fe430fa1b68423db0c6e168308b54",
+      "sha256": "717cfdcbd41c59181a1a53c660c4ec9925df3ea3f5ac59269c9bcc13b206e6dc",
+      "bytes": 99626
+    },
+    {
+      "path": "public/images/daejeon/lesson-07/comfy-reference-before.png",
+      "beforeSha256": "2be20d1397ae1cc50df824006f4ac256ee1fe430fa1b68423db0c6e168308b54",
+      "sha256": "717cfdcbd41c59181a1a53c660c4ec9925df3ea3f5ac59269c9bcc13b206e6dc",
+      "bytes": 99626
+    },
+    {
+      "path": "public/images/daejeon/lesson-07/comfy-reference-after-2x.png",
+      "beforeSha256": "c5356fb676d5c27eb60944d64339c13757dfb4cc9be07de95a64f433e80f7cae",
+      "sha256": "0ecc62faf7c2fd6606814d9f21e4f10cd3d53e9031e558db6c41a3bd35692cec",
+      "bytes": 523547
+    },
+    {
+      "path": "public/images/daejeon/lesson-07/floorplan/01-clean-line.jpg",
+      "beforeSha256": "716b19c7f1afa9bfec3d860c62b6e8d625d9b1da9df83b1ccca45f3fa1098f2a",
+      "sha256": "6abd010225538580d9646f0940bb35eccdb5d4163d95a7b64d2999fb3fee003d",
+      "bytes": 283006
+    },
+    {
+      "path": "public/images/daejeon/lesson-08/floorplan/01-clean-line.jpg",
+      "beforeSha256": "716b19c7f1afa9bfec3d860c62b6e8d625d9b1da9df83b1ccca45f3fa1098f2a",
+      "sha256": "6abd010225538580d9646f0940bb35eccdb5d4163d95a7b64d2999fb3fee003d",
+      "bytes": 283006
+    },
+    {
+      "path": "public/downloads/daejeon/lesson-07/floorplan/DJ-L07-Office-Floorplan-Original.pdf",
+      "beforeSha256": "d6b434d50a7e36913a4fb4c46bd64723a5253297bae494513c41c4d955ded6b3",
+      "sha256": "350555fc15787dea66b1b557aaa0157fa56cc8643f7722bbd035ec2c60a260df",
+      "bytes": 89022
+    },
+    {
+      "path": "public/downloads/daejeon/lesson-08/DJ-L07-Office-Floorplan-Original.pdf",
+      "beforeSha256": "d6b434d50a7e36913a4fb4c46bd64723a5253297bae494513c41c4d955ded6b3",
+      "sha256": "350555fc15787dea66b1b557aaa0157fa56cc8643f7722bbd035ec2c60a260df",
+      "bytes": 89022
+    }
+  ],
+  "reproductionGuarantee": "동일 실행 함수·같은 기하 및 텍스트 기준. 저장 단계·PDF 직렬화·JPEG 인코딩 버전에 따른 바이트 차이는 허용하며 배포본과 같은 SHA를 주장하지 않습니다."
+}

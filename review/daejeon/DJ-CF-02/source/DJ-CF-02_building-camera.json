@@ -5,69 +5,79 @@
   "units": "m",
   "axes": "x: frontage left to right; y: toward rear; z: up; facade y=0",
   "building": {
-    "width": 10,
-    "depth": 6,
-    "height": 7.2,
-    "floorLine": 3.6,
-    "roofSlab": 6.8,
-    "parapetTop": 7.2
+    "width": 13.6,
+    "depth": 8.2,
+    "height": 9.6,
+    "floorLine": 4.5,
+    "roofSlab": 8.6,
+    "parapetTop": 9.6,
+    "nominalGroundAreaM2": 111.5,
+    "nominalTwoFloorAreaM2": 223.0,
+    "floorToFloorM": [
+      4.5,
+      4.1
+    ],
+    "parapetHeightM": 1.0,
+    "areaNote": "13.6×8.2=111.52㎡; two floors=223.04㎡; displayed nominal 111.5/223.0㎡, not statutory areas"
   },
   "elements": [
     {
       "id": "D1",
       "type": "entrance",
-      "x": 7.6,
+      "x": 10.3,
       "z": 0,
-      "w": 1.4,
-      "h": 2.6
+      "w": 1.8,
+      "h": 3.7,
+      "leafClearWidthApprox": 1.1,
+      "measurement": "outer portal-frame opening; door leaf clear width approximately 1.10m"
     },
     {
       "id": "W1",
       "type": "window",
-      "x": 0.8,
-      "z": 0.6,
-      "w": 2.6,
-      "h": 2.2
+      "x": 1.1,
+      "z": 0.8,
+      "w": 3.5,
+      "h": 2.9
     },
     {
       "id": "W2",
       "type": "window",
-      "x": 4.2,
-      "z": 0.6,
-      "w": 2.6,
-      "h": 2.2
+      "x": 5.7,
+      "z": 0.8,
+      "w": 3.5,
+      "h": 2.9
     },
     {
       "id": "W3",
       "type": "window",
-      "x": 0.8,
-      "z": 4.4,
-      "w": 2,
-      "h": 1.8
+      "x": 1.1,
+      "z": 5.8,
+      "w": 2.7,
+      "h": 2.4
     },
     {
       "id": "W4",
       "type": "window",
-      "x": 4,
-      "z": 4.4,
-      "w": 2,
-      "h": 1.8
+      "x": 5.45,
+      "z": 5.8,
+      "w": 2.7,
+      "h": 2.4
     },
     {
       "id": "W5",
       "type": "window",
-      "x": 7.2,
-      "z": 4.4,
-      "w": 2,
-      "h": 1.8
+      "x": 9.8,
+      "z": 5.8,
+      "w": 2.7,
+      "h": 2.4
     },
     {
       "id": "SZ1",
       "type": "blank-signage-zone",
-      "x": 0.8,
-      "z": 3,
-      "w": 8.4,
-      "h": 0.5
+      "x": 1.1,
+      "z": 4,
+      "w": 11.4,
+      "h": 0.65
     }
   ],
   "site": {
@@ -81,19 +91,20 @@
     ],
     "neighborGap": 0.6,
     "neighborSetback": 1.5,
-    "rightSide": "blank wall; no side openings"
+    "rightSide": "blank wall; no side openings",
+    "siteDiagramScale": "equal X/Y scale, 20px per metre"
   },
   "cameras": {
     "01": {
       "position": [
-        5,
-        -18,
+        6.8,
+        -24.48,
         1.6
       ],
       "target": [
-        5,
+        6.8,
         0,
-        3.4
+        4.5333333333
       ],
       "focalPixels": 1450,
       "canvas": [
@@ -103,14 +114,14 @@
     },
     "02": {
       "position": [
-        16,
-        -17,
+        21.76,
+        -23.12,
         1.6
       ],
       "target": [
-        5,
-        1.5,
-        3.4
+        6.8,
+        2.05,
+        4.5333333333
       ],
       "focalPixels": 1450,
       "canvas": [
@@ -120,10 +131,10 @@
     }
   },
   "notes": [
-    "All dimensions are authored fictional teaching conditions, not legal or construction information.",
-    "No structural column grid is supplied. C1 is deliberately not assigned; structural details remain unverified.",
-    "D1 is the common entry for ground-floor commerce and upper-floor office/service use; internal circulation is outside scope.",
-    "Glass pane divisions do not count as additional wall openings.",
-    "Sidewalk and road relationship is illustrative and unchanged; planters belong inside the building frontage, not in the public walking route."
+    "Authored fictional teaching dimensions, not legal or construction information.",
+    "Preserved photographs and A/B images were generated under an earlier educational specification; they are visual references, not precise projections of the new reference elevation.",
+    "Camera X and viewing distance use frontage factor 1.36; target Y uses depth factor 8.2/6; target Z uses height factor 9.6/7.2; eye height remains 1.6m.",
+    "No structural column grid is supplied. D1 outer portal opening is not the door-leaf clear width.",
+    "Sidewalk/road relationship is illustrative; public walking space must remain free."
   ]
 }

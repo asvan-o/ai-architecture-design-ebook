@@ -1,0 +1,41 @@
+{
+  "approval": "사용자 승인: 가상 오피스 2D 가구를 1800×800mm / 3200×1200mm로 정밀 보정. 원문 Prompt·벽·문·승강기·기존 3D는 보존.",
+  "baseRevision": "7f5924ca4e47e00c58a20446926819360a424acc",
+  "files": [
+    {
+      "file": "public/downloads/daejeon/lesson-08/00-office-floorplan-original.png",
+      "beforeSha256": "2be20d1397ae1cc50df824006f4ac256ee1fe430fa1b68423db0c6e168308b54",
+      "afterSha256": "717cfdcbd41c59181a1a53c660c4ec9925df3ea3f5ac59269c9bcc13b206e6dc"
+    },
+    {
+      "file": "public/images/daejeon/lesson-07/comfy-reference-before.png",
+      "beforeSha256": "2be20d1397ae1cc50df824006f4ac256ee1fe430fa1b68423db0c6e168308b54",
+      "afterSha256": "717cfdcbd41c59181a1a53c660c4ec9925df3ea3f5ac59269c9bcc13b206e6dc"
+    },
+    {
+      "file": "public/images/daejeon/lesson-07/floorplan/01-clean-line.jpg",
+      "beforeSha256": "716b19c7f1afa9bfec3d860c62b6e8d625d9b1da9df83b1ccca45f3fa1098f2a",
+      "afterSha256": "6abd010225538580d9646f0940bb35eccdb5d4163d95a7b64d2999fb3fee003d"
+    },
+    {
+      "file": "public/images/daejeon/lesson-08/floorplan/01-clean-line.jpg",
+      "beforeSha256": "716b19c7f1afa9bfec3d860c62b6e8d625d9b1da9df83b1ccca45f3fa1098f2a",
+      "afterSha256": "6abd010225538580d9646f0940bb35eccdb5d4163d95a7b64d2999fb3fee003d"
+    },
+    {
+      "file": "public/downloads/daejeon/lesson-07/floorplan/DJ-L07-Office-Floorplan-Original.pdf",
+      "beforeSha256": "d6b434d50a7e36913a4fb4c46bd64723a5253297bae494513c41c4d955ded6b3",
+      "afterSha256": "350555fc15787dea66b1b557aaa0157fa56cc8643f7722bbd035ec2c60a260df"
+    },
+    {
+      "file": "public/downloads/daejeon/lesson-08/DJ-L07-Office-Floorplan-Original.pdf",
+      "beforeSha256": "d6b434d50a7e36913a4fb4c46bd64723a5253297bae494513c41c4d955ded6b3",
+      "afterSha256": "350555fc15787dea66b1b557aaa0157fa56cc8643f7722bbd035ec2c60a260df"
+    },
+    {
+      "file": "public/images/daejeon/lesson-07/comfy-reference-after-2x.png",
+      "beforeSha256": "c5356fb676d5c27eb60944d64339c13757dfb4cc9be07de95a64f433e80f7cae",
+      "afterSha256": "0ecc62faf7c2fd6606814d9f21e4f10cd3d53e9031e558db6c41a3bd35692cec"
+    }
+  ]
+}
