@@ -21,6 +21,9 @@
 .l02-ab-run { border-top:2px solid #b9cdc6; margin-top:2rem; padding-top:1rem; }
 .l02-ab code,.l02-ab pre,.l02-ab p,.l02-ab li,.l02-ab td,.l02-ab th { overflow-wrap:anywhere; }
 .l02-ab .l02-ab-table th,.l02-ab .l02-ab-table td { white-space:normal; }
+.l02-build-brief { margin:1.2rem 0; padding:1rem; border-left:3px solid var(--accent-dark); background:var(--paper-deep); }
+.l02-build-brief p { margin:.45rem 0; }
+.l02-integrated-example { margin-top:2rem; padding-top:1rem; border-top:2px solid var(--line-dark); }
 @media(max-width:760px) {
  .l02-ab-grid { grid-template-columns:1fr; }
  .l02-ab-card { padding:1rem; }

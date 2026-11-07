@@ -51,6 +51,8 @@
   html[data-workbook-print-lesson="05"] [data-l05-precision-downloads] { break-inside: avoid-page !important; }
   html[data-workbook-print-lesson="05"] [data-l05-precision-downloads] a.review-download { display: inline !important; padding: 0 !important; margin: 0 !important; border: 0 !important; background: none !important; font: inherit !important; }
   html[data-workbook-print-lesson="06"] [data-l06-downloads] ul a.review-download { display: inline !important; padding: 0 !important; margin: 0 !important; border: 0 !important; background: none !important; font: inherit !important; }
+  html[data-workbook-print-lesson="02"] [data-test-reference] { break-inside: avoid-page !important; }
+  html[data-workbook-print-lesson="02"] [data-test-reference] caption { display: table-caption !important; caption-side: top !important; }
   table { width: 100% !important; table-layout: fixed; border-collapse: collapse; font-size: 8.5pt !important; break-inside: auto !important; }
   .review-page main table { display: table !important; }
   .review-page main table tbody { display: table-row-group !important; }

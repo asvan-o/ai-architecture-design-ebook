@@ -1,62 +1,49 @@
-export const exercises=[
-  {id:'A',title:'파일 정리 자동화',description:'여러 형식의 파일을 정해둔 규칙으로 분류하고, 애매한 파일만 사람이 확인합니다.',repetition:'들어온 파일마다 분류 폴더를 찾고 옮기는 일을 줄입니다.',automatic:'확장자·파일명 규칙 확인, 원본 보관, 분류·중복 안내·처리 기록',human:'애매한 파일의 용도, 목적지, 실행 결과와 오류 확인',environment:'Windows + Node.js. 프로그램 ZIP을 풀고 START.bat으로 실행합니다.'},
-  {id:'B',title:'도면 제출 전 빠른 점검',description:'여러 도면 파일의 도면번호·도면명·리비전과 확인할 사항을 한 화면에서 살펴봅니다.',repetition:'도면 파일을 하나씩 보며 번호·리비전·형식을 목록에 적는 일을 줄입니다.',automatic:'파일명 분리, 리비전 숫자 비교, PDF·DWG 짝과 중복 후보 표시',human:'표시된 후보가 실제 제출 대상인지, 도면 내용과 제출 조건 확인',environment:'Chrome / Edge 브라우저에서 실행합니다. 별도 Node.js 설치가 필요하지 않습니다.'},
+import {readFileSync} from 'node:fs';
+import path from 'node:path';
+import {repositoryRoot} from '../../../scripts/daejeon-review-assets.mjs';
+import promptAlignment from './prompt-alignment-overrides.json';
+import type {PromptPlatformGuide} from './prompt-platform-guides';
+
+export const fileSorterExercise={
+  title:'건축 프로젝트 파일 자동 정리 프로그램',
+  description:'도면·모델·이미지·문서를 정해둔 규칙으로 분류하고, 애매한 파일만 사람이 확인합니다.',
+  repetition:'들어온 파일마다 분류 폴더를 찾고 옮기는 일을 줄입니다.',
+  automatic:'확장자·파일명 규칙 확인, 원본 보관, 분류·중복 안내·처리 상태 표시',
+  human:'애매한 파일의 용도와 목적지, 실행 결과와 오류 확인',
+  environment:'Windows + 시스템 Node.js. 연결한 빈 실습 폴더에서 만들고 START.bat으로 실행합니다.',
+} as const;
+
+type BuildGuide=PromptPlatformGuide&{purpose:string;variables:string};
+function buildPrompt(key:string,id:string,title:string,file:string){
+  const source=path.join(repositoryRoot,'review/daejeon/LESSON02_AUTOMATION_AB/student/A',file);
+  const guide=(promptAlignment as Record<string,unknown>)[id] as BuildGuide;
+  if(!guide?.platform||!guide.derivation||!guide.aiPromptTip)throw new Error('제2차시 제작 가이드 누락: '+id);
+  return {key,id,title,file,prompt:readFileSync(source,'utf8'),outputPath:'practice/DJ-L02/automation/A/'+file,guide};
+}
+export const buildSteps=[
+  {...buildPrompt('step1','l02-step-1-prompt','Step 1 요청문 · 기본 폴더 구조와 감시 뼈대 만들기','DJ-L02_STEP_01.txt'),
+    goal:'빈 실습 폴더에 기본 구조를 만들고 파일 감지·이동과 START/STOP부터 작동시킵니다.',
+    why:'작은 동작부터 실행해 보면 어느 단계에서 고쳐야 하는지 쉽게 찾을 수 있습니다.',
+    files:'START.bat · STOP.bat · app/watcher.js · classifier.js · file-manager.js · rules.json',
+    check:'작은 시험 복사본을 넣어 감지·원본보관·이동을 확인하고 STOP으로 멈춥니다. 실제 업무 원본은 넣지 않습니다.',
+    next:'같은 프로그램에 분류 규칙과 사람 확인을 덧붙입니다.'},
+  {...buildPrompt('step2','l02-step-2-prompt','Step 2 요청문 · 자동 분류와 사람 확인 분리하기','DJ-L02_STEP_02.txt'),
+    goal:'명확한 확장자는 자동으로, 파일명 단서가 불확실하거나 충돌하면 99_분류확인으로 보냅니다.',
+    why:'애매한 파일을 억지로 분류하지 않는 것도 올바른 자동화 동작입니다.',
+    files:'app/classifier.js · rules.json',
+    check:'도면 단서, 재질 단서, 서로 다른 분류 단서가 겹친 이름, 단서 없는 이름을 비교합니다.',
+    next:'자동 처리 중 파일을 잃거나 덮어쓰지 않도록 안전장치를 보완합니다.'},
+  {...buildPrompt('step3','l02-step-3-prompt','Step 3 요청문 · 원본 보호와 중복·덮어쓰기 방지','DJ-L02_STEP_03.txt'),
+    goal:'원본을 먼저 보관하고 같은 이름·다른 내용, 동일 SHA-256, 임시파일을 각각 구분합니다.',
+    why:'분류가 맞아도 원본이 사라지거나 기존 결과를 덮어쓰면 업무에서 사용할 수 없습니다.',
+    files:'app/file-manager.js · watcher.js · data/',
+    check:'동일 파일 재투입은 중복 안내, 같은 이름·다른 내용은 _v02, 임시파일은 제외되는지 봅니다.',
+    next:'검증한 처리 기능을 브라우저 화면과 외부 폴더 가져오기에 연결합니다.'},
+  {...buildPrompt('step4','l02-step-4-prompt','Step 4 요청문 · 브라우저 화면과 외부 폴더 가져오기','DJ-L02_STEP_04.txt'),
+    goal:'감시 상태·폴더별 수·사람 확인 대기 목록을 보여주고 수동 선택과 외부 자료 복사를 연결합니다.',
+    why:'사용자가 처리 상태를 이해하고 자동화가 멈춘 이유나 직접 결정할 항목을 볼 수 있어야 합니다.',
+    files:'app/ui/ · 로컬 서버 연결 · 사용방법 README',
+    check:'127.0.0.1:4174 화면, 사람 선택, 외부 원본 불변, 수집함 복사, STOP 종료를 확인합니다.',
+    next:'완성 프로그램에 SORT_TEST를 넣고 아래 기준표와 화면을 직접 비교합니다.'},
 ] as const;
-export const drawingChecks=[
-  '파일명과 기본 파일정보만 읽고 도면 내부 내용은 열지 않나요?',
-  '도면번호·도면명·리비전·형식을 나누는 규칙이 명확한가요?',
-  'R02와 R10을 숫자로 비교하고 가장 높은 값을 최신 후보로만 표시하나요?',
-  '최신 후보의 PDF·DWG 짝과 같은 번호·리비전·형식 중복을 알리나요?',
-  '규칙 오류, 임시파일, 숨김·지원하지 않는 파일을 구분하나요?',
-  '파일 삭제·이동·이름 변경·외부 전송 없이 CSV로 결과를 남기나요?',
-];
-export const drawingSpec=[
-  ['작업 폴더','별도 실습 폴더에 정적 HTML·JavaScript·CSS와 사용 안내를 만듭니다.'],
-  ['입력과 규칙','PDF·DWG·DXF의 파일명과 크기 등 기본정보만 읽습니다.'],
-  ['표시할 결과','최신 후보·이전 리비전·형식 확인·중복 후보·파일명 확인을 구분합니다.'],
-  ['원본 보호','선택한 파일을 수정하거나 서버로 업로드하지 않습니다.'],
-  ['화면과 저장','폴더/여러 파일 선택, 필터, 샘플, 초기화, 한글 CSV를 제공합니다.'],
-  ['기능 확인','파일명 시험 세트의 기대 결과와 실제 표시, CSV, 모바일 사용성을 확인합니다.'],
-];
-export const drawingFlow=['파일·폴더 선택','파일명 분리','번호별 리비전 정리','확인할 항목 표시','사람 확인','CSV 저장'];
-export const drawingTree=`drawing-quick-check/
-├─ index.html           화면 구성
-├─ app.js               선택·필터·화면 동작
-├─ rules.js             파일명·상태 판정 규칙
-├─ style.css            데스크톱·모바일 표시
-├─ sample-data.js       브라우저용 예제 목록
-├─ sample-manifest.json 예제 파일과 기대 결과
-└─ README.txt           사용 방법`;
-export const drawingRunSteps=[
-  '브라우저에서 예제를 열거나 프로그램 ZIP을 풀고 index.html을 엽니다.',
-  '샘플 불러오기로 표시 방식을 먼저 살펴봅니다. 샘플은 교육용 가상 파일명입니다.',
-  '테스트 ZIP을 별도로 풀고 도면 폴더 선택 또는 파일 여러 개 선택을 사용합니다.',
-  '전체·정상·확인 필요·이전 리비전 필터에서 파일명과 표시 이유를 읽습니다.',
-  '결과 CSV를 내려받고 자신의 실제 결과와 확인사항을 기록합니다.',
-  '초기화로 화면 목록을 비우고 탭을 닫습니다. 선택한 원본 파일은 바뀌지 않습니다.',
-];
-export const drawingLimits=[
-  '파일명과 기본 파일정보만 확인합니다. 도면 내용·설계 오류·법규 적합성은 판단하지 않습니다.',
-  '가장 높은 R번호는 최신 후보입니다. 제출본 확정이나 실제 최신 여부를 보증하지 않습니다.',
-  '이 실습의 기본 규칙은 [도면번호]_[도면명]_[리비전].[확장자]이며 PDF·DWG 짝을 확인합니다. 회사마다 제출 규칙은 다를 수 있습니다.',
-  'DXF는 함께 표시하지만 PDF·DWG 짝을 대신하지 않습니다. 번호가 건너뛰어도 누락이라고 확정하지 않습니다.',
-  '시험 세트는 파일명 점검용 stub입니다. 실제 설계 도면으로 사용하지 않습니다.',
-  '폴더 선택을 지원하지 않는 브라우저에서는 여러 파일 선택을 사용합니다. 화면 목록은 탭을 닫기 전에 CSV로 저장합니다.',
-];
-export const drawingExpected=[
-  ['A-101_1층평면도_R02.pdf','A-101 / 1층평면도 / R02 / PDF로 나뉨'],
-  ['같은 번호에 R01·R02·R03','R03 최신 후보, 낮은 숫자는 이전 리비전'],
-  ['R02와 R10','문자 순서가 아닌 숫자로 비교하여 R10 최신 후보'],
-  ['최신 후보에 PDF와 DWG','두 형식을 보유한 것으로 표시'],
-  ['최신 후보에 PDF 또는 DWG 한쪽만','형식 확인 필요'],
-  ['같은 번호·리비전·형식이 다른 하위 폴더에도 존재','중복 후보로 표시하고 상대 경로로 구분'],
-  ['번호 형식 오류·도면명 또는 리비전 누락','파일명 확인'],
-  ['지원하지 않는 형식·임시파일·숨김 파일','제외 이유를 표시하고 도면 후보에서 제외'],
-];
-export const evidencePrompt=`내가 선택한 실습 A 또는 실습 B의 실행 기록을 정리해 주세요.
-입력: 사용한 프로그램(직접 구현 / 제공 예제), 테스트 자료의 기대 결과, 내가 관찰한 실제 화면·파일 위치·CSV.
-출력: 확인 항목 / 기대 결과 / 실제 결과 / 통과·실패·미확인 / 근거.
-직접 실행하지 않은 항목은 미확인으로 남겨 주세요. 제공 예제의 검증 결과를 내 실행 결과로 바꾸지 마세요.
-실습 A는 자동분류와 수동 선택 후 결과, 종료 여부를 구분합니다.
-실습 B는 최신 후보와 실제 제출 확정을 구분하고, 도면 내용·설계·법규를 판단하지 마세요.
-파일을 수정하거나 프로그램을 추가 구현하지 마세요.`;
+export const integratedPrompt=buildPrompt('integrated','l02-integrated-prompt','최종 통합 예시문 · 한 번에 전체 구조를 구현할 때 사용하는 완성형 프롬프트','DJ-L02_INTEGRATED_PROMPT.txt');

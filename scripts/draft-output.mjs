@@ -3,13 +3,13 @@ import {workbookAssetPath,legacyWorkbookAssetPath} from './workbook-public-paths
 import { readFileSync, readdirSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
-const drawingDemoRoute='practice/DJ-L02/automation/B/demo/index.html';
 const houseWalkthroughRoute=workbookAssetPath('downloads/daejeon/lesson-09/House_B_Walkthrough.html');
 const automationAllowed=new Set([
   ...['A_FIRST_REQUEST.txt','A_STRUCTURE_CHECKLIST.txt','A_IMPLEMENTATION_APPROVAL.txt','A_README.txt','A_EXPECTED_RESULTS.csv','A_VERIFICATION_SUMMARY.txt','A_KNOWN_LIMITS.txt','A_UI_DESKTOP.png','A_UI_MOBILE.png','A_UI_PENDING.png','A_UI_AUTOMATIC.png'].map(file=>'practice/DJ-L02/automation/A/'+file),
   ...['A_INPUT_UI_DESKTOP.png','A_INPUT_UI_MOBILE.png','A_INPUT_UI_PENDING.png','A_INPUT_UI_AUTOMATIC.png'].map(file=>'practice/DJ-L02/automation/A/'+file),
-  ...['DRAWING_QUICK_CHECK_PROGRAM.zip','DRAWING_QUICK_CHECK_TEST.zip','DRAWING_QUICK_CHECK_README.txt','DRAWING_QUICK_CHECK_FIRST_REQUEST.txt','DRAWING_QUICK_CHECK_IMPLEMENTATION_APPROVAL.txt','DRAWING_QUICK_CHECK_SAMPLE_RESULTS.csv','sample-manifest.json','DRAWING_QUICK_CHECK_DESKTOP.png','DRAWING_QUICK_CHECK_MOBILE.png'].map(file=>'practice/DJ-L02/automation/B/'+file),
-  ...['index.html','app.js','rules.js','style.css','sample-data.js','sample-manifest.json','README.txt'].map(file=>'practice/DJ-L02/automation/B/demo/'+file),
+  ...['DJ-L02_STEP_01.txt','DJ-L02_STEP_02.txt','DJ-L02_STEP_03.txt','DJ-L02_STEP_04.txt','DJ-L02_INTEGRATED_PROMPT.txt','DJ-L02_VIBE_CODING_README.txt','DJ-L02_VIBE_CODING_PRACTICE.zip'].map(file=>'practice/DJ-L02/automation/A/'+file),
+  'practice/DJ-L01/DJ-L01-rfp-and-brief.zip',
+  'practice/DJ-L01/manifest.json',
 ]);
 
 // Review pages are separate from approved curriculum/release selection.
@@ -18,7 +18,7 @@ export function verifyDraftOutput(course, output, { localReviewAssets = false } 
   const all = files(output);
   const html = all.filter((file) => file.endsWith('.html')).map((file) => path.relative(output, file).replaceAll('\\', '/')).sort();
   const expected = course.reviewDraft ? ['course-overview/index.html', 'index.html', ...course.reviewDraft.lessons.map((lesson)=>`lessons/${lesson.id}/index.html`)].sort() : ['index.html'];
-  if(localReviewAssets&&course.courseId==='daejeon-2026') expected.push(drawingDemoRoute,'practice/DJ-L02-B/demo/index.html',houseWalkthroughRoute);
+  if(localReviewAssets&&course.courseId==='daejeon-2026') expected.push(houseWalkthroughRoute);
   expected.sort();
   assert.deepEqual(html, expected, `${course.courseId}: unapproved draft route`);
   if (localReviewAssets) {
@@ -51,7 +51,7 @@ export function verifyDraftOutput(course, output, { localReviewAssets = false } 
   if(localReviewAssets){for(const folder of ['images','downloads']){const dir=path.join(output,folder);if(all.some(file=>file.startsWith(dir+path.sep)))assert(files(dir).every(file=>path.relative(dir,file).replaceAll('\\','/').replace(/^(lesson-\d+|pdf)\//,'daejeon/$1/').match(/^daejeon\/(?:lesson-(?:0[789]|1[0-3])|pdf)\//)),'Unexpected review '+folder);}}
   for (const route of html) {
     const source = readFileSync(path.join(output, route), 'utf8');
-    if(localReviewAssets&&(route===drawingDemoRoute||route==='practice/DJ-L02-B/demo/index.html'||route===houseWalkthroughRoute)) {
+    if(localReviewAssets&&route===houseWalkthroughRoute) {
       assert(source.includes('noindex'), 'Local interactive samples must remain noindex');
       continue;
     }

@@ -13,7 +13,7 @@ import {lesson10Title} from './daejeon-lesson10';
 // Titles remain in their lesson data; every overview uses the same bindings.
 export const alignedLessons=[
  {id:'01',title:lessonTitle,stage:'대주제 1 → 대주제 2',schedule:'대주제 1 완결 → 대주제 2 시작 · AI 리터러시 기초 및 실무 시나리오 제안 이미지',description:'AI 판단 → Prompt 7규칙·7단 공식 → Nano Banana 첫 생성·수정 → 의뢰서 분석·검증 → 작업 기준서 → A/B 이미지 전략.'},
- {id:'02',title:lesson02Title,stage:'대주제 2 · 완결',schedule:'대주제 2 완결 · 실무 시나리오 기반 설계 워크플로우 자동화',description:'업무 자동화와 Vibe Coding → Architecture·Hierarchy 설계 → 파일 정리 자동화·도면 제출 전 빠른 점검 구현·실행.'},
+ {id:'02',title:lesson02Title,stage:'대주제 2 · 완결',schedule:'대주제 2 완결 · 실무 시나리오 기반 설계 워크플로우 자동화',description:'업무 자동화와 Vibe Coding → Architecture·Hierarchy 이해 → 건축 프로젝트 파일 자동 정리 프로그램 Step 1~4 구현·실행.'},
  {id:'03',title:lesson03Title,stage:'대주제 3 · 시작',schedule:'대주제 3 시작 · 초기 기획 실내 인페인팅 및 래피드 콘셉트 도출',description:'기준 공간 일부 수정 → 디자인 방향 보드 제작 → 보드 방향 갱신 → 새로운 실내 콘셉트 확장.'},
  {id:'04',title:lesson04Title,stage:'대주제 3 · 계속',schedule:'대주제 3 계속 · 초기 기획 건축 외관 인페인팅 및 래피드 대안 비교',description:'클린업 → 마감 교체 A/B/A2 → 조경·석양 조명 → 스케치·서브 시점 → 대안 비교·선별.'},
  {id:'05',title:lesson05Title,stage:'대주제 3 · 완결',schedule:'대주제 3 완결 · 초기 기획 2D 평면도 판독 및 도면 인페인팅 실무',description:'평면도 판독·검증 → 가구 영역 부분 수정 → 확대·문/가벽 수정 → 전체 재반영·중첩 비교.'},

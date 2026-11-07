@@ -31,3 +31,16 @@ python -B scripts/verify-daejeon-generators.py --require-clean
 Run with Python providing Pillow/numpy and Node providing the locked Playwright dependency and Chromium. Validation uses temporary outputs, checks Git blobs and all original file hashes, and tests CF-01 protection without a sibling repository.
 
 The separate `DJ-CF-01_documents.py` and `DJ-CF-02_documents.py` are Windows PDF authoring scripts requiring system Malgun font files. They are not executed by the isolated entrypoint or this validation, and no PDF is issued or rewritten. The full package is not declared cross-platform or byte-reproducible from these partial stages. Existing authored SVG labels, approved downloads and image assets are not replaced by temporary geometry/raster outputs.
+
+## 외관 리뉴얼 A/B 문안과 PDF 동기화
+
+`DJ-CF-02_content.json`의 `strategies`가 현재 A/B의 공통 문안 원본입니다. 전략 A는 1·2층 웜 라임스톤과 D1 다크 브론즈 세로 포털, 전략 B는 1·2층 트래버틴 톤온톤과 SZ1 수평 루버·라인 조명으로 구분합니다. 기준 매스·개구부·SZ1 치수와 현황 이미지는 수정하지 않습니다.
+
+```text
+python -B review/daejeon/DJ-CF-02/source/DJ-CF-02_content.py
+python -B review/daejeon/DJ-CF-02/source/DJ-CF-02_documents.py --student-documents-only
+```
+
+첫 명령은 RFP 문안·작업 기준서·A/B 7단 학습문·5항목 완성 실행문·공통 양식·비교 안내를 동기화합니다. `image-prompt-A/B.txt`는 `example-A/B-execution-prompt.txt`와 내용이 같은 별칭입니다. 실제 생성 원문·로그와 PNG를 다시 만들지 않습니다.
+
+둘째 명령은 확정된 A/B PNG를 사용해 학생용 RFP와 A/B 비교 페이지를 포함한 기록지만 생성합니다. `--student-documents-only`에서는 기준 입면도 PDF를 다시 만들지 않습니다. 실제 이미지 생성·시각 검수, ZIP 및 해시 동기화는 별도 단계이며 PDF·PNG의 수치·실측 적합성을 자동으로 보증하지 않습니다.

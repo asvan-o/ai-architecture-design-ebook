@@ -6,8 +6,8 @@
   "files": [
     {
       "filename": "ai-architecture-design-course-overview.pdf",
-      "sizeBytes": 267986,
-      "sha256": "9413c782d2fc2046bb295817c3aac5931b171561a5e24c517f4e9628687f0752",
+      "sizeBytes": 267506,
+      "sha256": "de64afff7e789d125d7f90906c63f67b9da2c6f5a5eb4cebb3fb8e44f9c59ff9",
       "pageCount": 6,
       "encrypted": true,
       "copyrightNoticePages": 6,
@@ -15,8 +15,8 @@
     },
     {
       "filename": "ai-architecture-design-lesson-01.pdf",
-      "sizeBytes": 3538826,
-      "sha256": "a92f666137b3e436db40b24c57a81e39823e44e51e925db770cce782bead2529",
+      "sizeBytes": 3568030,
+      "sha256": "6108efb7fbf12890ec6ab9f5835b88bb61b7a07bc7b0c074317c1a2571d385b1",
       "pageCount": 52,
       "encrypted": true,
       "copyrightNoticePages": 52,
@@ -24,17 +24,17 @@
     },
     {
       "filename": "ai-architecture-design-lesson-02.pdf",
-      "sizeBytes": 1827622,
-      "sha256": "01a33623368583f70f99f74dfe7e90efa317d56efcb6539eb06cfd6e2e7e0086",
-      "pageCount": 33,
+      "sizeBytes": 1466726,
+      "sha256": "2671a470772fa9c4c78073fcb7865f7fd820d90ca83b44af50474661be9874c6",
+      "pageCount": 26,
       "encrypted": true,
-      "copyrightNoticePages": 33,
+      "copyrightNoticePages": 26,
       "sourceFilename": "ai-architecture-design-daejeon-lesson-02.pdf"
     },
     {
       "filename": "ai-architecture-design-lesson-03.pdf",
       "sizeBytes": 11615531,
-      "sha256": "0334c8ececeb35c47193cee89d89c48e9604fa9ceefbe611bff4a3a64da3e830",
+      "sha256": "78ff63266430f0c3218884bf3aa2e4825450e6ee5dddd4b19b6374e373c5429a",
       "pageCount": 78,
       "encrypted": true,
       "copyrightNoticePages": 78,
@@ -43,7 +43,7 @@
     {
       "filename": "ai-architecture-design-lesson-04.pdf",
       "sizeBytes": 10054137,
-      "sha256": "8510c7a5c51207b58eb57707cd76584136e19564958cd615caaa8c146dd600bd",
+      "sha256": "423c78cf31e7ffd96bc056a8b01c8cdf4f5b7c8f12d066f31efb13fa268580f2",
       "pageCount": 76,
       "encrypted": true,
       "copyrightNoticePages": 76,
@@ -52,7 +52,7 @@
     {
       "filename": "ai-architecture-design-lesson-05.pdf",
       "sizeBytes": 3682252,
-      "sha256": "a025fe7ccc4e55bbd1128afd99ce40bf2f254b2a4b70baf415686e3e608d9bcd",
+      "sha256": "6a69ec16cb89dc20cdf895896601cade9fd383ffaa4629f8a20744deb293dc7e",
       "pageCount": 39,
       "encrypted": true,
       "copyrightNoticePages": 39,
@@ -61,7 +61,7 @@
     {
       "filename": "ai-architecture-design-lesson-06.pdf",
       "sizeBytes": 5692220,
-      "sha256": "5e3a88c97164a8261467b5d1064aa4f5f48fe560a7237e15f56c85b1328d2a31",
+      "sha256": "0d998c4e83acb2115c5020cfa7e533f8cb0ad13a62ebc18e5b78551541326e59",
       "pageCount": 46,
       "encrypted": true,
       "copyrightNoticePages": 46,
@@ -70,7 +70,7 @@
     {
       "filename": "ai-architecture-design-lesson-07.pdf",
       "sizeBytes": 3593251,
-      "sha256": "7d61caa9f6d89cad931ab48f7d8108147bfba36a43e482f7105504eb6700d6b7",
+      "sha256": "67b2fe6fc74ee71bb4d18dade66cf33ad6943cbdcbd116c85486adc1c1adb49e",
       "pageCount": 63,
       "encrypted": true,
       "copyrightNoticePages": 63,
@@ -79,7 +79,7 @@
     {
       "filename": "ai-architecture-design-lesson-08.pdf",
       "sizeBytes": 3450645,
-      "sha256": "0a7ba5869ea24926a7291fa8f6b499ea7f3c75c1cd4425d874367d1d4a5fa709",
+      "sha256": "d539f33659fe9cb4cdf24e1a9ade428a47c47342300a0a8ea953b4ab53346b6d",
       "pageCount": 36,
       "encrypted": true,
       "copyrightNoticePages": 36,
@@ -88,7 +88,7 @@
     {
       "filename": "ai-architecture-design-lesson-09.pdf",
       "sizeBytes": 5339728,
-      "sha256": "b8dbaaf5030f386f71a715a13af8e15011e8ae50867aa3e49c65602439e002ec",
+      "sha256": "81edffe2bc16cdc5a82c9b98cfedc283a286fa670bf1c3a9928d6942d25bc09e",
       "pageCount": 72,
       "encrypted": true,
       "copyrightNoticePages": 72,
@@ -97,7 +97,7 @@
     {
       "filename": "ai-architecture-design-lesson-10.pdf",
       "sizeBytes": 1259032,
-      "sha256": "91a7cf90812b546558b603a14662083f46e6265cccfb2941add3c4e680aa660c",
+      "sha256": "373d26b0330a1ceb9b994e00cd4fa91a41f18e9be3db219940cefbf37eeb5eaa",
       "pageCount": 59,
       "encrypted": true,
       "copyrightNoticePages": 59,
@@ -106,7 +106,7 @@
     {
       "filename": "ai-architecture-design-lesson-11.pdf",
       "sizeBytes": 3406667,
-      "sha256": "2894bf017cd8c8e287363a56da883315c14e17dedc27094eba369b6d1be5fdb9",
+      "sha256": "b125eff94f6253eb3c8ad13ad0a8dbbf5c74068a307dffb156199af6410556ff",
       "pageCount": 24,
       "encrypted": true,
       "copyrightNoticePages": 24,
@@ -115,7 +115,7 @@
     {
       "filename": "ai-architecture-design-lesson-12.pdf",
       "sizeBytes": 7722373,
-      "sha256": "2348c100724f778bfddde9cf045ca999c779f19aa5ba0032aec0996fa85163eb",
+      "sha256": "f1d356bfb5ca2f3bfb16ba3ca951103cf2c723c6fd2ae40f2f19df8415c10c92",
       "pageCount": 37,
       "encrypted": true,
       "copyrightNoticePages": 37,
@@ -124,7 +124,7 @@
     {
       "filename": "ai-architecture-design-lesson-13.pdf",
       "sizeBytes": 382739,
-      "sha256": "cbf7fbde62a295ba880882ca88cc301ee8bb194aa2c578efd81819e8e575b0a4",
+      "sha256": "7402374a24412de26c4d0807438932cffb97453640c420df750e65f853edd551",
       "pageCount": 12,
       "encrypted": true,
       "copyrightNoticePages": 12,

@@ -1,4 +1,4 @@
-"""Build review-only PDFs from content.json and the unchanged SVG-derived elevation PNG."""
+"""현재 교육 문안과 확정 이미지를 PDF에 반영하며 기준 입면도는 선택적으로 보존한다."""
 from pathlib import Path
 import json,html
 from reportlab.pdfgen import canvas
@@ -74,7 +74,7 @@ def rfp():
  d.y-=ih+46
  d.p('IMAGE 01은 2교시 Prompt 연습, 3교시 Exterior 이미지 실습, 4~6교시 RFP 실습의 편집 원본입니다. IMAGE 02는 측면 관계를 읽는 시각 참고입니다. 새 교육용 도면의 정밀 투영을 재현한 이미지가 아닙니다.',SM)
  d.p('두 이미지에서 D1 1개, 1층 W1·W2, 2층 W3~W5, 무문자 SZ1, 2층 매스·지붕선을 대조합니다. 우측 측벽은 창호가 없습니다.',SM)
- d.p('AI 생성 현황 표현입니다. 기존 이미지와 A/B는 이전 교육 설정으로 생성한 시각 참고이며 새 치수의 정밀 투영 일치를 보증하지 않습니다. 치수·레벨·면적은 새 입면도·조건표에서 확인합니다. 역할이 중복되는 IMAGE 03은 제작하지 않았습니다.',SM)
+ d.p('AI 생성 현황 표현입니다. 현황과 리뉴얼 예시 A/B는 재질·개구부 관계를 읽는 시각 참고이며 기준 치수의 정밀 투영 일치를 보증하지 않습니다. 치수·레벨·면적은 기준 입면도·조건표에서 확인합니다. 역할이 중복되는 IMAGE 03은 제작하지 않았습니다.',SM)
  d.p('자료는 같은 폴더의 개별 PNG·PDF로도 제공합니다. 다운로드 안내: DJ-CF-02_review.html',SM)
  d.start('원문 조건 7개 + 후속 판단 3개','의뢰서 → 분석표 10개 영역 → 작업 기준서 10개 항목')
  d.p(C['analysisMapping'],SM)
@@ -101,6 +101,16 @@ def worksheet():
  d.table([['비교 기준','A','B'],['매스·문·창호·시점과 제외 범위','',''],['D1 인지성 / 거리 조화 / 전략 차이','',''],['원본 대비 원치 않은 변화 / 미확정','','']],[d.width*.5,d.width*.25,d.width*.25],heights=[26,44,44,44],pad=4)
  d.blank('선택 이유 / 다음 수정 / 추가 질문·전문가 확인',75)
  d.p('이미지로 실제 치수·구조·성능·시공·법규 적합성을 확정하지 않습니다.',SM)
+ d.start('실습 B · 두 층을 연결하는 외관 리뉴얼 A/B','같은 원본·카메라·주간 조건에서 세로 집중과 수평 연속성을 비교합니다',landscape(A4))
+ d.p(C['strategyCommon'],SM)
+ gap=20;iw=(d.width-gap)/2;ih=iw*2/3
+ for idx,letter in enumerate(['A','B']):
+  x=d.x+idx*(iw+gap);strategy=C['strategies'][letter]
+  d.guard(d.y-ih,'전략 '+letter+' 이미지');d.c.drawImage(str(R/f'DJ-CF-02_example-{letter}.png'),x,d.y-ih,iw,ih)
+  text_y=d.y-ih-18
+  d.c.setFillColor(INK);d.c.setFont('MalgunBold',10);d.c.drawString(x,text_y,'전략 '+letter+' · '+strategy['name'])
+  for body in [strategy['proposal'],'확인할 점: '+strategy['risk']]:
+   paragraph=Paragraph(html.escape(body),SM);_,height=paragraph.wrap(iw,2000);text_y-=height+7;d.guard(text_y,'전략 '+letter+' 설명');paragraph.drawOn(d.c,x,text_y)
  return d.save()
 
 def elevation_pdf():
@@ -109,7 +119,9 @@ def elevation_pdf():
 if __name__=='__main__':
  import sys
  if '--rfp-only' in sys.argv:
-  boxes=rfp();scope='RFP only; worksheet and elevation preserved'
+  boxes=rfp();scope='RFP만 갱신; 기록지와 기준 입면도 보존'
+ elif '--student-documents-only' in sys.argv:
+  boxes=rfp()+worksheet();scope='학생용 RFP·기록지만 갱신; 기준 입면도 PDF 보존'
  else:
-  boxes=rfp()+worksheet();elevation_pdf();scope='all documents'
+  boxes=rfp()+worksheet();elevation_pdf();scope='전체 문서'
  (R/'source/DJ-CF-02_pdf-layout-check.json').write_text(json.dumps({'scope':scope,'layoutBoxes':boxes,'minimumBottom':min(b['bottom'] for b in boxes)},ensure_ascii=False,indent=2),encoding='utf-8');print(scope)

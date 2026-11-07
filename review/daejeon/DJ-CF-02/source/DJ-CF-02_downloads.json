@@ -30,7 +30,7 @@
     ],
     [
       "DJ-CF-02_participant-worksheet-draft.pdf",
-      "수강생 실습 기록지 / 3쪽"
+      "수강생 실습 기록지·A/B 비교 예시 / 4쪽"
     ],
     [
       "DJ-CF-02_rfp-analysis-prompt.txt",
@@ -89,6 +89,18 @@
     [
       "DJ-CF-02_example-B-execution-prompt.txt",
       "예시 B / 짧은 실행 Prompt"
+    ],
+    [
+      "DJ-CF-02_image-prompt-A.txt",
+      "전략 A 완성 실행문 / example-A-execution-prompt.txt와 동일 내용"
+    ],
+    [
+      "DJ-CF-02_image-prompt-B.txt",
+      "전략 B 완성 실행문 / example-B-execution-prompt.txt와 동일 내용"
+    ],
+    [
+      "DJ-CF-02_comparison-note.md",
+      "외관 리뉴얼 A/B 전략·비교 안내"
     ]
   ],
   "evidence": [
@@ -118,11 +130,11 @@
     ],
     [
       "instructor/DJ-CF-02_example-A-generation-prompt.txt",
-      "example-A 실제 생성 Prompt · 이전 교육 설정의 생성 기록 / 현재 치수 근거 아님"
+      "DJ-CF-02_example-A 실제 생성 원문 · 제작 당시 입력 기록 / 치수 근거는 기준 도면"
     ],
     [
       "instructor/DJ-CF-02_example-B-generation-prompt.txt",
-      "example-B 실제 생성 Prompt · 이전 교육 설정의 생성 기록 / 현재 치수 근거 아님"
+      "DJ-CF-02_example-B 실제 생성 원문 · 제작 당시 입력 기록 / 치수 근거는 기준 도면"
     ]
   ]
 }

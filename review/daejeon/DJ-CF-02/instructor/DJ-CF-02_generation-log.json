@@ -1,0 +1,138 @@
+[
+  {
+    "asset": "DJ-CF-02_existing-view-01.png",
+    "tool": "image_gen.imagegen (built-in)",
+    "backendModel": "not exposed by tool; not asserted as Nano Banana or Astra",
+    "attempt": 1,
+    "regenerated": false,
+    "postProcessing": "none; byte-identical copy of tool output",
+    "promptFile": "instructor\\DJ-CF-02_existing-view-01-generation-prompt.txt",
+    "promptSha256": "7fcddac73ea7329679639abce28ad9887fcb1dcb1a2bd4f68bfe9c935db0c21a",
+    "exactToolArguments": {
+      "prompt": "Use case: sketch-to-render.\nAsset type: DJ-CF-02 educational EXISTING exterior photograph, 1536x1024 landscape.\nInput image 1 is the exact camera/geometry target (whitebox front view). Input image 2 is the measured fictional elevation, only for checking geometry, never reproduce labels or paper.\nConvert the first image to a photorealistic daylight photograph of this exact ordinary two-storey Korean neighborhood commercial building before renovation. Preserve image 1's framing, camera, silhouette, roof line, relative feature sizes and all opening corners. Do not redesign.\nBuilding is 10m wide, 7.2m high. Pale warm grey painted cement plaster, modest age and subtle weathering, sound and occupied, not derelict. Aluminum grey window frames, subdued reflective glass, small ordinary glass entrance handle. Neutral overcast daytime, no dramatic cinematic lighting. Two plain neighboring buildings set back slightly and a level grey paved sidewalk/road remain in the same relationship.\nEXACT FRONT OPENINGS: one glass entry D1 on far right, two wider ground-floor windows W1 W2 to its left (sills above ground); exactly three distinct upper windows W3 W4 W5; each window has a single middle vertical mullion. These are five window openings plus one door, NOT six storefront doors. Keep solid wall below W1 and W2. D1 at grade with no steps. Blank grey horizontal sign panel SZ1 between floors. No letters or logos, no numbers. Right side has no openings.\nGeometry coordinates for cross-check only: x=0..10m; z=0..7.2m. D1 x7.6..9.0 z0..2.6. W1 x0.8..3.4 and W2 x4.2..6.8, z0.6..2.8. Upper W3 x0.8..2.8, W4 x4..6, W5 x7.2..9.2, all z4.4..6.2. SZ1 x0.8..9.2 z3..3.5. Roof slab line6.8, parapet top7.2.\nDo not add canopy, plants, balconies, large features, extra windows, extra entry, people, vehicles, trees hiding corners, wiring, signage text, annotations, borders or watermarks. Do not change perspective to a front orthographic drawing. Output one realistic photo filling the frame with geometry faithful to the first image.",
+      "referenced_image_paths": [
+        "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-CF-02/instructor/DJ-CF-02_whitebox-01.png",
+        "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-CF-02/DJ-CF-02_existing-elevation.png"
+      ],
+      "transparent_background": false
+    },
+    "inputSha256": {
+      "instructor/DJ-CF-02_whitebox-01.png": "cc8ca897126938219403f49af8afb1e2b51f997ab7e9130691b93374cdd0c3a0",
+      "DJ-CF-02_existing-elevation.png": "303ef0237da91bded9abe31cd535e4bfd1d2c86db54195b0319a15a14fe54864"
+    },
+    "sourceToolOutput": "C:\\Users\\deric\\.codex\\generated_images\\01a106c4-1768-75c2-9a8d-9a1cb683c730\\exec-8eb32008-80b8-4a07-ac58-6feb99e274a6.png",
+    "outputSha256": "ac1b728aa6451ced633e551677ef4cff737d0937ee9a3a370c800d0c59c9f655",
+    "pixels": [
+      1536,
+      1024
+    ],
+    "recordedAt": "2026-10-09T00:19:56.111553+09:00"
+  },
+  {
+    "asset": "DJ-CF-02_existing-view-02.png",
+    "tool": "image_gen.imagegen (built-in)",
+    "backendModel": "not exposed by tool; not asserted as Nano Banana or Astra",
+    "attempt": 1,
+    "regenerated": false,
+    "postProcessing": "none; byte-identical copy of tool output",
+    "promptFile": "instructor\\DJ-CF-02_existing-view-02-generation-prompt.txt",
+    "promptSha256": "17afd4ed3281e6300638f87f189f9189a3921a4bb5643ddf930ed125decb2f3a",
+    "exactToolArguments": {
+      "prompt": "Use case: sketch-to-render.\nMake photorealistic existing exterior IMAGE 02 of the SAME building as image 2, from the exact right-oblique camera and structure of image 1.\nInput 1: whitebox geometry/camera target. Input 2: approved front existing image, SAME BUILDING material/identity reference. Input 3: dimensioned elevation, opening-count/position check only.\nGeometry takes priority over material. Convert input 1 into a photograph with the pale warm grey aged plaster, dark grey aluminum mullions, grey empty sign band, subtle weathering and ordinary occupied condition of input 2. This is before renovation. Flat cloudy daylight consistent with image 2, unchanged road and sidewalk. Preserve input 1's front and side silhouette, two-storey 10m wide 7.2m high 6m deep simple box, floor division, roof line and camera/framing. Main building right wall is BLANK solid plaster, no window or door.\nFront: exactly five separate window openings, W1 W2 wider and raised 0.6m above ground left of one far-right entrance D1; W3 W4 W5 are three identical upper windows. W1 x.8..3.4 and W2 x4.2..6.8 z.6..2.8; D1 x7.6..9 z0..2.6; upper openings x.8..2.8,4..6,7.2..9.2 z4.4..6.2. All windows have one central vertical mullion. Preserve solid sill walls. One long blank sign panel SZ1 x.8..9.2 z3..3.5. Do NOT invent a second side entrance.\nKeep the same two plain set-back neighboring volumes as shown by input1. Neighbor/background microtexture may differ but main building geometry must match the reference. No people, vehicles, vegetation hiding corners, signage lettering, balcony, canopy, labels, extra storefront, roof equipment. No collages. One 1536x1024 landscape photograph, full target building visible.",
+      "referenced_image_paths": [
+        "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-CF-02/instructor/DJ-CF-02_whitebox-02.png",
+        "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-CF-02/DJ-CF-02_existing-view-01.png",
+        "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-CF-02/DJ-CF-02_existing-elevation.png"
+      ],
+      "transparent_background": false
+    },
+    "inputSha256": {
+      "instructor/DJ-CF-02_whitebox-02.png": "b99d1b0d3e1c08acb70da9479e51f97e38193fb265872c51a7499e5e2dfd98c1",
+      "DJ-CF-02_existing-view-01.png": "ac1b728aa6451ced633e551677ef4cff737d0937ee9a3a370c800d0c59c9f655",
+      "DJ-CF-02_existing-elevation.png": "303ef0237da91bded9abe31cd535e4bfd1d2c86db54195b0319a15a14fe54864"
+    },
+    "sourceToolOutput": "C:\\Users\\deric\\.codex\\generated_images\\01a106c4-1768-75c2-9a8d-9a1cb683c730\\exec-c311687d-594e-4794-a95f-20be7d77644a.png",
+    "outputSha256": "98bd150fa388085868b91f740359728be522bc01d505d83cbb1201e3d205f193",
+    "pixels": [
+      1536,
+      1024
+    ],
+    "recordedAt": "2026-10-09T00:19:56.120553+09:00"
+  },
+  {
+    "asset": "DJ-CF-02_example-A.png",
+    "tool": "image_gen.imagegen (built-in)",
+    "backendModel": "not exposed by tool; not asserted as Nano Banana or Astra",
+    "attempt": 1,
+    "regenerated": true,
+    "postProcessing": "none; byte-identical tool output",
+    "promptFile": "instructor/DJ-CF-02_example-A-generation-prompt.txt",
+    "promptSha256": "503fde859627ec60eb230751615373948db922182d9cdcd17174da31ac9f49ee",
+    "exactToolArguments": {
+      "prompt": "Use case: precise-object-edit. Asset type: an educational architectural exterior renovation example. Edit the supplied original building photograph; it is the edit target and mandatory geometry/camera reference, not just inspiration. Preserve its exact framing, perspective, two-storey flat-roof mass, all facade edges, neighboring buildings, sidewalk, kerb, road, sky composition and daytime lighting. Preserve all five openings W1-W5 with exactly the original outer size and position, glazing subdivision and sill/head heights; preserve right-hand ground floor door D1 and the long blank sign zone SZ1. The nominal educational building is 13.60m wide, 8.20m deep, total9.60m high; this is a material renovation, do not rescale or redesign the photographed shell. Strategy A, entry focal point: Renovate ALL opaque facade walls on BOTH floors into a clean coherent warm light limestone / refined architectural stucco panel finish with subtle realistic fine mineral texture and restrained panel joints. Remove all grime and streaks on the target building. The full facade must read as one calm unified renovated building. Refine existing window frames, parapet coping, and the original blank sign band into matte dark bronze/charcoal metal, without changing their size or blocking glazing. At the EXISTING right-hand D1 doorway only, create a deep slim dark-bronze vertical architectural portal, a small very shallow cantilever canopy and subtle warm vertical concealed wallwash inside the portal. Keep the passage clear and the portal attached around the original door opening; do not enlarge the opening, add a second door, move any windows or enlarge the canopy over sidewalk. Daylight remains neutral; lights are a subtle accent, not dusk. High-quality photorealistic architecture photography, restrained modern commercial renovation, consistent physically plausible stone and bronze detail. No people, text, logos, signage lettering, extra storeys, balconies, foreground plants or new objects. Output one independent image same landscape composition as original. Keep geometry and context exact; change finishes and portal accents only.",
+      "referenced_image_paths": [
+        "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-CF-02/DJ-CF-02_existing-view-01.png"
+      ],
+      "transparent_background": false
+    },
+    "inputSha256": {
+      "DJ-CF-02_existing-view-01.png": "ac1b728aa6451ced633e551677ef4cff737d0937ee9a3a370c800d0c59c9f655"
+    },
+    "sourceToolOutput": "C:/Users/deric/.codex/generated_images/01a15269-da21-73d2-8863-69845a5e5cdd/exec-a8bde193-da02-475f-b11c-c4e39b092ba0.png",
+    "outputSha256": "85f261bbe9920dec92f024ec2682635efca59320c1374d8809698bf0d8276e79",
+    "pixels": [
+      1536,
+      1024
+    ],
+    "recordedAt": "2026-11-07T18:22:59.702753+00:00",
+    "visualReview": "Both floors unified light warm limestone; bronze portal/canopy at original door; five openings and context remain visually aligned.",
+    "dimensionalLimit": "Generative finish-edit examples; retain nominal educational drawing as dimensional authority. Visual alignment review is not pixel-identical projection proof."
+  },
+  {
+    "asset": "DJ-CF-02_example-B.png",
+    "tool": "image_gen.imagegen (built-in)",
+    "backendModel": "not exposed by tool; not asserted as Nano Banana or Astra",
+    "attempt": 2,
+    "regenerated": true,
+    "postProcessing": "second image_gen edit restored the two neighboring grey walls; no manual pixel compositing",
+    "promptFile": "instructor/DJ-CF-02_example-B-generation-prompt.txt",
+    "promptSha256": "840cc704e4891d9873fa3dc4293ca19e9c4f3fc6b894c97414a1e5b20659ce44",
+    "exactToolArguments": {
+      "prompt": "Use case: precise-object-edit. Asset type: an educational architectural exterior renovation example. Edit the supplied original building photograph. The original is the exact edit target for geometry and camera. Preserve its entire composition, camera/lens/perspective, two-storey flat-roof building mass, roofline, five windows W1-W5 in their EXACT positions/sizes/mullion arrangements, existing right-hand door D1, existing long blank sign zone SZ1, neighbors, sky, pavement/kerb and road. Preserve daytime conditions; do not change the shell proportions. Nominal educational setting13.60m wide x8.20m deep x9.60m tall; do not redraw or scale the source building. Strategy B, horizontal street rhythm: Renovate ALL opaque facade surfaces on BOTH floors with a refined warm-grey/beige travertine stone tone-on-tone family, with subtle natural horizontal mineral grain, not orange brick or orange tile. Lower plinth/pilasters and upper walls must be harmonious connected stone tones so one integrated building is read. Within the EXISTING SZ1 blank horizontal sign band only (11.40x0.65m nominal), introduce a sophisticated dark-bronze and muted dark-wood horizontal architectural louver band, with a fine continuous recessed warm linear grazing light under it. Do not extend it past SZ1, across or over any window or above the entrance opening. Keep all signs unlettered. Add restrained horizontal lintel/sill trim at existing window boundaries without covering/reducing glass, and THREE subtle small bronze wall lights spaced on opaque ground-floor wall piers. At right-hand D1 connect the horizontal lighting language to a quiet thin entry surround/light; the entry remains legible but no tall dominant vertical portal or projecting canopy. Refine existing frames and parapet coping in matte dark bronze. Preserve original glass opening extents and divisions. High-end photorealistic architecture photography, plausible tactile material detailing, clean renovated facade on both floors, no remaining weather-stains on target building. No people, text, logos, new openings, balconies, added floors or changed context. One independent landscape image, same framing and geometry as original.",
+      "referenced_image_paths": [
+        "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-CF-02/DJ-CF-02_existing-view-01.png"
+      ],
+      "transparent_background": false
+    },
+    "inputSha256": {
+      "DJ-CF-02_existing-view-01.png": "ac1b728aa6451ced633e551677ef4cff737d0937ee9a3a370c800d0c59c9f655"
+    },
+    "sourceToolOutput": "C:/Users/deric/.codex/generated_images/01a15269-da21-73d2-8863-69845a5e5cdd/exec-e0be757d-f240-4fe6-a02b-8ce8f39ac8e5.png",
+    "outputSha256": "212515b0cf07c6c753c99419c6a9bf17c9b946b6fc22e00da2cb3a35a2520091",
+    "pixels": [
+      1536,
+      1024
+    ],
+    "recordedAt": "2026-11-07T18:22:59.710754+00:00",
+    "visualReview": "Both floors unified travertine; SZ1 horizontal louvers and light; 3 wall lamps; first result changed flanking context, corrected using original reference.",
+    "dimensionalLimit": "Generative finish-edit examples; retain nominal educational drawing as dimensional authority. Visual alignment review is not pixel-identical projection proof.",
+    "refinements": [
+      {
+        "reason": "Initial edit changed neighboring low walls; restore the original context.",
+        "exactToolArguments": {
+          "prompt": "Precise local correction. Image1 is the current renovated B image to edit; Image2 is original photograph ONLY for the neighboring/context materials. In Image1 restore ONLY the TWO low flanking neighboring walls outside the narrow vertical gaps beside the main central two-storey box to their ORIGINAL light grey plain plaster/concrete appearance from Image2. Left flanking wall is approx x80..310, right flanking wall approxx1215..1465 in a1536wide image; these are context, not the project building. They must NOT have travertine texture or dark bronze coping. Match Image2's original grey color, seams, plinth and thin coping. Preserve Image1's CENTRAL renovated two-storey facade pixel geometry, warm-beige travertine, original five windows, dark bronze window trims, blank horizontal SZ1 louver strip/light, exactly three groundfloor wall lamps and the thin lit original right door surround. No redesign whatsoever. Keep camera/framing, roof height, opening shapes/sizes/locations and original neighbors/sky/sidewalk/road. Do not widen band or change objects. Output one landscape corrected B photograph. No new text logos or people.",
+          "referenced_image_paths": [
+            "C:/Users/deric/.codex/generated_images/01a15269-da21-73d2-8863-69845a5e5cdd/exec-3cea622c-5b8d-40eb-b1d6-81601f8aece4.png",
+            "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-CF-02/DJ-CF-02_existing-view-01.png"
+          ],
+          "transparent_background": false
+        },
+        "inputSha256": {
+          "initial-B-tool-output": "2e2da0feda9bf713deca28d19c051866ad495f8819e9873a624eed48e62685c7",
+          "DJ-CF-02_existing-view-01.png": "ac1b728aa6451ced633e551677ef4cff737d0937ee9a3a370c800d0c59c9f655"
+        },
+        "outputSha256": "212515b0cf07c6c753c99419c6a9bf17c9b946b6fc22e00da2cb3a35a2520091"
+      }
+    ]
+  }
+]

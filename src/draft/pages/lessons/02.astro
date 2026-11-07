@@ -50,7 +50,7 @@ const toc=tocGroups.flatMap(group=>group.items);
         <div class="review-question"><strong>내 업무에 적용하기</strong><p>반복해서 하는 일 하나를 고르고, 자동으로 처리할 부분과 사람이 결정할 부분을 각각 한 문장으로 적습니다. “알아서 만들어 주세요”에 빠진 조건을 찾아봅니다.</p></div>
       </ReviewSection>
       <ReviewSection {...sectionProps('l02-environment')} summary="ChatGPT Desktop에서 Codex와 실습 폴더를 연결하고 작업 범위를 확인합니다.">
-        <h3>본 실습 · ChatGPT Desktop + Codex</h3><p>Codex는 사람이 정한 요구사항과 구조를 실제 프로젝트 파일과 코드로 구현하는 도구입니다. 지금은 환경을 준비하고, 구현 전에 계획을 요청하는 방법까지 확인합니다.</p>
+        <h3>본 실습 · ChatGPT Desktop + Codex</h3><p>Codex는 사람이 정한 요구사항을 실제 프로젝트 파일과 코드로 구현하는 도구입니다. 빈 실습 폴더를 연결하고, 작은 기능부터 만들고 실행하는 단계별 실습을 준비합니다.</p>
         <ol class="lesson02-checklist" data-codex-environment>{environmentSteps.map(([title,note])=><li><strong>{title}</strong><p>{note}</p></li>)}</ol>
         <aside class="lesson02-decision" data-node-guidance><h3>Node.js LTS · 로컬 프로그램 실행환경</h3><p>Node.js는 Codex 자체를 설치하기 위한 필수요건이 아니라 이번 로컬 프로그램을 실행·테스트하기 위한 실행환경입니다. 명령 창에서 <code>node --version</code>으로 설치된 버전을 확인합니다.</p><p>제공하는 실행 예제의 기준은 README에 적힌 Node.js 22.23.2 이상인 LTS 버전입니다. 실제 확인한 최소 버전은 22.23.2이며, 모든 버전·PC의 동작을 보증한다는 뜻은 아닙니다.</p></aside>
         <p>CLI 방식의 Codex, Git, VS Code, WSL 설치는 이번 기본 실습의 필수조건이 아닙니다.</p>
@@ -77,27 +77,24 @@ const toc=tocGroups.flatMap(group=>group.items);
         <Lesson02ClassificationGuide />
         <div class="review-question"><strong>자동화의 경계 정하기</strong><p>이름이 모호한 파일까지 자동으로 보내면 어떤 문제가 생길까요? “사람확인으로 보내기”를 성공 조건에 포함해 봅니다.</p></div>
       </ReviewSection>
-      <ReviewSection {...sectionProps('l02-first-request')} summary="두 예제의 목적과 사람 판단 범위를 비교하고 구조부터 제안받습니다.">
-        <Lesson02AutomationPractice stage="choose" />
+      <ReviewSection {...sectionProps('l02-first-request')} summary="빈 실습 폴더에 감시·이동·실행과 종료의 기본 동작부터 만듭니다.">
+        <Lesson02AutomationPractice stage="step" step={1} />
       </ReviewSection>
-      <ReviewSection {...sectionProps('l02-plan-review')} summary="AI 답변과 사람이 정한 조건을 비교한 뒤 부족한 부분을 보완합니다.">
-        <Lesson02AutomationPractice stage="review" />
+      <ReviewSection {...sectionProps('l02-plan-review')} summary="같은 프로그램에 확장자·파일명 규칙과 99_분류확인 분기를 추가합니다.">
+        <Lesson02AutomationPractice stage="step" step={2} />
       </ReviewSection>
     </>}
     {periodIndex===2&&<>
-      <ReviewSection {...sectionProps('l02-implementation-spec')} summary="검토한 구조를 바탕으로 선택한 예제의 구현 범위와 확인 기준을 정합니다.">
-        <Lesson02AutomationPractice stage="spec" />
+      <ReviewSection {...sectionProps('l02-implementation-spec')} summary="같은 프로그램의 원본보관·SHA 중복·버전·임시파일 처리를 보완합니다.">
+        <Lesson02AutomationPractice stage="step" step={3} />
       </ReviewSection>
-      <ReviewSection {...sectionProps('l02-implement')} summary="검토한 계획을 프로젝트 파일로 만들고 필요한 수정과 기능 확인을 이어갑니다.">
-        <Lesson02AutomationPractice stage="implement" />
+      <ReviewSection {...sectionProps('l02-implement')} summary="브라우저 화면과 외부 자료 복사를 연결합니다. 전체 기능을 한 번에 만드는 통합 예시문도 함께 제공합니다.">
+        <Lesson02AutomationPractice stage="step" step={4} />
       </ReviewSection>
-      <ReviewSection {...sectionProps('l02-run')} summary="선택한 프로그램을 실행하고 직접 관찰한 결과를 기록합니다.">
+      <ReviewSection {...sectionProps('l02-run')} summary="프로그램을 실행하고 SORT_TEST 11개 기준표와 자동 분류·사람 확인 결과를 직접 비교합니다.">
         <Lesson02AutomationPractice stage="run" />
       </ReviewSection>
-      <ReviewSection {...sectionProps('l02-test')} summary="다른 예제를 빠르게 실행하며 자동 처리와 사람 판단의 차이를 살펴봅니다.">
-        <Lesson02AutomationPractice stage="try" />
-      </ReviewSection>
-      <ReviewSection {...sectionProps('l02-wrap-up')} summary="요구사항과 판단 범위, 직접 확인한 결과를 함께 정리합니다.">
+      <ReviewSection {...sectionProps('l02-wrap-up')} summary="작은 기능부터 구현하고 직접 확인하는 작업 방식을 다음 차시로 이어갑니다.">
         <Lesson02AutomationPractice stage="wrap" />
       </ReviewSection>
     </>}

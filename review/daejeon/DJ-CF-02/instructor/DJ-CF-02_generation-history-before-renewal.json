@@ -1,0 +1,123 @@
+{
+  "note": "Historical records before full-facade renewal; not the current A/B outputs.",
+  "records": [
+    {
+      "asset": "DJ-CF-02_existing-view-01.png",
+      "tool": "image_gen.imagegen (built-in)",
+      "backendModel": "not exposed by tool; not asserted as Nano Banana or Astra",
+      "attempt": 1,
+      "regenerated": false,
+      "postProcessing": "none; byte-identical copy of tool output",
+      "promptFile": "instructor\\DJ-CF-02_existing-view-01-generation-prompt.txt",
+      "promptSha256": "7fcddac73ea7329679639abce28ad9887fcb1dcb1a2bd4f68bfe9c935db0c21a",
+      "exactToolArguments": {
+        "prompt": "Use case: sketch-to-render.\nAsset type: DJ-CF-02 educational EXISTING exterior photograph, 1536x1024 landscape.\nInput image 1 is the exact camera/geometry target (whitebox front view). Input image 2 is the measured fictional elevation, only for checking geometry, never reproduce labels or paper.\nConvert the first image to a photorealistic daylight photograph of this exact ordinary two-storey Korean neighborhood commercial building before renovation. Preserve image 1's framing, camera, silhouette, roof line, relative feature sizes and all opening corners. Do not redesign.\nBuilding is 10m wide, 7.2m high. Pale warm grey painted cement plaster, modest age and subtle weathering, sound and occupied, not derelict. Aluminum grey window frames, subdued reflective glass, small ordinary glass entrance handle. Neutral overcast daytime, no dramatic cinematic lighting. Two plain neighboring buildings set back slightly and a level grey paved sidewalk/road remain in the same relationship.\nEXACT FRONT OPENINGS: one glass entry D1 on far right, two wider ground-floor windows W1 W2 to its left (sills above ground); exactly three distinct upper windows W3 W4 W5; each window has a single middle vertical mullion. These are five window openings plus one door, NOT six storefront doors. Keep solid wall below W1 and W2. D1 at grade with no steps. Blank grey horizontal sign panel SZ1 between floors. No letters or logos, no numbers. Right side has no openings.\nGeometry coordinates for cross-check only: x=0..10m; z=0..7.2m. D1 x7.6..9.0 z0..2.6. W1 x0.8..3.4 and W2 x4.2..6.8, z0.6..2.8. Upper W3 x0.8..2.8, W4 x4..6, W5 x7.2..9.2, all z4.4..6.2. SZ1 x0.8..9.2 z3..3.5. Roof slab line6.8, parapet top7.2.\nDo not add canopy, plants, balconies, large features, extra windows, extra entry, people, vehicles, trees hiding corners, wiring, signage text, annotations, borders or watermarks. Do not change perspective to a front orthographic drawing. Output one realistic photo filling the frame with geometry faithful to the first image.",
+        "referenced_image_paths": [
+          "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-CF-02/instructor/DJ-CF-02_whitebox-01.png",
+          "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-CF-02/DJ-CF-02_existing-elevation.png"
+        ],
+        "transparent_background": false
+      },
+      "inputSha256": {
+        "instructor/DJ-CF-02_whitebox-01.png": "cc8ca897126938219403f49af8afb1e2b51f997ab7e9130691b93374cdd0c3a0",
+        "DJ-CF-02_existing-elevation.png": "303ef0237da91bded9abe31cd535e4bfd1d2c86db54195b0319a15a14fe54864"
+      },
+      "sourceToolOutput": "C:\\Users\\deric\\.codex\\generated_images\\01a106c4-1768-75c2-9a8d-9a1cb683c730\\exec-8eb32008-80b8-4a07-ac58-6feb99e274a6.png",
+      "outputSha256": "ac1b728aa6451ced633e551677ef4cff737d0937ee9a3a370c800d0c59c9f655",
+      "pixels": [
+        1536,
+        1024
+      ],
+      "recordedAt": "2026-10-09T00:19:56.111553+09:00"
+    },
+    {
+      "asset": "DJ-CF-02_existing-view-02.png",
+      "tool": "image_gen.imagegen (built-in)",
+      "backendModel": "not exposed by tool; not asserted as Nano Banana or Astra",
+      "attempt": 1,
+      "regenerated": false,
+      "postProcessing": "none; byte-identical copy of tool output",
+      "promptFile": "instructor\\DJ-CF-02_existing-view-02-generation-prompt.txt",
+      "promptSha256": "17afd4ed3281e6300638f87f189f9189a3921a4bb5643ddf930ed125decb2f3a",
+      "exactToolArguments": {
+        "prompt": "Use case: sketch-to-render.\nMake photorealistic existing exterior IMAGE 02 of the SAME building as image 2, from the exact right-oblique camera and structure of image 1.\nInput 1: whitebox geometry/camera target. Input 2: approved front existing image, SAME BUILDING material/identity reference. Input 3: dimensioned elevation, opening-count/position check only.\nGeometry takes priority over material. Convert input 1 into a photograph with the pale warm grey aged plaster, dark grey aluminum mullions, grey empty sign band, subtle weathering and ordinary occupied condition of input 2. This is before renovation. Flat cloudy daylight consistent with image 2, unchanged road and sidewalk. Preserve input 1's front and side silhouette, two-storey 10m wide 7.2m high 6m deep simple box, floor division, roof line and camera/framing. Main building right wall is BLANK solid plaster, no window or door.\nFront: exactly five separate window openings, W1 W2 wider and raised 0.6m above ground left of one far-right entrance D1; W3 W4 W5 are three identical upper windows. W1 x.8..3.4 and W2 x4.2..6.8 z.6..2.8; D1 x7.6..9 z0..2.6; upper openings x.8..2.8,4..6,7.2..9.2 z4.4..6.2. All windows have one central vertical mullion. Preserve solid sill walls. One long blank sign panel SZ1 x.8..9.2 z3..3.5. Do NOT invent a second side entrance.\nKeep the same two plain set-back neighboring volumes as shown by input1. Neighbor/background microtexture may differ but main building geometry must match the reference. No people, vehicles, vegetation hiding corners, signage lettering, balcony, canopy, labels, extra storefront, roof equipment. No collages. One 1536x1024 landscape photograph, full target building visible.",
+        "referenced_image_paths": [
+          "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-CF-02/instructor/DJ-CF-02_whitebox-02.png",
+          "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-CF-02/DJ-CF-02_existing-view-01.png",
+          "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-CF-02/DJ-CF-02_existing-elevation.png"
+        ],
+        "transparent_background": false
+      },
+      "inputSha256": {
+        "instructor/DJ-CF-02_whitebox-02.png": "b99d1b0d3e1c08acb70da9479e51f97e38193fb265872c51a7499e5e2dfd98c1",
+        "DJ-CF-02_existing-view-01.png": "ac1b728aa6451ced633e551677ef4cff737d0937ee9a3a370c800d0c59c9f655",
+        "DJ-CF-02_existing-elevation.png": "303ef0237da91bded9abe31cd535e4bfd1d2c86db54195b0319a15a14fe54864"
+      },
+      "sourceToolOutput": "C:\\Users\\deric\\.codex\\generated_images\\01a106c4-1768-75c2-9a8d-9a1cb683c730\\exec-c311687d-594e-4794-a95f-20be7d77644a.png",
+      "outputSha256": "98bd150fa388085868b91f740359728be522bc01d505d83cbb1201e3d205f193",
+      "pixels": [
+        1536,
+        1024
+      ],
+      "recordedAt": "2026-10-09T00:19:56.120553+09:00"
+    },
+    {
+      "asset": "DJ-CF-02_example-A.png",
+      "tool": "image_gen.imagegen (built-in)",
+      "backendModel": "not exposed by tool; not asserted as Nano Banana or Astra",
+      "attempt": 1,
+      "regenerated": false,
+      "postProcessing": "none; byte-identical copy of tool output",
+      "promptFile": "instructor\\DJ-CF-02_example-A-generation-prompt.txt",
+      "promptSha256": "b37958656c8fa7d3bdc30992e404cad3dcccb0f486b68a09067eb573bc4154e8",
+      "exactToolArguments": {
+        "prompt": "Use case: precise-object-edit.\nAsset type: DJ-CF-02 instructor renovation example, one photorealistic 1536x1024 landscape image.\nINPUT 1 is the original existing PHOTO and exact edit target. INPUT 2 is the elevation geometry check only. Preserve input1 camera, composition, building outline and every opening edge exactly. Output same view as input1, NOT a new angle. Same overcast daytime. Keep every neighboring building, sidewalk/curb and road location unchanged.\nMANDATORY: same two-storey 10m-wide 7.2m-high box; same roof and floor lines. Exactly two broad ground windows at left with solid sill walls, one existing single entrance D1 at far right, exactly three upper windows. Five windows and one door total; preserve sizes, positions and central mullions. Keep the long SZ1 sign zone in original x.8..9.2 z3..3.5 area entirely blank. Do not turn wall joints into new openings. Do not change the door glazing/frame. Do not change the image crop or perspective. No text, numbers, logos, people or cars.\nOnly nonstructural finish/lighting concept changes specified below. No extension, new opening, balcony, roof addition, removed structure, planters in the public sidewalk. This is an educational concept, not a construction or code-compliance drawing.\nDESIGN STRATEGY A: FOCUSED ENTRY MARKER.\nExpress the brief's priority of immediately recognizing the shared entrance. Add a slender bronze-toned metal SURFACE portal closely surrounding D1: thin flat strips on the existing wall left and right of the door, ending below the sign zone, and a compact shallow matching canopy directly above D1 at roughly z2.75. Canopy width about1.9m, modest projection about0.45m, no columns. These are visual design proposals, not confirmed structural dimensions. A faint warm light under the small canopy. Preserve original door rectangle, do not conceal or expand it. Do not let portal cover SZ1 or W5. Make all remaining facade softly neutral light grey mineral plaster; keep SZ1 an understated empty matte grey strip. Only local doorway receives emphasis, rest restrained and comparable with neighbor context. No brick plinth, no broad facade cladding frames. Show convincing thin material finish and modest details, not a sculptural pavilion. Use subtle warm light still in overcast DAYLIGHT, no sunset. Keep all original geometry and surroundings.",
+        "referenced_image_paths": [
+          "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-CF-02/DJ-CF-02_existing-view-01.png",
+          "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-CF-02/DJ-CF-02_existing-elevation.png"
+        ],
+        "transparent_background": false
+      },
+      "inputSha256": {
+        "DJ-CF-02_existing-view-01.png": "ac1b728aa6451ced633e551677ef4cff737d0937ee9a3a370c800d0c59c9f655",
+        "DJ-CF-02_existing-elevation.png": "303ef0237da91bded9abe31cd535e4bfd1d2c86db54195b0319a15a14fe54864"
+      },
+      "sourceToolOutput": "C:\\Users\\deric\\.codex\\generated_images\\01a106c4-1768-75c2-9a8d-9a1cb683c730\\exec-e0dd8984-6a6c-46d6-8f08-45cecf9da4dd.png",
+      "outputSha256": "53d4e986a9ab62c826515aad7fcdec0f753975b1fadf96ab27b118994c3ca06b",
+      "pixels": [
+        1536,
+        1024
+      ],
+      "recordedAt": "2026-10-09T00:19:56.132553+09:00"
+    },
+    {
+      "asset": "DJ-CF-02_example-B.png",
+      "tool": "image_gen.imagegen (built-in)",
+      "backendModel": "not exposed by tool; not asserted as Nano Banana or Astra",
+      "attempt": 1,
+      "regenerated": false,
+      "postProcessing": "none; byte-identical copy of tool output",
+      "promptFile": "instructor\\DJ-CF-02_example-B-generation-prompt.txt",
+      "promptSha256": "572053cb69f9b4e712346c78ad13ed1c807d0504973d097af88480b4d62b908b",
+      "exactToolArguments": {
+        "prompt": "Use case: precise-object-edit.\nAsset type: DJ-CF-02 instructor renovation example, one photorealistic 1536x1024 landscape image.\nINPUT 1 is the original existing PHOTO and exact edit target. INPUT 2 is the elevation geometry check only. Preserve input1 camera, composition, building outline and every opening edge exactly. Output same view as input1, NOT a new angle. Same overcast daytime. Keep every neighboring building, sidewalk/curb and road location unchanged.\nMANDATORY: same two-storey 10m-wide 7.2m-high box; same roof and floor lines. Exactly two broad ground windows at left with solid sill walls, one existing single entrance D1 at far right, exactly three upper windows. Five windows and one door total; preserve sizes, positions and central mullions. Keep the long SZ1 sign zone in original x.8..9.2 z3..3.5 area entirely blank. Do not turn wall joints into new openings. Do not change the door glazing/frame. Do not change the image crop or perspective. No text, numbers, logos, people or cars.\nOnly nonstructural finish/lighting concept changes specified below. No extension, new opening, balcony, roof addition, removed structure, planters in the public sidewalk. This is an educational concept, not a construction or code-compliance drawing.\nDESIGN STRATEGY B: CONTINUOUS STREET-FRONT RHYTHM.\nExpress the brief's alternative of linking ground commerce to the upper building through a calm horizontal frontage. On ONLY the opaque ground-floor wall surfaces up to the existing floor line, apply muted warm terracotta thin-brick finish with realistic small joints, keeping every window and door rectangle exactly as original. Upper storey is light warm grey mineral plaster. SZ1 stays a SINGLE empty horizontal charcoal-grey panel in its original rectangle, with a very subtle warm linear light at its bottom edge. No letters. Add three small matching simple wall lights on existing solid ground-floor piers (left edge, between the two ground windows, and immediately left of D1), plus understated light at the D1 head. These form a repeated rhythm without covering glazing. No projecting canopy and no vertical entry portal. Keep D1 recognizable with a modest warm light near it, not a new doorway. Do not build raised planter, bench, terrace or steps. Materials must read as surface renewal, not enlarged building or thick new structure. Compare in exactly the same cloudy DAYLIGHT as original and exampleA. Emphasize horizontal unity of whole street face instead of only the doorway. Keep all original geometry and surroundings.",
+        "referenced_image_paths": [
+          "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-CF-02/DJ-CF-02_existing-view-01.png",
+          "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-CF-02/DJ-CF-02_existing-elevation.png"
+        ],
+        "transparent_background": false
+      },
+      "inputSha256": {
+        "DJ-CF-02_existing-view-01.png": "ac1b728aa6451ced633e551677ef4cff737d0937ee9a3a370c800d0c59c9f655",
+        "DJ-CF-02_existing-elevation.png": "303ef0237da91bded9abe31cd535e4bfd1d2c86db54195b0319a15a14fe54864"
+      },
+      "sourceToolOutput": "C:\\Users\\deric\\.codex\\generated_images\\01a106c4-1768-75c2-9a8d-9a1cb683c730\\exec-9e7ccab1-892f-4ebe-a9ba-f4c66a95b7c9.png",
+      "outputSha256": "4811ed9e74d2ef6aab2b6d0f7e95fa60964fe8cf91927e24180b6bd107643ee7",
+      "pixels": [
+        1536,
+        1024
+      ],
+      "recordedAt": "2026-10-09T00:19:56.144557+09:00"
+    }
+  ]
+}

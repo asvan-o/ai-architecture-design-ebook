@@ -33,7 +33,7 @@ export const packages = [
     exclude:'출입구·창호 이동·확대·추가, 증축·구조 변경·발코니·도로 변경·실내/설비/시공 상세·문자·로고·보도 점유',
     diagramRole:'기준 입면도는 13.60×8.20×H9.60m·1층 명목 111.5㎡·두 층 223.0㎡의 교육용 설정입니다. IMAGE 01은 편집 원본, IMAGE 02는 측면 시각 참고이며 기존 이미지·A/B와 새 도면의 정밀 투영 일치를 보증하지 않습니다.',
     strategyNames:['입구의 한 점 강조','거리의 수평 리듬'],
-    assets:[...common, ...['png','pdf'].map((ext)=>[`existing-elevation.${ext}`,`기준 입면도 ${ext.toUpperCase()}`,'rfp']), ...['01','02'].map((n)=>[`existing-view-${n}.png`,`현황 IMAGE ${n} PNG`,n==='01'?'early':'rfp']),
+    assets:[...common, ['comparison-note.md','외관 리뉴얼 A/B 전략·비교 안내 MD','example'], ...['A','B'].map((letter)=>[`image-prompt-${letter}.txt`,`전략 ${letter} 완성 실행예시 TXT · 동일 내용 별칭`,'example']), ...['png','pdf'].map((ext)=>[`existing-elevation.${ext}`,`기준 입면도 ${ext.toUpperCase()}`,'rfp']), ...['01','02'].map((n)=>[`existing-view-${n}.png`,`현황 IMAGE ${n} PNG`,n==='01'?'early':'rfp']),
       ['example-A-generation-prompt.txt','실제 생성 Prompt A · 생성 기록','evidence'],['example-B-generation-prompt.txt','실제 생성 Prompt B · 생성 기록','evidence']] },
 ].map((project)=>({...project, assets:project.assets.map(([suffix,label,stage])=>({file:`${project.id}_${suffix}`,label,stage}))}));
 export const originalPath = (id,file) => path.join(repositoryRoot, 'review','daejeon',id, ...(id==='DJ-CF-02' && file.endsWith('-generation-prompt.txt')?['instructor']:[]), file);

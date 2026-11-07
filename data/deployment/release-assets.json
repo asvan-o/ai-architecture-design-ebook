@@ -4,8 +4,8 @@
   "tag": "course-materials-2026-10-19-v1",
   "basePath": "/ai-architecture-design-ebook",
   "maximumPagesBytes": 990000000,
-  "sourceBytes": 1962848720,
-  "pagesBytesBeforeMetadata": 613255077,
+  "sourceBytes": 2013078906,
+  "pagesBytesBeforeMetadata": 612553458,
   "files": [
     {
       "path": "downloads/ai-architecture-design-course_2026-08-27.pdf",
@@ -843,8 +843,8 @@
     {
       "path": "daejeon/practice/DJ-CF-02/DJ-CF-02_RFP-draft.pdf",
       "assetName": "DJ-CF-02_RFP-draft.pdf",
-      "bytes": 7219323,
-      "sha256": "7b77e51adbd5d80a17c174705aba7e966e294046886257e95ab86bd5ed670705",
+      "bytes": 7219307,
+      "sha256": "e79feedb6b1c92fa101460e174397418049bedf893eb972cf1aaa66df9fde82a",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-CF-02_RFP-draft.pdf"
     },
     {
@@ -857,23 +857,23 @@
     {
       "path": "daejeon/practice/DJ-CF-02/DJ-CF-02_participant-worksheet-draft.pdf",
       "assetName": "DJ-CF-02_participant-worksheet-draft.pdf",
-      "bytes": 90210,
-      "sha256": "2e35ab7a430c676593d565be35394c0cf505ae62bfcccd6f0ef28d7969add26e",
+      "bytes": 6881853,
+      "sha256": "e049aabd5e601b929e2117ef8b856ceac53d26e89fa1e9aa463863fdf9084b03",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-CF-02_participant-worksheet-draft.pdf"
     },
     {
-      "path": "daejeon/practice/DJ-L02/automation/B/DRAWING_QUICK_CHECK_PROGRAM.zip",
-      "assetName": "DRAWING_QUICK_CHECK_PROGRAM.zip",
-      "bytes": 13855,
-      "sha256": "7436724f70bc7649d5f2d209d2cb003dee5ffbb4e9f3c8b9ee98745aa3c80370",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DRAWING_QUICK_CHECK_PROGRAM.zip"
+      "path": "daejeon/practice/DJ-L01/DJ-L01-rfp-and-brief.zip",
+      "assetName": "DJ-L01-rfp-and-brief.zip",
+      "bytes": 37935478,
+      "sha256": "164922f16f248ad27c9a38eb4d00d86756f60b11cebee865aad105b8454e10b6",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L01-rfp-and-brief.zip"
     },
     {
-      "path": "daejeon/practice/DJ-L02/automation/B/DRAWING_QUICK_CHECK_TEST.zip",
-      "assetName": "DRAWING_QUICK_CHECK_TEST.zip",
-      "bytes": 10958,
-      "sha256": "197cf08baf5d79e2d514fa32348e5bfff38dd04cc9954132e347d50451947323",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DRAWING_QUICK_CHECK_TEST.zip"
+      "path": "daejeon/practice/DJ-L02/automation/A/DJ-L02_VIBE_CODING_PRACTICE.zip",
+      "assetName": "DJ-L02_VIBE_CODING_PRACTICE.zip",
+      "bytes": 6229513,
+      "sha256": "1de80add84ebc426b21e394e04e6c3fdb494a15bb556c9a5c99a5ee3299d8999",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L02_VIBE_CODING_PRACTICE.zip"
     },
     {
       "path": "daejeon/practice/DJ-L02/file-sorter/DJ-L02_FILE_SORTER_PROGRAM.zip",

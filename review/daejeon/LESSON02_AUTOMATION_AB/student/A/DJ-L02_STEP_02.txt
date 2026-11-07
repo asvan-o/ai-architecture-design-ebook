@@ -1,0 +1,6 @@
+앞 단계에서 만든 AI_파일자동정리 프로그램을 이어서 실제로 수정해 주세요. 새 프로그램을 따로 만들지 마세요.
+app/classifier.js와 rules.json에 직접 분류 규칙을 추가해 주세요: .dwg/.dxf→01_CAD도면, .rvt/.ifc/.skp→02_BIM건축모델, .blend/.fbx/.abc→05_3D모델, .e57/.las→06_포인트클라우드, .docx/.txt/.md→07_문서, .mp4/.mov→08_영상, .xlsx/.csv/.json→09_데이터, .zip/.7z→10_압축파일, .psd/.ai→11_디자인소스.
+PNG·JPG·PDF 등 용도가 애매한 파일만 파일명 단서를 확인해 주세요. floorplan/elevation→01_CAD도면, ref/material/lighting→03_레퍼런스, render/final→04_이미지결과, report/proposal→07_문서로 보내 주세요.
+영문 단서는 밑줄·하이픈·공백 등으로 나뉜 단어 전체로 비교해 주세요. 같은 분류 단어가 여러 개 있는 것은 충돌이 아니고, 서로 다른 분류가 겹치거나 단서가 없거나 미등록 확장자이면 99_분류확인으로 보내 주세요.
+파일 내부 의미를 AI로 분석하거나 외부 API를 호출하지 마세요. 기존 감시·원본보관·실행/종료 기능과 실습 폴더 밖 접근 금지는 유지해 주세요.
+floorplan.png, material_ref_oak.png, material_floorplan.png, image001.png 시험 복사본으로 자동 분류와 사람 확인을 실제로 비교해 주세요.

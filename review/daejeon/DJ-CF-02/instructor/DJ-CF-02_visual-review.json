@@ -1,0 +1,34 @@
+{
+  "scope": "Current full-facade A/B examples",
+  "tool": "Codex visual self-check, not independent reviewer approval",
+  "files": [
+    {
+      "asset": "DJ-CF-02_example-A.png",
+      "outputSha256": "85f261bbe9920dec92f024ec2682635efca59320c1374d8809698bf0d8276e79",
+      "pixels": [
+        1536,
+        1024
+      ],
+      "visualReview": "Both floors unified light warm limestone; bronze portal/canopy at original door; five openings and context remain visually aligned.",
+      "dimensionalLimit": "Generative finish-edit examples; retain nominal educational drawing as dimensional authority. Visual alignment review is not pixel-identical projection proof."
+    },
+    {
+      "asset": "DJ-CF-02_example-B.png",
+      "outputSha256": "212515b0cf07c6c753c99419c6a9bf17c9b946b6fc22e00da2cb3a35a2520091",
+      "pixels": [
+        1536,
+        1024
+      ],
+      "visualReview": "Both floors unified travertine; SZ1 horizontal louvers and light; 3 wall lamps; first result changed flanking context, corrected using original reference.",
+      "dimensionalLimit": "Generative finish-edit examples; retain nominal educational drawing as dimensional authority. Visual alignment review is not pixel-identical projection proof."
+    }
+  ],
+  "checks": {
+    "twoFloorsRenewed": true,
+    "fiveWindowOpeningsRetainedVisually": true,
+    "originalDoorAndSignZoneRetainedVisually": true,
+    "neighborContextCorrectionApplied": true,
+    "newTextOrPeople": false
+  },
+  "limits": "Generative finish-edit examples; retain nominal educational drawing as dimensional authority. Visual alignment review is not pixel-identical projection proof."
+}

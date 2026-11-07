@@ -54,29 +54,44 @@
       "sha256": "1d98ab970a07afa52eed68e0df637d236dc7af76f1f07c48331843de36c838e9"
     },
     {
-      "file": "A_UI_AUTOMATIC.png",
-      "bytes": 47625,
-      "sha256": "45490c09321917d32bc0f62e0c4ccfee3ba8ed610d617ad19b72f8685676a27a"
-    },
-    {
-      "file": "A_UI_DESKTOP.png",
-      "bytes": 215435,
-      "sha256": "65e7a5de085cad018f9233c80c83d495b1189704a4dfdc450d5f278da4e2b167"
-    },
-    {
-      "file": "A_UI_MOBILE.png",
-      "bytes": 213595,
-      "sha256": "cdb3c2c7ad883434fb6337bfc7d34c820518e5ddab1fc73c06cdfd1295858444"
-    },
-    {
-      "file": "A_UI_PENDING.png",
-      "bytes": 98648,
-      "sha256": "7175ee2c33337f885cba15248139d5060e7c3c2086e7183b1aeea42d8342d2d4"
-    },
-    {
       "file": "A_VERIFICATION_SUMMARY.txt",
       "bytes": 1295,
       "sha256": "a0a6ab9191e07a7e3e796695845a7f53fcf0c2b41f908405b59c8b4eb02f2205"
+    },
+    {
+      "file": "DJ-L02_INTEGRATED_PROMPT.txt",
+      "bytes": 4022,
+      "sha256": "3500ac7fe29900a0c1a7bbcccafe939c4f4cff596bc132c766fec9bd54b69204"
+    },
+    {
+      "file": "DJ-L02_STEP_01.txt",
+      "bytes": 1249,
+      "sha256": "51de1c274b2244e57ff38291a965d8b5be0201abe60e50492a3d970479fe180f"
+    },
+    {
+      "file": "DJ-L02_STEP_02.txt",
+      "bytes": 1403,
+      "sha256": "03ecb218181cddb6c687d01dad2a17d98f49d1df5585ea146b998fe2a5ddcf26"
+    },
+    {
+      "file": "DJ-L02_STEP_03.txt",
+      "bytes": 1144,
+      "sha256": "4e5083d4b4c4dce09eaea2f28f7b4178aa1ef5b1c36e0ff71e495a2b0b04b9bf"
+    },
+    {
+      "file": "DJ-L02_STEP_04.txt",
+      "bytes": 1423,
+      "sha256": "5fe9c09eea2399f63dc9f5352c9291e6dc4ba70f1c99b68a7d7319374a306169"
+    },
+    {
+      "file": "DJ-L02_VIBE_CODING_PRACTICE.zip",
+      "bytes": 6229513,
+      "sha256": "1de80add84ebc426b21e394e04e6c3fdb494a15bb556c9a5c99a5ee3299d8999"
+    },
+    {
+      "file": "DJ-L02_VIBE_CODING_README.txt",
+      "bytes": 2322,
+      "sha256": "09ff678926ddf2a5d6a8a88ad3f7459cb3b5626ffde502b73d725105a961759f"
     }
   ],
   "packages": [
@@ -93,5 +108,6 @@
       "sha256": "383e72e279f8d3262ec0852e9211bc5d5c47539ad2b47a067d8813cdb5f36c8c"
     }
   ],
-  "fixtureContentSyncScope": "교육용 기준 도면/워크시트 수치·분석 항목 동기화. 분류 파일명·확장자·예상 폴더 및 프로그램 기능은 변경하지 않음. 과거 실행 결과와 이번 파일 내용·무결성 점검을 구분함."
+  "fixtureContentSyncScope": "교육용 기준 도면/워크시트 수치·분석 항목 동기화. 분류 파일명·확장자·예상 폴더 및 프로그램 기능은 변경하지 않음. 과거 실행 결과와 이번 파일 내용·무결성 점검을 구분함.",
+  "practiceFlow": "Step 1~4 and one integrated prompt; the original verified program/test ZIPs are byte-identical."
 }

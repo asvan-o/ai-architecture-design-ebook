@@ -7,7 +7,8 @@ import {packages,originalPath,generatedPrompts,repositoryRoot} from './daejeon-r
 import {reusedLesson02Files} from './daejeon-gwangju-reuse.mjs';
 import {lesson02Images} from './daejeon-lesson02-assets.mjs';
 import {lesson02ProgramAssets} from './daejeon-file-sorter-assets.mjs';
-import {automationAssets,assertAutomationVerified,drawingDemoFiles} from './daejeon-automation-ab-assets.mjs';
+import {automationAssets,assertAutomationVerified} from './daejeon-automation-ab-assets.mjs';
+import {workbookRenewalAssets} from './workbook-renewal-assets.mjs';
 import {lesson03SampleImages,lesson03SamplePrompts,lesson03WarmAnalysis} from './daejeon-lesson03-assets.mjs';
 import {lesson04Assets} from './daejeon-lesson04-assets.mjs';
 import {lesson04ApplicationAssets} from './daejeon-lesson04-applications.mjs';
@@ -43,8 +44,7 @@ export function getDaejeonLocalAssets(){
   const sourceFiles=packages.flatMap(p=>p.assets.map(a=>({outputPath:'practice/'+p.id+'/'+a.file,source:originalPath(p.id,a.file)})));
   const prompts=generatedPrompts().map(p=>({outputPath:p.file,text:p.text+'\n'}));
   const reused=reusedLesson02Files.map(f=>({outputPath:f.outputPath||'practice/GW-L02/'+f.file,source:path.join(repositoryRoot,f.source)}));
-  const aliases=drawingDemoFiles.map(f=>({...f,outputPath:'practice/DJ-L02-B/demo/'+f.file}));
-  const items=[...sourceFiles,...prompts,...reused,...lesson02Images,...lesson02ProgramAssets,...automationAssets,...aliases,...lesson03SampleImages,...lesson03SamplePrompts,lesson03WarmAnalysis,...lesson04Assets,...lesson04ApplicationAssets,...lesson05Assets,...lesson06Assets,...getLesson07Assets(),...getLesson08Assets(),...getLesson0910Assets(),...getLesson111213Assets(),...getDaejeonTextbookPdfs()];
+  const items=[...sourceFiles,...prompts,...reused,...lesson02Images,...lesson02ProgramAssets,...automationAssets,...workbookRenewalAssets,...lesson03SampleImages,...lesson03SamplePrompts,lesson03WarmAnalysis,...lesson04Assets,...lesson04ApplicationAssets,...lesson05Assets,...lesson06Assets,...getLesson07Assets(),...getLesson08Assets(),...getLesson0910Assets(),...getLesson111213Assets(),...getDaejeonTextbookPdfs()];
   const entries=new Map();
   for(const item of items){
     const bytes=item.source?readFileSync(item.source):Buffer.from(item.text);
