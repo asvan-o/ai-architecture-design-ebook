@@ -15,6 +15,7 @@ const common = [
   ...['A','B'].flatMap((letter) => [
     [`example-${letter}.png`,`교육용 적용 예시 ${letter} PNG`,'example'],
     [`example-${letter}-prompt.txt`,`적용 예시 ${letter} 학습 Prompt TXT`,'example'],
+    [`example-${letter}-execution-prompt.txt`,`전략 ${letter} 완성 실행예시 TXT`,'example'],
   ]),
 ];
 export const packages = [

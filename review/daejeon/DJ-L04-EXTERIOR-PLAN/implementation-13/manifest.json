@@ -742,5 +742,19 @@
       "bytes": 2417644
     }
   ],
-  "revision": "04"
+  "revision": "04",
+  "checksumScope": {
+    "file": "SHA256SUMS.txt",
+    "relativeTo": "DJ-L04/",
+    "description": "압축을 푼 DJ-L04/ 전체 학생용 자료를 검증하며 application/SHA256SUMS.txt도 포함합니다.",
+    "selfHashExcluded": true,
+    "containerZipExcluded": true,
+    "manifestHashesOnlyPayload": true,
+    "dependencyOrder": [
+      "application/manifest.json",
+      "application/SHA256SUMS.txt",
+      "manifest.json",
+      "SHA256SUMS.txt"
+    ]
+  }
 }

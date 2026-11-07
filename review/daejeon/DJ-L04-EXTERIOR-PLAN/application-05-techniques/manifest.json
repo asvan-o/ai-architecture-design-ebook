@@ -1239,5 +1239,13 @@
   "revision": "04",
   "imageCount": 13,
   "comparisonCount": 14,
-  "downloadZip": "DJ-L04-exterior-applications.zip"
+  "downloadZip": "DJ-L04-exterior-applications.zip",
+  "checksumScope": {
+    "file": "SHA256SUMS.txt",
+    "relativeTo": "DJ-L04/application/",
+    "description": "압축을 푼 application/ 하위 학생용 자료와 manifest.json을 검증합니다.",
+    "selfHashExcluded": true,
+    "containerZipExcluded": true,
+    "manifestHashesOnlyPayload": true
+  }
 }

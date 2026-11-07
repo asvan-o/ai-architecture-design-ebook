@@ -5,6 +5,13 @@
   "productionManifest": false,
   "assets": [
     {
+      "file": "DJ-CF-01_RFP-draft.pdf",
+      "sha256": "4e782a8bd2fdad638364696b7f5b5bf9fdd5a3860ef44e573f4fa175607821f7",
+      "bytes": 8552707,
+      "status": "review-draft",
+      "pages": 6
+    },
+    {
       "file": "DJ-CF-01_design-brief-prompt.txt",
       "sha256": "28bbf1593adc94ec765e0e5017e9b013ce02d8e0d111638142ffc1dbcde88df5",
       "bytes": 1898,
@@ -15,6 +22,12 @@
       "sha256": "b2def743e33459af5a9427da1df1cd9ea45bd9ab6fbf6d0cbc7ff19ea281841a",
       "bytes": 12245,
       "status": "review-draft"
+    },
+    {
+      "file": "DJ-CF-01_example-A-execution-prompt.txt",
+      "sha256": "05b07ecfb8a3dd3b05b61d7e5abd0d6d32024a029343fd64a256f49e041d8a65",
+      "bytes": 1056,
+      "status": "educational-execution-example"
     },
     {
       "file": "DJ-CF-01_example-A-generation-prompt.txt",
@@ -37,6 +50,12 @@
         1536,
         1024
       ]
+    },
+    {
+      "file": "DJ-CF-01_example-B-execution-prompt.txt",
+      "sha256": "81d8332c1c2aa4fbeadcdef4c20cedfd2d71bca7f1087ac16b19c4fb623b965a",
+      "bytes": 1112,
+      "status": "educational-execution-example"
     },
     {
       "file": "DJ-CF-01_example-B-generation-prompt.txt",
@@ -155,13 +174,6 @@
       "sha256": "df74569d1186a7a85f348da494a196c8adc57d4241301961832a990d5f919334",
       "bytes": 6871,
       "status": "review-draft"
-    },
-    {
-      "file": "DJ-CF-01_RFP-draft.pdf",
-      "sha256": "4e782a8bd2fdad638364696b7f5b5bf9fdd5a3860ef44e573f4fa175607821f7",
-      "bytes": 8552707,
-      "status": "review-draft",
-      "pages": 6
     }
   ]
 }

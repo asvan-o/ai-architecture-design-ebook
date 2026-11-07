@@ -45,6 +45,8 @@
   article > img { max-height: 170mm !important; }
   svg { max-width: 100% !important; height: auto; max-height: 185mm; overflow: visible; }
   figcaption { font-size: 8.5pt !important; line-height: 1.45 !important; margin: 2mm 0 3mm !important; break-before: avoid-page !important; }
+  html[data-workbook-print-lesson="01"] #ab-generation figure { break-after: avoid-page !important; }
+  html[data-workbook-print-lesson="01"] #ab-generation figure + p { break-before: avoid-page !important; }
   .workbook-print-drawing-scale-note { font-size: 8pt !important; line-height: 1.45 !important; color: #46575c !important; margin: 2mm 0 3mm !important; break-before: avoid-page !important; }
   html[data-workbook-print-lesson="05"] [data-l05-precision-downloads] { break-inside: avoid-page !important; }
   html[data-workbook-print-lesson="05"] [data-l05-precision-downloads] a.review-download { display: inline !important; padding: 0 !important; margin: 0 !important; border: 0 !important; background: none !important; font: inherit !important; }
