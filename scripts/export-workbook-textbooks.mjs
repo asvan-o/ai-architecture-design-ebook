@@ -78,7 +78,7 @@ try{
    const sourceText=main.textContent;
    const details=[...main.querySelectorAll('details')].map(d=>{
     const summary=d.querySelector(':scope > summary')?.textContent.trim()||'';
-    const closed=d.hasAttribute('data-implementation-spec')||(key==='07'&&/학습용 상세 지시 구조 참고/.test(summary))||Boolean(d.closest('[data-instructor-reference],.instructor-notes'));
+    const closed=d.hasAttribute('data-implementation-spec')||d.hasAttribute('data-optional-prompt-template')||(key==='07'&&/학습용 상세 지시 구조 참고/.test(summary))||Boolean(d.closest('[data-instructor-reference],.instructor-notes'));
     d.open=!closed;return{summary,open:d.open,reason:closed?'optional implementation/long prompt reference':'learning explanation/reference'};
    });
    main.querySelectorAll('[data-pdf-updated-at],.pdf-version,.pdf-updated-at,.pdf-reference-date').forEach(e=>{e.dataset.workbookPrintOmit='date';e.style.display='none';});

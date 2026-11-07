@@ -50,6 +50,7 @@
   .workbook-print-drawing-scale-note { font-size: 8pt !important; line-height: 1.45 !important; color: #46575c !important; margin: 2mm 0 3mm !important; break-before: avoid-page !important; }
   html[data-workbook-print-lesson="05"] [data-l05-precision-downloads] { break-inside: avoid-page !important; }
   html[data-workbook-print-lesson="05"] [data-l05-precision-downloads] a.review-download { display: inline !important; padding: 0 !important; margin: 0 !important; border: 0 !important; background: none !important; font: inherit !important; }
+  html[data-workbook-print-lesson="06"] [data-l06-downloads] ul a.review-download { display: inline !important; padding: 0 !important; margin: 0 !important; border: 0 !important; background: none !important; font: inherit !important; }
   table { width: 100% !important; table-layout: fixed; border-collapse: collapse; font-size: 8.5pt !important; break-inside: auto !important; }
   .review-page main table { display: table !important; }
   .review-page main table tbody { display: table-row-group !important; }
@@ -78,6 +79,17 @@
   .workbook-print-one-column { display: block !important; }
   .workbook-print-one-column > * + * { margin-top: 3mm !important; }
   .l03-record-card, .result-card { break-inside: avoid-page !important; }
+  html[data-workbook-print-lesson="02"] #l02-wrap-up details[data-test-prompt] { display: none !important; }
+  html[data-workbook-print-lesson="02"] #l02-wrap-up { padding-top: 3mm !important; padding-bottom: 2mm !important; }
+  html[data-workbook-print-lesson="02"] #l02-wrap-up p,
+  html[data-workbook-print-lesson="02"] #l02-wrap-up li { margin: 1mm 0 !important; }
+  html[data-workbook-print-lesson="02"] #l02-wrap-up h3 { margin: 2mm 0 !important; }
+  html[data-workbook-print-lesson="03"] #l03-next details[data-l03-records] { display: none !important; }
+  html[data-workbook-print-lesson="03"] #l03-next { padding-top: 3mm !important; padding-bottom: 2mm !important; }
+  html[data-workbook-print-lesson="03"] #l03-next p,
+  html[data-workbook-print-lesson="03"] #l03-next li { margin: 1mm 0 !important; }
+  html[data-workbook-print-lesson="03"] #l03-next h3 { margin: 2mm 0 !important; }
+  html[data-workbook-print-lesson="07"] .l07-equation { break-inside: avoid-page !important; }
   html[data-workbook-print-lesson="07"] #l07-handover { padding-top: 3mm !important; padding-bottom: 2mm !important; }
   html[data-workbook-print-lesson="07"] #l07-handover p,
   html[data-workbook-print-lesson="07"] #l07-handover li { margin: 1mm 0 !important; }
