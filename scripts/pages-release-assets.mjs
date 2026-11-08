@@ -20,6 +20,11 @@ export const defaultConfig = {
   basePath: '/ai-architecture-design-ebook',
   maximumPagesBytes: 990_000_000,
 };
+// This one approved ZIP also stays on Pages when GitHub's public asset URL is
+// unavailable. Its original Release mapping and binary remain unchanged.
+export function isLocalReleaseMirror(relative) {
+  return publicReleasePath(relative) === 'workbook/practice/DJ-L04/application/DJ-L04-exterior-applications.zip';
+}
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
 export async function listFiles(root) {
   const result = [];
@@ -65,7 +70,7 @@ export async function makeReleasePlan(root, config = defaultConfig) {
     files.push({ path: relative, assetName, bytes, sha256: digest,
       url: approved?.url ?? `https://github.com/${config.repository}/releases/download/${config.tag}/${encodeURIComponent(assetName)}` });
   }
-  return { schemaVersion: 1, ...config, sourceBytes, pagesBytesBeforeMetadata: sourceBytes - files.reduce((s, f) => s + f.bytes, 0), files };
+  return { schemaVersion: 1, ...config, sourceBytes, pagesBytesBeforeMetadata: sourceBytes - files.reduce((s, f) => s + (isLocalReleaseMirror(f.path) ? 0 : f.bytes), 0), files };
 }
 export function rewriteAssetUrl(value, pagePath, plan) {
   let parsed;
@@ -76,12 +81,14 @@ export function rewriteAssetUrl(value, pagePath, plan) {
   try { decoded = decodeURIComponent(parsed.pathname); } catch { return value; }
   const prefix = plan.basePath + '/';
   if (!decoded.startsWith(prefix)) return value;
+  if (isLocalReleaseMirror(decoded.slice(prefix.length))) return value;
   const match = plan.files.find(file => file.path === decoded.slice(prefix.length));
   return match ? match.url + parsed.search + parsed.hash : value;
 }
 export function rewriteText(source, relative, plan) {
   // First replace absolute URLs, including JSON-escaped and percent-encoded paths.
   for (const file of plan.files) {
+    if (isLocalReleaseMirror(file.path)) continue;
     const local = plan.basePath + '/' + file.path;
     const encoded = plan.basePath + '/' + file.path.split('/').map(encodeURIComponent).join('/');
     for (const value of new Set([local, encoded, encodeURI(local)])) {
@@ -116,7 +123,7 @@ export async function preparePages({ root, output, manifest, config = defaultCon
   }
   const byPath=files=>files.toSorted((a,b)=>a.path.localeCompare(b.path));
   assert.deepEqual(byPath(plan.files),byPath(expected.files.map(f=>({...f,path:publicReleasePath(f.path)}))),'Release mapping or immutable bytes differ');
-  const moved = new Set(plan.files.map(file => file.path));
+  const moved = new Set(plan.files.filter(file => !isLocalReleaseMirror(file.path)).map(file => file.path));
   // Both absolute paths are asserted above, and only generated dist/pages is replaced.
   await rm(output, { recursive: true, force: true });
   for (const file of await listFiles(root)) {
@@ -130,17 +137,27 @@ export async function preparePages({ root, output, manifest, config = defaultCon
   }
   // Old bookmarks still reach a browser redirect; live ebook buttons use direct URLs.
   for (const file of plan.files) {
+    if (isLocalReleaseMirror(file.path)) continue;
     const target = path.join(output, file.path, 'index.html');
     await mkdir(path.dirname(target), { recursive: true });
     const url = file.url.replaceAll('&', '&amp;').replaceAll('"', '&quot;');
     await writeFile(target, `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><meta http-equiv="refresh" content="0;url=${url}"><title>실습자료 다운로드</title></head><body><a href="${url}">실습자료 다운로드</a></body></html>`);
+  }
+  const localReleaseMirrors = [];
+  for (const file of plan.files.filter(file => isLocalReleaseMirror(file.path))) {
+    const approved = approvedRelease.files.find(item => item.path === legacyReleasePath(file.path));
+    assert(approved, 'A local Release mirror must have an existing approval: ' + file.path);
+    const bytes = await readFile(path.join(output, file.path));
+    assert.equal(bytes.length, approved.bytes, 'Local Release mirror size changed: ' + file.path);
+    assert.equal(sha(bytes), approved.sha256, 'Local Release mirror hash changed: ' + file.path);
+    localReleaseMirrors.push({path:file.path,bytes:bytes.length,sha256:approved.sha256});
   }
   await writeFile(path.join(output, 'release-assets.json'), JSON.stringify(plan, null, 2) + '\n');
   let pagesBytes = 0;
   for (const file of await listFiles(output)) pagesBytes += (await stat(file)).size;
   assert(pagesBytes < config.maximumPagesBytes, `Pages exceeds safe size: ${pagesBytes}`);
   assert.equal((await listFiles(path.join(output, 'workbook/downloads/pdf'))).filter(f => f.endsWith('.pdf')).length, 14);
-  const report = { passed: true, pagesBytes, releasePaths: plan.files.length, releaseFiles: new Set(plan.files.map(f => f.assetName)).size, workbookPdfs: 14, existingReleaseReused:true };
+  const report = { passed: true, pagesBytes, releasePaths: plan.files.length, releaseFiles: new Set(plan.files.map(f => f.assetName)).size, workbookPdfs: 14, existingReleaseReused:true, localReleaseMirrors };
   await mkdir(path.join(path.dirname(root), '..', 'tmp'), { recursive: true });
   await writeFile(path.join(path.dirname(root), '..', 'tmp/pages-release-verification.json'), JSON.stringify(report, null, 2) + '\n');
   return report;
