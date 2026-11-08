@@ -1,8 +1,9 @@
 ---
+import TermNote from './TermNote.astro';
 interface Props { id: string; title: string; index: number; summary?: string; tag?: string; minutes?: number; }
 const { id, title, index, summary, tag, minutes } = Astro.props;
 ---
 <section class="review-section" id={id} data-review-section={id} data-section-minutes={minutes}>
   <header class="review-section-heading"><span class="review-number">{String(index).padStart(2, '0')}</span><div>{tag && <p class="review-meta"><span>WORKBOOK {tag}</span></p>}<h2>{title}</h2>{summary && <p>{summary}</p>}</div></header>
-  <div class="review-section-body"><slot /></div>
+  <div class="review-section-body"><TermNote sectionId={id} /><slot /></div>
 </section>

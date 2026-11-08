@@ -54,7 +54,7 @@
     {
       "id": "M-21",
       "title": "Dark Walnut",
-      "description": "A의 포털·캐노피 하부에 적용할 짙은 목재의 색·세로결 참고입니다. 부재 형상이나 외장 제품의 내후·방화 사양을 뜻하지 않습니다.",
+      "description": "A의 수직 목재 포털과 A2의 다크 월넛 루버에 쓸 색·결 참고입니다. 실제 외장재 제품·부재 규격·내후·방화 성능을 확정하지 않습니다.",
       "file": "references/m-21-dark-walnut.png",
       "source": "src/assets/lessons/04/material-reference-review/m-21-dark-walnut.png",
       "sha256": "e6d9256b0382dd6e6fabd49248bae8dc122dd288bc136c58bee65077c0eb135d",
@@ -74,7 +74,7 @@
     {
       "id": "M-10",
       "title": "Charcoal Microcement",
-      "description": "B의 저층 차콜 석재에 적용할 어두운 색·질감 방향 참고입니다. 실제 현무암 제품이나 마감 성능을 증명하는 자료는 아닙니다.",
+      "description": "B의 저층부에 쓸 짙은 색 대비만 참고합니다. 실제 바살트 슬레이트의 표면 형상·제품·성능 자료가 아닙니다.",
       "file": "references/m-10-charcoal-microcement.png",
       "source": "src/assets/lessons/04/material-reference-review/m-10-charcoal-microcement.png",
       "sha256": "0474bc338e8c296a9405993afbfbfb4cd84b54c11566b69e279f14da1a109247",
@@ -97,7 +97,7 @@
     {
       "id": "M-20",
       "title": "Light Grey Microcement",
-      "description": "A2의 간판 띠·캐노피 전면과 하부에 적용할 밝은 웜그레이 톤 참고입니다. 실제 외벽·천장 시공 사양은 확정하지 않습니다.",
+      "description": "선택 대안의 밝은 웜그레이 색·질감 참고입니다. 현재 A2의 지정 참조는 다크 월넛이며 이 밝은 톤을 A2에 자동 적용하지 않습니다.",
       "name": "Light Grey Microcement",
       "file": "references/m-20-light-grey-microcement.png",
       "source": "src/assets/lessons/04/material-reference-review/m-20-light-grey-microcement.png",
@@ -120,18 +120,18 @@
     {
       "key": "B",
       "title": "수정안 B · 테라코타와 차콜 스톤",
-      "description": "상층은 웜 테라코타, 저층은 차콜 석재, 띠·캐노피·프레임은 매트 블랙으로 구분됩니다. 재료의 표현은 실제 제품 사양이 아닙니다.",
+      "description": "상층은 세로 골의 웜 테라코타 패널·블랙 창틀, 저층은 바살트 슬레이트·블랙 캐노피와 소핏/쇼윈도의 앰버 빛으로 대비한 대안입니다. 원본 창 그리드·형상·주변의 유지 여부는 따로 대조합니다.",
       "file": "samples/03_partial-edit-b.png",
-      "sha256": "2d303ea720cc32805a5b2ae1d6914113c73c5a036ad40133ad47b038d49ea271",
-      "bytes": 2322127
+      "sha256": "ec2ae722056b14619bf84686808bf5dd363a72acd8381d272cdec3ee9e9c11e5",
+      "bytes": 2253442
     },
     {
       "key": "A2",
       "title": "보완안 A2 · 밝은 간판 띠와 캐노피",
-      "description": "A의 크림 외벽과 수직 목재 포털을 두고 간판 띠·캐노피 전면과 하부를 밝게 보완했습니다. 석재 결·반사의 미세한 변화도 대조합니다.",
+      "description": "A의 상층 크림 석재·창 그리드를 고정하고 1층 간판 띠·캐노피·포털 프레임을 다크 월넛/브론즈 수평 루버와 연속 웜 라인 빛으로 보완한 제안입니다. 비대상 표면의 재표현도 대조합니다.",
       "file": "samples/04_revised-concept.png",
-      "sha256": "68af0e4f7e55b9949332f9ad28dd9cc10786af929c76bfeb84a3d39218bea879",
-      "bytes": 2269804
+      "sha256": "ee3007dbda36fa810465abacb1f20e7900170cd82bf37115e2d72a8f0a28d70b",
+      "bytes": 2140064
     }
   ],
   "prompts": [
@@ -145,19 +145,22 @@
           "file": "bases/01_base-building.png",
           "role": "편집 원본·건물/카메라 기준",
           "outputPath": "practice/DJ-L04/bases/01_base-building.png",
-          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871",
+          "bytes": 2417644
         },
         {
           "file": "references/m-21-dark-walnut.png",
           "role": "목재 색·결",
           "outputPath": "practice/DJ-L04/references/m-21-dark-walnut.png",
-          "sha256": "e6d9256b0382dd6e6fabd49248bae8dc122dd288bc136c58bee65077c0eb135d"
+          "sha256": "e6d9256b0382dd6e6fabd49248bae8dc122dd288bc136c58bee65077c0eb135d",
+          "bytes": 1470541
         },
         {
           "file": "references/m-02-almond-limestone.png",
           "role": "크림 석재 색·질감",
           "outputPath": "practice/DJ-L04/references/m-02-almond-limestone.png",
-          "sha256": "647e6cb2535395a444f421130edb5763f753b3463738aa519cce1e96663eec3f"
+          "sha256": "647e6cb2535395a444f421130edb5763f753b3463738aa519cce1e96663eec3f",
+          "bytes": 781749
         }
       ],
       "promptProvenance": "actual generation prompt; verbatim",
@@ -174,19 +177,22 @@
           "file": "bases/01_base-building.png",
           "role": "편집 원본·건물/카메라 기준",
           "outputPath": "practice/DJ-L04/bases/01_base-building.png",
-          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871",
+          "bytes": 2417644
         },
         {
           "file": "references/m-21-dark-walnut.png",
           "role": "목재 색·결",
           "outputPath": "practice/DJ-L04/references/m-21-dark-walnut.png",
-          "sha256": "e6d9256b0382dd6e6fabd49248bae8dc122dd288bc136c58bee65077c0eb135d"
+          "sha256": "e6d9256b0382dd6e6fabd49248bae8dc122dd288bc136c58bee65077c0eb135d",
+          "bytes": 1470541
         },
         {
           "file": "references/m-02-almond-limestone.png",
           "role": "크림 석재 색·질감",
           "outputPath": "practice/DJ-L04/references/m-02-almond-limestone.png",
-          "sha256": "647e6cb2535395a444f421130edb5763f753b3463738aa519cce1e96663eec3f"
+          "sha256": "647e6cb2535395a444f421130edb5763f753b3463738aa519cce1e96663eec3f",
+          "bytes": 781749
         }
       ],
       "promptProvenance": "actual generation prompt; verbatim",
@@ -196,97 +202,107 @@
     },
     {
       "key": "B-7step",
-      "title": "수정안 B · 테라코타와 차콜 스톤 · 7단 생성 원문",
+      "title": "수정안 B · 테라코타와 차콜 스톤 · 7단 학습 요청문",
       "file": "prompts/B-7step.txt",
-      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/prompts/B-7step.txt",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/prompts/B-7step.txt",
       "attachments": [
         {
           "file": "bases/01_base-building.png",
           "role": "편집 원본·건물/카메라 기준",
           "outputPath": "practice/DJ-L04/bases/01_base-building.png",
-          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871",
+          "bytes": 2417644
         },
         {
           "file": "references/m-10-charcoal-microcement.png",
           "role": "차콜 색·질감 방향만 참고; 현무암 제품 정보 아님",
           "outputPath": "practice/DJ-L04/references/m-10-charcoal-microcement.png",
-          "sha256": "0474bc338e8c296a9405993afbfbfb4cd84b54c11566b69e279f14da1a109247"
+          "sha256": "0474bc338e8c296a9405993afbfbfb4cd84b54c11566b69e279f14da1a109247",
+          "bytes": 655398
         }
       ],
-      "promptProvenance": "actual generation prompt; verbatim",
-      "sha256": "3d02c23671c7ffafb96f0eac97476c34e77959298df181fe0dab8568a83c4bbc",
-      "bytes": 1926
+      "promptProvenance": "현재 목표를 설명하는 학생용 요청문. 실제 이미지 도구 호출 기록과 구분.",
+      "sha256": "8b0051b6470b82ab950a9ad9ab9c2be2a0557e0866d2d7a0f35689edf0aba563",
+      "bytes": 2368,
+      "description": "현재 단계의 입력자료·고정 조건·수정 범위·검토 기준을 7단으로 정리한 학생용 요청문입니다. 실제 이미지 제작의 도구 호출·추가 국소 보정 기록과 구분하며, 동일 결과를 보장하지 않습니다."
     },
     {
       "key": "B-short",
       "title": "짧은 실행 요청문 · 반복 실습용 압축본",
       "file": "prompts/B-short.txt",
-      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/prompts/B-short.txt",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/prompts/B-short.txt",
       "attachments": [
         {
           "file": "bases/01_base-building.png",
           "role": "편집 원본·건물/카메라 기준",
           "outputPath": "practice/DJ-L04/bases/01_base-building.png",
-          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871",
+          "bytes": 2417644
         },
         {
           "file": "references/m-10-charcoal-microcement.png",
           "role": "차콜 색·질감 방향만 참고; 현무암 제품 정보 아님",
           "outputPath": "practice/DJ-L04/references/m-10-charcoal-microcement.png",
-          "sha256": "0474bc338e8c296a9405993afbfbfb4cd84b54c11566b69e279f14da1a109247"
+          "sha256": "0474bc338e8c296a9405993afbfbfb4cd84b54c11566b69e279f14da1a109247",
+          "bytes": 655398
         }
       ],
-      "promptProvenance": "actual generation prompt; verbatim",
-      "sha256": "c6e85610568228dd29abd7720eedd3b60d03e82017152cdf024bca1ba28c6c89",
-      "bytes": 731,
-      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다."
+      "promptProvenance": "현재 목표를 설명하는 학생용 요청문. 실제 이미지 도구 호출 기록과 구분.",
+      "sha256": "77595cba2ab6e4641f25354ef6e520ba35168678db0cd6a1957b8554716e1fc7",
+      "bytes": 1684,
+      "description": "같은 입력·유지·변경·금지 조건을 간결하게 정리한 학생용 실행 요청문입니다. 실제 이미지 제작의 도구 호출·추가 국소 보정 기록과 구분하며, 동일 결과를 보장하지 않습니다."
     },
     {
       "key": "A2-7step",
-      "title": "보완안 A2 · 밝은 간판 띠와 캐노피 · 7단 생성 원문",
+      "title": "보완안 A2 · 밝은 간판 띠와 캐노피 · 7단 학습 요청문",
       "file": "prompts/A2-7step.txt",
-      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/prompts/A2-7step.txt",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/prompts/A2-7step.txt",
       "attachments": [
         {
           "file": "samples/02_partial-edit-a.png",
           "role": "편집 대상 A",
           "outputPath": "practice/DJ-L04/samples/02_partial-edit-a.png",
-          "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf"
+          "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf",
+          "bytes": 2333851
         },
         {
-          "file": "references/m-20-light-grey-microcement.png",
-          "role": "밝은 웜그레이 톤 참고",
-          "outputPath": "practice/DJ-L04/references/m-20-light-grey-microcement.png",
-          "sha256": "9558eb14d2c675b9ebaefe6d1813348587dd38409cee59a21eed12e82457b298"
+          "file": "references/m-21-dark-walnut.png",
+          "role": "다크 월넛 색·결 참고, 루버 구조·제품 사양의 근거 아님",
+          "outputPath": "practice/DJ-L04/references/m-21-dark-walnut.png",
+          "sha256": "e6d9256b0382dd6e6fabd49248bae8dc122dd288bc136c58bee65077c0eb135d",
+          "bytes": 1470541
         }
       ],
-      "promptProvenance": "actual generation prompt; verbatim",
-      "sha256": "2b18675bafd6b07dad023085054196dd4edce33949e3d87e657d9d79500990be",
-      "bytes": 1735
+      "promptProvenance": "현재 목표를 설명하는 학생용 요청문. 실제 이미지 도구 호출 기록과 구분.",
+      "sha256": "6a6cca38993e1eb6477c31ed68965f4ffeb54187ac07944fce857716244a557d",
+      "bytes": 2223,
+      "description": "현재 단계의 입력자료·고정 조건·수정 범위·검토 기준을 7단으로 정리한 학생용 요청문입니다. 실제 이미지 제작의 도구 호출·추가 국소 보정 기록과 구분하며, 동일 결과를 보장하지 않습니다."
     },
     {
       "key": "A2-short",
       "title": "짧은 실행 요청문 · 반복 실습용 압축본",
       "file": "prompts/A2-short.txt",
-      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/prompts/A2-short.txt",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/prompts/A2-short.txt",
       "attachments": [
         {
           "file": "samples/02_partial-edit-a.png",
           "role": "편집 대상 A",
           "outputPath": "practice/DJ-L04/samples/02_partial-edit-a.png",
-          "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf"
+          "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf",
+          "bytes": 2333851
         },
         {
-          "file": "references/m-20-light-grey-microcement.png",
-          "role": "밝은 웜그레이 톤 참고",
-          "outputPath": "practice/DJ-L04/references/m-20-light-grey-microcement.png",
-          "sha256": "9558eb14d2c675b9ebaefe6d1813348587dd38409cee59a21eed12e82457b298"
+          "file": "references/m-21-dark-walnut.png",
+          "role": "다크 월넛 색·결 참고, 루버 구조·제품 사양의 근거 아님",
+          "outputPath": "practice/DJ-L04/references/m-21-dark-walnut.png",
+          "sha256": "e6d9256b0382dd6e6fabd49248bae8dc122dd288bc136c58bee65077c0eb135d",
+          "bytes": 1470541
         }
       ],
-      "promptProvenance": "actual generation prompt; verbatim",
-      "sha256": "e52739667f021afc9bedc556fc6527ba78587ee1e2561e6cf0a28fe631701442",
-      "bytes": 727,
-      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다."
+      "promptProvenance": "현재 목표를 설명하는 학생용 요청문. 실제 이미지 도구 호출 기록과 구분.",
+      "sha256": "11e0958ce17ec6a1bf16cd509a3ee73b2ee3822e32879a6297be5c87320d4a17",
+      "bytes": 1614,
+      "description": "같은 입력·유지·변경·금지 조건을 간결하게 정리한 학생용 실행 요청문입니다. 실제 이미지 제작의 도구 호출·추가 국소 보정 기록과 구분하며, 동일 결과를 보장하지 않습니다."
     },
     {
       "key": "EXT-BASE-02-practice-7step",
@@ -298,13 +314,15 @@
           "file": "bases/EXT-BASE-02.png",
           "role": "선택 건물·편집 대상",
           "outputPath": "practice/DJ-L04/bases/EXT-BASE-02.png",
-          "sha256": "85b2d24b2fa912214ffcc3deeef5efedc59d158fcf281cd9c782124a0fadc141"
+          "sha256": "85b2d24b2fa912214ffcc3deeef5efedc59d158fcf281cd9c782124a0fadc141",
+          "bytes": 2322064
         },
         {
           "file": "references/m-24-natural-oak.png",
           "role": "색·결 참고",
           "outputPath": "practice/DJ-L04/references/m-24-natural-oak.png",
-          "sha256": "14a62a4acd460543c25b823ecf4c59ac8f049330c812def72b141f97a5a23ebb"
+          "sha256": "14a62a4acd460543c25b823ecf4c59ac8f049330c812def72b141f97a5a23ebb",
+          "bytes": 820059
         }
       ],
       "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
@@ -321,13 +339,15 @@
           "file": "bases/EXT-BASE-02.png",
           "role": "선택 건물·편집 대상",
           "outputPath": "practice/DJ-L04/bases/EXT-BASE-02.png",
-          "sha256": "85b2d24b2fa912214ffcc3deeef5efedc59d158fcf281cd9c782124a0fadc141"
+          "sha256": "85b2d24b2fa912214ffcc3deeef5efedc59d158fcf281cd9c782124a0fadc141",
+          "bytes": 2322064
         },
         {
           "file": "references/m-24-natural-oak.png",
           "role": "색·결 참고",
           "outputPath": "practice/DJ-L04/references/m-24-natural-oak.png",
-          "sha256": "14a62a4acd460543c25b823ecf4c59ac8f049330c812def72b141f97a5a23ebb"
+          "sha256": "14a62a4acd460543c25b823ecf4c59ac8f049330c812def72b141f97a5a23ebb",
+          "bytes": 820059
         }
       ],
       "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
@@ -345,7 +365,8 @@
           "file": "bases/EXT-BASE-03.png",
           "role": "선택 건물·편집 대상",
           "outputPath": "practice/DJ-L04/bases/EXT-BASE-03.png",
-          "sha256": "6a206db291893e5935385409e5fd567d727a46246e2ded81bcc3e34e4fb10154"
+          "sha256": "6a206db291893e5935385409e5fd567d727a46246e2ded81bcc3e34e4fb10154",
+          "bytes": 2850976
         }
       ],
       "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
@@ -362,7 +383,8 @@
           "file": "bases/EXT-BASE-03.png",
           "role": "선택 건물·편집 대상",
           "outputPath": "practice/DJ-L04/bases/EXT-BASE-03.png",
-          "sha256": "6a206db291893e5935385409e5fd567d727a46246e2ded81bcc3e34e4fb10154"
+          "sha256": "6a206db291893e5935385409e5fd567d727a46246e2ded81bcc3e34e4fb10154",
+          "bytes": 2850976
         }
       ],
       "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
@@ -374,178 +396,199 @@
       "key": "scope-7step",
       "title": "유지·변경 범위 정리 · 7단 구조",
       "file": "prompts/scope-7step.txt",
-      "source": "사용자 승인된 제4차시 구현 범위에 따라 작성",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/prompts/scope-7step.txt",
       "attachments": [
         {
           "file": "bases/01_base-building.png",
           "role": "범위 분석 기준",
           "outputPath": "practice/DJ-L04/bases/01_base-building.png",
-          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871",
+          "bytes": 2417644
         }
       ],
-      "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
-      "sha256": "f6aa519afb54f7dc3c75bb73072241145492531f57f1f6076dadca52871d0437",
-      "bytes": 2013
+      "promptProvenance": "현재 목표를 설명하는 학생용 요청문. 실제 이미지 도구 호출 기록과 구분.",
+      "sha256": "a6c5673131ae1188b9a33311d1dbc303dcba7416eac2ff7ed0fa53bc1a1f3943",
+      "bytes": 1773,
+      "description": "원본 분석 또는 대안 비교를 텍스트로 요청하는 학생용 문안입니다. 이미지를 생성하지 않고 관찰·제공 조건·추정·미확정을 구분합니다."
     },
     {
       "key": "scope-short",
       "title": "짧은 실행 요청문 · 반복 실습용 압축본",
       "file": "prompts/scope-short.txt",
-      "source": "사용자 승인된 제4차시 구현 범위에 따라 작성",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/prompts/scope-short.txt",
       "attachments": [
         {
           "file": "bases/01_base-building.png",
           "role": "범위 분석 기준",
           "outputPath": "practice/DJ-L04/bases/01_base-building.png",
-          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871",
+          "bytes": 2417644
         }
       ],
-      "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
-      "sha256": "ebdaa9a6dbd5431843d6ee6fab62a69d4675e1d1568439650921fc39fff94648",
-      "bytes": 734,
-      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다."
+      "promptProvenance": "현재 목표를 설명하는 학생용 요청문. 실제 이미지 도구 호출 기록과 구분.",
+      "sha256": "bcdbe4c10bff604448b5b276a98522e8c4b27a2a74eb1216efcbfc34856d0f3c",
+      "bytes": 1256,
+      "description": "원본 분석 또는 대안 비교를 텍스트로 요청하는 학생용 문안입니다. 이미지를 생성하지 않고 관찰·제공 조건·추정·미확정을 구분합니다."
     },
     {
       "key": "gemini-7step",
       "title": "Gemini 비교 분석 · 7단 구조",
       "file": "prompts/gemini-7step.txt",
-      "source": "사용자 승인된 제4차시 구현 범위에 따라 작성",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/prompts/gemini-7step.txt",
       "attachments": [
         {
           "file": "bases/01_base-building.png",
           "role": "처음 원본",
           "outputPath": "practice/DJ-L04/bases/01_base-building.png",
-          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871",
+          "bytes": 2417644
         },
         {
           "file": "samples/02_partial-edit-a.png",
           "role": "A 결과",
           "outputPath": "practice/DJ-L04/samples/02_partial-edit-a.png",
-          "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf"
+          "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf",
+          "bytes": 2333851
         },
         {
           "file": "samples/03_partial-edit-b.png",
           "role": "B 결과",
           "outputPath": "practice/DJ-L04/samples/03_partial-edit-b.png",
-          "sha256": "2d303ea720cc32805a5b2ae1d6914113c73c5a036ad40133ad47b038d49ea271"
+          "sha256": "ec2ae722056b14619bf84686808bf5dd363a72acd8381d272cdec3ee9e9c11e5",
+          "bytes": 2253442
         },
         {
           "file": "samples/04_revised-concept.png",
           "role": "A에서 간판 띠·캐노피 전면과 하부만 밝게 보완한 A2 비교 대상",
           "outputPath": "practice/DJ-L04/samples/04_revised-concept.png",
-          "sha256": "68af0e4f7e55b9949332f9ad28dd9cc10786af929c76bfeb84a3d39218bea879"
+          "sha256": "ee3007dbda36fa810465abacb1f20e7900170cd82bf37115e2d72a8f0a28d70b",
+          "bytes": 2140064
         }
       ],
-      "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
-      "sha256": "07dbac5cdfa7ab5f32e6a75b9c84802fe6c26489c975dd9d798116f04bfd6a41",
-      "bytes": 1404
+      "promptProvenance": "현재 목표를 설명하는 학생용 요청문. 실제 이미지 도구 호출 기록과 구분.",
+      "sha256": "fba15815b9968fd34fdaecebfb12c61ebece32ff9a12eec546b11be90c664afd",
+      "bytes": 1904,
+      "description": "원본 분석 또는 대안 비교를 텍스트로 요청하는 학생용 문안입니다. 이미지를 생성하지 않고 관찰·제공 조건·추정·미확정을 구분합니다."
     },
     {
       "key": "gemini-short",
       "title": "짧은 실행 요청문 · 반복 실습용 압축본",
       "file": "prompts/gemini-short.txt",
-      "source": "사용자 승인된 제4차시 구현 범위에 따라 작성",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/prompts/gemini-short.txt",
       "attachments": [
         {
           "file": "bases/01_base-building.png",
           "role": "처음 원본",
           "outputPath": "practice/DJ-L04/bases/01_base-building.png",
-          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871",
+          "bytes": 2417644
         },
         {
           "file": "samples/02_partial-edit-a.png",
           "role": "A 결과",
           "outputPath": "practice/DJ-L04/samples/02_partial-edit-a.png",
-          "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf"
+          "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf",
+          "bytes": 2333851
         },
         {
           "file": "samples/03_partial-edit-b.png",
           "role": "B 결과",
           "outputPath": "practice/DJ-L04/samples/03_partial-edit-b.png",
-          "sha256": "2d303ea720cc32805a5b2ae1d6914113c73c5a036ad40133ad47b038d49ea271"
+          "sha256": "ec2ae722056b14619bf84686808bf5dd363a72acd8381d272cdec3ee9e9c11e5",
+          "bytes": 2253442
         },
         {
           "file": "samples/04_revised-concept.png",
           "role": "A에서 간판 띠·캐노피 전면과 하부만 밝게 보완한 A2 비교 대상",
           "outputPath": "practice/DJ-L04/samples/04_revised-concept.png",
-          "sha256": "68af0e4f7e55b9949332f9ad28dd9cc10786af929c76bfeb84a3d39218bea879"
+          "sha256": "ee3007dbda36fa810465abacb1f20e7900170cd82bf37115e2d72a8f0a28d70b",
+          "bytes": 2140064
         }
       ],
-      "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
-      "sha256": "e88dbbfd24830d718f978f55c570723aa872e99a3d5d0f17ac146f1e76d1ccce",
-      "bytes": 765,
-      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다."
+      "promptProvenance": "현재 목표를 설명하는 학생용 요청문. 실제 이미지 도구 호출 기록과 구분.",
+      "sha256": "5c8a115302427fa81439c4e50d198be9a0ca1002e61696a5384cf077cafcbf58",
+      "bytes": 1251,
+      "description": "원본 분석 또는 대안 비교를 텍스트로 요청하는 학생용 문안입니다. 이미지를 생성하지 않고 관찰·제공 조건·추정·미확정을 구분합니다."
     },
     {
       "key": "compare-7step",
       "title": "대안 선별·다음 보완 · 7단 구조",
       "file": "prompts/compare-7step.txt",
-      "source": "사용자 승인된 제4차시 구현 범위에 따라 작성",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/prompts/compare-7step.txt",
       "attachments": [
         {
           "file": "bases/01_base-building.png",
           "role": "처음 원본",
           "outputPath": "practice/DJ-L04/bases/01_base-building.png",
-          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871",
+          "bytes": 2417644
         },
         {
           "file": "samples/02_partial-edit-a.png",
           "role": "A 결과",
           "outputPath": "practice/DJ-L04/samples/02_partial-edit-a.png",
-          "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf"
+          "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf",
+          "bytes": 2333851
         },
         {
           "file": "samples/03_partial-edit-b.png",
           "role": "B 결과",
           "outputPath": "practice/DJ-L04/samples/03_partial-edit-b.png",
-          "sha256": "2d303ea720cc32805a5b2ae1d6914113c73c5a036ad40133ad47b038d49ea271"
+          "sha256": "ec2ae722056b14619bf84686808bf5dd363a72acd8381d272cdec3ee9e9c11e5",
+          "bytes": 2253442
         },
         {
           "file": "samples/04_revised-concept.png",
           "role": "A2 결과",
           "outputPath": "practice/DJ-L04/samples/04_revised-concept.png",
-          "sha256": "68af0e4f7e55b9949332f9ad28dd9cc10786af929c76bfeb84a3d39218bea879"
+          "sha256": "ee3007dbda36fa810465abacb1f20e7900170cd82bf37115e2d72a8f0a28d70b",
+          "bytes": 2140064
         }
       ],
-      "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
-      "sha256": "afdaf8fd7f6c795c739dd4a16340084dd8c143b2ef6b0780b9a691e7f57c9162",
-      "bytes": 1390
+      "promptProvenance": "현재 목표를 설명하는 학생용 요청문. 실제 이미지 도구 호출 기록과 구분.",
+      "sha256": "fba15815b9968fd34fdaecebfb12c61ebece32ff9a12eec546b11be90c664afd",
+      "bytes": 1904,
+      "description": "원본 분석 또는 대안 비교를 텍스트로 요청하는 학생용 문안입니다. 이미지를 생성하지 않고 관찰·제공 조건·추정·미확정을 구분합니다."
     },
     {
       "key": "compare-short",
       "title": "짧은 실행 요청문 · 반복 실습용 압축본",
       "file": "prompts/compare-short.txt",
-      "source": "사용자 승인된 제4차시 구현 범위에 따라 작성",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/prompts/compare-short.txt",
       "attachments": [
         {
           "file": "bases/01_base-building.png",
           "role": "처음 원본",
           "outputPath": "practice/DJ-L04/bases/01_base-building.png",
-          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871",
+          "bytes": 2417644
         },
         {
           "file": "samples/02_partial-edit-a.png",
           "role": "A 결과",
           "outputPath": "practice/DJ-L04/samples/02_partial-edit-a.png",
-          "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf"
+          "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf",
+          "bytes": 2333851
         },
         {
           "file": "samples/03_partial-edit-b.png",
           "role": "B 결과",
           "outputPath": "practice/DJ-L04/samples/03_partial-edit-b.png",
-          "sha256": "2d303ea720cc32805a5b2ae1d6914113c73c5a036ad40133ad47b038d49ea271"
+          "sha256": "ec2ae722056b14619bf84686808bf5dd363a72acd8381d272cdec3ee9e9c11e5",
+          "bytes": 2253442
         },
         {
           "file": "samples/04_revised-concept.png",
           "role": "A2 결과",
           "outputPath": "practice/DJ-L04/samples/04_revised-concept.png",
-          "sha256": "68af0e4f7e55b9949332f9ad28dd9cc10786af929c76bfeb84a3d39218bea879"
+          "sha256": "ee3007dbda36fa810465abacb1f20e7900170cd82bf37115e2d72a8f0a28d70b",
+          "bytes": 2140064
         }
       ],
-      "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
-      "sha256": "fb832f989d145eba20c2103ea64d677d90346ec79885ec534c60ef96a22d9cc3",
-      "bytes": 714,
-      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다."
+      "promptProvenance": "현재 목표를 설명하는 학생용 요청문. 실제 이미지 도구 호출 기록과 구분.",
+      "sha256": "5c8a115302427fa81439c4e50d198be9a0ca1002e61696a5384cf077cafcbf58",
+      "bytes": 1251,
+      "description": "원본 분석 또는 대안 비교를 텍스트로 요청하는 학생용 문안입니다. 이미지를 생성하지 않고 관찰·제공 조건·추정·미확정을 구분합니다."
     }
   ],
   "analysis": [
@@ -553,15 +596,15 @@
       "key": "base-guide",
       "title": "기준 건물·참고자료 역할 안내",
       "file": "analysis/DJ-L04_BASE-AND-REFERENCE.md",
-      "sha256": "b2079ea8bacc9a4bf4bb63c9ad2f98621c1d63209a4c8e3cf74eae90a472ea7b",
-      "bytes": 643
+      "sha256": "653e1cadb46d9574cae285dd4a87368b032ef1b0af56c01a2df8aa482a88f313",
+      "bytes": 1210
     },
     {
       "key": "compare-guide",
       "title": "A/B/보완안 비교 기록",
       "file": "analysis/DJ-L04_COMPARE-AND-SELECT.md",
-      "sha256": "11088e835fd5e3e55629d7cbe821626ca4e640de2aaf306793c0f8305c3debec",
-      "bytes": 521
+      "sha256": "dad3447f8e8880b284b35a4958a5d6ab12817fdbf445dccfac32d61c34e1ddd6",
+      "bytes": 1091
     }
   ],
   "files": [
@@ -585,146 +628,521 @@
     },
     {
       "file": "references/m-21-dark-walnut.png",
-      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/references/m-21-dark-walnut.png",
+      "source": "src/assets/lessons/04/material-reference-review/m-21-dark-walnut.png",
       "sha256": "e6d9256b0382dd6e6fabd49248bae8dc122dd288bc136c58bee65077c0eb135d",
-      "bytes": 1470541
+      "bytes": 1470541,
+      "description": "A의 수직 목재 포털과 A2의 다크 월넛 루버에 쓸 색·결 참고입니다. 실제 외장재 제품·부재 규격·내후·방화 성능을 확정하지 않습니다.",
+      "title": "Dark Walnut"
     },
     {
       "file": "references/m-02-almond-limestone.png",
-      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/references/m-02-almond-limestone.png",
+      "source": "src/assets/lessons/04/material-reference-review/m-02-almond-limestone.png",
       "sha256": "647e6cb2535395a444f421130edb5763f753b3463738aa519cce1e96663eec3f",
-      "bytes": 781749
+      "bytes": 781749,
+      "description": "A의 2~3층과 1층 벽에 적용할 밝은 크림 석재의 색·무늬·질감 참고입니다. 실제 석종·두께·부착 방식·가격·성능은 확정하지 않습니다.",
+      "title": "Almond Limestone"
     },
     {
       "file": "references/m-10-charcoal-microcement.png",
-      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/references/m-10-charcoal-microcement.png",
+      "source": "src/assets/lessons/04/material-reference-review/m-10-charcoal-microcement.png",
       "sha256": "0474bc338e8c296a9405993afbfbfb4cd84b54c11566b69e279f14da1a109247",
-      "bytes": 655398
+      "bytes": 655398,
+      "description": "B의 저층부에 쓸 짙은 색 대비만 참고합니다. 실제 바살트 슬레이트의 표면 형상·제품·성능 자료가 아닙니다.",
+      "title": "Charcoal Microcement"
     },
     {
       "file": "references/m-24-natural-oak.png",
-      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/references/m-24-natural-oak.png",
+      "source": "src/assets/lessons/04/material-reference-review/m-24-natural-oak.png",
       "sha256": "14a62a4acd460543c25b823ecf4c59ac8f049330c812def72b141f97a5a23ebb",
-      "bytes": 820059
+      "bytes": 820059,
+      "description": "밝은 목재 대안을 선택할 때 색·결·질감을 참고합니다. 외장 제품의 내후·방화 성능을 뜻하지 않습니다.",
+      "title": "Natural Oak"
     },
     {
       "file": "references/m-20-light-grey-microcement.png",
-      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/references/m-20-light-grey-microcement.png",
+      "source": "src/assets/lessons/04/material-reference-review/m-20-light-grey-microcement.png",
       "sha256": "9558eb14d2c675b9ebaefe6d1813348587dd38409cee59a21eed12e82457b298",
-      "bytes": 731890
+      "bytes": 731890,
+      "description": "선택 대안의 밝은 웜그레이 색·질감 참고입니다. 현재 A2의 지정 참조는 다크 월넛이며 이 밝은 톤을 A2에 자동 적용하지 않습니다.",
+      "title": "Light Grey Microcement"
     },
     {
       "file": "samples/02_partial-edit-a.png",
       "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/samples/02_partial-edit-a.png",
       "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf",
-      "bytes": 2333851
+      "bytes": 2333851,
+      "description": "상층과 저층 벽을 크림 석재로, 포털을 수직 목재로 바꾸고 브론즈 띠·프레임과 따뜻한 빛을 적용했습니다. 석재 무늬·반사는 재표현됐습니다.",
+      "title": "수정안 A · 크림 라임스톤과 우드 포털"
     },
     {
       "file": "samples/03_partial-edit-b.png",
       "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/samples/03_partial-edit-b.png",
-      "sha256": "2d303ea720cc32805a5b2ae1d6914113c73c5a036ad40133ad47b038d49ea271",
-      "bytes": 2322127
+      "sha256": "ec2ae722056b14619bf84686808bf5dd363a72acd8381d272cdec3ee9e9c11e5",
+      "bytes": 2253442,
+      "description": "상층은 세로 골의 웜 테라코타 패널·블랙 창틀, 저층은 바살트 슬레이트·블랙 캐노피와 소핏/쇼윈도의 앰버 빛으로 대비한 대안입니다. 원본 창 그리드·형상·주변의 유지 여부는 따로 대조합니다.",
+      "title": "수정안 B · 테라코타와 차콜 스톤"
     },
     {
       "file": "samples/04_revised-concept.png",
       "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/samples/04_revised-concept.png",
-      "sha256": "68af0e4f7e55b9949332f9ad28dd9cc10786af929c76bfeb84a3d39218bea879",
-      "bytes": 2269804
+      "sha256": "ee3007dbda36fa810465abacb1f20e7900170cd82bf37115e2d72a8f0a28d70b",
+      "bytes": 2140064,
+      "description": "A의 상층 크림 석재·창 그리드를 고정하고 1층 간판 띠·캐노피·포털 프레임을 다크 월넛/브론즈 수평 루버와 연속 웜 라인 빛으로 보완한 제안입니다. 비대상 표면의 재표현도 대조합니다.",
+      "title": "보완안 A2 · 밝은 간판 띠와 캐노피"
     },
     {
       "file": "prompts/A-7step.txt",
       "sha256": "7447951e53f8822aa4cf9bf57b1b5dd51a5ca477fd4982b93a517307ec4e69e6",
-      "bytes": 2152
+      "bytes": 2152,
+      "title": "수정안 A · 크림 라임스톤과 우드 포털 · 7단 생성 원문",
+      "attachments": [
+        {
+          "file": "bases/01_base-building.png",
+          "role": "편집 원본·건물/카메라 기준",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871",
+          "bytes": 2417644
+        },
+        {
+          "file": "references/m-21-dark-walnut.png",
+          "role": "목재 색·결",
+          "outputPath": "practice/DJ-L04/references/m-21-dark-walnut.png",
+          "sha256": "e6d9256b0382dd6e6fabd49248bae8dc122dd288bc136c58bee65077c0eb135d",
+          "bytes": 1470541
+        },
+        {
+          "file": "references/m-02-almond-limestone.png",
+          "role": "크림 석재 색·질감",
+          "outputPath": "practice/DJ-L04/references/m-02-almond-limestone.png",
+          "sha256": "647e6cb2535395a444f421130edb5763f753b3463738aa519cce1e96663eec3f",
+          "bytes": 781749
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/prompts/A-7step.txt"
     },
     {
       "file": "prompts/A-short.txt",
       "sha256": "e91583dfd1fe54429bedaa74fdb18835ea41609e08935677e2c27f909af38c16",
-      "bytes": 794
+      "bytes": 794,
+      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다.",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
+      "attachments": [
+        {
+          "file": "bases/01_base-building.png",
+          "role": "편집 원본·건물/카메라 기준",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871",
+          "bytes": 2417644
+        },
+        {
+          "file": "references/m-21-dark-walnut.png",
+          "role": "목재 색·결",
+          "outputPath": "practice/DJ-L04/references/m-21-dark-walnut.png",
+          "sha256": "e6d9256b0382dd6e6fabd49248bae8dc122dd288bc136c58bee65077c0eb135d",
+          "bytes": 1470541
+        },
+        {
+          "file": "references/m-02-almond-limestone.png",
+          "role": "크림 석재 색·질감",
+          "outputPath": "practice/DJ-L04/references/m-02-almond-limestone.png",
+          "sha256": "647e6cb2535395a444f421130edb5763f753b3463738aa519cce1e96663eec3f",
+          "bytes": 781749
+        }
+      ],
+      "promptProvenance": "actual generation prompt; verbatim",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/prompts/A-short.txt"
     },
     {
       "file": "prompts/B-7step.txt",
-      "sha256": "3d02c23671c7ffafb96f0eac97476c34e77959298df181fe0dab8568a83c4bbc",
-      "bytes": 1926
+      "sha256": "8b0051b6470b82ab950a9ad9ab9c2be2a0557e0866d2d7a0f35689edf0aba563",
+      "bytes": 2368,
+      "title": "수정안 B · 테라코타와 차콜 스톤 · 7단 학습 요청문",
+      "attachments": [
+        {
+          "file": "bases/01_base-building.png",
+          "role": "편집 원본·건물/카메라 기준",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871",
+          "bytes": 2417644
+        },
+        {
+          "file": "references/m-10-charcoal-microcement.png",
+          "role": "차콜 색·질감 방향만 참고; 현무암 제품 정보 아님",
+          "outputPath": "practice/DJ-L04/references/m-10-charcoal-microcement.png",
+          "sha256": "0474bc338e8c296a9405993afbfbfb4cd84b54c11566b69e279f14da1a109247",
+          "bytes": 655398
+        }
+      ],
+      "promptProvenance": "현재 목표를 설명하는 학생용 요청문. 실제 이미지 도구 호출 기록과 구분.",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/prompts/B-7step.txt",
+      "description": "현재 단계의 입력자료·고정 조건·수정 범위·검토 기준을 7단으로 정리한 학생용 요청문입니다. 실제 이미지 제작의 도구 호출·추가 국소 보정 기록과 구분하며, 동일 결과를 보장하지 않습니다."
     },
     {
       "file": "prompts/B-short.txt",
-      "sha256": "c6e85610568228dd29abd7720eedd3b60d03e82017152cdf024bca1ba28c6c89",
-      "bytes": 731
+      "sha256": "77595cba2ab6e4641f25354ef6e520ba35168678db0cd6a1957b8554716e1fc7",
+      "bytes": 1684,
+      "description": "같은 입력·유지·변경·금지 조건을 간결하게 정리한 학생용 실행 요청문입니다. 실제 이미지 제작의 도구 호출·추가 국소 보정 기록과 구분하며, 동일 결과를 보장하지 않습니다.",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
+      "attachments": [
+        {
+          "file": "bases/01_base-building.png",
+          "role": "편집 원본·건물/카메라 기준",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871",
+          "bytes": 2417644
+        },
+        {
+          "file": "references/m-10-charcoal-microcement.png",
+          "role": "차콜 색·질감 방향만 참고; 현무암 제품 정보 아님",
+          "outputPath": "practice/DJ-L04/references/m-10-charcoal-microcement.png",
+          "sha256": "0474bc338e8c296a9405993afbfbfb4cd84b54c11566b69e279f14da1a109247",
+          "bytes": 655398
+        }
+      ],
+      "promptProvenance": "현재 목표를 설명하는 학생용 요청문. 실제 이미지 도구 호출 기록과 구분.",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/prompts/B-short.txt"
     },
     {
       "file": "prompts/A2-7step.txt",
-      "sha256": "2b18675bafd6b07dad023085054196dd4edce33949e3d87e657d9d79500990be",
-      "bytes": 1735
+      "sha256": "6a6cca38993e1eb6477c31ed68965f4ffeb54187ac07944fce857716244a557d",
+      "bytes": 2223,
+      "title": "보완안 A2 · 밝은 간판 띠와 캐노피 · 7단 학습 요청문",
+      "attachments": [
+        {
+          "file": "samples/02_partial-edit-a.png",
+          "role": "편집 대상 A",
+          "outputPath": "practice/DJ-L04/samples/02_partial-edit-a.png",
+          "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf",
+          "bytes": 2333851
+        },
+        {
+          "file": "references/m-21-dark-walnut.png",
+          "role": "다크 월넛 색·결 참고, 루버 구조·제품 사양의 근거 아님",
+          "outputPath": "practice/DJ-L04/references/m-21-dark-walnut.png",
+          "sha256": "e6d9256b0382dd6e6fabd49248bae8dc122dd288bc136c58bee65077c0eb135d",
+          "bytes": 1470541
+        }
+      ],
+      "promptProvenance": "현재 목표를 설명하는 학생용 요청문. 실제 이미지 도구 호출 기록과 구분.",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/prompts/A2-7step.txt",
+      "description": "현재 단계의 입력자료·고정 조건·수정 범위·검토 기준을 7단으로 정리한 학생용 요청문입니다. 실제 이미지 제작의 도구 호출·추가 국소 보정 기록과 구분하며, 동일 결과를 보장하지 않습니다."
     },
     {
       "file": "prompts/A2-short.txt",
-      "sha256": "e52739667f021afc9bedc556fc6527ba78587ee1e2561e6cf0a28fe631701442",
-      "bytes": 727
+      "sha256": "11e0958ce17ec6a1bf16cd509a3ee73b2ee3822e32879a6297be5c87320d4a17",
+      "bytes": 1614,
+      "description": "같은 입력·유지·변경·금지 조건을 간결하게 정리한 학생용 실행 요청문입니다. 실제 이미지 제작의 도구 호출·추가 국소 보정 기록과 구분하며, 동일 결과를 보장하지 않습니다.",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
+      "attachments": [
+        {
+          "file": "samples/02_partial-edit-a.png",
+          "role": "편집 대상 A",
+          "outputPath": "practice/DJ-L04/samples/02_partial-edit-a.png",
+          "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf",
+          "bytes": 2333851
+        },
+        {
+          "file": "references/m-21-dark-walnut.png",
+          "role": "다크 월넛 색·결 참고, 루버 구조·제품 사양의 근거 아님",
+          "outputPath": "practice/DJ-L04/references/m-21-dark-walnut.png",
+          "sha256": "e6d9256b0382dd6e6fabd49248bae8dc122dd288bc136c58bee65077c0eb135d",
+          "bytes": 1470541
+        }
+      ],
+      "promptProvenance": "현재 목표를 설명하는 학생용 요청문. 실제 이미지 도구 호출 기록과 구분.",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/prompts/A2-short.txt"
     },
     {
       "file": "prompts/EXT-BASE-02-practice-7step.txt",
       "sha256": "7ba2335dc7e3a30aec3ec87620286768306a69f7aa7329270d805bf9f6889355",
-      "bytes": 1649
+      "bytes": 1649,
+      "title": "기존 루버 부분 수정 · 7단 구조",
+      "attachments": [
+        {
+          "file": "bases/EXT-BASE-02.png",
+          "role": "선택 건물·편집 대상",
+          "outputPath": "practice/DJ-L04/bases/EXT-BASE-02.png",
+          "sha256": "85b2d24b2fa912214ffcc3deeef5efedc59d158fcf281cd9c782124a0fadc141",
+          "bytes": 2322064
+        },
+        {
+          "file": "references/m-24-natural-oak.png",
+          "role": "색·결 참고",
+          "outputPath": "practice/DJ-L04/references/m-24-natural-oak.png",
+          "sha256": "14a62a4acd460543c25b823ecf4c59ac8f049330c812def72b141f97a5a23ebb",
+          "bytes": 820059
+        }
+      ],
+      "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/prompts/EXT-BASE-02-practice-7step.txt"
     },
     {
       "file": "prompts/EXT-BASE-02-practice-short.txt",
       "sha256": "888add16b7f2c163548480271d5c8ad4de7db89fa9a1d9f34113966733168a22",
-      "bytes": 497
+      "bytes": 497,
+      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다.",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
+      "attachments": [
+        {
+          "file": "bases/EXT-BASE-02.png",
+          "role": "선택 건물·편집 대상",
+          "outputPath": "practice/DJ-L04/bases/EXT-BASE-02.png",
+          "sha256": "85b2d24b2fa912214ffcc3deeef5efedc59d158fcf281cd9c782124a0fadc141",
+          "bytes": 2322064
+        },
+        {
+          "file": "references/m-24-natural-oak.png",
+          "role": "색·결 참고",
+          "outputPath": "practice/DJ-L04/references/m-24-natural-oak.png",
+          "sha256": "14a62a4acd460543c25b823ecf4c59ac8f049330c812def72b141f97a5a23ebb",
+          "bytes": 820059
+        }
+      ],
+      "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/prompts/EXT-BASE-02-practice-short.txt"
     },
     {
       "file": "prompts/EXT-BASE-03-practice-7step.txt",
       "sha256": "feb6fdca13474c1b950f10c3890ab7a436932cdc5e3af17521d381f59698fc75",
-      "bytes": 1706
+      "bytes": 1706,
+      "title": "코너 포털 부분 수정 · 7단 구조",
+      "attachments": [
+        {
+          "file": "bases/EXT-BASE-03.png",
+          "role": "선택 건물·편집 대상",
+          "outputPath": "practice/DJ-L04/bases/EXT-BASE-03.png",
+          "sha256": "6a206db291893e5935385409e5fd567d727a46246e2ded81bcc3e34e4fb10154",
+          "bytes": 2850976
+        }
+      ],
+      "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/prompts/EXT-BASE-03-practice-7step.txt"
     },
     {
       "file": "prompts/EXT-BASE-03-practice-short.txt",
       "sha256": "3d0bb57648258f3b0dd921d7c0462cd8229278845a3c12e2184ead90bfcecc9a",
-      "bytes": 510
+      "bytes": 510,
+      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다.",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
+      "attachments": [
+        {
+          "file": "bases/EXT-BASE-03.png",
+          "role": "선택 건물·편집 대상",
+          "outputPath": "practice/DJ-L04/bases/EXT-BASE-03.png",
+          "sha256": "6a206db291893e5935385409e5fd567d727a46246e2ded81bcc3e34e4fb10154",
+          "bytes": 2850976
+        }
+      ],
+      "promptProvenance": "supporting learning prompt; not the prompt used to generate an example",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/prompts/EXT-BASE-03-practice-short.txt"
     },
     {
       "file": "prompts/scope-7step.txt",
-      "sha256": "f6aa519afb54f7dc3c75bb73072241145492531f57f1f6076dadca52871d0437",
-      "bytes": 2013
+      "sha256": "a6c5673131ae1188b9a33311d1dbc303dcba7416eac2ff7ed0fa53bc1a1f3943",
+      "bytes": 1773,
+      "title": "유지·변경 범위 정리 · 7단 구조",
+      "attachments": [
+        {
+          "file": "bases/01_base-building.png",
+          "role": "범위 분석 기준",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871",
+          "bytes": 2417644
+        }
+      ],
+      "promptProvenance": "현재 목표를 설명하는 학생용 요청문. 실제 이미지 도구 호출 기록과 구분.",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/prompts/scope-7step.txt",
+      "description": "원본 분석 또는 대안 비교를 텍스트로 요청하는 학생용 문안입니다. 이미지를 생성하지 않고 관찰·제공 조건·추정·미확정을 구분합니다."
     },
     {
       "file": "prompts/scope-short.txt",
-      "sha256": "ebdaa9a6dbd5431843d6ee6fab62a69d4675e1d1568439650921fc39fff94648",
-      "bytes": 734
+      "sha256": "bcdbe4c10bff604448b5b276a98522e8c4b27a2a74eb1216efcbfc34856d0f3c",
+      "bytes": 1256,
+      "description": "원본 분석 또는 대안 비교를 텍스트로 요청하는 학생용 문안입니다. 이미지를 생성하지 않고 관찰·제공 조건·추정·미확정을 구분합니다.",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
+      "attachments": [
+        {
+          "file": "bases/01_base-building.png",
+          "role": "범위 분석 기준",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871",
+          "bytes": 2417644
+        }
+      ],
+      "promptProvenance": "현재 목표를 설명하는 학생용 요청문. 실제 이미지 도구 호출 기록과 구분.",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/prompts/scope-short.txt"
     },
     {
       "file": "prompts/gemini-7step.txt",
-      "sha256": "07dbac5cdfa7ab5f32e6a75b9c84802fe6c26489c975dd9d798116f04bfd6a41",
-      "bytes": 1404
+      "sha256": "fba15815b9968fd34fdaecebfb12c61ebece32ff9a12eec546b11be90c664afd",
+      "bytes": 1904,
+      "title": "Gemini 비교 분석 · 7단 구조",
+      "attachments": [
+        {
+          "file": "bases/01_base-building.png",
+          "role": "처음 원본",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871",
+          "bytes": 2417644
+        },
+        {
+          "file": "samples/02_partial-edit-a.png",
+          "role": "A 결과",
+          "outputPath": "practice/DJ-L04/samples/02_partial-edit-a.png",
+          "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf",
+          "bytes": 2333851
+        },
+        {
+          "file": "samples/03_partial-edit-b.png",
+          "role": "B 결과",
+          "outputPath": "practice/DJ-L04/samples/03_partial-edit-b.png",
+          "sha256": "ec2ae722056b14619bf84686808bf5dd363a72acd8381d272cdec3ee9e9c11e5",
+          "bytes": 2253442
+        },
+        {
+          "file": "samples/04_revised-concept.png",
+          "role": "A에서 간판 띠·캐노피 전면과 하부만 밝게 보완한 A2 비교 대상",
+          "outputPath": "practice/DJ-L04/samples/04_revised-concept.png",
+          "sha256": "ee3007dbda36fa810465abacb1f20e7900170cd82bf37115e2d72a8f0a28d70b",
+          "bytes": 2140064
+        }
+      ],
+      "promptProvenance": "현재 목표를 설명하는 학생용 요청문. 실제 이미지 도구 호출 기록과 구분.",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/prompts/gemini-7step.txt",
+      "description": "원본 분석 또는 대안 비교를 텍스트로 요청하는 학생용 문안입니다. 이미지를 생성하지 않고 관찰·제공 조건·추정·미확정을 구분합니다."
     },
     {
       "file": "prompts/gemini-short.txt",
-      "sha256": "e88dbbfd24830d718f978f55c570723aa872e99a3d5d0f17ac146f1e76d1ccce",
-      "bytes": 765
+      "sha256": "5c8a115302427fa81439c4e50d198be9a0ca1002e61696a5384cf077cafcbf58",
+      "bytes": 1251,
+      "description": "원본 분석 또는 대안 비교를 텍스트로 요청하는 학생용 문안입니다. 이미지를 생성하지 않고 관찰·제공 조건·추정·미확정을 구분합니다.",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
+      "attachments": [
+        {
+          "file": "bases/01_base-building.png",
+          "role": "처음 원본",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871",
+          "bytes": 2417644
+        },
+        {
+          "file": "samples/02_partial-edit-a.png",
+          "role": "A 결과",
+          "outputPath": "practice/DJ-L04/samples/02_partial-edit-a.png",
+          "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf",
+          "bytes": 2333851
+        },
+        {
+          "file": "samples/03_partial-edit-b.png",
+          "role": "B 결과",
+          "outputPath": "practice/DJ-L04/samples/03_partial-edit-b.png",
+          "sha256": "ec2ae722056b14619bf84686808bf5dd363a72acd8381d272cdec3ee9e9c11e5",
+          "bytes": 2253442
+        },
+        {
+          "file": "samples/04_revised-concept.png",
+          "role": "A에서 간판 띠·캐노피 전면과 하부만 밝게 보완한 A2 비교 대상",
+          "outputPath": "practice/DJ-L04/samples/04_revised-concept.png",
+          "sha256": "ee3007dbda36fa810465abacb1f20e7900170cd82bf37115e2d72a8f0a28d70b",
+          "bytes": 2140064
+        }
+      ],
+      "promptProvenance": "현재 목표를 설명하는 학생용 요청문. 실제 이미지 도구 호출 기록과 구분.",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/prompts/gemini-short.txt"
     },
     {
       "file": "prompts/compare-7step.txt",
-      "sha256": "afdaf8fd7f6c795c739dd4a16340084dd8c143b2ef6b0780b9a691e7f57c9162",
-      "bytes": 1390
+      "sha256": "fba15815b9968fd34fdaecebfb12c61ebece32ff9a12eec546b11be90c664afd",
+      "bytes": 1904,
+      "title": "대안 선별·다음 보완 · 7단 구조",
+      "attachments": [
+        {
+          "file": "bases/01_base-building.png",
+          "role": "처음 원본",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871",
+          "bytes": 2417644
+        },
+        {
+          "file": "samples/02_partial-edit-a.png",
+          "role": "A 결과",
+          "outputPath": "practice/DJ-L04/samples/02_partial-edit-a.png",
+          "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf",
+          "bytes": 2333851
+        },
+        {
+          "file": "samples/03_partial-edit-b.png",
+          "role": "B 결과",
+          "outputPath": "practice/DJ-L04/samples/03_partial-edit-b.png",
+          "sha256": "ec2ae722056b14619bf84686808bf5dd363a72acd8381d272cdec3ee9e9c11e5",
+          "bytes": 2253442
+        },
+        {
+          "file": "samples/04_revised-concept.png",
+          "role": "A2 결과",
+          "outputPath": "practice/DJ-L04/samples/04_revised-concept.png",
+          "sha256": "ee3007dbda36fa810465abacb1f20e7900170cd82bf37115e2d72a8f0a28d70b",
+          "bytes": 2140064
+        }
+      ],
+      "promptProvenance": "현재 목표를 설명하는 학생용 요청문. 실제 이미지 도구 호출 기록과 구분.",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/prompts/compare-7step.txt",
+      "description": "원본 분석 또는 대안 비교를 텍스트로 요청하는 학생용 문안입니다. 이미지를 생성하지 않고 관찰·제공 조건·추정·미확정을 구분합니다."
     },
     {
       "file": "prompts/compare-short.txt",
-      "sha256": "fb832f989d145eba20c2103ea64d677d90346ec79885ec534c60ef96a22d9cc3",
-      "bytes": 714
+      "sha256": "5c8a115302427fa81439c4e50d198be9a0ca1002e61696a5384cf077cafcbf58",
+      "bytes": 1251,
+      "description": "원본 분석 또는 대안 비교를 텍스트로 요청하는 학생용 문안입니다. 이미지를 생성하지 않고 관찰·제공 조건·추정·미확정을 구분합니다.",
+      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
+      "attachments": [
+        {
+          "file": "bases/01_base-building.png",
+          "role": "처음 원본",
+          "outputPath": "practice/DJ-L04/bases/01_base-building.png",
+          "sha256": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871",
+          "bytes": 2417644
+        },
+        {
+          "file": "samples/02_partial-edit-a.png",
+          "role": "A 결과",
+          "outputPath": "practice/DJ-L04/samples/02_partial-edit-a.png",
+          "sha256": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf",
+          "bytes": 2333851
+        },
+        {
+          "file": "samples/03_partial-edit-b.png",
+          "role": "B 결과",
+          "outputPath": "practice/DJ-L04/samples/03_partial-edit-b.png",
+          "sha256": "ec2ae722056b14619bf84686808bf5dd363a72acd8381d272cdec3ee9e9c11e5",
+          "bytes": 2253442
+        },
+        {
+          "file": "samples/04_revised-concept.png",
+          "role": "A2 결과",
+          "outputPath": "practice/DJ-L04/samples/04_revised-concept.png",
+          "sha256": "ee3007dbda36fa810465abacb1f20e7900170cd82bf37115e2d72a8f0a28d70b",
+          "bytes": 2140064
+        }
+      ],
+      "promptProvenance": "현재 목표를 설명하는 학생용 요청문. 실제 이미지 도구 호출 기록과 구분.",
+      "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/prompts/compare-short.txt"
     },
     {
       "file": "analysis/DJ-L04_BASE-AND-REFERENCE.md",
-      "sha256": "b2079ea8bacc9a4bf4bb63c9ad2f98621c1d63209a4c8e3cf74eae90a472ea7b",
-      "bytes": 643
+      "sha256": "653e1cadb46d9574cae285dd4a87368b032ef1b0af56c01a2df8aa482a88f313",
+      "bytes": 1210
     },
     {
       "file": "analysis/DJ-L04_COMPARE-AND-SELECT.md",
-      "sha256": "11088e835fd5e3e55629d7cbe821626ca4e640de2aaf306793c0f8305c3debec",
-      "bytes": 521
+      "sha256": "dad3447f8e8880b284b35a4958a5d6ab12817fdbf445dccfac32d61c34e1ddd6",
+      "bytes": 1091
     },
     {
       "file": "README.txt",
-      "sha256": "e98cae13f66b961c17725f72f48634cd0cff5ca2e4ca676ccdcacdc68e345ec9",
-      "bytes": 2593
+      "sha256": "c07e46867261dc87224a465be5f6a041499d34cecee6846bde5550107d25468a",
+      "bytes": 1797
     },
     {
       "file": "bases/01_base-building.png",

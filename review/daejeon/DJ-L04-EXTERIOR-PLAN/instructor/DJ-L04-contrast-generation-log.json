@@ -1,0 +1,324 @@
+{
+  "scope": "Current L04 contrast and dependent landscape continuity",
+  "baselineCommit": "488e00ca6f84a34b51e4ee023d6b72210fb58299",
+  "toolCalls": 10,
+  "records": [
+    {
+      "key": "B",
+      "asset": "implementation-13/samples/03_partial-edit-b.png",
+      "tool": "image_gen.imagegen (built-in)",
+      "backendModel": "not exposed by tool; not asserted as Nano Banana or Astra",
+      "exactToolArguments": {
+        "prompt": "Use case: precise-object-edit. Edit target is the supplied original grey three-storey commercial building photograph, not a style inspiration. Preserve EXACT source framing and aspect, roofline, silhouette, three-storey mass, all EIGHT upper window openings and their frames/mullion divisions, TWO ground floor storefront windows, central glass entry and existing projecting central canopy shape. Neighbors, sidewalk edges, kerb, street markings, sky and overcast daytime camera must stay fixed. No camera change or new architecture. Material renovation B: replace all opaque second/third-floor grey wall surfaces with vivid warm terracotta architectural panels carrying precise vertical fluted/ribbed relief, tactile depth and restrained clean joints. Keep existing eight window glazing extents, surround each within original boundaries with precise matte-black aluminum frames. Renovate first-floor opaque plinth, pilasters and central portal with dark basalt slate stone, visibly layered mineral texture, not flat grey paint. Existing canopy becomes matte black metal while keeping its footprint and projection. Add a continuous warm concealed line under the existing canopy soffit. Make the existing storefront interiors and central entry welcoming and luminous with visually warm 3000K-like amber showroom light, maintaining believable clear glazing, reflections and existing partitions; this is a visual lighting concept not measured color-temperature proof. Strong instantly legible BEFORE/AFTER material/relief/light contrast but realistic architectural photography; daytime sky and neighboring context unchanged. No added floors/openings/canopy volume, no wood portal, no plants/people/cars/text/logos/labels. One image only, original landscape composition retained, no crop or border.",
+        "referenced_image_paths": [
+          "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/bases/EXT-BASE-01.png"
+        ],
+        "transparent_background": false
+      },
+      "inputSha256": {
+        "implementation-13/bases/EXT-BASE-01.png": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871"
+      },
+      "historicalInputSnapshots": {},
+      "sourceToolOutput": "C:/Users/deric/.codex/generated_images/01a15269-da21-73d2-8863-69845a5e5cdd/exec-73afbc59-874a-4b9f-aec3-d367e2476f6b.png",
+      "outputSha256": "ec2ae722056b14619bf84686808bf5dd363a72acd8381d272cdec3ee9e9c11e5",
+      "bytes": 2253442,
+      "pixels": [
+        1672,
+        941
+      ],
+      "postProcessing": "none; byte-identical copy of built-in image tool output",
+      "visualReview": "Codex visual self-check; not independent reviewer approval. Geometry and main/subview continuity are visual proposals, not exact survey reconstruction."
+    },
+    {
+      "key": "A2",
+      "asset": "implementation-13/samples/04_revised-concept.png",
+      "tool": "image_gen.imagegen (built-in)",
+      "backendModel": "not exposed by tool; not asserted as Nano Banana or Astra",
+      "exactToolArguments": {
+        "prompt": "Use case: precise-object-edit. Edit only localized ground-floor finishing/lighting of supplied approved A building photo. Keep the ENTIRE second and third floors absolutely visually unchanged: identical cream limestone texture, eight upper window positions/sizes/divisions, top coping, camera, lighting and silhouette. Also keep side neighbors, sky, ground/kerb/road, ground-floor storefront glazing and central entry geometry unchanged. Do not redesign the whole building. Only target original first-floor long horizontal sign band, front edge and underside/soffit of existing CENTRAL canopy, and opaque surfaces of existing entry portal. Replace the plain flat dark sign band with a highly legible three-dimensional DARK WALNUT / DARK BRONZE HORIZONTAL architectural louver band, tightly spaced fine horizontal fins and shadow gaps within the original band outline. Continue this material language coherently along existing canopy front/soffit and portal frame surfaces without covering any glass or enlarging the canopy. Add an elegant continuous warm concealed grazing line under the canopy and subtle band underside light. Make the existing shopfront and portal interiors significantly warmer and more luminous in restrained GOLD/AMBER light, clear glass not glowing opaque orange. Rich premium commercial frontage depth and warm glow, clearly different from A, with upper cream facade exactly retained. No pale grey microcement, no new objects, plants, people, text or logos. Single realistic architecture photo, identical original landscape composition and aspect, no crop/border.",
+        "referenced_image_paths": [
+          "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/samples/02_partial-edit-a.png"
+        ],
+        "transparent_background": false
+      },
+      "inputSha256": {
+        "implementation-13/samples/02_partial-edit-a.png": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf"
+      },
+      "historicalInputSnapshots": {},
+      "sourceToolOutput": "C:/Users/deric/.codex/generated_images/01a15269-da21-73d2-8863-69845a5e5cdd/exec-0a0f8e2d-bc21-46b8-99ce-19c31c9060b6.png",
+      "outputSha256": "ee3007dbda36fa810465abacb1f20e7900170cd82bf37115e2d72a8f0a28d70b",
+      "bytes": 2140064,
+      "pixels": [
+        1672,
+        941
+      ],
+      "postProcessing": "After image_gen edit, original A pixels in upper rectangle [0,0,1672,495] were restored unchanged; generated ground-floor finish/lighting retained. No new drawn geometry.",
+      "visualReview": "Codex visual self-check; not independent reviewer approval. Geometry and main/subview continuity are visual proposals, not exact survey reconstruction.",
+      "referenceRestoration": {
+        "source": "implementation-13/samples/02_partial-edit-a.png",
+        "rectangle": [
+          0,
+          0,
+          1672,
+          495
+        ],
+        "pixelExact": true,
+        "scope": "Upper two floors and upper context only; ground-floor local edit retained."
+      }
+    },
+    {
+      "key": "landscape",
+      "asset": "application-05-techniques/samples/05_landscape-additive.png",
+      "tool": "image_gen.imagegen (built-in)",
+      "backendModel": "not exposed by tool; not asserted as Nano Banana or Astra",
+      "exactToolArguments": {
+        "prompt": "Use case: precise-object-edit / additive exterior landscaping. Supplied approved A photograph is the exact building/camera/finish reference. Preserve the entire three-storey cream limestone building, dark bronze sign band, existing vertical walnut portal, canopy, eight upper windows, two ground shop windows and central glass door UNCHANGED. Preserve neighbors, sky, road and kerb position, camera framing and overcast DAYLIGHT; no dusk, no people. Make a dramatic but credible first-stage LANDSCAPE ADDITION concentrated along the first-floor shopfront bases and outer piers: sculptural layered natural-stone architectural planters with stepped heights and refined coping; two elegant multi-stem feature trees near outer frontage edges, tree crowns arranged so upper windows remain legible; generous textured ornamental grasses/sedges, dense low groundcovers and tasteful perennial flowers around them. Build lush multi-height foliage, not two isolated beige boxes. Add subtle warm concealed planter underlighting and a warm stone entry-mat paving inset in front of the central portal, flush with existing ground level. Keep a clearly unobstructed central entry approach and continuous pedestrian route; planters stay on the existing forecourt/sidewalk side of the kerb, NEVER occupy the road, block doors/glass openings or require moving a wall/kerb. This is an educational landscape concept, not approval of public-space occupation. Convincing premium architectural visualization with realistic vegetation volume, leaf detail and planted-stone layering. Do not change facade materials, canopy, window/door boundaries or add a new architectural mass. No signs, text, logos, furniture or people yet. Output one landscape photograph with the same frame/aspect and camera as original.",
+        "referenced_image_paths": [
+          "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/samples/02_partial-edit-a.png"
+        ],
+        "transparent_background": false
+      },
+      "inputSha256": {
+        "implementation-13/samples/02_partial-edit-a.png": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf"
+      },
+      "historicalInputSnapshots": {},
+      "sourceToolOutput": "C:/Users/deric/.codex/generated_images/01a15269-da21-73d2-8863-69845a5e5cdd/exec-0e2421bb-b88a-4eb2-acf4-594c1c5fcb2f.png",
+      "outputSha256": "391bf0c31afb9233c1ae394d4650da4fbd5d03883ce6912c362a1ecbde1c6641",
+      "bytes": 2554692,
+      "pixels": [
+        1672,
+        941
+      ],
+      "postProcessing": "none; byte-identical copy of built-in image tool output",
+      "visualReview": "Codex visual self-check; not independent reviewer approval. Geometry and main/subview continuity are visual proposals, not exact survey reconstruction."
+    },
+    {
+      "key": "plaza",
+      "asset": "application-05-techniques/samples/11_surrounding-landscape-plaza.png",
+      "tool": "image_gen.imagegen (built-in)",
+      "backendModel": "not exposed by tool; not asserted as Nano Banana or Astra",
+      "exactToolArguments": {
+        "prompt": "Use case: precise-object-edit / additive landscape expansion. Edit the supplied Stage1 landscaped facade photograph. Keep EXACTLY the same camera/frame/aspect, entire cream-limestone three-storey building, eight upper windows and their glazing/mullions, ground shop windows, central bronze/walnut entry and canopy, neighbors, sky, original road markings and kerb. Preserve ALL EXISTING layered front planters, their multi-stem trees, grasses, flowers, stone entry mat and subtle underlighting; do not replace or move them. Stage2: enrich only the surrounding pedestrian forecourt/streetscape into a coherent small landscape plaza. Use elegant warm-grey large stone paving slabs with restrained bands within existing land-side paving boundaries, add TWO larger elegant street trees toward the far outer left/right edges beyond the existing main planted groups, integrated natural-stone benches near the outer edges, low dark-bronze warm light bollards and complementary low planted edges. Keep the central doorway approach visually generous and continuous, with a clear pedestrian route between planter edge and kerb. No paving or objects extend into the road; do not move kerb or widen the image/site, no stairs or raised podium. This is an illustrative forecourt arrangement, not proof of available site area or public-space permission. Stronger and richer than Stage1, realistically planted, sophisticated stone detailing, daylight remains overcast. NO people, cafe tables, cars, signage, labels or logos yet. Do not edit facade surfaces or window/door boundaries. One landscape architecture photograph at exactly the original viewpoint and composition.",
+        "referenced_image_paths": [
+          "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/samples/05_landscape-additive.png"
+        ],
+        "transparent_background": false
+      },
+      "inputSha256": {
+        "application-05-techniques/samples/05_landscape-additive.png": "391bf0c31afb9233c1ae394d4650da4fbd5d03883ce6912c362a1ecbde1c6641"
+      },
+      "historicalInputSnapshots": {},
+      "sourceToolOutput": "C:/Users/deric/.codex/generated_images/01a15269-da21-73d2-8863-69845a5e5cdd/exec-f036e08c-5522-44d6-a315-1d480f1db7ef.png",
+      "outputSha256": "2861aa26fe6f10581a751f5b20b3309f0b0c7405370cef3d5c05c8780f7f6aa5",
+      "bytes": 2893246,
+      "pixels": [
+        1672,
+        941
+      ],
+      "postProcessing": "none; byte-identical copy of built-in image tool output",
+      "visualReview": "Codex visual self-check; not independent reviewer approval. Geometry and main/subview continuity are visual proposals, not exact survey reconstruction."
+    },
+    {
+      "key": "dusk",
+      "asset": "application-05-techniques/samples/06_dusk-lighting.png",
+      "tool": "image_gen.imagegen (built-in)",
+      "backendModel": "not exposed by tool; not asserted as Nano Banana or Astra",
+      "exactToolArguments": {
+        "prompt": "Use case: lighting-weather. Edit supplied Stage1 landscaped A exterior photograph into a photorealistic early-evening / dusk lighting simulation. Keep EXACT camera, framing/aspect, building mass/cream limestone/materials, all eight upper windows and mullions, both ground-floor shop windows, central glass door, vertical walnut/bronze portal and ORIGINAL FLAT dark signband/canopy, all layered stone planters and their precise positions, multistem trees, grasses/flowers, entry paving, neighbors/kerb/road. DO NOT add the horizontal louver band from A2. Change only time of day and lighting: coherent blue-hour sky with soft lingering sunset, warm 3000K-like interior light behind original storefront glass and subtle upper interior windows; continuous gentle line under the existing canopy and soft warm wash on vertical walnut portal; warm planter underlights and low plant uplight, believable shadow/reflection/exposure, no oversaturated orange or neon. Keep architectural surfaces and vegetation legible, preserve every planter/planting silhouette and spatial layout. No new people/furniture/cars/text/logos. This is a visual lighting proposal, not photometric performance data. One image exactly matching the daytime reference composition for a day/dusk slider.",
+        "referenced_image_paths": [
+          "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/samples/05_landscape-additive.png"
+        ],
+        "transparent_background": false
+      },
+      "inputSha256": {
+        "application-05-techniques/samples/05_landscape-additive.png": "391bf0c31afb9233c1ae394d4650da4fbd5d03883ce6912c362a1ecbde1c6641"
+      },
+      "historicalInputSnapshots": {},
+      "sourceToolOutput": "C:/Users/deric/.codex/generated_images/01a15269-da21-73d2-8863-69845a5e5cdd/exec-2cbde4e5-0200-4f65-af37-c75d96378484.png",
+      "outputSha256": "93f6adcb93d69bd3bfe39ee1a4896465a51b16d474052d94f50daa65acdb6302",
+      "bytes": 2495367,
+      "pixels": [
+        1672,
+        941
+      ],
+      "postProcessing": "none; byte-identical copy of built-in image tool output",
+      "visualReview": "Codex visual self-check; not independent reviewer approval. Geometry and main/subview continuity are visual proposals, not exact survey reconstruction."
+    },
+    {
+      "key": "subview",
+      "asset": "application-05-techniques/samples/07_entrance-closeup-subview.png",
+      "tool": "image_gen.imagegen (built-in)",
+      "backendModel": "not exposed by tool; not asserted as Nano Banana or Astra",
+      "exactToolArguments": {
+        "prompt": "Use case: precise-object-edit / main-to-subview continuity. Image1 is the EXACT entrance close-up camera/composition/geometry target. Image2 is the current MAIN Stage1 landscaped facade and is ONLY the material/planting continuity reference. Keep Image1's oblique close-up viewpoint, door frames/glass divisions/handles, vertical walnut slat portal, original bronze flat signband/canopy, cream limestone wall texture, shop window shape, neighbor and curb geometry unchanged. Do NOT use B terracotta or A2 horizontal signband louvers. Update ONLY existing foreground planted groups to match Image2's enhanced layered natural-stone planters, multiple stepped heights, concealed warm underlip lighting, sculptural multi-stem trees, dense ornamental grasses, groundcovers and restrained white/pink/purple perennial flowers. Preserve their placement left/right of entry, keep clear central passage and flush warm stone entry-mat paving. No extra architecture, larger canopy, altered door location, people, furniture or new text. Daylight and warm existing shop interior stay believable. Photorealistic architecture entrance photograph, consistent textures/light/detail, original Image1 landscape composition with no crop.",
+        "referenced_image_paths": [
+          "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/samples/07_entrance-closeup-subview.png",
+          "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/samples/05_landscape-additive.png"
+        ],
+        "transparent_background": false
+      },
+      "inputSha256": {
+        "application-05-techniques/samples/07_entrance-closeup-subview.png": "27e56d9cd9f63a98a0c02d2fc65aed25a064bb664d32ad35552d5ddfbdaa4412",
+        "application-05-techniques/samples/05_landscape-additive.png": "391bf0c31afb9233c1ae394d4650da4fbd5d03883ce6912c362a1ecbde1c6641"
+      },
+      "historicalInputSnapshots": {
+        "application-05-techniques/samples/07_entrance-closeup-subview.png": {
+          "version": "before this update",
+          "commit": "488e00ca6f84a34b51e4ee023d6b72210fb58299",
+          "retainedLocalCopy": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\workbook-glossary-l04-contrast-2026-11-08\\images-before\\07_entrance-closeup-subview.png",
+          "sha256": "27e56d9cd9f63a98a0c02d2fc65aed25a064bb664d32ad35552d5ddfbdaa4412"
+        }
+      },
+      "sourceToolOutput": "C:/Users/deric/.codex/generated_images/01a15269-da21-73d2-8863-69845a5e5cdd/exec-e8d42076-bd21-4876-8c1b-fd4c93da63ff.png",
+      "outputSha256": "23f8a2cafa6d2e25f5a29fcda19bc5dec8b7ad2b6b9fa6b43e2b65cb126fed53",
+      "bytes": 2813933,
+      "pixels": [
+        1672,
+        941
+      ],
+      "postProcessing": "none; byte-identical copy of built-in image tool output",
+      "visualReview": "Codex visual self-check; not independent reviewer approval. Geometry and main/subview continuity are visual proposals, not exact survey reconstruction."
+    },
+    {
+      "key": "human",
+      "asset": "application-05-techniques/samples/12_human-scale-entourage.png",
+      "tool": "image_gen.imagegen (built-in)",
+      "backendModel": "not exposed by tool; not asserted as Nano Banana or Astra",
+      "exactToolArguments": {
+        "prompt": "Use case: additive inpainting / human scale entourage. Supplied photograph is the exact completed Stage2 landscape-plaza design. Keep the camera/frame/aspect, three-storey cream limestone facade and all eight upper windows, ground shopfronts, vertical walnut central entry and flat bronze signband/canopy, neighbors, original kerb/road, ALL layered natural-stone planters, multi-stem trees, two large outer street trees, paving patterns, benches and light bollards unchanged. Add ONLY a tasteful natural everyday use layer: about SIX realistically scaled adult visitors/pedestrians, a few walking along the land-side pedestrian route, one entering the existing portal, one or two seated at existing stone benches, and TWO small refined outdoor cafe tables with lightweight chairs at the far left/right edge areas. Tables must stay fully off the road and away from the central door/continuous walking route. Plausible adult scale relative to existing door, correct feet/contact shadows and relaxed spontaneous poses; no giant people, crowds or posed line-up. Keep upper facade legible; people must not conceal key entry geometry. Soft overcast daytime, same color/material/light, existing subtle planter lighting. No architecture/plants/paving changes, no added signage/logos/text/cars, no new stairs or barriers. Photorealistic final human-scale streetscape concept, one independent landscape photograph with exact reference viewpoint/composition.",
+        "referenced_image_paths": [
+          "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/samples/11_surrounding-landscape-plaza.png"
+        ],
+        "transparent_background": false
+      },
+      "inputSha256": {
+        "application-05-techniques/samples/11_surrounding-landscape-plaza.png": "2861aa26fe6f10581a751f5b20b3309f0b0c7405370cef3d5c05c8780f7f6aa5"
+      },
+      "historicalInputSnapshots": {},
+      "sourceToolOutput": "C:/Users/deric/.codex/generated_images/01a15269-da21-73d2-8863-69845a5e5cdd/exec-59be6d1a-58e7-4871-accd-786a3fb4f2c4.png",
+      "outputSha256": "7570918a94fa57c64518b3fae6e010aaa037ed2c886ae58ed007dd7342af8951",
+      "bytes": 2773452,
+      "pixels": [
+        1672,
+        941
+      ],
+      "postProcessing": "none; byte-identical copy of built-in image tool output",
+      "visualReview": "Codex visual self-check; not independent reviewer approval. Geometry and main/subview continuity are visual proposals, not exact survey reconstruction."
+    },
+    {
+      "key": "corner",
+      "asset": "application-05-techniques/samples/13_angle-corner-perspective.png",
+      "tool": "image_gen.imagegen (built-in)",
+      "backendModel": "not exposed by tool; not asserted as Nano Banana or Astra",
+      "exactToolArguments": {
+        "prompt": "Use case: main-to-subview context compositing. Image1 is the OLD corner-perspective photograph: preserve its exact camera position, perspective, framing/aspect, building outline/roofline, THREE FLOORS, all eight front upper window openings/divisions, blank left side wall, ground shopfronts, central door and canopy. Image2 is the NEW Stage2 main plaza design; Image3 is the NEW Stage3 human-scale main design. Update ONLY foreground landscape/paving/benches/bollards/people to faithfully match those new references from Image1's viewpoint: layered textured natural-stone planters with stepped heights and concealed warm underlights; multistem trees and lush grasses/white/pink/purple flowers beside shopfronts; two taller outer street trees; warm-grey patterned stone pedestrian paving; refined stone benches, warm light bollards, a few naturally scaled visitors and two small cafe tables at edge areas. Keep central entry route clear and original kerb/road unchanged. Preserve cream limestone, FLAT bronze signband and VERTICAL walnut portal (do not add A2 louvers or B terracotta). Same broadly neutral daytime mood as main references, no invented side openings/floors, no changed mass, no text/logos. Photorealistic architecture visualization, not surveyed geometry proof. One image with Image1's original landscape view.",
+        "referenced_image_paths": [
+          "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/samples/13_angle-corner-perspective.png",
+          "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/samples/11_surrounding-landscape-plaza.png",
+          "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/samples/12_human-scale-entourage.png"
+        ],
+        "transparent_background": false
+      },
+      "inputSha256": {
+        "application-05-techniques/samples/13_angle-corner-perspective.png": "d9fb582c0a9ca6a669c3044b78e4aa6979c0ca89897cd6f6c9fec65c3901a4ec",
+        "application-05-techniques/samples/11_surrounding-landscape-plaza.png": "2861aa26fe6f10581a751f5b20b3309f0b0c7405370cef3d5c05c8780f7f6aa5",
+        "application-05-techniques/samples/12_human-scale-entourage.png": "7570918a94fa57c64518b3fae6e010aaa037ed2c886ae58ed007dd7342af8951"
+      },
+      "historicalInputSnapshots": {
+        "application-05-techniques/samples/13_angle-corner-perspective.png": {
+          "version": "before this update",
+          "commit": "488e00ca6f84a34b51e4ee023d6b72210fb58299",
+          "retainedLocalCopy": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\workbook-glossary-l04-contrast-2026-11-08\\images-before\\13_angle-corner-perspective.png",
+          "sha256": "d9fb582c0a9ca6a669c3044b78e4aa6979c0ca89897cd6f6c9fec65c3901a4ec"
+        }
+      },
+      "sourceToolOutput": "C:/Users/deric/.codex/generated_images/01a15269-da21-73d2-8863-69845a5e5cdd/exec-d7c9e0f3-a58c-46b9-a9b6-1b9e42eab9c2.png",
+      "outputSha256": "1f8e81c685081c7f76afaf756f043870bcc3b0b96e3956d35bcda1545488479b",
+      "bytes": 2841949,
+      "pixels": [
+        1671,
+        941
+      ],
+      "postProcessing": "none; byte-identical copy of built-in image tool output",
+      "visualReview": "Codex visual self-check; not independent reviewer approval. Geometry and main/subview continuity are visual proposals, not exact survey reconstruction."
+    },
+    {
+      "key": "streetscape",
+      "asset": "application-05-techniques/samples/14_angle-pedestrian-streetscape.png",
+      "tool": "image_gen.imagegen (built-in)",
+      "backendModel": "not exposed by tool; not asserted as Nano Banana or Astra",
+      "exactToolArguments": {
+        "prompt": "Use case: main-to-subview context compositing. Image1 is the old pedestrian-side close view and gives EXACT framing/perspective/architectural geometry; Image2 is the NEW finished human-scale FRONT main view and controls design continuity. Keep Image1 camera and building shape, visible window frames/glass divisions, cream limestone, original FLAT dark bronze signband/canopy, vertical walnut portal and central door location, road/kerb/neighbors. Replace only its older foreground landscape/entourage layer to correspond to Image2: stepped layered natural-stone planters with underlip light, elegant multistem trees, rich grasses and groundcovers/perennial flowers, outer trees, stone benches and bollards, warm-grey flush paving and entry mat. Carry over a small number of natural walkers/bench users and subtle cafe tables/chairs at the edge, realistic human scale, feet/contact shadows correct. Preserve a legible central entry approach and pedestrian circulation; no table blocks door or occupies road. No horizontal A2 louver-band or B terracotta, no new architectural details/openings or stairs. Soft realistic daytime architectural photography, consistent material/plant vocabulary, no text/logos/cars. One image matching Image1's original landscape viewpoint/aspect without cropping.",
+        "referenced_image_paths": [
+          "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/samples/14_angle-pedestrian-streetscape.png",
+          "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/samples/12_human-scale-entourage.png"
+        ],
+        "transparent_background": false
+      },
+      "inputSha256": {
+        "application-05-techniques/samples/14_angle-pedestrian-streetscape.png": "e5fe119b723c0889fb5707d6d90fd85eb963a92da02d0f618dd860bbc7d8e00f",
+        "application-05-techniques/samples/12_human-scale-entourage.png": "7570918a94fa57c64518b3fae6e010aaa037ed2c886ae58ed007dd7342af8951"
+      },
+      "historicalInputSnapshots": {
+        "application-05-techniques/samples/14_angle-pedestrian-streetscape.png": {
+          "version": "before this update",
+          "commit": "488e00ca6f84a34b51e4ee023d6b72210fb58299",
+          "retainedLocalCopy": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\workbook-glossary-l04-contrast-2026-11-08\\images-before\\14_angle-pedestrian-streetscape.png",
+          "sha256": "e5fe119b723c0889fb5707d6d90fd85eb963a92da02d0f618dd860bbc7d8e00f"
+        }
+      },
+      "sourceToolOutput": "C:/Users/deric/.codex/generated_images/01a15269-da21-73d2-8863-69845a5e5cdd/exec-0de5dd01-3f0e-4af3-be28-4d9d0149755f.png",
+      "outputSha256": "9996c006cef87a8432e4fa3a4e49dd2a3be2d905f0b61fdff5d10a16d6fca8e6",
+      "bytes": 3039993,
+      "pixels": [
+        1672,
+        941
+      ],
+      "postProcessing": "none; byte-identical copy of built-in image tool output",
+      "visualReview": "Codex visual self-check; not independent reviewer approval. Geometry and main/subview continuity are visual proposals, not exact survey reconstruction."
+    },
+    {
+      "key": "elevated",
+      "asset": "application-05-techniques/samples/15_angle-elevated-overview.png",
+      "tool": "image_gen.imagegen (built-in)",
+      "backendModel": "not exposed by tool; not asserted as Nano Banana or Astra",
+      "exactToolArguments": {
+        "prompt": "Use case: main-to-subview context compositing. Image1 is the original elevated-overview camera/geometry target. Keep its exact elevated perspective and framing/aspect, three-storey building mass, roof slab/parapet, all eight front upper windows and divisions, blank side wall, two storefronts and central entry/canopy, neighbors, kerb/road and site boundaries. Image2 NEW Stage2 plaza and Image3 NEW Stage3 people view supply ONLY updated landscape/use details. Re-express those details from this same elevated camera: stepped textured natural-stone planters along storefront bases, multistem trees and lush layered grasses/flowers, two outer tall street trees, warm-grey slab-and-band paving, flush stone entry mat, natural-stone benches and warm bollards, few realistic walkers/bench users and small outdoor cafe tables/chairs at perimeter. Keep the pathway and portal clear, objects all on land side of unchanged kerb. Keep cream limestone, original flat bronze signband/canopy and vertical walnut portal; no A2 horizontal louvers or terracotta. Roof remains plain as original; do not add roof garden/equipment or invented openings. Daylight broadly matches main references. Photorealistic landscape architecture overview, no text/logos, not an exact survey/model reconstruction. Single landscape frame exactly following Image1.",
+        "referenced_image_paths": [
+          "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/samples/15_angle-elevated-overview.png",
+          "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/samples/11_surrounding-landscape-plaza.png",
+          "C:/Users/deric/Desktop/AI_Lecture_Architecture/daejeon/review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/samples/12_human-scale-entourage.png"
+        ],
+        "transparent_background": false
+      },
+      "inputSha256": {
+        "application-05-techniques/samples/15_angle-elevated-overview.png": "0e4a56da5c2e5dafe3bc4d5169c5d3ab3b7628ef147556e7af3f12451a23f6ef",
+        "application-05-techniques/samples/11_surrounding-landscape-plaza.png": "2861aa26fe6f10581a751f5b20b3309f0b0c7405370cef3d5c05c8780f7f6aa5",
+        "application-05-techniques/samples/12_human-scale-entourage.png": "7570918a94fa57c64518b3fae6e010aaa037ed2c886ae58ed007dd7342af8951"
+      },
+      "historicalInputSnapshots": {
+        "application-05-techniques/samples/15_angle-elevated-overview.png": {
+          "version": "before this update",
+          "commit": "488e00ca6f84a34b51e4ee023d6b72210fb58299",
+          "retainedLocalCopy": "C:\\Users\\deric\\Desktop\\architecture-design-course\\tmp\\workbook-glossary-l04-contrast-2026-11-08\\images-before\\15_angle-elevated-overview.png",
+          "sha256": "0e4a56da5c2e5dafe3bc4d5169c5d3ab3b7628ef147556e7af3f12451a23f6ef"
+        }
+      },
+      "sourceToolOutput": "C:/Users/deric/.codex/generated_images/01a15269-da21-73d2-8863-69845a5e5cdd/exec-8dadb9ac-440b-4859-b9d8-06e59ce8ecc7.png",
+      "outputSha256": "d0f28788ae2387b006788e77d801cdc99b2d206f3cc09b011687271ce32a40fe",
+      "bytes": 3207505,
+      "pixels": [
+        1672,
+        941
+      ],
+      "postProcessing": "none; byte-identical copy of built-in image tool output",
+      "visualReview": "Codex visual self-check; not independent reviewer approval. Geometry and main/subview continuity are visual proposals, not exact survey reconstruction."
+    }
+  ],
+  "limitations": [
+    "Image model backend is not exposed. Codex (6.1 Sol / 6 Astra) denotes lesson prompt derivation, not image backend.",
+    "Daylight/relief/plant occlusion/secondary-view placement may be reinterpreted. Compare openings and unaffected regions against the protected originals.",
+    "Landscape paving and furniture do not prove available site area, legal public-space use or measured clear pedestrian widths.",
+    "3000K is a visual lighting intention, not measured or guaranteed photometric performance."
+  ]
+}

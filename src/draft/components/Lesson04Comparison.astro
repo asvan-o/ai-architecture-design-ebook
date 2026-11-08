@@ -1,0 +1,66 @@
+---
+import ComparisonCards from './Lesson03Comparison.astro';
+interface Image {key:string;file:string;outputPath:string;width:number;height:number;}
+interface Props {before:Image;after:Image;beforeTitle:string;afterTitle:string;beforeDescription:string;afterDescription:string;instance:string;beforeDownloadName?:string;afterDownloadName?:string;beforeDownloadLabel?:string;afterDownloadLabel?:string;interactive?:boolean;}
+const {interactive=true,...comparison}=Astro.props;
+const {before,after,beforeTitle,afterTitle,instance}=comparison;
+const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const inputId=instance+'-comparison-range';
+const helpId=instance+'-comparison-help';
+---
+{interactive&&enabled&&<figure class="l04-slider" data-l04-slider={instance}>
+  <div class="l04-slider-image" style={`aspect-ratio:${before.width}/${before.height};--comparison-position:50%`} data-l04-slider-image>
+    <img class="l04-slider-before" src={base+'/'+before.outputPath} width={before.width} height={before.height} alt="" aria-hidden="true" loading="lazy" />
+    <img class="l04-slider-after" src={base+'/'+after.outputPath} width={after.width} height={after.height} alt="" aria-hidden="true" loading="lazy" />
+    <span class="l04-slider-label l04-slider-label-before">Before · 원본</span><span class="l04-slider-label l04-slider-label-after">After · 결과</span>
+    <span class="l04-slider-divider" aria-hidden="true"><span>↔</span></span>
+  </div>
+  <figcaption><strong>{beforeTitle} → {afterTitle}</strong><p id={helpId}>같은 카메라의 두 이미지를 겹쳐 봅니다. 조절 막대를 좌우로 움직이거나 방향키를 사용하세요. 왼쪽은 원본, 오른쪽은 결과이며 아래 카드에서 각각 확대·다운로드할 수 있습니다.</p></figcaption>
+  <div class="l04-slider-controls"><label for={inputId}>전후 비교 위치</label><output for={inputId} data-l04-slider-output>원본 50% · 결과 50%</output></div>
+  <input id={inputId} type="range" min="0" max="100" step="1" value="50" aria-describedby={helpId} aria-valuetext="원본 50%, 결과 50%" data-l04-slider-range />
+</figure>}
+<ComparisonCards {...comparison} />
+<style>
+ .l04-slider{margin:1.2rem 0;padding:1rem;border:1px solid var(--line);background:var(--surface);min-width:0;max-width:100%;overflow-wrap:anywhere}.l04-slider-image{position:relative;overflow:hidden;width:100%;min-width:0;background:var(--paper-deep)}
+ .l04-slider-image{cursor:ew-resize;touch-action:pan-y;user-select:none}.l04-slider-image img{position:absolute;inset:0;display:block;width:100%;height:100%;max-height:none;object-fit:contain;pointer-events:none}.l04-slider-after{clip-path:inset(0 0 0 var(--comparison-position))}.l04-slider-label{position:absolute;top:.6rem;z-index:1;padding:.25rem .5rem;background:rgb(250 249 245 / .92);color:#252c28;font-size:.75rem;font-weight:700;pointer-events:none}.l04-slider-label-before{left:.6rem}.l04-slider-label-after{right:.6rem}.l04-slider-divider{position:absolute;top:0;bottom:0;left:var(--comparison-position);width:2px;transform:translateX(-1px);background:#fff;box-shadow:0 0 0 1px rgb(0 0 0 / .18);pointer-events:none;cursor:ew-resize}.l04-slider-divider>span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;place-items:center;width:2rem;height:2rem;border:2px solid #fff;border-radius:50%;background:var(--accent-dark);color:#fff;font-size:1rem}
+ .l04-slider figcaption{margin-top:.7rem;font-size:.82rem}.l04-slider figcaption strong{font-weight:700}.l04-slider figcaption p{margin:.3rem 0 .65rem;color:var(--muted);font-size:.8rem}.l04-slider-controls{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.25rem .75rem;font-size:.8rem}.l04-slider-controls label{font-weight:700}.l04-slider input{display:block;width:100%;margin:.5rem 0 .2rem;min-height:28px;accent-color:var(--accent-dark);cursor:ew-resize}.l04-slider input:focus-visible{outline:2px solid var(--accent-dark);outline-offset:3px}
+ @media(max-width:600px){.l04-slider{padding:.65rem}.l04-slider-label{top:.35rem;font-size:.65rem;padding:.15rem .3rem}.l04-slider-label-before{left:.35rem}.l04-slider-label-after{right:.35rem}.l04-slider-divider>span{width:1.5rem;height:1.5rem;font-size:.8rem}}
+ @media print{.l04-slider{display:none!important}}
+</style>
+<script>
+ document.querySelectorAll<HTMLElement>('[data-l04-slider]').forEach(slider=>{
+   const range=slider.querySelector<HTMLInputElement>('[data-l04-slider-range]');
+   const image=slider.querySelector<HTMLElement>('[data-l04-slider-image]');
+   const output=slider.querySelector<HTMLOutputElement>('[data-l04-slider-output]');
+   if(!range||!image||!output)return;
+   const update=()=>{
+     const value=Math.max(0,Math.min(100,Number(range.value)));
+     image.style.setProperty('--comparison-position',value+'%');
+     output.value=`원본 ${value}% · 결과 ${100-value}%`;
+     range.setAttribute('aria-valuetext',`원본 ${value}%, 결과 ${100-value}%`);
+   };
+   range.addEventListener('input',update);update();
+   let activePointer:number|null=null;
+   const setFromPointer=(clientX:number)=>{
+     const bounds=image.getBoundingClientRect();
+     if(!bounds.width)return;
+     range.value=String(Math.round(Math.max(0,Math.min(1,(clientX-bounds.left)/bounds.width))*100));
+     range.dispatchEvent(new Event('input',{bubbles:true}));
+   };
+   const releasePointer=(pointerId:number)=>{
+     if(activePointer!==pointerId)return;
+     activePointer=null;
+     if(image.hasPointerCapture(pointerId))image.releasePointerCapture(pointerId);
+   };
+   image.addEventListener('pointerdown',event=>{
+     if(!event.isPrimary||event.button!==0||activePointer!==null)return;
+     activePointer=event.pointerId;image.setPointerCapture(event.pointerId);
+     range.focus({preventScroll:true});setFromPointer(event.clientX);
+   });
+   image.addEventListener('pointermove',event=>{if(activePointer===event.pointerId)setFromPointer(event.clientX);});
+   image.addEventListener('pointerup',event=>{if(activePointer===event.pointerId){setFromPointer(event.clientX);releasePointer(event.pointerId);}});
+   image.addEventListener('pointercancel',event=>releasePointer(event.pointerId));
+   image.addEventListener('lostpointercapture',event=>releasePointer(event.pointerId));
+ });
+</script>

@@ -1,0 +1,86 @@
+---
+import ReviewLayout from '../layouts/ReviewLayout.astro';
+import {glossaryCategories, workbookGlossary} from '../content/workbook-glossary';
+import type {WorkbookGlossaryTerm} from '../content/workbook-glossary';
+const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+const categoryId=(id:string)=>`glossary-${id}`;
+const toc=glossaryCategories.map(category=>({id:categoryId(category.id),title:category.title}));
+const lessonHref=(lesson:{lessonId:string;sectionId:string})=>{
+  const route=lesson.lessonId==='overview'?'course-overview':'lessons/'+lesson.lessonId;
+  return base+'/'+route+'/#'+lesson.sectionId;
+};
+const searchText=(term:WorkbookGlossaryTerm)=>[term.korean,term.english,term.acronym??'',...(term.aliases??[]),term.definition,term.context,term.why].join(' ');
+---
+<ReviewLayout title="용어 사전" lead="낯선 말은 쉬운 뜻과 교안 속 활용 장면을 함께 확인합니다. 한글·영문·약어로 찾아보고, 관련 차시로 돌아가 실습을 이어가세요." page="glossary" eyebrow="GLOSSARY · TERMS IN PRACTICE" {toc}>
+  <div class="glossary-tools" data-glossary-controls>
+    <div role="search" class="glossary-search">
+      <label for="workbook-glossary-search">어떤 용어가 궁금한가요?</label>
+      <div class="glossary-search-row"><input id="workbook-glossary-search" data-glossary-search type="search" placeholder="예: 환각, Inpainting, MCP, SHA-256" aria-describedby="glossary-search-help" aria-controls="glossary-results" autocomplete="off" /><button type="button" data-glossary-clear disabled>검색 지우기</button></div>
+      <p id="glossary-search-help">한글·영문·약어와 띄어쓰기를 달리해도 찾을 수 있습니다. 여러 단어를 쓰면 모두 포함한 항목을 보여줍니다.</p>
+    </div>
+    <nav class="glossary-categories" aria-label="용어 분류 빠른 이동">
+      {glossaryCategories.map(category=><a href={'#'+categoryId(category.id)} data-glossary-category-link={category.id}>{category.title}<span>{workbookGlossary.filter(term=>term.category===category.id).length}</span></a>)}
+    </nav>
+    <p class="glossary-result-count" aria-live="polite" aria-atomic="true" data-glossary-count>전체 {workbookGlossary.length}개 용어</p>
+  </div>
+  <noscript class="glossary-noscript"><p>검색을 사용하려면 JavaScript를 켜 주세요. 아래 전체 용어와 분류·차시 링크는 그대로 읽을 수 있습니다.</p></noscript>
+  <p class="glossary-empty" data-glossary-empty hidden>일치하는 용어가 없습니다. 다른 한글·영문·약어로 검색하거나 검색을 지워 전체 목록을 확인하세요.</p>
+  <div id="glossary-results" data-glossary-results>
+    {glossaryCategories.map((category,index)=><section class="review-section glossary-category" id={categoryId(category.id)} aria-labelledby={categoryId(category.id)+'-title'} data-glossary-category={category.id}>
+      <header class="review-section-heading"><span class="review-number">{String(index+1).padStart(2,'0')}</span><div><h2 id={categoryId(category.id)+'-title'}>{category.title}</h2><p>{category.description}</p></div></header>
+      <div class="review-section-body glossary-entries">
+        {workbookGlossary.filter(term=>term.category===category.id).map(term=><article class="glossary-entry" id={term.id} tabindex="-1" data-glossary-term={term.id} data-glossary-search-text={searchText(term)}>
+          <header class="glossary-entry-heading"><div><h3>{term.korean}</h3><p class="glossary-english"><span lang="en">{term.english}</span>{term.acronym&&<> · <abbr title={term.english}>{term.acronym}</abbr></>}</p></div><a class="glossary-permalink" href={'#'+term.id} aria-label={`${term.korean} 항목 바로가기`}>#</a></header>
+          <p class="glossary-definition">{term.definition}</p>
+          <dl><div><dt>교안에서 어떻게 쓰나요?</dt><dd>{term.context}</dd></div><div><dt>왜 알아야 하나요?</dt><dd>{term.why}</dd></div></dl>
+          {term.note&&<p class="glossary-note"><strong>함께 구분하기</strong> {term.note}</p>}
+          <div class="glossary-lesson-links"><strong>관련 차시에서 읽기</strong><ul>{term.lessons.map(lesson=><li><a href={lessonHref(lesson)}>{lesson.label}</a></li>)}</ul></div>
+          <div class="glossary-sources"><strong>풀이 참고 자료</strong><ul>{term.sources.map(source=><li><a href={source.url} target="_blank" rel="noopener noreferrer">{source.title}<span class="glossary-external"> · 새 탭 ↗</span></a></li>)}</ul></div>
+        </article>)}
+      </div>
+    </section>)}
+  </div>
+  <p class="glossary-return"><a href={`${base}/course-overview/`}>과정 안내로 돌아가기 →</a></p>
+</ReviewLayout>
+<style>
+ .glossary-tools{padding:1.2rem;border:1px solid var(--line);background:var(--surface);margin-bottom:1.5rem;min-width:0}.glossary-search label{display:block;font-size:1.05rem;font-weight:700;margin-bottom:.55rem}.glossary-search-row{display:flex;gap:.6rem;min-width:0}.glossary-search input{flex:1;min-width:0;width:100%;padding:.75rem .85rem;font:inherit;background:var(--paper);border:1px solid var(--line-dark);border-radius:0;color:var(--ink)}.glossary-search button{font:inherit;font-size:.85rem;padding:.7rem .8rem;border:1px solid var(--line-dark);background:var(--paper-deep);color:var(--ink);white-space:nowrap;cursor:pointer}.glossary-search button:disabled{opacity:.5;cursor:default}.glossary-search :is(input,button):focus-visible{outline:2px solid var(--accent-dark);outline-offset:3px}.glossary-search p{font-size:.8rem;color:var(--muted);margin:.5rem 0 0}
+ .glossary-categories{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1rem}.glossary-categories a{display:inline-flex;gap:.5rem;align-items:baseline;padding:.4rem .65rem;border:1px solid var(--line);font-size:.82rem;text-decoration:none}.glossary-categories span{color:var(--muted);font-size:.75rem}.glossary-categories a[aria-disabled="true"]{opacity:.45;cursor:default}.glossary-result-count{font-size:.8rem;color:var(--muted);margin:.8rem 0 0}.glossary-empty{padding:1rem;border-left:3px solid var(--accent-dark);background:var(--paper-deep)}
+ .glossary-entries{display:grid;gap:1.2rem}.glossary-entry{min-width:0;max-width:100%;padding:1.25rem;border:1px solid var(--line);background:var(--surface);overflow-wrap:anywhere;scroll-margin-top:1.25rem}.glossary-entry:target{border-color:var(--accent-dark);box-shadow:inset 3px 0 0 var(--accent-dark)}.glossary-entry-heading{display:flex;justify-content:space-between;gap:1rem;align-items:baseline}.glossary-entry h3{margin:0;font-size:1.2rem;line-height:1.5}.glossary-entry .glossary-english{margin:.2rem 0 0;font-size:.84rem;color:var(--muted)}.glossary-permalink{font-weight:700;text-decoration:none;padding:0 .3rem}.glossary-entry .glossary-definition{font-size:1rem;font-weight:600;margin:.85rem 0}.glossary-entry dl{margin:0}.glossary-entry dl>div{padding:.6rem 0;border-top:1px solid var(--line)}.glossary-entry dt{font-size:.78rem;font-weight:700;color:var(--accent-dark)}.glossary-entry dd{margin:.2rem 0 0;font-size:.91rem}.glossary-entry .glossary-note{padding:.65rem .75rem;background:var(--paper-deep);font-size:.85rem;margin:.65rem 0}.glossary-note strong{display:block;font-size:.75rem;margin-bottom:.15rem}
+ .glossary-lesson-links,.glossary-sources{font-size:.8rem;margin-top:.8rem}.glossary-lesson-links>strong,.glossary-sources>strong{font-size:.75rem;color:var(--muted)}.glossary-lesson-links ul,.glossary-sources ul{list-style:none;padding:0;margin:.25rem 0 0;display:flex;gap:.3rem 1rem;flex-wrap:wrap}.glossary-external{font-size:.73rem}.glossary-return{margin-top:1.5rem}.glossary-entry[hidden],.glossary-category[hidden],.glossary-empty[hidden]{display:none!important}
+ @media(max-width:600px){.glossary-tools,.glossary-entry{padding:.9rem}.glossary-search-row{flex-wrap:wrap}.glossary-search input{flex-basis:100%}.glossary-search button{font-size:.8rem}.glossary-entry h3{font-size:1.06rem}.glossary-categories a{font-size:.78rem}.glossary-entry dd{font-size:.87rem}}
+ @media print{.glossary-tools,.glossary-empty,.glossary-permalink,.glossary-external,.glossary-return,.glossary-noscript{display:none!important}.glossary-category[hidden],.glossary-entry[hidden]{display:block!important}.glossary-entry{box-shadow:none!important;break-inside:avoid-page;padding:9pt}.glossary-entry a[href]::after{content:none!important}.glossary-entries{gap:10pt}}
+</style>
+<script>
+ import {matchesGlossaryQuery} from '../content/workbook-glossary-ui';
+ const input=document.querySelector<HTMLInputElement>('[data-glossary-search]');
+ const clear=document.querySelector<HTMLButtonElement>('[data-glossary-clear]');
+ const entries=[...document.querySelectorAll<HTMLElement>('[data-glossary-term]')];
+ const categories=[...document.querySelectorAll<HTMLElement>('[data-glossary-category]')];
+ const categoryLinks=[...document.querySelectorAll<HTMLAnchorElement>('[data-glossary-category-link]')];
+ const count=document.querySelector<HTMLElement>('[data-glossary-count]');
+ const empty=document.querySelector<HTMLElement>('[data-glossary-empty]');
+ function filterTerms(){
+   const query=input?.value??'';
+   let visible=0;
+   entries.forEach(entry=>{entry.hidden=!matchesGlossaryQuery(entry.dataset.glossarySearchText??'',query);if(!entry.hidden)visible++;});
+   categories.forEach(category=>{
+     const hasMatches=[...category.querySelectorAll<HTMLElement>('[data-glossary-term]')].some(entry=>!entry.hidden);
+     category.hidden=!hasMatches;
+     const link=categoryLinks.find(link=>link.dataset.glossaryCategoryLink===category.dataset.glossaryCategory);
+     if(link){link.setAttribute('aria-disabled',String(!hasMatches));link.tabIndex=hasMatches?0:-1;}
+   });
+   if(count)count.textContent=query.trim()?`${entries.length}개 중 ${visible}개 용어`:`전체 ${entries.length}개 용어`;
+   if(empty)empty.hidden=visible!==0;
+   if(clear)clear.disabled=!query;
+ }
+ input?.addEventListener('input',filterTerms);
+ clear?.addEventListener('click',()=>{if(input){input.value='';filterTerms();input.focus();}});
+ categoryLinks.forEach(link=>link.addEventListener('click',event=>{if(link.getAttribute('aria-disabled')==='true')event.preventDefault();}));
+ window.addEventListener('hashchange',()=>{
+   let anchor=location.hash.slice(1);
+   try{anchor=decodeURIComponent(anchor);}catch{return;}
+   const target=document.getElementById(anchor);
+   if(target?.matches('[data-glossary-term]')&&target.hidden&&input){input.value='';filterTerms();target.scrollIntoView();}
+ });
+ filterTerms();
+</script>

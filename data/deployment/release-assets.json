@@ -4,8 +4,8 @@
   "tag": "course-materials-2026-10-19-v1",
   "basePath": "/ai-architecture-design-ebook",
   "maximumPagesBytes": 990000000,
-  "sourceBytes": 2013078906,
-  "pagesBytesBeforeMetadata": 612553458,
+  "sourceBytes": 2016351300,
+  "pagesBytesBeforeMetadata": 614895791,
   "files": [
     {
       "path": "downloads/ai-architecture-design-course_2026-08-27.pdf",
@@ -892,22 +892,22 @@
     {
       "path": "daejeon/practice/DJ-L04/application/DJ-L04-exterior-applications.zip",
       "assetName": "DJ-L04-exterior-applications.zip",
-      "bytes": 54462041,
-      "sha256": "32554b5013327b8cf93cfe7559ccf4dc92943fa6384b35245fe5e3d5dcfe7158",
+      "bytes": 55482732,
+      "sha256": "78f867cdd82108cd112b289199dcc0046c715929c35a14d9ba1de3e026e35635",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L04-exterior-applications.zip"
     },
     {
       "path": "daejeon/practice/DJ-L04/application/samples/14_angle-pedestrian-streetscape.png",
       "assetName": "14_angle-pedestrian-streetscape.png",
-      "bytes": 3030039,
-      "sha256": "e5fe119b723c0889fb5707d6d90fd85eb963a92da02d0f618dd860bbc7d8e00f",
+      "bytes": 3039993,
+      "sha256": "9996c006cef87a8432e4fa3a4e49dd2a3be2d905f0b61fdff5d10a16d6fca8e6",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/14_angle-pedestrian-streetscape.png"
     },
     {
       "path": "daejeon/practice/DJ-L04/application/samples/15_angle-elevated-overview.png",
       "assetName": "15_angle-elevated-overview.png",
-      "bytes": 3308089,
-      "sha256": "0e4a56da5c2e5dafe3bc4d5169c5d3ab3b7628ef147556e7af3f12451a23f6ef",
+      "bytes": 3207505,
+      "sha256": "d0f28788ae2387b006788e77d801cdc99b2d206f3cc09b011687271ce32a40fe",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/15_angle-elevated-overview.png"
     },
     {

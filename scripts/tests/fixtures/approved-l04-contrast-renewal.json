@@ -1,0 +1,117 @@
+{
+  "approval": "사용자 승인: L04 B·A2·조경05/11/12 대비 강화와 새 연속 입력 기반06/07/13/14/15 재생성. A·3BASE·재질 원본·별도 스케치 분기 보존.",
+  "baseCommit": "488e00ca6f84a34b51e4ee023d6b72210fb58299",
+  "fixedInputs": {
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/samples/08_exterior-rough-sketch.png": "6d339b67f6d5ec8e296b1c79bf4332b97bcecf80c0dd5d585838f96bc494dae0",
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/samples/09_sketch-rapid-concept.png": "88e8b32720f2cb0cbb677ac435162b8d6be62798cb8abef790cc87a92b0b7f38",
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/samples/10_sketch-concept-refined.png": "0160550783465b875887e838c9b62a981a026460a8e599fe8a328426609f6f1e",
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/bases/01_base-building.png": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871",
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/bases/EXT-BASE-01.png": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871",
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/bases/EXT-BASE-02.png": "85b2d24b2fa912214ffcc3deeef5efedc59d158fcf281cd9c782124a0fadc141",
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/bases/EXT-BASE-03.png": "6a206db291893e5935385409e5fd567d727a46246e2ded81bcc3e34e4fb10154",
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/references/m-02-almond-limestone.png": "647e6cb2535395a444f421130edb5763f753b3463738aa519cce1e96663eec3f",
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/references/m-10-charcoal-microcement.png": "0474bc338e8c296a9405993afbfbfb4cd84b54c11566b69e279f14da1a109247",
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/references/m-20-light-grey-microcement.png": "9558eb14d2c675b9ebaefe6d1813348587dd38409cee59a21eed12e82457b298",
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/references/m-21-dark-walnut.png": "e6d9256b0382dd6e6fabd49248bae8dc122dd288bc136c58bee65077c0eb135d",
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/references/m-24-natural-oak.png": "14a62a4acd460543c25b823ecf4c59ac8f049330c812def72b141f97a5a23ebb",
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/samples/02_partial-edit-a.png": "e958ee8db0a4119e0b87d4b2580b13849f178c18f968a32cdecf425465af3edf"
+  },
+  "fixedPrompts": {
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/prompts/cleanup-7step.txt": "db041c44de3335fb6c7af7d61bbf7dace7761ed0c649acf23272ae45f6736750",
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/prompts/cleanup-short.txt": "40b0681fa50a9a71b3441aca350472368249deb4ce95f6468d9fb86bf135e413",
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/prompts/rapid-7step.txt": "7b1dbb3b0e15e154af1bfb1da0e15c1e4d06a26a96b88bf0b2d419fb4b2b4665",
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/prompts/rapid-short.txt": "985ced4fe2f3e97de47eafc338869942085c87c891911b3e4384ddf88475c93d",
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/prompts/refined-7step.txt": "7ea846ab6f593610fd0e65d889f6bc4cd60cbfc94fe9774e5eabad2fe24563fd",
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/prompts/refined-short.txt": "138dfdd8a5c0ef04f850192b72f404ef2cbaef48824ccaa830bcb206cf2ca9e2",
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/prompts/rough-sketch-7step.txt": "c1ae47c46897974486fd3d69d0acdb65eafc950861749776aef1cafcd299dc6a",
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/prompts/rough-sketch-short.txt": "a171830dc6796f17e13bb50a63c7f688f73b0c4a4f00715225b345410569734e",
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/prompts/site-before-7step.txt": "82c6b40edc9250b851f260b7037ce75aea32c9b6369f6c07871d93aa24a27181",
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/prompts/site-before-short.txt": "895d8d5b0c65d64a8658fe1b9644740378666d1c11204fa19b07d097cad473c8",
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/prompts/A-7step.txt": "7447951e53f8822aa4cf9bf57b1b5dd51a5ca477fd4982b93a517307ec4e69e6",
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/prompts/A-short.txt": "e91583dfd1fe54429bedaa74fdb18835ea41609e08935677e2c27f909af38c16",
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/prompts/EXT-BASE-02-practice-7step.txt": "7ba2335dc7e3a30aec3ec87620286768306a69f7aa7329270d805bf9f6889355",
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/prompts/EXT-BASE-02-practice-short.txt": "888add16b7f2c163548480271d5c8ad4de7db89fa9a1d9f34113966733168a22",
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/prompts/EXT-BASE-03-practice-7step.txt": "feb6fdca13474c1b950f10c3890ab7a436932cdc5e3af17521d381f59698fc75",
+    "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/prompts/EXT-BASE-03-practice-short.txt": "3d0bb57648258f3b0dd921d7c0462cd8229278845a3c12e2184ead90bfcecc9a"
+  },
+  "guideBaseline": {
+    "l04-B-7step": {},
+    "l04-B-short": {
+      "howToUse": "해당 단계에 표시된 첨부 파일을 같은 순서로 준비하고 이미지 편집을 실행합니다. 교재 예시 이미지는 7단 학습용 요청문으로 생성되었으며, 이 짧은 실행 요청문은 실무 반복 실행용 압축본입니다.",
+      "derivation": "7단 원문의 입력 역할·고정 조건·변경 범위·금지 사항을 3~5문장으로 압축했습니다. 예시 이미지의 실제 생성 원문과 구분합니다.",
+      "aiPromptTip": "이 단계의 7단 원문에서 첨부 역할·고정·변경·금지 조건을 남겨 3~5문장의 짧은 실행 요청으로 압축해줘."
+    },
+    "l04-A2-7step": {},
+    "l04-A2-short": {
+      "howToUse": "해당 단계에 표시된 첨부 파일을 같은 순서로 준비하고 이미지 편집을 실행합니다. 교재 예시 이미지는 7단 학습용 요청문으로 생성되었으며, 이 짧은 실행 요청문은 실무 반복 실행용 압축본입니다.",
+      "derivation": "7단 원문의 입력 역할·고정 조건·변경 범위·금지 사항을 3~5문장으로 압축했습니다. 예시 이미지의 실제 생성 원문과 구분합니다.",
+      "aiPromptTip": "이 단계의 7단 원문에서 첨부 역할·고정·변경·금지 조건을 남겨 3~5문장의 짧은 실행 요청으로 압축해줘."
+    },
+    "l04-app-landscape-7step": {},
+    "l04-app-landscape-short": {
+      "howToUse": "위 첨부 목록의 편집 대상과 참고 자료를 순서대로 올립니다. 예시 이미지는 7단 학습용 요청문으로 생성되었으며, 아래 짧은 실행 요청문은 실무 반복 실행용 압축본입니다.",
+      "derivation": "실제 생성에 사용한 7단 원문은 그대로 보존하고, 반복 실행용으로 핵심 변경·유지·금지 조건을 4문장으로 압축했습니다.",
+      "aiPromptTip": "이 단계의 첨부 역할과 목표 변경·유지·금지 조건을 지키는 3~5문장짜리 이미지 실행 요청문을 써줘."
+    },
+    "l04-app-surrounding-landscape-7step": {},
+    "l04-app-surrounding-landscape-short": {
+      "howToUse": "위 첨부 목록의 편집 대상과 참고 자료를 순서대로 올립니다. 예시 이미지는 7단 학습용 요청문으로 생성되었으며, 아래 짧은 실행 요청문은 실무 반복 실행용 압축본입니다.",
+      "derivation": "실제 생성에 사용한 7단 원문은 그대로 보존하고, 반복 실행용으로 핵심 변경·유지·금지 조건을 4문장으로 압축했습니다.",
+      "aiPromptTip": "이 단계의 첨부 역할과 목표 변경·유지·금지 조건을 지키는 3~5문장짜리 이미지 실행 요청문을 써줘."
+    },
+    "l04-app-human-scale-7step": {},
+    "l04-app-human-scale-short": {
+      "howToUse": "위 첨부 목록의 편집 대상과 참고 자료를 순서대로 올립니다. 예시 이미지는 7단 학습용 요청문으로 생성되었으며, 아래 짧은 실행 요청문은 실무 반복 실행용 압축본입니다.",
+      "derivation": "실제 생성에 사용한 7단 원문은 그대로 보존하고, 반복 실행용으로 핵심 변경·유지·금지 조건을 4문장으로 압축했습니다.",
+      "aiPromptTip": "이 단계의 첨부 역할과 목표 변경·유지·금지 조건을 지키는 3~5문장짜리 이미지 실행 요청문을 써줘."
+    },
+    "l04-app-dusk-7step": {},
+    "l04-app-dusk-short": {
+      "howToUse": "위 첨부 목록의 편집 대상과 참고 자료를 순서대로 올립니다. 예시 이미지는 7단 학습용 요청문으로 생성되었으며, 아래 짧은 실행 요청문은 실무 반복 실행용 압축본입니다.",
+      "derivation": "실제 생성에 사용한 7단 원문은 그대로 보존하고, 반복 실행용으로 핵심 변경·유지·금지 조건을 4문장으로 압축했습니다.",
+      "aiPromptTip": "이 단계의 첨부 역할과 목표 변경·유지·금지 조건을 지키는 3~5문장짜리 이미지 실행 요청문을 써줘."
+    },
+    "l04-app-subview-7step": {},
+    "l04-app-subview-short": {
+      "howToUse": "위 첨부 목록의 편집 대상과 참고 자료를 순서대로 올립니다. 예시 이미지는 7단 학습용 요청문으로 생성되었으며, 아래 짧은 실행 요청문은 실무 반복 실행용 압축본입니다.",
+      "derivation": "실제 생성에 사용한 7단 원문은 그대로 보존하고, 반복 실행용으로 핵심 변경·유지·금지 조건을 4문장으로 압축했습니다.",
+      "aiPromptTip": "이 단계의 첨부 역할과 목표 변경·유지·금지 조건을 지키는 3~5문장짜리 이미지 실행 요청문을 써줘."
+    },
+    "l04-app-angle-corner-7step": {},
+    "l04-app-angle-corner-short": {
+      "howToUse": "위 첨부 목록의 편집 대상과 참고 자료를 순서대로 올립니다. 예시 이미지는 7단 학습용 요청문으로 생성되었으며, 아래 짧은 실행 요청문은 실무 반복 실행용 압축본입니다.",
+      "derivation": "실제 생성에 사용한 7단 원문은 그대로 보존하고, 반복 실행용으로 핵심 변경·유지·금지 조건을 4문장으로 압축했습니다.",
+      "aiPromptTip": "이 단계의 첨부 역할과 목표 변경·유지·금지 조건을 지키는 3~5문장짜리 이미지 실행 요청문을 써줘."
+    },
+    "l04-app-angle-streetscape-7step": {},
+    "l04-app-angle-streetscape-short": {
+      "howToUse": "위 첨부 목록의 편집 대상과 참고 자료를 순서대로 올립니다. 예시 이미지는 7단 학습용 요청문으로 생성되었으며, 아래 짧은 실행 요청문은 실무 반복 실행용 압축본입니다.",
+      "derivation": "실제 생성에 사용한 7단 원문은 그대로 보존하고, 반복 실행용으로 핵심 변경·유지·금지 조건을 4문장으로 압축했습니다.",
+      "aiPromptTip": "이 단계의 첨부 역할과 목표 변경·유지·금지 조건을 지키는 3~5문장짜리 이미지 실행 요청문을 써줘."
+    },
+    "l04-app-angle-elevated-7step": {},
+    "l04-app-angle-elevated-short": {
+      "howToUse": "위 첨부 목록의 편집 대상과 참고 자료를 순서대로 올립니다. 예시 이미지는 7단 학습용 요청문으로 생성되었으며, 아래 짧은 실행 요청문은 실무 반복 실행용 압축본입니다.",
+      "derivation": "실제 생성에 사용한 7단 원문은 그대로 보존하고, 반복 실행용으로 핵심 변경·유지·금지 조건을 4문장으로 압축했습니다.",
+      "aiPromptTip": "이 단계의 첨부 역할과 목표 변경·유지·금지 조건을 지키는 3~5문장짜리 이미지 실행 요청문을 써줘."
+    },
+    "l04-my-B": {}
+  },
+  "guideAllowedChanges": [
+    "howToUse",
+    "derivation",
+    "aiPromptTip"
+  ],
+  "currentImageAssets": [
+    "implementation-13/samples/03_partial-edit-b.png",
+    "implementation-13/samples/04_revised-concept.png",
+    "application-05-techniques/samples/05_landscape-additive.png",
+    "application-05-techniques/samples/06_dusk-lighting.png",
+    "application-05-techniques/samples/07_entrance-closeup-subview.png",
+    "application-05-techniques/samples/11_surrounding-landscape-plaza.png",
+    "application-05-techniques/samples/12_human-scale-entourage.png",
+    "application-05-techniques/samples/13_angle-corner-perspective.png",
+    "application-05-techniques/samples/14_angle-pedestrian-streetscape.png",
+    "application-05-techniques/samples/15_angle-elevated-overview.png"
+  ]
+}

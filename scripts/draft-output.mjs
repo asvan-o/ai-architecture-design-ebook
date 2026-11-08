@@ -17,7 +17,7 @@ export function verifyDraftOutput(course, output, { localReviewAssets = false } 
   const files = (directory) => readdirSync(directory, { withFileTypes: true }).flatMap((entry) => entry.isDirectory() ? files(path.join(directory, entry.name)) : [path.join(directory, entry.name)]);
   const all = files(output);
   const html = all.filter((file) => file.endsWith('.html')).map((file) => path.relative(output, file).replaceAll('\\', '/')).sort();
-  const expected = course.reviewDraft ? ['course-overview/index.html', 'index.html', ...course.reviewDraft.lessons.map((lesson)=>`lessons/${lesson.id}/index.html`)].sort() : ['index.html'];
+  const expected = course.reviewDraft ? ['course-overview/index.html', 'index.html', ...(course.courseId==='daejeon-2026'?['glossary/index.html']:[]), ...course.reviewDraft.lessons.map((lesson)=>`lessons/${lesson.id}/index.html`)].sort() : ['index.html'];
   if(localReviewAssets&&course.courseId==='daejeon-2026') expected.push(houseWalkthroughRoute);
   expected.sort();
   assert.deepEqual(html, expected, `${course.courseId}: unapproved draft route`);

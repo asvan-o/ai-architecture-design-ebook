@@ -33,6 +33,7 @@
   .review-section-heading { display: grid !important; grid-template-columns: 9mm minmax(0,1fr) !important; gap: 2mm !important; margin-bottom: 3mm !important; break-inside: avoid-page !important; break-after: avoid-page !important; }
   .review-number { font-size: 17pt !important; }
   .review-section-body { padding-left: 0 !important; }
+  html[data-workbook-print-lesson="overview"] #workflow .review-flow > li { break-inside: avoid-page !important; }
   .day-period { break-before: auto !important; break-after: auto !important; break-inside: auto !important; }
   .period-heading { padding: 4mm !important; margin: 5mm 0 3mm !important; color: #182a31 !important; background: #edf1ed !important; break-before: auto !important; break-inside: avoid-page !important; break-after: avoid-page !important; }
   .period-heading p { margin: 0 !important; }
@@ -47,11 +48,13 @@
   figcaption { font-size: 8.5pt !important; line-height: 1.45 !important; margin: 2mm 0 3mm !important; break-before: avoid-page !important; }
   html[data-workbook-print-lesson="01"] #ab-generation figure { break-after: avoid-page !important; }
   html[data-workbook-print-lesson="01"] #ab-generation figure + p { break-before: avoid-page !important; }
+  html[data-workbook-print-lesson="01"] #rules [data-prompt-rule] > .review-eyebrow { break-after: avoid-page !important; }
   .workbook-print-drawing-scale-note { font-size: 8pt !important; line-height: 1.45 !important; color: #46575c !important; margin: 2mm 0 3mm !important; break-before: avoid-page !important; }
   html[data-workbook-print-lesson="05"] [data-l05-precision-downloads] { break-inside: avoid-page !important; }
   html[data-workbook-print-lesson="05"] [data-l05-precision-downloads] a.review-download { display: inline !important; padding: 0 !important; margin: 0 !important; border: 0 !important; background: none !important; font: inherit !important; }
   html[data-workbook-print-lesson="06"] [data-l06-downloads] ul a.review-download { display: inline !important; padding: 0 !important; margin: 0 !important; border: 0 !important; background: none !important; font: inherit !important; }
   html[data-workbook-print-lesson="02"] [data-test-reference] { break-inside: avoid-page !important; }
+  html[data-workbook-print-lesson="02"] #l02-hierarchy .lesson02-program-tree { break-inside: avoid-page !important; }
   html[data-workbook-print-lesson="02"] [data-test-reference] caption { display: table-caption !important; caption-side: top !important; }
   table { width: 100% !important; table-layout: fixed; border-collapse: collapse; font-size: 8.5pt !important; break-inside: auto !important; }
   .review-page main table { display: table !important; }
@@ -91,6 +94,11 @@
   html[data-workbook-print-lesson="03"] #l03-next p,
   html[data-workbook-print-lesson="03"] #l03-next li { margin: 1mm 0 !important; }
   html[data-workbook-print-lesson="03"] #l03-next h3 { margin: 2mm 0 !important; }
+  html[data-workbook-print-lesson="04"] #l04-next { padding-top: 3mm !important; padding-bottom: 2mm !important; }
+  html[data-workbook-print-lesson="04"] #l04-next p,
+  html[data-workbook-print-lesson="04"] #l04-next li { margin: 1mm 0 !important; }
+  html[data-workbook-print-lesson="04"] #l04-next h3 { margin: 2mm 0 !important; }
+  html[data-workbook-print-lesson="04"] #l04-next details[data-l04-downloads] > :not(summary) { display: none !important; }
   html[data-workbook-print-lesson="07"] .l07-equation { break-inside: avoid-page !important; }
   html[data-workbook-print-lesson="07"] #l07-handover { padding-top: 3mm !important; padding-bottom: 2mm !important; }
   html[data-workbook-print-lesson="07"] #l07-handover p,
@@ -99,4 +107,12 @@
   html[data-workbook-print-lesson="08"] .mcp-shortcuts table { line-height: 1.35 !important; }
   html[data-workbook-print-lesson="08"] .mcp-shortcuts th,
   html[data-workbook-print-lesson="08"] .mcp-shortcuts td { padding: 1.5mm !important; }
+  html[data-workbook-print-lesson="08"] #l08-blender-mcp-hello-world [data-camera-view-guide] th,
+  html[data-workbook-print-lesson="08"] #l08-blender-mcp-hello-world [data-camera-view-guide] td,
+  html[data-workbook-print-lesson="08"] #l08-blender-mcp-hello-world [data-model-export-formats] th,
+  html[data-workbook-print-lesson="08"] #l08-blender-mcp-hello-world [data-model-export-formats] td { padding: 1.5mm !important; line-height: 1.35 !important; }
+  html[data-workbook-print-lesson="08"] #l08-blender-mcp-hello-world .l08-mcp-content > .mcp-note { padding: 2mm !important; margin: 2mm 0 !important; }
+  html[data-workbook-print-lesson="08"] #l08-blender-mcp-hello-world .l08-mcp-content > p,
+  html[data-workbook-print-lesson="08"] #l08-blender-mcp-hello-world .mcp-note > p { margin: 1mm 0 !important; }
+  html[data-workbook-print-lesson="10"] .grounded-legal-layout .source-equation { break-inside: avoid-page !important; page-break-inside: avoid !important; }
 }

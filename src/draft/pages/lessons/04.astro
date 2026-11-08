@@ -3,7 +3,7 @@ import ReviewLayout from '../../layouts/ReviewLayout.astro';
 import ReviewSection from '../../components/ReviewSection.astro';
 import TopicProgress from '../../components/TopicProgress.astro';
 import Lesson03AssetCard from '../../components/Lesson03AssetCard.astro';
-import Lesson03Comparison from '../../components/Lesson03Comparison.astro';
+import Lesson03Comparison from '../../components/Lesson04Comparison.astro';
 import Lesson04Workbench from '../../components/Lesson04Workbench.astro';
 import Lesson04Techniques from '../../components/Lesson04Techniques.astro';
 import {lesson04ApplicationPrompts,lesson04ApplicationZip,lesson04ApplicationOther} from '../../../../scripts/daejeon-lesson04-applications.mjs';
@@ -47,7 +47,7 @@ const zip=lesson04ApplicationZip;
       {section.id==='l04-scope'&&<>
         <Lesson04Techniques stage="cleanup" />
         <h3>기법 2 · 표면 교체의 유지·변경 조건</h3>
-        <div class="l04-table"><table><thead><tr><th>구분</th><th>BASE 01 예제의 기준</th></tr></thead><tbody><tr><th>유지</th><td>3층 매스·상층 창 8개·쇼윈도 2개·중앙 출입문의 위치·크기·분할·캐노피 외곽·정면 카메라·거리 관계</td></tr><tr><th>A에서 변경</th><td>2~3층과 1층 좌우 회색 벽 전체 → 크림 라임스톤 / 포털·캐노피 하부 → 수직 목재 / 간판 띠·엣지·프레임 → 브론즈 / 기존 내부에 따뜻한 빛</td></tr><tr><th>B에서 변경</th><td>2~3층 외벽 전체 → 웜 테라코타·토프 / 1층 벽·포털·기단 → 차콜 스톤 / 간판 띠·캐노피·프레임 → 매트 블랙</td></tr><tr><th>제외</th><td>새 창·문·층·간판 구조·조경 추가, 내부 구조 재설계. 조경과 경관조명은 뒤의 별도 확장에서 다룹니다.</td></tr><tr><th>미확정</th><td>실제 치수·재료 제품·법규·구조 안전·시공비·단열·방화 성능</td></tr></tbody></table></div>
+        <div class="l04-table"><table><thead><tr><th>구분</th><th>BASE 01 예제의 기준</th></tr></thead><tbody><tr><th>유지</th><td>3층 매스·상층 창 8개·쇼윈도 2개·중앙 출입문의 위치·크기·분할·캐노피 외곽·정면 카메라·거리 관계</td></tr><tr><th>A에서 변경</th><td>2~3층과 1층 좌우 회색 벽 전체 → 크림 라임스톤 / 포털·캐노피 하부 → 수직 목재 / 간판 띠·엣지·프레임 → 브론즈 / 기존 내부에 따뜻한 빛</td></tr><tr><th>B에서 변경</th><td>2~3층 외벽 → 세로 골 웜 테라코타 패널·블랙 창틀 / 1층 기단·포털·필라 → 다크 바살트 슬레이트 / 기존 캐노피 → 매트 블랙·소핏 라인 빛 / 기존 쇼윈도·입구 내부 → 앰버 쇼룸 빛</td></tr><tr><th>제외</th><td>새 창·문·층·간판 구조·조경 추가, 내부 구조 재설계. 조경과 시간대 전환은 뒤의 별도 확장에서 다룹니다. B의 소핏·기존 내부 빛은 위의 지정 범위에 포함합니다.</td></tr><tr><th>미확정</th><td>실제 치수·재료 제품·법규·구조 안전·시공비·단열·방화 성능</td></tr></tbody></table></div>
         <p>“입구 주변”만 적기보다 원본에서 벽의 시작과 끝, 창틀·캐노피와 맞닿는 경계를 말합니다. 가려진 면의 치수는 임의로 만들지 않습니다.</p>
         <details><summary>범위 정리용 7단 요청문</summary><ReviewPrompt {...prompt('scope-7step')} /></details>
         {enabled&&<a href={base+'/'+lesson04Analysis[0].outputPath} download>기준 건물·참고자료 역할 안내 MD 다운로드</a>}
@@ -55,7 +55,7 @@ const zip=lesson04ApplicationZip;
       {section.id==='l04-prompt-a'&&<>
         <p><strong>목적 / 맥락 / 입력자료 / 작업 단계 / 조건·제한 / 출력 형식 / 검토 기준</strong>으로 요청합니다. 수정할 기존 면과 손대지 않을 영역을 함께 씁니다.</p>
         <Lesson04Workbench area="A" />
-        <p>교재의 예시 결과 이미지는 아래 7단 학습용 요청문으로 생성되었습니다. 짧은 실행 요청문과 TXT는 실무 반복 실행용 압축본이며 예시 이미지의 실제 생성 원문이 아닙니다. 같은 입력·문구로도 도구·모델·실행마다 결과가 달라질 수 있으므로 목표 방향과 유지 조건을 다시 비교합니다.</p>
+        <p>아래 7단 학습 요청문은 입력자료·수정 범위·검토 기준을 읽는 교육용 문안이며, 짧은 실행 요청문은 그 조건을 압축한 것입니다. 실제 이미지 제작에 전달한 도구 호출·국소 보정 기록과 구분합니다. 같은 입력·문구로도 결과는 달라질 수 있으므로 목표 방향과 유지 조건을 다시 비교합니다.</p>
         <details><summary>BASE 01 예제 · A의 7단 학습용 요청문</summary><ReviewPrompt {...prompt('A-7step')} /></details>
         <ReviewPrompt {...prompt('A-short')} />
       </>}
@@ -70,7 +70,7 @@ const zip=lesson04ApplicationZip;
         <aside class="review-callout">상층 외벽의 재료 변경은 이번 목표에 포함됩니다. 석재 결·반사·주변 질감의 미세한 재표현은 별도로 대조합니다. 큰 관계가 유지돼 보이는 것과 정밀 형상이 검증된 것은 다릅니다.</aside>
       </>}
       {section.id==='l04-strategy-b'&&<>
-        <div class="review-cards"><article class="review-card"><h3>A · 밝은 크림 외벽과 목재 포털</h3><p>상층과 저층 전체를 밝은 석재로 묶고 수직 목재와 브론즈로 입구를 강조합니다.</p></article><article class="review-card"><h3>B · 웜 테라코타와 차콜의 층별 대비</h3><p>따뜻한 상층 외벽과 무게감 있는 저층 석재·검은 띠를 독립 대안으로 비교합니다.</p></article></div>
+        <div class="review-cards"><article class="review-card"><h3>A · 밝은 크림 외벽과 목재 포털</h3><p>상층과 저층 전체를 밝은 석재로 묶고 수직 목재와 브론즈로 입구를 강조합니다.</p></article><article class="review-card"><h3>B · 세로 골 테라코타·바살트와 따뜻한 쇼룸 빛</h3><p>선명한 상층 패널의 요철·저층 슬레이트·매트 블랙 캐노피와 소핏·쇼윈도의 앰버 빛을 독립 대안으로 비교합니다. 3000K는 조명 인상이며 실제 측정·보증값이 아닙니다.</p></article></div>
         <p>A 위에 B를 덧입히지 않습니다. 같은 원본에서 시작해야 적용 영역과 사용 목적의 차이를 비교할 수 있습니다. BASE 02는 기존 루버와 전면 벽, BASE 03은 코너 포털과 기존 사인 면으로 범위를 구분합니다.</p>
       </>}
       {section.id==='l04-prompt-b'&&<>
@@ -79,16 +79,16 @@ const zip=lesson04ApplicationZip;
         <details><summary>BASE 02 · 기존 루버 부분 수정 요청문</summary><ReviewPrompt {...prompt('EXT-BASE-02-practice-7step')} /></details>
         <details><summary>BASE 01 예제 · B의 7단 요청문</summary><ReviewPrompt {...prompt('B-7step')} /></details>
         <ReviewPrompt {...prompt('B-short')} />
-        <h3>A → A2 · 간판 띠와 캐노피 톤만 국소 보완</h3>
-        <p>A와 밝은 웜그레이 재질 참고를 첨부합니다. 상층 크림 석재와 포털의 수직 목재는 두고, 수평 간판 띠·캐노피 전면 및 하부를 밝게 바꿉니다.</p>
+        <h3>A → A2 · 상층은 고정하고 1층 루버·빛만 국소 보완</h3>
+        <p>A와 다크 월넛 재질 참고를 첨부합니다. A의 2~3층 크림 라임스톤·상층 창 그리드·기존 수직 목재 포털 벽은 그대로 두고, 1층 간판 띠·캐노피 전면과 소핏·포털 프레임 안에서만 다크 월넛/브론즈 수평 루버·연속 웜 라인 빛을 적용합니다. 기존 쇼윈도·입구 내부의 골드/앰버 빛도 보완합니다.</p>
         <details><summary>A2 · 보완 요청 7단 구조</summary><ReviewPrompt {...prompt('A2-7step')} /></details><ReviewPrompt {...prompt('A2-short')} />
-        <Lesson03Comparison before={sample('A')} after={sample('A2')} beforeTitle="Before · 보완 전 A" afterTitle="After · 밝은 간판 띠·캐노피 A2" beforeDescription="어두운 브론즈 띠와 목재 캐노피 하부가 있는 A입니다." afterDescription={sample('A2').description} instance="l04-a-a2" />
-        <aside class="review-callout"><strong>보완 결과에도 확인이 필요합니다.</strong><p>띠·전면·하부가 밝아진 목표 변화와 석재 결·반사의 미세한 재표현을 분리해 봅니다. 보완안이 항상 더 우수한 선택이라는 뜻은 아닙니다.</p></aside>
+        <Lesson03Comparison before={sample('A')} after={sample('A2')} beforeTitle="Before · 보완 전 A" afterTitle="After · 다크 루버 밴드·연속 웜 라인 빛 A2" beforeDescription="어두운 브론즈 띠와 목재 캐노피 하부가 있는 A입니다." afterDescription={sample('A2').description} instance="l04-a-a2" />
+        <aside class="review-callout"><strong>보완 결과에도 확인이 필요합니다.</strong><p>1층 다크 루버의 입체감·소핏 라인 빛·내부 앰버 빛을 목표 변화로 읽고, 고정 대상인 상층 크림 석재·창 그리드와 비대상 반사·주변의 재표현을 따로 대조합니다. 보완안이 항상 더 우수한 선택이라는 뜻은 아닙니다.</p></aside>
       </>}
       {section.id==='l04-run-b'&&<>
         <p class="l03-flow">처음 원본 첨부 → B의 범위와 유지 조건 확인 → 실행 → 같은 원본·A·B 비교</p>
-        <Lesson03Comparison before={lesson04Bases[0]} after={sample('B')} beforeTitle="Before · 변경 전 같은 기준 건물" afterTitle="After · 테라코타·차콜·블랙 B" beforeDescription="A와 동일한 처음 원본에서 독립 실행했습니다." afterDescription={sample('B').description} instance="l04-base-b" />
-        <p>좌우 개구부와 매스는 같은 기준으로 두고, 중앙 진입부 강조와 전면부 재료 대비 중 어떤 목적에 더 맞는지 봅니다. B를 비교한 뒤 주간 A에서 조경 추가로 이어갈 수 있습니다.</p><Lesson04Techniques stage="landscape" />
+        <Lesson03Comparison before={lesson04Bases[0]} after={sample('B')} beforeTitle="Before · 변경 전 같은 기준 건물" afterTitle="After · 세로 골 테라코타·바살트·앰버 빛 B" beforeDescription="A와 동일한 처음 원본에서 독립 실행했습니다." afterDescription={sample('B').description} instance="l04-base-b" />
+        <p>좌우 개구부와 매스는 같은 기준으로 두고, 중앙 진입부 강조와 전면부 재료 대비 중 어떤 목적에 더 맞는지 봅니다. B를 비교한 뒤 주간 A에서 다층 플랜터·식재·진입 포장 → 주변 보행 광장 → 사람·노천 좌석 순서로 추가합니다.</p><Lesson04Techniques stage="landscape" />
       </>}
       {section.id==='l04-gemini'&&<>
         <Lesson04Techniques stage="dusk" />

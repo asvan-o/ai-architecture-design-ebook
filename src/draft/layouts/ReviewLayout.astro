@@ -13,7 +13,7 @@ import EbookAccessGate from '../../components/EbookAccessGate.astro';
 import '../../styles/global.css';
 import '../styles/review.css';
 interface TocItem { id: string; title: string; }
-interface Props { title: string; lead: string; page: 'home' | 'overview' | 'lesson'; lessonId?:'01'|'02'|'03'|'04'|'05'|'06'|'07'|'08'|'09'|'10'|'11'|'12'|'13'; eyebrow?:string; sharedScreen?:boolean; toc?: readonly TocItem[]; tocGroups?: readonly {id:string;title:string;items:readonly TocItem[]}[]; }
+interface Props { title: string; lead: string; page: 'home' | 'overview' | 'lesson' | 'glossary'; lessonId?:'01'|'02'|'03'|'04'|'05'|'06'|'07'|'08'|'09'|'10'|'11'|'12'|'13'; eyebrow?:string; sharedScreen?:boolean; toc?: readonly TocItem[]; tocGroups?: readonly {id:string;title:string;items:readonly TocItem[]}[]; }
 const { title, lead, page, lessonId='01', eyebrow, toc = [], tocGroups = [] } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const accessGateEnabled = isStudentBuild && Boolean(accessConfig.passwordHash);
@@ -81,13 +81,14 @@ const pdfLabel = page === 'overview'
     <header class="review-header" data-ebook-protected>
       <a class="review-brand" href={`${base}/`}>AI LECTURE <span>ARCHITECTURE DESIGN</span></a>
       <nav aria-label="과정 안내">
-        {reviewNavigation.map(item=><a href={base+'/'+item.path} aria-current={(page==='lesson'?lessonId:page==='overview'?'overview':'home')===item.id?'page':undefined}>{item.label}</a>)}
+        {reviewNavigation.map(item=><a href={base+'/'+item.path} aria-current={(page==='lesson'?lessonId:page==='overview'?'overview':page==='home'?'home':'glossary')===item.id?'page':undefined}>{item.label}</a>)}
+        <a href={`${base}/glossary/`} aria-current={page==='glossary'?'page':undefined}>용어 사전</a>
       </nav>
     </header>
     <div class="review-shell review-shell--toc" data-ebook-protected>
       <aside class="review-sidebar" aria-label="과정 목차">
         {toc.length > 0 && (
-          <nav class="review-toc" aria-label="현재 차시 내부 목차">
+          <nav class="review-toc" aria-label={page==='glossary'?'용어 사전 분류':'현재 차시 내부 목차'}>
             {currentTopics.length > 0 && (
               <div class="review-toc-current-topic">
                 {currentTopics.map((topic) => (
@@ -99,7 +100,7 @@ const pdfLabel = page === 'overview'
               </div>
             )}
             <details open>
-              <summary>현재 차시 내부 목차</summary>
+              <summary>{page==='glossary'?'용어 사전 분류':'현재 차시 내부 목차'}</summary>
               {tocGroups.length>0 ? tocGroups.map((group)=><details class="review-toc-group" data-toc-period={group.id} open><summary>{group.title}</summary><ol>{group.items.map((item)=><li><a href={`#${item.id}`}>{item.title}</a></li>)}</ol></details>) : <ol>{toc.map((item) => <li><a href={`#${item.id}`}>{item.title}</a></li>)}</ol>}
             </details>
           </nav>
@@ -110,6 +111,7 @@ const pdfLabel = page === 'overview'
             <div class="review-course-toc__Overview">
               <a href={`${base}/`} aria-current={page === 'home' ? 'page' : undefined}>과정 홈</a>
               <a href={`${base}/course-overview/`} aria-current={page === 'overview' ? 'page' : undefined}>과정 전체 안내 · 7개 대주제 Roadmap</a>
+              <a href={`${base}/glossary/`} aria-current={page==='glossary'?'page':undefined}>용어 사전 · 낯선 말 찾아보기</a>
             </div>
             <ol class="review-course-toc__topics">
               {topicGroups.map((group) => (
@@ -136,7 +138,7 @@ const pdfLabel = page === 'overview'
       </aside>
       <main id="main" tabindex="-1" data-course-status="design-pending" data-review-status="instructor-review" data-review-page={page}>
         <div class="review-intro">
-          <p class="review-eyebrow">ARCHITECTURE × AI · {eyebrow || (page === 'overview' ? 'COURSE OVERVIEW' : page === 'lesson' ? 'LESSON 01' : 'COURSE DESIGN')}</p>
+          <p class="review-eyebrow">ARCHITECTURE × AI · {eyebrow || (page === 'overview' ? 'COURSE OVERVIEW' : page === 'lesson' ? 'LESSON 01' : page === 'glossary' ? 'GLOSSARY' : 'COURSE DESIGN')}</p>
           <h1 id="main-content" tabindex="-1">{title}</h1>
           <p class="review-lead">{lead}</p>
           {pdfHref && (
@@ -147,10 +149,10 @@ const pdfLabel = page === 'overview'
         </div>
         {(page === 'overview' || page === 'lesson') && <WorkbookDrawingScaleGuide />}
         <slot />
-        <ReviewLessonNavigation {page} {lessonId} />
+        {page!=='glossary'&&<ReviewLessonNavigation {page} {lessonId} />}
       </main>
     </div>
-    <footer class="review-footer" data-ebook-protected><div>AI는 제안하고, 디자이너는 판단한다. <a href={`${base}/`}>과정 안내</a></div><DaejeonCopyright /></footer>
+    <footer class="review-footer" data-ebook-protected><div>AI는 제안하고, 디자이너는 판단한다. <a href={`${base}/`}>과정 안내</a><a href={`${base}/glossary/`}>용어 사전</a></div><DaejeonCopyright /></footer>
     <script>
       const toc = document.querySelector<HTMLDetailsElement>('.review-toc > details');
       const courseToc = document.querySelector<HTMLDetailsElement>('.review-course-toc__details');
