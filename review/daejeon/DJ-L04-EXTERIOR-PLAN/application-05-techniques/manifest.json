@@ -60,11 +60,11 @@
     },
     {
       "file": "samples/10_sketch-concept-refined.png",
-      "sha256": "0160550783465b875887e838c9b62a981a026460a8e599fe8a328426609f6f1e",
-      "bytes": 2374307,
+      "sha256": "49cf32eace39c9122ae86bf8e2bdfdd0c2739901871759aad921dcb68631c65f",
+      "bytes": 2438350,
       "key": "refined",
-      "title": "래피드 콘셉트 → 한 면 보완",
-      "description": "캐노피 하부만 중립 마감으로 조정한 생성 결과입니다. 상층·반사·조명 표현도 함께 대조합니다."
+      "title": "래피드 콘셉트 → 1층 파사드·캐노피 면발광·쇼윈도 보완",
+      "description": "09의 상부 2~3층·개구부·수직 월넛 포털을 유지 기준으로 두고, 1층에 샴페인 브론즈 수직 핀·플리츠와 웜화이트 라인, 크림 화이트 코브 면발광, 트래버틴/웜 라임스톤 기둥·기단과 따뜻한 쇼룸 전시를 보완한 시각 제안입니다. 상부·주변의 요청 밖 변화도 대조하며 실제 재료·조명 성능은 확정하지 않습니다."
     },
     {
       "key": "surrounding-landscape",
@@ -396,38 +396,39 @@
     },
     {
       "file": "prompts/refined-7step.txt",
-      "sha256": "7ea846ab6f593610fd0e65d889f6bc4cd60cbfc94fe9774e5eabad2fe24563fd",
-      "bytes": 986,
+      "sha256": "ba2348703ab0784f7e7c9e12615e9dbfb2695a8f645ac0648e851d2708bd6b47",
+      "bytes": 2550,
       "key": "refined-7step",
-      "title": "래피드 콘셉트 → 한 면 보완 · 7단 생성 원문",
+      "title": "래피드 콘셉트 → 1층 파사드·캐노피 면발광·쇼윈도 보완 · 7단 학습 요청문",
       "attachments": [
         {
           "file": "samples/09_sketch-rapid-concept.png",
-          "role": "편집 대상·스케치 기반 래피드 콘셉트",
+          "role": "이미지1 · 편집 대상인 09 래피드 콘셉트; 상부 2~3층·개구부·월넛 포털·시점의 유지 기준",
           "outputPath": "practice/DJ-L04/application/samples/09_sketch-rapid-concept.png",
           "sha256": "88e8b32720f2cb0cbb677ac435162b8d6be62798cb8abef790cc87a92b0b7f38",
           "bytes": 2621829
         }
       ],
-      "promptProvenance": "actual generation prompt; verbatim"
+      "promptProvenance": "학습용 조건 정리; 실제 이미지 도구 호출·국소 보정 기록과 분리",
+      "description": "09의 상부와 개구부를 고정하고 1층의 밝은 수직 핀·면발광 소핏·석재·쇼룸 전시를 지정한 7단 학습 문안입니다. 실제 도구 호출·후처리 기록과 구분하며 동일 결과를 보장하지 않습니다."
     },
     {
       "file": "prompts/refined-short.txt",
-      "sha256": "138dfdd8a5c0ef04f850192b72f404ef2cbaef48824ccaa830bcb206cf2ca9e2",
-      "bytes": 532,
+      "sha256": "d65eb71f4e11c5b9dda0b0956b28e1ea5063a7670b91be53b1b0183e9b043e08",
+      "bytes": 1268,
       "key": "refined-short",
-      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
+      "title": "래피드 콘셉트 → 1층 파사드·캐노피 면발광·쇼윈도 보완 · 짧은 실행 요청문",
       "attachments": [
         {
           "file": "samples/09_sketch-rapid-concept.png",
-          "role": "편집 대상·스케치 기반 래피드 콘셉트",
+          "role": "이미지1 · 편집 대상인 09 래피드 콘셉트; 상부 2~3층·개구부·월넛 포털·시점의 유지 기준",
           "outputPath": "practice/DJ-L04/application/samples/09_sketch-rapid-concept.png",
           "sha256": "88e8b32720f2cb0cbb677ac435162b8d6be62798cb8abef790cc87a92b0b7f38",
           "bytes": 2621829
         }
       ],
-      "promptProvenance": "actual generation prompt; verbatim",
-      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다."
+      "promptProvenance": "학습용 조건 정리; 실제 이미지 도구 호출·국소 보정 기록과 분리",
+      "description": "09의 상부와 개구부를 고정하고 1층의 밝은 수직 핀·면발광 소핏·석재·쇼룸 전시를 지정한 반복 실습용 압축 문안입니다. 실제 도구 호출·후처리 기록과 구분하며 동일 결과를 보장하지 않습니다."
     },
     {
       "key": "surrounding-landscape-7step",
@@ -641,15 +642,15 @@
   "other": [
     {
       "file": "analysis/VISUAL-REVIEW.md",
-      "sha256": "7bd197dcf43b47c7139e463b2f04305791a60c9014b8914d9786fbfc4a286704",
-      "bytes": 2735,
+      "sha256": "36b8da83683d05703ade8e6c6183ade33d2f5c6e4874855d337d8e953df67d75",
+      "bytes": 3631,
       "key": "analysis/VISUAL-REVIEW.md",
       "title": "analysis/VISUAL-REVIEW.md"
     },
     {
       "file": "README.txt",
-      "sha256": "c07e46867261dc87224a465be5f6a041499d34cecee6846bde5550107d25468a",
-      "bytes": 1797,
+      "sha256": "824d670e0a5fc8e35772721327370d814ea53444e497025ee4bf108550ab5a33",
+      "bytes": 2231,
       "key": "README.txt",
       "title": "README.txt"
     },
@@ -728,11 +729,11 @@
     },
     {
       "file": "samples/10_sketch-concept-refined.png",
-      "sha256": "0160550783465b875887e838c9b62a981a026460a8e599fe8a328426609f6f1e",
-      "bytes": 2374307,
+      "sha256": "49cf32eace39c9122ae86bf8e2bdfdd0c2739901871759aad921dcb68631c65f",
+      "bytes": 2438350,
       "key": "refined",
-      "title": "래피드 콘셉트 → 한 면 보완",
-      "description": "캐노피 하부만 중립 마감으로 조정한 생성 결과입니다. 상층·반사·조명 표현도 함께 대조합니다."
+      "title": "래피드 콘셉트 → 1층 파사드·캐노피 면발광·쇼윈도 보완",
+      "description": "09의 상부 2~3층·개구부·수직 월넛 포털을 유지 기준으로 두고, 1층에 샴페인 브론즈 수직 핀·플리츠와 웜화이트 라인, 크림 화이트 코브 면발광, 트래버틴/웜 라임스톤 기둥·기단과 따뜻한 쇼룸 전시를 보완한 시각 제안입니다. 상부·주변의 요청 밖 변화도 대조하며 실제 재료·조명 성능은 확정하지 않습니다."
     },
     {
       "file": "prompts/site-before-7step.txt",
@@ -1012,50 +1013,51 @@
     },
     {
       "file": "prompts/refined-7step.txt",
-      "sha256": "7ea846ab6f593610fd0e65d889f6bc4cd60cbfc94fe9774e5eabad2fe24563fd",
-      "bytes": 986,
+      "sha256": "ba2348703ab0784f7e7c9e12615e9dbfb2695a8f645ac0648e851d2708bd6b47",
+      "bytes": 2550,
       "key": "refined-7step",
-      "title": "래피드 콘셉트 → 한 면 보완 · 7단 생성 원문",
+      "title": "래피드 콘셉트 → 1층 파사드·캐노피 면발광·쇼윈도 보완 · 7단 학습 요청문",
       "attachments": [
         {
           "file": "samples/09_sketch-rapid-concept.png",
-          "role": "편집 대상·스케치 기반 래피드 콘셉트",
+          "role": "이미지1 · 편집 대상인 09 래피드 콘셉트; 상부 2~3층·개구부·월넛 포털·시점의 유지 기준",
           "outputPath": "practice/DJ-L04/application/samples/09_sketch-rapid-concept.png",
           "sha256": "88e8b32720f2cb0cbb677ac435162b8d6be62798cb8abef790cc87a92b0b7f38",
           "bytes": 2621829
         }
       ],
-      "promptProvenance": "actual generation prompt; verbatim"
+      "promptProvenance": "학습용 조건 정리; 실제 이미지 도구 호출·국소 보정 기록과 분리",
+      "description": "09의 상부와 개구부를 고정하고 1층의 밝은 수직 핀·면발광 소핏·석재·쇼룸 전시를 지정한 7단 학습 문안입니다. 실제 도구 호출·후처리 기록과 구분하며 동일 결과를 보장하지 않습니다."
     },
     {
       "file": "prompts/refined-short.txt",
-      "sha256": "138dfdd8a5c0ef04f850192b72f404ef2cbaef48824ccaa830bcb206cf2ca9e2",
-      "bytes": 532,
+      "sha256": "d65eb71f4e11c5b9dda0b0956b28e1ea5063a7670b91be53b1b0183e9b043e08",
+      "bytes": 1268,
       "key": "refined-short",
-      "title": "짧은 실행 요청문 · 반복 실습용 압축본",
+      "title": "래피드 콘셉트 → 1층 파사드·캐노피 면발광·쇼윈도 보완 · 짧은 실행 요청문",
       "attachments": [
         {
           "file": "samples/09_sketch-rapid-concept.png",
-          "role": "편집 대상·스케치 기반 래피드 콘셉트",
+          "role": "이미지1 · 편집 대상인 09 래피드 콘셉트; 상부 2~3층·개구부·월넛 포털·시점의 유지 기준",
           "outputPath": "practice/DJ-L04/application/samples/09_sketch-rapid-concept.png",
           "sha256": "88e8b32720f2cb0cbb677ac435162b8d6be62798cb8abef790cc87a92b0b7f38",
           "bytes": 2621829
         }
       ],
-      "promptProvenance": "actual generation prompt; verbatim",
-      "description": "예시 이미지는 7단 원문으로 생성했습니다. 이 요청문은 고정·변경·금지 조건을 남긴 압축본입니다."
+      "promptProvenance": "학습용 조건 정리; 실제 이미지 도구 호출·국소 보정 기록과 분리",
+      "description": "09의 상부와 개구부를 고정하고 1층의 밝은 수직 핀·면발광 소핏·석재·쇼룸 전시를 지정한 반복 실습용 압축 문안입니다. 실제 도구 호출·후처리 기록과 구분하며 동일 결과를 보장하지 않습니다."
     },
     {
       "file": "analysis/VISUAL-REVIEW.md",
-      "sha256": "7bd197dcf43b47c7139e463b2f04305791a60c9014b8914d9786fbfc4a286704",
-      "bytes": 2735,
+      "sha256": "36b8da83683d05703ade8e6c6183ade33d2f5c6e4874855d337d8e953df67d75",
+      "bytes": 3631,
       "key": "analysis/VISUAL-REVIEW.md",
       "title": "analysis/VISUAL-REVIEW.md"
     },
     {
       "file": "README.txt",
-      "sha256": "c07e46867261dc87224a465be5f6a041499d34cecee6846bde5550107d25468a",
-      "bytes": 1797,
+      "sha256": "824d670e0a5fc8e35772721327370d814ea53444e497025ee4bf108550ab5a33",
+      "bytes": 2231,
       "key": "README.txt",
       "title": "README.txt"
     },

@@ -596,15 +596,15 @@
       "key": "base-guide",
       "title": "기준 건물·참고자료 역할 안내",
       "file": "analysis/DJ-L04_BASE-AND-REFERENCE.md",
-      "sha256": "653e1cadb46d9574cae285dd4a87368b032ef1b0af56c01a2df8aa482a88f313",
-      "bytes": 1210
+      "sha256": "76185624be46334ae0fb3f1a8ab34019fa77ea8f555b89421de88fd1ea2c94cc",
+      "bytes": 1645
     },
     {
       "key": "compare-guide",
       "title": "A/B/보완안 비교 기록",
       "file": "analysis/DJ-L04_COMPARE-AND-SELECT.md",
-      "sha256": "dad3447f8e8880b284b35a4958a5d6ab12817fdbf445dccfac32d61c34e1ddd6",
-      "bytes": 1091
+      "sha256": "017bbe5f536faccedd092393d79d87260e60338e1a157d2c50dde20a93f9c303",
+      "bytes": 1339
     }
   ],
   "files": [
@@ -1131,18 +1131,18 @@
     },
     {
       "file": "analysis/DJ-L04_BASE-AND-REFERENCE.md",
-      "sha256": "653e1cadb46d9574cae285dd4a87368b032ef1b0af56c01a2df8aa482a88f313",
-      "bytes": 1210
+      "sha256": "76185624be46334ae0fb3f1a8ab34019fa77ea8f555b89421de88fd1ea2c94cc",
+      "bytes": 1645
     },
     {
       "file": "analysis/DJ-L04_COMPARE-AND-SELECT.md",
-      "sha256": "dad3447f8e8880b284b35a4958a5d6ab12817fdbf445dccfac32d61c34e1ddd6",
-      "bytes": 1091
+      "sha256": "017bbe5f536faccedd092393d79d87260e60338e1a157d2c50dde20a93f9c303",
+      "bytes": 1339
     },
     {
       "file": "README.txt",
-      "sha256": "c07e46867261dc87224a465be5f6a041499d34cecee6846bde5550107d25468a",
-      "bytes": 1797
+      "sha256": "824d670e0a5fc8e35772721327370d814ea53444e497025ee4bf108550ab5a33",
+      "bytes": 2231
     },
     {
       "file": "bases/01_base-building.png",

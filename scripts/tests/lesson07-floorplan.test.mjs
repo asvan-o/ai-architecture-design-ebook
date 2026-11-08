@@ -21,7 +21,30 @@ function verifyApprovedGuide(file,snapshot){
  const policy=approvedRemediation.guideFiles.find(item=>item.file===file);assert(policy,file);
  assert.equal(approvedRemediation.baseRevision,'bc4c7d141ade0c3689cf42ff18f00fe52d13618d');
  assert.equal(policy.baseSha256,snapshot.files.find(item=>item.file===file).sha256,'The immutable guide baseline must not change: '+file);
- const lines=fs.readFileSync(file,'utf8').replaceAll('\r\n','\n').split('\n');
+ let lines=fs.readFileSync(file,'utf8').replaceAll('\r\n','\n').split('\n');
+ if(policy.authorizedSourceEdits){
+  const authorization=policy.authorizedSourceEdits;
+  assert.equal(file,'src/draft/content/prompt-derivations.ts');
+  assert.equal(authorization.baseRevision,'efe5c3506f94f12429ef8b46feeb79e3911d8509');
+  assert.equal(authorization.edits.length,2,'승인된 refined tuple 교체1행과 도출 안내 추가1행만 허용합니다.');
+  const historical=spawnSync('git',['cat-file','blob',authorization.baseRevision+':'+file],{encoding:'utf8',windowsHide:true});
+  assert.equal(historical.status,0,historical.stderr);
+  const baselineLines=historical.stdout.replaceAll('\r\n','\n').split('\n');
+  for(const edit of authorization.edits){
+   assert.equal(typeof edit.after,'string');assert.equal(hash(edit.after),edit.afterSha256,'승인된 현재 source 행의 지문');
+   const selected=lines.filter(line=>line===edit.after);assert.equal(selected.length,1,'승인된 현재 source 행은 정확히 한 번 존재해야 합니다.');
+   assert.equal(hash(selected[0]),edit.afterSha256);
+   if(edit.before===null){
+    assert.equal(edit.beforeSha256,null);assert(!baselineLines.includes(edit.after),'추가 안내행은 이전 source에 존재하지 않아야 합니다.');
+    lines=lines.filter(line=>line!==edit.after);
+   }else{
+    assert.equal(typeof edit.before,'string');assert.equal(hash(edit.before),edit.beforeSha256,'승인 이전 source 행의 지문');
+    assert.equal(baselineLines.filter(line=>line===edit.before).length,1,'이전 행은 기록된 Git 원문과 일치해야 합니다.');
+    assert(!lines.includes(edit.before),'교체 전 source 행을 중복 유지하지 않습니다.');
+    lines=lines.map(line=>line===edit.after?edit.before:line);
+   }
+  }
+ }
  const firstPromptId=line=>line.match(/^\s*\[\[\s*['"]([^'"]+)/)?.[1];
  const approvedIds=new Set(policy.approvedCurrentLines.map(item=>item.firstPromptId));
  for(const row of policy.approvedCurrentLines){

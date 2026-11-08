@@ -81,7 +81,25 @@
           "firstPromptId": "l06-office-warm",
           "sha256": "67d6238969c8e4659115460e1a4d00b11a4d5914d1a364a0897be094d5962ae3"
         }
-      ]
+      ],
+      "authorizedSourceEdits": {
+        "baseRevision": "efe5c3506f94f12429ef8b46feeb79e3911d8509",
+        "reason": "사용자 승인된 스케치09→10의 현행1층 보완 범위에 맞춘 refined tuple1행 교체와 전용 도출 안내1행 추가. 이 두 행만 이전 형태로 정규화한 뒤 기존 역사 보호 해시를 그대로 검증한다.",
+        "edits": [
+          {
+            "before": " refined:['국소 정돈','선택 콘셉트의 부분 오류','이 콘셉트의 표시한 부분만 정돈하는 프롬프트'],",
+            "beforeSha256": "7ca48eaf3b060522360f82a4bfe54e6292a6ab488c24897c1439fc84e26b7367",
+            "after": " refined:['스케치 콘셉트의 1층 디테일 보완','1층 수직 핀·코브 면발광·석재 기둥과 기단·쇼룸 전시','09의 상부를 고정하고 1층 파사드만 보완하는 프롬프트'],",
+            "afterSha256": "732edfdfc6cf2f35b9b7ca8b36d830ab650e97700023230d0478121f1d3e2cd3"
+          },
+          {
+            "before": null,
+            "beforeSha256": null,
+            "after": "for(const mode of['7step','short'])byId['l04-app-refined-'+mode]={derivation:'09의 상부 2~3층·개구부·수직 월넛 포털을 고정하고, 1층의 샴페인 브론즈 수직 핀·플리츠, 크림 화이트 코브 면발광, 트래버틴/웜 라임스톤 기둥·기단, 따뜻한 쇼룸 전시를 변경 조건으로 분리했습니다. Part 2 A2의 어두운 수평 루버와 다른 보완 단계입니다.',aiPromptTip:'09 래피드 콘셉트 한 장에서 상부·창·문 외곽·월넛 포털·도로·카메라는 유지하고 1층만 밝은 샴페인 브론즈 수직 핀, 크림 화이트 코브 면발광, 트래버틴 기둥·기단, 따뜻한 쇼룸 빛과 전시 포디움으로 보완할 요청문을 짜 줘. 재료·조명은 시각 제안이며 실제 성능은 단정하지 마.'};",
+            "afterSha256": "5dc6e888864de6dcdf74a567b9e853cf52389102e5bfc1cbab16ccb258e3f0a9"
+          }
+        ]
+      }
     }
   ],
   "labelAssets": [

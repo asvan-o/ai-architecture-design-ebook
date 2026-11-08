@@ -64,7 +64,7 @@ const exteriorMethods: Record<string,[string,string,string]>={
  dusk:['시간대·조명 변환','하늘·노출·경관조명','이 주간 외관을 초저녁과 경관조명 분위기로 바꾸는 프롬프트'],
  'rough-sketch':['스케치 추출','윤곽선·설계 단서','이 외관에서 매스와 개구부를 읽는 러프 스케치 프롬프트'],
  rapid:['래피드 콘셉트','스케치의 재료·디자인 표현','내 외관 스케치의 형상으로 콘셉트를 만드는 프롬프트'],
- refined:['국소 정돈','선택 콘셉트의 부분 오류','이 콘셉트의 표시한 부분만 정돈하는 프롬프트'],
+ refined:['스케치 콘셉트의 1층 디테일 보완','1층 수직 핀·코브 면발광·석재 기둥과 기단·쇼룸 전시','09의 상부를 고정하고 1층 파사드만 보완하는 프롬프트'],
  subview:['입구 근접 시점','입구에 접근한 카메라','이 메인 외관의 입구 근접 서브 시점 프롬프트'],
  'angle-corner':['코너 시점','코너 방향 카메라','이 메인 외관을 코너 시점으로 확장하는 프롬프트'],
  'angle-streetscape':['가로 맥락 시점','가로에서 보는 카메라','이 외관을 가로 맥락에서 보는 시점 프롬프트'],
@@ -73,6 +73,7 @@ const exteriorMethods: Record<string,[string,string,string]>={
 const byId:Record<string,Derivation>={};
 for(const[ids,derivation,aiPromptTip]of entries)for(const id of ids)byId[id]={derivation,aiPromptTip};
 for(const[key,[title,variable,request]]of Object.entries(exteriorMethods))for(const mode of['7step','short'])byId['l04-app-'+key+'-'+mode]={derivation:`${title}에서는 건물 매스·층수·창호 비례와 앞 단계 디자인을 기준으로 고정하고 ${variable}만 변수로 뽑았습니다. ${mode==='7step'?'입력·변경 범위·금지·검수 기준을 7단으로 분리합니다.':'핵심 고정·변경 조건을 남겨 짧은 실행문으로 압축합니다.'}`,aiPromptTip:`${request}를 ${mode==='7step'?'7단 구조로':'짧은 실행문으로'} 짜 줘. ${['subview','angle-corner','angle-streetscape','angle-elevated'].includes(key)?'메인 디자인의 비례·재료를 유지하고 보이지 않는 면은 추정으로 구분해 줘.':'기존 구조와 대상 밖 요소를 유지하고 전후 비교 기준을 포함해 줘.'}`};
+for(const mode of['7step','short'])byId['l04-app-refined-'+mode]={derivation:'09의 상부 2~3층·개구부·수직 월넛 포털을 고정하고, 1층의 샴페인 브론즈 수직 핀·플리츠, 크림 화이트 코브 면발광, 트래버틴/웜 라임스톤 기둥·기단, 따뜻한 쇼룸 전시를 변경 조건으로 분리했습니다. Part 2 A2의 어두운 수평 루버와 다른 보완 단계입니다.',aiPromptTip:'09 래피드 콘셉트 한 장에서 상부·창·문 외곽·월넛 포털·도로·카메라는 유지하고 1층만 밝은 샴페인 브론즈 수직 핀, 크림 화이트 코브 면발광, 트래버틴 기둥·기단, 따뜻한 쇼룸 빛과 전시 포디움으로 보완할 요청문을 짜 줘. 재료·조명은 시각 제안이며 실제 성능은 단정하지 마.'};
 const commands: [string,string,string][]=[
  ['1-0','설치 명령보다 먼저 WinGet 존재를 조회해 실행 준비와 설치를 분리했습니다.','내 Windows에서 WinGet 유무만 확인할 PowerShell 명령을 알려 줘. 설치나 설정 변경은 하지 마.'],
  ['2-0','Python을 사용자 범위에 설치하는 명령과 이후 새 터미널 확인을 분리했습니다.','관리자 권한 없이 Python 3.12를 준비할 WinGet 명령을 검토해 줘. 내 기존 Python 상태를 먼저 묻고 설치 범위를 설명해 줘.'],

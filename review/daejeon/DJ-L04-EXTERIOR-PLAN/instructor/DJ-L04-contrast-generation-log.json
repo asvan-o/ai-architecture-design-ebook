@@ -1,7 +1,7 @@
 {
-  "scope": "Current L04 contrast and dependent landscape continuity",
+  "scope": "Current L04 contrast, landscape continuity and sketch 09-to-10 first-floor refinement",
   "baselineCommit": "488e00ca6f84a34b51e4ee023d6b72210fb58299",
-  "toolCalls": 10,
+  "toolCalls": 11,
   "records": [
     {
       "key": "B",
@@ -313,6 +313,108 @@
       ],
       "postProcessing": "none; byte-identical copy of built-in image tool output",
       "visualReview": "Codex visual self-check; not independent reviewer approval. Geometry and main/subview continuity are visual proposals, not exact survey reconstruction."
+    },
+    {
+      "key": "refined",
+      "asset": "application-05-techniques/samples/10_sketch-concept-refined.png",
+      "baselineCommit": "efe5c3506f94f12429ef8b46feeb79e3911d8509",
+      "tool": "image_gen.imagegen (built-in)",
+      "backendModel": "not exposed by tool; not asserted as Nano Banana or Astra",
+      "exactToolArguments": {
+        "prompt": "Edit the attached architectural image itself; it is the sole edit target and geometry/camera reference (09_sketch-rapid-concept.png). Keep its exact full-frame composition, frontal camera, building width and height, upper two floors with EIGHT windows, parapet, sky, neighboring buildings, sidewalk and road boundaries. Do NOT crop, zoom, tilt, move windows, move the central double glass door, or enlarge openings. Upper region from x=0,y=0 to x=1672,y=495 is a protected original area: leave it unedited. All intended design work is the EXISTING GROUND-FLOOR COMMERCIAL FACADE below its same horizontal top edge, not the upper floors. The final image should show an unmistakable, substantial ground-floor detail upgrade while remaining the SAME building photograph.\n1. Replace the broad flat dull brown horizontal sign band and the central projecting canopy's front fascia with an elegant BRIGHT CHAMPAGNE BRONZE / WARM STONE sculptural band of closely spaced VERTICAL FINS / PLEATS. Strong tactile depth, real fine shadows. Thin continuous warm-white concealed light at both top and bottom edges of the band. Keep the existing band envelope and canopy footprint; no text, no signs, no logos. This is a bright vertical-fin scheme, NOT dark horizontal wood louvers.\n2. Replace ONLY the canopy's dark wood-slatted underside with a luminous CREAM-WHITE recessed COVE ceiling, a broad softly glowing architectural light surface and fine perimeter light, so the recessed entrance feels visibly bright. Keep the canopy dimensions.\n3. Refine the existing left/right ground-floor pier faces and low plinth with LIGHT TRAVERTINE / WARM LIMESTONE block cladding, subtle horizontal coursing and authentic porous stone texture. Add discreet plinth grazing light. Keep the vertical WALNUT portal side walls on BOTH SIDES of the central entrance and reveal their grain with soft warm grazing light. No new massive columns.\n4. Through the two EXISTING shop windows and entrance glass show warm 3000K gallery / flagship-showroom lighting, minimalist architectural exhibition podiums and a few refined wood/stone sculptural display objects. Do not add people. Keep both shop-window outer frames, mullions, sizes and positions and the central DOUBLE GLASS ENTRY DOOR's frame, position, sizes, leaf divisions, thresholds exactly as in the reference. Preserve their bronze appearance and believable glazing/reflections. The interior displays should enrich the windows without masking their outer frame geometry.\nRender as convincing photorealistic daylight architectural visualization with carefully integrated emissive light, high quality PBR stone/metal/wood textures. Keep the original daylight/time, original shadows outside the edited facade, original sidewalk joints, curb, yellow road line and adjacent properties. No landscaping, outdoor furniture, cars, lettering, watermarks or extra architecture. All alteration must read as surface/detail/lighting improvements within the existing first-floor facade. Match the exact boundary with the unedited upper floors at y=495; no seam or shifted facade edge. Preserve the original image dimensions and composition.",
+        "referenced_image_paths": [
+          "C:\\Users\\deric\\Desktop\\AI_Lecture_Architecture\\daejeon\\review\\daejeon\\DJ-L04-EXTERIOR-PLAN\\application-05-techniques\\samples\\09_sketch-rapid-concept.png"
+        ],
+        "transparent_background": false
+      },
+      "inputSha256": {
+        "application-05-techniques/samples/09_sketch-rapid-concept.png": "88e8b32720f2cb0cbb677ac435162b8d6be62798cb8abef790cc87a92b0b7f38"
+      },
+      "historicalInputSnapshots": {},
+      "sourceToolOutput": "C:/Users/deric/.codex/generated_images/01a15269-da21-73d2-8863-69845a5e5cdd/exec-6b5bc8be-3afb-4965-a596-d3a512940120.png",
+      "rawOutputSha256": "f9d623c45e1be2154827329028944c53921fbc0a239a0ad8eb1848c638c5e681",
+      "outputSha256": "49cf32eace39c9122ae86bf8e2bdfdd0c2739901871759aad921dcb68631c65f",
+      "bytes": 2438350,
+      "pixels": [
+        1672,
+        941
+      ],
+      "postProcessing": "Generated entrance textures aligned to the original door-head height; original 09 upper region, neighbors, sidewalk/road and narrow opening frame rings restored with a reference mask; no synthesized 2D shapes or new geometry drawn.",
+      "referenceRestoration": {
+        "source": "application-05-techniques/samples/09_sketch-rapid-concept.png",
+        "rectangle": [
+          0,
+          0,
+          1672,
+          495
+        ],
+        "meanDiff": 0,
+        "pixelExact": true,
+        "editableEnvelope": [
+          315,
+          495,
+          1356,
+          806
+        ],
+        "outsideEditMaskPixelExact": true,
+        "maskSha256": "29a9f4cd3b2592bd83bde37c83bfd886d6be9e3d2630b71c2f3b4a29b5a17012",
+        "restoredWindowDoorFrames": [
+          {
+            "name": "left shop-window outer frame",
+            "rectangle": [
+              389,
+              592,
+              656,
+              781
+            ],
+            "thickness": 7
+          },
+          {
+            "name": "right shop-window outer frame",
+            "rectangle": [
+              1013,
+              592,
+              1283,
+              781
+            ],
+            "thickness": 7
+          },
+          {
+            "name": "double entry outer frame",
+            "rectangle": [
+              738,
+              615,
+              938,
+              792
+            ],
+            "thickness": 6
+          }
+        ],
+        "restoredDoorCenterDivision": [
+          825,
+          621,
+          835,
+          789
+        ],
+        "entranceAlignment": {
+          "sourceBreakpointsY": [
+            578,
+            623,
+            792
+          ],
+          "targetBreakpointsY": [
+            578,
+            614,
+            792
+          ],
+          "xRange": [
+            638,
+            1033
+          ],
+          "method": "piecewise resampling of generated photorealistic textures before original-frame restoration"
+        }
+      },
+      "visualReview": "Codex self-check: strong first-floor fin/cove/stone/showroom contrast; original upper pixels, street/context and opening-frame reference pixels restored. Horizontal protected boundary and entrance examined in enlarged crops; independent Argon review pending."
     }
   ],
   "limitations": [
@@ -320,5 +422,15 @@
     "Daylight/relief/plant occlusion/secondary-view placement may be reinterpreted. Compare openings and unaffected regions against the protected originals.",
     "Landscape paving and furniture do not prove available site area, legal public-space use or measured clear pedestrian widths.",
     "3000K is a visual lighting intention, not measured or guaranteed photometric performance."
-  ]
+  ],
+  "sketchRefinementRevision": {
+    "baselineCommit": "efe5c3506f94f12429ef8b46feeb79e3911d8509",
+    "preservedSketchInputs": [
+      "08_exterior-rough-sketch.png",
+      "09_sketch-rapid-concept.png"
+    ],
+    "replacedResult": "10_sketch-concept-refined.png",
+    "newToolCalls": 1,
+    "studentPromptDistinction": "7-step and short teaching prompts summarize conditions; exact tool call and reference-restoration postprocessing are recorded separately."
+  }
 }

@@ -1,10 +1,9 @@
 {
-  "approval": "사용자 승인: L04 B·A2·조경05/11/12 대비 강화와 새 연속 입력 기반06/07/13/14/15 재생성. A·3BASE·재질 원본·별도 스케치 분기 보존.",
+  "approval": "사용자 승인: L04 B·A2·조경05/11/12 대비 강화와 새 연속 입력 기반06/07/13/14/15 재생성. A·3BASE·재질 원본 보존. 별도 스케치 분기는 후속 sketchRefinement 승인에 따라 08·09를 고정하고 10만 갱신.",
   "baseCommit": "488e00ca6f84a34b51e4ee023d6b72210fb58299",
   "fixedInputs": {
     "review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/samples/08_exterior-rough-sketch.png": "6d339b67f6d5ec8e296b1c79bf4332b97bcecf80c0dd5d585838f96bc494dae0",
     "review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/samples/09_sketch-rapid-concept.png": "88e8b32720f2cb0cbb677ac435162b8d6be62798cb8abef790cc87a92b0b7f38",
-    "review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/samples/10_sketch-concept-refined.png": "0160550783465b875887e838c9b62a981a026460a8e599fe8a328426609f6f1e",
     "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/bases/01_base-building.png": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871",
     "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/bases/EXT-BASE-01.png": "8f827bb194a8105ee96c047e825369464f9fcfc9151476d9b2448f545dd73871",
     "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/bases/EXT-BASE-02.png": "85b2d24b2fa912214ffcc3deeef5efedc59d158fcf281cd9c782124a0fadc141",
@@ -21,8 +20,6 @@
     "review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/prompts/cleanup-short.txt": "40b0681fa50a9a71b3441aca350472368249deb4ce95f6468d9fb86bf135e413",
     "review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/prompts/rapid-7step.txt": "7b1dbb3b0e15e154af1bfb1da0e15c1e4d06a26a96b88bf0b2d419fb4b2b4665",
     "review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/prompts/rapid-short.txt": "985ced4fe2f3e97de47eafc338869942085c87c891911b3e4384ddf88475c93d",
-    "review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/prompts/refined-7step.txt": "7ea846ab6f593610fd0e65d889f6bc4cd60cbfc94fe9774e5eabad2fe24563fd",
-    "review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/prompts/refined-short.txt": "138dfdd8a5c0ef04f850192b72f404ef2cbaef48824ccaa830bcb206cf2ca9e2",
     "review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/prompts/rough-sketch-7step.txt": "c1ae47c46897974486fd3d69d0acdb65eafc950861749776aef1cafcd299dc6a",
     "review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/prompts/rough-sketch-short.txt": "a171830dc6796f17e13bb50a63c7f688f73b0c4a4f00715225b345410569734e",
     "review/daejeon/DJ-L04-EXTERIOR-PLAN/application-05-techniques/prompts/site-before-7step.txt": "82c6b40edc9250b851f260b7037ce75aea32c9b6369f6c07871d93aa24a27181",
@@ -95,7 +92,13 @@
       "derivation": "실제 생성에 사용한 7단 원문은 그대로 보존하고, 반복 실행용으로 핵심 변경·유지·금지 조건을 4문장으로 압축했습니다.",
       "aiPromptTip": "이 단계의 첨부 역할과 목표 변경·유지·금지 조건을 지키는 3~5문장짜리 이미지 실행 요청문을 써줘."
     },
-    "l04-my-B": {}
+    "l04-my-B": {},
+    "l04-app-refined-7step": {},
+    "l04-app-refined-short": {
+      "howToUse": "위 첨부 목록의 편집 대상과 참고 자료를 순서대로 올립니다. 예시 이미지는 7단 학습용 요청문으로 생성되었으며, 아래 짧은 실행 요청문은 실무 반복 실행용 압축본입니다.",
+      "derivation": "실제 생성에 사용한 7단 원문은 그대로 보존하고, 반복 실행용으로 핵심 변경·유지·금지 조건을 4문장으로 압축했습니다.",
+      "aiPromptTip": "이 단계의 첨부 역할과 목표 변경·유지·금지 조건을 지키는 3~5문장짜리 이미지 실행 요청문을 써줘."
+    }
   },
   "guideAllowedChanges": [
     "howToUse",
@@ -112,6 +115,21 @@
     "application-05-techniques/samples/12_human-scale-entourage.png",
     "application-05-techniques/samples/13_angle-corner-perspective.png",
     "application-05-techniques/samples/14_angle-pedestrian-streetscape.png",
-    "application-05-techniques/samples/15_angle-elevated-overview.png"
-  ]
+    "application-05-techniques/samples/15_angle-elevated-overview.png",
+    "application-05-techniques/samples/10_sketch-concept-refined.png"
+  ],
+  "sketchRefinement": {
+    "approval": "사용자 추가 승인: 보존된 스케치 08·래피드 콘셉트09를 유지하고 09→10의 1층 브론즈 핀·코브 면발광·석재 그레이징·쇼룸 조명 보완 이미지와 학습용 refined 요청문 2종만 갱신. 09 상부는 픽셀 단위로 보존한다.",
+    "baseCommit": "efe5c3506f94f12429ef8b46feeb79e3911d8509",
+    "asset": "application-05-techniques/samples/10_sketch-concept-refined.png",
+    "source": "application-05-techniques/samples/09_sketch-rapid-concept.png",
+    "restoredRectangle": [0, 0, 1672, 495],
+    "beforeImageSha256": "0160550783465b875887e838c9b62a981a026460a8e599fe8a328426609f6f1e",
+    "beforePromptSha256": {
+      "refined-7step.txt": "7ea846ab6f593610fd0e65d889f6bc4cd60cbfc94fe9774e5eabad2fe24563fd",
+      "refined-short.txt": "138dfdd8a5c0ef04f850192b72f404ef2cbaef48824ccaa830bcb206cf2ca9e2"
+    },
+    "previousRecordCount": 10,
+    "previousRecordsSha256": "8cdbb668011fe5542b8031684dfd8609b1f2ab24e06e422ed81684bc8503768a"
+  }
 }

@@ -13,11 +13,48 @@ const text=name=>read(name).toString('utf8');
 const json=name=>JSON.parse(text(name));
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 const normalize=value=>value.replaceAll('\r\n','\n').trim();
+const stable=value=>Array.isArray(value)?value.map(stable):value&&typeof value==='object'?Object.fromEntries(Object.keys(value).sort().map(key=>[key,stable(value[key])])):value;
 const fixture=json('scripts/tests/fixtures/approved-l04-contrast-renewal.json');
 const compile=source=>import('data:text/javascript;base64,'+Buffer.from(ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText).toString('base64'));
 
-test('L04의 세 기준 건물·A·재질 원본·별도 스케치 분기는 그대로 보존한다',()=>{
+test('L04의 세 기준 건물·A·재질 원본·스케치08과 래피드09는 그대로 보존한다',()=>{
  for(const [file,expected] of Object.entries({...fixture.fixedInputs,...fixture.fixedPrompts}))assert.equal(sha(read(file)),expected,file);
+});
+
+test('스케치09→10 승인은 과거 이미지·요청문 지문을 보존하고 기존 도구 기록10개를 변경하지 않는다',()=>{
+ const policy=fixture.sketchRefinement;
+ assert.equal(policy.baseCommit,'efe5c3506f94f12429ef8b46feeb79e3911d8509');
+ assert.equal(policy.source,application.slice(root.length)+'samples/09_sketch-rapid-concept.png');
+ const oldImage=execFileSync('git',['cat-file','blob',policy.baseCommit+':'+root+policy.asset],{maxBuffer:16*1024*1024,windowsHide:true});
+ assert.equal(sha(oldImage),policy.beforeImageSha256,'이전10번 이미지의 역사 지문');
+ assert.notEqual(sha(read(root+policy.asset)),policy.beforeImageSha256,'승인된10번 보완 이미지를 실제로 갱신해야 합니다.');
+ for(const [file,digest] of Object.entries(policy.beforePromptSha256)){
+  const old=execFileSync('git',['cat-file','blob',policy.baseCommit+':'+application+'prompts/'+file],{windowsHide:true});
+  assert.equal(sha(old),digest,'이전 refined 요청문의 역사 지문: '+file);
+  assert.notEqual(sha(read(application+'prompts/'+file)),digest,'새1층 보완 범위의 학생용 요청문: '+file);
+ }
+ const data=json(root+'instructor/DJ-L04-contrast-generation-log.json'),records=Array.isArray(data)?data:data.records;
+ const previous=records.filter(record=>record.asset!==policy.asset);
+ assert.equal(previous.length,policy.previousRecordCount);
+ assert.equal(sha(JSON.stringify(stable(previous))),policy.previousRecordsSha256,'기존 B/A2/조경 도구 기록10개는 그대로 보존합니다.');
+});
+
+test('스케치 국소 보완은 09 한 장을 입력하고 1층 핀·코브·석재·쇼룸과 상층 유지 범위를 구분한다',()=>{
+ const m=json(application+'manifest.json');
+ const full=text(application+'prompts/refined-7step.txt'),short=text(application+'prompts/refined-short.txt');
+ for(const word of ['샴페인','브론즈','핀','밴드','코브','면발광','트래버틴','그레이징','월넛','쇼윈도','3000K'])assert(full.includes(word),'refined 7단의 새 조건: '+word);
+ for(const word of ['브론즈','코브','월넛','3000K'])assert(short.includes(word),'refined 짧은 요청문의 핵심 조건: '+word);
+ assert.match(full,/상층|상부/);assert.match(full,/유지|고정/);
+ assert(!full.includes('월넛 목재에서 밝은 웜그레이 무광 마감으로 바꾼다'),'구형 소핏 한 면 교체 지시를 재사용하지 않습니다.');
+ for(const key of ['refined-7step','refined-short']){
+  const prompt=m.prompts.find(row=>row.key===key);assert(prompt,key);
+  assert.deepEqual(prompt.attachments.map(row=>row.file),['samples/09_sketch-rapid-concept.png'],key+' 편집 입력');
+ }
+ for(const id of ['l04-app-refined-7step','l04-app-refined-short']){
+  const guide=json('src/draft/content/prompt-alignment-overrides.json')[id];assert(guide,id);
+  assert(guide.derivation&&guide.aiPromptTip&&guide.howToUse);
+  assert(!/예시 이미지는 7단 학습용 요청문으로 생성|실제 생성에 사용한 7단 원문은 그대로/.test(guide.howToUse+' '+guide.derivation),id+' 학습 문안과 실제 도구 기록 구분');
+ }
 });
 
 test('B와 A2는 상층 재료 교체와 1층 국소 루버·빛 보완을 명확히 나눈다',async()=>{
@@ -77,7 +114,7 @@ test('새 가이드 문구 병합은 기존 실행 역할·종류·플랫폼·�
  }
 });
 
-test('현재 재생성 이미지10종은 실제 도구 기록과 연결하고 모델 버전을 추정하지 않는다',()=>{
+test('현재 재생성 이미지11종은 실제 도구 기록과 연결하고 모델 버전을 추정하지 않는다',()=>{
  const data=json(root+'instructor/DJ-L04-contrast-generation-log.json'),records=Array.isArray(data)?data:data.records;
  assert.deepEqual(records.map(x=>x.asset).sort(),[...fixture.currentImageAssets].sort());
  for(const record of records){
@@ -122,4 +159,21 @@ test('A2 상층 복원 영역은 원본 A 픽셀과 실제로 같고 하부 편�
  const [left,top,right,bottom]=restoration.rectangle;assert(right<=original.width&&bottom<=original.height);
  for(let y=top;y<bottom;y++)assert(original.pixels.subarray(y*original.stride+left*original.channels,y*original.stride+right*original.channels).equals(edited.pixels.subarray(y*edited.stride+left*edited.channels,y*edited.stride+right*edited.channels)),'A2 상층의 원본 픽셀 불일치: '+y+'행');
  assert(!original.pixels.subarray(bottom*original.stride).equals(edited.pixels.subarray(bottom*edited.stride)),'A2 하부 편집이 모두 사라졌습니다.');
+});
+
+test('스케치10 상층은 09 원본과 픽셀 차이0이며 하부의 보완은 실제로 남아 있다',()=>{
+ const data=json(root+'instructor/DJ-L04-contrast-generation-log.json'),records=Array.isArray(data)?data:data.records;
+ const policy=fixture.sketchRefinement,record=records.find(row=>row.asset===policy.asset);assert(record,'새 refined 실제 도구 기록');
+ const restoration=record.referenceRestoration;assert(restoration,'상층 복원 과정 기록');
+ assert.equal(restoration.source,policy.source);assert.equal(restoration.pixelExact,true);assert.deepEqual(restoration.rectangle,policy.restoredRectangle);assert.match(record.postProcessing,/restor|복원/i);
+ assert.equal(record.inputSha256[policy.source],sha(read(root+policy.source)),'09를 실제 보완 입력으로 연결합니다.');
+ const original=decodePng(read(root+policy.source)),edited=decodePng(read(root+policy.asset));
+ assert.deepEqual([edited.width,edited.height,edited.channels],[original.width,original.height,original.channels]);
+ const [left,top,right,bottom]=restoration.rectangle;assert.deepEqual([left,top,right,bottom],[0,0,1672,495]);assert(right<=original.width&&bottom<=original.height);
+ let absoluteDifference=0,comparedValues=0;
+ for(let y=top;y<bottom;y++)for(let x=left*original.channels;x<right*original.channels;x++){
+  const index=y*original.stride+x;absoluteDifference+=Math.abs(original.pixels[index]-edited.pixels[index]);comparedValues++;
+ }
+ assert.equal(absoluteDifference/comparedValues,0,'09→10 상층 복원 영역 meanDiff');
+ assert(!original.pixels.subarray(bottom*original.stride).equals(edited.pixels.subarray(bottom*edited.stride)),'10번 하부의 승인된 보완이 모두 사라졌습니다.');
 });
