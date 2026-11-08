@@ -20,10 +20,15 @@ export const defaultConfig = {
   basePath: '/ai-architecture-design-ebook',
   maximumPagesBytes: 990_000_000,
 };
-// This one approved ZIP also stays on Pages when GitHub's public asset URL is
-// unavailable. Its original Release mapping and binary remain unchanged.
+// These three approved L04 binaries also stay on Pages when GitHub's public
+// asset URLs are unavailable. Their Release mappings and bytes remain intact.
+const localReleaseMirrorPaths = new Set([
+  'workbook/practice/DJ-L04/application/DJ-L04-exterior-applications.zip',
+  'workbook/practice/DJ-L04/application/samples/14_angle-pedestrian-streetscape.png',
+  'workbook/practice/DJ-L04/application/samples/15_angle-elevated-overview.png',
+]);
 export function isLocalReleaseMirror(relative) {
-  return publicReleasePath(relative) === 'workbook/practice/DJ-L04/application/DJ-L04-exterior-applications.zip';
+  return localReleaseMirrorPaths.has(publicReleasePath(relative));
 }
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
 export async function listFiles(root) {
