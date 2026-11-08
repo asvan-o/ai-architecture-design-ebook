@@ -44,6 +44,8 @@ jobs:
       - name: Test course and asset integrity
         run: npm test
       - name: Build public courses and reuse approved PDFs
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: npm run build:student-with-pdf
       - name: Prepare Pages and verify immutable Release mapping
         run: npm run prepare:pages
