@@ -3,11 +3,12 @@
 @media print {
   *, *::before, *::after { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   html, body { margin: 0 !important; padding: 0 !important; width: auto !important; min-width: 0 !important; background: #fff !important; }
+  body::before { display: none !important; }
   html { font-size: 13.333px !important; scroll-behavior: auto !important; }
   body, main { color: #182a31 !important; font-family: 'Malgun Gothic', 'Noto Sans KR', sans-serif !important; font-size: 10pt !important; line-height: 1.58 !important; }
   .review-header, .review-sidebar, .review-toc, .review-course-toc, .review-footer, .skip-link,
   .pdf-textbook-download-bar, .review-notice, .instructor-notes, [data-instructor-reference],
-  dialog, textarea, [data-copy-trigger], [data-copy-status], .prompt-copy-block__status,
+  dialog, textarea, input, select, [data-copy-trigger], [data-copy-status], .prompt-copy-block__status,
   .review-download, [data-download-prompt], .lesson02-asset-actions, [data-review-course-nav] { display: none !important; }
   button:not(:has(img)) { display: none !important; }
   button:has(img) { display: block !important; width: 100% !important; padding: 0 !important; margin: 0 !important; border: 0 !important; background: none !important; }
@@ -98,6 +99,11 @@
   html[data-workbook-print-lesson="04"] #l04-next p,
   html[data-workbook-print-lesson="04"] #l04-next li { margin: 1mm 0 !important; }
   html[data-workbook-print-lesson="04"] #l04-next h3 { margin: 2mm 0 !important; }
+  html[data-workbook-print-lesson="04"] #l04-next { font-size: 9pt !important; line-height: 1.45 !important; }
+  html[data-workbook-print-lesson="04"] #l04-next .review-task { padding: 2mm !important; margin: 1.5mm 0 !important; }
+  html[data-workbook-print-lesson="04"] #l04-next p,
+  html[data-workbook-print-lesson="04"] #l04-next li { margin: .5mm 0 !important; }
+  html[data-workbook-print-lesson="04"] #l04-next h3 { margin: 1mm 0 !important; }
   html[data-workbook-print-lesson="04"] #l04-next details[data-l04-downloads] > :not(summary) { display: none !important; }
   html[data-workbook-print-lesson="07"] .l07-equation { break-inside: avoid-page !important; }
   html[data-workbook-print-lesson="07"] #l07-handover { padding-top: 3mm !important; padding-bottom: 2mm !important; }
@@ -115,4 +121,77 @@
   html[data-workbook-print-lesson="08"] #l08-blender-mcp-hello-world .l08-mcp-content > p,
   html[data-workbook-print-lesson="08"] #l08-blender-mcp-hello-world .mcp-note > p { margin: 1mm 0 !important; }
   html[data-workbook-print-lesson="10"] .grounded-legal-layout .source-equation { break-inside: avoid-page !important; page-break-inside: avoid !important; }
+
+  /* Print-only navigation aids move to the static appendix. Core text stays in the DOM. */
+  .term-note, [data-l03-live-prompt], [data-l04-live-prompt],
+  details:not([open]), #l04-next details[data-l04-downloads] { display: none !important; }
+  .l03-input-panel > label, [data-l03-selection-status], [data-l03-prompt-status], [data-l04-base-status] { display: none !important; }
+  .l03-input-panel { padding: 2.5mm !important; margin: 3mm 0 !important; }
+  .l03-input-panel:not(:has(> h3, > ul, > p:not([data-l03-selection-status]):not([data-l04-base-status]))) { display: none !important; }
+  .prompt-platform-guide, .prompt-attachments { font-size: 8pt !important; line-height: 1.38 !important; padding: 2mm 2.5mm !important; margin: 2mm 0 !important; }
+  .prompt-platform-guide p, .prompt-platform-guide .four-step-guide > p { font-size: 8pt !important; line-height: 1.38 !important; margin: 1mm 0 !important; column-gap: 2mm !important; grid-template-columns: 25mm minmax(0,1fr) !important; }
+  .prompt-attachments ol { margin: 1mm 0 !important; padding-left: 5mm !important; }
+  .prompt-attachments li { font-size: 8pt !important; line-height: 1.38 !important; margin: .7mm 0 !important; }
+  [data-workbook-print-model-note="repeat"] { display: none !important; }
+  html[data-workbook-print-lesson="10"] .legal-derivation .derivation-intro { display: none !important; }
+  html[data-workbook-print-lesson="10"] .legal-derivation { padding: 2.5mm !important; margin: 2mm 0 !important; }
+  html[data-workbook-print-lesson="04"] .prompt-platform-guide[data-prompt-platform$="-short"] [data-guide-field="derivation"],
+  html[data-workbook-print-lesson="04"] .prompt-platform-guide[data-prompt-platform$="-short"] [data-guide-field="aiPromptTip"],
+  html[data-workbook-print-lesson="04"] .prompt-platform-guide[data-prompt-platform$="-short"] [data-guide-field="promptModelNote"],
+  html[data-workbook-print-lesson="04"] .review-prompt:has(> [data-prompt-platform$="-short"]) > .prompt-attachments { display: none !important; }
+
+  /* These image families intentionally retain columns rather than becoming tall single cards. */
+  .l03-asset-grid, .l03-comparison, .l03-reference-pair, .l03-lighting-pair,
+  .portfolio-gallery, .modeling-image-row--pair, .l07-grid, .l07-fp-grid { display: grid !important; grid-template-columns: repeat(2,minmax(0,1fr)) !important; gap: 3mm !important; margin: 3mm 0 !important; align-items: start !important; }
+  .modeling-image-row--three { display: grid !important; grid-template-columns: repeat(3,minmax(0,1fr)) !important; gap: 3mm !important; margin: 3mm 0 !important; align-items: start !important; }
+  .l03-comparison { break-inside: avoid-page !important; }
+  [data-flower-cafe-comparison] { display: grid !important; grid-template-columns: repeat(3,minmax(0,1fr)) !important; gap: 3mm !important; break-inside: avoid-page !important; }
+  [data-flower-cafe-comparison] > figure { padding: 2mm !important; margin: 0 !important; overflow: visible !important; height: auto !important; max-height: none !important; break-inside: avoid-page !important; }
+  [data-flower-cafe-comparison] img { width: 100% !important; max-height: 50mm !important; object-fit: contain !important; }
+  [data-flower-cafe-comparison] h4 { font-size: 8.5pt !important; }
+  [data-flower-cafe-comparison] figcaption, [data-flower-cafe-comparison] p { font-size: 8pt !important; line-height: 1.38 !important; margin: 1mm 0 !important; }
+  .l03-asset-grid > *, .l03-comparison > *, .l03-reference-pair > *, .l03-lighting-pair > *,
+  .portfolio-gallery > *, .modeling-image-row > *, .l07-grid > *, .l07-fp-grid > * { min-width: 0 !important; margin: 0 !important; }
+  .l03-asset-copy { padding: 2mm !important; }
+  .l03-asset-copy h4, .l03-asset-copy p { font-size: 8pt !important; line-height: 1.38 !important; margin: 1mm 0 !important; }
+  .l03-comparison img { width: 100% !important; max-height: 65mm !important; object-fit: contain !important; }
+  .l03-reference-pair img, .l03-lighting-pair img, [data-l03-spaces] img, [data-l04-bases-grid] img, [data-l04-reference-grid] img { width: 100% !important; max-height: 50mm !important; object-fit: contain !important; }
+  [data-l03-spaces], [data-l04-bases-grid], [data-l04-reference-grid], .l03-lighting-pair { grid-template-columns: repeat(3,minmax(0,1fr)) !important; }
+  [data-l03-material-defaults], [data-l03-material-all] .l03-asset-grid { grid-template-columns: repeat(4,minmax(0,1fr)) !important; gap: 2.5mm !important; }
+  [data-l03-material-defaults] .l03-asset-card, [data-l03-material-all] .l03-asset-card { break-inside: avoid-page !important; }
+  [data-l03-material-defaults] img, [data-l03-material-all] .l03-asset-grid img { width: 100% !important; height: 28mm !important; max-height: 28mm !important; object-fit: contain !important; }
+  [data-l03-material-defaults] .l03-asset-copy, [data-l03-material-all] .l03-asset-copy { padding: 1.5mm !important; }
+  [data-l03-material-defaults] .l03-asset-copy h4, [data-l03-material-defaults] .l03-asset-copy p,
+  [data-l03-material-all] .l03-asset-copy h4, [data-l03-material-all] .l03-asset-copy p { font-size: 7.6pt !important; line-height: 1.35 !important; margin: .8mm 0 !important; }
+  .modeling-image-row--pair img, .modeling-image-row--three img { width: 100% !important; max-height: 68mm !important; object-fit: contain !important; }
+  .l07-grid img, .l07-fp-grid img { width: 100% !important; max-height: 68mm !important; object-fit: contain !important; }
+  .modeling-image-row figcaption, .l07-grid figcaption, .l07-fp-grid figcaption, .portfolio-gallery figcaption { padding: 2mm !important; font-size: 8pt !important; line-height: 1.38 !important; margin: 1mm 0 !important; }
+  .modeling-image-row figcaption p, .l07-grid figcaption p, .l07-fp-grid figcaption p, .portfolio-gallery figcaption p { font-size: 8pt !important; line-height: 1.38 !important; margin: 1mm 0 !important; }
+  .portfolio-gallery img { width: 100% !important; max-height: 85mm !important; object-fit: contain !important; }
+  .portfolio-legacy .portfolio-gallery { grid-template-columns: repeat(3,minmax(0,1fr)) !important; gap: 3mm !important; }
+  .portfolio-legacy .portfolio-asset { padding: 2mm !important; }
+  .portfolio-legacy .portfolio-gallery img { max-height: 58mm !important; }
+  .l07-grid > article, .l07-fp-grid > article { padding: 2.5mm !important; }
+
+  [data-portfolio-keywords] { padding: 3mm !important; }
+  [data-portfolio-keywords] > label:has([data-keyword-target]), [data-portfolio-keywords] > label:has([data-keyword-output]),
+  [data-portfolio-keywords] [data-keyword-status], [data-portfolio-keywords] input[type="checkbox"] { display: none !important; }
+  [data-portfolio-keywords] details { padding: 2mm !important; margin: 2mm 0 !important; break-inside: avoid-page !important; }
+  [data-portfolio-keywords] .keyword-options { display: flex !important; flex-wrap: wrap !important; gap: 1.5mm !important; }
+  [data-portfolio-keywords] .keyword-options label { padding: 1mm 2mm !important; font-size: 7.8pt !important; line-height: 1.35 !important; margin: 0 !important; }
+
+  .workbook-print-glossary-appendix { display: block !important; break-before: page !important; padding: 0 !important; margin: 0 !important; }
+  .workbook-print-glossary-title { margin: 0 0 4mm !important; font-size: 17pt !important; }
+  .workbook-print-glossary-category { margin: 4mm 0 0 !important; padding: 0 !important; }
+  .workbook-print-glossary-category > h3 { margin: 3mm 0 1.5mm !important; font-size: 11pt !important; break-after: avoid-page !important; }
+  .workbook-print-glossary-category-description { font-size: 8pt !important; line-height: 1.35 !important; margin: 1mm 0 2mm !important; break-after: avoid-page !important; }
+  .workbook-print-glossary-grid { display: grid !important; grid-template-columns: repeat(2,minmax(0,1fr)) !important; gap: 3mm !important; align-items: start !important; break-before: avoid-page !important; }
+  .workbook-print-glossary-card { border: .2mm solid #c9cec9 !important; padding: 2.5mm !important; margin: 0 !important; break-inside: avoid-page !important; font-size: 8pt !important; line-height: 1.35 !important; }
+  .workbook-print-glossary-card h4 { margin: 0 0 1mm !important; font-size: 9pt !important; line-height: 1.35 !important; }
+  .workbook-print-glossary-english { font-size: 7.8pt !important; font-weight: 400 !important; }
+  .workbook-print-glossary-english, .workbook-print-glossary-occurrences span { display: block !important; }
+  .workbook-print-glossary-card p, .workbook-print-glossary-card dl { font-size: 8pt !important; line-height: 1.35 !important; margin: 1mm 0 !important; }
+  .workbook-print-glossary-card dt { margin: 1mm 0 0 !important; font-size: 7.8pt !important; font-weight: 700 !important; }
+  .workbook-print-glossary-card dd { margin: .5mm 0 1mm !important; font-size: 8pt !important; line-height: 1.35 !important; }
+  .workbook-print-glossary-occurrences, .workbook-print-glossary-occurrences span { font-size: 7.5pt !important; line-height: 1.35 !important; }
 }

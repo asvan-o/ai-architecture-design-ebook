@@ -76,14 +76,45 @@ try{
   },{note:drawingScaleNotice,pattern:drawingImagePattern.source});
   const audit=await page.locator('main').evaluate((main,key)=>{
    const sourceText=main.textContent;
+   const visible=e=>Boolean(e.getClientRects().length)&&getComputedStyle(e).display!=='none';
    const details=[...main.querySelectorAll('details')].map(d=>{
     const summary=d.querySelector(':scope > summary')?.textContent.trim()||'';
-    const closed=d.hasAttribute('data-implementation-spec')||d.hasAttribute('data-optional-prompt-template')||(key==='07'&&/학습용 상세 지시 구조 참고/.test(summary))||Boolean(d.closest('[data-instructor-reference],.instructor-notes'));
-    d.open=!closed;return{summary,open:d.open,reason:closed?'optional implementation/long prompt reference':'learning explanation/reference'};
+    // Open every learning/example pre, including L01's four optional templates.
+    // Only the explicitly excluded web workbenches and empty download/form UI close.
+    const closed=d.matches('[data-l03-live-prompt],[data-l04-live-prompt],[data-l03-records],[data-l04-downloads]')||Boolean(d.closest('[data-instructor-reference],.instructor-notes'));
+    d.open=!closed;return{summary,open:d.open,reason:closed?'web-only workbench/form/download or instructor reference':'learning explanation/reference; full pre retained'};
    });
+   let firstModelNote;
+   const modelNotes=[...main.querySelectorAll('[data-guide-field="promptModelNote"]')].map(note=>{
+    const eligible=visible(note);const first=eligible&&!firstModelNote;
+    if(first)firstModelNote=note;
+    note.dataset.workbookPrintModelNote=first?'first':'repeat';
+    return{id:note.closest('[data-prompt-platform]')?.getAttribute('data-prompt-platform')||'',eligible,first:Boolean(first)};
+   });
+   const excluded='dialog,[data-instructor-reference],.instructor-notes,[data-l03-live-prompt],[data-l04-live-prompt]';
+   const corePre=[...main.querySelectorAll('pre')].filter(e=>!e.closest(excluded)).map((e,index)=>({id:e.id||'pre-'+index,text:e.textContent,visible:visible(e)}));
+   const coreTables=[...main.querySelectorAll('table')].filter(e=>!e.closest(excluded)).map((e,index)=>({id:e.id||'table-'+index,text:e.textContent,visible:visible(e)}));
+   const coreImages=[...main.querySelectorAll('img[src]')].filter(e=>!e.closest(excluded+',.l04-slider,[hidden]')).map(e=>({src:e.getAttribute('src'),alt:e.getAttribute('alt'),visible:visible(e)}));
+   if(corePre.some(e=>!e.visible))throw Error('A core example/Prompt pre is hidden in print.');
+   if(coreTables.some(e=>!e.visible))throw Error('A core teaching table is hidden in print.');
+   if(coreImages.some(e=>!e.visible))throw Error('A core teaching image is hidden in print.');
+   const appendix=main.querySelector('.workbook-print-glossary-appendix');
+   if(!appendix||appendix.getAttribute('data-workbook-print-glossary')!==key||!visible(appendix))throw Error('Missing static print glossary appendix: '+key);
+   if(appendix.querySelector('[data-review-section]'))throw Error('Glossary appendix must not alter teaching time sections.');
+   const appendixIds=[...appendix.querySelectorAll('[data-print-glossary-term]')].map(e=>e.getAttribute('data-print-glossary-term'));
+   if(!appendixIds.length||new Set(appendixIds).size!==appendixIds.length||(key==='overview'&&appendixIds.length!==50))throw Error('Invalid print glossary inventory: '+key);
+   const lastTeachingSection=[...main.querySelectorAll('[data-review-section]')].at(-1);
+   if(lastTeachingSection&&!(lastTeachingSection.compareDocumentPosition(appendix)&Node.DOCUMENT_POSITION_FOLLOWING))throw Error('The glossary appendix must follow the final teaching section.');
+   const glossaryAppendix={ids:appendixIds,count:appendixIds.length,categories:appendix.querySelectorAll('[data-print-glossary-category]').length,occurrences:[...appendix.querySelectorAll('[data-print-glossary-section]')].map(e=>e.getAttribute('data-print-glossary-section')),afterTeachingSections:true};
+   const materials=key==='03'?{defaults:[...main.querySelectorAll('[data-l03-material-defaults] > [data-l03-asset]')].map(e=>({id:e.getAttribute('data-l03-asset'),visible:visible(e)})),all:[...main.querySelectorAll('[data-l03-material-all] .l03-asset-grid > [data-l03-asset]')].map(e=>({id:e.getAttribute('data-l03-asset'),visible:visible(e)}))}:undefined;
+   if(materials&&(materials.defaults.length!==8||materials.all.length!==33||new Set(materials.all.map(e=>e.id)).size!==33||[...materials.defaults,...materials.all].some(e=>!e.visible)))throw Error('All eight defaults and all 33 material tiles must remain visible.');
+   const legacyCovers=key==='11'?[...main.querySelectorAll('.portfolio-legacy > details .portfolio-gallery > [data-portfolio-asset]')].map(e=>({file:e.getAttribute('data-portfolio-asset'),visible:visible(e)})):undefined;
+   if(legacyCovers&&(legacyCovers.length!==10||legacyCovers.some(e=>!e.visible)))throw Error('All ten legacy portfolio covers must remain visible.');
+   const keywordGroups=key==='12'?[...main.querySelectorAll('[data-portfolio-keywords] details')].map(e=>({title:e.querySelector('summary')?.textContent.trim(),options:[...e.querySelectorAll('.keyword-options label > span')].map(span=>({text:span.textContent,visible:visible(span)}))})):undefined;
+   if(keywordGroups&&(keywordGroups.length!==11||keywordGroups.some(group=>!group.options.length||group.options.some(e=>!e.visible))))throw Error('All eleven keyword groups and their option text must remain visible.');
    main.querySelectorAll('[data-pdf-updated-at],.pdf-version,.pdf-updated-at,.pdf-reference-date').forEach(e=>{e.dataset.workbookPrintOmit='date';e.style.display='none';});
    if(main.textContent!==sourceText)throw Error('Print preparation changed source body text.');
-   return{title:main.querySelector('h1').textContent.trim(),details,sourceMainText:sourceText,sections:[...main.querySelectorAll('[data-review-section]')].map(e=>({id:e.id,title:e.querySelector('h2')?.textContent.trim(),minutes:+e.getAttribute('data-section-minutes')||0})),durationMinutes:+main.querySelector('[data-lesson-duration]')?.getAttribute('data-lesson-duration')||null,portfolioPartCount:main.querySelectorAll('[data-portfolio-part]').length,periodMinutes:[...main.querySelectorAll('[data-teaching-minutes]')].map(e=>+e.getAttribute('data-teaching-minutes'))};
+   return{title:main.querySelector('h1').textContent.trim(),details,sourceMainText:sourceText,corePre,coreTables,coreImages,modelNotes,glossaryAppendix,materials,legacyCovers,keywordGroups,sections:[...main.querySelectorAll('[data-review-section]')].map(e=>({id:e.id,title:e.querySelector('h2')?.textContent.trim(),minutes:+e.getAttribute('data-section-minutes')||0})),durationMinutes:+main.querySelector('[data-lesson-duration]')?.getAttribute('data-lesson-duration')||null,portfolioPartCount:main.querySelectorAll('[data-portfolio-part]').length,periodMinutes:[...main.querySelectorAll('[data-teaching-minutes]')].map(e=>+e.getAttribute('data-teaching-minutes'))};
   },target.key);
   audit.drawingScaleNotes=drawingScaleNotes;
   await page.evaluate(()=>document.fonts.ready);
@@ -111,7 +142,7 @@ try{
    for(const section of main.querySelectorAll('.review-section')){
     const heading=section.querySelector(':scope > .review-section-heading');
     const body=section.querySelector(':scope > .review-section-body');
-    const first=body?.firstElementChild;
+    const first=body&&[...body.children].find(visible);
     if(!heading||!body||!first||first.getBoundingClientRect().height>300)continue;
     const wrapper=document.createElement('div');wrapper.className='workbook-print-section-intro';heading.before(wrapper);
     let node=heading;
@@ -120,6 +151,7 @@ try{
    }
    for(const e of main.querySelectorAll('div,ol,ul')){
     if(!visible(e)||getComputedStyle(e).display!=='grid'||e.classList.contains('review-section-heading'))continue;
+    if(e.matches('.l03-asset-grid,.l03-comparison,.l03-reference-pair,.l03-lighting-pair,.portfolio-gallery,.modeling-image-row--pair,.modeling-image-row--three,.l07-grid,.l07-fp-grid,.workbook-print-glossary-grid,[data-flower-cafe-comparison]'))continue;
     const children=[...e.children].filter(visible);
     if(children.some(c=>c.getBoundingClientRect().height>500)||children.some(c=>c.getBoundingClientRect().width<180&&c.querySelector('img')))e.classList.add('workbook-print-one-column');
    }
@@ -163,6 +195,17 @@ try{
   });
   assert(body.headings.length>=8&&body.blocks.length>=20,target.key+' student body must be unlocked and visible');
   assert(!body.horizontalOverflow,target.key+' print horizontal overflow');
+  const retained=await page.locator('main').evaluate(main=>{
+   const visible=e=>Boolean(e.getClientRects().length)&&getComputedStyle(e).display!=='none';
+   const excluded='dialog,[data-instructor-reference],.instructor-notes,[data-l03-live-prompt],[data-l04-live-prompt]';
+   return{pre:[...main.querySelectorAll('pre')].filter(e=>!e.closest(excluded)).map(e=>({text:e.textContent,visible:visible(e)})),tables:[...main.querySelectorAll('table')].filter(e=>!e.closest(excluded)).map(e=>({text:e.textContent,visible:visible(e)})),images:[...main.querySelectorAll('img[src]')].filter(e=>!e.closest(excluded+',.l04-slider,[hidden]')).map(e=>({visible:visible(e)}))};
+  });
+  assert.deepEqual(retained.pre.map(e=>e.text),audit.corePre.map(e=>e.text),target.key+' all core pre text unchanged');
+  assert.deepEqual(retained.tables.map(e=>e.text),audit.coreTables.map(e=>e.text),target.key+' all core teaching table text unchanged');
+  assert.equal(retained.images.length,audit.coreImages.length,target.key+' all core image nodes retained');
+  assert([...retained.pre,...retained.tables,...retained.images].every(e=>e.visible),target.key+' all core pre/tables/images print-visible');
+  audit.preservedContent={corePre:audit.corePre.map(({text,...e})=>({...e,length:text.length,sha256:sha(text)})),coreTables:audit.coreTables.map(({text,...e})=>({...e,length:text.length,sha256:sha(text)})),coreImages:audit.coreImages,allPreAndTablesTextUnchanged:true,allCoreImagesRetained:true,allCorePrintVisible:true};
+  delete audit.corePre;delete audit.coreTables;delete audit.coreImages;
   if(generate&&target.key==='13')assert(audit.durationMinutes===300&&audit.portfolioPartCount===6&&audit.sections.reduce((sum,s)=>sum+s.minutes,0)===300&&/300/.test(body.text),'Lesson 13 must contain the current 300-minute metadata, six Parts and display.');
   if(generate&&target.key==='overview')assert(/2,?400/.test(body.text),'Course overview must contain the current 2400-minute total.');
   assert.equal(await page.locator('main').textContent(),audit.sourceMainText);delete audit.sourceMainText;

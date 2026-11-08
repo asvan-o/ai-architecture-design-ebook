@@ -6,6 +6,7 @@ import ReviewLessonNavigation from '../components/ReviewLessonNavigation.astro';
 import DaejeonMaterialProtection from '../components/DaejeonMaterialProtection.astro';
 import DaejeonCopyright from '../components/DaejeonCopyright.astro';
 import WorkbookDrawingScaleGuide from '../components/WorkbookDrawingScaleGuide.astro';
+import WorkbookPrintGlossaryAppendix from '../components/WorkbookPrintGlossaryAppendix.astro';
 import { activeCourse } from '../../lib/courses';
 import { courseAccess as accessConfig } from '../../lib/course-access';
 import { isStudentBuild } from '../../lib/student-release';
@@ -149,6 +150,7 @@ const pdfLabel = page === 'overview'
         </div>
         {(page === 'overview' || page === 'lesson') && <WorkbookDrawingScaleGuide />}
         <slot />
+        {(page === 'overview' || page === 'lesson') && <WorkbookPrintGlossaryAppendix lessonId={page === 'overview' ? 'overview' : lessonId} />}
         {page!=='glossary'&&<ReviewLessonNavigation {page} {lessonId} />}
       </main>
     </div>

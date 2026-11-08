@@ -1,0 +1,47 @@
+---
+import { glossaryCategories, sectionTermNotes, workbookGlossary } from '../content/workbook-glossary';
+import type { WorkbookGlossaryLessonId } from '../content/workbook-glossary';
+import { selectWorkbookPrintGlossary } from '../content/workbook-print-glossary';
+import { overviewSections } from '../content/daejeon-2026';
+import portfolioSource from '../content/lesson111213.json';
+
+interface Props { lessonId: WorkbookGlossaryLessonId; }
+const { lessonId } = Astro.props;
+const isOverview = lessonId === 'overview';
+const title = isOverview ? '부록 · 실무 워크북 핵심 용어 사전 (전체 50선)' : `부록 · 제${Number(lessonId)}차시 핵심 용어 정리`;
+const sectionLabels = Object.fromEntries([
+  ...overviewSections.map((section, index) => [`overview:${section.id}`, `과정 안내 §${String(index + 1).padStart(2, '0')} · ${section.title}`]),
+  ...Object.entries(portfolioSource.lessons).flatMap(([id, lesson]) => lesson.sections.map(section => [`${id}:${section.id}`, `제${Number(id)}차시 §${String(section.index).padStart(2, '0')} · ${section.title}`])),
+]);
+const entries = selectWorkbookPrintGlossary(lessonId, workbookGlossary, sectionTermNotes, sectionLabels);
+const groups = glossaryCategories.map(category => ({
+  ...category,
+  entries: entries.filter(entry => entry.term.category === category.id),
+})).filter(category => category.entries.length > 0);
+---
+<aside class="workbook-print-glossary-appendix" data-workbook-print-glossary={lessonId} aria-labelledby="workbook-print-glossary-title">
+  <h2 id="workbook-print-glossary-title" class="workbook-print-glossary-title">{title}</h2>
+  {groups.map(category => <section class="workbook-print-glossary-category" data-print-glossary-category={category.id}>
+    <h3>{category.title}</h3>
+    {isOverview && <p class="workbook-print-glossary-category-description">{category.description}</p>}
+    <div class="workbook-print-glossary-grid">
+      {category.entries.map(({ term, occurrences }) => <article class="workbook-print-glossary-card" data-print-glossary-term={term.id}>
+        <h4><strong class="workbook-print-glossary-name">{term.korean}</strong><span class="workbook-print-glossary-english">{term.english}{term.acronym && term.acronym.trim().toLocaleLowerCase('en-US') !== term.english.trim().toLocaleLowerCase('en-US') ? ` · ${term.acronym}` : ''}</span></h4>
+        <p class="workbook-print-glossary-occurrences" data-print-glossary-occurrences>
+          <strong>{isOverview ? '관련 차시·등장 위치' : '이 차시의 등장 위치'}</strong>
+          {occurrences.map(occurrence => <span data-print-glossary-section={`${occurrence.lessonId}:${occurrence.sectionId}`}>{occurrence.label}</span>)}
+        </p>
+        <dl>
+          <div class="workbook-print-glossary-definition"><dt>뜻</dt><dd>{term.definition}</dd></div>
+          <div class="workbook-print-glossary-context"><dt>건축 실무 맥락</dt><dd>{term.context}</dd></div>
+          <div class="workbook-print-glossary-why"><dt>필요한 이유</dt><dd>{term.why}</dd></div>
+        </dl>
+      </article>)}
+    </div>
+  </section>)}
+</aside>
+<style>
+  .workbook-print-glossary-appendix { display: none; }
+  .workbook-print-glossary-english { display: block; }
+  @media print { .workbook-print-glossary-appendix { display: block; } }
+</style>
