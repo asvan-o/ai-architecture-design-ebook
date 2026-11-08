@@ -63,7 +63,7 @@
         },
         {
           "firstPromptId": "l04-gemini-7step",
-          "sha256": "b29d79dfcd000654db11d4d8d839b851826ae2d795dea12749902cdbd1375360"
+          "sha256": "5fa3e27bbc2b4840604abb67fac0db6c92262487f1ae38c844cde799c89c6568"
         },
         {
           "firstPromptId": "l04-my-A",
@@ -71,11 +71,11 @@
         },
         {
           "firstPromptId": "l04-my-B",
-          "sha256": "8e3c1fff09ae4e247332b4726c405122487e6750ee8226f494ebbdc17d536afa"
+          "sha256": "4f303da1245e2b77a896fec3af1edab51853d2d978f0f42745695e601e1af395"
         },
         {
           "firstPromptId": "l04-A2-7step",
-          "sha256": "2f396b6af4d3b8ca1a62353a75b46bc69a3cd1fe8ab320e7c431c1ab65da6a6f"
+          "sha256": "aae7404985e6888784b1c1283eb80c13208451d8ea6ddb37b3f95855a5c34688"
         },
         {
           "firstPromptId": "l06-office-warm",

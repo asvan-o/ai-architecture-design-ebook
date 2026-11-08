@@ -30,6 +30,20 @@ test('B와 A2는 상층 재료 교체와 1층 국소 루버·빛 보완을 명�
  assert.equal(normalize(prompts.lesson04Base01Prompts.B),normalize(b));
 });
 
+test('B·A2의 카드 제목·비교 첨부 역할·기준 건물 설명에는 현행 재료 전략을 표시한다',()=>{
+ const m=json(implementation+'manifest.json'),nodes=[];
+ const visit=value=>{if(Array.isArray(value))value.forEach(visit);else if(value&&typeof value==='object'){nodes.push(value);Object.values(value).forEach(visit);}};
+ visit(m);
+ const expected=[['samples/03_partial-edit-b.png','수정안 B · 세로 골 테라코타와 다크 바살트'],['samples/04_revised-concept.png','보완안 A2 · 1층 다크 루버·웜 라인 빛 보완'],['prompts/B-7step.txt','수정안 B · 세로 골 테라코타와 다크 바살트 · 7단 학습 요청문'],['prompts/A2-7step.txt','보완안 A2 · 1층 다크 루버·웜 라인 빛 보완 · 7단 학습 요청문']];
+ for(const [file,title] of expected){const records=nodes.filter(n=>n.file===file&&n.title);assert.equal(records.length,2,file);for(const record of records)assert.equal(record.title,title);}
+ const comparisons=nodes.filter(n=>/^prompts\/gemini-(?:7step|short)\.txt$/.test(n.file||''));assert.equal(comparisons.length,4);
+ for(const comparison of comparisons)assert.equal(comparison.attachments.find(a=>a.file==='samples/04_revised-concept.png').role,'A에서 1층 간판 띠·캐노피·포털만 다크 월넛/브론즈 루버와 웜 라인 빛으로 보완한 A2 비교 대상');
+ assert.equal(m.bases[0].change,'A: 크림 석재·수직 목재 포털·브론즈 / A2: A의 1층 간판 띠·캐노피·포털을 다크 루버·웜 라인 빛으로 보완 / B: 상층 세로 골 테라코타·저층 다크 바살트·매트 블랙 프레임과 앰버 쇼룸 빛');
+ const derivations=text('src/draft/content/prompt-derivations.ts');
+ for(const line of derivations.split('\n').filter(line=>/l04-my-B|l04-A2-7step/.test(line)))assert(!/밝은 웜그레이|목재 슬랫은 제거|저층 차콜 스톤/.test(line));
+ const glossary=text('src/draft/content/workbook-glossary.ts');assert.equal(glossary.split('제4차시 §08 · 교체형 B와 1층 루버·빛 국소 보완 A2').length-1,2);assert(!glossary.includes('제4차시 §08 · 교체형 B와 캐노피 국소 보완 A2'));
+});
+
 test('조경은 A→05→11→12 순서이며 석양·서브 시점도 현재 입력을 이어받는다',()=>{
  const m=json(implementation+'manifest.json'),a=json(application+'manifest.json');
  for(const p of m.prompts.filter(p=>p.key.startsWith('A2-')))assert.deepEqual(p.attachments.map(x=>x.file),['samples/02_partial-edit-a.png','references/m-21-dark-walnut.png']);

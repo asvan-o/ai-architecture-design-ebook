@@ -476,7 +476,7 @@ export const workbookGlossary:readonly WorkbookGlossaryTerm[] = [
       {
         "lessonId": "04",
         "sectionId": "l04-prompt-b",
-        "label": "제4차시 §08 · 교체형 B와 캐노피 국소 보완 A2"
+        "label": "제4차시 §08 · 교체형 B와 1층 루버·빛 국소 보완 A2"
       }
     ],
     "sources": [
@@ -503,7 +503,7 @@ export const workbookGlossary:readonly WorkbookGlossaryTerm[] = [
       {
         "lessonId": "04",
         "sectionId": "l04-prompt-b",
-        "label": "제4차시 §08 · 교체형 B와 캐노피 국소 보완 A2"
+        "label": "제4차시 §08 · 교체형 B와 1층 루버·빛 국소 보완 A2"
       },
       {
         "lessonId": "12",

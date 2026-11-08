@@ -9,7 +9,7 @@
       "type": "3층 복합 상업 건물 · 연속 예제",
       "observed": "정면 입면, 중앙 후퇴 유리 출입구와 포털·기존 캐노피, 좌우 쇼윈도 2개, 빈 수평 사인 띠, 2·3층 각 창4개.",
       "keep": "3층 매스·파라펫·상층 창 8개·쇼윈도 2개·중앙 출입문의 위치/크기/분할, 캐노피 외곽·이웃·보도·도로·정면 카메라.",
-      "change": "A: 상층·저층 벽 전체를 크림 석재, 포털·하부를 수직 목재, 띠·프레임은 브론즈. B: 상층 테라코타·저층 차콜·띠와 프레임 매트 블랙.",
+      "change": "A: 크림 석재·수직 목재 포털·브론즈 / A2: A의 1층 간판 띠·캐노피·포털을 다크 루버·웜 라인 빛으로 보완 / B: 상층 세로 골 테라코타·저층 다크 바살트·매트 블랙 프레임과 앰버 쇼룸 빛",
       "start": "A/B는 같은 원본에서 독립 실행. A2와 조경은 새 A, 석양·서브 시점은 새 조경안을 사용.",
       "prompt": "A",
       "key": "EXT-BASE-01",
@@ -119,7 +119,7 @@
     },
     {
       "key": "B",
-      "title": "수정안 B · 테라코타와 차콜 스톤",
+      "title": "수정안 B · 세로 골 테라코타와 다크 바살트",
       "description": "상층은 세로 골의 웜 테라코타 패널·블랙 창틀, 저층은 바살트 슬레이트·블랙 캐노피와 소핏/쇼윈도의 앰버 빛으로 대비한 대안입니다. 원본 창 그리드·형상·주변의 유지 여부는 따로 대조합니다.",
       "file": "samples/03_partial-edit-b.png",
       "sha256": "ec2ae722056b14619bf84686808bf5dd363a72acd8381d272cdec3ee9e9c11e5",
@@ -127,7 +127,7 @@
     },
     {
       "key": "A2",
-      "title": "보완안 A2 · 밝은 간판 띠와 캐노피",
+      "title": "보완안 A2 · 1층 다크 루버·웜 라인 빛 보완",
       "description": "A의 상층 크림 석재·창 그리드를 고정하고 1층 간판 띠·캐노피·포털 프레임을 다크 월넛/브론즈 수평 루버와 연속 웜 라인 빛으로 보완한 제안입니다. 비대상 표면의 재표현도 대조합니다.",
       "file": "samples/04_revised-concept.png",
       "sha256": "ee3007dbda36fa810465abacb1f20e7900170cd82bf37115e2d72a8f0a28d70b",
@@ -202,7 +202,7 @@
     },
     {
       "key": "B-7step",
-      "title": "수정안 B · 테라코타와 차콜 스톤 · 7단 학습 요청문",
+      "title": "수정안 B · 세로 골 테라코타와 다크 바살트 · 7단 학습 요청문",
       "file": "prompts/B-7step.txt",
       "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/prompts/B-7step.txt",
       "attachments": [
@@ -254,7 +254,7 @@
     },
     {
       "key": "A2-7step",
-      "title": "보완안 A2 · 밝은 간판 띠와 캐노피 · 7단 학습 요청문",
+      "title": "보완안 A2 · 1층 다크 루버·웜 라인 빛 보완 · 7단 학습 요청문",
       "file": "prompts/A2-7step.txt",
       "source": "review/daejeon/DJ-L04-EXTERIOR-PLAN/implementation-13/prompts/A2-7step.txt",
       "attachments": [
@@ -459,7 +459,7 @@
         },
         {
           "file": "samples/04_revised-concept.png",
-          "role": "A에서 간판 띠·캐노피 전면과 하부만 밝게 보완한 A2 비교 대상",
+          "role": "A에서 1층 간판 띠·캐노피·포털만 다크 월넛/브론즈 루버와 웜 라인 빛으로 보완한 A2 비교 대상",
           "outputPath": "practice/DJ-L04/samples/04_revised-concept.png",
           "sha256": "ee3007dbda36fa810465abacb1f20e7900170cd82bf37115e2d72a8f0a28d70b",
           "bytes": 2140064
@@ -499,7 +499,7 @@
         },
         {
           "file": "samples/04_revised-concept.png",
-          "role": "A에서 간판 띠·캐노피 전면과 하부만 밝게 보완한 A2 비교 대상",
+          "role": "A에서 1층 간판 띠·캐노피·포털만 다크 월넛/브론즈 루버와 웜 라인 빛으로 보완한 A2 비교 대상",
           "outputPath": "practice/DJ-L04/samples/04_revised-concept.png",
           "sha256": "ee3007dbda36fa810465abacb1f20e7900170cd82bf37115e2d72a8f0a28d70b",
           "bytes": 2140064
@@ -680,7 +680,7 @@
       "sha256": "ec2ae722056b14619bf84686808bf5dd363a72acd8381d272cdec3ee9e9c11e5",
       "bytes": 2253442,
       "description": "상층은 세로 골의 웜 테라코타 패널·블랙 창틀, 저층은 바살트 슬레이트·블랙 캐노피와 소핏/쇼윈도의 앰버 빛으로 대비한 대안입니다. 원본 창 그리드·형상·주변의 유지 여부는 따로 대조합니다.",
-      "title": "수정안 B · 테라코타와 차콜 스톤"
+      "title": "수정안 B · 세로 골 테라코타와 다크 바살트"
     },
     {
       "file": "samples/04_revised-concept.png",
@@ -688,7 +688,7 @@
       "sha256": "ee3007dbda36fa810465abacb1f20e7900170cd82bf37115e2d72a8f0a28d70b",
       "bytes": 2140064,
       "description": "A의 상층 크림 석재·창 그리드를 고정하고 1층 간판 띠·캐노피·포털 프레임을 다크 월넛/브론즈 수평 루버와 연속 웜 라인 빛으로 보완한 제안입니다. 비대상 표면의 재표현도 대조합니다.",
-      "title": "보완안 A2 · 밝은 간판 띠와 캐노피"
+      "title": "보완안 A2 · 1층 다크 루버·웜 라인 빛 보완"
     },
     {
       "file": "prompts/A-7step.txt",
@@ -757,7 +757,7 @@
       "file": "prompts/B-7step.txt",
       "sha256": "8b0051b6470b82ab950a9ad9ab9c2be2a0557e0866d2d7a0f35689edf0aba563",
       "bytes": 2368,
-      "title": "수정안 B · 테라코타와 차콜 스톤 · 7단 학습 요청문",
+      "title": "수정안 B · 세로 골 테라코타와 다크 바살트 · 7단 학습 요청문",
       "attachments": [
         {
           "file": "bases/01_base-building.png",
@@ -807,7 +807,7 @@
       "file": "prompts/A2-7step.txt",
       "sha256": "6a6cca38993e1eb6477c31ed68965f4ffeb54187ac07944fce857716244a557d",
       "bytes": 2223,
-      "title": "보완안 A2 · 밝은 간판 띠와 캐노피 · 7단 학습 요청문",
+      "title": "보완안 A2 · 1층 다크 루버·웜 라인 빛 보완 · 7단 학습 요청문",
       "attachments": [
         {
           "file": "samples/02_partial-edit-a.png",
@@ -1002,7 +1002,7 @@
         },
         {
           "file": "samples/04_revised-concept.png",
-          "role": "A에서 간판 띠·캐노피 전면과 하부만 밝게 보완한 A2 비교 대상",
+          "role": "A에서 1층 간판 띠·캐노피·포털만 다크 월넛/브론즈 루버와 웜 라인 빛으로 보완한 A2 비교 대상",
           "outputPath": "practice/DJ-L04/samples/04_revised-concept.png",
           "sha256": "ee3007dbda36fa810465abacb1f20e7900170cd82bf37115e2d72a8f0a28d70b",
           "bytes": 2140064
@@ -1042,7 +1042,7 @@
         },
         {
           "file": "samples/04_revised-concept.png",
-          "role": "A에서 간판 띠·캐노피 전면과 하부만 밝게 보완한 A2 비교 대상",
+          "role": "A에서 1층 간판 띠·캐노피·포털만 다크 월넛/브론즈 루버와 웜 라인 빛으로 보완한 A2 비교 대상",
           "outputPath": "practice/DJ-L04/samples/04_revised-concept.png",
           "sha256": "ee3007dbda36fa810465abacb1f20e7900170cd82bf37115e2d72a8f0a28d70b",
           "bytes": 2140064

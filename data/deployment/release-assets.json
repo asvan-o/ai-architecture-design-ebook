@@ -4,8 +4,8 @@
   "tag": "course-materials-2026-10-19-v1",
   "basePath": "/ai-architecture-design-ebook",
   "maximumPagesBytes": 990000000,
-  "sourceBytes": 2016351300,
-  "pagesBytesBeforeMetadata": 614895791,
+  "sourceBytes": 2016351716,
+  "pagesBytesBeforeMetadata": 614896194,
   "files": [
     {
       "path": "downloads/ai-architecture-design-course_2026-08-27.pdf",
@@ -892,8 +892,8 @@
     {
       "path": "daejeon/practice/DJ-L04/application/DJ-L04-exterior-applications.zip",
       "assetName": "DJ-L04-exterior-applications.zip",
-      "bytes": 55482732,
-      "sha256": "78f867cdd82108cd112b289199dcc0046c715929c35a14d9ba1de3e026e35635",
+      "bytes": 55482745,
+      "sha256": "93a7c172eeda6117190dd754ee770edda48275e74b333b798b48bc6e43380a80",
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L04-exterior-applications.zip"
     },
     {
