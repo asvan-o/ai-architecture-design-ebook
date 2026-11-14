@@ -13,6 +13,7 @@ import { isStudentBuild } from '../../lib/student-release';
 import EbookAccessGate from '../../components/EbookAccessGate.astro';
 import '../../styles/global.css';
 import '../styles/review.css';
+import '../styles/review-navigation-screen.css';
 interface TocItem { id: string; title: string; }
 interface Props { title: string; lead: string; page: 'home' | 'overview' | 'lesson' | 'glossary'; lessonId?:'01'|'02'|'03'|'04'|'05'|'06'|'07'|'08'|'09'|'10'|'11'|'12'|'13'; eyebrow?:string; sharedScreen?:boolean; toc?: readonly TocItem[]; tocGroups?: readonly {id:string;title:string;items:readonly TocItem[]}[]; }
 const { title, lead, page, lessonId='01', eyebrow, toc = [], tocGroups = [] } = Astro.props;
@@ -58,6 +59,16 @@ const pdfLabel = page === 'overview'
     <meta name="viewport" content="width=device-width" />
     <meta name="robots" content="noindex, nofollow, noarchive" />
     <title>{title} | AI 건축디자인</title>
+    <script is:inline data-workbook-toc-initializer>
+      (() => {
+        if (document.documentElement.dataset.courseId !== 'daejeon-2026') return;
+        try {
+          if (localStorage.getItem('daejeon-2026:workbook-toc-collapsed') === 'true') {
+            document.documentElement.dataset.tocCollapsed = 'true';
+          }
+        } catch {}
+      })();
+    </script>
     {accessGateEnabled && <>
       <style is:inline>
         html[data-ebook-access="locked"] [data-ebook-protected] { display: none !important; }
@@ -82,14 +93,33 @@ const pdfLabel = page === 'overview'
     <header class="review-header" data-ebook-protected>
       <a class="review-brand" href={`${base}/`}>AI LECTURE <span>ARCHITECTURE DESIGN</span></a>
       <nav aria-label="과정 안내">
-        {reviewNavigation.map(item=><a href={base+'/'+item.path} aria-current={(page==='lesson'?lessonId:page==='overview'?'overview':page==='home'?'home':'glossary')===item.id?'page':undefined}>{item.label}</a>)}
+        <a href={`${base}/`} aria-current={page==='home'?'page':undefined}>홈</a>
+        <a href={`${base}/course-overview/`} aria-current={page==='overview'?'page':undefined}>과정 개요</a>
+        <details class="review-lesson-menu">
+          <summary>차시 이동 {page==='lesson'&&<span class="review-lesson-menu__current" aria-label={`현재 제${Number(lessonId)}차시`}>{lessonId}</span>}</summary>
+          <div class="review-lesson-menu__panel">
+            {reviewNavigation.filter(item=>item.path.startsWith('lessons/')).map(item=><a href={`${base}/${item.path}`} aria-current={page==='lesson'&&lessonId===item.id?'page':undefined}><span>{item.id}</span>{item.label}</a>)}
+          </div>
+        </details>
         <a href={`${base}/glossary/`} aria-current={page==='glossary'?'page':undefined}>용어 사전</a>
+        {pdfHref&&<a class="review-header-pdf" href={pdfHref} download aria-label={pdfLabel}>PDF 교보재</a>}
+        <button type="button" class="review-toc-toggle review-toc-toggle--open" data-toc-open aria-controls="review-sidebar" aria-expanded="false" hidden><span aria-hidden="true">◧</span> 목차 열기</button>
       </nav>
     </header>
     <div class="review-shell review-shell--toc" data-ebook-protected>
-      <aside class="review-sidebar" aria-label="과정 목차">
+      <aside class="review-sidebar" id="review-sidebar" aria-label="과정 목차">
+        <button type="button" class="review-toc-toggle review-toc-toggle--collapse" data-toc-collapse aria-controls="review-sidebar" aria-expanded="true" hidden><span aria-hidden="true">◧</span> 목차 접기</button>
+        <details class="review-sidebar-disclosure">
+          <summary>{page==='glossary'?'용어 사전 목차':'목차 · 차시 찾아보기'}</summary>
+          <div class="review-sidebar-content">
         {toc.length > 0 && (
-          <nav class="review-toc" aria-label={page==='glossary'?'용어 사전 분류':'현재 차시 내부 목차'}>
+          <div class="review-sidebar-tabs" role="tablist" aria-label="목차 선택">
+            <button id="review-current-tab" type="button" role="tab" aria-selected="true" aria-controls="review-current-panel" tabindex="0">{page==='glossary'?'분류 목차':page==='overview'?'이 페이지 목차':'이 차시 목차'}</button>
+            <button id="review-course-tab" type="button" role="tab" aria-selected="false" aria-controls="review-course-panel" tabindex="-1">전체 13차시</button>
+          </div>
+        )}
+        {toc.length > 0 && (
+          <nav class="review-toc" id="review-current-panel" role="tabpanel" aria-labelledby="review-current-tab" tabindex="0" aria-label={page==='glossary'?'용어 사전 분류':'현재 차시 내부 목차'}>
             {currentTopics.length > 0 && (
               <div class="review-toc-current-topic">
                 {currentTopics.map((topic) => (
@@ -106,7 +136,7 @@ const pdfLabel = page === 'overview'
             </details>
           </nav>
         )}
-        <nav class="review-course-toc" aria-label="7개 대주제별 전체 목차">
+        <nav class="review-course-toc" id="review-course-panel" role={toc.length>0?'tabpanel':undefined} aria-labelledby={toc.length>0?'review-course-tab':undefined} tabindex="0" hidden={toc.length>0} aria-label="7개 대주제별 전체 목차">
           <details class="review-course-toc__details" open>
             <summary>전체 목차 · 7개 대주제 / 13차시</summary>
             <div class="review-course-toc__Overview">
@@ -136,6 +166,8 @@ const pdfLabel = page === 'overview'
             </ol>
           </details>
         </nav>
+          </div>
+        </details>
       </aside>
       <main id="main" tabindex="-1" data-course-status="design-pending" data-review-status="instructor-review" data-review-page={page}>
         <div class="review-intro">
@@ -156,25 +188,78 @@ const pdfLabel = page === 'overview'
     </div>
     <footer class="review-footer" data-ebook-protected><div>AI는 제안하고, 디자이너는 판단한다. <a href={`${base}/`}>과정 안내</a><a href={`${base}/glossary/`}>용어 사전</a></div><DaejeonCopyright /></footer>
     <script>
-      const toc = document.querySelector<HTMLDetailsElement>('.review-toc > details');
-      const courseToc = document.querySelector<HTMLDetailsElement>('.review-course-toc__details');
+      const tocRoot = document.documentElement;
+      const tocShell = document.querySelector('.review-shell--toc');
+      const tocCollapse = document.querySelector<HTMLButtonElement>('[data-toc-collapse]');
+      const tocOpen = document.querySelector<HTMLButtonElement>('[data-toc-open]');
+      const tocDesktop = matchMedia('(min-width: 1001px)');
+      if (tocRoot.dataset.courseId === 'daejeon-2026' && tocShell && tocCollapse && tocOpen) {
+        const syncTocButtons = () => {
+          const expanded = !tocDesktop.matches || tocRoot.dataset.tocCollapsed !== 'true';
+          [tocCollapse, tocOpen].forEach(button => button.setAttribute('aria-expanded', String(expanded)));
+        };
+        const setTocCollapsed = (collapsed: boolean) => {
+          if (!tocDesktop.matches) return;
+          tocRoot.dataset.tocCollapsed = String(collapsed);
+          try { localStorage.setItem('daejeon-2026:workbook-toc-collapsed', String(collapsed)); } catch {}
+          syncTocButtons();
+          (collapsed ? tocOpen : tocCollapse).focus({preventScroll: true});
+        };
+        tocCollapse.addEventListener('click', () => setTocCollapsed(true));
+        tocOpen.addEventListener('click', () => setTocCollapsed(false));
+        tocDesktop.addEventListener('change', syncTocButtons);
+        syncTocButtons();
+      }
+      const lessonMenu = document.querySelector<HTMLDetailsElement>('.review-lesson-menu');
+      const lessonMenuTrigger = lessonMenu?.querySelector('summary');
+      document.addEventListener('pointerdown', (event) => {
+        if (lessonMenu && event.target instanceof Node && !lessonMenu.contains(event.target)) lessonMenu.open = false;
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && lessonMenu?.open) {
+          lessonMenu.open = false;
+          lessonMenuTrigger?.focus();
+        }
+      });
+      lessonMenu?.addEventListener('focusout', (event) => {
+        if (event.relatedTarget instanceof Node && !lessonMenu.contains(event.relatedTarget)) lessonMenu.open = false;
+      });
+      const sidebar = document.querySelector<HTMLDetailsElement>('.review-sidebar-disclosure');
       const media = matchMedia('(max-width: 1000px)');
-      const groups=[...document.querySelectorAll<HTMLDetailsElement>('.review-toc-group')];
       const adaptToc = () => {
-        if (toc) toc.open = !media.matches;
-        if (courseToc) courseToc.open = !media.matches;
-        groups.forEach((group)=>group.open=!media.matches);
+        if (sidebar) sidebar.open = !media.matches;
       };
       adaptToc(); media.addEventListener('change', adaptToc);
+      const tabs = [...document.querySelectorAll<HTMLButtonElement>('.review-sidebar-tabs [role="tab"]')];
+      const selectTab = (selected: HTMLButtonElement) => {
+        tabs.forEach((tab) => {
+          const active = tab === selected;
+          tab.setAttribute('aria-selected', String(active));
+          tab.tabIndex = active ? 0 : -1;
+          const panel = document.getElementById(tab.getAttribute('aria-controls') || '');
+          if (panel) panel.hidden = !active;
+        });
+      };
+      tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => selectTab(tab));
+        tab.addEventListener('keydown', (event) => {
+          let next: HTMLButtonElement | undefined;
+          if (event.key === 'ArrowRight') next = tabs[(index + 1) % tabs.length];
+          if (event.key === 'ArrowLeft') next = tabs[(index + tabs.length - 1) % tabs.length];
+          if (event.key === 'Home') next = tabs[0];
+          if (event.key === 'End') next = tabs[tabs.length - 1];
+          if (next) { event.preventDefault(); selectTab(next); next.focus(); }
+        });
+      });
       const links = [...document.querySelectorAll<HTMLAnchorElement>('.review-toc a')];
-      links.forEach((link) => link.addEventListener('click', () => { if (toc && media.matches) toc.open = false; }));
+      links.forEach((link) => link.addEventListener('click', () => { if (sidebar && media.matches) sidebar.open = false; }));
       const observer = new IntersectionObserver((entries) => {
         const section = entries.find((entry) => entry.isIntersecting);
         if (section) links.forEach((link) => {
           if (link.hash === `#${section.target.id}`) link.setAttribute('aria-current','location');
           else link.removeAttribute('aria-current');
         });
-      }, {rootMargin: '-5% 0px -70% 0px'});
+      }, {rootMargin: '-15% 0px -65% 0px'});
       links.forEach((link) => { const target = document.getElementById(link.hash.slice(1)); if(target) observer.observe(target); });
     </script>
   <DaejeonMaterialProtection />

@@ -1,3 +1,4 @@
+@import './workbook-studio-screen.css';
 @font-face{font-family:"Home Plex KR";src:url('../assets/home-design/fonts/IBMPlexSansKR-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:"Home Plex KR";src:url('../assets/home-design/fonts/IBMPlexSansKR-Medium.ttf') format('truetype');font-weight:500;font-style:normal;font-display:swap}
 @font-face{font-family:"Home Plex KR";src:url('../assets/home-design/fonts/IBMPlexSansKR-SemiBold.ttf') format('truetype');font-weight:600 900;font-style:normal;font-display:swap}
@@ -107,3 +108,116 @@
 @media(max-width:520px){.design-desktop-nav{display:none}.design-mobile-menu{display:block;position:relative}.design-mobile-menu summary{display:flex;align-items:center;gap:.4rem;font-size:.8rem;cursor:pointer;list-style:none;padding:.6rem 0}.design-mobile-menu summary::-webkit-details-marker{display:none}.design-mobile-menu nav{position:absolute;right:0;top:100%;z-index:10;display:grid;min-width:180px;padding:.7rem;background:var(--design-paper);border:1px solid var(--design-line);box-shadow:0 10px 24px #252c2810}.design-mobile-menu nav a{padding:.7rem;font-size:.8rem}.design-brand strong{font-size:1rem}.design-hero h1{font-size:2.75rem}.design-hero h1 br:nth-of-type(2){display:block}.design-hero-lead{font-size:.9rem}.design-hero-actions{gap:1.1rem}.design-course-stats{gap:1rem}.design-course-stats dd{font-size:1.65rem}.design-course-stats dd span{font-size:.62rem;margin-left:.2rem}.design-course-stats dt{font-size:.64rem}.home-design figcaption{flex-direction:column;gap:.2rem}.design-topic-list>li{gap:.75rem;padding:1.25rem 0}.design-topic-body h3{font-size:.97rem}.design-topic-links{gap:.6rem 1rem}.design-lesson-row h3{font-size:1rem}.design-guide-intro{padding-right:100px}.design-guide h2{font-size:1.5rem}.design-illustration{width:90px;top:2.3rem}.design-guide-steps article{gap:1rem}.design-image-dialog{padding:.7rem}.design-dialog-top{font-size:.75rem}}
 @media(prefers-reduced-motion:no-preference){.home-design{scroll-behavior:smooth}.home-design a{transition:color .15s,background-color .15s,border-color .15s}}
 @media print{.design-local-note,.design-header,.design-footer,.design-mobile-menu,.design-expand{display:none}.design-container{width:100%}.design-hero{padding-top:0}.design-section,.design-guide,.design-interlude{break-inside:avoid}.design-lesson-row{break-inside:avoid}.home-design{background:#fff;color:#111}}
+
+/* Screen-only studio finish: preserve the approved home content and print rules. */
+@media screen {
+  html[data-course-id="daejeon-2026"] .home-design {
+    --design-paper: #f8f9fa;
+    --design-soft: #f1f5f9;
+    --design-ink: #0f172a;
+    --design-muted: #475569;
+    --design-accent: #1e3a8a;
+    --design-line: #e2e8f0;
+    --surface: #fff;
+    --line-dark: #cbd5e1;
+    --accent: #1d4ed8;
+    --accent-dark: #1e3a8a;
+    --blue: #0369a1;
+    line-height: 1.78;
+  }
+
+  html[data-course-id="daejeon-2026"] .home-design ::selection {
+    background: #dbeafe;
+    color: #0f172a;
+  }
+
+  html[data-course-id="daejeon-2026"] .home-design :is(a, button, summary):focus-visible {
+    outline: 2px solid var(--design-accent);
+    outline-offset: 4px;
+  }
+
+  html[data-course-id="daejeon-2026"] .home-design .design-header-link {
+    border-color: var(--line-dark);
+  }
+
+  html[data-course-id="daejeon-2026"] .home-design .design-primary {
+    border-radius: 8px;
+    background: var(--design-accent);
+    box-shadow: 0 1px 3px rgb(15 23 42 / 8%);
+  }
+
+  html[data-course-id="daejeon-2026"] .home-design .design-primary:hover {
+    background: #1d4ed8;
+  }
+
+  html[data-course-id="daejeon-2026"] .home-design :is(.design-image-button, .design-image-dialog img) {
+    background: var(--design-soft);
+  }
+
+  html[data-course-id="daejeon-2026"] .home-design .design-expand {
+    background: rgb(255 255 255 / 95%);
+    border-color: var(--design-line);
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgb(15 23 42 / 4%);
+  }
+
+  html[data-course-id="daejeon-2026"] .home-design :is(.design-overview-strip, .design-topic-list, .design-lesson-list, .design-guide) {
+    border-top-color: var(--line-dark);
+  }
+
+  html[data-course-id="daejeon-2026"] .home-design .design-interlude {
+    border: 1px solid var(--design-line);
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgb(15 23 42 / 4%);
+  }
+
+  html[data-course-id="daejeon-2026"] .home-design .design-lesson-number {
+    color: var(--design-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  html[data-course-id="daejeon-2026"] .home-design .design-lesson-actions a {
+    background: var(--surface);
+    border-radius: 8px;
+    min-height: 36px;
+  }
+
+  html[data-course-id="daejeon-2026"] .home-design .design-lesson-actions a:hover {
+    background: var(--design-soft);
+    border-color: var(--line-dark);
+  }
+
+  html[data-course-id="daejeon-2026"] .home-design .design-mobile-menu nav {
+    background: var(--surface);
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgb(15 23 42 / 10%);
+  }
+
+  html[data-course-id="daejeon-2026"] .home-design .design-mobile-menu nav a {
+    border-radius: 6px;
+  }
+
+  html[data-course-id="daejeon-2026"] .home-design .design-mobile-menu nav a:hover {
+    background: var(--design-soft);
+    text-decoration: none;
+  }
+
+  html[data-course-id="daejeon-2026"] .home-design .design-image-dialog {
+    background: var(--surface);
+    border-radius: 10px;
+    box-shadow: 0 20px 60px rgb(15 23 42 / 20%);
+  }
+
+  html[data-course-id="daejeon-2026"] .home-design .design-image-dialog::backdrop {
+    background: rgb(15 23 42 / 78%);
+  }
+
+  html[data-course-id="daejeon-2026"] .home-design .design-dialog-top button {
+    border-radius: 8px;
+    background: var(--design-soft);
+  }
+
+  html[data-course-id="daejeon-2026"] .home-design .design-illustration [fill="#964d38"] {
+    fill: var(--design-accent);
+  }
+}

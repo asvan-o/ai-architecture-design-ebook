@@ -1,0 +1,255 @@
+/* Workbook-only component surfaces. All teaching content and print styles stay intact. */
+@media screen {
+  html[data-course-id="daejeon-2026"] .review-page .lesson02-review {
+    --lesson02-accent: #1e3a8a;
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page .lesson03-review {
+    --l03-accent: #1e3a8a;
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page :is(
+    .lesson02-status, .lesson02-placeholder, .lesson02-decision,
+    .lesson02-input-grid, .lesson02-architecture-flow li,
+    .l02-definition, .l02-flow-line, .l02-recap-flow, .l02-ab-flow li,
+    .l03-step-context, .l03-input-panel, .l03-flow, .l04-hold,
+    .modeling-note, .modeling-context, .term-note, .glossary-note,
+    .glossary-empty
+  ) {
+    color: var(--ink);
+    background: var(--paper-deep);
+    border-color: var(--line);
+    border-radius: 8px;
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page :is(
+    .lesson02-status strong, .lesson02-label, .lesson02-appendix > summary,
+    .lesson02-practice-status, .l02-ab-label
+  ) {
+    color: var(--accent-dark);
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page .l02-ab-flow li::after,
+  html[data-course-id="daejeon-2026"] .review-page .lesson02-architecture-flow li::before {
+    color: var(--accent-dark);
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page :is(
+    .lesson02-timing li, .lesson02-label
+  ) {
+    color: var(--accent-dark);
+    background: var(--paper-deep);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page :is(
+    .lesson02-placeholder, .lesson02-status
+  ) {
+    border-style: solid;
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page :is(
+    .lesson02-decision, .l02-definition, .l03-input-panel, .l04-hold,
+    .modeling-note, .modeling-context, .term-note
+  ) {
+    border-left-color: var(--accent-dark);
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page :is(
+    .lesson02-summary article, .lesson02-asset-card, .l02-ab-card,
+    .l02-recap-roles article, .l03-period-summary article, .l03-asset-card,
+    .l03-record-card, .l04-technique, .modeling-part-links a,
+    .modeling-downloads, .modeling-sources, .modeling-asset, .modeling-video,
+    .glossary-tools, .glossary-entry
+  ) {
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgb(15 23 42 / 4%);
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page .l03-asset-card.is-selected {
+    border-color: var(--accent-dark);
+    box-shadow: 0 0 0 2px var(--accent-dark);
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page .l02-ab-preview img {
+    border-color: var(--line);
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page .l02-ab-preview figcaption,
+  html[data-course-id="daejeon-2026"] .review-page .l02-ab-table td::before,
+  html[data-course-id="daejeon-2026"] .review-page .l02-ab-table th::before {
+    color: var(--muted);
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page .l02-ab-run {
+    border-color: var(--line);
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page :is(
+    .lesson02-asset-actions button, .lesson02-asset-actions a,
+    .lesson02-asset-dialog button, .lesson03-review button, .l03-actions a,
+    .modeling-asset button, .glossary-search button, .glossary-categories a
+  ) {
+    color: var(--accent-dark);
+    background: var(--surface);
+    border: 1px solid var(--line-dark);
+    border-radius: 8px;
+    transition: background-color 150ms ease, border-color 150ms ease;
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page :is(
+    .lesson02-asset-actions button, .lesson02-asset-actions a,
+    .lesson02-asset-dialog button, .lesson03-review button, .l03-actions a,
+    .modeling-asset button, .glossary-search button, .glossary-categories a
+  ):hover:not(:disabled):not([aria-disabled="true"]):not([aria-pressed="true"]):not(.l02-ab-primary) {
+    background: var(--paper-deep);
+    border-color: var(--accent-dark);
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page .l02-ab .l02-ab-primary,
+  html[data-course-id="daejeon-2026"] .review-page .lesson03-review button[aria-pressed="true"] {
+    color: #fff;
+    background: var(--accent-dark);
+    border-color: var(--accent-dark);
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page .l02-ab .l02-ab-primary:hover:not(:disabled):not([aria-disabled="true"]),
+  html[data-course-id="daejeon-2026"] .review-page .lesson03-review button[aria-pressed="true"]:hover:not(:disabled):not([aria-disabled="true"]) {
+    color: #fff;
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page :is(
+    .lesson02-input-grid input, .lesson02-input-grid select,
+    .lesson03-review input, .lesson03-review select,
+    .lesson03-review textarea:not([aria-hidden="true"]), .glossary-search input
+  ) {
+    color: var(--ink);
+    background: var(--surface);
+    border-color: var(--line-dark);
+    border-radius: 8px;
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page :is(
+    .lesson02-table, .lesson02-asset-actions, .lesson02-asset-dialog,
+    .lesson02-input-grid, .l02-ab, .lesson03-review,
+    .modeling-lesson, .glossary-search, .term-note
+  ) :focus-visible,
+  html[data-course-id="daejeon-2026"] .review-page .lesson02-table:focus-visible {
+    outline-color: var(--accent-dark);
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page :is(
+    .lesson02-asset-dialog, .l03-dialog, .modeling-asset dialog
+  ) {
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--line-dark);
+    border-radius: 10px;
+    box-shadow: 0 16px 60px rgb(15 23 42 / 18%);
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page :is(
+    .lesson04-review th, .lesson04-review td,
+    .lesson03-review [data-l03-six-changes] th,
+    .lesson03-review [data-l03-six-changes] td,
+    .modeling-table-wrap th, .modeling-table-wrap td
+  ) {
+    border: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page .modeling-video video {
+    background: #0f172a;
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page .glossary-entry:target {
+    border-color: var(--accent-dark);
+    box-shadow: inset 3px 0 0 var(--accent-dark);
+  }
+
+  /* The adapted legal content lives under this workbook wrapper only. */
+  html[data-course-id="daejeon-2026"] .review-page .lesson11-cross-validation {
+    --l11-ink: #0f172a;
+    --l11-accent: #1e3a8a;
+    --l11-warm: #f1f5f9;
+    --l11-green: #f1f5f9;
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page .grounded-legal-layout :is(
+    .hero-card, .info-card, .workflow-card, .result-card, .source-card,
+    .error-card, .boundary-grid article, .role-card, .definition-card,
+    .prep-grid article, .official-grid article, .branch-card, .human-grid aside,
+    .stage-banner, .bandabi-grid article, .grounded-parts a,
+    .grounded-downloads, .workflow li, .loop-flow li, .check-grid li,
+    .source-equation article
+  ) {
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgb(15 23 42 / 4%);
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page .grounded-legal-layout :is(
+    .boundary-callout, .time-card, .info-card--accent, .flow-strip,
+    .cross-flow, .status-grid span, .next-grid span,
+    .key-message, .source-warning, .closing-message, .check-grid--stop li,
+    .service-note, .prompt-context div, .stage-banner, .mini-flow,
+    .input-pair, .role-legend, .risk-grid article, .loop-entry,
+    .branch-card--legal, .branch-card--project, .boundary-box,
+    .bandabi-materials, .legal-derivation
+  ) {
+    color: var(--ink);
+    background: var(--paper-deep);
+    border-color: var(--line);
+    border-radius: 8px;
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page .grounded-legal-layout :is(
+    .boundary-callout, .key-message, .source-warning, .closing-message,
+    .service-note, .boundary-box, .risk-grid article, .time-card--practice,
+    .time-card--review, .legal-derivation
+  ) {
+    border-left-color: var(--accent-dark);
+    border-top-color: var(--accent-dark);
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page .grounded-legal-layout :is(
+    .privacy-note, .final-boundary
+  ) {
+    border: 1px solid var(--line);
+    background: var(--paper-deep);
+    border-radius: 8px;
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page .grounded-legal-layout .workflow-card--dark {
+    color: #f8fafc;
+    background: #0f172a;
+    border-color: #1e293b;
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page .grounded-legal-layout .workflow-card--dark > span {
+    color: #bfdbfe;
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page .grounded-legal-layout :is(caption, th) {
+    color: var(--ink);
+    background: var(--paper-deep);
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page .grounded-legal-layout :is(th, td) {
+    border: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  html[data-course-id="daejeon-2026"] .review-page .bandabi-actions a {
+    border-color: var(--line-dark);
+    border-radius: 8px;
+  }
+}

@@ -16,7 +16,7 @@ import type {PromptPlatformGuide as PlatformGuideData} from '../../content/promp
 import {flowerPrompt,flowerSegments,assembleTemplate,assembleExample,revisionExample} from '../../content/lesson01-prompt-adaptations';
 import Lesson01Prompt from '../../components/Lesson01Prompt.astro';
 import Lesson01Image from '../../components/Lesson01Image.astro';
-import {practice,learnerText,learnerData,basicPrinciples,answerGroups} from '../../content/lesson01-learner';
+import {practice,learnerText,learnerData,basicPrinciples,answerGroups,aiWorkTools,gptAbbreviation} from '../../content/lesson01-learner';
 const lesson02FoundationConcepts=learnerData(source_lesson02FoundationConcepts);
 const lesson02PromptRules=learnerData(source_lesson02PromptRules);
 const lesson02Formula=learnerData(source_lesson02Formula);
@@ -76,7 +76,33 @@ const exampleCaptions:Record<string,Record<string,string>> = {
     {periodIndex===0 && <aside class="review-callout" id="course-start"><strong>COURSE OVERVIEW · 작업 흐름(Workflow)</strong><p>{workflowSummary}</p><p>오늘은 이미지 생성·수정의 기본을 익힌 뒤 의뢰서를 분석하는 실습으로 이어갑니다.</p><p><a href={`${base}/course-overview/`}>과정 안내 전체 보기</a> · 읽은 뒤 이 페이지로 돌아옵니다.</p></aside>}
     {period.sections.map((id,sectionIndex)=><ReviewSection {...sectionFor(id)} index={sections.findIndex((s)=>s.id===id)+1} minutes={periodIndex===0||periodIndex===3?period.timing[sectionIndex][1]:undefined}>
       {id==='goals' && <><p>AI의 제안을 사람이 확인하고 수정하며 판단하는 방법을 익힙니다.</p><ol>{dayGoals.map((goal)=><li>{goal}</li>)}</ol><p>입력한 자료와 자신의 선택·수정 과정을 함께 기록합니다.</p></>}
-      {id==='ai-basics' && <><p>생성형 AI는 우리가 입력한 요청과 자료를 바탕으로 글·이미지 등의 초안과 제안을 만드는 도구입니다.</p><div class="review-cards"><article class="review-card"><h3>검색과 생성은 다릅니다</h3><p>검색은 이미 있는 원자료를 찾는 일이고, 생성은 입력을 바탕으로 새로운 설명이나 이미지를 만드는 일입니다. 두 기능을 함께 사용하더라도 만들어진 답변이 원자료 자체는 아닙니다.</p></article><article class="review-card"><h3>글과 이미지를 함께 다루기도 합니다</h3><p>여러 형식의 입력을 다루는 AI를 Multimodal AI라고 합니다. 문서·이미지를 함께 줄 수 있지만, 입력을 받는 것과 내용을 정확히 해석하는 것은 다릅니다.</p></article></div><p class="review-task">“기준 도면 파일을 찾기”와 “도면을 보고 공간 설명 초안 만들기”는 각각 어떤 작업인지 적습니다.</p></>}
+      {id==='ai-basics' && <>
+        <p>생성형 AI는 우리가 입력한 요청과 자료를 바탕으로 글·이미지 등의 초안과 제안을 만드는 도구입니다.</p>
+        <div class="review-cards">
+          <article class="review-card"><h3>검색과 생성은 다릅니다</h3><p>검색은 이미 있는 원자료를 찾는 일이고, 생성은 입력을 바탕으로 새로운 설명이나 이미지를 만드는 일입니다. 두 기능을 함께 사용하더라도 만들어진 답변이 원자료 자체는 아닙니다.</p></article>
+          <article class="review-card"><h3>글과 이미지를 함께 다루기도 합니다</h3><p>여러 형식의 입력을 다루는 AI를 Multimodal AI라고 합니다. 문서·이미지를 함께 줄 수 있지만, 입력을 받는 것과 내용을 정확히 해석하는 것은 다릅니다.</p></article>
+        </div>
+        <div class="ai-work-tools-comparison">
+          <h3 id="ai-work-tools">ChatGPT·Codex·Dot, 어떤 일을 맡길까요?</h3>
+          <p>이 과정에서 주로 맡길 작업을 건축 업무 예시와 함께 살펴봅니다.</p>
+          <div class="review-table-wrap">
+            <table class="ai-work-tools-table" aria-labelledby="ai-work-tools">
+              <thead><tr><th scope="col">도구</th><th scope="col">주로 맡길 작업</th><th scope="col">건축 업무 예시</th></tr></thead>
+              <tbody>{aiWorkTools.map(tool => <tr><th scope="row">{tool.name}</th><td>{tool.role}</td><td>{tool.example}</td></tr>)}</tbody>
+            </table>
+          </div>
+        </div>
+        <p>기능은 서로 겹치며, 실제 작업 범위는 연결한 도구와 허용한 권한에 따라 달라집니다. 작업 목적과 범위는 사람이 정하고 결과를 확인합니다.</p>
+        <details data-gpt-abbreviation>
+          <summary>GPT는 무엇의 약자인가요?</summary>
+          <p><strong>GPT = Generative Pre-trained Transformer</strong></p>
+          <ul>{gptAbbreviation.map(([word,meaning,description]) => <li><strong>{word} · {meaning}</strong><p>{description}</p></li>)}</ul>
+          <p>GPT는 AI 모델 계열을 가리키는 이름입니다. ChatGPT는 이런 모델을 대화로 사용하는 서비스 이름입니다.</p>
+        </details>
+        <p>공식 참고 자료 · <a href="https://learn.chatgpt.com/docs/use-chatgpt" target="_blank" rel="noopener noreferrer">ChatGPT·Codex 활용 안내</a> · <a href="https://learn.chatgpt.com/docs/dots" target="_blank" rel="noopener noreferrer">Dot 소개</a></p>
+        <p>이제 다음 절에서 AI가 도운 결과를 사람이 어디까지 확인하고 판단할지 살펴봅니다.</p>
+        <p class="review-task">“기준 도면 파일을 찾기”와 “도면을 보고 공간 설명 초안 만들기”는 각각 어떤 작업인지 적습니다.</p>
+      </>}
       {id==='roles' && <><div class="review-cards">{roles.map((role)=><article class="review-card"><h3>{role.name}</h3><ul>{role.items.map((item)=><li>{item}</li>)}</ul></article>)}</div><aside class="review-callout">사실 확인, 현장조건, 구조·법규·시공 판단, 확인되지 않은 수치·조건은 AI의 답변만으로 결정하지 않습니다. 관련 자료와 전문가의 확인이 필요합니다.</aside><p class="review-task"><strong>판단:</strong> “대기공간의 가구 배치를 제안한다”와 “이 벽을 철거해도 된다”는 서로 다른 판단입니다. AI에게 맡길 작업과 전문가에게 확인할 일을 적습니다.</p></>}
       {id==='grounding' && <><div class="review-cards"><article class="review-card"><h3>그럴듯하지만 틀린 내용 · Hallucination</h3><p>근거가 없거나 사실과 다른 내용을 그럴듯하게 만들어낼 수 있는 현상입니다.</p><ul><li>자료에 없는 창문을 이미지에 추가합니다.</li><li>도면에 없는 면적이나 치수를 사실처럼 말합니다.</li><li>사진만 보고 구조 안전성을 확정합니다.</li><li>확인되지 않은 이용 조건을 이미 정해진 사실처럼 표현합니다.</li></ul></article><article class="review-card"><h3>자료와 연결해 확인하기 · Grounding</h3><p>제공된 문서·도면·이미지와 AI 답변을 대조해 근거를 확인합니다. 자료를 첨부했다고 오류가 없어지는 것은 아닙니다.</p></article></div><p><strong>근거 자료(Source)와 참고 이미지(Reference):</strong> 기준 도면과 제공 문서는 조건을 확인하는 근거입니다. 참고 이미지는 재료·색감·분위기를 보는 자료입니다. 참고 이미지의 창문 위치를 현황의 사실로 가져오지 않습니다.</p><p class="review-task">“사진에서 통로가 넓어 보이므로 법규에 맞습니다.” 이 설명을 확인하려면 어떤 자료가 더 필요한지 적습니다.</p><aside class="review-callout"><strong>이미지 ≠ 설계 사실.</strong> 보기 좋은 이미지가 치수·구조·법규 적합성을 증명하지는 않습니다.</aside></>}
       {id==='types' && <><p>방금 받은 분석표에서 한 문장씩 골라 아래 네 가지로 구분합니다. 원문에 있는 조건과 AI가 해석하거나 새롭게 제안한 내용을 나눕니다.</p><div class="review-table-wrap"><table data-answer-groups><thead><tr><th>구분</th><th>쉬운 설명</th><th>의뢰서 분석 예시</th></tr></thead><tbody>{answerGroups.map(([name,description,example])=><tr><th>{name}</th><td>{description}</td><td>{example}</td></tr>)}</tbody></table></div><p class="review-task">분석표의 각 문장이 어느 구분에 해당하는지 적습니다. 추론·가정·디자인 제안을 원문에서 확인한 조건처럼 쓰지 않습니다.</p></>}
@@ -111,3 +137,10 @@ const exampleCaptions:Record<string,Record<string,string>> = {
 
   </div>)}
 </ReviewLayout>
+
+<style>
+  .ai-work-tools-table th:first-child { white-space: nowrap; }
+  @media print {
+    .ai-work-tools-comparison { break-inside: avoid-page; }
+  }
+</style>

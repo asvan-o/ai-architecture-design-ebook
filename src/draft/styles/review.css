@@ -1,3 +1,6 @@
+@import './workbook-studio-screen.css';
+@import './lesson-studio-screen.css';
+
 .review-page { background: var(--paper); color: var(--ink); line-height: 1.75; }
 .review-page a { color: var(--accent-dark); text-underline-offset: .2em; }
 .review-page a:focus-visible,.review-page summary:focus-visible { outline: 3px solid #315b66; outline-offset: 5px; }
@@ -145,4 +148,164 @@
 @media screen and (max-width:1000px) {
   .review-shell--toc { grid-template-columns: minmax(0,1fr); }
   .review-sidebar { position:static; max-height:none; min-width:0; padding-right:0; overflow:visible; }
+}
+
+/* White Studio & Deep Slate: a screen presentation layer, never print styling. */
+@media screen {
+  html[data-course-id="daejeon-2026"] .review-page {
+    --serif: var(--sans);
+    line-height: 1.78;
+  }
+  html[data-course-id="daejeon-2026"] body.review-page::before { display: none !important; }
+  html[data-course-id="daejeon-2026"] .review-page ::selection { background: #dbeafe; color: #0f172a; }
+  html[data-course-id="daejeon-2026"] .review-page :is(a, button, summary, input, textarea, select, [tabindex]):focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+  }
+  html[data-course-id="daejeon-2026"] .review-page :is(a, button, summary):focus:not(:focus-visible) { outline: none; }
+  html[data-course-id="daejeon-2026"] .review-page .skip-link { z-index: 60; }
+  html[data-course-id="daejeon-2026"] .review-intro h1 {
+    font-size: clamp(1.9rem, 3.3vw, 3rem);
+    line-height: 1.4;
+    letter-spacing: -.045em;
+    font-weight: 750;
+    text-wrap: pretty;
+  }
+  html[data-course-id="daejeon-2026"] .review-lead { color: var(--muted); line-height: 1.85; }
+  html[data-course-id="daejeon-2026"] .review-section { border-color: var(--line); scroll-margin-top: 6rem; }
+  html[data-course-id="daejeon-2026"] .review-section-body { padding-left: 0; }
+  html[data-course-id="daejeon-2026"] .review-section-heading { grid-template-columns: 2.6rem minmax(0, 1fr); gap: .8rem; }
+  html[data-course-id="daejeon-2026"] .review-number {
+    display: inline-grid;
+    place-items: center;
+    align-self: start;
+    min-height: 2.2rem;
+    padding: .3rem .5rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--paper-deep);
+    font-family: var(--sans);
+    font-size: .85rem;
+    font-weight: 750;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: .02em;
+  }
+  html[data-course-id="daejeon-2026"] .review-section :is(h2, h3, h4) { letter-spacing: -.025em; }
+  html[data-course-id="daejeon-2026"] .review-section h2 { line-height: 1.5; font-size: clamp(1.3rem, 2.1vw, 1.75rem); }
+  html[data-course-id="daejeon-2026"] :is(.review-card, .review-callout, .review-question, .review-break, .review-prompt-cards li, .prompt-platform-guide, .prompt-attachments, .review-cycle li) {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--surface);
+    box-shadow: 0 1px 3px rgb(15 23 42 / 4%);
+  }
+  html[data-course-id="daejeon-2026"] :is(.review-callout, .review-question) { border-left: 3px solid var(--accent-dark); }
+  html[data-course-id="daejeon-2026"] .review-task { border-bottom: 1px solid var(--line); }
+  html[data-course-id="daejeon-2026"] .review-break { background: var(--paper-deep); }
+  html[data-course-id="daejeon-2026"] .review-flow li { border-radius: 8px; border-left-width: 2px; }
+  html[data-course-id="daejeon-2026"] .period-heading {
+    background: var(--paper-deep);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--accent-dark);
+    border-radius: 10px;
+  }
+  html[data-course-id="daejeon-2026"] .day-period { scroll-margin-top: 6rem; }
+  html[data-course-id="daejeon-2026"] .review-page main details {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: .9rem 1.1rem;
+    background: var(--surface);
+    box-shadow: 0 1px 3px rgb(15 23 42 / 4%);
+  }
+  html[data-course-id="daejeon-2026"] .review-page main summary {
+    position: relative;
+    list-style: none;
+    padding: .15rem 1.8rem .15rem 0;
+    line-height: 1.65;
+  }
+  html[data-course-id="daejeon-2026"] .review-page main summary::-webkit-details-marker { display: none; }
+  html[data-course-id="daejeon-2026"] .review-page main summary::after {
+    content: '';
+    position: absolute;
+    right: .25rem;
+    top: .6rem;
+    width: .45rem;
+    height: .45rem;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform 150ms ease;
+  }
+  html[data-course-id="daejeon-2026"] .review-page main details[open] > summary::after { transform: rotate(225deg); top: .85rem; }
+  html[data-course-id="daejeon-2026"] .review-page main details[open] > summary { margin-bottom: .7rem; }
+  html[data-course-id="daejeon-2026"] .review-page table { border: 0; background: var(--surface); }
+  html[data-course-id="daejeon-2026"] .review-page :is(th, td) {
+    padding: .85rem 1rem;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink);
+  }
+  html[data-course-id="daejeon-2026"] .review-page th { background: var(--paper-deep); }
+  html[data-course-id="daejeon-2026"] .review-page pre {
+    border-color: var(--line);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--ink);
+    max-width: 100%;
+  }
+  html[data-course-id="daejeon-2026"] .prompt-copy-block {
+    border: 1px solid #334155;
+    border-radius: 10px;
+    background: #0f172a;
+    color: #f8fafc;
+    overflow: clip;
+  }
+  html[data-course-id="daejeon-2026"] .review-page .prompt-copy-block[data-copy-block-id] > header {
+    background: #1e293b;
+    border-color: #334155;
+    padding: 1rem 1.2rem;
+  }
+  html[data-course-id="daejeon-2026"] .review-page .prompt-copy-block[data-copy-block-id] > header :is(h4, span, p) { color: #f1f5f9; }
+  html[data-course-id="daejeon-2026"] .review-page .prompt-copy-block[data-copy-block-id] > header span { color: #bfdbfe; }
+  html[data-course-id="daejeon-2026"] .review-page .prompt-copy-block pre {
+    border: 0;
+    border-radius: 0;
+    background: #0f172a;
+    color: #f8fafc;
+    padding: 1.2rem;
+  }
+  html[data-course-id="daejeon-2026"] .review-page .prompt-copy-block[data-copy-block-id] button {
+    border: 1px solid #64748b;
+    border-radius: 999px;
+    background: #334155;
+    color: #fff;
+    min-width: 0;
+    font-size: .8rem;
+    transition: background 150ms ease;
+  }
+  html[data-course-id="daejeon-2026"] .review-page .prompt-copy-block[data-copy-block-id] button:hover { background: #475569; color: #fff; }
+  html[data-course-id="daejeon-2026"] .review-page .prompt-copy-block[data-copy-block-id] .prompt-copy-block__status { color: #cbd5e1; }
+  html[data-course-id="daejeon-2026"] .review-download {
+    border: 1px solid var(--line-dark);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--accent-dark);
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 150ms ease, border-color 150ms ease;
+  }
+  html[data-course-id="daejeon-2026"] .review-download:hover { border-color: var(--accent); background: #eff6ff; }
+  html[data-course-id="daejeon-2026"] .review-page input:not([type="range"]):not([type="checkbox"]):not([type="radio"]),
+  html[data-course-id="daejeon-2026"] .review-page :is(select, textarea:not(.prompt-copy-block__source)) { border: 1px solid var(--line-dark); border-radius: 6px; background: var(--surface); color: var(--ink); }
+  @media (max-width: 600px) {
+    html[data-course-id="daejeon-2026"] .review-page :is(th, td) { padding: .65rem .5rem; }
+    html[data-course-id="daejeon-2026"] .review-page .ai-work-tools-table { table-layout: fixed; font-size: .78rem; }
+    html[data-course-id="daejeon-2026"] .ai-work-tools-table th:first-child { width: 23%; }
+    html[data-course-id="daejeon-2026"] .review-section-heading { grid-template-columns: 2.2rem minmax(0, 1fr); gap: .65rem; }
+    html[data-course-id="daejeon-2026"] .review-page main details { padding: .8rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html[data-course-id="daejeon-2026"] .review-page :is(summary::after, button, a) { transition: none; }
+  }
 }

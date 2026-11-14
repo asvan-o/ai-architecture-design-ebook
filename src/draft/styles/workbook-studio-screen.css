@@ -1,0 +1,43 @@
+/* Screen-only workbook theme. Canonical print rules and Gwangju stay untouched. */
+@media screen {
+  html[data-course-id="daejeon-2026"],
+  html[data-course-id="daejeon-2026"] .review-page {
+    --paper: #f8f9fa;
+    --paper-deep: #f1f5f9;
+    --surface: #fff;
+    --ink: #0f172a;
+    --muted: #475569;
+    --line: #e2e8f0;
+    --line-dark: #cbd5e1;
+    --accent: #1d4ed8;
+    --accent-dark: #1e3a8a;
+    --blue: #0369a1;
+    --focus: #1d4ed8;
+  }
+
+  html[data-course-id="daejeon-2026"] .ebook-access-gate {
+    background: #f8f9fa;
+    color: #0f172a;
+  }
+  html[data-course-id="daejeon-2026"] .ebook-access-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 12px 40px rgb(15 23 42 / 7%);
+  }
+  html[data-course-id="daejeon-2026"] .ebook-access-card h1 {
+    font-family: var(--sans, "Home Plex KR", "Noto Sans KR Variable", sans-serif);
+    font-size: clamp(1.65rem, 4vw, 2.4rem);
+    line-height: 1.4;
+    letter-spacing: -.04em;
+  }
+  html[data-course-id="daejeon-2026"] .ebook-access-eyebrow { color: #1e3a8a; }
+  html[data-course-id="daejeon-2026"] .ebook-access-card > p:not(.ebook-access-eyebrow) { color: #475569; }
+  html[data-course-id="daejeon-2026"] .ebook-access-card :is(input, button) {
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+  }
+  html[data-course-id="daejeon-2026"] .ebook-access-card button { background: #1e3a8a; color: #fff; border-color: #1e3a8a; }
+  html[data-course-id="daejeon-2026"] .ebook-access-card button:hover { background: #1d4ed8; }
+  html[data-course-id="daejeon-2026"] .ebook-access-card :focus-visible { outline: 2px solid #1d4ed8; outline-offset: 4px; }
+}

@@ -15,6 +15,30 @@ export const practices = {
 export type PracticeId = keyof typeof practices;
 export const practice = (id: string) => practices[id as PracticeId];
 
+export const aiWorkTools = [
+  {
+    name: 'ChatGPT',
+    role: '대화하며 자료를 분석하고 생각과 문서를 정리합니다.',
+    example: '의뢰서 분석, 디자인 방향 비교, 이미지 생성 요청문 초안 작성',
+  },
+  {
+    name: 'Codex',
+    role: '프로젝트 파일과 코드를 다루며 구현·수정·테스트를 수행합니다.',
+    example: '파일정리 프로그램 제작, Blender MCP와 연결한 모델링 작업',
+  },
+  {
+    name: 'Dot',
+    role: '맡긴 업무의 맥락과 진행 상황을 이어가며 후속 작업을 관리합니다.',
+    example: '프로젝트 자료 변경 확인, 진행 상황 정리, 후속 조사',
+  },
+] as const;
+
+export const gptAbbreviation = [
+  ['Generative', '생성하는', '입력한 요청과 자료를 바탕으로 새로운 글이나 결과를 만듭니다.'],
+  ['Pre-trained', '사전 학습된', '여러 자료에서 미리 학습한 패턴을 바탕으로 작동합니다.'],
+  ['Transformer', '신경망 구조의 이름', '입력의 여러 부분이 서로 어떤 관계인지 반영해 정보를 처리하는 구조입니다.'],
+] as const;
+
 export const basicPrinciples = [
   'AI 결과를 그대로 믿지 않습니다.',
   '제공한 자료와 다시 비교합니다.',
