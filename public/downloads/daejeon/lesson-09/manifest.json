@@ -417,6 +417,16 @@
       "outputPath": "downloads/daejeon/lesson-09/l09-camera-8s.txt",
       "bytes": 2535,
       "sha256": "e9153508bf45380dccd165976ff96283e4ab7d96a32c6f67fde0ff26bb00d5c6"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/House_3F_B_Walkthrough_160s_Astra.blend",
+      "bytes": 2786420,
+      "sha256": "c167461173886bddaec283845d997f942f1789921aa9310b6787fd7c09cc2a97"
+    },
+    {
+      "outputPath": "downloads/daejeon/lesson-09/House_3F_B_Walkthrough_160s_README.txt",
+      "bytes": 3714,
+      "sha256": "c6738f47a6c3f8d2de1b0a5fdd50af4a6fa14e78dea15d95b1b46385739a2870"
     }
   ],
   "cameraColormapIncluded": true,

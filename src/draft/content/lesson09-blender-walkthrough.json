@@ -1,0 +1,15 @@
+{
+  "filename": "House_3F_B_Walkthrough_160s_Astra.blend",
+  "readmeFilename": "House_3F_B_Walkthrough_160s_README.txt",
+  "bytes": 2786420,
+  "sha256": "c167461173886bddaec283845d997f942f1789921aa9310b6787fd7c09cc2a97",
+  "testedBlenderVersion": "5.2.2 LTS",
+  "durationSeconds": 160,
+  "fps": 24,
+  "frameStart": 1,
+  "frameEnd": 3840,
+  "camera": "Cam_B_Walkthrough_160s",
+  "collection": "[Step 5] B_Walkthrough_160s",
+  "cuts": [{"seconds": 60, "frame": 1441}, {"seconds": 126, "frame": 3025}],
+  "finalHoldStartFrame": 3745
+}

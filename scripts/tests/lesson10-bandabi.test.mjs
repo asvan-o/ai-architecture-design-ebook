@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {createHash} from 'node:crypto';
-import {getLesson0910Assets} from '../daejeon-lesson0910-assets.mjs';
+import {getLesson0910Assets,houseWalkthroughBlendPath} from '../daejeon-lesson0910-assets.mjs';
 const read=p=>fs.readFileSync(p,'utf8');
 const data=JSON.parse(read('src/draft/content/lesson10-bandabi-materials.json'));
 const folder='public/downloads/daejeon/lesson-10/';
@@ -25,7 +25,8 @@ test('Actual source limitations and correct municipal parking annex remain expli
 });
 test('Review media allowlist admits Bandabi documents while excluding unrelated source drawings',()=>{
  const assets=getLesson0910Assets();assert(assets.some(x=>x.outputPath.endsWith('A01_건축기획서.pdf')));
- assert(!assets.some(x=>/HWANG_INSU|치수포함|\.dwg$|\.blend$/.test(x.outputPath)));
+ assert(!assets.some(x=>/HWANG_INSU|치수포함|\.dwg$/.test(x.outputPath)));
+ assert.deepEqual(assets.filter(x=>/\.blend$/.test(x.outputPath)).map(x=>x.outputPath),[houseWalkthroughBlendPath]);
  const m=JSON.parse(read(folder+'manifest.json'));assert.equal(m.originalDrawingsScope,'seosan-bandabi-public-competition-only');assert.equal(m.hwangInsuOriginalDrawingsIncluded,false);
  assert.equal(data.reviewMatrix.length,7);assert(data.reviewMatrix.every(x=>x.missing&&x.status));
 });

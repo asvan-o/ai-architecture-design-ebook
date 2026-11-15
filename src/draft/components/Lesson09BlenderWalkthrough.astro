@@ -1,0 +1,22 @@
+---
+import data from '../content/lesson09-blender-walkthrough.json';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const enabled = import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS === 'true';
+const downloadRoot = base + '/downloads/daejeon/lesson-09/';
+---
+<aside id="l09-blender-walkthrough-download" class="modeling-note" aria-labelledby="l09-blender-walkthrough-title" data-blender-walkthrough-download>
+  <h3 id="l09-blender-walkthrough-title">160초 B안 · Blender에서 직접 재생하기</h3>
+  <p>웹 뷰어의 위치·시선·화각과 두 컷 전환을 Blender 카메라에 담은 별도 파일입니다. 기존 주택 원본과 웹 뷰어도 계속 사용할 수 있습니다. {data.testedBlenderVersion}에서 열기·재생을 확인했으며, {data.fps}fps · {data.frameStart}~{data.frameEnd}프레임 · {data.durationSeconds}초로 구성했습니다.</p>
+  {enabled && <div class="modeling-links">
+    <a href={downloadRoot + data.filename} download={data.filename} data-blender-walkthrough-file>160초 카메라 동선 포함 Blender 파일 다운로드 (.blend · 약 2.8MB)</a>
+    <a href={downloadRoot + data.readmeFilename} download={data.readmeFilename}>Blender 다운로드·재생 방법 TXT</a>
+  </div>}
+  <ol class="modeling-steps">
+    <li><strong>다운로드:</strong> 위 .blend 파일을 PC에 저장합니다. 기존 작업은 먼저 저장하고, Blender의 <strong>File → Open</strong>에서 <code>{data.filename}</code>을 엽니다. 기존 주택 원본을 덮어쓰지 말고 이 별도 파일로 실습합니다.</li>
+    <li><strong>카메라 보기:</strong> 3D 화면 위에 마우스를 두고 <strong>Numpad 0</strong>을 누릅니다. 숫자패드가 없으면 <strong>View → Cameras → Active Camera</strong>를 선택합니다. 열었을 때 이미 카메라 화면이면 전환하지 않아도 됩니다.</li>
+    <li><strong>재생·시간 이동:</strong> 아래 타임라인 위에 마우스를 두고 <strong>Space</strong>로 재생·일시정지합니다. 타임라인의 ▶ 버튼으로도 재생할 수 있습니다. 일시정지한 뒤 <strong>Shift + ←</strong>로 처음으로 이동하거나, 현재 프레임 숫자를 입력해 원하는 구간을 확인합니다.</li>
+    <li><strong>구간 확인:</strong> {data.cuts.map((cut, index) => <>{index > 0 ? ' · ' : ''}{cut.seconds}초({cut.frame}f)</>)}는 연속 이동이 아닌 컷 전환입니다. 마지막 4초({data.finalHoldStartFrame}~{data.frameEnd}f)는 외관 구도를 유지합니다.</li>
+  </ol>
+  <p><strong>동선과 시선 살펴보기:</strong> Outliner의 <code>{data.collection}</code> 안에 <code>{data.camera}</code>, 시선 타깃, 8개 구간 경로선이 있습니다. 경로선은 확인용이며 실제 카메라 동작은 저장된 키프레임으로 재생됩니다.</p>
+  <p>처음 열 때 재질 준비에 시간이 걸릴 수 있습니다. 재생이 느리면 <strong>Z → Solid</strong>로 바꾸어 동선을 확인하세요. Blender의 조명·유리 표현은 웹 뷰어와 다를 수 있으며, 사람의 실제 보행 가능성이나 건축 안전을 검증한 파일은 아닙니다.</p>
+</aside>
