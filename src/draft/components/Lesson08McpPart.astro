@@ -1,6 +1,6 @@
 ---
 import ReviewPrompt from './ReviewPrompt.astro';
-import {mcpBlocks,mcpReferences,blenderShortcutGroups,cameraViewSteps,modelExportFormats} from '../content/lesson08-mcp';
+import {mcpBlocks,mcpReferences,blenderShortcutGroups,cameraViewSteps,modelExportFormats,mcpArchitectureRoles,mcpThreePrimitives,mcpOfficeCatalog,mcpTroubleshootingRows} from '../content/lesson08-mcp';
 interface Props {sectionId:string;}
 const {sectionId}=Astro.props;
 const base=import.meta.env.BASE_URL.replace(/\/$/,'');
@@ -10,9 +10,19 @@ const block=(id:string)=>mcpBlocks.find(row=>row.id===id)!;
 ---
 <div class="l08-mcp-content">
  {sectionId==='l08-mcp-concept-ecosystem'&&<>
-  <h3>Codex가 요청하고 Blender가 실제 씬을 바꿉니다</h3>
-  <p>MCP는 AI 앱이 외부 도구에 정해진 형식으로 작업을 요청하는 연결 방식입니다. 이번 실습은 Codex 채팅 → 로컬 MCP 서버 → Blender 애드온 → 현재 씬으로 이어집니다.</p>
+  <h3>AI에게 ‘입’만 있던 시대에서 ‘손과 눈’을 연결하는 표준 규격(USB-C 허브)으로</h3>
+  <p>일반 웹 채팅창의 AI는 방법을 글로 설명해 줄 뿐 내 컴퓨터의 Blender나 문서함을 직접 열지 못합니다. <strong>MCP(Model Context Protocol)</strong>는 Codex·Claude·Cursor·Antigravity 같은 AI 앱이 외부 프로그램·파일과 정해진 규칙으로 대화하고 도구를 실행하게 해 주는 <strong>공통 연결 규격(USB-C 어댑터와 같은 역할)</strong>입니다.</p>
+  {enabled&&<figure data-mcp-architecture-figure><img src={base+'/images/daejeon/lesson-08/mcp-architecture-overview.svg'} alt="MCP 호스트와 내장 클라이언트, 로컬 stdio 및 원격 HTTP 서버, Blender와 파일시스템 등 실무 도구 연결 구조와 Tools·Resources·Prompts 3요소 안내도" loading="lazy" width="1280" height="780" /><figcaption>MCP 전체 작동 구조도 · Host(작업창) ↔ Client(통역기) ↔ Server(로컬 stdio / 원격 HTTP 어댑터) ↔ 실무 도구와 3대 구성요소(Tools · Resources · Prompts)</figcaption></figure>}
+  <h3>1 · 4단계 연결 구조 한눈에 읽기 (Host ↔ Client ↔ Server ↔ 실무 툴)</h3>
+  <div class="mcp-table mcp-mobile-cards" data-mcp-role-table><table aria-label="MCP 4단계 연결 역할"><thead><tr><th scope="col">구간</th><th scope="col">실제 예시</th><th scope="col">하는 일</th></tr></thead><tbody>{mcpArchitectureRoles.map(row=><tr><th scope="row">{row.layer}</th><td data-label="실제 예시">{row.examples}</td><td data-label="하는 일">{row.role}</td></tr>)}</tbody></table></div>
   <ol class="mcp-flow"><li>Codex · 목표와 범위 입력</li><li>uvx · MCP 서버 실행</li><li>애드온 · localhost:9876</li><li>Blender · 객체 생성·조회</li></ol>
+  <h3>2 · MCP 서버가 AI에게 건네주는 3가지 능력 (Tools · Resources · Prompts)</h3>
+  <div class="mcp-three" data-mcp-primitives>{mcpThreePrimitives.map(item=><article><h4>{item.name}</h4><p><strong>{item.summary}</strong></p><p class="mcp-small">예시: {item.example}</p><p class="mcp-small">주의: {item.caution}</p></article>)}</div>
+  <h3>3 · 언제 Vibe Coding 프로그램을 쓰고, 언제 MCP를 연결할까?</h3>
+  <p>제2차시에서 만든 <strong>로컬 자동화 생성기(Vibe Coding)</strong>와 오늘 연결하는 <strong>MCP 실시간 제어</strong>는 경쟁 관계가 아니라 역할이 다릅니다. 정해진 서식·계산을 반복할 때는 실행 크레딧이 0원인 로컬 프로그램이 유리하고, 열려 있는 Blender 3D 씬을 보며 즉시 매스·창·카메라를 고칠 때는 MCP가 적합합니다.</p>
+  {enabled&&<figure data-mcp-bridge-figure><img src={base+'/images/daejeon/lesson-08/mcp-vs-vibecoding-bridge.svg'} alt="제2차시 바이브 코딩 로컬 자동화 생성기와 제8·9차시 MCP 실시간 외부 도구 제어의 크레딧 소모 및 활용 상황 비교 안내도" loading="lazy" width="1200" height="520" /><figcaption>업무 성격에 따른 선택 기준 · 정형 반복 서류는 로컬 자동화 도구(실행 크레딧 0원)로, 실시간 3D 모델링·검수는 MCP 연결로 분담합니다.</figcaption></figure>}
+  <h3>4 · 건축사사무소에서 바로 응용할 수 있는 MCP 생태계와 안전 수칙</h3>
+  <div class="mcp-table mcp-mobile-cards" data-mcp-office-catalog><table aria-label="건축 실무 MCP 활용 분야"><thead><tr><th scope="col">활용 분야</th><th scope="col">대표 MCP 서버 방식</th><th scope="col">실무 활용 예시</th><th scope="col">보안·안전 경계</th></tr></thead><tbody>{mcpOfficeCatalog.map(row=><tr><th scope="row">{row.category}</th><td data-label="대표 MCP 서버 방식">{row.server}</td><td data-label="실무 활용 예시">{row.use}</td><td data-label="보안·안전 경계">{row.safety}</td></tr>)}</tbody></table></div>
   <p>빈 실습 파일에서 시작하고 실제 연결·객체·치수를 다시 조회합니다. 연결 설정만 끝냈다고 모델링이 성공한 것은 아닙니다.</p>
  </>}
  {sectionId==='l08-blender-mcp-setup'&&<>
@@ -27,6 +37,8 @@ const block=(id:string)=>mcpBlocks.find(row=>row.id===id)!;
   <p>메모장으로 <code>C:\Users\&lt;사용자명&gt;\.codex\config.toml</code>을 열고 기존 설정을 보존한 채 아래 네 줄을 추가합니다. 같은 <code>[mcp_servers.blender]</code> 항목이 있으면 중복 추가하지 않습니다. 사용자명·uvx 경로는 Step 1의 실제 값으로 바꿉니다.</p>
   <ReviewPrompt {...block('l08-mcp-codex-config')} href={enabled?url('codex-config.example.toml'):undefined} />
   <p>TOML은 PowerShell 명령이 아닙니다. 저장한 뒤 <strong>Codex 앱을 완전히 종료하고 재실행</strong>합니다. Blender 도구가 나타나면 다음 섹션에서 실제 씬을 조회해 연결을 확인합니다.</p>
+  <h3>교실 현장 5대 연결 오류 빠른 점검표</h3>
+  <div class="mcp-table mcp-mobile-cards" data-mcp-troubleshooting><table aria-label="Blender MCP 자주 생기는 연결 오류 진단표"><thead><tr><th scope="col">증상</th><th scope="col">주요 원인</th><th scope="col">즉시 해결 방법</th></tr></thead><tbody>{mcpTroubleshootingRows.map(row=><tr><th scope="row">{row.symptom}</th><td data-label="주요 원인">{row.cause}</td><td data-label="즉시 해결 방법">{row.fix}</td></tr>)}</tbody></table></div>
  </>}
  {sectionId==='l08-blender-mcp-hello-world'&&<>
   <p>Blender에서 새 빈 실습 파일을 열고 <strong>아래 통합 요청 하나를 Codex 채팅창에 입력</strong>합니다. 연결 확인과 새 실습 씬의 기본 객체 정리, 단위 설정이 첫 단계에 포함되어 있습니다. 기존 프로젝트가 열려 있으면 삭제하지 않고 멈추도록 요청합니다.</p>
@@ -62,15 +74,15 @@ const block=(id:string)=>mcpBlocks.find(row=>row.id===id)!;
 <style>
  .mcp-origin{border:1px solid var(--line);border-left:3px solid var(--accent-dark);padding:1rem;margin:0 0 1.4rem;background:var(--surface)}.mcp-origin h3{margin-top:0}.mcp-choice-badge{display:inline-block;border:1px solid var(--accent-dark);padding:.45rem .65rem;font-weight:700}.mcp-small{font-size:.84rem;color:var(--muted)}.mcp-path{padding:.8rem;border:1px solid var(--line);background:var(--surface);overflow-wrap:anywhere}
  .l08-mcp-content{min-width:0;overflow-wrap:anywhere}
- .mcp-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1.2rem 0}.mcp-two article,.mcp-note{padding:1rem;border:1px solid var(--line);background:var(--surface);min-width:0}.mcp-note{border-left:3px solid var(--accent-dark);margin:1rem 0}
+ .mcp-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1.2rem 0}.mcp-three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:1.2rem 0}.mcp-two article,.mcp-three article,.mcp-note{padding:1rem;border:1px solid var(--line);background:var(--surface);min-width:0}.mcp-note{border-left:3px solid var(--accent-dark);margin:1rem 0}
  .mcp-flow{display:flex;flex-wrap:wrap;list-style:none;padding:0;gap:.7rem;margin:1.2rem 0}.mcp-flow li{flex:1 1 10rem;min-width:0;border:1px solid var(--line);padding:.8rem;background:var(--surface)}.mcp-flow li:not(:last-child)::after{content:' →';color:var(--accent-dark)}.mcp-flow p{font-size:.85rem}
  .mcp-table{max-width:100%;margin:1.2rem 0}.mcp-table table{width:100%;table-layout:fixed}.mcp-table th,.mcp-table td{padding:.65rem;overflow-wrap:anywhere}
  .mcp-downloads{display:flex;flex-wrap:wrap;gap:.7rem;margin:1rem 0}.mcp-downloads a{min-width:0;max-width:100%}
  figure{margin:1.2rem 0}figure img{display:block;max-width:100%;height:auto;border:1px solid var(--line)}figcaption{font-size:.82rem;color:var(--muted);margin-top:.5rem}
  h3{font-size:1.14rem;margin-top:1.8rem}h4{font-size:1rem;margin-top:.2rem}li+li{margin-top:.45rem}code{overflow-wrap:anywhere}
- @media(max-width:700px){.mcp-two{grid-template-columns:minmax(0,1fr)}.mcp-table td,.mcp-table th{font-size:.78rem;padding:.4rem}.mcp-flow li{flex-basis:100%}}
+ @media(max-width:700px){.mcp-two,.mcp-three{grid-template-columns:minmax(0,1fr)}.mcp-table td,.mcp-table th{font-size:.78rem;padding:.4rem}.mcp-flow li{flex-basis:100%}}
  @media(max-width:700px){.mcp-mobile-cards table,.mcp-mobile-cards tbody,.mcp-mobile-cards tr,.mcp-mobile-cards th,.mcp-mobile-cards td{display:block;box-sizing:border-box;width:100%}.mcp-mobile-cards thead{display:none}.mcp-mobile-cards tr{border:1px solid var(--line);margin:.8rem 0;padding:.5rem}.mcp-mobile-cards th,.mcp-mobile-cards td{font-size:.9rem;padding:.6rem;border:0}.mcp-mobile-cards td::before{content:attr(data-label);display:block;font-weight:700;color:var(--accent-dark);margin-bottom:.3rem}}
- @media print{.mcp-note,.mcp-two article,figure{break-inside:avoid}}
+ @media print{.mcp-note,.mcp-two article,.mcp-three article,figure{break-inside:avoid}}
  .mcp-json-client{border:1px solid var(--line);padding:1rem;margin:1.4rem 0;min-width:0}.mcp-client-steps{list-style:none;padding:0}.mcp-client-steps li+li{margin-top:1rem}.mcp-client-steps p{margin:.35rem 0 0}
  .mcp-shortcuts{margin:1.8rem 0}.mcp-shortcut-group{margin:1.4rem 0}.mcp-shortcut-group h4{margin-bottom:.5rem}.mcp-shortcuts kbd{font:inherit;font-weight:600;white-space:normal;overflow-wrap:anywhere}.mcp-shortcut-group th:first-child{width:24%}.mcp-shortcut-group th:nth-child(2){width:27%}
  @media(max-width:700px){.mcp-shortcut-group th:first-child,.mcp-shortcut-group th:nth-child(2){width:100%}}

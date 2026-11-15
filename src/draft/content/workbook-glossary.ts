@@ -46,7 +46,7 @@ export const workbookGlossary:readonly WorkbookGlossaryTerm[] = [
     "korean": "프롬프트·요청문",
     "english": "Prompt",
     "definition": "AI에게 할 일·입력 자료·조건·원하는 결과를 전달하는 입력입니다.",
-    "context": "의뢰 조건을 이미지 편집 요청이나 파일정리 프로그램 제작 요청으로 바꿉니다.",
+    "context": "의뢰 조건을 이미지 편집 요청이나 착수계·행정서류 자동 생성기 제작 요청으로 바꿉니다.",
     "why": "문장이 길기보다 유지·변경·금지와 출력이 명확해야 작업을 비교할 수 있습니다.",
     "lessons": [
       {
@@ -57,7 +57,7 @@ export const workbookGlossary:readonly WorkbookGlossaryTerm[] = [
       {
         "lessonId": "02",
         "sectionId": "l02-first-request",
-        "label": "제2차시 §08 · Step 1 · 기본 폴더 구조와 감시 뼈대 만들기"
+        "label": "제2차시 §08 · Step 1 · 기본 폴더 구조와 금액·기간 계산기 만들기"
       }
     ],
     "sources": [
@@ -878,18 +878,18 @@ export const workbookGlossary:readonly WorkbookGlossaryTerm[] = [
     "korean": "바이브 코딩",
     "english": "Vibe Coding",
     "definition": "이 교재에서는 자연어로 원하는 동작을 설명하고 AI와 구현·실행·수정을 반복하는 제작 방식을 뜻합니다.",
-    "context": "파일정리 프로그램을 감시 뼈대부터 분류·보호·화면까지 단계적으로 만듭니다.",
+    "context": "착수계·행정서류 4종 자동 생성기를 금액·일수 계산기부터 검수 대기·버전 보호·화면까지 단계적으로 만듭니다.",
     "why": "코드를 읽지 않고 결과를 믿는 태도와 구분하고 사람이 범위·규칙·실행 결과를 확인하기 위해서입니다.",
     "lessons": [
       {
         "lessonId": "02",
         "sectionId": "l02-vibe-coding",
-        "label": "제2차시 §03 · Vibe Coding이란?"
+        "label": "제2차시 §03 · Vibe Coding과 크레딧 절약 원칙 · MCP와의 차이"
       },
       {
         "lessonId": "02",
         "sectionId": "l02-first-request",
-        "label": "제2차시 §08 · Step 1 · 기본 폴더 구조와 감시 뼈대 만들기"
+        "label": "제2차시 §08 · Step 1 · 기본 폴더 구조와 금액·기간 계산기 만들기"
       }
     ],
     "sources": [
@@ -905,10 +905,15 @@ export const workbookGlossary:readonly WorkbookGlossaryTerm[] = [
     "category": "automation",
     "korean": "모델 컨텍스트 프로토콜",
     "english": "Model Context Protocol",
-    "definition": "AI 애플리케이션이 외부 도구·자료와 정해진 방식으로 연결되도록 하는 공개 프로토콜입니다.",
-    "context": "Codex 등 클라이언트와 Blender 도구 서버를 연결해 씬을 조회하고 모델링합니다.",
-    "why": "채팅으로 방법을 설명한 것과 실제 연결 도구를 호출해 씬을 바꾼 것을 구분합니다.",
+    "definition": "AI 호스트(Codex·Claude·Cursor·Antigravity)가 MCP 클라이언트를 통해 로컬(stdio)·원격(HTTP) MCP 서버의 도구(Tools)·자료(Resources)·프롬프트(Prompts)에 표준 규격으로 연결하는 공개 프로토콜입니다.",
+    "context": "제2차시 로컬 문서 생성기와 비교하고, 제8·9차시에서 Codex와 Blender MCP 서버를 연결해 3D 씬·카메라를 조회·조작합니다.",
+    "why": "채팅으로 방법을 설명한 것과 실제 연결된 도구(Tools)를 호출해 작업 상태를 조회·변경한 것을 구분하기 위해서입니다.",
     "lessons": [
+      {
+        "lessonId": "02",
+        "sectionId": "l02-vibe-coding",
+        "label": "제2차시 §03 · Vibe Coding과 크레딧 절약 원칙 · MCP와의 차이"
+      },
       {
         "lessonId": "08",
         "sectionId": "l08-mcp-concept-ecosystem",
@@ -974,7 +979,7 @@ export const workbookGlossary:readonly WorkbookGlossaryTerm[] = [
       {
         "lessonId": "02",
         "sectionId": "l02-implementation-spec",
-        "label": "제2차시 §10 · Step 3 · 원본 보호와 중복·덮어쓰기 방지"
+        "label": "제2차시 §10 · Step 3 · 서류 4종 조립과 원본·버전(_v02) 보호"
       },
       {
         "lessonId": "13",
@@ -1008,7 +1013,7 @@ export const workbookGlossary:readonly WorkbookGlossaryTerm[] = [
       {
         "lessonId": "02",
         "sectionId": "l02-run",
-        "label": "제2차시 §12 · 완성 프로그램 실행·기능 확인"
+        "label": "제2차시 §12 · 완성 프로그램 실행·DOC_TEST 기능 확인"
       },
       {
         "lessonId": "13",
@@ -1059,7 +1064,7 @@ export const workbookGlossary:readonly WorkbookGlossaryTerm[] = [
     "korean": "JSON 구조화 데이터",
     "english": "JavaScript Object Notation",
     "definition": "이름과 값·목록의 구조로 정보를 저장하고 전달하는 텍스트 형식입니다.",
-    "context": "파일정리 규칙·ComfyUI 워크플로우·MCP 설정에 쓰이는 값과 계층을 읽습니다.",
+    "context": "착수계 검증 규칙·시나리오 데이터·ComfyUI 워크플로우·MCP 설정에 쓰이는 값과 계층을 읽습니다.",
     "why": "문서 내용과 설정 문법을 구분하고 쉼표·따옴표·경로 오류를 찾기 위해서입니다.",
     "lessons": [
       {
@@ -1153,7 +1158,7 @@ export const workbookGlossary:readonly WorkbookGlossaryTerm[] = [
     "korean": "프로그램의 큰 구조",
     "english": "Software Architecture",
     "definition": "기능의 역할과 서로 연결되는 관계를 정한 프로그램의 큰 구성입니다.",
-    "context": "파일 감시·분류·원본보관·사용자 화면을 어떤 순서와 책임으로 연결할지 나눕니다.",
+    "context": "계약 입력·금액/일수 계산·누락 검증·4종 서식 조립·버전 저장을 어떤 순서와 책임으로 연결할지 나눕니다.",
     "why": "한 코드 파일에 모든 일을 몰아넣기보다 고칠 위치와 실패 책임을 찾기 위해서입니다.",
     "lessons": [
       {
@@ -1203,13 +1208,13 @@ export const workbookGlossary:readonly WorkbookGlossaryTerm[] = [
     "korean": "로컬호스트",
     "english": "Localhost",
     "definition": "현재 사용 중인 자기 컴퓨터를 가리키는 네트워크 이름입니다.",
-    "context": "파일정리 화면의 127.0.0.1:4174와 Blender MCP의 로컬 연결을 구분합니다.",
+    "context": "착수계 생성기 화면의 127.0.0.1:4175와 Blender MCP의 로컬 소켓 연결을 구분합니다.",
     "why": "이 주소를 공유해도 다른 사람 컴퓨터에서 내 프로그램이 그대로 열리는 것은 아니기 때문입니다.",
     "lessons": [
       {
         "lessonId": "02",
         "sectionId": "l02-implement",
-        "label": "제2차시 §11 · Step 4 · 화면·외부 가져오기와 최종 통합 예시문"
+        "label": "제2차시 §11 · Step 4 · 화면·외부 JSON 가져오기와 최종 통합 예시문"
       },
       {
         "lessonId": "08",
@@ -1556,7 +1561,8 @@ export const sectionTermNotes:Readonly<Record<string,string[]>> = {
   ],
   "02:l02-vibe-coding": [
     "term-vibe-coding",
-    "term-agent"
+    "term-agent",
+    "term-mcp"
   ],
   "02:l02-architecture": [
     "term-architecture"

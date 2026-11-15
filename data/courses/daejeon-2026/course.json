@@ -6,7 +6,7 @@
     "end": null
   },
   "access": {
-    "passwordConfig": "src/config/daejeon-access.json",
+    "passwordConfig": null,
     "legacyGwangjuCompatibility": false
   },
   "noindex": true,

@@ -1,46 +1,91 @@
 ---
-import {lesson02Images} from '../../../scripts/daejeon-lesson02-assets.mjs';
-import {materialPracticeAssets} from '../content/daejeon-lesson02';
-interface Props {imageKey:'lighting'|'flow'|'rules'|'base'|'material'|'lighting-reference';instance?:string;}
-const {imageKey,instance='roles'} = Astro.props;
-const image = lesson02Images.find((item)=>item.key===imageKey);
-if (!image) throw new Error(`Unknown Lesson02 infographic: ${imageKey}`);
-const practice = materialPracticeAssets.find((item)=>item.key===imageKey);
-const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
-const base=import.meta.env.BASE_URL.replace(/\/$/,'');
-const href=`${base}/${image.outputPath}`;
-const dialogId=`l02-image-${instance}-${imageKey}`;
-const alt = practice?.alt || (imageKey==='lighting' ? '같은 공간의 3000K, 4000K, 6000K 조명 분위기를 나란히 비교한 교육용 도표' : imageKey==='flow' ? '수집함 파일 감지, 복사 완료, 확장자·파일명 판정, 자동분류 또는 분류확인, 기록으로 이어지는 판단 흐름' : '대표 폴더 구조, 확장자 분류 표와 애매한 파일·동명 파일·오류에 대한 처리 예시');
+import { lesson02Images } from '../../../scripts/daejeon-lesson02-assets.mjs';
+import { commencementFiles } from '../../../scripts/daejeon-commencement-assets.mjs';
+import { materialPracticeAssets } from '../content/daejeon-lesson02';
+
+interface Props {
+  imageKey: 'lighting' | 'flow' | 'rules' | 'base' | 'material' | 'lighting-reference';
+  instance?: string;
+}
+
+const { imageKey, instance = 'roles' } = Astro.props;
+
+const commencementSvgMap = {
+  flow: {
+    file: commencementFiles.flowSvg.file,
+    outputPath: commencementFiles.flowSvg.outputPath,
+    width: 1200,
+    height: 480,
+    title: '착수계·행정서류 4종 자동 생성기 아키텍처 흐름도',
+    purpose: '1회 입력 → 금액·일수 자동 계산 → 누락·모순 검수 분기 → 4종 서식 동시 조립·_v02 보존 흐름',
+    downloadLabel: '원본 SVG 다운로드',
+    captionNote: '실행 중 외부 AI API를 호출하지 않으며, 입력 검증을 통과한 항목과 사람이 직접 확인해야 할 항목을 분리해 처리합니다.',
+  },
+  rules: {
+    file: commencementFiles.rulesSvg.file,
+    outputPath: commencementFiles.rulesSvg.outputPath,
+    width: 1200,
+    height: 440,
+    title: '자동 계산·동기화 vs 사람 확인(검수 대기) 경계 도해',
+    purpose: '로컬 규칙 엔진이 100% 자동 계산하는 영역과 임의 생성 없이 사람에게 돌려주는 5가지 검수 대기 조건',
+    downloadLabel: '원본 SVG 다운로드',
+    captionNote: '자격번호·개설신고번호·변경 사유 빈칸이나 날짜 역전은 절대 추측해 채우지 않고 검수 대기 배너를 표시합니다.',
+  },
+} as const;
+
+const customDiagram = imageKey === 'flow' || imageKey === 'rules' ? commencementSvgMap[imageKey] : undefined;
+const legacyImage = customDiagram ? undefined : lesson02Images.find((item) => item.key === imageKey);
+if (!customDiagram && !legacyImage) throw new Error(`Unknown Lesson02 infographic: ${imageKey}`);
+
+const practice = materialPracticeAssets.find((item) => item.key === imageKey);
+const enabled = import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS === 'true';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const targetOutputPath = customDiagram ? customDiagram.outputPath : legacyImage!.outputPath;
+const targetFile = customDiagram ? customDiagram.file : legacyImage!.file;
+const targetWidth = customDiagram ? customDiagram.width : legacyImage!.width;
+const targetHeight = customDiagram ? customDiagram.height : legacyImage!.height;
+const targetTitle = customDiagram ? customDiagram.title : practice?.title || legacyImage!.title;
+const targetPurpose = customDiagram ? customDiagram.purpose : practice?.purpose || legacyImage!.purpose;
+const downloadLabel = customDiagram ? customDiagram.downloadLabel : '원본 PNG 다운로드';
+const href = `${base}/${targetOutputPath}`;
+const dialogId = `l02-image-${instance}-${imageKey}`;
+
+const alt =
+  practice?.alt ||
+  (imageKey === 'lighting'
+    ? '같은 공간의 3000K, 4000K, 6000K 조명 분위기를 나란히 비교한 교육용 도표'
+    : imageKey === 'flow'
+      ? '계약 조건 1회 입력에서 한글 금액·과업일수 계산, 누락·날짜역전 검수 판정, 4종 서식 동시 조립과 버전 보존 출력으로 이어지는 아키텍처 흐름도'
+      : '한글 법정 금액과 부가세·과업일수 자동 계산 영역과 사람 확인 검수 대기 5가지 조건을 나란히 비교한 규칙 도해');
 ---
 <figure class="l02-infographic" data-l02-image={imageKey} data-l02-practice={practice ? imageKey : undefined} id={practice ? `l02-asset-${instance}-${imageKey}` : undefined}>
   {enabled ? <>
-    <img src={href} alt={alt} width={image.width} height={image.height} loading="lazy" />
-    <div class="l02-image-actions"><button type="button" data-l02-open={dialogId} aria-haspopup="dialog">확대 보기</button><a href={href} download={image.file}>원본 PNG 다운로드</a></div>
+    <img src={href} alt={alt} width={targetWidth} height={targetHeight} loading="lazy" />
+    <div class="l02-image-actions"><button type="button" data-l02-open={dialogId} aria-haspopup="dialog">확대 보기</button><a href={href} download={targetFile}>{downloadLabel}</a></div>
     <dialog id={dialogId} class="l02-image-dialog" aria-labelledby={`${dialogId}-title`}>
-      <div class="l02-dialog-head"><h3 id={`${dialogId}-title`}>{practice?.title || image.title}</h3><button type="button" data-l02-size>원본 크기로 보기</button><button type="button" data-l02-close>닫기</button></div>
-      <div class="l02-dialog-image"><img src={href} alt={alt} width={image.width} height={image.height} /></div>
-      <p>원본 크기에서는 가로·세로로 이동해 {practice ? '공간·재질·조명 인상을' : '작은 글씨를'} 확인할 수 있습니다. Esc 키로 닫습니다.</p>
+      <div class="l02-dialog-head"><h3 id={`${dialogId}-title`}>{targetTitle}</h3><button type="button" data-l02-size>원본 크기로 보기</button><button type="button" data-l02-close>닫기</button></div>
+      <div class="l02-dialog-image"><img src={href} alt={alt} width={targetWidth} height={targetHeight} /></div>
+      <p>원본 크기에서는 가로·세로로 이동해 {practice ? '공간·재질·조명 인상을' : '세부 항목을'} 확인할 수 있습니다. Esc 키로 닫습니다.</p>
     </dialog>
-  </> : <div class="l02-asset-pending">이 설명자료의 확대 보기·원본 PNG 다운로드는 로컬 검수용 preview에서 제공합니다.</div>}
-  <figcaption><strong>{practice?.purpose || image.purpose}</strong>
+  </> : <div class="l02-asset-pending">이 설명자료의 확대 보기·원본 다운로드는 로컬 검수용 preview에서 제공합니다.</div>}
+  <figcaption><strong>{targetPurpose}</strong>
     {practice && <p>{practice.description}</p>}
-    {imageKey==='lighting' && <p>이미지 생성에 직접 넣는 Reference가 아닙니다. 공간별 추천은 교육용 예시이며 법적·설계 표준이나 절대 권장값이 아닙니다.</p>}
-    {imageKey==='rules' && <p>이미지는 대표 예시입니다. 전체 지원 확장자와 판단 규칙은 본문 텍스트 표가 기준입니다. 이미지의 .xyz 예시와 달리 이번 기본 사양은 .xyz를 99_분류확인으로 보냅니다. PDF도 확장자만으로 문서로 확정하지 않습니다.</p>}
-    {imageKey==='flow' && <p>처리 전 원본보관, 복사 완료 확인과 분류확인 절차까지 본문 요구조건으로 대조합니다.</p>}
+    {imageKey === 'lighting' && <p>이미지 생성에 직접 넣는 Reference가 아닙니다. 공간별 추천은 교육용 예시이며 법적·설계 표준이나 절대 권장값이 아닙니다.</p>}
+    {customDiagram && <p>{customDiagram.captionNote}</p>}
   </figcaption>
 </figure>
 <script>
-  document.querySelectorAll<HTMLButtonElement>('[data-l02-open]').forEach((opener)=>{
-    const dialog=document.getElementById(opener.dataset.l02Open||'') as HTMLDialogElement|null;
-    if(!dialog) return;
-    opener.addEventListener('click',()=>dialog.showModal());
-    dialog.querySelector<HTMLButtonElement>('[data-l02-close]')?.addEventListener('click',()=>dialog.close());
-    dialog.addEventListener('close',()=>opener.focus());
-    const size=dialog.querySelector<HTMLButtonElement>('[data-l02-size]');
-    size?.addEventListener('click',()=>{
-      const original=dialog.classList.toggle('l02-image-dialog--original');
-      size.textContent=original?'화면에 맞춰 보기':'원본 크기로 보기';
-      size.setAttribute('aria-pressed',String(original));
+  document.querySelectorAll<HTMLButtonElement>('[data-l02-open]').forEach((opener) => {
+    const dialog = document.getElementById(opener.dataset.l02Open || '') as HTMLDialogElement | null;
+    if (!dialog) return;
+    opener.addEventListener('click', () => dialog.showModal());
+    dialog.querySelector<HTMLButtonElement>('[data-l02-close]')?.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('close', () => opener.focus());
+    const size = dialog.querySelector<HTMLButtonElement>('[data-l02-size]');
+    size?.addEventListener('click', () => {
+      const original = dialog.classList.toggle('l02-image-dialog--original');
+      size.textContent = original ? '화면에 맞춰 보기' : '원본 크기로 보기';
+      size.setAttribute('aria-pressed', String(original));
     });
   });
 </script>

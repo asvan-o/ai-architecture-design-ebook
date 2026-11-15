@@ -1,8 +1,10 @@
 ---
 import config from '../../config/daejeon-pdf-access.json';
 import {activeCourse} from '../../lib/courses';
+const pdfProtectionEnabled=(config as {enabled?:boolean}).enabled!==false&&Boolean(config.passwordHash);
 const sessionKey=`${config.sessionStorageKey}:course:${activeCourse.courseId}`;
 ---
+{pdfProtectionEnabled&&(<>
 <div class="dj-material-protection" data-ebook-protected>
  <dialog class="dj-pdf-dialog" id="daejeon-pdf-password-dialog" data-dj-pdf-dialog data-password-hash={config.passwordHash} data-session-key={sessionKey} aria-labelledby="dj-pdf-title">
   <div class="dj-pdf-heading"><h2 id="dj-pdf-title">교보재 PDF 다운로드</h2><button type="button" data-dj-pdf-close aria-label="PDF 다운로드 창 닫기">닫기</button></div>
@@ -67,3 +69,4 @@ const sessionKey=`${config.sessionStorageKey}:course:${activeCourse.courseId}`;
  .dj-pdf-dialog .dj-pdf-error{margin:0;font-size:.85rem;color:var(--accent-dark,#964d38)}
  @media(max-width:600px){.dj-pdf-dialog{padding:1.2rem}.dj-pdf-dialog .dj-pdf-heading h2{font-size:1.1rem}}
 </style>
+</>)}

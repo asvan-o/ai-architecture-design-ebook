@@ -1,0 +1,207 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="780" viewBox="0 0 1280 780" role="img" aria-labelledby="mcp-arch-title mcp-arch-desc">
+  <title id="mcp-arch-title">MCP(Model Context Protocol) 전체 아키텍처와 3대 작동 원리</title>
+  <desc id="mcp-arch-desc">AI 호스트(Codex, Claude, Cursor, Antigravity)가 내장 MCP 클라이언트와 로컬·원격 MCP 서버를 거쳐 Blender, 로컬 폴더, 웹 브라우저, 사내 문서 도구를 제어하는 구조와 Tools, Resources, Prompts 3요소 안내도</desc>
+  <defs>
+    <marker id="arr-navy" markerWidth="9" markerHeight="9" refX="7.5" refY="4.5" orient="auto">
+      <path d="M0 0.5 L8.5 4.5 L0 8.5 Z" fill="#1e3a8a"/>
+    </marker>
+    <marker id="arr-teal" markerWidth="9" markerHeight="9" refX="7.5" refY="4.5" orient="auto">
+      <path d="M0 0.5 L8.5 4.5 L0 8.5 Z" fill="#0f766e"/>
+    </marker>
+    <marker id="arr-slate" markerWidth="9" markerHeight="9" refX="1.5" refY="4.5" orient="auto">
+      <path d="M8.5 0.5 L0 4.5 L8.5 8.5 Z" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="780" fill="#f8fafc"/>
+  <rect x="16" y="16" width="1248" height="748" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+
+  <!-- Top Header Banner -->
+  <rect x="16" y="16" width="1248" height="76" rx="14" fill="#eff6ff"/>
+  <rect x="16" y="76" width="1248" height="16" fill="#eff6ff"/>
+  <line x1="16" y1="92" x2="1264" y2="92" stroke="#bfdbfe" stroke-width="1.5"/>
+  <g font-family="'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif">
+    <text x="42" y="50" font-size="23" font-weight="800" fill="#0f172a">한눈에 보는 MCP(Model Context Protocol) 연결 구조와 작동 원리</text>
+    <text x="42" y="76" font-size="14.5" font-weight="600" fill="#334155">비유로 이해하기: AI 비서(Host)가 ‘표준 멀티탭 규격(MCP)’을 통해 외부 전문 장비(Blender · 폴더 · 문서 · 브라우저)를 직접 읽고 조작합니다.</text>
+    <rect x="1044" y="34" width="194" height="36" rx="18" fill="#1e3a8a"/>
+    <text x="1141" y="57" text-anchor="middle" font-size="13.5" font-weight="700" fill="#ffffff">사람이 목표·권한 최종 통제</text>
+
+    <!-- ================= ROW 1: 4-STAGE ARCHITECTURE PIPELINE ================= -->
+    <text x="42" y="124" font-size="15" font-weight="800" fill="#1e3a8a">1 · 역할별 연결 흐름 (자연어 지시 → 표준 프로토콜 통신 → 실무 도구 실행)</text>
+
+    <!-- Stage 1: HOST -->
+    <g transform="translate(40, 140)">
+      <rect width="256" height="292" rx="12" fill="#f8fafc" stroke="#1e3a8a" stroke-width="2"/>
+      <rect width="256" height="44" rx="11" fill="#1e3a8a"/>
+      <rect y="30" width="256" height="14" fill="#1e3a8a"/>
+      <text x="16" y="28" font-size="16" font-weight="800" fill="#ffffff">① MCP Host · AI 작업창</text>
+      <text x="16" y="68" font-size="13.5" font-weight="700" fill="#1e3a8a">설계자(사람)가 대화하는 AI 앱</text>
+      <text x="16" y="90" font-size="12.5" fill="#475569">자연어 요청을 해석하고 어떤 도구가</text>
+      <text x="16" y="108" font-size="12.5" fill="#475569">필요한지 판단해 실행 순서를 세웁니다.</text>
+
+      <!-- Host chips -->
+      <rect x="16" y="124" width="224" height="32" rx="6" fill="#eff6ff" stroke="#93c5fd"/>
+      <text x="28" y="145" font-size="13" font-weight="700" fill="#1e3a8a">ChatGPT Desktop · Codex</text>
+      <rect x="16" y="162" width="108" height="30" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="70" y="182" text-anchor="middle" font-size="12.5" font-weight="700" fill="#334155">Claude Desktop</text>
+      <rect x="132" y="162" width="108" height="30" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="186" y="182" text-anchor="middle" font-size="12.5" font-weight="700" fill="#334155">Cursor IDE</text>
+      <rect x="16" y="198" width="224" height="30" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="128" y="218" text-anchor="middle" font-size="12.5" font-weight="700" fill="#334155">Google Antigravity 등 에이전트</text>
+
+      <rect x="16" y="240" width="224" height="38" rx="6" fill="#fef3c7" stroke="#f59e0b"/>
+      <text x="26" y="257" font-size="12" font-weight="700" fill="#92400e">사람의 역할: 목표·치수·허용 범위 지정</text>
+      <text x="26" y="272" font-size="11.5" fill="#92400e">위험 작업(삭제·외부 전송) 승인 여부 결정</text>
+    </g>
+
+    <!-- Connector 1 <-> 2 -->
+    <g>
+      <line x1="302" y1="268" x2="342" y2="268" stroke="#1e3a8a" stroke-width="2.5" marker-end="url(#arr-navy)"/>
+      <line x1="342" y1="294" x2="302" y2="294" stroke="#475569" stroke-width="2" stroke-dasharray="4 3"/>
+      <text x="322" y="256" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1e3a8a">요청</text>
+      <text x="322" y="312" text-anchor="middle" font-size="11.5" fill="#475569">결과</text>
+    </g>
+
+    <!-- Stage 2: MCP CLIENT -->
+    <g transform="translate(350, 140)">
+      <rect width="236" height="292" rx="12" fill="#f8fafc" stroke="#2563eb" stroke-width="2"/>
+      <rect width="236" height="44" rx="11" fill="#2563eb"/>
+      <rect y="30" width="236" height="14" fill="#2563eb"/>
+      <text x="16" y="28" font-size="16" font-weight="800" fill="#ffffff">② MCP Client · 내장 연결기</text>
+      <text x="16" y="68" font-size="13.5" font-weight="700" fill="#1d4ed8">AI 앱 내부의 ‘표준 통역·배선반’</text>
+      <text x="16" y="90" font-size="12.5" fill="#475569">별도로 설치하는 창이 아니라 Host 앱</text>
+      <text x="16" y="108" font-size="12.5" fill="#475569">안에서 설정 파일을 읽어 작동합니다.</text>
+
+      <rect x="16" y="124" width="204" height="50" rx="6" fill="#ffffff" stroke="#bfdbfe"/>
+      <text x="26" y="144" font-size="12.5" font-weight="700" fill="#1e3a8a">설정 파일 (예: config.toml)</text>
+      <text x="26" y="163" font-size="11.5" fill="#475569">어떤 MCP 서버를 켤지 주소·명령 등록</text>
+
+      <rect x="16" y="182" width="204" height="48" rx="6" fill="#ffffff" stroke="#bfdbfe"/>
+      <text x="26" y="202" font-size="12.5" font-weight="700" fill="#1e3a8a">도구 목록 조회 &amp; JSON-RPC 변환</text>
+      <text x="26" y="220" font-size="11.5" fill="#475569">AI의 판단을 정해진 규격 호출로 전달</text>
+
+      <rect x="16" y="238" width="204" height="40" rx="6" fill="#eff6ff" stroke="#93c5fd"/>
+      <text x="26" y="256" font-size="12" font-weight="700" fill="#1e40af">서버별 1:1 격리 연결 &amp; 권한 확인</text>
+      <text x="26" y="271" font-size="11.5" fill="#334155">허용된 서버·폴더만 연결 유지</text>
+    </g>
+
+    <!-- Connector 2 <-> 3 -->
+    <g>
+      <line x1="592" y1="248" x2="646" y2="248" stroke="#0f766e" stroke-width="2.5" marker-end="url(#arr-teal)"/>
+      <line x1="646" y1="308" x2="592" y2="308" stroke="#475569" stroke-width="2" stroke-dasharray="4 3"/>
+      <rect x="593" y="214" width="52" height="22" rx="4" fill="#ccfbf1"/>
+      <text x="619" y="229" text-anchor="middle" font-size="11" font-weight="700" fill="#0f766e">표준 규격</text>
+      <text x="619" y="272" text-anchor="middle" font-size="11" font-weight="700" fill="#0f766e">stdio</text>
+      <text x="619" y="287" text-anchor="middle" font-size="10.5" fill="#475569">또는 HTTP</text>
+      <text x="619" y="326" text-anchor="middle" font-size="11" fill="#475569">응답 반환</text>
+    </g>
+
+    <!-- Stage 3: MCP SERVER -->
+    <g transform="translate(654, 140)">
+      <rect width="272" height="292" rx="12" fill="#f8fafc" stroke="#0f766e" stroke-width="2"/>
+      <rect width="272" height="44" rx="11" fill="#0f766e"/>
+      <rect y="30" width="272" height="14" fill="#0f766e"/>
+      <text x="16" y="28" font-size="16" font-weight="800" fill="#ffffff">③ MCP Server · 도구 어댑터</text>
+      <text x="16" y="68" font-size="13" font-weight="700" fill="#0f766e">각 프로그램 전용 ‘중간 제어 드라이버’</text>
+      <text x="16" y="89" font-size="11.5" fill="#475569">실행 위치에 따라 두 방식으로 연결됩니다.</text>
+
+      <!-- Local stdio box -->
+      <rect x="14" y="104" width="244" height="86" rx="8" fill="#f0fdfa" stroke="#5eead4" stroke-width="1.5"/>
+      <text x="23" y="125" font-size="12" font-weight="800" fill="#115e59">A. 로컬 서버 (stdio · 내 PC 안에서 실행)</text>
+      <text x="23" y="145" font-size="11.5" fill="#334155">· uvx / npx / python으로 내 PC에서 구동</text>
+      <text x="23" y="163" font-size="11.5" fill="#334155">· 예: blender-mcp (uvx → localhost:9876)</text>
+      <text x="23" y="181" font-size="11" font-weight="700" fill="#0f766e">→ 로컬 파일·3D 씬 직접 제어에 적합</text>
+
+      <!-- Remote HTTP box -->
+      <rect x="14" y="198" width="244" height="80" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+      <text x="23" y="219" font-size="12" font-weight="800" fill="#334155">B. 원격 서버 (Streamable HTTP / SSE)</text>
+      <text x="23" y="238" font-size="11.5" fill="#475569">· 클라우드·사내 서버 URL과 인증 연결</text>
+      <text x="23" y="256" font-size="11.5" fill="#475569">· 예: Notion, Google Drive, 사내 지식 DB</text>
+      <text x="23" y="272" font-size="11" font-weight="700" fill="#475569">→ 협업 문서·외부 서비스 연동에 적합</text>
+    </g>
+
+    <!-- Connector 3 <-> 4 -->
+    <g>
+      <line x1="932" y1="268" x2="972" y2="268" stroke="#0f766e" stroke-width="2.5" marker-end="url(#arr-teal)"/>
+      <line x1="972" y1="294" x2="932" y2="294" stroke="#475569" stroke-width="2" stroke-dasharray="4 3"/>
+      <text x="952" y="256" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0f766e">제어</text>
+      <text x="952" y="312" text-anchor="middle" font-size="11.5" fill="#475569">상태</text>
+    </g>
+
+    <!-- Stage 4: REAL-WORLD TOOLS -->
+    <g transform="translate(980, 140)">
+      <rect width="260" height="292" rx="12" fill="#f8fafc" stroke="#334155" stroke-width="2"/>
+      <rect width="260" height="44" rx="11" fill="#334155"/>
+      <rect y="30" width="260" height="14" fill="#334155"/>
+      <text x="16" y="28" font-size="16" font-weight="800" fill="#ffffff">④ 실무 프로그램 · 데이터</text>
+      <text x="16" y="68" font-size="13.5" font-weight="700" fill="#0f172a">실제 작업이 일어나는 현장 도구</text>
+
+      <rect x="16" y="84" width="228" height="44" rx="6" fill="#ecfdf5" stroke="#6ee7b7"/>
+      <text x="26" y="103" font-size="13" font-weight="800" fill="#065f46">Blender 3D (제8·9차시 실습)</text>
+      <text x="26" y="120" font-size="11.5" fill="#047857">씬 조회 · 슬래브/벽/개구부/카메라 생성</text>
+
+      <rect x="16" y="135" width="228" height="44" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="26" y="154" font-size="13" font-weight="700" fill="#1e293b">파일시스템 (로컬 프로젝트 폴더)</text>
+      <text x="26" y="171" font-size="11.5" fill="#475569">지정 폴더의 시방서·회의록·기준표 읽기</text>
+
+      <rect x="16" y="186" width="228" height="44" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="26" y="205" font-size="13" font-weight="700" fill="#1e293b">웹 브라우저 · 공공 법령/고시 조회</text>
+      <text x="26" y="222" font-size="11.5" fill="#475569">최신 건축 조례·고시 원문 검색 및 캡처</text>
+
+      <rect x="16" y="237" width="228" height="44" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+      <text x="26" y="256" font-size="13" font-weight="700" fill="#1e293b">사내 문서 · Notion · Google Drive</text>
+      <text x="26" y="273" font-size="11.5" fill="#475569">공정 체크리스트·설계 변경 기록 연동</text>
+    </g>
+
+    <!-- ================= ROW 2: 3 CORE PRIMITIVES (TOOLS / RESOURCES / PROMPTS) ================= -->
+    <line x1="40" y1="454" x2="1240" y2="454" stroke="#e2e8f0" stroke-width="1.5"/>
+    <text x="42" y="482" font-size="15" font-weight="800" fill="#1e3a8a">2 · MCP 서버가 AI에게 제공하는 3대 핵심 요소 (Tools · Resources · Prompts)</text>
+
+    <!-- Card 1: TOOLS -->
+    <g transform="translate(40, 498)">
+      <rect width="384" height="198" rx="12" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+      <rect x="16" y="16" width="118" height="28" rx="14" fill="#1e3a8a"/>
+      <text x="75" y="35" text-anchor="middle" font-size="13" font-weight="800" fill="#ffffff">① Tools (도구)</text>
+      <text x="146" y="35" font-size="14" font-weight="800" fill="#1e3a8a">AI의 ‘손’ · 실제 동작 실행</text>
+      <text x="16" y="63" font-size="12" fill="#1e293b">프로그램 상태를 바꾸거나 생성·계산을 수행하는 실행 함수</text>
+      <rect x="16" y="77" width="352" height="74" rx="8" fill="#ffffff" stroke="#bfdbfe"/>
+      <text x="26" y="99" font-size="12" font-weight="700" fill="#1e3a8a">건축 실무 예시</text>
+      <text x="26" y="119" font-size="11.5" fill="#334155">· Blender에 6×4m 바닥판과 관통 창 객체 생성하기</text>
+      <text x="26" y="138" font-size="11.5" fill="#334155">· 카메라 위치 이동 및 뷰포트 확인 이미지 촬영</text>
+      <text x="16" y="175" font-size="11.3" font-weight="700" fill="#b45309">주의: 원본 변경이 일어나므로 빈 실습 파일·승인 범위에서만 실행</text>
+    </g>
+
+    <!-- Card 2: RESOURCES -->
+    <g transform="translate(448, 498)">
+      <rect width="384" height="198" rx="12" fill="#f0fdfa" stroke="#5eead4" stroke-width="1.5"/>
+      <rect x="16" y="16" width="142" height="28" rx="14" fill="#0f766e"/>
+      <text x="87" y="35" text-anchor="middle" font-size="13" font-weight="800" fill="#ffffff">② Resources (자원)</text>
+      <text x="170" y="35" font-size="14" font-weight="800" fill="#0f766e">AI의 ‘눈’ · 근거 자료 읽기</text>
+      <text x="16" y="63" font-size="12" fill="#1e293b">원본을 건드리지 않고 현재 상태·문서를 읽어 오는 조회 통로</text>
+      <rect x="16" y="77" width="352" height="74" rx="8" fill="#ffffff" stroke="#99f6e4"/>
+      <text x="26" y="99" font-size="12" font-weight="700" fill="#0f766e">건축 실무 예시</text>
+      <text x="26" y="119" font-size="11.5" fill="#334155">· 현재 Blender 씬의 객체 목록·단위(Metric 1.0)·치수 조회</text>
+      <text x="26" y="138" font-size="11.5" fill="#334155">· 사내 표준 시방서·실별 면적표·과업지시서 원문 참조</text>
+      <text x="16" y="175" font-size="11.3" font-weight="700" fill="#0f766e">핵심: 생성 전후에 조회로 실제 수치를 다시 확인(Verify)</text>
+    </g>
+
+    <!-- Card 3: PROMPTS -->
+    <g transform="translate(856, 498)">
+      <rect width="384" height="198" rx="12" fill="#fffbeb" stroke="#fcd34d" stroke-width="1.5"/>
+      <rect x="16" y="16" width="136" height="28" rx="14" fill="#b45309"/>
+      <text x="84" y="35" text-anchor="middle" font-size="13" font-weight="800" fill="#ffffff">③ Prompts (지침)</text>
+      <text x="164" y="35" font-size="14" font-weight="800" fill="#b45309">‘업무 매뉴얼’ · 정형 템플릿</text>
+      <text x="16" y="63" font-size="12" fill="#1e293b">자주 쓰는 점검 순서와 작업 규칙을 묶어 둔 표준 요청 양식</text>
+      <rect x="16" y="77" width="352" height="74" rx="8" fill="#ffffff" stroke="#fde68a"/>
+      <text x="26" y="99" font-size="12" font-weight="700" fill="#b45309">건축 실무 예시</text>
+      <text x="26" y="119" font-size="11.5" fill="#334155">· “기존 객체가 있으면 삭제 금지 후 먼저 보고” 안전 지침</text>
+      <text x="26" y="138" font-size="11.5" fill="#334155">· “바닥 → 벽 → 개구부 → 카메라 → 치수 검증” 표준 순서</text>
+      <text x="16" y="175" font-size="11.3" font-weight="700" fill="#92400e">효과: 질문 편차를 줄이고 팀의 표준 검수 절차를 재현</text>
+    </g>
+
+    <!-- Bottom Caption Strip -->
+    <rect x="40" y="712" width="1200" height="36" rx="8" fill="#f1f5f9"/>
+    <text x="60" y="735" font-size="13" font-weight="700" fill="#334155">실무 안전 루프:  [1. 조회(Inspect)] 현재 열린 파일·단위 확인  →  [2. 실행(Act)] 승인한 범위만 생성·수정  →  [3. 재검증(Verify)] 치수·결과를 다시 읽어 사람이 최종 저장</text>
+  </g>
+</svg>

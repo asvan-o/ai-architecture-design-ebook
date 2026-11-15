@@ -955,6 +955,22 @@
           "outputPath": "images/daejeon/lesson-08/mcp-room-flow.svg",
           "sha256": "0a673f5a621a4a122d19b9c303bee02b6ca263e474c213a384cdab3097ed3f40",
           "sizeBytes": 2675
+        },
+        {
+          "kind": "diagram",
+          "key": "mcp-13",
+          "title": "mcp-architecture-overview.svg",
+          "outputPath": "images/daejeon/lesson-08/mcp-architecture-overview.svg",
+          "sha256": "29f7ffc6d98b397725754a0ddda0a8d8d3f0032521123c013fe8fa7ac55b8cf7",
+          "sizeBytes": 16456
+        },
+        {
+          "kind": "diagram",
+          "key": "mcp-14",
+          "title": "mcp-vs-vibecoding-bridge.svg",
+          "outputPath": "images/daejeon/lesson-08/mcp-vs-vibecoding-bridge.svg",
+          "sha256": "ed005a228486ba4aaf4ec08629a4b2c93d1701fb17271803da27f38698916204",
+          "sizeBytes": 5957
         }
       ],
       "dimensionCorrection": {

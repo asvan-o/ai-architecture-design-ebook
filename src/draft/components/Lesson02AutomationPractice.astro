@@ -3,56 +3,132 @@ import ReviewPrompt from './ReviewPrompt.astro';
 import Lesson02ExerciseDownloads from './Lesson02ExerciseDownloads.astro';
 import Lesson02ExercisePreview from './Lesson02ExercisePreview.astro';
 import Lesson02InputMethods from './Lesson02InputMethods.astro';
-import {automationFiles} from '../../../scripts/daejeon-automation-ab-assets.mjs';
-import {fileSorterExercise,buildSteps,integratedPrompt} from '../content/lesson02-exercises';
-import {runSteps,knownLimits,testScenarios,takeaways} from '../content/daejeon-lesson02-automation';
+import { commencementFiles } from '../../../scripts/daejeon-commencement-assets.mjs';
+import { commencementExercise, buildSteps, integratedPrompt } from '../content/lesson02-exercises';
+import { runSteps, knownLimits, docTestScenarios, takeaways } from '../content/daejeon-lesson02-automation';
 import '../styles/lesson02-exercises.css';
-import {classificationExplanation} from '../content/lesson02-classification';
-interface Props { stage:'step'|'run'|'wrap'; step?:1|2|3|4; }
-const {stage,step}=Astro.props;
-const current=step?buildSteps[step-1]:undefined;
-const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
-const base=import.meta.env.BASE_URL.replace(/\/$/,'');
+import { classificationExplanation } from '../content/lesson02-classification';
+
+interface Props {
+  stage: 'step' | 'run' | 'wrap';
+  step?: 1 | 2 | 3 | 4;
+}
+
+const { stage, step } = Astro.props;
+const current = step ? buildSteps[step - 1] : undefined;
+const enabled = import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS === 'true';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <div class="l02-ab" data-exercise-stage={stage} data-build-step={step}>
-{stage==='step'&&current&&<>
-  {step===1&&<>
+{stage === 'step' && current && <>
+  {step === 1 && <>
     <article class="l02-ab-card" data-single-program>
-      <h3>{fileSorterExercise.title}</h3><p>{fileSorterExercise.description}</p>
-      <dl><dt>줄이고 싶은 반복 작업</dt><dd>{fileSorterExercise.repetition}</dd><dt>프로그램이 처리</dt><dd>{fileSorterExercise.automatic}</dd><dt>사람이 판단</dt><dd>{fileSorterExercise.human}</dd></dl>
-      <p>{fileSorterExercise.environment}</p><p><strong>{classificationExplanation.introduction}</strong></p>
+      <h3>{commencementExercise.title}</h3>
+      <p>{commencementExercise.description}</p>
+      <dl>
+        <dt>줄이고 싶은 반복 작업</dt><dd>{commencementExercise.repetition}</dd>
+        <dt>프로그램이 자동 조립</dt><dd>{commencementExercise.automatic}</dd>
+        <dt>사람이 검수·마감</dt><dd>{commencementExercise.human}</dd>
+      </dl>
+      <p>{commencementExercise.environment}</p>
+      <p><strong>{classificationExplanation.introduction}</strong></p>
       <Lesson02ExercisePreview />
     </article>
-    <p><strong>같은 폴더·같은 대화에서 작은 기능부터 만들고 실행하며 덧붙입니다.</strong> 아래 Step 1~4는 모두 실제 구현 요청입니다. 실행 뒤 관찰한 오류가 있으면 같은 대화에서 수정하고 다음 단계로 갑니다.</p>
-    <ol class="l02-ab-flow" aria-label="단계별 바이브 코딩 제작 순서"><li>Step 1 · 폴더·감시 뼈대</li><li>Step 2 · 분류·사람 확인</li><li>Step 3 · 원본·중복 보호</li><li>Step 4 · 화면·외부 가져오기</li></ol>
-    <aside class="review-callout" data-build-route><strong>단계별 제작 또는 통합 제작 중 하나를 선택합니다.</strong><p>차례로 기능을 보완하려면 Step 1부터 진행합니다. 전체 기능을 한 번에 요청하려면 §11의 <a href="#l02-integrated-prompt">최종 통합 예시문 1개</a>를 새 빈 폴더에서 사용합니다. 4단계를 끝낸 뒤 다시 같은 프로그램을 만드는 순서가 아닙니다.</p></aside>
-    {enabled&&<div class="l02-ab-downloads"><a class="review-download" href={base+'/'+automationFiles.A.vibePack.outputPath} download={automationFiles.A.vibePack.file}>프로그램·SORT_TEST·단계별 요청문 통합 실습 ZIP 다운로드</a><a class="review-download" href={base+'/'+automationFiles.A.vibeReadme.outputPath} download={automationFiles.A.vibeReadme.file}>단계별 제작 안내 README 다운로드</a></div>}
+    <p><strong>같은 폴더·같은 대화에서 작은 계산 기능부터 만들고 실행하며 덧붙입니다.</strong> 아래 Step 1~4는 모두 실제 구현 요청입니다. 실행 뒤 관찰한 오류가 있으면 전체를 다시 짜지 말고 해당 파일만 콕 집어 수정한 뒤 다음 단계로 넘어갑니다.</p>
+    <ol class="l02-ab-flow" aria-label="단계별 바이브 코딩 제작 순서">
+      <li>Step 1 · 폴더·금액/일수 계산</li>
+      <li>Step 2 · 자동조립·검수대기 분리</li>
+      <li>Step 3 · 4종 서식·_v02 보존</li>
+      <li>Step 4 · 4175 화면·A4/Word</li>
+    </ol>
+    <aside class="review-callout" data-build-route>
+      <strong>단계별 제작(경로 A) 또는 한 번에 통합 제작(경로 B · 크레딧 절약형) 중 하나를 선택합니다.</strong>
+      <p>원리를 익히며 차례로 기능을 보완하려면 Step 1부터 진행합니다. 크레딧을 아껴 새 빈 폴더에서 한 번에 구현하려면 §11의 <a href="#l02-integrated-prompt">최종 통합 예시문 1개</a>를 사용합니다. 4단계를 끝낸 뒤 같은 프로그램을 다시 만드는 순서가 아닙니다.</p>
+    </aside>
+    {enabled && (
+      <div class="l02-ab-downloads">
+        <a class="review-download" href={base + '/' + commencementFiles.vibePack.outputPath} download={commencementFiles.vibePack.file}>
+          프로그램·DOC_TEST·단계별 요청문 통합 실습 ZIP 다운로드
+        </a>
+        <a class="review-download" href={base + '/' + commencementFiles.vibeReadme.outputPath} download={commencementFiles.vibeReadme.file}>
+          단계별·통합 제작 안내 README 다운로드
+        </a>
+      </div>
+    )}
   </>}
-  <div class="l02-build-brief"><p><strong>지금 할 일</strong> {current.goal}</p><p><strong>왜 하는가</strong> {current.why}</p><p><strong>만들거나 보완할 곳</strong> <code>{current.files}</code></p></div>
-  <ReviewPrompt id={current.id} title={current.title} prompt={current.prompt} guide={current.guide} filename={current.file} href={enabled?base+'/'+current.outputPath:undefined} />
-  <aside class="lesson02-decision" data-step-check><h3>짧게 실행해 보기</h3><p>{current.check}</p><p><strong>다음에 사용할 것</strong> {current.next}</p></aside>
-  {step===4&&<section class="l02-integrated-example" aria-label="최종 통합 예시문">
-    <h3>최종 통합 예시문 · 한 번에 전체 구조를 구현할 때 사용하는 완성형 프롬프트</h3>
-    <p>새 빈 폴더에서 전체 기능을 구현할 때는 아래 요청문 하나를 사용합니다. Step 1~4로 이미 만들었다면 빠진 조건을 대조하는 기준으로 읽습니다. 일반 웹 채팅의 코드 답변과 실제 로컬 파일 생성·실행은 다릅니다.</p>
-    <ReviewPrompt id={integratedPrompt.id} title={integratedPrompt.title} prompt={integratedPrompt.prompt} guide={integratedPrompt.guide} filename={integratedPrompt.file} href={enabled?base+'/'+integratedPrompt.outputPath:undefined} />
-    <p>AI가 만드는 코드와 답변은 도구·모델·대화 상태에 따라 달라질 수 있습니다. 제공 프로그램은 기능 확인을 거친 실행 예제이며, 짧은 요청문 한 번으로 동일하게 생성되었다는 기록은 아닙니다.</p>
-  </section>}
+  <div class="l02-build-brief">
+    <p><strong>지금 할 일</strong> {current.goal}</p>
+    <p><strong>왜 하는가</strong> {current.why}</p>
+    <p><strong>만들거나 보완할 곳</strong> <code>{current.files}</code></p>
+  </div>
+  <ReviewPrompt id={current.id} title={current.title} prompt={current.prompt} guide={current.guide} filename={current.file} href={enabled ? base + '/' + current.outputPath : undefined} />
+  <aside class="lesson02-decision" data-step-check>
+    <h3>짧게 실행해 보기</h3>
+    <p>{current.check}</p>
+    <p><strong>다음에 사용할 것</strong> {current.next}</p>
+  </aside>
+  {step === 4 && (
+    <section class="l02-integrated-example" aria-label="최종 통합 예시문">
+      <h3>최종 통합 예시문 · 크레딧을 아껴 한 번에 전체 구조를 구현할 때 사용하는 완성형 프롬프트</h3>
+      <p>새 빈 폴더에서 대화 턴과 크레딧 소모를 최소화해 전체 기능을 한 번에 구현할 때는 아래 요청문 하나를 사용합니다. Step 1~4로 이미 만들었다면 빠진 안전 조건을 대조하는 기준으로 읽습니다. 일반 웹 채팅의 코드 답변과 실제 로컬 파일 생성·실행은 다릅니다.</p>
+      <ReviewPrompt id={integratedPrompt.id} title={integratedPrompt.title} prompt={integratedPrompt.prompt} guide={integratedPrompt.guide} filename={integratedPrompt.file} href={enabled ? base + '/' + integratedPrompt.outputPath : undefined} />
+      <p>AI가 만드는 코드와 화면 구성은 도구·모델·대화 상태에 따라 조금씩 달라질 수 있습니다. 아래 제공 완성 예제는 모든 계산·검수 분기·버전 보호 확인을 마친 기준 실행본입니다.</p>
+    </section>
+  )}
 </>}
-{stage==='run'&&<>
-  <p>직접 만든 프로그램 또는 제공 완성 예제 중 하나를 실행해 화면과 파일 위치를 기준표에 대조합니다. 직접 제작본과 제공 예제는 별도 폴더에 두고 한 대상씩 실행합니다. 직접 구현에 시간이 더 필요하면 제공 예제로 같은 처리 흐름을 확인할 수 있습니다.</p>
-  <article class="l02-ab-run" id="l02-run-a"><h3>건축 프로젝트 파일 자동 정리 프로그램 실행</h3><p>Windows 교육용 로컬 프로그램입니다. Node.js는 이 프로그램의 실행환경이며 Runtime이 포함된 배포본은 아닙니다.</p><Lesson02ExerciseDownloads />
+{stage === 'run' && <>
+  <p>직접 만든 프로그램 또는 제공 완성 예제 중 하나를 실행해 화면의 금액·일수 계산과 검수 판정을 기준표에 대조합니다. 직접 제작본과 제공 예제는 서로 다른 폴더에 두고 한 대상씩 실행합니다.</p>
+  <article class="l02-ab-run" id="l02-run-a">
+    <h3>건축 용역 착수계 · 반복 행정서류 4종 자동 생성기 실행</h3>
+    <p>실행 중 외부 AI 모델을 호출하지 않는 로컬 규칙 프로그램(실행 크레딧 0원)입니다. Node.js 서버 모드(<code>START.bat</code>)와 무설치 <code>단일실행본.html</code>을 함께 제공합니다.</p>
+    <Lesson02ExerciseDownloads />
     <Lesson02InputMethods />
-    <ol class="lesson02-checklist" data-program-run-steps>{runSteps.map(item=><li>{item}</li>)}</ol>
-    <p>제공 예제의 주소는 <code>http://127.0.0.1:4174/</code>입니다. 사용 중이라는 안내가 나오면 다른 프로그램을 임의로 종료하지 않습니다.</p>
-    <p><strong>SORT_TEST 기준: 자동처리 9개 / 사람확인 2개.</strong> 실습파일 11개를 <code>00_수집함</code>에 넣고 아래 기준표와 실행 화면을 바로 비교합니다.</p>
-    <div class="lesson02-table l02-test-table" data-test-reference><table><caption>SORT_TEST 11개 자동 분류 기준표</caption><thead><tr><th scope="col">파일명</th><th scope="col">기대 분류 폴더</th><th scope="col">분류 기준·확인 포인트</th></tr></thead><tbody>{testScenarios.map(([file,expected,reason])=><tr><th scope="row" data-label="파일명"><code>{file}</code></th><td data-label="기대 분류 폴더">{expected}</td><td data-label="분류 기준·확인 포인트">{reason}</td></tr>)}</tbody></table></div>
-    <div class="lesson02-decision"><h4>사람확인도 기대한 동작입니다</h4><p><code>image001.png</code>와 <code>scan003.pdf</code>는 처음에 <code>99_분류확인</code>으로 갑니다. 파일 1개의 용도를 사람이 판단해 분류를 선택하고 실제 이동한 폴더를 확인합니다.</p><p>같은 파일을 다시 넣었을 때의 중복 안내와 같은 이름이지만 내용이 다른 파일의 버전 증가도 살펴봅니다. 확인이 끝나면 STOP.bat으로 종료합니다.</p></div>
-    <details data-test-file-notes><summary>실습파일의 용도 확인</summary><ul><li><code>building_model.blend</code>와 <code>animation_cache.abc</code>는 분류 시험용 파일입니다. 실제 Blender 모델이나 애니메이션 캐시가 아닙니다.</li><li><code>lighting_ref_3000K.jpg</code>는 파일명 분류 시험용이며 실제 3000K 측정·보증 자료가 아닙니다.</li><li><code>office_floorplan.png</code>는 교육용 카페 평면도 복사본이며 오피스 실측도면이 아닙니다.</li><li><code>scan003.pdf</code>는 교육용 PDF 복사본, <code>walkthrough.mp4</code>는 1초 정지 화면 영상입니다.</li></ul></details>
-    <details data-program-limits><summary>사용 범위와 알려진 한계</summary><ul>{knownLimits.map(item=><li>{item}</li>)}</ul><p>삭제할 때는 STOP으로 종료하고 필요한 원본·결과를 따로 보관한 뒤 프로그램 폴더를 지웁니다. OS·브라우저 캐시까지 제거한다는 뜻은 아닙니다.</p></details>
+    <ol class="lesson02-checklist" data-program-run-steps>{runSteps.map((item) => <li>{item}</li>)}</ol>
+    <p>제공 서버 모드의 기본 주소는 <code>http://127.0.0.1:4175/</code>입니다. 포트가 이미 사용 중이라는 안내가 나오면 다른 업무 프로그램을 임의로 종료하지 마세요.</p>
+    <p><strong>DOC_TEST 기준: 자동 조립 완료 4건 / 사람 확인(검수 대기) 2건.</strong> 시나리오 JSON 6개를 차례대로 불러와 아래 기준표와 실행 화면을 바로 비교합니다.</p>
+    <div class="lesson02-table l02-test-table" data-test-reference>
+      <table>
+        <caption>DOC_TEST 6종 시나리오 자동 조립 · 검수 판정 기준표</caption>
+        <thead>
+          <tr>
+            <th scope="col">시나리오 파일명</th>
+            <th scope="col">기대 판정 상태</th>
+            <th scope="col">분류 기준·확인 포인트</th>
+          </tr>
+        </thead>
+        <tbody>
+          {docTestScenarios.map(([file, expected, reason]) => (
+            <tr>
+              <th scope="row" data-label="시나리오 파일명"><code>{file}</code></th>
+              <td data-label="기대 판정 상태">{expected}</td>
+              <td data-label="분류 기준·확인 포인트">{reason}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <div class="lesson02-decision">
+      <h4>사람 확인(검수 대기)도 의도한 핵심 안전장치입니다</h4>
+      <p><code>05_판교오피스_변경사유누락_검수대기.json</code>과 <code>06_역삼쇼룸_날짜역전_부가세미정.json</code>을 불러오면 상단 배지가 주황색 <code>사람 확인(검수 대기)</code>로 바뀌고 누락·날짜 역전 사유가 표시됩니다. 빈칸에 실제 자격번호·변경 사유를 채우거나 날짜를 바로잡는 즉시 초록색 <code>자동 조립 완료</code>로 전환되는지 직접 확인해 보세요.</p>
+      <p>같은 상태에서 저장을 두 번 눌렀을 때의 SHA-256 중복 안내와, 계약금액을 수정한 뒤 저장했을 때 <code>_v02</code> 버전이 새로 남는지도 확인한 후 <code>STOP.bat</code>으로 종료합니다.</p>
+    </div>
+    <details data-test-file-notes>
+      <summary>실습 시나리오 데이터의 성격 확인</summary>
+      <ul>
+        <li><code>DOC_TEST</code>에 수록된 사무소명·개설신고번호·건축사 자격번호·발주처·계약번호는 모두 교육용 가상 시나리오입니다.</li>
+        <li>실제 용역에 활용할 때는 본인 건축사사무소의 실제 개설신고번호·대표 건축사·발주청 지정 양식 문구로 <code>samples/</code> 또는 <code>templates.js</code>를 교체해 사용합니다.</li>
+      </ul>
+    </details>
+    <details data-program-limits>
+      <summary>사용 범위와 알려진 한계</summary>
+      <ul>{knownLimits.map((item) => <li>{item}</li>)}</ul>
+      <p>실습을 마치고 정리할 때는 <code>STOP.bat</code>으로 서버를 먼저 종료하고 필요한 JSON·문서 결과만 따로 보관한 뒤 실습 폴더를 삭제합니다.</p>
+    </details>
   </article>
 </>}
-{stage==='wrap'&&<>
-  <ol class="lesson02-checklist">{takeaways.map(item=><li>{item}</li>)}</ol>
-  <h3>제3차시 · 초기 디자인 방향을 빠르게 만들기</h3><p>다음 차시부터는 Rapid Concept 실습으로 넘어갑니다. 재질·조명·분위기와 참고 이미지를 활용한 디자인 방향 설정을 다룹니다.</p>
+{stage === 'wrap' && <>
+  <ol class="lesson02-checklist">{takeaways.map((item) => <li>{item}</li>)}</ol>
+  <h3>제3차시 · 초기 디자인 방향을 빠르게 만들기 (Rapid Concept &amp; Inpainting)</h3>
+  <p>오늘까지 의뢰 조건 정리(1차시)와 반복 행정 업무 자동화(2차시)로 설계 실무의 기본 체력을 다졌습니다. 다음 제3차시부터는 실내 기준 공간의 재질·조명·분위기를 빠르게 변주하고 디자인 방향 보드를 만드는 시각 실습으로 넘어갑니다. 그리고 제8·9차시에서는 오늘 배운 로컬 자동화와 대비되는 <strong>MCP(실시간 Blender 3D 제어)</strong>를 직접 연결합니다.</p>
 </>}
 </div>

@@ -876,6 +876,27 @@
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L02_VIBE_CODING_PRACTICE.zip"
     },
     {
+      "path": "daejeon/practice/DJ-L02/commencement/DJ-L02_COMMENCEMENT_PROGRAM.zip",
+      "assetName": "DJ-L02_COMMENCEMENT_PROGRAM.zip",
+      "bytes": 44671,
+      "sha256": "720a8f3c44687f714ba3396e710a8f102ba47250e446bdbc2f81464e142212b1",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L02_COMMENCEMENT_PROGRAM.zip"
+    },
+    {
+      "path": "daejeon/practice/DJ-L02/commencement/DJ-L02_COMMENCEMENT_VIBE_PACK.zip",
+      "assetName": "DJ-L02_COMMENCEMENT_VIBE_PACK.zip",
+      "bytes": 59071,
+      "sha256": "d7d3c245a7eb17cc565cc3bf9d2ce7c5d1c70c4fa18ef6048a17c7d37c763c6c",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L02_COMMENCEMENT_VIBE_PACK.zip"
+    },
+    {
+      "path": "daejeon/practice/DJ-L02/commencement/DJ-L02_DOC_TEST.zip",
+      "assetName": "DJ-L02_DOC_TEST.zip",
+      "bytes": 7708,
+      "sha256": "348f54eaab5a4c1c29a30e8aad42d37168a34f515e517b1783760093d1a0c1d3",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L02_DOC_TEST.zip"
+    },
+    {
       "path": "daejeon/practice/DJ-L02/file-sorter/DJ-L02_FILE_SORTER_PROGRAM.zip",
       "assetName": "DJ-L02_FILE_SORTER_PROGRAM.zip",
       "bytes": 32727,

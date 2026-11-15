@@ -30,7 +30,10 @@ const python=value('--python',process.env.CODEX_PYTHON||(fs.existsSync(bundledPy
 const fontFile=path.resolve(value('--font',process.env.WORKBOOK_PDF_FONT||'C:/Windows/Fonts/malgun.ttf'));
 const manifestPath=path.join(repositoryRoot,'src/draft/content/textbook-pdf-manifest.json');
 const manifest=JSON.parse(fs.readFileSync(manifestPath,'utf8'));
+const daejeonCourse=JSON.parse(fs.readFileSync(path.join(repositoryRoot,'data/courses/daejeon-2026/course.json'),'utf8'));
 const access=JSON.parse(fs.readFileSync(path.join(repositoryRoot,'src/config/daejeon-access.json'),'utf8'));
+const pdfAccess=JSON.parse(fs.readFileSync(path.join(repositoryRoot,'src/config/daejeon-pdf-access.json'),'utf8'));
+const encryptPdf=process.env.WORKBOOK_PDF_ENCRYPT?process.env.WORKBOOK_PDF_ENCRYPT==='true':pdfAccess.enabled!==false;
 assert.equal(manifest.files.length,14);assert.equal(manifest.courseId,'daejeon-2026');
 const build=JSON.parse(fs.readFileSync(path.join(siteRoot,'course-build.json'),'utf8'));
 assert.equal(build.courseId,'daejeon-2026');assert.equal(build.mode,'student');
@@ -53,12 +56,15 @@ try{
   const page=await browser.newPage({viewport:{width:794,height:1123},deviceScaleFactor:1});
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   const sourceHtml=path.join(siteRoot,target.route,'index.html');
-  // Author-owned static export session uses the existing local access config.
-  // The student's website password and every shipped auth file remain unchanged.
-  assert(fs.readFileSync(sourceHtml,'utf8').includes(access.passwordHash),'Built HTML access config is stale; rebuild the workbook first.');
-  await page.addInitScript(({storageKey,passwordHash})=>sessionStorage.setItem(storageKey,passwordHash),{storageKey:access.sessionStorageKey+':course:'+build.courseId,passwordHash:access.passwordHash});
+  // Author-owned static export session uses the active local access config.
+  if(daejeonCourse.access?.passwordConfig){
+   assert(fs.readFileSync(sourceHtml,'utf8').includes(access.passwordHash),'Built HTML access config is stale; rebuild the workbook first.');
+   await page.addInitScript(({storageKey,passwordHash})=>sessionStorage.setItem(storageKey,passwordHash),{storageKey:access.sessionStorageKey+':course:'+build.courseId,passwordHash:access.passwordHash});
+  }else{
+   assert(fs.readFileSync(sourceHtml,'utf8').includes('data-ebook-access="disabled"'),'Built HTML access gate state is stale; rebuild the workbook first.');
+  }
   assert((await page.goto(`http://127.0.0.1:${port}${build.basePath}/${target.route}/`,{waitUntil:'networkidle'}))?.ok(),target.route);
-  assert.equal(await page.locator('html').getAttribute('data-ebook-access'),'unlocked','Author export session must be unlocked.');
+  assert.equal(await page.locator('html').getAttribute('data-ebook-access'),daejeonCourse.access?.passwordConfig?'unlocked':'disabled','Author export session must have visible body.');
   await page.emulateMedia({media:'print'});await page.evaluate(key=>{document.documentElement.dataset.workbookPrintLesson=key;},target.key);await page.addStyleTag({content:css});
   const drawingScaleNotes=await page.locator('main').evaluate((main,{note,pattern})=>{
    let count=0;
@@ -212,14 +218,14 @@ try{
   const rawPdf=path.join(stage,target.key+'-html.pdf');
   await page.pdf({path:rawPdf,format:'A4',preferCSSPageSize:true,printBackground:true,displayHeaderFooter:false,tagged:true,outline:false,margin:{top:'18mm',right:'16mm',bottom:'22mm',left:'16mm'}});
   assert.deepEqual(errors,[],target.key+' browser errors');
-  const config={key:target.key,title:audit.title,input:rawPdf,output:path.join(stage,target.sourceFilename||target.filename),workRoot:stage,fontFile,copyrightNotice:manifest.copyrightNotice,body,expectedLocalAddresses:['127.0.0.1:8188','localhost:9876'].filter(x=>body.text.includes(x)),userPassword:process.env.WORKBOOK_PDF_PASSWORD||'sando'};
+  const config={key:target.key,title:audit.title,input:rawPdf,output:path.join(stage,target.sourceFilename||target.filename),workRoot:stage,fontFile,copyrightNotice:manifest.copyrightNotice,body,expectedLocalAddresses:['127.0.0.1:4175','127.0.0.1:8188','localhost:9876'].filter(x=>body.text.includes(x)),encrypt:encryptPdf,userPassword:process.env.WORKBOOK_PDF_PASSWORD||'sando'};
   const configPath=path.join(stage,target.key+'-postprocess.json');fs.writeFileSync(configPath,JSON.stringify(config));
   execFileSync(python,[path.join(repositoryRoot,'scripts/export-workbook-textbooks.py'),configPath],{cwd:repositoryRoot,windowsHide:true,stdio:['ignore','pipe','pipe'],maxBuffer:8*1024*1024});
   const pdfAudit=JSON.parse(fs.readFileSync(path.join(stage,target.key+'-pdf-report.json'),'utf8'));
   assert(pdfAudit.passed,target.key+' PDF QA failed');
-  report.files.push({...target,sizeBytes:pdfAudit.sizeBytes,sha256:pdfAudit.sha256,pageCount:pdfAudit.pageCount,encrypted:true,copyrightNoticePages:pdfAudit.copyrightNoticePages,sourceHtml:path.relative(repositoryRoot,sourceHtml).replaceAll('\\','/'),sourceHtmlSha256:sha(fs.readFileSync(sourceHtml)),browser:audit,pdf:pdfAudit});
+  report.files.push({...target,sizeBytes:pdfAudit.sizeBytes,sha256:pdfAudit.sha256,pageCount:pdfAudit.pageCount,encrypted:encryptPdf,copyrightNoticePages:pdfAudit.copyrightNoticePages,sourceHtml:path.relative(repositoryRoot,sourceHtml).replaceAll('\\','/'),sourceHtmlSha256:sha(fs.readFileSync(sourceHtml)),browser:audit,pdf:pdfAudit});
   fs.writeFileSync(path.join(workRoot,'book-export-report.json'),JSON.stringify(report,null,2)+'\n');
-  console.log(`${target.key}: ${pdfAudit.pageCount} pages; ${(pdfAudit.sizeBytes/1024/1024).toFixed(2)} MiB; text, footer, link and encryption checks passed`);
+  console.log(`${target.key}: ${pdfAudit.pageCount} pages; ${(pdfAudit.sizeBytes/1024/1024).toFixed(2)} MiB; text, footer, link and ${encryptPdf?'encryption':'unencrypted'} checks passed`);
   await page.close();
  }
  report.totalSizeBytes=report.files.reduce((n,f)=>n+f.pdf.sizeBytes,0);
@@ -235,10 +241,12 @@ try{
    if(fs.existsSync(source)&&!fs.existsSync(path.join(backup,name)))fs.copyFileSync(source,path.join(backup,name));
   }
   if(!fs.existsSync(path.join(backup,'textbook-pdf-manifest.json')))fs.copyFileSync(manifestPath,path.join(backup,'textbook-pdf-manifest.json'));
+  manifest.encryption=encryptPdf?'AES-256':'NONE';
+  manifest.passwordRequiredToOpen=encryptPdf;
   for(const item of report.files){
    fs.copyFileSync(item.pdf.output,path.join(destination,item.sourceFilename||item.filename));
    const entry=manifest.files.find(e=>e.filename===item.filename);
-   Object.assign(entry,{sizeBytes:item.pdf.sizeBytes,sha256:item.pdf.sha256,pageCount:item.pdf.pageCount,encrypted:true,copyrightNoticePages:item.pdf.pageCount});
+   Object.assign(entry,{sizeBytes:item.pdf.sizeBytes,sha256:item.pdf.sha256,pageCount:item.pdf.pageCount,encrypted:encryptPdf,copyrightNoticePages:item.pdf.pageCount});
   }
   fs.writeFileSync(manifestPath,JSON.stringify(manifest,null,2)+'\n');
   report.manifestUpdated=path.relative(repositoryRoot,manifestPath).replaceAll('\\','/');

@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="500" viewBox="0 0 1200 500" role="img" aria-labelledby="cf-title cf-desc">
+  <title id="cf-title">건축 용역 착수계·행정서류 자동 생성기의 Architecture 흐름</title>
+  <desc id="cf-desc">용역 기본정보 1회 입력부터 한글 금액·과업일수 자동 계산, 필수값·날짜 검증 분기, 4종 서류 세트 동시 조립, 버전 보존 저장 및 A4 출력으로 이어지는 구조 안내도</desc>
+  <defs>
+    <marker id="cf-arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4.5" orient="auto">
+      <path d="M0 0.5 L8.5 4.5 L0 8.5 Z" fill="#1e3a8a"/>
+    </marker>
+    <marker id="cf-warn" markerWidth="9" markerHeight="9" refX="7.5" refY="4.5" orient="auto">
+      <path d="M0 0.5 L8.5 4.5 L0 8.5 Z" fill="#b45309"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="500" fill="#f8fafc"/>
+  <rect x="16" y="16" width="1168" height="468" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+
+  <g font-family="'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif">
+    <rect x="16" y="16" width="1168" height="64" rx="14" fill="#eff6ff"/>
+    <rect x="16" y="64" width="1168" height="16" fill="#eff6ff"/>
+    <line x1="16" y1="80" x2="1184" y2="80" stroke="#bfdbfe" stroke-width="1.5"/>
+    <text x="40" y="47" font-size="21" font-weight="800" fill="#0f172a">착수계·반복 행정서류 자동 생성기 Architecture · 역할과 데이터 흐름</text>
+    <text x="40" y="70" font-size="13.5" font-weight="600" fill="#334155">프로젝트 기본정보를 딱 한 번만 입력하면 계산·검증·4종 서류 동기화·변경계 버전 보존까지 순수 로컬 규칙(실행 크레딧 0원)으로 처리합니다.</text>
+
+    <!-- Box 1: INPUT -->
+    <g transform="translate(38, 108)">
+      <rect width="196" height="210" rx="10" fill="#f8fafc" stroke="#1e3a8a" stroke-width="2"/>
+      <rect width="196" height="36" rx="9" fill="#1e3a8a"/>
+      <rect y="24" width="196" height="12" fill="#1e3a8a"/>
+      <text x="14" y="24" font-size="14" font-weight="800" fill="#ffffff">1 · INPUT (1회 입력)</text>
+      <text x="14" y="60" font-size="12.5" font-weight="700" fill="#0f172a">프로젝트 공통 기준값</text>
+      <text x="14" y="83" font-size="12" fill="#334155">· 용역명 · 발주처 · 대지위치</text>
+      <text x="14" y="103" font-size="12" fill="#334155">· 계약금액 · 부가세 구분</text>
+      <text x="14" y="123" font-size="12" fill="#334155">· 계약일 · 착수일 · 준공일</text>
+      <text x="14" y="143" font-size="12" fill="#334155">· 책임건축사 · 참여기술자</text>
+      <rect x="12" y="160" width="172" height="36" rx="6" fill="#eff6ff" stroke="#93c5fd"/>
+      <text x="22" y="182" font-size="11.5" font-weight="700" fill="#1e3a8a">기존 JSON 불러오기 지원</text>
+    </g>
+
+    <line x1="238" y1="213" x2="268" y2="213" stroke="#1e3a8a" stroke-width="2.5" marker-end="url(#cf-arr)"/>
+
+    <!-- Box 2: CALCULATOR -->
+    <g transform="translate(274, 108)">
+      <rect width="206" height="210" rx="10" fill="#f8fafc" stroke="#0f766e" stroke-width="2"/>
+      <rect width="206" height="36" rx="9" fill="#0f766e"/>
+      <rect y="24" width="206" height="12" fill="#0f766e"/>
+      <text x="14" y="24" font-size="14" font-weight="800" fill="#ffffff">2 · CALCULATOR (계산)</text>
+      <text x="14" y="60" font-size="12.5" font-weight="700" fill="#0f766e">규칙 기반 무오차 연산</text>
+      <text x="14" y="83" font-size="12" fill="#334155">· 숫자 → 한글 금액 자동 변환</text>
+      <text x="22" y="101" font-size="11.5" font-weight="700" fill="#0f766e">(일금 삼천팔백오십만원정)</text>
+      <text x="14" y="123" font-size="12" fill="#334155">· 공급가액 · 부가세 분리/합산</text>
+      <text x="14" y="143" font-size="12" fill="#334155">· 착수~준공 총 과업일수 산출</text>
+      <rect x="12" y="160" width="182" height="36" rx="6" fill="#f0fdfa" stroke="#5eead4"/>
+      <text x="22" y="182" font-size="11.5" font-weight="700" fill="#115e59">AI 추측 배제 · 코드 수식 고정</text>
+    </g>
+
+    <line x1="484" y1="213" x2="514" y2="213" stroke="#1e3a8a" stroke-width="2.5" marker-end="url(#cf-arr)"/>
+
+    <!-- Box 3: VALIDATOR -->
+    <g transform="translate(520, 108)">
+      <rect width="206" height="210" rx="10" fill="#f8fafc" stroke="#b45309" stroke-width="2"/>
+      <rect width="206" height="36" rx="9" fill="#b45309"/>
+      <rect y="24" width="206" height="12" fill="#b45309"/>
+      <text x="14" y="24" font-size="14" font-weight="800" fill="#ffffff">3 · VALIDATOR (검증)</text>
+      <text x="14" y="60" font-size="12.5" font-weight="700" fill="#92400e">자동 통과 vs 사람 확인 분기</text>
+      <text x="14" y="83" font-size="12" fill="#334155">· 필수 항목·자격번호 누락 점검</text>
+      <text x="14" y="103" font-size="12" fill="#334155">· 착수일 &gt; 준공일 날짜 역전 차단</text>
+      <text x="14" y="123" font-size="12" fill="#334155">· 변경착수계 변경사유 유무 확인</text>
+      <text x="14" y="143" font-size="12" fill="#334155">· 미확정 항목은 빈칸 추측 금지</text>
+      <rect x="12" y="160" width="182" height="36" rx="6" fill="#fef3c7" stroke="#f59e0b"/>
+      <text x="22" y="182" font-size="11.5" font-weight="700" fill="#92400e">경고 있으면 ‘검수 대기’ 표시</text>
+    </g>
+
+    <line x1="730" y1="213" x2="760" y2="213" stroke="#1e3a8a" stroke-width="2.5" marker-end="url(#cf-arr)"/>
+
+    <!-- Box 4: RENDERER (4 DOCS) -->
+    <g transform="translate(766, 108)">
+      <rect width="202" height="210" rx="10" fill="#f8fafc" stroke="#1d4ed8" stroke-width="2"/>
+      <rect width="202" height="36" rx="9" fill="#1d4ed8"/>
+      <rect y="24" width="202" height="12" fill="#1d4ed8"/>
+      <text x="14" y="24" font-size="14" font-weight="800" fill="#ffffff">4 · RENDERER (조립)</text>
+      <text x="14" y="60" font-size="12.5" font-weight="700" fill="#1e3a8a">4종 서류 세트 일괄 동기화</text>
+      <rect x="14" y="72" width="174" height="28" rx="5" fill="#eff6ff" stroke="#93c5fd"/>
+      <text x="24" y="90" font-size="12" font-weight="700" fill="#1e3a8a">① 착수신고서 (변경착수계)</text>
+      <rect x="14" y="105" width="174" height="28" rx="5" fill="#eff6ff" stroke="#93c5fd"/>
+      <text x="24" y="123" font-size="12" font-weight="700" fill="#1e3a8a">② 책임기술자 선임계</text>
+      <rect x="14" y="138" width="174" height="28" rx="5" fill="#eff6ff" stroke="#93c5fd"/>
+      <text x="24" y="156" font-size="12" font-weight="700" fill="#1e3a8a">③ 참여기술자 명단표</text>
+      <rect x="14" y="171" width="174" height="28" rx="5" fill="#eff6ff" stroke="#93c5fd"/>
+      <text x="24" y="189" font-size="12" font-weight="700" fill="#1e3a8a">④ 보안각서 · 서약서</text>
+    </g>
+
+    <line x1="972" y1="213" x2="1002" y2="213" stroke="#1e3a8a" stroke-width="2.5" marker-end="url(#cf-arr)"/>
+
+    <!-- Box 5: STORAGE & EXPORT -->
+    <g transform="translate(1008, 108)">
+      <rect width="154" height="210" rx="10" fill="#f8fafc" stroke="#334155" stroke-width="2"/>
+      <rect width="154" height="36" rx="9" fill="#334155"/>
+      <rect y="24" width="154" height="12" fill="#334155"/>
+      <text x="12" y="24" font-size="13.5" font-weight="800" fill="#ffffff">5 · 보존 · 출력</text>
+      <text x="12" y="60" font-size="12" font-weight="700" fill="#0f172a">원본 보호 &amp; 제출본</text>
+      <text x="12" y="84" font-size="11.5" fill="#334155">· A4 규격 인쇄 / PDF</text>
+      <text x="12" y="106" font-size="11.5" fill="#334155">· Word(.doc) 호환본</text>
+      <text x="12" y="128" font-size="11.5" fill="#334155">· 프로젝트 JSON 저장</text>
+      <text x="12" y="150" font-size="11.5" fill="#334155">· 동명 파일 덮어쓰기</text>
+      <text x="20" y="167" font-size="11.5" font-weight="700" fill="#0f766e">방지 (_v02, _v03)</text>
+      <text x="12" y="191" font-size="11.5" fill="#475569">· 실행 이력 log 기록</text>
+    </g>
+
+    <!-- Bottom Human-in-the-Loop Feedback Bar -->
+    <path d="M 623 318 L 623 368 L 136 368 L 136 324" fill="none" stroke="#b45309" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#cf-warn)"/>
+    <rect x="230" y="352" width="330" height="30" rx="15" fill="#fffbeb" stroke="#f59e0b"/>
+    <text x="395" y="372" text-anchor="middle" font-size="12" font-weight="700" fill="#92400e">검수 대기 항목 발견 시 → 사람이 입력값 보완 후 최종 승인</text>
+
+    <rect x="38" y="402" width="1124" height="60" rx="10" fill="#f1f5f9"/>
+    <text x="58" y="427" font-size="13" font-weight="800" fill="#0f172a">왜 실무에서 강력한가? · 1차 설계변경·공기연장 시 저장해 둔 프로젝트 JSON을 불러와 ‘준공일·계약금액’ 두 칸만 고치면 4종 변경서류가 3초 만에 재완성됩니다.</text>
+    <text x="58" y="449" font-size="12.5" fill="#475569">※ 직인·서명 날인과 발주처별 특수 조항 확인은 자동 확정하지 않고 사람이 출력 전 최종 검토합니다.</text>
+  </g>
+</svg>

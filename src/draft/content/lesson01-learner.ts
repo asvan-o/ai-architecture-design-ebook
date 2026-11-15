@@ -24,7 +24,7 @@ export const aiWorkTools = [
   {
     name: 'Codex',
     role: '프로젝트 파일과 코드를 다루며 구현·수정·테스트를 수행합니다.',
-    example: '파일정리 프로그램 제작, Blender MCP와 연결한 모델링 작업',
+    example: '착수계·행정서류 자동 생성기 제작, Blender MCP와 연결한 모델링 작업',
   },
   {
     name: 'Dot',

@@ -8,6 +8,7 @@ import {reusedLesson02Files} from './daejeon-gwangju-reuse.mjs';
 import {lesson02Images} from './daejeon-lesson02-assets.mjs';
 import {lesson02ProgramAssets} from './daejeon-file-sorter-assets.mjs';
 import {automationAssets,assertAutomationVerified} from './daejeon-automation-ab-assets.mjs';
+import {commencementAssets} from './daejeon-commencement-assets.mjs';
 import {workbookRenewalAssets} from './workbook-renewal-assets.mjs';
 import {lesson03SampleImages,lesson03SamplePrompts,lesson03WarmAnalysis} from './daejeon-lesson03-assets.mjs';
 import {lesson04Assets} from './daejeon-lesson04-assets.mjs';
@@ -20,8 +21,14 @@ import {getLesson0910Assets} from './daejeon-lesson0910-assets.mjs';
 import {getLesson111213Assets} from './daejeon-lesson111213-assets.mjs';
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const textbookManifest=JSON.parse(readFileSync(path.join(repositoryRoot,'src/draft/content/textbook-pdf-manifest.json'),'utf8'));
+const pdfAccessConfig=JSON.parse(readFileSync(path.join(repositoryRoot,'src/config/daejeon-pdf-access.json'),'utf8'));
+const expectPdfEncryption=pdfAccessConfig.enabled!==false;
+const allowStalePdfEncryption=process.env.ALLOW_STALE_PDF_ENCRYPTION==='1';
 assert.equal(textbookManifest.courseId,'daejeon-2026');
-assert.equal(textbookManifest.encryption,'AES-256');
+if(!allowStalePdfEncryption){
+  assert.equal(textbookManifest.encryption,expectPdfEncryption?'AES-256':'NONE');
+  assert.equal(Boolean(textbookManifest.passwordRequiredToOpen),expectPdfEncryption);
+}
 const textbookPdfNames=[
   'ai-architecture-design-course-overview.pdf',
   ...Array.from({length:13},(_,i)=>`ai-architecture-design-lesson-${String(i+1).padStart(2,'0')}.pdf`),
@@ -30,11 +37,12 @@ export function getDaejeonTextbookPdfs(){
   assert.deepEqual(textbookManifest.files.map(f=>f.filename),textbookPdfNames);
   const pdfDir=path.join(repositoryRoot,'review','daejeon','PDF_TEXTBOOKS');
   return textbookManifest.files.map(file=>{
-    assert.equal(file.encrypted,true,file.filename);
+    const fileEncrypted=allowStalePdfEncryption?Boolean(file.encrypted):expectPdfEncryption;
+    assert.equal(Boolean(file.encrypted),fileEncrypted,file.filename);
     const source=path.join(pdfDir,file.sourceFilename||file.filename),bytes=readFileSync(source);
     assert.equal(bytes.length,file.sizeBytes,file.filename);
     assert.equal(sha(bytes),file.sha256,file.filename);
-    assert(bytes.includes(Buffer.from('/Encrypt')),file.filename+' must remain encrypted');
+    assert.equal(bytes.includes(Buffer.from('/Encrypt')),fileEncrypted,file.filename+(fileEncrypted?' must remain encrypted':' must remain unencrypted while PDF gate is disabled'));
     return {outputPath:'downloads/pdf/'+file.filename,source,sha256:file.sha256};
   });
 }
@@ -44,7 +52,7 @@ export function getDaejeonLocalAssets(){
   const sourceFiles=packages.flatMap(p=>p.assets.map(a=>({outputPath:'practice/'+p.id+'/'+a.file,source:originalPath(p.id,a.file)})));
   const prompts=generatedPrompts().map(p=>({outputPath:p.file,text:p.text+'\n'}));
   const reused=reusedLesson02Files.map(f=>({outputPath:f.outputPath||'practice/GW-L02/'+f.file,source:path.join(repositoryRoot,f.source)}));
-  const items=[...sourceFiles,...prompts,...reused,...lesson02Images,...lesson02ProgramAssets,...automationAssets,...workbookRenewalAssets,...lesson03SampleImages,...lesson03SamplePrompts,lesson03WarmAnalysis,...lesson04Assets,...lesson04ApplicationAssets,...lesson05Assets,...lesson06Assets,...getLesson07Assets(),...getLesson08Assets(),...getLesson0910Assets(),...getLesson111213Assets(),...getDaejeonTextbookPdfs()];
+  const items=[...sourceFiles,...prompts,...reused,...lesson02Images,...lesson02ProgramAssets,...automationAssets,...commencementAssets,...workbookRenewalAssets,...lesson03SampleImages,...lesson03SamplePrompts,lesson03WarmAnalysis,...lesson04Assets,...lesson04ApplicationAssets,...lesson05Assets,...lesson06Assets,...getLesson07Assets(),...getLesson08Assets(),...getLesson0910Assets(),...getLesson111213Assets(),...getDaejeonTextbookPdfs()];
   const entries=new Map();
   for(const item of items){
     const bytes=item.source?readFileSync(item.source):Buffer.from(item.text);

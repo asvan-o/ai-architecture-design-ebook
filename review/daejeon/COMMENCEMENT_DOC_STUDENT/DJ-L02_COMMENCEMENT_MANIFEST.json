@@ -1,0 +1,88 @@
+{
+  "packageId": "DJ-L02-COMMENCEMENT-DOC-VIBE",
+  "contentStatus": "design-pending",
+  "nodeRuntimeIncluded": false,
+  "runtimeAiCredits": 0,
+  "files": [
+    {
+      "file": "commencement-flow.svg",
+      "bytes": 9192,
+      "sha256": "f22078875d5481ed26d4938e68d0f7d9659b36538595790f95c53a2dcdbd90fd"
+    },
+    {
+      "file": "commencement-rules.svg",
+      "bytes": 5795,
+      "sha256": "ae089cb87353afb610c3e64e0d5140112a49222291f5ce80421591e1a7e1c5e3"
+    },
+    {
+      "file": "COMMENCEMENT_UI_DESKTOP.png",
+      "bytes": 122434,
+      "sha256": "9276cde08f5c131083bd5a2688ac1f54cece1169ed78d3d1f616639b16b9e451"
+    },
+    {
+      "file": "COMMENCEMENT_UI_MOBILE.png",
+      "bytes": 38631,
+      "sha256": "77000fc096f3f6f7436bab01a10dda652eb5aa16dbcc9fe81bf6d6699c881528"
+    },
+    {
+      "file": "COMMENCEMENT_UI_PENDING.png",
+      "bytes": 132179,
+      "sha256": "86a51850ba4fa3770d40c4558617a2fa72b2ba75b1bdb3032814b737519b78c9"
+    },
+    {
+      "file": "DJ-L02_DOC_STEP_01.txt",
+      "bytes": 1496,
+      "sha256": "75478c842582637ec8db63d38bb1079ad4e1847d8d919ff2d82916b017ecdf74"
+    },
+    {
+      "file": "DJ-L02_DOC_STEP_02.txt",
+      "bytes": 1634,
+      "sha256": "749560571198b29b105148add507e0ec4499ab3a59b0028c8227985e62294c8a"
+    },
+    {
+      "file": "DJ-L02_DOC_STEP_03.txt",
+      "bytes": 1489,
+      "sha256": "c3fd3facd5b3c67714f8ec0106d576d1bef944680206f08421f659242b57fb05"
+    },
+    {
+      "file": "DJ-L02_DOC_STEP_04.txt",
+      "bytes": 1123,
+      "sha256": "65e231e4c302253f6033c9d98bcc532d95153cfb545206bcdda5a0cb5ef44b5c"
+    },
+    {
+      "file": "DJ-L02_DOC_INTEGRATED_PROMPT.txt",
+      "bytes": 2537,
+      "sha256": "7997546ea0c856824e5b1c99a8f7d7d36697c569c8e5ea0766ea30d70402a9db"
+    },
+    {
+      "file": "DJ-L02_DOC_VIBE_README.txt",
+      "bytes": 1386,
+      "sha256": "0168b4231a9318f9753cb77f0a1b34cd6e8f041e1b513399ff13303247762d42"
+    },
+    {
+      "file": "DOC_EXPECTED_RESULTS.csv",
+      "bytes": 1421,
+      "sha256": "8e87fc485948e6445474d9493b0ac6719ef35d0ee12420503b503cd584474912"
+    },
+    {
+      "file": "DJ-L02_COMMENCEMENT_PROGRAM.zip",
+      "bytes": 44671,
+      "sha256": "720a8f3c44687f714ba3396e710a8f102ba47250e446bdbc2f81464e142212b1"
+    },
+    {
+      "file": "DJ-L02_DOC_TEST.zip",
+      "bytes": 7708,
+      "sha256": "348f54eaab5a4c1c29a30e8aad42d37168a34f515e517b1783760093d1a0c1d3"
+    },
+    {
+      "file": "DJ-L02_COMMENCEMENT_README.txt",
+      "bytes": 2084,
+      "sha256": "3d538457e0540a76a330659b5c5613e67caaf6a73eda6b2b15b82fa200e74adc"
+    },
+    {
+      "file": "DJ-L02_COMMENCEMENT_VIBE_PACK.zip",
+      "bytes": 59071,
+      "sha256": "d7d3c245a7eb17cc565cc3bf9d2ce7c5d1c70c4fa18ef6048a17c7d37c763c6c"
+    }
+  ]
+}

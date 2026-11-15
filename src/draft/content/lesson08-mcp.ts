@@ -152,6 +152,34 @@ export const modelExportFormats = [
  {format:'FBX · .fbx',use:'렌더링·게임·영상 도구의 FBX 지원 경로',tip:'File → Export → FBX. 필요 시 Limit to → Selected Objects, Scale=1.00을 확인합니다. Twinmotion·D5 Render·Lumion·Unreal Engine 등 대상 앱의 버전·가져오기 지원을 확인합니다. Enscape는 지원하는 호스트 모델러의 연결 경로를 확인합니다.'},
  {format:'Wavefront · .obj',use:'SketchUp·Rhino 등 다른 모델러에 3D 형상 전달',tip:'File → Export → Wavefront (.obj). 대상 앱의 OBJ 가져오기 지원·확장 기능을 먼저 확인합니다. 재질용 .mtl과 텍스처가 생기면 함께 전달하고 축·단위를 확인합니다.'},
 ] as const;
+export const mcpArchitectureRoles = [
+ {layer:'1 · MCP Host (호스트 앱)',examples:'OpenAI Codex, Claude Desktop, Cursor, Antigravity',role:'사용자가 자연어로 목표·범위를 입력하고 결과를 확인하는 AI 작업창입니다.'},
+ {layer:'2 · MCP Client (내장 통역기)',examples:'호스트 앱 내부에 기본 탑재된 연결 모듈',role:'AI의 의도를 표준 JSON-RPC 메시지로 바꾸어 지정된 MCP 서버와 1:1로 주고받습니다.'},
+ {layer:'3 · MCP Server (중계 어댑터)',examples:'로컬 stdio(uvx blender-mcp, filesystem) / 원격 HTTP 서버',role:'각 실무 프로그램이나 문서함이 이해할 수 있는 전용 명령·조회 기능만 안전하게 노출합니다.'},
+ {layer:'4 · 실무 도구·데이터',examples:'Blender(localhost:9876), 로컬 프로젝트 폴더, 브라우저, 협업 문서',role:'실제 3D 객체 생성·치수 조회·문서 열람이 일어나는 현장 도구입니다.'},
+] as const;
+
+export const mcpThreePrimitives = [
+ {name:'Tools · 손(실행 도구)',summary:'실제 상태를 바꾸거나 계산·조작을 수행하는 실행 기능',example:'Blender 객체 생성·이동·재질 부여, 파일 저장, 카메라 배치',caution:'원본 변경·삭제가 일어날 수 있으므로 새 빈 파일이나 사본에서 실행하고 사람 승인 범위를 정합니다.'},
+ {name:'Resources · 눈(열람 자료)',summary:'AI가 판단 근거로 읽어 오는 현재 상태·문서·목록',example:'현재 열린 3D 씬 객체 목록, 프로젝트 조건 JSON, 사내 체크리스트 원문',caution:'읽기 전용 맥락 제공이 목적이며, 허용한 폴더·파일 범위만 열람하도록 제한합니다.'},
+ {name:'Prompts · 업무 매뉴얼(표준 지침)',summary:'자주 쓰는 점검 순서나 작업 양식을 미리 묶어 둔 템플릿',example:'단위·축 초기 점검 절차, 눈높이 카메라 검수 보고 양식',caution:'매뉴얼이 있어도 최종 치수·관통 여부 확인은 사람이 뷰포트에서 직접 대조합니다.'},
+] as const;
+
+export const mcpOfficeCatalog = [
+ {category:'3D 모델링·시각화 제어',server:'Blender MCP (로컬 stdio + 포트 9876)',use:'매스·벽·개구부·재질·카메라 동선 생성 및 씬 객체 치수 역조회',safety:'기존 업무 .blend 대신 새 빈 파일 또는 복사본에서 시작'},
+ {category:'로컬 문서함·기준서 열람',server:'Filesystem MCP (로컬 stdio)',use:'지정한 실습·과업 폴더 안의 회의록·조건표·체크리스트 읽기·초안 작성',safety:'바탕화면·전사 공유드라이브 전체가 아닌 단일 실습 폴더만 허용'},
+ {category:'법령·공공 고시·웹 확인',server:'Fetch / Browser MCP (로컬·원격)',use:'공공 건축 공고문, 조례 페이지, 기술 자료 웹페이지 본문 조회·비교',safety:'로그인 계정·결제 페이지 접근 금지, 최종 법령 효력은 원문 대조'},
+ {category:'팀 협업 문서·일정 연동',server:'Notion / Google Workspace MCP (원격 HTTP)',use:'프로젝트 주간 회의록 요약, 과업 체크리스트·일정표 초안 정리',safety:'읽기 권한 우선 연결, 외부 발송·공유 권한 변경은 사람이 직접 수행'},
+] as const;
+
+export const mcpTroubleshootingRows = [
+ {symptom:'where.exe uvx 실행 시 아무 경로도 나오지 않음',cause:'uv 미설치 또는 설치 직후 이전 PowerShell 창을 그대로 사용함',fix:'Step 1 설치 명령 실행 후 PowerShell 창을 새로 열어 경로를 다시 조회합니다.'},
+ {symptom:'Codex 실행 시 config.toml 구문 오류 표시',cause:'역슬래시(\\)를 큰따옴표 안에 넣어 이스케이프 오류가 나거나 [mcp_servers.blender]가 중복됨',fix:'경로는 작은따옴표(\'C:\\Users\\...\\uvx.exe\')로 감싸고 중복 테이블이 없는지 확인합니다.'},
+ {symptom:'도구 호출 시 Connection refused (포트 9876) 발생',cause:'Blender를 켜지 않았거나 N 패널에서 Start MCP Server 버튼을 누르지 않음',fix:'Blender 3D 뷰포트에서 N → MCP for Blender 탭 → Start MCP Server 실행 상태를 확인합니다.'},
+ {symptom:'config.toml을 저장했는데 Codex에 Blender 도구가 안 보임',cause:'설정 파일 변경 후 대화창만 새로 열고 앱 프로세스를 재시작하지 않음',fix:'Codex 앱을 완전히 종료한 뒤 다시 실행해 MCP 서버 목록을 새로 불러옵니다.'},
+ {symptom:'기존에 작업하던 3D 모델이 사라질까 우려됨',cause:'열려 있는 현재 Blender 씬에 곧바로 객체 정리·생성 명령이 전달됨',fix:'실습 전 반드시 File → New → General로 새 빈 파일을 열고, 요청문에 기존 객체 발견 시 중단 조건을 넣습니다.'},
+] as const;
+
 const terminalGuide={kind:'terminal' as const,platform:'Windows PowerShell',howToUse:'명령은 PowerShell에서, TOML 설정은 텍스트 편집기에서 사용합니다.'};
 const agentGuide={kind:'code' as const,platform:'Blender MCP가 연결된 Codex',howToUse:'Blender의 MCP 서버를 켜 두고 Codex 채팅창에 입력합니다.'};
 export const mcpBlocks=[

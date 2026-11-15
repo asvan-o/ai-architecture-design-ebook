@@ -200,25 +200,32 @@ try:
     fonts = font_inventory(clear_reader)
     assert any("Malgun" in name and info["embedded"] and info["subset"] for name, info in fonts.items()), "Subset Malgun embedding required."
     assert all(info["embedded"] for info in fonts.values()), "Every text font must be embedded."
-    private = work / "private"
-    private.mkdir(exist_ok=True)
-    owner_file = private / "textbook-owner-keys.json"
-    keys = json.loads(owner_file.read_text(encoding="utf-8")) if owner_file.exists() else {}
-    owner_password = secrets.token_urlsafe(40)
-    keys[key] = {"ownerPassword": owner_password, "outputName": Path(config["output"]).name}
-    owner_file.write_text(json.dumps(keys, indent=2), encoding="utf-8")
+    should_encrypt = bool(config.get("encrypt", True))
     final = PdfWriter(clone_from=clear_reader)
-    final.encrypt(user_password=config["userPassword"], owner_password=owner_password, algorithm="AES-256")
+    if should_encrypt:
+        private = work / "private"
+        private.mkdir(exist_ok=True)
+        owner_file = private / "textbook-owner-keys.json"
+        keys = json.loads(owner_file.read_text(encoding="utf-8")) if owner_file.exists() else {}
+        owner_password = secrets.token_urlsafe(40)
+        keys[key] = {"ownerPassword": owner_password, "outputName": Path(config["output"]).name}
+        owner_file.write_text(json.dumps(keys, indent=2), encoding="utf-8")
+        final.encrypt(user_password=config["userPassword"], owner_password=owner_password, algorithm="AES-256")
     with Path(config["output"]).open("wb") as stream:
         final.write(stream)
-    check = PdfReader(config["output"], password=config["userPassword"])
-    assert check.is_encrypted
-    encryption = check.trailer["/Encrypt"]
-    assert int(encryption["/V"]) == 5 and int(encryption["/R"]) == 6 and int(encryption["/Length"]) == 256
+    if should_encrypt:
+        check = PdfReader(config["output"], password=config["userPassword"])
+        assert check.is_encrypted
+        encryption = check.trailer["/Encrypt"]
+        assert int(encryption["/V"]) == 5 and int(encryption["/R"]) == 6 and int(encryption["/Length"]) == 256
+    else:
+        check = PdfReader(config["output"])
+        assert not check.is_encrypted
+        assert "/Encrypt" not in check.trailer
     link_count = sum(a.get_object().get("/Subtype") == "/Link" for p in check.pages for a in p.get("/Annots", []))
     assert link_count == 0
     assert not any(key in check.metadata for key in ["/CreationDate", "/ModDate"])
-    encrypted_doc = pdfium.PdfDocument(config["output"], password=config["userPassword"])
+    encrypted_doc = pdfium.PdfDocument(config["output"], password=config["userPassword"]) if should_encrypt else pdfium.PdfDocument(config["output"])
     copyright_pages = []
     plain_text = []
     for number in range(len(encrypted_doc)):
@@ -253,7 +260,7 @@ try:
         assert normalized(address) in normalized(final_text)
     output = Path(config["output"])
     assert output.stat().st_size < 95_000_000, "Textbook exceeds 95 MB limit."
-    report.update({"passed": True, "sizeBytes": output.stat().st_size, "sha256": hashlib.sha256(output.read_bytes()).hexdigest(), "encrypted": True, "encryption": "AES-256 R6", "linkAnnotations": link_count, "copyrightNoticePages": len(copyright_pages), "copyrightBaselinePt": 31, "fonts": fonts, "dateMetadata": False, "renderDirectory": str(evidence), "localAddressesPreserved": config["expectedLocalAddresses"], "textNativeCharacters": sum(len(t) for t in all_body_text)})
+    report.update({"passed": True, "sizeBytes": output.stat().st_size, "sha256": hashlib.sha256(output.read_bytes()).hexdigest(), "encrypted": should_encrypt, "encryption": "AES-256 R6" if should_encrypt else "NONE", "linkAnnotations": link_count, "copyrightNoticePages": len(copyright_pages), "copyrightBaselinePt": 31, "fonts": fonts, "dateMetadata": False, "renderDirectory": str(evidence), "localAddressesPreserved": config["expectedLocalAddresses"], "textNativeCharacters": sum(len(t) for t in all_body_text)})
     report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
 except Exception as exc:
     report["error"] = str(exc)

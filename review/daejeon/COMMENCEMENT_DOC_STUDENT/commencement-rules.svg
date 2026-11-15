@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="500" viewBox="0 0 1200 500" role="img" aria-labelledby="cr-title cr-desc">
+  <title id="cr-title">착수계 자동 생성기의 자동 처리 규칙과 사람 확인 경계</title>
+  <desc id="cr-desc">코드로 100% 자동 계산·동기화하는 항목과 사람이 반드시 확인·결정해야 하는 검수 대기 항목 비교 안내도</desc>
+  <rect width="1200" height="500" fill="#f8fafc"/>
+  <rect x="16" y="16" width="1168" height="468" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+
+  <g font-family="'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif">
+    <rect x="16" y="16" width="1168" height="64" rx="14" fill="#f1f5f9"/>
+    <rect x="16" y="64" width="1168" height="16" fill="#f1f5f9"/>
+    <line x1="16" y1="80" x2="1184" y2="80" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="40" y="47" font-size="21" font-weight="800" fill="#0f172a">자동 계산 규칙 vs 사람 확인(검수 대기) 경계표</text>
+    <text x="40" y="70" font-size="13.5" font-weight="600" fill="#475569">확실한 수식·동기화는 프로그램이 즉시 처리하고, 누락·모순·법적 책임 항목은 임의로 채우지 않고 사람에게 알립니다.</text>
+
+    <!-- Column 1: Automatic -->
+    <g transform="translate(40, 102)">
+      <rect width="545" height="308" rx="12" fill="#f0fdfa" stroke="#0f766e" stroke-width="2"/>
+      <rect width="545" height="40" rx="11" fill="#0f766e"/>
+      <rect y="28" width="545" height="12" fill="#0f766e"/>
+      <text x="18" y="26" font-size="15" font-weight="800" fill="#ffffff">프로그램이 자동 처리하는 규칙 (오타·누락 원천 방지)</text>
+
+      <g font-size="12.5" fill="#1e293b">
+        <rect x="16" y="54" width="513" height="54" rx="8" fill="#ffffff" stroke="#99f6e4"/>
+        <text x="26" y="75" font-weight="800" fill="#0f766e">1. 계약금액 숫자 ↔ 한글 표기 · 부가세 자동 연산</text>
+        <text x="26" y="96" font-size="11.8" fill="#334155">예: 38,500,000원 → “일금 삼천팔백오십만원정 (부가세 포함)” 자동 표기</text>
+
+        <rect x="16" y="116" width="513" height="54" rx="8" fill="#ffffff" stroke="#99f6e4"/>
+        <text x="28" y="137" font-weight="800" fill="#0f766e">2. 착수일 ~ 준공일 총 과업일수 자동 계산</text>
+        <text x="28" y="158" fill="#334155">예: 2026-11-16 ~ 2027-02-13 → 양끝 포함 “총 90일간” 자동 산출 및 공정 문구 반영</text>
+
+        <rect x="16" y="178" width="513" height="54" rx="8" fill="#ffffff" stroke="#99f6e4"/>
+        <text x="28" y="199" font-weight="800" fill="#0f766e">3. 4종 서류 공통 정보 일괄 동기화</text>
+        <text x="28" y="220" fill="#334155">착수계·선임계·참여기술자 명단·보안각서의 용역명·발주처·제출일·대표자명 동시 일치</text>
+
+        <rect x="16" y="240" width="513" height="54" rx="8" fill="#ffffff" stroke="#99f6e4"/>
+        <text x="28" y="261" font-weight="800" fill="#0f766e">4. 이전 제출본 보존 &amp; 변경 버전 분리 (_v02, _v03)</text>
+        <text x="28" y="282" fill="#334155">같은 용역으로 다시 저장할 때 기존 파일을 덮어쓰지 않고 버전 번호와 SHA-256 기록</text>
+      </g>
+    </g>
+
+    <!-- Column 2: Human Check -->
+    <g transform="translate(615, 102)">
+      <rect width="545" height="308" rx="12" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+      <rect width="545" height="40" rx="11" fill="#b45309"/>
+      <rect y="28" width="545" height="12" fill="#b45309"/>
+      <text x="18" y="26" font-size="15" font-weight="800" fill="#ffffff">사람 확인(검수 대기)으로 멈추는 예외 규칙</text>
+
+      <g font-size="12.5" fill="#1e293b">
+        <rect x="16" y="54" width="513" height="54" rx="8" fill="#ffffff" stroke="#fde68a"/>
+        <text x="28" y="75" font-weight="800" fill="#92400e">1. 날짜 역전 · 비정상 기간 감지</text>
+        <text x="28" y="96" fill="#334155">준공일이 착수일보다 빠르거나 계약일·제출일 순서가 어긋나면 확정 출력 전 경고 표시</text>
+
+        <rect x="16" y="116" width="513" height="54" rx="8" fill="#ffffff" stroke="#fde68a"/>
+        <text x="26" y="137" font-weight="800" fill="#92400e">2. 필수 행정 식별값 누락 (임의 생성 절대 금지)</text>
+        <text x="26" y="158" font-size="11.8" fill="#334155">책임건축사 자격번호·사무소 등록번호·감독관 빈칸을 임의로 채우지 않음</text>
+
+        <rect x="16" y="178" width="513" height="54" rx="8" fill="#ffffff" stroke="#fde68a"/>
+        <text x="28" y="199" font-weight="800" fill="#92400e">3. 변경착수계 구분 시 변경사유·차수 미기재</text>
+        <text x="28" y="220" fill="#334155">‘변경 착수’ 선택 시 변경 전·후 금액/기간 비교와 변경사유를 사람이 입력하도록 안내</text>
+
+        <rect x="16" y="240" width="513" height="54" rx="8" fill="#ffffff" stroke="#fde68a"/>
+        <text x="26" y="261" font-weight="800" fill="#92400e">4. 발주처 고유 양식·직인 날인 최종 확인</text>
+        <text x="26" y="282" font-size="11.8" fill="#334155">나라장터·지자체별 추가 첨부서류(예정공정표·자격증 사본)와 직인 날인은 사람이 마감</text>
+      </g>
+    </g>
+
+    <rect x="40" y="426" width="1120" height="40" rx="8" fill="#eff6ff" stroke="#93c5fd"/>
+    <text x="600" y="451" text-anchor="middle" font-size="13" font-weight="800" fill="#1e3a8a">설계 원칙: “빈칸을 그럴듯하게 지어내는 프로그램”이 아니라, “계산은 정확히 동기화하고 빠진 조건은 정직하게 멈추는 프로그램”을 만듭니다.</text>
+  </g>
+</svg>
