@@ -38,6 +38,11 @@ const filenames = {
   vibePack: 'DJ-L02_COMMENCEMENT_VIBE_PACK.zip',
   spaceProgramZip: 'DJ-L02_SPACE_PROGRAM_SAMPLE.zip',
   photoSheetZip: 'DJ-L02_PHOTO_SHEET_SAMPLE.zip',
+  handoffSvg: 'chatgpt-codex-handoff-flow.svg',
+  easyUiPreview: 'EASY_L02_2_UI_PREVIEW.png',
+  easyPrintPreview: 'EASY_L02_2_PRINT_2PAGES.png',
+  easyStarterZip: 'DJ-L02_2_EASY_STARTER_PACK.zip',
+  easyTextbookPdf: 'DJ-L02-2_EASY_WORKBOOK_TEXTBOOK.pdf',
 };
 
 /** @type {Record<string,{file:string,source:string,outputPath:string,sha256:string,bytes:number}>} */

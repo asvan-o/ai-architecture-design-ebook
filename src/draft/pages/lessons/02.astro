@@ -61,6 +61,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 <ReviewLayout title={lesson02Title} lead={lesson02Lead} page="lesson" lessonId="02" eyebrow="LESSON 02" sharedScreen {toc} {tocGroups}>
 <div class="lesson02-review lesson02-automation">
 
+  <aside class="review-callout" data-easy-companion-banner style="margin-bottom: 1.4rem; border-left: 4px solid #0f766e; background: #f0fdfa;">
+    <strong>수업이 어렵게 느껴지거나 가장 쉬운 입문 실습부터 진행하고 싶다면?</strong>
+    <p style="margin: 0.45rem 0 0.7rem;">Node.js 설치 없이 <strong>『착수신고서 + 책임기술자 선임계』 딱 2장만 단일 HTML 파일 1개</strong>로 만들고, <strong>검수자 ChatGPT(파일 직접 첨부) × 설계자 Codex(6.1 Sol 모델)</strong> 분업으로 따라가는 별도 입문 차시가 준비되어 있습니다.</p>
+    <a class="review-download" href={`${base}/lessons/02-2/`}>👉 제2-2차시 · 초간단 입문 실습(착수계·선임계 2종) 바로가기</a>
+  </aside>
+
   <TopicProgress lesson="02" items={[{ topic: 2, status: '완결', note: '반복 행정서류의 계산·동기화 규칙과 사람의 검수 경계를 정하고, 크레딧 절약형 Vibe Coding으로 착수계 4종 자동 생성기를 구현·실행하며 대주제 2를 마무리합니다.' }]} />
   <div class="lesson02-summary">{periods.map((period, index) => <article><h2>Part {index + 1} · {period.title}</h2><p>{period.output}</p></article>)}</div>
   <h2>이번 차시의 학습 목표</h2><ol class="lesson02-goals">{goals.map((goal) => <li>{goal}</li>)}</ol>

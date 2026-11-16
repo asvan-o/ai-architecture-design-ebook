@@ -139,4 +139,16 @@ test('제2차시 초보자 설치 안내·7규칙 Step 0 로드맵·문서별 �
   assert(fs.existsSync('review/daejeon/COMMENCEMENT_DOC_STUDENT/PHOTO_SHEET_UI_PREVIEW.png'));
   verifyBundle('review/daejeon/COMMENCEMENT_DOC_STUDENT/DJ-L02_SPACE_PROGRAM_SAMPLE.zip');
   verifyBundle('review/daejeon/COMMENCEMENT_DOC_STUDENT/DJ-L02_PHOTO_SHEET_SAMPLE.zip');
+
+  // 제2-2차시 독립 초간단 입문편(착수계·선임계 2종 단일 HTML · ChatGPT 검수 + Codex 6.1 Sol) 검증
+  assert(fs.existsSync('src/draft/pages/lessons/02-2.astro'));
+  const easySource = fs.readFileSync('src/draft/content/daejeon-lesson02-2-easy.ts', 'utf8');
+  assert.match(easySource, /6\.1 Sol/);
+  assert.match(easySource, /파일을 직접 첨부/);
+  const easyStarter = verifyBundle('review/daejeon/COMMENCEMENT_DOC_STUDENT/DJ-L02_2_EASY_STARTER_PACK.zip');
+  const easySingleHtml = easyStarter.members[easyStarter.root + '착수계_선임계_초간단생성기.html'].content.toString('utf8');
+  assert.match(easySingleHtml, /용 역 착 수 신 고 서/);
+  assert.match(easySingleHtml, /책 임 기 술 자 선 임 계/);
+  assert.match(easySingleHtml, /page-break-before:\s*always/);
+  assert(fs.existsSync('review/daejeon/COMMENCEMENT_DOC_STUDENT/DJ-L02-2_EASY_WORKBOOK_TEXTBOOK.pdf'));
 });

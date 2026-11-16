@@ -113,6 +113,31 @@
       "file": "DJ-L02_PHOTO_SHEET_SAMPLE.zip",
       "bytes": 31988,
       "sha256": "0b2d3ae7ed467e622a03b86913523de66e5b9b7b5e22e30e820cad8df35343cc"
+    },
+    {
+      "file": "chatgpt-codex-handoff-flow.svg",
+      "bytes": 9221,
+      "sha256": "56310f8600d54ea21ab41038764a744b4be18114f661eebd6577b0208524fe37"
+    },
+    {
+      "file": "EASY_L02_2_UI_PREVIEW.png",
+      "bytes": 92631,
+      "sha256": "993ef8ecf383ca36648e75e390e125bd219132260defefb2032d82260001600f"
+    },
+    {
+      "file": "EASY_L02_2_PRINT_2PAGES.png",
+      "bytes": 165719,
+      "sha256": "d5941b53eb8d5c68c06c734b06bb185bb87a32574a040199628293c359f3c8b4"
+    },
+    {
+      "file": "DJ-L02_2_EASY_STARTER_PACK.zip",
+      "bytes": 14663,
+      "sha256": "0e4803daa3814f72877187895155920a298e88cb782f5992688c8f9ef3f29343"
+    },
+    {
+      "file": "DJ-L02-2_EASY_WORKBOOK_TEXTBOOK.pdf",
+      "bytes": 778755,
+      "sha256": "8cce6454c4892e3e4c6ae594cc4c36363eb2bea5b730470d63c1039ee9355527"
     }
   ]
 }

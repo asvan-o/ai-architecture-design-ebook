@@ -73,7 +73,23 @@ const interior=base+'/images/daejeon/lesson-12/'+encodeURIComponent('실사형_0
    </section>
    <section id="lessons" class="design-section design-lessons" aria-labelledby="lessons-title">
     <div class="design-list-heading"><div><p class="design-eyebrow">02 / LESSON INDEX</p><h2 id="lessons-title">오늘의 차시를 펼쳐보세요.</h2></div><p>제1~13차시 · 교보재 PDF 제공</p></div>
-    <div class="design-lesson-list">{alignedLessons.map(lesson=><article class="design-lesson-row" data-course-lesson-card={'lessons/'+lesson.id}><span class="design-lesson-number">{lesson.id}</span><div class="design-lesson-body"><p class="design-lesson-stage">{lesson.stage}</p><h3><a href={lessonHref(lesson.id)}>{lesson.title}</a></h3><p class="design-lesson-description">{lesson.description}</p><details class="design-lesson-schedule"><summary>학습 범위 <Icon name="chevron-down" /></summary><p>{lesson.schedule}</p></details></div><div class="design-lesson-actions"><a href={lessonHref(lesson.id)} aria-label={`제${Number(lesson.id)}차시 읽기`}><Icon name="book-open" />읽기</a><a href={pdfHref(lesson.id)} download aria-label={`제${Number(lesson.id)}차시 교보재 PDF 다운로드`}><Icon name="download" />PDF</a></div></article>)}</div>
+    <div class="design-lesson-list">{alignedLessons.map(lesson=><>
+      <article class="design-lesson-row" data-course-lesson-card={'lessons/'+lesson.id}><span class="design-lesson-number">{lesson.id}</span><div class="design-lesson-body"><p class="design-lesson-stage">{lesson.stage}</p><h3><a href={lessonHref(lesson.id)}>{lesson.title}</a></h3><p class="design-lesson-description">{lesson.description}</p><details class="design-lesson-schedule"><summary>학습 범위 <Icon name="chevron-down" /></summary><p>{lesson.schedule}</p></details></div><div class="design-lesson-actions"><a href={lessonHref(lesson.id)} aria-label={`제${Number(lesson.id)}차시 읽기`}><Icon name="book-open" />읽기</a><a href={pdfHref(lesson.id)} download aria-label={`제${Number(lesson.id)}차시 교보재 PDF 다운로드`}><Icon name="download" />PDF</a></div></article>
+      {lesson.id === '02' && (
+        <article class="design-lesson-row" data-supplementary-lesson-card="lessons/02-2" style="background:#f0fdfa;border-left:4px solid #0f766e;">
+          <span class="design-lesson-number" style="font-size:1rem;">02-2</span>
+          <div class="design-lesson-body">
+            <p class="design-lesson-stage">초간단 입문 보충 · 검수자 ChatGPT × 설계자 Codex (6.1 Sol)</p>
+            <h3><a href={lessonHref('02-2')}>제2-2차시 · [초간단 입문] 착수계·선임계 2종 단일 파일 만들기</a></h3>
+            <p class="design-lesson-description">Node.js 설치 없이 『착수계_선임계_생성기.html』 딱 1개 파일만 만들고, PC 내부를 못 보는 ChatGPT에게 결과 파일을 직접 첨부해 감리·수정받는 가장 쉬운 입문 실습입니다.</p>
+          </div>
+          <div class="design-lesson-actions">
+            <a href={lessonHref('02-2')} aria-label="제2-2차시 초간단 입문 읽기"><Icon name="book-open" />읽기</a>
+            <a href={`${base}/practice/DJ-L02/commencement/DJ-L02-2_EASY_WORKBOOK_TEXTBOOK.pdf`} download aria-label="제2-2차시 교보재 PDF 다운로드"><Icon name="download" />PDF</a>
+          </div>
+        </article>
+      )}
+    </>)}</div>
    </section>
    <section id="guide" class="design-guide" aria-labelledby="guide-title">
     <div class="design-guide-intro"><p class="design-eyebrow">03 / HOW TO USE</p><h2 id="guide-title">읽고, 비교하고,<br />직접 실행해 보세요.</h2><div class="design-illustration" aria-hidden="true" set:html={illustration} /></div>

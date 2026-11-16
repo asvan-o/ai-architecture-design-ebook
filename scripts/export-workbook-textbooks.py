@@ -173,7 +173,7 @@ try:
         overlay = canvas.Canvas(buffer, pagesize=(width, height), invariant=1, initialFontName="WorkbookMalgun", initialFontSize=8)
         overlay.setFillColorRGB(.28, .34, .35)
         overlay.setFont("WorkbookMalgun", 8)
-        label = "과정 개요" if key == "overview" else f"제{int(key)}차시"
+        label = "과정 개요" if key == "overview" else ("제2-2차시" if key == "02-2" else f"제{int(key)}차시")
         overlay.drawString(45.35433, height - 31, f"실무 워크북 · {label}")
         overlay.setStrokeColorRGB(.78, .81, .79)
         overlay.setLineWidth(.35)

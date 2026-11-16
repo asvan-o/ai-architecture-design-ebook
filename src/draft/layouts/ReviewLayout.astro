@@ -15,13 +15,17 @@ import '../../styles/global.css';
 import '../styles/review.css';
 import '../styles/review-navigation-screen.css';
 interface TocItem { id: string; title: string; }
-interface Props { title: string; lead: string; page: 'home' | 'overview' | 'lesson' | 'glossary'; lessonId?:'01'|'02'|'03'|'04'|'05'|'06'|'07'|'08'|'09'|'10'|'11'|'12'|'13'; eyebrow?:string; sharedScreen?:boolean; toc?: readonly TocItem[]; tocGroups?: readonly {id:string;title:string;items:readonly TocItem[]}[]; }
+interface Props { title: string; lead: string; page: 'home' | 'overview' | 'lesson' | 'glossary'; lessonId?:'01'|'02'|'02-2'|'03'|'04'|'05'|'06'|'07'|'08'|'09'|'10'|'11'|'12'|'13'; eyebrow?:string; sharedScreen?:boolean; toc?: readonly TocItem[]; tocGroups?: readonly {id:string;title:string;items:readonly TocItem[]}[]; }
 const { title, lead, page, lessonId='01', eyebrow, toc = [], tocGroups = [] } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const accessGateEnabled = isStudentBuild && Boolean(accessConfig.passwordHash);
-const lessonById = new Map(alignedLessons.map((item) => [item.id, item]));
+const lessonDisplayNumber = lessonId === '02-2' ? '2-2' : String(Number(lessonId));
+const lessonById = new Map<string, (typeof alignedLessons)[number]>(alignedLessons.map((item) => [item.id, item]));
 const topicGroups = officialTopics.map((topicTitle, index) => {
-  const links = topicLessonLinks[index] ?? [];
+  const rawLinks = topicLessonLinks[index] ?? [];
+  const links = index === 1
+    ? [...rawLinks, { id: '02-2', label: '제2-2차시 (입문)' }]
+    : rawLinks;
   const isCurrentTopic = page === 'lesson' && links.some((item) => item.id === lessonId);
   return {
     number: index + 1,
@@ -30,7 +34,9 @@ const topicGroups = officialTopics.map((topicTitle, index) => {
     isCurrentTopic,
     lessons: links.map((link) => {
       const info = lessonById.get(link.id);
-      const shortTitle = info ? info.title.replace(/^제\d+차시\s*·\s*/, '') : link.label;
+      const shortTitle = link.id === '02-2'
+        ? '착수계·선임계 2종 단일 파일 만들기 (ChatGPT × Codex 6.1 Sol)'
+        : info ? info.title.replace(/^제\d+차시\s*·\s*/, '') : link.label;
       return {
         ...link,
         shortTitle,
@@ -43,13 +49,15 @@ const topicGroups = officialTopics.map((topicTitle, index) => {
 const currentTopics = topicGroups.filter((group) => group.isCurrentTopic);
 const pdfHref = page === 'overview'
   ? `${base}/downloads/pdf/ai-architecture-design-course-overview.pdf`
-  : page === 'lesson'
-    ? `${base}/downloads/pdf/ai-architecture-design-lesson-${lessonId}.pdf`
-    : null;
+  : page === 'lesson' && lessonId === '02-2'
+    ? `${base}/practice/DJ-L02/commencement/DJ-L02-2_EASY_WORKBOOK_TEXTBOOK.pdf`
+    : page === 'lesson'
+      ? `${base}/downloads/pdf/ai-architecture-design-lesson-${lessonId}.pdf`
+      : null;
 const pdfLabel = page === 'overview'
   ? '과정 개요 교보재 PDF 다운로드'
   : page === 'lesson'
-    ? `제${Number(lessonId)}차시 교보재 PDF 다운로드`
+    ? `제${lessonDisplayNumber}차시 교보재 PDF 다운로드`
     : '';
 ---
 <!doctype html>
@@ -96,7 +104,7 @@ const pdfLabel = page === 'overview'
         <a href={`${base}/`} aria-current={page==='home'?'page':undefined}>홈</a>
         <a href={`${base}/course-overview/`} aria-current={page==='overview'?'page':undefined}>과정 개요</a>
         <details class="review-lesson-menu">
-          <summary>차시 이동 {page==='lesson'&&<span class="review-lesson-menu__current" aria-label={`현재 제${Number(lessonId)}차시`}>{lessonId}</span>}</summary>
+          <summary>차시 이동 {page==='lesson'&&<span class="review-lesson-menu__current" aria-label={`현재 제${lessonDisplayNumber}차시`}>{lessonId}</span>}</summary>
           <div class="review-lesson-menu__panel">
             {reviewNavigation.filter(item=>item.path.startsWith('lessons/')).map(item=><a href={`${base}/${item.path}`} aria-current={page==='lesson'&&lessonId===item.id?'page':undefined}><span>{item.id}</span>{item.label}</a>)}
           </div>
@@ -180,9 +188,9 @@ const pdfLabel = page === 'overview'
             </div>
           )}
         </div>
-        {(page === 'overview' || (page === 'lesson' && lessonId !== '02')) && <WorkbookDrawingScaleGuide />}
+        {(page === 'overview' || (page === 'lesson' && lessonId !== '02' && lessonId !== '02-2')) && <WorkbookDrawingScaleGuide />}
         <slot />
-        {(page === 'overview' || page === 'lesson') && <WorkbookPrintGlossaryAppendix lessonId={page === 'overview' ? 'overview' : lessonId} />}
+        {(page === 'overview' || page === 'lesson') && <WorkbookPrintGlossaryAppendix lessonId={page === 'overview' ? 'overview' : lessonId === '02-2' ? '02' : lessonId} customTitle={lessonId === '02-2' ? '부록 · 제2-2차시 핵심 용어 정리' : undefined} />}
         {page!=='glossary'&&<ReviewLessonNavigation {page} {lessonId} />}
       </main>
     </div>

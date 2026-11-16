@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 540" width="1200" height="540" role="img" aria-labelledby="handoff-title handoff-desc">
+  <title id="handoff-title">제2-2차시 검수자 ChatGPT와 설계자 Codex 6.1 Sol의 역할 분담 및 파일 전달 흐름도</title>
+  <desc id="handoff-desc">PC 내부 폴더를 직접 읽지 못하는 ChatGPT에게 코덱스가 생성한 단일 HTML 파일을 마우스로 끌어다 첨부해 검수받고 수정 지시문을 받아 완성하는 4단계 흐름도</desc>
+  <defs>
+    <style>
+      .bg { fill: #f8faf9; }
+      .panel { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.6; rx: 14; }
+      .hdr-gpt { fill: #1e3a5f; }
+      .hdr-human { fill: #0f766e; }
+      .hdr-codex { fill: #173f39; }
+      .card-gpt { fill: #f0f6fc; stroke: #bdd3ea; stroke-width: 1.2; rx: 8; }
+      .card-human { fill: #ecfdf5; stroke: #99f6e4; stroke-width: 1.2; rx: 8; }
+      .card-codex { fill: #f2f7f5; stroke: #bfd4ce; stroke-width: 1.2; rx: 8; }
+      .warn-pill { fill: #fff7ed; stroke: #ea580c; stroke-width: 1.3; rx: 8; }
+      .step-bar { fill: #0f172a; rx: 10; }
+      .t-main { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 20px; font-weight: 800; fill: #0f172a; }
+      .t-sub { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 13px; fill: #475569; }
+      .t-hdr { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 15px; font-weight: 800; fill: #ffffff; }
+      .t-tag { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 11px; font-weight: 700; fill: #dbeafe; }
+      .t-title { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 13.5px; font-weight: 800; fill: #0f172a; }
+      .t-body { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 12px; fill: #334155; }
+      .t-warn { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 12px; font-weight: 800; fill: #c2410c; }
+      .t-step { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 12.5px; font-weight: 700; fill: #f8fafc; }
+      .arrow-r { stroke: #0f766e; stroke-width: 2.5; fill: none; marker-end: url(#m-green); }
+      .arrow-l { stroke: #ea580c; stroke-width: 2.5; fill: none; marker-end: url(#m-orange); }
+    </style>
+    <marker id="m-green" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#0f766e" />
+    </marker>
+    <marker id="m-orange" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#ea580c" />
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1200" height="540" rx="16" />
+  <text class="t-main" x="30" y="38">제2-2차시 핵심 진행 방식 · 검수자 ChatGPT ↔ 사람(파일 전달) ↔ 설계자 Codex (6.1 Sol)</text>
+  <text class="t-sub" x="30" y="60">ChatGPT는 내 컴퓨터 폴더 안을 직접 볼 수 없으므로, 코덱스가 만든 『단일 .html 파일 1개』를 마우스로 끌어다 ChatGPT에 첨부해 검수받습니다.</text>
+
+  <!-- LEFT: ChatGPT (Reviewer) -->
+  <rect class="panel" x="26" y="78" width="356" height="368" rx="14" />
+  <rect class="hdr-gpt" x="26" y="78" width="356" height="52" rx="14" />
+  <rect class="hdr-gpt" x="26" y="110" width="356" height="20" />
+  <text class="t-tag" x="44" y="98">ROLE 1 · 기획 도우미 &amp; 깐깐한 감리자</text>
+  <text class="t-hdr" x="44" y="120">검수자 · ChatGPT (일반 채팅창)</text>
+
+  <rect class="warn-pill" x="42" y="144" width="324" height="58" rx="8" />
+  <text class="t-warn" x="54" y="165">⚠ 주의: 내 PC 폴더 내부 직접 읽기 불가!</text>
+  <text class="t-body" x="54" y="185">폴더 경로만 알려 줘서는 파일을 못 읽으므로</text>
+  <text class="t-body" x="54" y="198">반드시 [+ 파일 첨부]로 .html 파일을 직접 올려 줍니다.</text>
+
+  <rect class="card-gpt" x="42" y="214" width="324" height="98" rx="8" />
+  <text class="t-title" x="54" y="236">Step 1 역할 · 코덱스용 제작 지시문 써 주기</text>
+  <text class="t-body" x="54" y="256">• 쉬운 일상어로 말한 요구사항(착수계+선임계 2종)</text>
+  <text class="t-body" x="54" y="274">  을 빠짐없는 [코덱스 지시문] 블록으로 정리</text>
+  <text class="t-body" x="54" y="292">• 초보자가 눈으로 확인할 체크리스트 4가지 제시</text>
+
+  <rect class="card-gpt" x="42" y="324" width="324" height="106" rx="8" />
+  <text class="t-title" x="54" y="346">Step 3 역할 · 첨부된 .html 코드 정밀 검수</text>
+  <text class="t-body" x="54" y="366">• 1억원/3,850만원 한글 금액 변환 오류 구멍 점검</text>
+  <text class="t-body" x="54" y="384">• 인쇄 시 1쪽(착수계)·2쪽(선임계) 페이지 분리 확인</text>
+  <text class="t-body" x="54" y="402">• 코덱스에 바로 붙여 넣을 [2차 수정 지시문] 작성</text>
+
+  <!-- CENTER: Human Bridge -->
+  <rect class="panel" x="422" y="78" width="356" height="368" rx="14" />
+  <rect class="hdr-human" x="422" y="78" width="356" height="52" rx="14" />
+  <rect class="hdr-human" x="422" y="110" width="356" height="20" />
+  <text class="t-tag" x="440" y="98">ROLE 2 · 결정권자 &amp; 파일 전달 다리</text>
+  <text class="t-hdr" x="440" y="120">사람 · 건축 실무자 (내 PC 탐색기)</text>
+
+  <rect class="card-human" x="438" y="146" width="324" height="84" rx="8" />
+  <text class="t-title" x="450" y="168">① 지시문 복사 · 전달 (ChatGPT → Codex)</text>
+  <text class="t-body" x="450" y="188">ChatGPT가 정리해 준 [코덱스 제작 지시문]과</text>
+  <text class="t-body" x="450" y="206">[2차 수정 지시문]을 복사해 Codex 창에 붙여넣기</text>
+
+  <rect class="card-human" x="438" y="242" width="324" height="94" rx="8" />
+  <text class="t-title" x="450" y="264">② 결과 파일 직접 첨부 (탐색기 → ChatGPT)</text>
+  <text class="t-body" x="450" y="284">폴더에 생성된 『착수계_선임계_생성기.html』</text>
+  <text class="t-body" x="450" y="302">딱 1개 파일을 마우스로 끌어 ChatGPT 창에 첨부!</text>
+  <text class="t-body" x="450" y="320">(단일 파일이라 압축할 필요도 없이 1초 첨부 완료)</text>
+
+  <rect class="card-human" x="438" y="348" width="324" height="82" rx="8" />
+  <text class="t-title" x="450" y="370">③ 최종 실행 &amp; 직인 마감</text>
+  <text class="t-body" x="450" y="390">더블클릭으로 열어 숫자·날짜·경고 배너 확인 후</text>
+  <text class="t-body" x="450" y="408">[A4 인쇄 / PDF 저장]으로 2페이지 분리 출력!</text>
+
+  <!-- RIGHT: Codex 6.1 Sol -->
+  <rect class="panel" x="818" y="78" width="356" height="368" rx="14" />
+  <rect class="hdr-codex" x="818" y="78" width="356" height="52" rx="14" />
+  <rect class="hdr-codex" x="818" y="110" width="356" height="20" />
+  <text class="t-tag" x="836" y="98">ROLE 3 · 내 폴더 안의 실제 파일 시공자</text>
+  <text class="t-hdr" x="836" y="120">설계·제작자 · Codex (6.1 Sol 모델)</text>
+
+  <rect class="card-codex" x="834" y="146" width="324" height="84" rx="8" />
+  <text class="t-title" x="846" y="168">✓ 내 PC 빈 실습 폴더 직접 연결됨</text>
+  <text class="t-body" x="846" y="188">예: C:착수계_초간단실습 폴더를 작업 범위로 열어</text>
+  <text class="t-body" x="846" y="206">그 안에 실제 실행 가능한 .html 파일을 직접 생성</text>
+
+  <rect class="card-codex" x="834" y="242" width="324" height="94" rx="8" />
+  <text class="t-title" x="846" y="264">Step 2 역할 · 단일 HTML 1차 제작</text>
+  <text class="t-body" x="846" y="284">• Node.js 서버 없이 더블클릭만으로 열리는</text>
+  <text class="t-body" x="846" y="302">  『착수계_선임계_생성기.html』 파일 1개 완성</text>
+  <text class="t-body" x="846" y="320">• 한글 금액·일수 계산 + 1쪽·2쪽 인쇄 분리 내장</text>
+
+  <rect class="card-codex" x="834" y="348" width="324" height="82" rx="8" />
+  <text class="t-title" x="846" y="370">Step 4 역할 · 감리 지적사항 즉시 수정</text>
+  <text class="t-body" x="846" y="390">• ChatGPT가 짚어 준 수정 지시문을 받아</text>
+  <text class="t-body" x="846" y="408">  같은 폴더의 .html 파일을 안전하게 보완·마무리</text>
+
+  <!-- Arrows between columns -->
+  <line class="arrow-r" x1="384" y1="186" x2="418" y2="186" />
+  <line class="arrow-r" x1="780" y1="186" x2="814" y2="186" />
+  <line class="arrow-l" x1="814" y1="290" x2="780" y2="290" />
+  <line class="arrow-l" x1="418" y1="290" x2="384" y2="290" />
+
+  <!-- Bottom 4-step summary bar -->
+  <rect class="step-bar" x="26" y="464" width="1148" height="52" rx="10" />
+  <text class="t-step" x="52" y="495">따라하기 4단계 요약:  ① ChatGPT로 지시문 준비  →  ② Codex(6.1 Sol)로 .html 파일 생성  →  ③ 생성된 .html 파일을 ChatGPT에 첨부해 검수  →  ④ Codex(6.1 Sol)로 반영 완성!</text>
+</svg>

@@ -5,10 +5,10 @@ import { selectWorkbookPrintGlossary } from '../content/workbook-print-glossary'
 import { overviewSections } from '../content/daejeon-2026';
 import portfolioSource from '../content/lesson111213.json';
 
-interface Props { lessonId: WorkbookGlossaryLessonId; }
-const { lessonId } = Astro.props;
+interface Props { lessonId: WorkbookGlossaryLessonId; customTitle?: string; }
+const { lessonId, customTitle } = Astro.props;
 const isOverview = lessonId === 'overview';
-const title = isOverview ? '부록 · 실무 워크북 핵심 용어 사전 (전체 50선)' : `부록 · 제${Number(lessonId)}차시 핵심 용어 정리`;
+const title = customTitle || (isOverview ? '부록 · 실무 워크북 핵심 용어 사전 (전체 50선)' : `부록 · 제${Number(lessonId)}차시 핵심 용어 정리`);
 const sectionLabels = Object.fromEntries([
   ...overviewSections.map((section, index) => [`overview:${section.id}`, `과정 안내 §${String(index + 1).padStart(2, '0')} · ${section.title}`]),
   ...Object.entries(portfolioSource.lessons).flatMap(([id, lesson]) => lesson.sections.map(section => [`${id}:${section.id}`, `제${Number(id)}차시 §${String(section.index).padStart(2, '0')} · ${section.title}`])),
