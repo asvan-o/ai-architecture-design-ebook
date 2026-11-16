@@ -5,8 +5,8 @@ import Lesson02ExercisePreview from './Lesson02ExercisePreview.astro';
 import Lesson02InputMethods from './Lesson02InputMethods.astro';
 import { commencementFiles } from '../../../scripts/daejeon-commencement-assets.mjs';
 import { commencementExercise, buildSteps, integratedPrompt } from '../content/lesson02-exercises';
-import { runSteps, knownLimits, docTestScenarios, takeaways } from '../content/daejeon-lesson02-automation';
-import { executionModeGuide, firstRunGuide } from '../content/lesson02-input-methods';
+import { runSteps, knownLimits, docTestScenarios, takeaways, stepByStepCommandGuide } from '../content/daejeon-lesson02-automation';
+import { executionModeGuide, firstRunGuide, companyFormAdaptationGuide } from '../content/lesson02-input-methods';
 import '../styles/lesson02-exercises.css';
 import { classificationExplanation } from '../content/lesson02-classification';
 
@@ -37,11 +37,35 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     </article>
     <p><strong>같은 폴더·같은 대화에서 작은 계산 기능부터 만들고 실행하며 덧붙입니다.</strong> 아래 Step 1~4는 모두 실제 구현 요청입니다. 실행 뒤 관찰한 오류가 있으면 전체를 다시 짜지 말고 해당 파일만 콕 집어 수정한 뒤 다음 단계로 넘어갑니다.</p>
     <ol class="l02-ab-flow" aria-label="단계별 바이브 코딩 제작 순서">
+      <li>Step 0 · 계획·구조 합의</li>
       <li>Step 1 · 폴더·금액/일수 계산</li>
       <li>Step 2 · 자동조립·검수대기 분리</li>
-      <li>Step 3 · 4종 서식·_v02 보존</li>
+      <li>Step 3 · 4종 페이지 분리·_v02 보존</li>
       <li>Step 4 · 4175 화면·A4/Word</li>
     </ol>
+    <div class="lesson02-table" data-step-command-guide>
+      <table>
+        <caption>코덱스 대화창 하나에서 Step 0(계획 합의)부터 Step 4까지 이어 말하는 진행 가이드</caption>
+        <thead>
+          <tr>
+            <th scope="col">대화 순서</th>
+            <th scope="col">이번 단계에서 코덱스에 넘기는 핵심 지시</th>
+            <th scope="col">만들어지는 파일</th>
+            <th scope="col">다음 단계로 가기 전 확인할 기준 (규칙 7)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {stepByStepCommandGuide.map(([order, command, files, check]) => (
+            <tr>
+              <th scope="row" data-label="대화 순서">{order}</th>
+              <td data-label="핵심 지시">{command}</td>
+              <td data-label="만들어지는 파일"><code>{files}</code></td>
+              <td data-label="확인할 기준">{check}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
     <aside class="review-callout" data-build-route>
       <strong>같은 착수계 생성기를 만드는 두 경로입니다. 단계별 제작(경로 A) 또는 한 번에 통합 제작(경로 B · 크레딧 절약형) 중 하나를 선택합니다.</strong>
       <p>원리를 익히며 차례로 기능을 보완하려면 Step 1부터 진행합니다. 크레딧을 아껴 새 빈 폴더에서 한 번에 구현하려면 §11의 <a href="#l02-integrated-prompt">최종 통합 예시문 1개</a>를 사용합니다. 4단계를 끝낸 뒤 같은 프로그램을 다시 만드는 순서가 아닙니다.</p>
@@ -106,6 +130,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <ol class="lesson02-checklist">
         {firstRunGuide.steps.map(([title, instruction]) => <li><strong>{title}</strong><p>{instruction}</p></li>)}
       </ol>
+      <p><strong>{firstRunGuide.pageSeparationNote}</strong></p>
     </aside>
     <h4>{firstRunGuide.followupTitle}</h4>
     <p>{firstRunGuide.followupIntroduction}</p>
@@ -151,6 +176,27 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <ul>{knownLimits.map((item) => <li>{item}</li>)}</ul>
       <p>{firstRunGuide.finish}</p>
     </details>
+    <section class="l02-integrated-example" data-company-form-guide aria-labelledby="l02-company-form-title">
+      <h4 id="l02-company-form-title">{companyFormAdaptationGuide.title}</h4>
+      <p>{companyFormAdaptationGuide.introduction}</p>
+      <aside class="review-callout">
+        <strong>{companyFormAdaptationGuide.caution}</strong>
+      </aside>
+      {companyFormAdaptationGuide.methods.map((method) => (
+        <article class="l02-ab-card" style="margin-top: 1rem;">
+          <p class="l02-ab-label">{method.badge}</p>
+          <h4>{method.heading}</h4>
+          <p>{method.whenToUse}</p>
+          <ol class="lesson02-checklist">
+            {method.steps.map((stepText) => <li>{stepText}</li>)}
+          </ol>
+          <div data-company-prompt-block>
+            <p><strong>{method.promptTitle}</strong></p>
+            <pre class="lesson02-program-tree">{method.prompt}</pre>
+          </div>
+        </article>
+      ))}
+    </section>
   </article>
 </>}
 {stage === 'wrap' && <>
@@ -161,12 +207,14 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 </div>
 <style>
   @media print {
+    :global(html[data-course-id="daejeon-2026"]) [data-step-command-guide] caption,
     :global(html[data-course-id="daejeon-2026"]) [data-execution-mode-guide] caption {
       display: table-caption !important;
       caption-side: top !important;
     }
     :global(html[data-course-id="daejeon-2026"]) [data-execution-mode-guide],
-    :global(html[data-course-id="daejeon-2026"]) [data-first-run-guide] li {
+    :global(html[data-course-id="daejeon-2026"]) [data-first-run-guide] li,
+    :global(html[data-course-id="daejeon-2026"]) [data-company-prompt-block] {
       break-inside: avoid-page !important;
     }
   }

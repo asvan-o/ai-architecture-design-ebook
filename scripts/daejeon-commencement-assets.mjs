@@ -18,6 +18,7 @@ assert.equal(manifest.runtimeAiCredits, 0);
 const filenames = {
   flowSvg: 'commencement-flow.svg',
   rulesSvg: 'commencement-rules.svg',
+  roadmapSvg: 'vibe-coding-7rules-roadmap.svg',
   desktop: 'COMMENCEMENT_UI_DESKTOP.png',
   mobile: 'COMMENCEMENT_UI_MOBILE.png',
   pending: 'COMMENCEMENT_UI_PENDING.png',

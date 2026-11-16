@@ -15,6 +15,11 @@
       "sha256": "ae089cb87353afb610c3e64e0d5140112a49222291f5ce80421591e1a7e1c5e3"
     },
     {
+      "file": "vibe-coding-7rules-roadmap.svg",
+      "bytes": 9691,
+      "sha256": "6173bc95ab49732e846b6cea3651d8e9b0e044fd2e4eee67bc1fc93927002778"
+    },
+    {
       "file": "COMMENCEMENT_UI_DESKTOP.png",
       "bytes": 122434,
       "sha256": "9276cde08f5c131083bd5a2688ac1f54cece1169ed78d3d1f616639b16b9e451"
@@ -41,18 +46,18 @@
     },
     {
       "file": "DJ-L02_DOC_STEP_03.txt",
-      "bytes": 1489,
-      "sha256": "c3fd3facd5b3c67714f8ec0106d576d1bef944680206f08421f659242b57fb05"
+      "bytes": 2004,
+      "sha256": "a531f957915157f70baf47cdcdcde722c341fbcc5a51657aa9a162805b135474"
     },
     {
       "file": "DJ-L02_DOC_STEP_04.txt",
-      "bytes": 1123,
-      "sha256": "65e231e4c302253f6033c9d98bcc532d95153cfb545206bcdda5a0cb5ef44b5c"
+      "bytes": 1303,
+      "sha256": "92ddd6e35725c54baba7c3af7228f2b090b895b9083e4fcdc2131f4d20b039ab"
     },
     {
       "file": "DJ-L02_DOC_INTEGRATED_PROMPT.txt",
-      "bytes": 2537,
-      "sha256": "7997546ea0c856824e5b1c99a8f7d7d36697c569c8e5ea0766ea30d70402a9db"
+      "bytes": 2840,
+      "sha256": "3e5288e0a792345c144a46618718a8c25604024c891ce6f9f4f359558b7add97"
     },
     {
       "file": "DJ-L02_DOC_VIBE_README.txt",
@@ -66,8 +71,8 @@
     },
     {
       "file": "DJ-L02_COMMENCEMENT_PROGRAM.zip",
-      "bytes": 44671,
-      "sha256": "720a8f3c44687f714ba3396e710a8f102ba47250e446bdbc2f81464e142212b1"
+      "bytes": 47069,
+      "sha256": "2b9df6fed8516db20fbe787064018855eae171e4b5431e8ce0c9423b2c77dceb"
     },
     {
       "file": "DJ-L02_DOC_TEST.zip",
@@ -76,13 +81,13 @@
     },
     {
       "file": "DJ-L02_COMMENCEMENT_README.txt",
-      "bytes": 2084,
-      "sha256": "3d538457e0540a76a330659b5c5613e67caaf6a73eda6b2b15b82fa200e74adc"
+      "bytes": 2323,
+      "sha256": "6a5b00844f4ab3ef37f928a1d51ab67abdb4f98b0934681f371faec2a60c6ab5"
     },
     {
       "file": "DJ-L02_COMMENCEMENT_VIBE_PACK.zip",
-      "bytes": 59071,
-      "sha256": "d7d3c245a7eb17cc565cc3bf9d2ce7c5d1c70c4fa18ef6048a17c7d37c763c6c"
+      "bytes": 62013,
+      "sha256": "edfb582abd5dbdd2e0a9f347a85893c673799b193c836753d948c9bbe22e282e"
     }
   ]
 }

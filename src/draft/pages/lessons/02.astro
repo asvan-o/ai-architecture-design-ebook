@@ -17,16 +17,21 @@ import {
   automationDefinition,
   automationExamples,
   practiceOverview,
+  realWorldUsageGuide,
   vibeCodingIntroduction,
   vibeVsMcpBridge,
   creditSavingTips,
   humanDecisions,
+  nodeInstallSteps,
+  codexInstallRoutes,
   environmentSteps,
   referenceLinks,
   architectureRoles,
   architecturePlanningSteps,
   architectureStepMap,
   structurePlanningQuestion,
+  sevenRulesForVibeCoding,
+  stepZeroPlanPrompt,
   hierarchyTree,
   hierarchyPlanningSteps,
   hierarchyChangeExamples,
@@ -80,6 +85,18 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         </div>
         <h3>건축사사무소 반복 행정 업무에서 바로 효과 보는 지점</h3>
         <ul>{automationExamples.map(([title, note]) => <li><strong>{title}</strong> — {note}</li>)}</ul>
+        <aside class="lesson02-decision" data-real-world-usage>
+          <h3>{realWorldUsageGuide.title}</h3>
+          <p>{realWorldUsageGuide.summary}</p>
+          <dl>
+            {realWorldUsageGuide.rows.map(([label, desc]) => (
+              <>
+                <dt><strong>{label}</strong></dt>
+                <dd>{desc}</dd>
+              </>
+            ))}
+          </dl>
+        </aside>
         <div class="lesson02-decision">
           <strong>오늘은 착수계·반복 행정서류 4종 자동 생성기 하나를 완성합니다.</strong>
           <p>모든 관공서 고유 양식을 한꺼번에 다루지 않고, 가장 자주 반복되는 4종 서식 동기화와 금액·날짜 검증 규칙부터 정확히 구현합니다.</p>
@@ -150,25 +167,31 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         </div>
       </ReviewSection>
 
-      <ReviewSection {...sectionProps('l02-environment')} summary="ChatGPT Desktop에서 Codex와 빈 실습 폴더를 연결하고 작업 범위를 확인합니다.">
-        <h3>본 실습 · ChatGPT Desktop + Codex</h3>
-        <p>Codex는 사람이 정한 요구사항을 실제 로컬 폴더의 코드와 실행 파일로 구현하는 에이전트 도구입니다. 빈 실습 폴더를 연결하고 작은 계산기부터 단계별로 완성합니다.</p>
+      <ReviewSection {...sectionProps('l02-environment')} summary="Node.js LTS와 Codex 설치·진입 방법을 확인하고 빈 실습 전용 폴더를 안전하게 연결합니다.">
+        <h3>준비 1 · Node.js LTS 설치 3분 따라하기 (로컬 서버·버전 저장 실행용)</h3>
+        <p>Node.js는 완성된 생성기의 로컬 서버(<code>START.bat</code> → <code>127.0.0.1:4175</code>)와 <code>output/</code> 폴더 자동 버전 저장(<code>_v02</code>)을 내 PC에서 크레딧 0원으로 돌리기 위한 실행 엔진입니다.</p>
+        <ol class="lesson02-checklist" data-node-install-steps>
+          {nodeInstallSteps.map(([title, note]) => <li><strong>{title}</strong><p>{note}</p></li>)}
+        </ol>
+
+        <h3>준비 2 · Codex 설치·실행 및 작업 폴더 진입 방법</h3>
+        <p>Codex는 사람이 자연어로 적은 작업 지시를 읽어 로컬 폴더 안에 실제 코드와 실행 파일을 만들어 주는 에이전트입니다. 사용 중인 환경에 따라 아래 방법 중 하나로 시작합니다.</p>
+        <ol class="lesson02-checklist" data-codex-install-routes>
+          {codexInstallRoutes.map(([title, note]) => <li><strong>{title}</strong><p>{note}</p></li>)}
+        </ol>
+
+        <h3>준비 3 · 본 실습 시작 전 폴더·안전 범위 4단계 점검</h3>
         <ol class="lesson02-checklist" data-codex-environment>{environmentSteps.map(([title, note]) => <li><strong>{title}</strong><p>{note}</p></li>)}</ol>
-        <aside class="lesson02-decision" data-node-guidance>
-          <h3>Node.js LTS · 로컬 서버 실행환경 + 무설치 단일실행본 지원</h3>
-          <p>Node.js는 Codex 자체 설치 요건이 아니라 완성된 로컬 웹 서버(<code>START.bat</code> → <code>127.0.0.1:4175</code>)와 <code>output/</code> 버전 저장 기능을 실행하기 위한 환경입니다. 명령 창에서 <code>node --version</code>으로 확인합니다(권장 LTS 22.x 이상).</p>
-          <p>만약 강의실·사내 PC 보안 정책 때문에 Node.js 설치가 어렵더라도 걱정하지 마세요. 제공 예제에는 브라우저만 있으면 더블클릭 즉시 작동하는 <code>AI_착수계자동작성_단일실행본.html</code>도 함께 들어 있습니다.</p>
-        </aside>
-        <p>CLI 방식의 Codex, Git, VS Code, WSL 설치는 이번 기본 실습의 필수조건이 아닙니다.</p>
+        <p>CLI 전용 터미널 명령, Git, WSL 설치는 이번 기본 실습의 필수조건이 아닙니다.</p>
         <aside class="review-callout" data-alternative-environment>
           <strong>대체 환경 소개 · Antigravity / Claude Code / Cursor</strong>
           <p>동일한 단계별 요청문은 Antigravity, Claude Code, Cursor 등 로컬 폴더 연결을 지원하는 다른 코딩 에이전트에서도 그대로 사용할 수 있습니다. 이번 본 실습은 ChatGPT Desktop + Codex 기준으로 안내합니다.</p>
         </aside>
         <div class="l02-reference-links" data-reference-links>
-          <h3>참고 링크</h3>
-          <h4>OpenAI 공식 안내</h4>
+          <h3>공식 다운로드 및 시작 안내 링크</h3>
+          <h4>OpenAI · Codex 공식 안내</h4>
           <ul>{referenceLinks.openai.map((link) => <li><a href={link.href} target="_blank" rel="noreferrer">{link.label}</a></li>)}</ul>
-          <h4>실행환경</h4>
+          <h4>Node.js LTS 공식 설치 파일</h4>
           <ul><li><a href={referenceLinks.runtime.href} target="_blank" rel="noreferrer">{referenceLinks.runtime.label}</a></li></ul>
         </div>
       </ReviewSection>
@@ -187,9 +210,31 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         </ol>
         <p>계산기(<code>CALCULATOR</code>)와 판정기(<code>VALIDATOR</code>)를 서식 조립기(<code>TEMPLATES</code>) 앞에 두어야 틀린 날짜나 빠진 자격번호가 조용히 서류에 인쇄되는 사고를 막을 수 있습니다.</p>
         <aside class="review-callout" data-structure-planning-question>
-          <h3>구조가 막막할 때 AI에게 먼저 물어볼 말</h3>
-          <p>{structurePlanningQuestion}</p>
-          <p>AI가 제안한 구조를 위 흐름과 대조하고, 입력 누락을 추측해 채우는 기능이 없는지 확인합니다. 다음 §06에서 파일 배치를 정한 뒤 Step 1 요청문으로 구현을 시작합니다.</p>
+          <h3>코덱스에 처음 어떻게 말을 걸어야 하나요? · 제1차시 ‘7가지 규칙’으로 시작점·계획부터 잡기 (Step 0)</h3>
+          <p>빈 채팅창을 열자마자 다짜고짜 “착수계 프로그램 짜 줘”라고 시작하면 AI가 임의로 기능을 빠뜨리거나 원치 않는 구조로 코드를 길게 써 버립니다. 지난 <strong>제1차시에서 배운 7가지 프롬프트 규칙(목적·맥락·입력자료·단계·조건/제한·결과 형식·검토 기준)</strong>을 그대로 가져와, <strong>Step 0(코드 작성 전 기획·구조 합의)</strong>부터 시작합니다.</p>
+        </aside>
+        <div data-seven-rules-roadmap>
+          <Lesson02Infographic imageKey="roadmap" instance="seven-rules" />
+        </div>
+        <div class="lesson02-table" data-seven-rules-vibe-table>
+          <table>
+            <caption>제1차시 7가지 규칙을 코덱스 첫 기획(Step 0)과 단계별 명령에 적용하는 기준</caption>
+            <thead><tr><th scope="col">제1차시 7가지 규칙</th><th scope="col">바이브코딩 역할</th><th scope="col">이번 착수계 자동화에 적는 핵심 내용</th></tr></thead>
+            <tbody>
+              {sevenRulesForVibeCoding.map(([rule, role, example]) => (
+                <tr>
+                  <th scope="row" data-label="제1차시 7가지 규칙">{rule}</th>
+                  <td data-label="바이브코딩 역할"><strong>{role}</strong></td>
+                  <td data-label="적는 핵심 내용">{example}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <aside class="lesson02-decision" data-step-zero-prompt>
+          <h3>Step 0 · 코덱스에 가장 먼저 건네는 첫 요청문 예시 (코드 작성 전 계획·구조 제안 받기)</h3>
+          <p>빈 실습 폴더를 연결한 직후 아래 문장으로 먼저 전체 구조와 단계별 계획표를 제안받습니다. 코덱스의 답변에서 <strong>누락 임의 생성 금지</strong>와 <strong>계산·검수·서식 분리</strong>가 확인되면 “좋아, 이 계획대로 §08의 Step 1부터 구현해 줘”라고 이어갑니다. (짧게 물을 때는 “{structurePlanningQuestion}”처럼 핵심만 물어도 됩니다.)</p>
+          <pre class="lesson02-program-tree">{stepZeroPlanPrompt}</pre>
         </aside>
         <div class="lesson02-table" data-architecture-step-map>
           <table>
@@ -267,10 +312,15 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 </ReviewLayout>
 <style>
   @media print {
+    :global(html[data-course-id="daejeon-2026"]) [data-seven-rules-vibe-table] caption,
     :global(html[data-course-id="daejeon-2026"]) [data-architecture-step-map] caption,
     :global(html[data-course-id="daejeon-2026"]) [data-hierarchy-change-map] caption {
       display: table-caption !important;
       caption-side: top !important;
+    }
+    :global(html[data-course-id="daejeon-2026"]) [data-node-install-steps] li,
+    :global(html[data-course-id="daejeon-2026"]) [data-codex-install-routes] li {
+      break-inside: avoid-page !important;
     }
   }
 </style>

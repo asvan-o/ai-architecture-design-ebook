@@ -103,3 +103,29 @@ test('활성 배포 등록에는 도면 점검 B 경로가 없고 착수계 단�
   const output = fs.readFileSync('scripts/draft-output.mjs', 'utf8');
   assert(!/drawingDemoRoute|DRAWING_QUICK_CHECK|practice\/DJ-L02-B/.test(output));
 });
+
+test('제2차시 초보자 설치 안내·7규칙 Step 0 로드맵·문서별 페이지 분리·회사 양식 2가지 방식이 모두 연결된다', async () => {
+  const { data } = await lesson02Contract();
+  assert.equal(data.sevenRulesForVibeCoding.length, 7);
+  assert.equal(data.stepByStepCommandGuide.length, 5);
+  assert.equal(data.nodeInstallSteps.length, 4);
+  assert.equal(data.codexInstallRoutes.length, 3);
+  assert.equal(data.realWorldUsageGuide.rows.length, 3);
+  assert.match(data.stepZeroPlanPrompt, /아직 코드를 작성하지 마/);
+  assert(fs.existsSync('review/daejeon/COMMENCEMENT_DOC_STUDENT/vibe-coding-7rules-roadmap.svg'));
+
+  const inputSource = fs.readFileSync('src/draft/content/lesson02-input-methods.ts', 'utf8');
+  assert.match(inputSource, /companyFormAdaptationGuide/);
+  assert.match(inputSource, /\.hwpx/);
+
+  const program = verifyBundle('review/daejeon/COMMENCEMENT_DOC_STUDENT/DJ-L02_COMMENCEMENT_PROGRAM.zip');
+  const templatesJs = program.members[program.root + 'app/templates.js'].content.toString('utf8');
+  const standaloneHtml = program.members[program.root + 'AI_착수계자동작성_단일실행본.html'].content.toString('utf8');
+  for (const code of [templatesJs, standaloneHtml]) {
+    assert.match(code, /buildStandaloneExportDocument/);
+    assert.match(code, /<w:View>Print<\/w:View>/);
+    assert.match(code, /mso-special-character:line-break;\s*page-break-before:always;/);
+    assert.match(code, /additionalLeads/);
+    assert.match(code, /display:\s*table-header-group/);
+  }
+});
