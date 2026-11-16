@@ -26,28 +26,32 @@ test('The verified 160-second Blender file and playback guide reach the public a
   }
   // This hash pins the .blend whose 3,840 camera samples, cuts, packed textures,
   // and original-object preservation were checked in Blender before publication.
-  assert.equal(data.sha256, 'c167461173886bddaec283845d997f942f1789921aa9310b6787fd7c09cc2a97');
+  assert.equal(data.sha256, 'eb645c963d373e2651427d0d20216a7e12f2063564b6af71c3f081385586f03b');
   assert.equal(digest(folder + data.filename), data.sha256);
   assert.equal(fs.statSync(folder + data.filename).size, data.bytes);
   assert.deepEqual(assets.filter(file => file.outputPath.endsWith('.blend')).map(file => file.outputPath), [houseWalkthroughBlendPath]);
 });
 
-test('Adding the animation preserves the original house package, exports and web viewer byte-for-byte', () => {
+test('The approved local house correction pins its synchronized package, exports and viewer', () => {
   const originals = JSON.parse(read('scripts/tests/fixtures/approved-l09-walkthrough-originals.json'));
   for (const [filename, expected] of Object.entries(originals)) assert.equal(digest(folder + filename), expected, filename);
 });
 
 test('Playback instructions describe the saved animation and preserve the existing lesson duration', () => {
   assert.equal((data.frameEnd - data.frameStart + 1) / data.fps, 160);
-  assert.deepEqual(data.cuts, [{seconds: 60, frame: 1441}, {seconds: 126, frame: 3025}]);
+  assert.deepEqual(data.cuts, [{seconds: 126, frame: 3025}]);
   assert.equal((data.frameEnd - data.finalHoldStartFrame + 1) / data.fps, 4);
   const guide = read(folder + data.readmeFilename);
-  for (const phrase of [data.filename, data.camera, data.collection, data.testedBlenderVersion, 'File → Open', 'Space', 'Shift + ←', 'Numpad 0', 'View → Cameras → Active Camera', '키프레임', '확인용 경로선', '60초와 126초']) assert(guide.includes(phrase), phrase);
+  for (const phrase of [data.filename, data.camera, data.collection, data.testedBlenderVersion, 'File → Open', 'Space', 'Shift + ←', 'Numpad 0', 'View → Cameras → Active Camera', '키프레임', '확인용 경로선', '60초 전후는 연속 이동', '126초만 컷 전환']) assert(guide.includes(phrase), phrase);
+  assert(!/60초와 126초는|60초:.*컷 전환|60초:.*막힌/.test(guide));
   assert(!/C:\\Users|C:\/Users|아직 추가하지|로컬 산출물/.test(guide));
   const lesson = JSON.parse(read('src/draft/content/lesson0910-source.json')).lessons['09'];
   assert.equal(lesson.sections.length, 12);
   assert.equal(lesson.sections.reduce((sum, section) => sum + section.minutes, 0), 150);
   assert(lesson.sections.find(section => section.id === 'l09-moving-3').links.some(link => link.download === 'House_B_Walkthrough.html'));
+  const movingSection = lesson.sections.find(section => section.id === 'l09-moving-3');
+  assert(movingSection.paragraphs.some(text => text.includes('60초 전후') && text.includes('연속')));
+  assert(movingSection.tables[0].title.includes('126초 한 곳'));
   const component = read('src/draft/components/Lesson09BlenderWalkthrough.astro');
   assert(component.includes('download={data.filename}'));
   assert(component.includes('l09-blender-walkthrough-download'));

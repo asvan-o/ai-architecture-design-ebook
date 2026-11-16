@@ -96,8 +96,8 @@
         {
           "center": 7.7,
           "width": 1.7,
-          "sill": 0.8,
-          "height": 1.9,
+          "sill": 1.85,
+          "height": 0.95,
           "kind": "window",
           "id": "W105"
         },
@@ -331,8 +331,8 @@
         {
           "center": 7.7,
           "width": 1.7,
-          "sill": 0.8,
-          "height": 1.7,
+          "sill": 1.75,
+          "height": 0.95,
           "kind": "window",
           "id": "W204"
         },
@@ -459,7 +459,7 @@
       "axis": "V",
       "c": 8,
       "a": 0.2,
-      "b": 5.5,
+      "b": 4.5,
       "thickness": 0.12,
       "height": 2.8,
       "openings": [
@@ -474,11 +474,33 @@
       ]
     },
     {
+      "id": "2F_BedroomCorner_South",
+      "level": 2,
+      "axis": "H",
+      "c": 4.44,
+      "a": 8.0,
+      "b": 8.96,
+      "thickness": 0.12,
+      "height": 2.8,
+      "openings": []
+    },
+    {
+      "id": "2F_BedroomCorner_East",
+      "level": 2,
+      "axis": "V",
+      "c": 8.9,
+      "a": 4.44,
+      "b": 5.56,
+      "thickness": 0.12,
+      "height": 2.8,
+      "openings": []
+    },
+    {
       "id": "2F_BedroomNorth",
       "level": 2,
       "axis": "H",
       "c": 5.5,
-      "a": 8.06,
+      "a": 8.96,
       "b": 11.8,
       "thickness": 0.12,
       "height": 2.8,
@@ -982,11 +1004,11 @@
       "id": "Family_Bookshelf",
       "level": 2,
       "kind": "shelf",
-      "x": 5.8,
-      "y": 5.5,
+      "x": 5.1,
+      "y": 1.72,
       "w": 0.75,
       "d": 0.3,
-      "angle": 90
+      "angle": 0
     },
     {
       "id": "Bathroom_Tub",
@@ -1373,5 +1395,5 @@
     "실시설계·인허가·구조·피난·난간·계단 안전 검증 자료가 아닙니다.",
     "상층 계단 바닥 구멍은 X6.55~8.85, Y5.65~8.85m이며 최상단 디딤판과 도착 바닥을 맞춥니다. 문은 벽 중심선이 아니라 문틀 면의 경첩에 연결하며 문·창호 번호는 평면과 입면에 공통 적용합니다."
   ],
-  "revision": "ARGON-FOLLOWUP-CAD-GEOMETRY-2026-10-19"
+  "revision": "L09-HOUSE-LOCAL-DRAWING-WALKTHROUGH-2026-11-16"
 }

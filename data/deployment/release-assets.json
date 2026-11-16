@@ -4,8 +4,8 @@
   "tag": "course-materials-2026-10-19-v1",
   "basePath": "/ai-architecture-design-ebook",
   "maximumPagesBytes": 990000000,
-  "sourceBytes": 1988297902,
-  "pagesBytesBeforeMetadata": 648572623,
+  "sourceBytes": 1922077365,
+  "pagesBytesBeforeMetadata": 651732211,
   "files": [
     {
       "path": "downloads/ai-architecture-design-course_2026-08-27.pdf",
@@ -373,87 +373,87 @@
     },
     {
       "path": "daejeon/downloads/daejeon/lesson-09/DJ-L09-House-3F-Drawings.zip",
-      "assetName": "DJ-L09-House-3F-Drawings.zip",
-      "bytes": 932925,
-      "sha256": "87b0105a3aaabec8f9f801c45a8bd3fc0b5f67a63c375f49a6ae0aa758a1b4e0",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L09-House-3F-Drawings.zip"
+      "assetName": "DJ-L09-House-3F-Drawings-v2-20261116.zip",
+      "bytes": 1043887,
+      "sha256": "a9824d725cab8228cde19e681f5f79794b6ddce29d53e3663332670f069d7788",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L09-House-3F-Drawings-v2-20261116.zip"
     },
     {
       "path": "daejeon/downloads/daejeon/lesson-09/DJ-L09-House-3F-Models.zip",
-      "assetName": "DJ-L09-House-3F-Models.zip",
-      "bytes": 59935225,
-      "sha256": "10fb7a5c34365ad13d5f2f9a0ab6dec45321039974a201a9192f3d2bd91d4d2c",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L09-House-3F-Models.zip"
+      "assetName": "DJ-L09-House-3F-Models-v2-20261116.zip",
+      "bytes": 62834980,
+      "sha256": "8a45f52bec4255992887d25b2d08562378e7adc7eae48fb056780b3bbb445a64",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L09-House-3F-Models-v2-20261116.zip"
     },
     {
       "path": "daejeon/downloads/daejeon/lesson-09/DJ-L09-House-3F-Prompts.zip",
-      "assetName": "DJ-L09-House-3F-Prompts.zip",
-      "bytes": 26952,
-      "sha256": "76e9c6ced8203955d5ea2c5a12e69e77a71945e59eb5bdd29aef5539718019b5",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L09-House-3F-Prompts.zip"
+      "assetName": "DJ-L09-House-3F-Prompts-v2-20261116.zip",
+      "bytes": 27892,
+      "sha256": "752482e96c115d5cb77b8a45b3ae3d1bacff8afe138c2e710183a7a5c8077ede",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L09-House-3F-Prompts-v2-20261116.zip"
     },
     {
       "path": "daejeon/downloads/daejeon/lesson-09/House_3F_Full_Complete_Argon.fbx",
-      "assetName": "House_3F_Full_Complete_Argon.fbx",
-      "bytes": 10823420,
-      "sha256": "183e9d991e94c27d51096f2bf4c79552c7ac8b067b5d02263d299ab06d677f6a",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/House_3F_Full_Complete_Argon.fbx"
+      "assetName": "DJ-L09-Full-House-Argon-v2-20261116.fbx",
+      "bytes": 10555884,
+      "sha256": "02c2cc992717cc553859164be11e108b2da0d0f28a8ac167d7477d7d42844a92",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L09-Full-House-Argon-v2-20261116.fbx"
     },
     {
       "path": "daejeon/downloads/daejeon/lesson-09/House_3F_Full_Complete_Astra.fbx",
-      "assetName": "House_3F_Full_Complete_Astra.fbx",
-      "bytes": 9388924,
-      "sha256": "9a860c37a7eae0737d524a6f4f51eb6fddb723899560cb2919d4bb9285e57591",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/House_3F_Full_Complete_Astra.fbx"
+      "assetName": "DJ-L09-Full-House-Astra-v2-20261116.fbx",
+      "bytes": 9133804,
+      "sha256": "dae18c60719da82c036012ad31e90d380782493b9c8f9d107d86b7ed05873ad9",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L09-Full-House-Astra-v2-20261116.fbx"
     },
     {
       "path": "daejeon/downloads/daejeon/lesson-09/house_astra_b_01_entry.mp4",
-      "assetName": "house_astra_b_01_entry.mp4",
-      "bytes": 8659837,
-      "sha256": "c1a03cc41909205fe18b90479ec4e1fea66e32c41665824987a9e8e74bf54df7",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/house_astra_b_01_entry.mp4"
+      "assetName": "DJ-L09-Walkthrough-01_entry-v2-20261116.mp4",
+      "bytes": 3173007,
+      "sha256": "ea1487ba9500272e4979b3a887af549a8d746fa0559645df83e2d3e6232af005",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L09-Walkthrough-01_entry-v2-20261116.mp4"
     },
     {
       "path": "daejeon/downloads/daejeon/lesson-09/house_astra_b_02_living_kitchen.mp4",
-      "assetName": "house_astra_b_02_living_kitchen.mp4",
-      "bytes": 19384550,
-      "sha256": "299450a5425aa92b780b7e7709c098635275b0276ac0332ee79b290ccfb2221a",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/house_astra_b_02_living_kitchen.mp4"
+      "assetName": "DJ-L09-Walkthrough-02_living_kitchen-v2-20261116.mp4",
+      "bytes": 7029487,
+      "sha256": "1b3befd48b263c4abd809b32e974c50012a3ca0fd779df45db0b591a57aa844f",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L09-Walkthrough-02_living_kitchen-v2-20261116.mp4"
     },
     {
       "path": "daejeon/downloads/daejeon/lesson-09/house_astra_b_03_stairs_1_2.mp4",
-      "assetName": "house_astra_b_03_stairs_1_2.mp4",
-      "bytes": 15010283,
-      "sha256": "2725200af442b996ba613ca4b91d5893a3d633e4b3daf72d5930957b6ed370eb",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/house_astra_b_03_stairs_1_2.mp4"
+      "assetName": "DJ-L09-Walkthrough-03_stairs_1_2-v2-20261116.mp4",
+      "bytes": 5123488,
+      "sha256": "9d2155ed9535a7c1f6015eceb277dec2f5df965b0740d113c16718e66437e35c",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L09-Walkthrough-03_stairs_1_2-v2-20261116.mp4"
     },
     {
       "path": "daejeon/downloads/daejeon/lesson-09/house_astra_b_04_second_floor.mp4",
-      "assetName": "house_astra_b_04_second_floor.mp4",
-      "bytes": 12301864,
-      "sha256": "2d8e7c35cb92730fa93ef5db8d9fe0d4402a89f00feeb09f018e89bf59c21b90",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/house_astra_b_04_second_floor.mp4"
+      "assetName": "DJ-L09-Walkthrough-04_second_floor-v2-20261116.mp4",
+      "bytes": 3277551,
+      "sha256": "295d524ddeccc85030d3d5e5afb6159535a2e6bc4200dcfbd25b2741914dee2e",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L09-Walkthrough-04_second_floor-v2-20261116.mp4"
     },
     {
       "path": "daejeon/downloads/daejeon/lesson-09/house_astra_b_05_stairs_2_3.mp4",
-      "assetName": "house_astra_b_05_stairs_2_3.mp4",
-      "bytes": 14216986,
-      "sha256": "65b121a8fd94e25bb9121a9229555cdd30601d7374ff5d750765fb802b4ff12c",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/house_astra_b_05_stairs_2_3.mp4"
+      "assetName": "DJ-L09-Walkthrough-05_stairs_2_3-v2-20261116.mp4",
+      "bytes": 5056353,
+      "sha256": "eb6a0cfe09b1737b6301c099f0bcf3d390f6bd907cc646def21e690162a91b56",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L09-Walkthrough-05_stairs_2_3-v2-20261116.mp4"
     },
     {
       "path": "daejeon/downloads/daejeon/lesson-09/house_astra_b_06_third_floor.mp4",
-      "assetName": "house_astra_b_06_third_floor.mp4",
-      "bytes": 16217454,
-      "sha256": "3b2ef8f1e4f2bb8a46cb0915e4be456728d7d047af92a51ae99b70c7be041f67",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/house_astra_b_06_third_floor.mp4"
+      "assetName": "DJ-L09-Walkthrough-06_third_floor-v2-20261116.mp4",
+      "bytes": 4286982,
+      "sha256": "2e2e364e98a7e6ef38787e12deb14e2ba76f7897009620b66510d990df98dd08",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L09-Walkthrough-06_third_floor-v2-20261116.mp4"
     },
     {
       "path": "daejeon/downloads/daejeon/lesson-09/house_astra_b_07_terrace_drone.mp4",
-      "assetName": "house_astra_b_07_terrace_drone.mp4",
-      "bytes": 21410213,
-      "sha256": "d61693d4ea285406aa6138cce4f2e1b01252b8a7e5916a3a41e89aa0ffcef02d",
-      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/house_astra_b_07_terrace_drone.mp4"
+      "assetName": "DJ-L09-Walkthrough-07_terrace_drone-v2-20261116.mp4",
+      "bytes": 7273743,
+      "sha256": "03762bac47eea88898a31e2fb7292f4b47418a6762e59b0cee530063a01bf15f",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L09-Walkthrough-07_terrace_drone-v2-20261116.mp4"
     },
     {
       "path": "daejeon/downloads/daejeon/lesson-09/house_astra_camera_colormap_8s.mp4",

@@ -1,114 +1,577 @@
 {
-  "project": "DJ-HOUSE-3F · 자체 제작 교육용 모던 3층 단독주택",
-  "variant": "Argon",
-  "collections": {
-    "1": {
-      "name": "[Step 1] 1F_House_Interior",
-      "meshCount": 546,
-      "objects": 597
-    },
-    "2": {
-      "name": "[Step 2] 2F_House_Rooms",
-      "meshCount": 533,
-      "objects": 580
-    },
-    "3": {
-      "name": "[Step 3] 3F_Roof_Facade",
-      "meshCount": 455,
-      "objects": 502
-    },
-    "4": {
-      "name": "[Step 4] Cameras_Lighting",
-      "meshCount": 1,
-      "objects": 22
-    }
-  },
-  "furnitureAssemblies": 65,
-  "materials": 18,
-  "textures": 7,
-  "wallOpenings": 31,
-  "modelMeshCount": 1534,
-  "renders": [
+  "status": "PASS",
+  "scope": "Local correction of three requested locations; original objects outside the explicit allowlist unchanged.",
+  "sourceDesignSha256": "6f8bb84f7e754d37f49a55cb7844d1d6716bb8aa5175e9a8d854411a6de4a28d",
+  "sourceBlend": "House_3F_Step1_to_Step3_Master_Argon.blend",
+  "sourceBlendSha256": "77e62046232fdfe1c3435a97e267d2872d95a476fee26ba5238d5c212c440a0f",
+  "meshCount": 1536,
+  "checkCount": 14,
+  "failedChecks": [],
+  "checks": [
     {
-      "file": "house_argon_1f_top.png",
-      "level": 1,
-      "mode": "top",
-      "camera": "Cam_1F_Top",
-      "resolution": [
-        1920,
-        1200
-      ]
-    },
-    {
-      "file": "house_argon_1f_iso.png",
-      "level": 1,
-      "mode": "iso",
-      "camera": "Cam_1F_Cutaway",
-      "resolution": [
-        1920,
-        1200
-      ]
-    },
-    {
-      "file": "house_argon_1f_eye.png",
-      "level": 1,
-      "mode": "eye",
-      "camera": "Cam_1F_Eye",
-      "resolution": [
-        1920,
-        1200
-      ]
-    },
-    {
-      "file": "house_argon_2f_top.png",
-      "level": 2,
-      "mode": "top",
-      "camera": "Cam_2F_Top",
-      "resolution": [
-        1920,
-        1200
-      ]
-    },
-    {
-      "file": "house_argon_2f_iso.png",
-      "level": 2,
-      "mode": "iso",
-      "camera": "Cam_2F_Cutaway",
-      "resolution": [
-        1920,
-        1200
-      ]
+      "id": "only_authorized_objects_changed",
+      "pass": true,
+      "evidence": {
+        "changed": 54,
+        "unchanged": 1647,
+        "changedNames": [
+          "1F_North_Wall.007",
+          "1F_North_Wall.008",
+          "2F_BedroomHall_Wall.002",
+          "2F_BedroomNorth_Wall",
+          "2F_North_Wall.004",
+          "2F_North_Wall.005",
+          "Family_Bookshelf",
+          "Family_Bookshelf_Book",
+          "Family_Bookshelf_Book.001",
+          "Family_Bookshelf_Book.002",
+          "Family_Bookshelf_Book.003",
+          "Family_Bookshelf_Book.004",
+          "Family_Bookshelf_Book.005",
+          "Family_Bookshelf_Book.006",
+          "Family_Bookshelf_Book.007",
+          "Family_Bookshelf_Book.008",
+          "Family_Bookshelf_Book.009",
+          "Family_Bookshelf_Book.010",
+          "Family_Bookshelf_Book.011",
+          "Family_Bookshelf_Book.012",
+          "Family_Bookshelf_Book.013",
+          "Family_Bookshelf_Book.014",
+          "Family_Bookshelf_Book.015",
+          "Family_Bookshelf_Book.016",
+          "Family_Bookshelf_Book.017",
+          "Family_Bookshelf_Book.018",
+          "Family_Bookshelf_Book.019",
+          "Family_Bookshelf_Book.020",
+          "Family_Bookshelf_Book.021",
+          "Family_Bookshelf_Book.022",
+          "Family_Bookshelf_Book.023",
+          "Family_Bookshelf_Shelf0",
+          "Family_Bookshelf_Shelf1",
+          "Family_Bookshelf_Shelf2",
+          "Family_Bookshelf_Shelf3",
+          "Family_Bookshelf_Shelf4",
+          "Family_Bookshelf_Side",
+          "Family_Bookshelf_Side.001",
+          "W105",
+          "W105_Frame",
+          "W105_Frame.001",
+          "W105_GlassLeaf_0",
+          "W105_GlassLeaf_1",
+          "W105_Jamb",
+          "W105_Jamb.001",
+          "W105_Mullion",
+          "W204",
+          "W204_Frame",
+          "W204_Frame.001",
+          "W204_GlassLeaf_0",
+          "W204_GlassLeaf_1",
+          "W204_Jamb",
+          "W204_Jamb.001",
+          "W204_Mullion"
+        ]
+      }
     },
     {
-      "file": "house_argon_3f_hero.png",
-      "level": 3,
-      "mode": "full",
-      "camera": "Cam_Exterior_Hero",
-      "resolution": [
-        1920,
-        1200
-      ]
+      "id": "original_objects_preserved",
+      "pass": true,
+      "evidence": {
+        "before": 1701,
+        "after": 1703,
+        "new": [
+          "2F_BedroomCorner_South_Wall",
+          "2F_BedroomCorner_East_Wall"
+        ]
+      }
     },
     {
-      "file": "house_argon_3f_iso.png",
-      "level": 3,
-      "mode": "full",
-      "camera": "Cam_Exterior_Iso",
-      "resolution": [
-        1920,
-        1200
-      ]
+      "id": "W105_sill_top",
+      "pass": true,
+      "evidence": {
+        "world_sill": 1.85,
+        "world_top": 2.8,
+        "width": 1.7,
+        "glass": [
+          [
+            [
+              6.872499942779541,
+              7.677500247955322
+            ],
+            [
+              8.890999794006348,
+              8.9089994430542
+            ],
+            [
+              1.8899999856948853,
+              2.759999990463257
+            ]
+          ],
+          [
+            [
+              7.722499847412109,
+              8.52750015258789
+            ],
+            [
+              8.890999794006348,
+              8.9089994430542
+            ],
+            [
+              1.8899999856948853,
+              2.759999990463257
+            ]
+          ]
+        ]
+      }
     },
     {
-      "file": "house_argon_3f_rooftop.png",
-      "level": 3,
-      "mode": "roof",
-      "camera": "Cam_Rooftop",
-      "resolution": [
-        1920,
-        1200
-      ]
+      "id": "W204_sill_top",
+      "pass": true,
+      "evidence": {
+        "world_sill": 4.95,
+        "world_top": 5.9,
+        "width": 1.7,
+        "glass": [
+          [
+            [
+              6.872499942779541,
+              7.677500247955322
+            ],
+            [
+              8.890999794006348,
+              8.9089994430542
+            ],
+            [
+              4.989999771118164,
+              5.860000133514404
+            ]
+          ],
+          [
+            [
+              7.722499847412109,
+              8.52750015258789
+            ],
+            [
+              8.890999794006348,
+              8.9089994430542
+            ],
+            [
+              4.989999771118164,
+              5.860000133514404
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "id": "family_bookshelf",
+      "pass": true,
+      "evidence": {
+        "location": [
+          5.099999904632568,
+          1.7200000286102295,
+          3.200000047683716
+        ],
+        "rotationZ": 0.0
+      }
+    },
+    {
+      "id": "northwest_corner_walls",
+      "pass": true,
+      "evidence": {
+        "2F_BedroomCorner_South_Wall": [
+          [
+            8.0,
+            8.960000038146973
+          ],
+          [
+            4.380000114440918,
+            4.5
+          ],
+          [
+            3.200000047683716,
+            6.0
+          ]
+        ],
+        "2F_BedroomCorner_East_Wall": [
+          [
+            8.84000015258789,
+            8.960000038146973
+          ],
+          [
+            4.440000057220459,
+            5.559999942779541
+          ],
+          [
+            3.200000047683716,
+            6.0
+          ]
+        ]
+      }
+    },
+    {
+      "id": "native_roof_parapets_retained",
+      "pass": true,
+      "evidence": {
+        "3F_Parapet": [
+          [
+            4.5,
+            4.699999809265137
+          ],
+          [
+            1.3999998569488525,
+            9.0
+          ],
+          [
+            9.0,
+            9.559999465942383
+          ]
+        ],
+        "3F_Parapet.001": [
+          [
+            11.799999237060547,
+            12.0
+          ],
+          [
+            1.3999998569488525,
+            9.0
+          ],
+          [
+            9.0,
+            9.559999465942383
+          ]
+        ],
+        "3F_Parapet.002": [
+          [
+            4.699999809265137,
+            11.800000190734863
+          ],
+          [
+            1.399999976158142,
+            1.600000023841858
+          ],
+          [
+            9.0,
+            9.559999465942383
+          ]
+        ],
+        "3F_Parapet.003": [
+          [
+            4.699999809265137,
+            11.800000190734863
+          ],
+          [
+            8.799999237060547,
+            9.0
+          ],
+          [
+            9.0,
+            9.559999465942383
+          ]
+        ],
+        "3F_ParapetCap": [
+          [
+            4.5,
+            4.699999809265137
+          ],
+          [
+            1.3999998569488525,
+            9.0
+          ],
+          [
+            9.559999465942383,
+            9.600000381469727
+          ]
+        ],
+        "3F_ParapetCap.001": [
+          [
+            11.799999237060547,
+            12.0
+          ],
+          [
+            1.3999998569488525,
+            9.0
+          ],
+          [
+            9.559999465942383,
+            9.600000381469727
+          ]
+        ],
+        "3F_ParapetCap.002": [
+          [
+            4.699999809265137,
+            11.800000190734863
+          ],
+          [
+            1.399999976158142,
+            1.600000023841858
+          ],
+          [
+            9.559999465942383,
+            9.600000381469727
+          ]
+        ],
+        "3F_ParapetCap.003": [
+          [
+            4.699999809265137,
+            11.800000190734863
+          ],
+          [
+            8.799999237060547,
+            9.0
+          ],
+          [
+            9.559999465942383,
+            9.600000381469727
+          ]
+        ]
+      }
+    },
+    {
+      "id": "glb_reimport_geometry",
+      "pass": true,
+      "evidence": {
+        "meshCount": 1536,
+        "maxBoundsDeviation": 0.0,
+        "maxCheckBoundsDeviation": 0.0,
+        "missingCheckObjects": []
+      }
+    },
+    {
+      "id": "glb_texture_material_preservation",
+      "pass": true,
+      "evidence": {
+        "images": 7,
+        "materials": 17
+      }
+    },
+    {
+      "id": "fbx_reimport_geometry",
+      "pass": true,
+      "evidence": {
+        "meshCount": 1536,
+        "maxBoundsDeviation": 1.9073486328125e-06,
+        "maxCheckBoundsDeviation": 1.9073486328125e-06,
+        "missingCheckObjects": []
+      }
+    },
+    {
+      "id": "fbx_texture_material_preservation",
+      "pass": true,
+      "evidence": {
+        "images": 7,
+        "materials": 17
+      }
+    },
+    {
+      "id": "fbx_embeds_all_seven_png_images",
+      "pass": true,
+      "evidence": {
+        "file": "House_3F_Full_Complete_Argon.fbx",
+        "fbxVersion": 7400,
+        "embeddedVideoCount": 7,
+        "uniquePngHashes": 7,
+        "allSevenGlbMapsEmbedded": true,
+        "videos": [
+          {
+            "file": "argon_baked_plaster.png",
+            "embeddedBytes": 221200,
+            "sha256": "c36fa435a8520b08be0ad0383e69c24c64dcff634680d3398ad9fe6cf3765899",
+            "pngSignature": true
+          },
+          {
+            "file": "argon_baked_terrazzo.png",
+            "embeddedBytes": 325666,
+            "sha256": "106bee4c136cec22c687d2c2a2b7b481b106f9c5518a07688ab8876614cf1b32",
+            "pngSignature": true
+          },
+          {
+            "file": "argon_baked_walnut.png",
+            "embeddedBytes": 345596,
+            "sha256": "ba9e8295fbcd0a0b788a7159cc6f902bcaca70f5adbe32cd59580dd939bafe80",
+            "pngSignature": true
+          },
+          {
+            "file": "argon_baked_oak.png",
+            "embeddedBytes": 318450,
+            "sha256": "490f1c89867c1b92f079763dd0a00590c0c30544987e1980c2ef52732ce4fc86",
+            "pngSignature": true
+          },
+          {
+            "file": "argon_baked_darkstone.png",
+            "embeddedBytes": 380469,
+            "sha256": "b0fbbe550584321431ee9d44b04ea96729a567a94faf5e6659427a1f3993a8eb",
+            "pngSignature": true
+          },
+          {
+            "file": "argon_baked_fabric.png",
+            "embeddedBytes": 266114,
+            "sha256": "3cab45f5a33b07e128066daa9fe3b312d51b8b2a7723c938e014815e9192f4d5",
+            "pngSignature": true
+          },
+          {
+            "file": "argon_baked_navy.png",
+            "embeddedBytes": 312867,
+            "sha256": "e47e22f53ba45390e4a88a2dde7ad5daa8a161dd16d23a09906fdc6a8c10a5df",
+            "pngSignature": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "glb_embedded_images_no_external_uris",
+      "pass": true,
+      "evidence": {
+        "file": "House_3F_Full_Complete_Argon.glb",
+        "imageCount": 7,
+        "images": [
+          {
+            "name": "argon_baked_plaster",
+            "uri": null,
+            "bufferView": 4,
+            "mimeType": "image/png",
+            "bytes": 221200,
+            "sha256": "c36fa435a8520b08be0ad0383e69c24c64dcff634680d3398ad9fe6cf3765899",
+            "pngSignature": true
+          },
+          {
+            "name": "argon_baked_terrazzo",
+            "uri": null,
+            "bufferView": 33,
+            "mimeType": "image/png",
+            "bytes": 325666,
+            "sha256": "106bee4c136cec22c687d2c2a2b7b481b106f9c5518a07688ab8876614cf1b32",
+            "pngSignature": true
+          },
+          {
+            "name": "argon_baked_walnut",
+            "uri": null,
+            "bufferView": 38,
+            "mimeType": "image/png",
+            "bytes": 345596,
+            "sha256": "ba9e8295fbcd0a0b788a7159cc6f902bcaca70f5adbe32cd59580dd939bafe80",
+            "pngSignature": true
+          },
+          {
+            "name": "argon_baked_oak",
+            "uri": null,
+            "bufferView": 197,
+            "mimeType": "image/png",
+            "bytes": 318450,
+            "sha256": "490f1c89867c1b92f079763dd0a00590c0c30544987e1980c2ef52732ce4fc86",
+            "pngSignature": true
+          },
+          {
+            "name": "argon_baked_fabric",
+            "uri": null,
+            "bufferView": 418,
+            "mimeType": "image/png",
+            "bytes": 266114,
+            "sha256": "3cab45f5a33b07e128066daa9fe3b312d51b8b2a7723c938e014815e9192f4d5",
+            "pngSignature": true
+          },
+          {
+            "name": "argon_baked_darkstone",
+            "uri": null,
+            "bufferView": 552,
+            "mimeType": "image/png",
+            "bytes": 380469,
+            "sha256": "b0fbbe550584321431ee9d44b04ea96729a567a94faf5e6659427a1f3993a8eb",
+            "pngSignature": true
+          },
+          {
+            "name": "argon_baked_navy",
+            "uri": null,
+            "bufferView": 674,
+            "mimeType": "image/png",
+            "bytes": 312867,
+            "sha256": "e47e22f53ba45390e4a88a2dde7ad5daa8a161dd16d23a09906fdc6a8c10a5df",
+            "pngSignature": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "blend_packed_texture_images",
+      "pass": true,
+      "evidence": {
+        "file": "House_3F_Step1_to_Step3_Master_Argon.blend",
+        "textureCount": 7,
+        "images": [
+          {
+            "name": "darkstone.png",
+            "packed": true,
+            "bytes": 208629,
+            "sha256": "e8b4ac0b7ff79e601e900dca267f3839e6b4cf6c27865f834715d40816b0f4d0"
+          },
+          {
+            "name": "fabric.png",
+            "packed": true,
+            "bytes": 197037,
+            "sha256": "ee3d0825d653fc53066d3416c7be8a7fc51bb8b7ba49525fdb2a8399553cf5cd"
+          },
+          {
+            "name": "navy.png",
+            "packed": true,
+            "bytes": 197266,
+            "sha256": "8d4599153f1097af6765ee92cc737927de71b0b9ede15c69bb02e25404b34c25"
+          },
+          {
+            "name": "oak.png",
+            "packed": true,
+            "bytes": 164961,
+            "sha256": "a85c49ee0b89b942e3a33db8981714e28132892c34edf6db25919d7b155ea0db"
+          },
+          {
+            "name": "plaster.png",
+            "packed": true,
+            "bytes": 156092,
+            "sha256": "1bec10507407481b7c49f2f47680e1a4923879e10f05cadb3cc5943256b76f41"
+          },
+          {
+            "name": "terrazzo.png",
+            "packed": true,
+            "bytes": 222844,
+            "sha256": "96607ea5137afc283d45bd4cded135a4bcb8b2e79ce4462d8fe85fc1a67cf9b4"
+          },
+          {
+            "name": "walnut.png",
+            "packed": true,
+            "bytes": 165454,
+            "sha256": "fe544a3b34c0c2687aecacf8f237d7e5a4a4f6516a635f18a701f26229819c8c"
+          }
+        ],
+        "meshExclusion": {
+          "nativeMeshCount": 1537,
+          "exportedBuildingMeshCount": 1536,
+          "excludedObject": "Ground",
+          "excludedType": "MESH",
+          "parent": null,
+          "reason": "Site backdrop only; FBX/GLB exports select the three House_Floor_* building hierarchies."
+        }
+      }
     }
   ],
-  "status": "Argon master model, 8 renders, and FBX/GLB exports complete"
+  "exports": [
+    {
+      "file": "House_3F_Full_Complete_Argon.glb",
+      "meshCount": 1536,
+      "materials": 17,
+      "images": 7,
+      "bytes": 10075772,
+      "sha256": "33f86634f1c8f671bacbaa472c1d7cceab4c188b601f186f2af3c9612da1ebed"
+    },
+    {
+      "file": "House_3F_Full_Complete_Argon.fbx",
+      "meshCount": 1536,
+      "materials": 17,
+      "images": 7,
+      "bytes": 10555884,
+      "sha256": "02c2cc992717cc553859164be11e108b2da0d0f28a8ac167d7477d7d42844a92"
+    }
+  ],
+  "landings": {
+    "centerlineDepthMeters": 1.21,
+    "clearDepthMeters": 1.15,
+    "note": "1.21m is measured from the horizontal wall centerline; the clear dimension subtracts half its 0.12m thickness."
+  }
 }

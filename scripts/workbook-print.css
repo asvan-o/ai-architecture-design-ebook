@@ -68,6 +68,7 @@
   thead { display: table-header-group; }
   tfoot { display: table-footer-group; }
   tr { break-inside: avoid-page; }
+  html[data-workbook-print-lesson="09"] .modeling-table-wrap[aria-label="수업 제출물과 확인 기준"] { break-inside: avoid-page !important; }
   th, td { padding: 2mm !important; overflow-wrap: anywhere !important; word-break: normal !important; }
   [class*='table'], [class*='scroll'] { overflow: visible !important; max-height: none !important; }
   pre, .review-page pre, .prompt-copy-block pre { margin: 2mm 0 4mm !important; padding: 3mm !important; overflow: visible !important; max-height: none !important; height: auto !important; white-space: pre-wrap !important; overflow-wrap: anywhere !important; word-break: normal !important; font-family: 'Malgun Gothic', sans-serif !important; font-size: 8.8pt !important; line-height: 1.5 !important; background: #f3f5f2 !important; color: #182a31 !important; break-inside: auto !important; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
