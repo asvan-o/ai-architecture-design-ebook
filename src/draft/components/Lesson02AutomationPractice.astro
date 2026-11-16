@@ -6,6 +6,7 @@ import Lesson02InputMethods from './Lesson02InputMethods.astro';
 import { commencementFiles } from '../../../scripts/daejeon-commencement-assets.mjs';
 import { commencementExercise, buildSteps, integratedPrompt } from '../content/lesson02-exercises';
 import { runSteps, knownLimits, docTestScenarios, takeaways } from '../content/daejeon-lesson02-automation';
+import { executionModeGuide, firstRunGuide } from '../content/lesson02-input-methods';
 import '../styles/lesson02-exercises.css';
 import { classificationExplanation } from '../content/lesson02-classification';
 
@@ -42,7 +43,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <li>Step 4 · 4175 화면·A4/Word</li>
     </ol>
     <aside class="review-callout" data-build-route>
-      <strong>단계별 제작(경로 A) 또는 한 번에 통합 제작(경로 B · 크레딧 절약형) 중 하나를 선택합니다.</strong>
+      <strong>같은 착수계 생성기를 만드는 두 경로입니다. 단계별 제작(경로 A) 또는 한 번에 통합 제작(경로 B · 크레딧 절약형) 중 하나를 선택합니다.</strong>
       <p>원리를 익히며 차례로 기능을 보완하려면 Step 1부터 진행합니다. 크레딧을 아껴 새 빈 폴더에서 한 번에 구현하려면 §11의 <a href="#l02-integrated-prompt">최종 통합 예시문 1개</a>를 사용합니다. 4단계를 끝낸 뒤 같은 프로그램을 다시 만드는 순서가 아닙니다.</p>
     </aside>
     {enabled && (
@@ -82,6 +83,32 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <h3>건축 용역 착수계 · 반복 행정서류 4종 자동 생성기 실행</h3>
     <p>실행 중 외부 AI 모델을 호출하지 않는 로컬 규칙 프로그램(실행 크레딧 0원)입니다. Node.js 서버 모드(<code>START.bat</code>)와 무설치 <code>단일실행본.html</code>을 함께 제공합니다.</p>
     <Lesson02ExerciseDownloads />
+    <h4>{executionModeGuide.title}</h4>
+    <p>{executionModeGuide.introduction}</p>
+    <div class="lesson02-table" data-execution-mode-guide>
+      <table>
+        <caption>{executionModeGuide.caption}</caption>
+        <thead><tr>{executionModeGuide.columns.map((column) => <th scope="col">{column}</th>)}</tr></thead>
+        <tbody>
+          {executionModeGuide.rows.map(([label, server, standalone]) => (
+            <tr>
+              <th scope="row" data-label={executionModeGuide.columns[0]}>{label}</th>
+              <td data-label={executionModeGuide.columns[1]}>{server}</td>
+              <td data-label={executionModeGuide.columns[2]}>{standalone}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <aside class="lesson02-decision" data-first-run-guide>
+      <h4>{firstRunGuide.title}</h4>
+      <p>{firstRunGuide.introduction}</p>
+      <ol class="lesson02-checklist">
+        {firstRunGuide.steps.map(([title, instruction]) => <li><strong>{title}</strong><p>{instruction}</p></li>)}
+      </ol>
+    </aside>
+    <h4>{firstRunGuide.followupTitle}</h4>
+    <p>{firstRunGuide.followupIntroduction}</p>
     <Lesson02InputMethods />
     <ol class="lesson02-checklist" data-program-run-steps>{runSteps.map((item) => <li>{item}</li>)}</ol>
     <p>제공 서버 모드의 기본 주소는 <code>http://127.0.0.1:4175/</code>입니다. 포트가 이미 사용 중이라는 안내가 나오면 다른 업무 프로그램을 임의로 종료하지 마세요.</p>
@@ -109,8 +136,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     </div>
     <div class="lesson02-decision">
       <h4>사람 확인(검수 대기)도 의도한 핵심 안전장치입니다</h4>
-      <p><code>05_판교오피스_변경사유누락_검수대기.json</code>과 <code>06_역삼쇼룸_날짜역전_부가세미정.json</code>을 불러오면 상단 배지가 주황색 <code>사람 확인(검수 대기)</code>로 바뀌고 누락·날짜 역전 사유가 표시됩니다. 빈칸에 실제 자격번호·변경 사유를 채우거나 날짜를 바로잡는 즉시 초록색 <code>자동 조립 완료</code>로 전환되는지 직접 확인해 보세요.</p>
-      <p>같은 상태에서 저장을 두 번 눌렀을 때의 SHA-256 중복 안내와, 계약금액을 수정한 뒤 저장했을 때 <code>_v02</code> 버전이 새로 남는지도 확인한 후 <code>STOP.bat</code>으로 종료합니다.</p>
+      <p><code>05_판교오피스_변경사유누락_검수대기.json</code>과 <code>06_역삼쇼룸_날짜역전_부가세미정.json</code>을 불러오면 상단 배지가 주황색 <code>사람 확인(검수 대기)</code>로 바뀝니다. 05번은 자격번호·변경 사유·당초 계약 기준, 06번은 날짜 역전·부가세 구분처럼 <strong>화면 경고 목록의 해당 항목을 모두 보완</strong>한 뒤 초록색 <code>자동 조립 완료</code>로 바뀌는지 확인합니다. 실습에는 가상 값을 쓰고, 실제 계약에는 확인한 원자료만 입력합니다.</p>
+      <p>{firstRunGuide.serverCheck}</p>
     </div>
     <details data-test-file-notes>
       <summary>실습 시나리오 데이터의 성격 확인</summary>
@@ -122,7 +149,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <details data-program-limits>
       <summary>사용 범위와 알려진 한계</summary>
       <ul>{knownLimits.map((item) => <li>{item}</li>)}</ul>
-      <p>실습을 마치고 정리할 때는 <code>STOP.bat</code>으로 서버를 먼저 종료하고 필요한 JSON·문서 결과만 따로 보관한 뒤 실습 폴더를 삭제합니다.</p>
+      <p>{firstRunGuide.finish}</p>
     </details>
   </article>
 </>}
@@ -132,3 +159,15 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <p>오늘까지 의뢰 조건 정리(1차시)와 반복 행정 업무 자동화(2차시)로 설계 실무의 기본 체력을 다졌습니다. 다음 제3차시부터는 실내 기준 공간의 재질·조명·분위기를 빠르게 변주하고 디자인 방향 보드를 만드는 시각 실습으로 넘어갑니다. 그리고 제8·9차시에서는 오늘 배운 로컬 자동화와 대비되는 <strong>MCP(실시간 Blender 3D 제어)</strong>를 직접 연결합니다.</p>
 </>}
 </div>
+<style>
+  @media print {
+    :global(html[data-course-id="daejeon-2026"]) [data-execution-mode-guide] caption {
+      display: table-caption !important;
+      caption-side: top !important;
+    }
+    :global(html[data-course-id="daejeon-2026"]) [data-execution-mode-guide],
+    :global(html[data-course-id="daejeon-2026"]) [data-first-run-guide] li {
+      break-inside: avoid-page !important;
+    }
+  }
+</style>
