@@ -19,9 +19,12 @@ const filenames = {
   flowSvg: 'commencement-flow.svg',
   rulesSvg: 'commencement-rules.svg',
   roadmapSvg: 'vibe-coding-7rules-roadmap.svg',
+  logicTypesSvg: 'vibe-coding-3-logic-types.svg',
   desktop: 'COMMENCEMENT_UI_DESKTOP.png',
   mobile: 'COMMENCEMENT_UI_MOBILE.png',
   pending: 'COMMENCEMENT_UI_PENDING.png',
+  spacePreview: 'SPACE_PROGRAM_UI_PREVIEW.png',
+  photoPreview: 'PHOTO_SHEET_UI_PREVIEW.png',
   step1: 'DJ-L02_DOC_STEP_01.txt',
   step2: 'DJ-L02_DOC_STEP_02.txt',
   step3: 'DJ-L02_DOC_STEP_03.txt',
@@ -33,6 +36,8 @@ const filenames = {
   testZip: 'DJ-L02_DOC_TEST.zip',
   readme: 'DJ-L02_COMMENCEMENT_README.txt',
   vibePack: 'DJ-L02_COMMENCEMENT_VIBE_PACK.zip',
+  spaceProgramZip: 'DJ-L02_SPACE_PROGRAM_SAMPLE.zip',
+  photoSheetZip: 'DJ-L02_PHOTO_SHEET_SAMPLE.zip',
 };
 
 /** @type {Record<string,{file:string,source:string,outputPath:string,sha256:string,bytes:number}>} */

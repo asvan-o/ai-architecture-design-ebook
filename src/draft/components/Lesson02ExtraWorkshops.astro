@@ -1,0 +1,257 @@
+---
+import Lesson02Infographic from './Lesson02Infographic.astro';
+import { commencementFiles } from '../../../scripts/daejeon-commencement-assets.mjs';
+import { extraWorkshopsGuide } from '../content/daejeon-lesson02-automation';
+import '../styles/lesson02-exercises.css';
+
+const enabled = import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS === 'true';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const fileByKey = (key: string) => commencementFiles[key as keyof typeof commencementFiles];
+---
+<section class="l02-extra-workshops" id="l02-extra-workshops" data-extra-workshops aria-labelledby="l02-extra-workshops-heading">
+  <header class="l02-extra-head">
+    <p class="l02-extra-eyebrow">{extraWorkshopsGuide.eyebrow}</p>
+    <h2 id="l02-extra-workshops-heading">{extraWorkshopsGuide.title}</h2>
+    <p class="l02-extra-lead">{extraWorkshopsGuide.lead}</p>
+  </header>
+
+  <aside class="lesson02-decision" data-workshop-selection-rationale>
+    <h3>{extraWorkshopsGuide.selectionNoteTitle}</h3>
+    <ul>
+      {extraWorkshopsGuide.selectionNotes.map((note) => <li>{note}</li>)}
+    </ul>
+  </aside>
+
+  <div data-logic-types-diagram>
+    <Lesson02Infographic imageKey="logic-types" instance="workshop-logic" />
+  </div>
+
+  <div class="lesson02-table" data-logic-comparison-table>
+    <table>
+      <caption>제2차시에서 다루는 3가지 로컬 자동화 핵심 로직 패턴 비교</caption>
+      <thead>
+        <tr>
+          <th scope="col">실습 구분</th>
+          <th scope="col">핵심 로직 유형</th>
+          <th scope="col">내부 데이터 처리 방식 차이</th>
+          <th scope="col">사람 확인(검수 대기) 경계</th>
+        </tr>
+      </thead>
+      <tbody>
+        {extraWorkshopsGuide.logicComparisonRows.map(([name, logicType, diff, gate]) => (
+          <tr>
+            <th scope="row" data-label="실습 구분" style="white-space: pre-line;">{name}</th>
+            <td data-label="핵심 로직 유형"><strong>{logicType}</strong></td>
+            <td data-label="내부 데이터 처리 방식">{diff}</td>
+            <td data-label="사람 확인 경계">{gate}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <aside class="review-callout" data-workshop-timebox>
+    <h3>수업 후반 자율 실습 진행 순서 (권장 45분 타임박스)</h3>
+    <ol class="lesson02-checklist">
+      {extraWorkshopsGuide.timeboxSteps.map(([stepTitle, desc]) => (
+        <li><strong>{stepTitle}</strong><p>{desc}</p></li>
+      ))}
+    </ol>
+  </aside>
+
+  {extraWorkshopsGuide.examples.map((ex, idx) => {
+    const zipAsset = fileByKey(ex.zipKey);
+    const previewAsset = fileByKey(ex.previewKey);
+    const stepZeroId = `workshop-${idx + 1}-step0`;
+    const buildId = `workshop-${idx + 1}-build`;
+    return (
+      <article class="l02-ab-card l02-workshop-card" id={ex.id} data-workshop-example={idx + 1}>
+        <div class="l02-workshop-card-head">
+          <p class="l02-ab-label">{ex.badge}</p>
+          <h3>{ex.title}</h3>
+          <p>{ex.summary}</p>
+        </div>
+
+        <aside class="lesson02-decision" data-workshop-logic-diff>
+          <h4>본 실습(착수계 생성기)과 어떤 로직이 다른가요?</h4>
+          <p>{ex.whyDifferent}</p>
+          <dl>
+            {ex.logicFlow.map(([stageLabel, stageDesc]) => (
+              <>
+                <dt><strong>{stageLabel}</strong></dt>
+                <dd>{stageDesc}</dd>
+              </>
+            ))}
+          </dl>
+        </aside>
+
+        {enabled && zipAsset && (
+          <div class="l02-workshop-download" data-workshop-sample-download={ex.zipKey}>
+            <a class="review-download" href={`${base}/${zipAsset.outputPath}`} download={zipAsset.file}>
+              📦 {ex.zipLabel} ({Math.round(zipAsset.bytes / 1024)} KB)
+            </a>
+            <p class="l02-workshop-zip-note">{ex.zipNote}</p>
+          </div>
+        )}
+
+        {enabled && previewAsset && (
+          <figure class="l02-ab-preview l02-workshop-figure">
+            <a href={`${base}/${previewAsset.outputPath}`} target="_blank" rel="noreferrer" aria-label={`${ex.title} 실제 실행 화면 크게 보기`}>
+              <img
+                src={`${base}/${previewAsset.outputPath}`}
+                alt={ex.previewAlt}
+                width="1440"
+                height="920"
+                loading="lazy"
+              />
+            </a>
+            <figcaption>{ex.previewCaption}</figcaption>
+          </figure>
+        )}
+
+        <div class="l02-workshop-prompt-block" data-workshop-prompt-group>
+          <div class="l02-workshop-prompt-head">
+            <strong>1차 지시 · Step 0 출발 요청문 (코드 작성 전 구조·계획 합의)</strong>
+            <button type="button" class="l02-workshop-copy-btn" data-workshop-copy={stepZeroId}>요청문 복사</button>
+          </div>
+          <pre class="lesson02-program-tree" id={stepZeroId}>{ex.stepZeroPrompt}</pre>
+        </div>
+
+        <div class="l02-workshop-prompt-block" data-workshop-prompt-group>
+          <div class="l02-workshop-prompt-head">
+            <strong>2차 지시 · 계획 확인 후 실제 작동 프로그램 구현 요청문</strong>
+            <button type="button" class="l02-workshop-copy-btn" data-workshop-copy={buildId}>요청문 복사</button>
+          </div>
+          <pre class="lesson02-program-tree" id={buildId}>{ex.buildPrompt}</pre>
+        </div>
+      </article>
+    );
+  })}
+</section>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-workshop-copy]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const targetId = btn.dataset.workshopCopy || '';
+      const pre = document.getElementById(targetId);
+      if (!pre) return;
+      try {
+        await navigator.clipboard.writeText(pre.innerText);
+        const orig = btn.textContent;
+        btn.textContent = '복사 완료 ✓';
+        setTimeout(() => { btn.textContent = orig; }, 1600);
+      } catch {
+        /* Clipboard unavailable in non-secure context */
+      }
+    });
+  });
+</script>
+
+<style>
+  .l02-extra-workshops {
+    margin: 2.2rem 0;
+    padding: 1.5rem;
+    border: 2px solid var(--line-dark, #b8c7c2);
+    border-radius: 1rem;
+    background: var(--surface, #ffffff);
+    min-width: 0;
+  }
+  .l02-extra-eyebrow {
+    margin: 0 0 0.35rem;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: var(--lesson02-accent, #173f39);
+  }
+  .l02-extra-head h2 {
+    margin: 0 0 0.6rem;
+    font-size: 1.38rem;
+    line-height: 1.4;
+  }
+  .l02-extra-lead {
+    margin: 0 0 1.2rem;
+    line-height: 1.75;
+    overflow-wrap: anywhere;
+  }
+  .l02-workshop-card {
+    margin-top: 1.5rem;
+    min-width: 0;
+  }
+  .l02-workshop-card dl {
+    margin: 0.7rem 0 0;
+  }
+  .l02-workshop-card dt {
+    margin-top: 0.5rem;
+  }
+  .l02-workshop-card dd {
+    margin: 0.2rem 0 0 0;
+    line-height: 1.68;
+    overflow-wrap: anywhere;
+  }
+  .l02-workshop-download {
+    margin: 1rem 0;
+    padding: 0.9rem 1rem;
+    background: #eef6f4;
+    border: 1px solid #b7d4cc;
+    border-radius: 0.75rem;
+  }
+  .l02-workshop-zip-note {
+    margin: 0.5rem 0 0;
+    font-size: 0.86rem;
+    color: #334155;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+  .l02-workshop-figure {
+    margin: 1rem 0;
+  }
+  .l02-workshop-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .l02-workshop-prompt-block {
+    margin-top: 1rem;
+    min-width: 0;
+  }
+  .l02-workshop-prompt-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+  }
+  .l02-workshop-copy-btn {
+    border: 1px solid #94a3b8;
+    border-radius: 0.45rem;
+    background: #f8fafc;
+    color: #0f172a;
+    padding: 0.35rem 0.7rem;
+    font: inherit;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  @media (max-width: 600px) {
+    .l02-extra-workshops {
+      padding: 1rem;
+    }
+  }
+  @media print {
+    :global(html[data-course-id="daejeon-2026"]) [data-logic-comparison-table] caption {
+      display: table-caption !important;
+      caption-side: top !important;
+    }
+    :global(html[data-course-id="daejeon-2026"]) .l02-workshop-copy-btn,
+    :global(html[data-course-id="daejeon-2026"]) .l02-workshop-download a.review-download {
+      display: none !important;
+    }
+    :global(html[data-course-id="daejeon-2026"]) .l02-extra-head,
+    :global(html[data-course-id="daejeon-2026"]) .l02-workshop-card-head,
+    :global(html[data-course-id="daejeon-2026"]) [data-workshop-prompt-group],
+    :global(html[data-course-id="daejeon-2026"]) [data-workshop-timebox] li {
+      break-inside: avoid-page !important;
+    }
+  }
+</style>

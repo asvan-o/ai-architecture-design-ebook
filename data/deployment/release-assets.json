@@ -897,6 +897,20 @@
       "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L02_DOC_TEST.zip"
     },
     {
+      "path": "daejeon/practice/DJ-L02/commencement/DJ-L02_PHOTO_SHEET_SAMPLE.zip",
+      "assetName": "DJ-L02_PHOTO_SHEET_SAMPLE.zip",
+      "bytes": 31988,
+      "sha256": "0b2d3ae7ed467e622a03b86913523de66e5b9b7b5e22e30e820cad8df35343cc",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L02_PHOTO_SHEET_SAMPLE.zip"
+    },
+    {
+      "path": "daejeon/practice/DJ-L02/commencement/DJ-L02_SPACE_PROGRAM_SAMPLE.zip",
+      "assetName": "DJ-L02_SPACE_PROGRAM_SAMPLE.zip",
+      "bytes": 31847,
+      "sha256": "83d7e80f4b6671cc5b5ad76ed7bd9882290fff238a0cd5db35ec0515a9881015",
+      "url": "https://github.com/asvan-o/ai-architecture-design-ebook/releases/download/course-materials-2026-10-19-v1/DJ-L02_SPACE_PROGRAM_SAMPLE.zip"
+    },
+    {
       "path": "daejeon/practice/DJ-L02/file-sorter/DJ-L02_FILE_SORTER_PROGRAM.zip",
       "assetName": "DJ-L02_FILE_SORTER_PROGRAM.zip",
       "bytes": 32727,

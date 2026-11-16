@@ -180,7 +180,7 @@ const pdfLabel = page === 'overview'
             </div>
           )}
         </div>
-        {(page === 'overview' || page === 'lesson') && <WorkbookDrawingScaleGuide />}
+        {(page === 'overview' || (page === 'lesson' && lessonId !== '02')) && <WorkbookDrawingScaleGuide />}
         <slot />
         {(page === 'overview' || page === 'lesson') && <WorkbookPrintGlossaryAppendix lessonId={page === 'overview' ? 'overview' : lessonId} />}
         {page!=='glossary'&&<ReviewLessonNavigation {page} {lessonId} />}

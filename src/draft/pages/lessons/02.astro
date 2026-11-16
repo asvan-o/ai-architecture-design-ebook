@@ -2,6 +2,7 @@
 import ReviewLayout from '../../layouts/ReviewLayout.astro';
 import ReviewSection from '../../components/ReviewSection.astro';
 import Lesson02AutomationPractice from '../../components/Lesson02AutomationPractice.astro';
+import Lesson02ExtraWorkshops from '../../components/Lesson02ExtraWorkshops.astro';
 import Lesson02ClassificationGuide from '../../components/Lesson02ClassificationGuide.astro';
 import Lesson02Infographic from '../../components/Lesson02Infographic.astro';
 import TopicProgress from '../../components/TopicProgress.astro';
@@ -44,7 +45,15 @@ const sectionProps = (id: string) => ({
 const tocGroups = periods.map((period, index) => ({
   id: period.id,
   title: 'Part ' + (index + 1) + ' · ' + period.title,
-  items: [{ id: period.id, title: 'Part ' + (index + 1) + ' 시작' }, ...period.sections],
+  items:
+    index === 2
+      ? [
+          { id: period.id, title: 'Part 3 시작' },
+          ...period.sections.slice(0, -1),
+          { id: 'l02-extra-workshops', title: '자율 응용 실습 · 다른 로직 예제 2선' },
+          period.sections[period.sections.length - 1],
+        ]
+      : [{ id: period.id, title: 'Part ' + (index + 1) + ' 시작' }, ...period.sections],
 }));
 const toc = tocGroups.flatMap((group) => group.items);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -302,6 +311,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <ReviewSection {...sectionProps('l02-run')} summary="완성 프로그램을 실행하고 DOC_TEST 6개 시나리오 기준표와 자동 조립·사람 확인 결과를 직접 비교합니다.">
         <Lesson02AutomationPractice stage="run" />
       </ReviewSection>
+
+      <Lesson02ExtraWorkshops />
 
       <ReviewSection {...sectionProps('l02-wrap-up')} summary="한 번 만들어 크레딧 0원으로 반복 사용하는 로컬 자동화 원칙을 정리하고 다음 차시로 이어갑니다.">
         <Lesson02AutomationPractice stage="wrap" />

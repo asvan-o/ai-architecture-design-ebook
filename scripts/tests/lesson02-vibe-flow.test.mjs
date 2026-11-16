@@ -128,4 +128,15 @@ test('제2차시 초보자 설치 안내·7규칙 Step 0 로드맵·문서별 �
     assert.match(code, /additionalLeads/);
     assert.match(code, /display:\s*table-header-group/);
   }
+
+  // 제2차시 도면 축척 안내문 제외 확인 및 자율 응용 실습 2종(다른 로직 비교 + 작동 샘플 ZIP) 검증
+  const reviewLayout = fs.readFileSync('src/draft/layouts/ReviewLayout.astro', 'utf8');
+  assert.match(reviewLayout, /lessonId !== '02'/);
+  assert.equal(data.extraWorkshopsGuide.logicComparisonRows.length, 3);
+  assert.equal(data.extraWorkshopsGuide.examples.length, 2);
+  assert(fs.existsSync('review/daejeon/COMMENCEMENT_DOC_STUDENT/vibe-coding-3-logic-types.svg'));
+  assert(fs.existsSync('review/daejeon/COMMENCEMENT_DOC_STUDENT/SPACE_PROGRAM_UI_PREVIEW.png'));
+  assert(fs.existsSync('review/daejeon/COMMENCEMENT_DOC_STUDENT/PHOTO_SHEET_UI_PREVIEW.png'));
+  verifyBundle('review/daejeon/COMMENCEMENT_DOC_STUDENT/DJ-L02_SPACE_PROGRAM_SAMPLE.zip');
+  verifyBundle('review/daejeon/COMMENCEMENT_DOC_STUDENT/DJ-L02_PHOTO_SHEET_SAMPLE.zip');
 });

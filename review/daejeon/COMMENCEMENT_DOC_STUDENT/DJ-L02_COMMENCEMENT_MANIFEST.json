@@ -88,6 +88,31 @@
       "file": "DJ-L02_COMMENCEMENT_VIBE_PACK.zip",
       "bytes": 62013,
       "sha256": "edfb582abd5dbdd2e0a9f347a85893c673799b193c836753d948c9bbe22e282e"
+    },
+    {
+      "file": "vibe-coding-3-logic-types.svg",
+      "bytes": 9532,
+      "sha256": "80747a543205b0f6d1ac360034e31815e408d2c12a25fab270f4f957ebbf6b5f"
+    },
+    {
+      "file": "SPACE_PROGRAM_UI_PREVIEW.png",
+      "bytes": 133504,
+      "sha256": "db7934e840ff5b40a4d4d9cd1f3cfa649d52bb5c4fb15e98196f82f875ac8e9b"
+    },
+    {
+      "file": "PHOTO_SHEET_UI_PREVIEW.png",
+      "bytes": 141853,
+      "sha256": "e1e5dfa08fc98165146f0d1cd34f68298437acbb00683450ac97e808e5586588"
+    },
+    {
+      "file": "DJ-L02_SPACE_PROGRAM_SAMPLE.zip",
+      "bytes": 31847,
+      "sha256": "83d7e80f4b6671cc5b5ad76ed7bd9882290fff238a0cd5db35ec0515a9881015"
+    },
+    {
+      "file": "DJ-L02_PHOTO_SHEET_SAMPLE.zip",
+      "bytes": 31988,
+      "sha256": "0b2d3ae7ed467e622a03b86913523de66e5b9b7b5e22e30e820cad8df35343cc"
     }
   ]
 }

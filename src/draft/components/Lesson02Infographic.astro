@@ -4,7 +4,7 @@ import { commencementFiles } from '../../../scripts/daejeon-commencement-assets.
 import { materialPracticeAssets } from '../content/daejeon-lesson02';
 
 interface Props {
-  imageKey: 'lighting' | 'flow' | 'rules' | 'roadmap' | 'base' | 'material' | 'lighting-reference';
+  imageKey: 'lighting' | 'flow' | 'rules' | 'roadmap' | 'logic-types' | 'base' | 'material' | 'lighting-reference';
   instance?: string;
 }
 
@@ -41,9 +41,22 @@ const commencementSvgMap = {
     downloadLabel: '원본 SVG 다운로드',
     captionNote: '첫 대화(Step 0)에서는 코드를 만들지 않고 역할 구조와 계획표만 받아 검토하고, 구조가 확정되면 같은 대화창에서 Step 1부터 한 기능씩 실제 파일로 구현합니다.',
   },
+  'logic-types': {
+    file: commencementFiles.logicTypesSvg.file,
+    outputPath: commencementFiles.logicTypesSvg.outputPath,
+    width: 1200,
+    height: 520,
+    title: '제2차시 건축 실무 로컬 자동화 3가지 핵심 로직 유형 비교도',
+    purpose: '로직 유형 비교: 1:N 고정 서식 동기화(본 실습) vs 가변 배열 다차원 집계·목표 역산(예제 1) vs 로컬 이미지 규격화·청크 페이지 분할(예제 2)',
+    downloadLabel: '원본 SVG 다운로드',
+    captionNote: '단순 서류 칸 채우기에 머물지 않고, 다루는 데이터 구조(단일 객체 / 가변 배열 / 멀티미디어 파일)에 따라 핵심 알고리즘이 어떻게 달라지는지 대조합니다.',
+  },
 } as const;
 
-const customDiagram = imageKey === 'flow' || imageKey === 'rules' || imageKey === 'roadmap' ? commencementSvgMap[imageKey] : undefined;
+const customDiagram =
+  imageKey === 'flow' || imageKey === 'rules' || imageKey === 'roadmap' || imageKey === 'logic-types'
+    ? commencementSvgMap[imageKey]
+    : undefined;
 const legacyImage = customDiagram ? undefined : lesson02Images.find((item) => item.key === imageKey);
 if (!customDiagram && !legacyImage) throw new Error(`Unknown Lesson02 infographic: ${imageKey}`);
 
@@ -68,7 +81,9 @@ const alt =
       ? '계약 조건 1회 입력에서 한글 금액·과업일수 계산, 누락·날짜역전 검수 판정, 4종 서식 동시 조립과 버전 보존 출력으로 이어지는 아키텍처 흐름도'
       : imageKey === 'roadmap'
         ? '제1차시 7가지 규칙으로 Step 0 계획과 구조를 먼저 잡은 뒤 같은 대화창에서 Step 1부터 Step 4까지 완성하는 바이브코딩 전체 로드맵'
-        : '한글 법정 금액과 부가세·과업일수 자동 계산 영역과 사람 확인 검수 대기 5가지 조건을 나란히 비교한 규칙 도해');
+        : imageKey === 'logic-types'
+          ? '착수계 1대다 서식 동기화 로직과 스페이스 프로그램 가변 배열 집계 역산 로직, 현장 사진대지 로컬 이미지 규격화 및 청크 페이지 분할 로직을 비교한 도해'
+          : '한글 법정 금액과 부가세·과업일수 자동 계산 영역과 사람 확인 검수 대기 5가지 조건을 나란히 비교한 규칙 도해');
 ---
 <figure class="l02-infographic" data-l02-image={imageKey} data-l02-practice={practice ? imageKey : undefined} id={practice ? `l02-asset-${instance}-${imageKey}` : undefined}>
   {enabled ? <>

@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" width="1200" height="520" role="img" aria-labelledby="logic-title logic-desc">
+  <title id="logic-title">제2차시 건축 실무 로컬 자동화 3가지 핵심 로직 유형 비교도</title>
+  <desc id="logic-desc">본 실습의 단일 입력 다중 서식 치환 로직과 자율 실습 예제 2종(가변 배열 집계·역산 시뮬레이션 로직, 로컬 이미지 규격화·청크 페이지 분할 로직)의 알고리즘 차이를 비교하는 도해</desc>
+  <defs>
+    <style>
+      .bg { fill: #f8faf9; }
+      .col { fill: #ffffff; stroke: #cad7d4; stroke-width: 1.5; rx: 14; }
+      .h-a { fill: #173f39; }
+      .h-b { fill: #1c4d6e; }
+      .h-c { fill: #5b3b1d; }
+      .box-a { fill: #f1f7f5; stroke: #bdd5cf; stroke-width: 1.2; rx: 8; }
+      .box-b { fill: #f0f6fb; stroke: #bdd3e4; stroke-width: 1.2; rx: 8; }
+      .box-c { fill: #fcf6f0; stroke: #e0cbb6; stroke-width: 1.2; rx: 8; }
+      .gate { fill: #fff8eb; stroke: #d97706; stroke-width: 1.2; rx: 8; }
+      .t-main { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 20px; font-weight: 800; fill: #0f2925; }
+      .t-sub { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 13px; fill: #475569; }
+      .t-col { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 14.5px; font-weight: 800; fill: #ffffff; }
+      .t-tag { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 11px; font-weight: 700; fill: #dcebe8; }
+      .t-head { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 13px; font-weight: 800; fill: #0f172a; }
+      .t-body { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 11.8px; fill: #334155; }
+      .t-warn { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 11.5px; font-weight: 700; fill: #9a3412; }
+      .arr { stroke: #475569; stroke-width: 1.8; fill: none; marker-end: url(#arr-tip); }
+    </style>
+    <marker id="arr-tip" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#475569" />
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1200" height="520" rx="16" />
+  <text class="t-main" x="30" y="38">같은 바이브코딩이라도 ‘핵심 처리 로직’이 다릅니다 · 오늘 다루는 3가지 실무 자동화 패턴</text>
+  <text class="t-sub" x="30" y="60">단순 양식 칸 채우기만 반복하지 않고, ① 문서 동기화(본 실습) → ② 배열 집계·목표 역산(응용 1) → ③ 이미지 규격화·그리드 분할(응용 2)로 시야를 넓힙니다.</text>
+
+  <!-- TYPE A: Commencement 1:N Sync -->
+  <rect class="col" x="26" y="78" width="364" height="416" rx="14" />
+  <rect class="h-a" x="26" y="78" width="364" height="54" rx="14" />
+  <rect class="h-a" x="26" y="112" width="364" height="20" />
+  <text class="t-tag" x="44" y="98">본 실습 (공통 완성) · LOGIC TYPE A</text>
+  <text class="t-col" x="44" y="120">1:N 고정 서식 동기화 로직 (착수계 4종)</text>
+
+  <rect class="box-a" x="44" y="146" width="328" height="66" rx="8" />
+  <text class="t-head" x="56" y="167">입력 구조 · 단일 계약 객체 (Object)</text>
+  <text class="t-body" x="56" y="186">용역명 · 계약금액 · 착수/준공일 · 대표 및 참여기술자</text>
+  <text class="t-body" x="56" y="202">(1건의 확정 계약 정보를 여러 문서가 공유)</text>
+
+  <line class="arr" x1="208" y1="214" x2="208" y2="232" />
+
+  <rect class="box-a" x="44" y="236" width="328" height="82" rx="8" />
+  <text class="t-head" x="56" y="257">핵심 알고리즘 · 규칙 변환 &amp; 1:4 템플릿 주입</text>
+  <text class="t-body" x="56" y="276">• 숫자 금액 → 한글 법정 금액(“일금...원정”) 문자열 변환</text>
+  <text class="t-body" x="56" y="293">• 날짜 차이(일수) 산출 후 4개 서류 템플릿 동시 매핑</text>
+  <text class="t-body" x="56" y="310">• SHA-256 해시 비교로 중복 방지 및 _v02 이력 보존</text>
+
+  <line class="arr" x1="208" y1="320" x2="208" y2="338" />
+
+  <rect class="gate" x="44" y="342" width="328" height="62" rx="8" />
+  <text class="t-warn" x="56" y="363">사람 확인 경계 · 필수 증빙·모순 차단</text>
+  <text class="t-body" x="56" y="381">자격번호·변경사유 빈칸 추측 금지 / 준공&lt;착수 역전 경고</text>
+  <text class="t-body" x="56" y="397">출력: 서류별 독립 페이지 분리 A4 PDF · Word(.doc)</text>
+
+  <text class="t-head" x="44" y="432">언제 쓰나요?</text>
+  <text class="t-body" x="44" y="451">같은 계약 숫자·날짜를 여러 행정 양식에 반복 기입할 때</text>
+  <text class="t-body" x="44" y="469">(착수계, 기성청구 묶음, 하도급·협력사 통보서 등)</text>
+
+  <!-- TYPE B: Space Program Array Reduce & Goal-Seek -->
+  <rect class="col" x="418" y="78" width="364" height="416" rx="14" />
+  <rect class="h-b" x="418" y="78" width="364" height="54" rx="14" />
+  <rect class="h-b" x="418" y="112" width="364" height="20" />
+  <text class="t-tag" x="436" y="98">자율 응용 예제 1 · LOGIC TYPE B</text>
+  <text class="t-col" x="436" y="120">가변 배열 집계 &amp; 목표 역산 시뮬레이션 로직</text>
+
+  <rect class="box-b" x="436" y="146" width="328" height="66" rx="8" />
+  <text class="t-head" x="448" y="167">입력 구조 · 동적 실 목록 배열 + 슬라이더 변수</text>
+  <text class="t-body" x="448" y="186">실(Room) 행 자유 추가/삭제 + 목표 연면적 + 공용률(%)</text>
+  <text class="t-body" x="448" y="202">(입력값이 바뀔 때마다 전체 표·그래프가 즉시 연쇄 반응)</text>
+
+  <line class="arr" x1="600" y1="214" x2="600" y2="232" />
+
+  <rect class="box-b" x="436" y="236" width="328" height="82" rx="8" />
+  <text class="t-head" x="448" y="257">핵심 알고리즘 · Group-By 합산 &amp; Goal-Seek 역산</text>
+  <text class="t-body" x="448" y="276">• Array.reduce로 층별(1F~4F)·존별(업무/지원) 소계 집계</text>
+  <text class="t-body" x="448" y="293">• 전용합계 ÷ (1 - 공용률)로 예상 연면적·평수 실시간 산출</text>
+  <text class="t-body" x="448" y="310">• 목표 연면적에 맞추기 위해 증감할 전용면적(±㎡) 역산</text>
+
+  <line class="arr" x1="600" y1="320" x2="600" y2="338" />
+
+  <rect class="gate" x="436" y="342" width="328" height="62" rx="8" />
+  <text class="t-warn" x="448" y="363">사람 확인 경계 · 목표 면적 이탈 &amp; 공용률 이상 감지</text>
+  <text class="t-body" x="448" y="381">목표 연면적 허용오차(±5%) 초과 / 비현실 공용률 경고</text>
+  <text class="t-body" x="448" y="397">출력: 요약+상세 2쪽 면적표(PDF/Word) · 엑셀 CSV</text>
+
+  <text class="t-head" x="436" y="432">언제 쓰나요?</text>
+  <text class="t-body" x="436" y="451">건축주 초기 미팅에서 실 구성을 실시간 조정하며</text>
+  <text class="t-body" x="436" y="469">층별 배분표와 예산·연면적 균형을 바로 보여 줄 때</text>
+
+  <!-- TYPE C: Field Photo Canvas & Chunk Pagination -->
+  <rect class="col" x="810" y="78" width="364" height="416" rx="14" />
+  <rect class="h-c" x="810" y="78" width="364" height="54" rx="14" />
+  <rect class="h-c" x="810" y="112" width="364" height="20" />
+  <text class="t-tag" x="828" y="98">자율 응용 예제 2 · LOGIC TYPE C</text>
+  <text class="t-col" x="828" y="120">로컬 이미지 규격화 &amp; 그리드 청크 분할 로직</text>
+
+  <rect class="box-c" x="828" y="146" width="328" height="66" rx="8" />
+  <text class="t-head" x="840" y="167">입력 구조 · 다중 사진 파일(FileList) + 검측 메타데이터</text>
+  <text class="t-body" x="840" y="186">현장 사진 드래그앤드롭 + 위치·공종·판정(정상/보완요청)</text>
+  <text class="t-body" x="840" y="202">(외부 클라우드 업로드 없이 브라우저 메모리에서 즉시 처리)</text>
+
+  <line class="arr" x1="992" y1="214" x2="992" y2="232" />
+
+  <rect class="box-c" x="828" y="236" width="328" height="82" rx="8" />
+  <text class="t-head" x="840" y="257">핵심 알고리즘 · Canvas 4:3 크롭 &amp; Chunk 분할</text>
+  <text class="t-body" x="840" y="276">• FileReader + Canvas로 제각각인 사진을 4:3 비율 통일</text>
+  <text class="t-body" x="840" y="293">• Array.filter로 ‘보완 요청’만 뽑아 1쪽 Punch-List 생성</text>
+  <text class="t-body" x="840" y="310">• 사진을 2장(상·하) 또는 4장(2×2) 묶음(Chunk) 페이지 분할</text>
+
+  <line class="arr" x1="992" y1="320" x2="992" y2="338" />
+
+  <rect class="gate" x="828" y="342" width="328" height="62" rx="8" />
+  <text class="t-warn" x="840" y="363">사람 확인 경계 · 지적사항 조치기한 누락 차단</text>
+  <text class="t-body" x="840" y="381">‘보완 요청’ 판정 시 보완 지시 내용·기한 미기재 경고</text>
+  <text class="t-body" x="840" y="397">출력: 1쪽 보완요약표 + 2~N쪽 무절단 A4 사진대지</text>
+
+  <text class="t-head" x="828" y="432">언제 쓰나요?</text>
+  <text class="t-body" x="828" y="451">대지 현장조사·기존 건물 실측·감리 검측 직후</text>
+  <text class="t-body" x="828" y="469">수십 장 사진을 표 깨짐 없이 3분 만에 보고서로 묶을 때</text>
+</svg>
