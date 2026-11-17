@@ -117,6 +117,7 @@ const pdfLabel = page === 'overview'
     <div class="review-shell review-shell--toc" data-ebook-protected>
       <aside class="review-sidebar" id="review-sidebar" aria-label="과정 목차">
         <button type="button" class="review-toc-toggle review-toc-toggle--collapse" data-toc-collapse aria-controls="review-sidebar" aria-expanded="true" hidden><span aria-hidden="true">◧</span> 목차 접기</button>
+        {toc.length > 0 && <div class="review-reading-position" data-toc-reading hidden><span>현재 위치</span><strong data-toc-reading-label>차시 시작</strong></div>}
         <details class="review-sidebar-disclosure">
           <summary>{page==='glossary'?'용어 사전 목차':'목차 · 차시 찾아보기'}</summary>
           <div class="review-sidebar-content">
@@ -140,7 +141,7 @@ const pdfLabel = page === 'overview'
             )}
             <details open>
               <summary>{page==='glossary'?'용어 사전 분류':'현재 차시 내부 목차'}</summary>
-              {tocGroups.length>0 ? tocGroups.map((group)=><details class="review-toc-group" data-toc-period={group.id} open><summary>{group.title}</summary><ol>{group.items.map((item)=><li><a href={`#${item.id}`}>{item.title}</a></li>)}</ol></details>) : <ol>{toc.map((item) => <li><a href={`#${item.id}`}>{item.title}</a></li>)}</ol>}
+              {tocGroups.length>0 ? tocGroups.map((group)=><details class="review-toc-group" data-toc-period={group.id} open><summary>{group.title}</summary><ol>{group.items.map((item)=><li><a href={`#${item.id}`}><span class="review-toc-number" data-toc-number hidden></span><span data-toc-label>{item.title}</span><span class="review-toc-active-label" data-toc-active-label aria-hidden="true" hidden>현재</span></a></li>)}</ol></details>) : <ol>{toc.map((item) => <li><a href={`#${item.id}`}><span class="review-toc-number" data-toc-number hidden></span><span data-toc-label>{item.title}</span><span class="review-toc-active-label" data-toc-active-label aria-hidden="true" hidden>현재</span></a></li>)}</ol>}
             </details>
           </nav>
         )}
@@ -261,14 +262,119 @@ const pdfLabel = page === 'overview'
       });
       const links = [...document.querySelectorAll<HTMLAnchorElement>('.review-toc a')];
       links.forEach((link) => link.addEventListener('click', () => { if (sidebar && media.matches) sidebar.open = false; }));
-      const observer = new IntersectionObserver((entries) => {
-        const section = entries.find((entry) => entry.isIntersecting);
-        if (section) links.forEach((link) => {
-          if (link.hash === `#${section.target.id}`) link.setAttribute('aria-current','location');
-          else link.removeAttribute('aria-current');
+      if (tocRoot.dataset.courseId === 'daejeon-2026') {
+        const readingPosition = document.querySelector<HTMLElement>('[data-toc-reading]');
+        const readingLabel = document.querySelector<HTMLElement>('[data-toc-reading-label]');
+        const currentPanel = document.getElementById('review-current-panel');
+        const sidebarElement = document.querySelector<HTMLElement>('.review-sidebar');
+        const header = document.querySelector<HTMLElement>('.review-header');
+        const main = document.querySelector('main');
+        const entries = links.flatMap((link) => {
+          const target = document.getElementById(decodeURIComponent(link.hash.slice(1)));
+          if (!target || !main?.contains(target)) return [];
+          // Part wrappers contain numbered sections; only the target's own heading counts.
+          const number = target.querySelector(':scope > .review-section-heading > .review-number')?.textContent?.trim() || '';
+          const badge = link.querySelector<HTMLElement>('[data-toc-number]');
+          if (badge) { badge.textContent = number; badge.hidden = !number; }
+          const label = link.querySelector('[data-toc-label]')?.textContent?.trim() || link.textContent?.trim() || '';
+          return [{link, target, number, label}];
+        }).sort((a, b) => a.target.compareDocumentPosition(b.target) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1);
+        if (readingPosition && entries.length) readingPosition.hidden = false;
+        let current: (typeof entries)[number] | undefined;
+        let queued = false;
+        let revealPending = false;
+        // A cold fragment navigation can precede font and image layout. Keep its
+        // landing aligned only until the reader takes control of navigation.
+        let initialHashTarget: HTMLElement | null = null;
+        try {
+          const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+          if (target && main?.contains(target)) initialHashTarget = target;
+        } catch { /* Ignore malformed fragment identifiers. */ }
+        const readingOffset = (target: Element, headerBottom: number) =>
+          Math.max(headerBottom + 16, parseFloat(getComputedStyle(target).scrollMarginTop) || 0);
+        const revealCurrent = () => {
+          if (!current || !sidebarElement || currentPanel?.hidden || !sidebar?.open || !sidebarElement.getClientRects().length) return;
+          const group = current.link.closest<HTMLDetailsElement>('.review-toc-group');
+          if (group) group.open = true;
+          // Scroll only the menu's own pane, never the page or the keyboard focus.
+          const pane = media.matches ? document.querySelector<HTMLElement>('.review-sidebar-content') : sidebarElement;
+          if (!pane) return;
+          const bounds = pane.getBoundingClientRect();
+          const stickyBottom = media.matches ? bounds.top : Math.max(bounds.top,
+            tocCollapse?.getBoundingClientRect().bottom || 0,
+            readingPosition?.getBoundingClientRect().bottom || 0);
+          const linkBounds = current.link.getBoundingClientRect();
+          if (linkBounds.top < stickyBottom + 12) pane.scrollTop += linkBounds.top - stickyBottom - 12;
+          else if (linkBounds.bottom > bounds.bottom - 12) pane.scrollTop += linkBounds.bottom - bounds.bottom + 12;
+        };
+        const updatePosition = () => {
+          queued = false;
+          const headerBottom = header?.getBoundingClientRect().bottom || 0;
+          if (initialHashTarget?.getClientRects().length) {
+            const correction = initialHashTarget.getBoundingClientRect().top - readingOffset(initialHashTarget, headerBottom);
+            if (Math.abs(correction) > 1) window.scrollTo({top: window.scrollY + correction, behavior: 'instant'});
+          }
+          const visible = entries.filter(({target}) => target.getClientRects().length > 0);
+          let next: (typeof entries)[number] | undefined;
+          visible.forEach((entry) => {
+            if (entry.target.getBoundingClientRect().top <= readingOffset(entry.target, headerBottom) + 1) next = entry;
+          });
+          // A short final section may never reach the header before the page ends.
+          const last = visible.at(-1);
+          if (last && window.scrollY + innerHeight >= document.documentElement.scrollHeight - 2) {
+            const bounds = last.target.getBoundingClientRect();
+            if (bounds.top < innerHeight - 16 && bounds.bottom > headerBottom) next = last;
+          }
+          if (next !== current) {
+            current = next;
+            entries.forEach(({link}) => {
+              const active = link === current?.link;
+              if (active) link.setAttribute('aria-current', 'location');
+              else link.removeAttribute('aria-current');
+              const marker = link.querySelector<HTMLElement>('[data-toc-active-label]');
+              if (marker) marker.hidden = !active;
+            });
+            if (readingLabel) readingLabel.textContent = current ? `${current.number ? current.number + ' · ' : ''}${current.label}` : '차시 시작';
+            revealPending = true;
+          }
+          if (revealPending) { revealPending = false; revealCurrent(); }
+        };
+        const schedulePosition = () => {
+          if (!queued) { queued = true; requestAnimationFrame(updatePosition); }
+        };
+        const revealAfterLayout = () => { revealPending = true; schedulePosition(); };
+        const releaseInitialHash = () => { initialHashTarget = null; schedulePosition(); };
+        window.addEventListener('wheel', releaseInitialHash, {passive: true});
+        window.addEventListener('touchstart', releaseInitialHash, {passive: true});
+        window.addEventListener('pointerdown', releaseInitialHash, {passive: true});
+        window.addEventListener('keydown', (event) => {
+          if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(event.key)) releaseInitialHash();
         });
-      }, {rootMargin: '-15% 0px -65% 0px'});
-      links.forEach((link) => { const target = document.getElementById(link.hash.slice(1)); if(target) observer.observe(target); });
+        links.forEach(link => link.addEventListener('click', releaseInitialHash));
+        window.addEventListener('scroll', schedulePosition, {passive: true});
+        window.addEventListener('resize', revealAfterLayout);
+        window.addEventListener('hashchange', () => { releaseInitialHash(); revealAfterLayout(); });
+        window.addEventListener('pageshow', (event) => {
+          if (event.persisted) releaseInitialHash();
+          revealAfterLayout();
+        });
+        sidebar?.addEventListener('toggle', revealAfterLayout);
+        tocOpen?.addEventListener('click', revealAfterLayout);
+        tabs.forEach(tab => tab.addEventListener('click', revealAfterLayout));
+        tabs.forEach(tab => tab.addEventListener('keydown', revealAfterLayout));
+        const resizeObserver = new ResizeObserver(schedulePosition);
+        if (main) {
+          resizeObserver.observe(main);
+          new MutationObserver(schedulePosition).observe(main, {subtree: true, attributes: true, attributeFilter: ['hidden', 'open', 'style', 'class']});
+          main.addEventListener('load', schedulePosition, true);
+        }
+        if (header) resizeObserver.observe(header);
+        document.fonts.ready.then(() => {
+          revealAfterLayout();
+          requestAnimationFrame(schedulePosition);
+        });
+        schedulePosition();
+      }
     </script>
   <DaejeonMaterialProtection />
  </body>

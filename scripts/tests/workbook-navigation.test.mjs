@@ -350,3 +350,253 @@ test('localStorage가 차단되어도 목차 기본 표시와 현재 페이지 �
     assert.deepEqual(errors, [], 'Storage SecurityError는 사용자 화면의 스크립트 오류로 전파하지 않음');
   } finally { await page.close(); }
 });
+
+async function readingPositionFixture(width = 1440, {hash = '', courseId = 'daejeon-2026'} = {}) {
+  const control = name => layout.match(new RegExp(`<button\\b[^>]*data-toc-${name}[^>]*>[\\s\\S]*?<\\/button>`))?.[0];
+  const page = await browser.newPage({viewport: {width, height: 900}});
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  const number = index => String(index === 1 ? 1 : index + 2).padStart(2, '0');
+  const item = (id, title) => `<li><a href="#${id}"><span data-toc-number hidden></span><span data-toc-label>${title}</span><span data-toc-active-label hidden>현재</span></a></li>`;
+  const section = index => `<section class="review-section" id="section-${index}" style="min-height:${index === 2 ? 2200 : 560}px"><header class="review-section-heading"><span class="review-number">${number(index)}</span><div><h2>단계 ${index} 실습의 자세한 설명과 검토 기준</h2></div></header><p>번호를 별도로 추정하지 않고 본문의 표시를 따라야 합니다.</p></section>`;
+  const list = (start, end) => Array.from({length:end-start+1}, (_, index) => item(`section-${start+index}`, `단계 ${start+index} 실습의 자세한 설명과 검토 기준`)).join('');
+  const sections = (start, end) => Array.from({length:end-start+1}, (_, index) => section(start+index)).join('');
+  await page.route('http://reading-position.test/**', route => route.fulfill({contentType:'text/html', body:`<!doctype html><html lang="ko" data-course-id="${courseId}"><head><meta charset="utf-8"><style>
+    :root{--paper:#f8f9fa;--paper-deep:#f1f5f9;--surface:#fff;--ink:#0f172a;--muted:#475569;--line:#e2e8f0;--line-dark:#cbd5e1;--accent:#1d4ed8;--accent-dark:#1e3a8a}
+    *{box-sizing:border-box;transition:none!important}body{margin:0;font:16px sans-serif}
+    ${reviewCss}
+    ${navigationCss}
+    html{scroll-behavior:auto!important}main{min-width:0}.review-section-heading{display:flex;gap:12px}.review-section{padding:20px 0}
+  </style></head><body class="review-page">
+    <header class="review-header"><a class="review-brand" href="#main">AI LECTURE <span>ARCHITECTURE DESIGN</span></a><nav><a href="#main" id="focus-sentinel">홈</a><a href="#main">과정 개요</a>${control('open')}</nav></header>
+    <div class="review-shell review-shell--toc"><aside class="review-sidebar" id="review-sidebar" aria-label="과정 목차">
+      ${control('collapse')}<div class="review-reading-position" data-toc-reading hidden><span>현재 위치</span><strong data-toc-reading-label>차시 시작</strong></div><details class="review-sidebar-disclosure"><summary>목차 · 차시 찾아보기</summary><div class="review-sidebar-content">
+      <div class="review-sidebar-tabs" role="tablist"><button id="review-current-tab" role="tab" aria-controls="review-current-panel" aria-selected="true">이 차시 목차</button><button id="review-course-tab" role="tab" aria-controls="review-course-panel" aria-selected="false" tabindex="-1">전체 13차시</button></div>
+      <nav id="review-current-panel" class="review-toc" role="tabpanel"><details open><summary>현재 차시 내부 목차</summary>
+        <details class="review-toc-group" data-toc-period="part-one" open><summary>Part 1 · 시작과 실습</summary><ol>${item('part-one','Part 1 시작')}${item('course-start','COURSE OVERVIEW')}${list(1,12)}</ol></details>
+        <details class="review-toc-group" data-toc-period="part-two" open><summary>Part 2 · 이어지는 실습</summary><ol>${item('part-two','Part 2 시작')}${list(13,24)}${item('extra-workshop','추가 자율 실습')}</ol></details>
+      </details></nav><nav id="review-course-panel" class="review-course-toc" role="tabpanel" hidden><a href="/workbook/lessons/02/">제2차시</a></nav>
+      </div></details></aside><main id="main"><div style="height:600px">차시 소개</div>
+      <div class="day-period" id="part-one"><h2>Part 1</h2><div id="course-start" style="min-height:200px">과정 안내</div>${sections(1,12)}</div>
+      <div class="day-period" id="part-two"><h2>Part 2</h2>${sections(13,24)}</div><section id="extra-workshop" style="min-height:600px"><h2>추가 자율 실습</h2></section><div style="height:1000px"></div>
+      </main></div><script>${navigationScript}</script></body></html>`}));
+  await page.goto(`http://reading-position.test/workbook/lessons/02/${hash}`);
+  return {page, errors, number};
+}
+
+async function scrollInsideReadingSection(page, id, offset = 160) {
+  return page.locator(`#${id}`).evaluate((element, delta) => {
+    const requested = Math.round(element.getBoundingClientRect().top + scrollY + delta);
+    window.scrollTo(0, requested);
+    return requested;
+  }, offset);
+}
+
+async function assertReadingTarget(page, id) {
+  await page.waitForFunction(expected => {
+    const active = [...document.querySelectorAll('.review-toc a[aria-current="location"]')];
+    return active.length === 1 && active[0].hash === `#${expected}`;
+  }, id);
+  assert.equal(await page.locator('.review-toc a[aria-current="location"]').count(), 1);
+}
+
+test('목차 번호는 실제 본문 번호와 일치하며 Part·추가 실습에는 자식 번호를 붙이지 않는다', async () => {
+  const {page, errors, number} = await readingPositionFixture();
+  try {
+    for (const index of [1,2,13,24]) {
+      const badge = page.locator(`.review-toc a[href="#section-${index}"] [data-toc-number]`);
+      await page.waitForFunction(({id, value}) => document.querySelector(`.review-toc a[href="#${id}"] [data-toc-number]`)?.textContent.trim() === value, {id:`section-${index}`,value:number(index)});
+      assert.equal(await badge.textContent(), number(index));
+      assert.equal(await badge.getAttribute('hidden'), null);
+    }
+    for (const id of ['part-one','part-two','course-start','extra-workshop']) {
+      const badge = page.locator(`.review-toc a[href="#${id}"] [data-toc-number]`);
+      assert.equal((await badge.textContent()).trim(), '', `${id}는 별도 번호 없는 탐색 항목`);
+      assert.notEqual(await badge.getAttribute('hidden'), null);
+    }
+    assert.deepEqual(errors, []);
+  } finally { await page.close(); }
+});
+
+test('현재 위치는 긴 섹션의 중간·역방향 스크롤·빠른 건너뛰기에서도 실제 읽는 섹션을 유지한다', async () => {
+  const {page, errors} = await readingPositionFixture();
+  try {
+    for (const [id, offset] of [['section-1',160],['section-2',1300],['section-2',1900],['section-18',160],['section-2',900],['section-1',160]]) {
+      const requested = await scrollInsideReadingSection(page,id,offset);
+      await assertReadingTarget(page,id);
+      assert(Math.abs(await page.evaluate(() => scrollY) - requested) < 2, '목차 자동 노출이 본문 위치를 움직이지 않음');
+    }
+    assert.match(await page.locator('[data-toc-reading-label]').textContent(), /01.*단계 1/);
+    await page.locator('#extra-workshop').evaluate(element => element.scrollIntoView());
+    await assertReadingTarget(page,'extra-workshop');
+    await page.evaluate(() => scrollTo(0,0));
+    await page.waitForFunction(() => !document.querySelector('.review-toc a[aria-current="location"]'));
+    assert.match(await page.locator('[data-toc-reading-label]').textContent(), /차시 시작/);
+    assert.deepEqual(errors, []);
+  } finally { await page.close(); }
+});
+
+test('현재 목차는 닫힌 Part를 열고 사이드바 안에 표시되며 본문 초점을 빼앗지 않는다', async () => {
+  const {page, errors} = await readingPositionFixture(1024);
+  try {
+    await page.locator('[data-toc-period="part-two"]').evaluate(element => element.open = false);
+    await page.locator('#focus-sentinel').focus();
+    const requested = await scrollInsideReadingSection(page,'section-23');
+    await assertReadingTarget(page,'section-23');
+    await page.waitForFunction(() => {
+      const side = document.querySelector('.review-sidebar').getBoundingClientRect();
+      const link = document.querySelector('.review-toc a[aria-current="location"]').getBoundingClientRect();
+      return link.top >= side.top && link.bottom <= side.bottom;
+    });
+    assert.notEqual(await page.locator('[data-toc-period="part-two"]').getAttribute('open'),null);
+    assert.equal(await page.evaluate(() => document.activeElement.id),'focus-sentinel');
+    assert(Math.abs(await page.evaluate(() => scrollY) - requested) < 2);
+    const active = page.locator('.review-toc a[aria-current="location"]');
+    for (const hover of [false,true]) {
+      if (hover) await active.hover();
+      const colors = await active.evaluate(element => ({foreground:getComputedStyle(element).color,background:getComputedStyle(element).backgroundColor}));
+      assert(contrastRatio(colors.foreground,colors.background) >= 4.5, '현재 위치 표시의 기본·호버 텍스트 대비');
+    }
+    assert.deepEqual(errors, []);
+  } finally { await page.close(); }
+});
+
+test('해시 직접 진입·새로고침·목차 접기 뒤 다시 열기에서도 현재 섹션을 복원한다', async () => {
+  const {page, errors} = await readingPositionFixture(1440,{hash:'#section-14'});
+  try {
+    await assertReadingTarget(page,'section-14');
+    await page.reload();
+    await assertReadingTarget(page,'section-14');
+    await page.evaluate(() => location.hash = 'section-2');
+    await assertReadingTarget(page,'section-2');
+    await page.locator('[data-toc-collapse]').click();
+    await scrollInsideReadingSection(page,'section-22');
+    await assertReadingTarget(page,'section-22');
+    await page.locator('[data-toc-open]').click();
+    await assertReadingTarget(page,'section-22');
+    assert(await page.locator('.review-sidebar').isVisible());
+    assert.deepEqual(errors, []);
+  } finally { await page.close(); }
+});
+
+test('번호 목차의 모바일 클릭은 정확한 섹션으로 이동하고 기존 아코디언 자동 접힘을 유지한다', async () => {
+  for (const width of [390,320]) {
+    const {page, errors} = await readingPositionFixture(width);
+    try {
+      await page.locator('.review-sidebar-disclosure > summary').click();
+      const link = page.locator('.review-toc a[href="#section-2"]');
+      await link.click();
+      await assertReadingTarget(page,'section-2');
+      assert.equal(await page.locator('.review-sidebar-disclosure').getAttribute('open'),null);
+      const gap = await page.locator('#section-2').evaluate(element => element.getBoundingClientRect().top - document.querySelector('.review-header').getBoundingClientRect().bottom);
+      assert(gap >= 12, `${width}px 번호 목차 클릭 뒤 제목 여백`);
+      assert.equal(await page.evaluate(() => Math.max(document.documentElement.scrollWidth,document.body.scrollWidth)-innerWidth),0);
+      assert.deepEqual(errors, []);
+    } finally { await page.close(); }
+  }
+});
+
+async function coldHashFixture(hash, {mobile = false} = {}) {
+  // Each visit has an empty font cache and uses a real URL fragment, not a test-side scroll repair.
+  const context = await browser.newContext({viewport: {width: mobile ? 390 : 1440, height: 900}, hasTouch: mobile, isMobile: mobile});
+  const page = await context.newPage();
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  let releaseFont;
+  const fontGate = new Promise(resolve => { releaseFont = resolve; });
+  const font = fs.readFileSync(new URL('../../node_modules/@fontsource-variable/noto-sans-kr/files/noto-sans-kr-latin-wght-normal.woff2', import.meta.url));
+  await page.route('http://cold-navigation.test/delayed.woff2', async route => {
+    await fontGate;
+    await route.fulfill({contentType: 'font/woff2', body: font});
+  });
+  const sections = Array.from({length: 13}, (_, index) => ({number: String(index + 1).padStart(2, '0'), id: index === 4 ? 'l02-architecture' : index === 11 ? 'l02-run' : `cold-section-${index + 1}`}));
+  const control = name => layout.match(new RegExp(`<button\\b[^>]*data-toc-${name}[^>]*>[\\s\\S]*?<\\/button>`))?.[0];
+  await page.route('http://cold-navigation.test/workbook/lessons/02/**', route => route.fulfill({contentType: 'text/html', body: `<!doctype html><html lang="ko" data-course-id="daejeon-2026"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+    :root{--paper:#f8f9fa;--paper-deep:#f1f5f9;--surface:#fff;--ink:#0f172a;--muted:#475569;--line:#e2e8f0;--line-dark:#cbd5e1;--accent:#1d4ed8;--accent-dark:#1e3a8a}
+    @font-face{font-family:DelayedWorkbook;src:url('/delayed.woff2') format('woff2');font-display:swap}
+    html{scroll-padding-top:5rem;overflow-anchor:none}*{box-sizing:border-box;transition:none!important}body{margin:0;font:16px DelayedWorkbook,sans-serif}
+    ${reviewCss}${navigationCss}
+    html{scroll-behavior:auto!important}.review-section{min-height:1000px;padding:20px 0}.review-section-heading{display:flex;gap:12px}#late-introduction{height:600px}
+  </style><script>window.paddingBeforeBody = getComputedStyle(document.documentElement).scrollPaddingTop;</script></head><body class="review-page">
+    <header class="review-header"><a class="review-brand" href="#main">AI LECTURE <span>ARCHITECTURE DESIGN</span></a><nav><a href="#main">홈</a>${control('open')}</nav></header>
+    <div class="review-shell review-shell--toc"><aside class="review-sidebar" id="review-sidebar">${control('collapse')}
+      <div class="review-reading-position" data-toc-reading hidden><span>현재 위치</span><strong data-toc-reading-label>차시 시작</strong></div>
+      <details class="review-sidebar-disclosure"><summary>목차</summary><div class="review-sidebar-content"><nav id="review-current-panel" class="review-toc"><details open><summary>제2차시 목차</summary><ol>
+      ${sections.map(({id, number}) => `<li><a href="#${id}"><span data-toc-number hidden></span><span data-toc-label>실습 ${number}</span><span data-toc-active-label hidden>현재</span></a></li>`).join('')}
+      </ol></details></nav></div></details></aside><main id="main"><div id="late-introduction">AI WORKBOOK</div>
+      ${sections.map(({id, number}) => `<section class="review-section" id="${id}"><header class="review-section-heading"><span class="review-number">${number}</span><div><h2>실습 ${number} · Architecture and workflow</h2></div></header><p>Learning content</p></section>`).join('')}<div style="height:1000px"></div>
+    </main></div><script>${navigationScript}</script><script>
+      // Font swap can expand preceding content after the browser's initial fragment scroll.
+      document.fonts.ready.then(() => setTimeout(() => {
+        document.getElementById('late-introduction').style.height = '684px';
+        document.documentElement.dataset.fontLayoutSettled = 'true';
+      }, 80));
+    </script></body></html>`}));
+  await page.goto(`http://cold-navigation.test/workbook/lessons/02/${hash}`, {waitUntil: 'domcontentloaded'});
+  await page.waitForFunction(() => document.fonts.status === 'loading');
+  const finishFont = async () => {
+    releaseFont();
+    await page.waitForFunction(() => document.documentElement.dataset.fontLayoutSettled === 'true');
+    await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  };
+  return {page, context, errors, finishFont, releaseFont};
+}
+
+test('콜드 URL의 05·12 해시는 첫 파싱과 늦은 웹폰트·상단 확장 뒤에도 새로고침 없이 정확히 선택된다', async () => {
+  for (const [id, number] of [['l02-architecture', '05'], ['l02-run', '12']]) {
+    const {page, context, errors, finishFont, releaseFont} = await coldHashFixture(`#${id}`);
+    try {
+      assert.equal(await page.evaluate(() => window.paddingBeforeBody), '0px', '본문 파싱 전에도 전역 앵커 여백을 중복 적용하지 않음');
+      await finishFont();
+      await assertReadingTarget(page, id);
+      assert.equal((await page.locator('.review-toc a[aria-current="location"] [data-toc-number]').textContent()).trim(), number);
+      const gap = await page.locator(`#${id}`).evaluate(element => element.getBoundingClientRect().top - document.querySelector('.review-header').getBoundingClientRect().bottom);
+      assert(gap >= 12 && gap <= 40, `${id}: 폰트 정착 뒤 헤더와 섹션 사이 여백 ${gap}px`);
+      assert.equal(new URL(page.url()).hash, `#${id}`);
+      assert.deepEqual(errors, []);
+    } finally { releaseFont(); await context.close(); }
+  }
+});
+
+test('콜드 해시 이후 wheel·키보드·touch 조작은 초기 정렬을 해제하고 늦은 레이아웃 변화가 독서를 되돌리지 않는다', async () => {
+  for (const intent of ['wheel', 'keyboard', 'touch']) {
+    const {page, context, errors, finishFont, releaseFont} = await coldHashFixture('#l02-architecture', {mobile: intent === 'touch'});
+    try {
+      await assertReadingTarget(page, 'l02-architecture');
+      const initialScroll = await page.evaluate(() => scrollY);
+      if (intent === 'wheel') {
+        await page.mouse.move(1200, 600);
+        await page.mouse.wheel(0, 1400);
+      } else if (intent === 'keyboard') {
+        await page.keyboard.press('PageDown');
+        await page.keyboard.press('PageDown');
+      } else {
+        const cdp = await context.newCDPSession(page);
+        await cdp.send('Input.dispatchTouchEvent', {type: 'touchStart', touchPoints: [{x: 300, y: 750}]});
+        for (const y of [650, 550, 450, 350, 250, 150]) {
+          await cdp.send('Input.dispatchTouchEvent', {type: 'touchMove', touchPoints: [{x: 300, y}]});
+        }
+        await cdp.send('Input.dispatchTouchEvent', {type: 'touchEnd', touchPoints: []});
+        await cdp.detach();
+      }
+      await page.waitForFunction(start => scrollY > start + 300, initialScroll);
+      // Wait for browser key/touch scrolling to stop; do not change the document's scroll position.
+      await page.evaluate(() => new Promise(resolve => {
+        let previous = scrollY;
+        let stable = 0;
+        const check = () => { stable = Math.abs(scrollY - previous) < 0.1 ? stable + 1 : 0; previous = scrollY; if (stable >= 12) resolve(); else requestAnimationFrame(check); };
+        requestAnimationFrame(check);
+      }));
+      const userScroll = await page.evaluate(() => scrollY);
+      await finishFont();
+      assert(Math.abs(await page.evaluate(() => scrollY) - userScroll) < 2, `${intent}: 늦은 폰트·콘텐츠 확장이 사용자가 선택한 독서 위치를 초기 해시로 되돌리지 않음`);
+      const expected = await page.evaluate(() => {
+        const headerBottom = document.querySelector('.review-header').getBoundingClientRect().bottom;
+        return [...document.querySelectorAll('main .review-section')].filter(element => element.getBoundingClientRect().top <= Math.max(headerBottom + 16, parseFloat(getComputedStyle(element).scrollMarginTop)) + 1).at(-1)?.id;
+      });
+      assert(expected, `${intent}: 독서 중인 섹션이 있어야 함`);
+      await assertReadingTarget(page, expected);
+      assert.deepEqual(errors, []);
+    } finally { releaseFont(); await context.close(); }
+  }
+});
