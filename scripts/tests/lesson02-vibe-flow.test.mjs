@@ -140,9 +140,11 @@ test('제2차시 초보자 설치 안내·7규칙 Step 0 로드맵·문서별 �
   verifyBundle('review/daejeon/COMMENCEMENT_DOC_STUDENT/DJ-L02_SPACE_PROGRAM_SAMPLE.zip');
   verifyBundle('review/daejeon/COMMENCEMENT_DOC_STUDENT/DJ-L02_PHOTO_SHEET_SAMPLE.zip');
 
-  // 제2-2차시 독립 초간단 입문편(착수계·선임계 2종 단일 HTML · ChatGPT 플랜·검수 + Codex 6.1 Sol 구현) 검증
+  // 제2-2차시 독립 초간단 입문편(Chat·Work·Codex 비교 + 착수계·선임계 2종 단일 HTML · ChatGPT 플랜·검수 + Codex 6.1 Sol 구현) 검증
   assert(fs.existsSync('src/draft/pages/lessons/02-2.astro'));
   const easySource = fs.readFileSync('src/draft/content/daejeon-lesson02-2-easy.ts', 'utf8');
+  assert.match(easySource, /l022-openai-modes/);
+  assert.match(easySource, /Chat은 결과를 만들고, Work는 업무를 수행하며, Codex는 소프트웨어를 개발하는 데 특화되어 있습니다\./);
   assert.match(easySource, /6\.1 Sol/);
   assert.match(easySource, /파일을 직접 첨부/);
   assert.match(easySource, /플랜 수립자이자 검수자야/);

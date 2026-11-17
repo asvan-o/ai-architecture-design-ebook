@@ -1,16 +1,17 @@
-// 제2-2차시 (초간단 입문편): 착수신고서 + 책임기술자 선임계 2종 단일 파일 도구 제작
+// 제2-2차시 (초간단 입문편): Chat · Work · Codex 환경 이해 + 착수신고서·책임기술자 선임계 2종 단일 파일 제작
 // 실증 진행 순서: 플랜 수립자·검수자 ChatGPT (파일 직접 첨부) <-> 개발·구현자 OpenAI Codex (6.1 Sol 모델)
 
 export const lesson02EasyTitle =
   '제2-2차시 · [초간단 입문] 착수계·선임계 단일 파일 제작 (플랜·검수 ChatGPT × 구현 Codex 6.1 Sol)';
 
 export const lesson02EasyLead =
-  '별도 프로그램 설치 없이 파일 1개로 작동하는 『착수신고서 · 책임기술자 선임계』 자동 작성 도구를 만듭니다. 내 PC 폴더를 직접 읽지 못하는 ChatGPT에게는 플랜 수립과 결과 파일(.html·.md) 첨부 검수를 맡기고, 실제 파일 생성과 완료 보고는 빈 폴더에 연결된 Codex(6.1 Sol 모델)에게 맡깁니다.';
+  '실습에 앞서 OpenAI의 세 가지 작업 환경(Chat · Work · Codex) 차이를 먼저 명확히 구분한 뒤, 별도 설치 없이 파일 1개로 작동하는 『착수신고서 · 책임기술자 선임계』 자동 작성 도구를 완성합니다. 플랜 수립과 결과 파일(.html·.md) 첨부 검수는 ChatGPT가 맡고, 실제 파일 생성과 완료 보고는 빈 폴더에 연결된 Codex(6.1 Sol 모델)가 맡습니다.';
 
 export const easySections = [
+  { id: 'l022-openai-modes', title: '실습 전 개념 정리 · ChatGPT Chat · Work · Codex 차이와 선택 기준', minutes: 15 },
   { id: 'l022-why-simple', title: '실습 범위와 완성 샘플 · 문서 2장, 무설치 단일 파일', minutes: 15 },
-  { id: 'l022-two-roles', title: 'AI 역할 분담 · 플랜·검수자 ChatGPT vs 개발·구현자 Codex(6.1 Sol)', minutes: 20 },
-  { id: 'l022-folder-setup', title: '사전 준비 · 빈 폴더 1개 생성 및 화면 좌·우 배치', minutes: 15 },
+  { id: 'l022-two-roles', title: '오늘의 AI 역할 분담 · 플랜·검수자 ChatGPT vs 개발·구현자 Codex(6.1 Sol)', minutes: 10 },
+  { id: 'l022-folder-setup', title: '사전 준비 · 빈 폴더 1개 생성 및 화면 좌·우 배치', minutes: 10 },
   { id: 'l022-step1-gpt-plan', title: '실습 1단계 · ChatGPT 플랜 수립 및 [1차 구현 지시문] 받기 (1~5번)', minutes: 25 },
   { id: 'l022-step2-codex-build', title: '실습 2단계 · Codex(6.1 Sol) 역할 지정·구현 및 완료 보고 받기 (1~3번)', minutes: 25 },
   { id: 'l022-step3-gpt-audit', title: '실습 3단계 · 완료 보고·산출 파일(.html·.md) 첨부 검수 및 완성 (6~7번)', minutes: 30 },
@@ -20,33 +21,105 @@ export const easySections = [
 export const easyPeriods = [
   {
     id: 'l022-period-1',
-    title: '단일 파일 실습 범위 확인 & AI 2인 역할 분담 준비',
+    title: 'OpenAI 3가지 작업 환경(Chat·Work·Codex) 이해 & 단일 파일 실습 준비',
     time: '50분',
-    output: '완성 샘플을 확인하고 빈 폴더 1개에 ChatGPT(플랜·검수)와 Codex 6.1 Sol(개발·구현) 작업 창을 준비합니다.',
-    sections: easySections.slice(0, 3),
+    output: 'Chat·Work·Codex의 역할과 권한 차이를 구분하고, 빈 폴더 1개에 ChatGPT와 Codex(6.1 Sol) 작업 창을 준비합니다.',
+    sections: easySections.slice(0, 4),
   },
   {
     id: 'l022-period-2',
     title: '플랜 수립 및 1차 구현 · ChatGPT 문답 → Codex(6.1 Sol) 파일 생성',
     time: '50분',
     output: 'ChatGPT 사전 질문(Q1~Q3) 답변으로 [1차 구현 지시문]을 만들고 Codex에서 단일 HTML과 완료 보고를 생성합니다.',
-    sections: easySections.slice(3, 5),
+    sections: easySections.slice(4, 6),
   },
   {
     id: 'l022-period-3',
     title: '산출물 첨부 검수 및 완성 · 파일 직접 첨부(+) 후 최종 통과 확인',
     time: '50분',
     output: 'Codex가 만든 .html·.md 산출물과 완료 보고를 ChatGPT에 직접 첨부해 검수 통과 판정을 받고 Word·2쪽 출력을 점검합니다.',
-    sections: easySections.slice(5),
+    sections: easySections.slice(6),
   },
 ] as const;
 
 export const easyGoals = [
+  'OpenAI의 세 가지 작업 환경(Chat · Work · Codex)이 지능 차이가 아니라 목적·파일 접근 권한·실행 도구의 차이임을 구분합니다.',
   '별도 설치 없이 브라우저에서 즉시 작동하는 『착수신고서 · 책임기술자 선임계』 단일 HTML 도구를 완성합니다.',
-  '플랜 수립자·검수자(ChatGPT)와 개발·구현자(Codex 6.1 Sol)에게 먼저 역할과 보고 규칙을 부여하는 분업 절차를 익힙니다.',
-  'PC 내부 폴더를 읽지 못하는 ChatGPT의 특성을 고려해 Codex 산출물(.html, .md 등)과 완료 보고를 직접 첨부(+)해 검수받습니다.',
+  'PC 내부 폴더를 직접 읽지 못하는 일반 Chat에 Codex 산출물(.html, .md 등)과 완료 보고를 직접 첨부(+)해 검수받는 절차를 익힙니다.',
   '한글 금액 자동 표기, 다수 책임기술자 추가, 빈칸 임의 입력 금지, 편집 가능한 Word 저장 및 인쇄 시 2페이지 분리를 검증합니다.',
 ];
+
+// ── 01. Chat · Work · Codex 비교 데이터 (2026년 11월 공식 문서 기준) ──────────
+export const openAiEnvCoreSentence =
+  'Chat은 결과를 만들고, Work는 업무를 수행하며, Codex는 소프트웨어를 개발하는 데 특화되어 있습니다.';
+
+export const openAiThreeEnvCards = [
+  {
+    name: '① Chat — 대화 · 분석 · 생성 환경',
+    role: '질문에 답하고 요구사항을 분석해 문서·소스코드·실행 파일을 생성합니다.',
+    strengths: '요구사항 정의, 구현 지시문 작성, 결과물 검수 및 단일 HTML·계산기·Word/Excel 등 소규모 파일 제작에 적합합니다.',
+    boundary: '일반 웹 Chat은 내 PC의 로컬 폴더를 직접 열고 수정하는 것이 기본 기능이 아닙니다.',
+  },
+  {
+    name: '② Work — 다단계 업무 수행 환경',
+    role: '최종 목표를 전달하면 여러 참고자료와 연결된 도구를 활용해 업무 산출물을 완성합니다.',
+    strengths: '다수 계약서·서식 비교, 웹 조사·브라우저 조작, 견적서·보고서·데이터 매핑표 작성 및 반복 업무 자동화에 강합니다.',
+    boundary: '데스크톱에서 권한을 허용한 로컬 파일·앱만 활용 가능하며, 대규모 코드 유지보수는 Codex가 더 적합합니다.',
+  },
+  {
+    name: '③ Codex — 전문 소프트웨어 개발 환경',
+    role: '실제 프로젝트 폴더·저장소의 소스코드를 직접 수정하고 실행·테스트·이력 관리를 수행합니다.',
+    strengths: '여러 소스파일 통합 수정, 터미널 실행, 자동 테스트·디버깅, 변경 비교(Diff), Git 관리 및 기능 확장에 특화되어 있습니다.',
+    boundary: '로컬 환경에서 권한을 허용한 폴더만 접근합니다(Codex Cloud는 별도 격리 환경이며 사용자 PC에 자동 접근하지 않음).',
+  },
+] as const;
+
+export const openAiEnvComparisonRows = [
+  ['요구사항 분석 · 기획 · 결과 검수', '◎ (주력)', '◎ (주력)', '○'],
+  ['다수 문서 통합 · 웹 브라우저 조작 · 연결 앱 업무', '△', '◎ (주력)', '○'],
+  ['HTML/CSS/JS · Python 코드 작성', '○', '○', '◎ (주력)'],
+  ['여러 소스파일 통합 수정 · 터미널 · 디버깅 · Git', '△ (수동 전달)', '○', '◎ (주력)'],
+  ['로컬 PC 폴더 직접 접근', '× (업로드·다운로드)', '△ (데스크톱 권한 허용 시)', '△ (로컬 권한 허용 시)'],
+  ['웹사이트·도구 배포 (인터넷 URL 게시)', '△ (별도 호스팅 필요)', '○ (Sites 등 지원 시)', '◎ (프로젝트 배포 설정)'],
+  ['추천 대표 활용', '기획·검수 · 단일 HTML 기초 제작', '기존 서식 분석 · 복합 문서·업무 완성', '실무 프로그램 구현 · 확장 · 유지보수'],
+] as const;
+
+export const openAiTimelineNote =
+  '기준: 2026년 11월 | 코드·단일 HTML 작성과 데이터 분석은 기존 ChatGPT에서도 가능했으며, 2025.05 Codex 공개 → 2026.07 Work·Sites 확대 및 데스크톱 앱(Chat / Work / Codex) 통합으로 작업 실행 환경이 세분화되었습니다. 실제 지원 범위는 요금제·연결 도구·권한 설정에 따라 달라집니다.';
+
+export const openAiWorkflowContrast = [
+  [
+    '일반 Chat 단독으로 개발·수정할 때',
+    '파일 업로드 → 코드 분석 → 수정 파일 다운로드 → 내 PC 폴더에 수동 덮어쓰기 → 실행 확인 → 오류 내용 다시 복사·전달 과정을 매번 반복해야 합니다.',
+  ],
+  [
+    '오늘 실습처럼 Chat(기획·검수) + 로컬 Codex(구현)를 결합할 때',
+    '기획·지시문 작성과 최종 감리는 대화에 강한 Chat이 맡고, 허용된 내 실습 폴더에서 파일을 직접 생성·수정·보고하는 작업은 Codex(6.1 Sol)가 처리해 수동 덮어쓰기 번거로움을 줄이고 이후 다중 파일·DB 시스템(제2차시 심화)으로 그대로 확장할 수 있습니다.',
+  ],
+] as const;
+
+export const openAiCommonMisconceptions = [
+  [
+    '오해 1 · “Chat은 코딩을 못 하고 Codex만 프로그램을 만든다?” (×)',
+    '일반 Chat도 단일 HTML 계산기, 견적서·착수계 생성기 같은 실제 실행 가능한 소규모 프로그램을 만들고 파일로 내려줄 수 있습니다. 차이는 대규모 프로젝트 수정·테스트 환경에 있습니다.',
+  ],
+  [
+    '오해 2 · “HTML 파일을 만들면 인터넷에 자동으로 배포된다?” (×)',
+    '소스코드를 작성해 내 PC에서 여는 것(개발)과 인터넷 서버에 올려 외부 URL로 접속하게 만드는 것(배포)은 별도 과정입니다.',
+  ],
+  [
+    '오해 3 · “Work는 Codex보다 상위 버전이다?” (×)',
+    '상하 관계가 아닙니다. Work는 업무 산출물 완성 중심이고, Codex는 소프트웨어 구현·테스트·유지보수 중심입니다(기존 서식·계약서 분석이 복잡할 때만 앞단에 Work를 추가하면 됩니다).',
+  ],
+  [
+    '오해 4 · “Codex는 언제나 내 PC의 모든 파일을 자동으로 읽는다?” (×)',
+    '로컬/데스크톱 Codex에서 사용자가 직접 연결·허용한 실습 폴더만 접근합니다. 클라우드 환경(Codex Cloud)은 사용자 PC에 자동 접근하지 않습니다.',
+  ],
+  [
+    '오해 5 · “AI가 테스트했으면 프로그램은 무조건 정상 작동한다?” (×)',
+    '격리된 테스트를 통과했더라도 실제 내 Windows PC 브라우저, Word 열기, A4 인쇄 여백에서는 예외가 생길 수 있으므로 반드시 사람이 최종 확인해야 합니다.',
+  ],
+] as const;
 
 export const comparisonWithStandardL02 = [
   ['생성 문서', '착수신고서 · 책임기술자 선임계 2장 (신규 양식)', '착수신고서 · 선임계 · 참여기술자 명단 · 보안각서 4장'],

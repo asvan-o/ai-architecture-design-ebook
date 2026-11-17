@@ -12,6 +12,12 @@ import {
   easySections,
   easyPeriods,
   easyGoals,
+  openAiEnvCoreSentence,
+  openAiThreeEnvCards,
+  openAiEnvComparisonRows,
+  openAiTimelineNote,
+  openAiWorkflowContrast,
+  openAiCommonMisconceptions,
   comparisonWithStandardL02,
   twoAiRoleCards,
   setupTwoMinuteSteps,
@@ -63,7 +69,7 @@ const easyStarterZip = commencementFiles.easyStarterZip;
     items={[{
       topic: 2,
       status: '완결',
-      note: '플랜 수립자·검수자 ChatGPT(파일 직접 첨부)와 개발·구현자 Codex(6.1 Sol) 역할 분담으로 착수신고서·책임기술자 선임계 단일 파일 도구를 완성합니다.',
+      note: 'OpenAI 3가지 작업 환경(Chat · Work · Codex) 차이를 구분하고, 플랜·검수자 ChatGPT(파일 직접 첨부)와 구현자 Codex(6.1 Sol) 분업으로 착수신고서·선임계 단일 파일 도구를 완성합니다.',
     }]}
   />
 
@@ -90,6 +96,73 @@ const easyStarterZip = commencementFiles.easyStarterZip;
       </header>
 
       {periodIndex === 0 && <>
+        <ReviewSection {...sectionProps('l022-openai-modes')} summary="Chat · Work · Codex는 지능 차이가 아니라 사용 목적·파일 접근 권한·실행 도구가 다른 세 가지 작업 환경입니다.">
+          <aside class="lesson02-decision" data-openai-core-callout>
+            <h3>핵심 한 줄 정리</h3>
+            <p><strong>“{openAiEnvCoreSentence}”</strong> — 세 환경은 기능이 일부 겹치므로 AI의 능력만이 아니라 <strong>실행 환경, 로컬 파일 접근 권한, 최종 결과물의 성격</strong>을 기준으로 선택합니다.</p>
+          </aside>
+
+          <div class="l022-env-grid" data-openai-env-cards>
+            {openAiThreeEnvCards.map((env) => (
+              <article class="l02-ab-card l022-env-card">
+                <h3>{env.name}</h3>
+                <dl>
+                  <dt><strong>핵심 역할</strong></dt>
+                  <dd>{env.role}</dd>
+                  <dt><strong>적합한 작업</strong></dt>
+                  <dd>{env.strengths}</dd>
+                  <dt><strong>권한·한계 기준</strong></dt>
+                  <dd>{env.boundary}</dd>
+                </dl>
+              </article>
+            ))}
+          </div>
+
+          <div class="lesson02-table" data-openai-comparison-table>
+            <table>
+              <caption>Chat · Work · Codex 기능 및 권한 비교 (◎ 주력 / ○ 지원 / △ 환경·권한 조건부 / × 기본 미지원)</caption>
+              <thead>
+                <tr>
+                  <th scope="col">비교 항목</th>
+                  <th scope="col">Chat</th>
+                  <th scope="col">Work</th>
+                  <th scope="col">Codex</th>
+                </tr>
+              </thead>
+              <tbody>
+                {openAiEnvComparisonRows.map(([label, chatVal, workVal, codexVal]) => (
+                  <tr>
+                    <th scope="row" data-label="비교 항목">{label}</th>
+                    <td data-label="Chat">{chatVal}</td>
+                    <td data-label="Work">{workVal}</td>
+                    <td data-label="Codex"><strong>{codexVal}</strong></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p class="l022-footnote">{openAiTimelineNote}</p>
+
+          <div class="lesson02-decision" data-easy-prompt-block>
+            <h3>왜 단일 HTML 실습에서도 <code>Chat + 로컬 Codex</code> 분업을 익히나요?</h3>
+            <ul class="l022-contrast-list">
+              {openAiWorkflowContrast.map(([head, body]) => (
+                <li><strong>{head}</strong>: {body}</li>
+              ))}
+            </ul>
+          </div>
+
+          <h3>시작 전 꼭 바로잡을 오해 5가지</h3>
+          <ol class="lesson02-checklist" data-openai-misconceptions>
+            {openAiCommonMisconceptions.map(([title, desc]) => (
+              <li>
+                <strong>{title}</strong>
+                <p>{desc}</p>
+              </li>
+            ))}
+          </ol>
+        </ReviewSection>
+
         <ReviewSection {...sectionProps('l022-why-simple')} summary="별도 설치 없이 파일 1개로 작동하며, 착수신고서와 책임기술자 선임계 2장을 한 번 입력으로 생성합니다.">
           <p class="l02-definition">
             이번 <strong>제2-2차시</strong>에서는 서버 구동이나 다중 폴더 없이 <strong>단일 <code>.html</code> 파일 1개</strong>로 작동하는 <strong>착수신고서 · 책임기술자 선임계 자동 작성 도구</strong>(신규 양식 · 다수 책임기술자 입력 · 편집 가능한 Word 저장 · 2쪽 분리 인쇄)를 제작합니다.
@@ -170,7 +243,7 @@ const easyStarterZip = commencementFiles.easyStarterZip;
                 loading="lazy"
               />
               <figcaption>
-                <strong>진행 핵심: ChatGPT는 PC 내부 파일을 읽지 못하므로, 코덱스가 생성한 결과 파일(<code>.html</code>, <code>.md</code> 등)을 직접 첨부해 검수받습니다.</strong>
+                <strong>진행 핵심: 일반 웹 ChatGPT는 PC 내부 파일을 읽지 못하므로, 코덱스가 생성한 결과 파일(<code>.html</code>, <code>.md</code> 등)을 직접 첨부해 검수받습니다.</strong>
               </figcaption>
             </figure>
           )}
@@ -380,6 +453,40 @@ const easyStarterZip = commencementFiles.easyStarterZip;
     line-height: 1.55;
     overflow-wrap: anywhere;
   }
+  .l022-env-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.9rem;
+    margin: 1.1rem 0;
+  }
+  .l022-env-card {
+    min-width: 0;
+    padding: 0.95rem 1rem;
+    border: 1px solid var(--line-dark, #cbd5e1);
+    border-radius: 0.7rem;
+    background: var(--surface, #ffffff);
+  }
+  .l022-env-card h3 {
+    margin: 0 0 0.45rem;
+    font-size: 0.98rem;
+    line-height: 1.45;
+  }
+  .l022-env-card dl { margin: 0; }
+  .l022-env-card dt { margin-top: 0.45rem; font-size: 0.84rem; }
+  .l022-env-card dd { margin: 0.15rem 0 0; font-size: 0.88rem; line-height: 1.6; overflow-wrap: anywhere; }
+  .l022-footnote {
+    margin: -0.4rem 0 1.2rem;
+    font-size: 0.83rem;
+    line-height: 1.6;
+    color: var(--muted, #475569);
+    overflow-wrap: anywhere;
+  }
+  .l022-contrast-list {
+    margin: 0.45rem 0 0 1.15rem;
+    padding: 0;
+    line-height: 1.7;
+  }
+  .l022-contrast-list li + li { margin-top: 0.4rem; }
   .l022-preview-pair {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -411,15 +518,6 @@ const easyStarterZip = commencementFiles.easyStarterZip;
     overflow-wrap: anywhere;
     max-width: 100%;
   }
-  .l022-prompt-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-  }
   .l022-copy-btn {
     border: 1px solid #0f766e;
     border-radius: 0.45rem;
@@ -430,6 +528,15 @@ const easyStarterZip = commencementFiles.easyStarterZip;
     font-size: 0.82rem;
     font-weight: 700;
     cursor: pointer;
+  }
+  .l022-prompt-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
   }
   .l022-backup-details {
     margin-top: 1rem;
@@ -442,14 +549,16 @@ const easyStarterZip = commencementFiles.easyStarterZip;
     cursor: pointer;
     font-weight: 700;
   }
-  @media (max-width: 900px) {
+  @media (max-width: 960px) {
+    .l022-env-grid,
     .l022-preview-pair,
     .l022-role-grid {
       grid-template-columns: 1fr;
     }
   }
   @media print {
-    :global(html[data-course-id="daejeon-2026"]) [data-easy-vs-standard-table] caption {
+    :global(html[data-course-id="daejeon-2026"]) [data-easy-vs-standard-table] caption,
+    :global(html[data-course-id="daejeon-2026"]) [data-openai-comparison-table] caption {
       display: table-caption !important;
       caption-side: top !important;
     }
@@ -457,7 +566,13 @@ const easyStarterZip = commencementFiles.easyStarterZip;
     :global(html[data-course-id="daejeon-2026"]) .l022-web-only {
       display: none !important;
     }
+    :global(html[data-course-id="daejeon-2026"]) .l022-env-grid {
+      grid-template-columns: 1fr !important;
+      gap: 0.65rem !important;
+    }
+    :global(html[data-course-id="daejeon-2026"]) .l022-env-card,
     :global(html[data-course-id="daejeon-2026"]) [data-easy-prompt-block],
+    :global(html[data-course-id="daejeon-2026"]) [data-openai-misconceptions] li,
     :global(html[data-course-id="daejeon-2026"]) [data-easy-setup-steps] li,
     :global(html[data-course-id="daejeon-2026"]) [data-easy-audit-steps] li,
     :global(html[data-course-id="daejeon-2026"]) [data-easy-final-checks] li {
