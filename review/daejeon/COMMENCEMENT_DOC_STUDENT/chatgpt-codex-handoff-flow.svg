@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 540" width="1200" height="540" role="img" aria-labelledby="handoff-title handoff-desc">
-  <title id="handoff-title">제2-2차시 검수자 ChatGPT와 설계자 Codex 6.1 Sol의 역할 분담 및 파일 전달 흐름도</title>
-  <desc id="handoff-desc">PC 내부 폴더를 직접 읽지 못하는 ChatGPT에게 코덱스가 생성한 단일 HTML 파일을 마우스로 끌어다 첨부해 검수받고 수정 지시문을 받아 완성하는 4단계 흐름도</desc>
+  <title id="handoff-title">제2-2차시 진행 구조 · 플랜·검수자 ChatGPT ↔ 사람 전달 ↔ 개발·구현자 Codex 6.1 Sol</title>
+  <desc id="handoff-desc">두 AI에 먼저 역할을 부여한 뒤 ChatGPT와 Q1~Q3 문답으로 구현 지시문을 만들고, Codex가 생성한 HTML·MD 완료보고 파일을 ChatGPT에 직접 첨부해 최종 검수를 받는 흐름도</desc>
   <defs>
     <style>
       .bg { fill: #f8faf9; }
@@ -13,14 +13,14 @@
       .card-codex { fill: #f2f7f5; stroke: #bfd4ce; stroke-width: 1.2; rx: 8; }
       .warn-pill { fill: #fff7ed; stroke: #ea580c; stroke-width: 1.3; rx: 8; }
       .step-bar { fill: #0f172a; rx: 10; }
-      .t-main { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 20px; font-weight: 800; fill: #0f172a; }
-      .t-sub { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 13px; fill: #475569; }
+      .t-main { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 19.5px; font-weight: 800; fill: #0f172a; }
+      .t-sub { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 12.8px; fill: #475569; }
       .t-hdr { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 15px; font-weight: 800; fill: #ffffff; }
       .t-tag { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 11px; font-weight: 700; fill: #dbeafe; }
-      .t-title { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 13.5px; font-weight: 800; fill: #0f172a; }
-      .t-body { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 12px; fill: #334155; }
-      .t-warn { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 12px; font-weight: 800; fill: #c2410c; }
-      .t-step { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 12.5px; font-weight: 700; fill: #f8fafc; }
+      .t-title { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 13px; font-weight: 800; fill: #0f172a; }
+      .t-body { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 11.8px; fill: #334155; }
+      .t-warn { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 11.8px; font-weight: 800; fill: #c2410c; }
+      .t-step { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; font-size: 12.2px; font-weight: 700; fill: #f8fafc; }
       .arrow-r { stroke: #0f766e; stroke-width: 2.5; fill: none; marker-end: url(#m-green); }
       .arrow-l { stroke: #ea580c; stroke-width: 2.5; fill: none; marker-end: url(#m-orange); }
     </style>
@@ -33,86 +33,84 @@
   </defs>
 
   <rect class="bg" x="0" y="0" width="1200" height="540" rx="16" />
-  <text class="t-main" x="30" y="38">제2-2차시 핵심 진행 방식 · 검수자 ChatGPT ↔ 사람(파일 전달) ↔ 설계자 Codex (6.1 Sol)</text>
-  <text class="t-sub" x="30" y="60">ChatGPT는 내 컴퓨터 폴더 안을 직접 볼 수 없으므로, 코덱스가 만든 『단일 .html 파일 1개』를 마우스로 끌어다 ChatGPT에 첨부해 검수받습니다.</text>
+  <text class="t-main" x="30" y="38">제2-2차시 진행 순서 · 플랜·검수자(ChatGPT) ↔ 사람(전달) ↔ 개발·구현자(Codex 6.1 Sol)</text>
+  <text class="t-sub" x="30" y="60">두 AI에 역할과 완료 보고 규칙을 먼저 지정한 뒤, 문답·지시문 전달·산출 파일(.html, .md) 직접 첨부로 검수를 마칩니다.</text>
 
-  <!-- LEFT: ChatGPT (Reviewer) -->
+  <!-- LEFT: ChatGPT -->
   <rect class="panel" x="26" y="78" width="356" height="368" rx="14" />
   <rect class="hdr-gpt" x="26" y="78" width="356" height="52" rx="14" />
   <rect class="hdr-gpt" x="26" y="110" width="356" height="20" />
-  <text class="t-tag" x="44" y="98">ROLE 1 · 기획 도우미 &amp; 깐깐한 감리자</text>
-  <text class="t-hdr" x="44" y="120">검수자 · ChatGPT (일반 채팅창)</text>
+  <text class="t-tag" x="44" y="98">ROLE 1 · 코드 작성 금지 · 기획 &amp; 최종 검수</text>
+  <text class="t-hdr" x="44" y="120">플랜 수립자 · 검수자 ChatGPT</text>
 
-  <rect class="warn-pill" x="42" y="144" width="324" height="58" rx="8" />
-  <text class="t-warn" x="54" y="165">⚠ 주의: 내 PC 폴더 내부 직접 읽기 불가!</text>
-  <text class="t-body" x="54" y="185">폴더 경로만 알려 줘서는 파일을 못 읽으므로</text>
-  <text class="t-body" x="54" y="198">반드시 [+ 파일 첨부]로 .html 파일을 직접 올려 줍니다.</text>
+  <rect class="warn-pill" x="42" y="142" width="324" height="54" rx="8" />
+  <text class="t-warn" x="54" y="162">⚠ PC 내부 폴더 직접 읽기 불가 → 파일 첨부 필수</text>
+  <text class="t-body" x="54" y="182">코덱스 산출물(.html, .md 등)을 [+]로 직접 올려 줍니다.</text>
 
-  <rect class="card-gpt" x="42" y="214" width="324" height="98" rx="8" />
-  <text class="t-title" x="54" y="236">Step 1 역할 · 코덱스용 제작 지시문 써 주기</text>
-  <text class="t-body" x="54" y="256">• 쉬운 일상어로 말한 요구사항(착수계+선임계 2종)</text>
-  <text class="t-body" x="54" y="274">  을 빠짐없는 [코덱스 지시문] 블록으로 정리</text>
-  <text class="t-body" x="54" y="292">• 초보자가 눈으로 확인할 체크리스트 4가지 제시</text>
+  <rect class="card-gpt" x="42" y="206" width="324" height="112" rx="8" />
+  <text class="t-title" x="54" y="227">① 역할 세팅 &amp; Q1~Q3 문답 후 [구현 지시문] 작성</text>
+  <text class="t-body" x="54" y="247">• Q1 기존 양식 유무 → 신규 양식 설계</text>
+  <text class="t-body" x="54" y="264">• Q2 출력 방식 → 편집 가능한 Word 파일</text>
+  <text class="t-body" x="54" y="281">• Q3 책임기술자 수 → 공사마다 여러 명 가능</text>
+  <text class="t-body" x="54" y="299">• 한글금액·빈칸금지·페이지분리 반영 [구현 지시문] 생성</text>
 
-  <rect class="card-gpt" x="42" y="324" width="324" height="106" rx="8" />
-  <text class="t-title" x="54" y="346">Step 3 역할 · 첨부된 .html 코드 정밀 검수</text>
-  <text class="t-body" x="54" y="366">• 1억원/3,850만원 한글 금액 변환 오류 구멍 점검</text>
-  <text class="t-body" x="54" y="384">• 인쇄 시 1쪽(착수계)·2쪽(선임계) 페이지 분리 확인</text>
-  <text class="t-body" x="54" y="402">• 코덱스에 바로 붙여 넣을 [2차 수정 지시문] 작성</text>
+  <rect class="card-gpt" x="42" y="328" width="324" height="104" rx="8" />
+  <text class="t-title" x="54" y="349">④ 첨부된 산출물(.html·.md) &amp; 완료 보고 검수</text>
+  <text class="t-body" x="54" y="369">• 코덱스의 완료 보고 + 실제 .html 코드 정밀 대조</text>
+  <text class="t-body" x="54" y="386">• 문제 발견 시 [수정 지시문] 작성 / 이상 없으면</text>
+  <text class="t-body" x="54" y="403">  최종 검수 통과 판정 → 실습 완성!</text>
 
-  <!-- CENTER: Human Bridge -->
+  <!-- CENTER: Human -->
   <rect class="panel" x="422" y="78" width="356" height="368" rx="14" />
   <rect class="hdr-human" x="422" y="78" width="356" height="52" rx="14" />
   <rect class="hdr-human" x="422" y="110" width="356" height="20" />
-  <text class="t-tag" x="440" y="98">ROLE 2 · 결정권자 &amp; 파일 전달 다리</text>
-  <text class="t-hdr" x="440" y="120">사람 · 건축 실무자 (내 PC 탐색기)</text>
+  <text class="t-tag" x="440" y="98">ROLE 2 · 사전 질문 답변 &amp; 파일·보고서 전달</text>
+  <text class="t-hdr" x="440" y="120">사람 · 수강생 (오너 &amp; 메신저)</text>
 
-  <rect class="card-human" x="438" y="146" width="324" height="84" rx="8" />
-  <text class="t-title" x="450" y="168">① 지시문 복사 · 전달 (ChatGPT → Codex)</text>
-  <text class="t-body" x="450" y="188">ChatGPT가 정리해 준 [코덱스 제작 지시문]과</text>
-  <text class="t-body" x="450" y="206">[2차 수정 지시문]을 복사해 Codex 창에 붙여넣기</text>
+  <rect class="card-human" x="438" y="146" width="324" height="86" rx="8" />
+  <text class="t-title" x="450" y="168">Step 0~2 · 질문 3개 답하고 지시문 복붙하기</text>
+  <text class="t-body" x="450" y="188">양식 유무·Word 출력·기술자 인원수 질문에만 답한 뒤</text>
+  <text class="t-body" x="450" y="206">ChatGPT가 짜 준 [구현 지시문]을 Codex에 복사 전달</text>
 
-  <rect class="card-human" x="438" y="242" width="324" height="94" rx="8" />
-  <text class="t-title" x="450" y="264">② 결과 파일 직접 첨부 (탐색기 → ChatGPT)</text>
-  <text class="t-body" x="450" y="284">폴더에 생성된 『착수계_선임계_생성기.html』</text>
-  <text class="t-body" x="450" y="302">딱 1개 파일을 마우스로 끌어 ChatGPT 창에 첨부!</text>
-  <text class="t-body" x="450" y="320">(단일 파일이라 압축할 필요도 없이 1초 첨부 완료)</text>
+  <rect class="card-human" x="438" y="244" width="324" height="92" rx="8" />
+  <text class="t-title" x="450" y="266">Step 4 · 완료 보고 복붙 + 결과 파일 첨부(+)</text>
+  <text class="t-body" x="450" y="286">탐색기 폴더에 생성된 .html, .md 등 산출 파일을</text>
+  <text class="t-body" x="450" y="304">마우스로 끌어 ChatGPT에 첨부 + 완료보고 붙여넣기</text>
+  <text class="t-body" x="450" y="321">(단일 폴더 산출물이라 누구나 즉시 첨부 가능)</text>
 
-  <rect class="card-human" x="438" y="348" width="324" height="82" rx="8" />
-  <text class="t-title" x="450" y="370">③ 최종 실행 &amp; 직인 마감</text>
-  <text class="t-body" x="450" y="390">더블클릭으로 열어 숫자·날짜·경고 배너 확인 후</text>
-  <text class="t-body" x="450" y="408">[A4 인쇄 / PDF 저장]으로 2페이지 분리 출력!</text>
+  <rect class="card-human" x="438" y="348" width="324" height="84" rx="8" />
+  <text class="t-title" x="450" y="370">최종 확인 · 브라우저 실행 &amp; Word 2쪽 출력</text>
+  <text class="t-body" x="450" y="390">더블클릭으로 열어 다수 기술자 추가·한글금액 확인 후</text>
+  <text class="t-body" x="450" y="408">편집 가능한 Word 파일 및 A4 2쪽 페이지 분리 확인</text>
 
-  <!-- RIGHT: Codex 6.1 Sol -->
+  <!-- RIGHT: Codex -->
   <rect class="panel" x="818" y="78" width="356" height="368" rx="14" />
   <rect class="hdr-codex" x="818" y="78" width="356" height="52" rx="14" />
   <rect class="hdr-codex" x="818" y="110" width="356" height="20" />
-  <text class="t-tag" x="836" y="98">ROLE 3 · 내 폴더 안의 실제 파일 시공자</text>
-  <text class="t-hdr" x="836" y="120">설계·제작자 · Codex (6.1 Sol 모델)</text>
+  <text class="t-tag" x="836" y="98">ROLE 3 · 지시문 기반 구현 &amp; 작업 완료 보고</text>
+  <text class="t-hdr" x="836" y="120">개발·구현자 · Codex (6.1 Sol 모델)</text>
 
-  <rect class="card-codex" x="834" y="146" width="324" height="84" rx="8" />
-  <text class="t-title" x="846" y="168">✓ 내 PC 빈 실습 폴더 직접 연결됨</text>
-  <text class="t-body" x="846" y="188">예: C:착수계_초간단실습 폴더를 작업 범위로 열어</text>
-  <text class="t-body" x="846" y="206">그 안에 실제 실행 가능한 .html 파일을 직접 생성</text>
+  <rect class="card-codex" x="834" y="146" width="324" height="86" rx="8" />
+  <text class="t-title" x="846" y="168">Step 0 · 역할 지정 후 지시문 대기</text>
+  <text class="t-body" x="846" y="188">“지시문 전달 전에는 파일을 만들지 마. 구현 후에는</text>
+  <text class="t-body" x="846" y="206">ChatGPT에 전달할 [작업 완료 보고]를 정리해 줘.”</text>
 
-  <rect class="card-codex" x="834" y="242" width="324" height="94" rx="8" />
-  <text class="t-title" x="846" y="264">Step 2 역할 · 단일 HTML 1차 제작</text>
-  <text class="t-body" x="846" y="284">• Node.js 서버 없이 더블클릭만으로 열리는</text>
-  <text class="t-body" x="846" y="302">  『착수계_선임계_생성기.html』 파일 1개 완성</text>
-  <text class="t-body" x="846" y="320">• 한글 금액·일수 계산 + 1쪽·2쪽 인쇄 분리 내장</text>
+  <rect class="card-codex" x="834" y="244" width="324" height="92" rx="8" />
+  <text class="t-title" x="846" y="266">② 구현 실행 &amp; 산출물(.html·.md) 생성</text>
+  <text class="t-body" x="846" y="286">• 무설치 단일 .html 도구 + 완료 보고 문서 생성</text>
+  <text class="t-body" x="846" y="304">• 다수 책임기술자 추가·Word 저장·2쪽 분리 구현</text>
+  <text class="t-body" x="846" y="321">• 생성 파일명·기능·확인사항 [작업 완료 보고] 출력</text>
 
-  <rect class="card-codex" x="834" y="348" width="324" height="82" rx="8" />
-  <text class="t-title" x="846" y="370">Step 4 역할 · 감리 지적사항 즉시 수정</text>
-  <text class="t-body" x="846" y="390">• ChatGPT가 짚어 준 수정 지시문을 받아</text>
-  <text class="t-body" x="846" y="408">  같은 폴더의 .html 파일을 안전하게 보완·마무리</text>
+  <rect class="card-codex" x="834" y="348" width="324" height="84" rx="8" />
+  <text class="t-title" x="846" y="370">필요 시 수정 반영 (동일 보고 양식 유지)</text>
+  <text class="t-body" x="846" y="390">• ChatGPT 검수에서 보완 지시가 있을 때만</text>
+  <text class="t-body" x="846" y="408">  [수정 지시문]을 붙여 넣어 즉시 보완 완료</text>
 
-  <!-- Arrows between columns -->
-  <line class="arrow-r" x1="384" y1="186" x2="418" y2="186" />
-  <line class="arrow-r" x1="780" y1="186" x2="814" y2="186" />
-  <line class="arrow-l" x1="814" y1="290" x2="780" y2="290" />
-  <line class="arrow-l" x1="418" y1="290" x2="384" y2="290" />
+  <line class="arrow-r" x1="384" y1="190" x2="418" y2="190" />
+  <line class="arrow-r" x1="780" y1="190" x2="814" y2="190" />
+  <line class="arrow-l" x1="814" y1="292" x2="780" y2="292" />
+  <line class="arrow-l" x1="418" y1="292" x2="384" y2="292" />
 
-  <!-- Bottom 4-step summary bar -->
   <rect class="step-bar" x="26" y="464" width="1148" height="52" rx="10" />
-  <text class="t-step" x="52" y="495">따라하기 4단계 요약:  ① ChatGPT로 지시문 준비  →  ② Codex(6.1 Sol)로 .html 파일 생성  →  ③ 생성된 .html 파일을 ChatGPT에 첨부해 검수  →  ④ Codex(6.1 Sol)로 반영 완성!</text>
+  <text class="t-step" x="46" y="495">전체 흐름: ① 두 AI 역할 지정 → ② ChatGPT 주제·Q1~Q3 답변 후 [구현 지시문] 확보 → ③ Codex 구현·완료보고 → ④ 파일(.html·.md) 첨부 검수 완료</text>
 </svg>

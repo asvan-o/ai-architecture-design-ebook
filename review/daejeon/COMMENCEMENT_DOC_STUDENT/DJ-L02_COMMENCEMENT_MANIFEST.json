@@ -116,28 +116,28 @@
     },
     {
       "file": "chatgpt-codex-handoff-flow.svg",
-      "bytes": 9221,
-      "sha256": "56310f8600d54ea21ab41038764a744b4be18114f661eebd6577b0208524fe37"
+      "bytes": 9209,
+      "sha256": "0229117648830e748552623466ab3ebc9b794941e5dee7fe40f6684c9d06ae8c"
     },
     {
       "file": "EASY_L02_2_UI_PREVIEW.png",
-      "bytes": 92631,
-      "sha256": "993ef8ecf383ca36648e75e390e125bd219132260defefb2032d82260001600f"
+      "bytes": 101934,
+      "sha256": "d3cd573630d080efe8b7fd5903ea5cd87be8396a82fb2093fb49acb12670c15e"
     },
     {
       "file": "EASY_L02_2_PRINT_2PAGES.png",
-      "bytes": 165719,
-      "sha256": "d5941b53eb8d5c68c06c734b06bb185bb87a32574a040199628293c359f3c8b4"
+      "bytes": 185846,
+      "sha256": "5c71203c5893fd6b00d372f154d286af069f1e042a263910ed852bad514d4c5c"
     },
     {
       "file": "DJ-L02_2_EASY_STARTER_PACK.zip",
-      "bytes": 14663,
-      "sha256": "0e4803daa3814f72877187895155920a298e88cb782f5992688c8f9ef3f29343"
+      "bytes": 12377,
+      "sha256": "4dcc6c2549d11fd1aa5caab490e4df046ec341b1a47b858fa2a9ace5b577b78f"
     },
     {
       "file": "DJ-L02-2_EASY_WORKBOOK_TEXTBOOK.pdf",
-      "bytes": 778755,
-      "sha256": "8cce6454c4892e3e4c6ae594cc4c36363eb2bea5b730470d63c1039ee9355527"
+      "bytes": 763275,
+      "sha256": "7b521e1abf24a12b4db8b40f70c7cd81da0a989c242c5764e7fde134909adf5d"
     }
   ]
 }

@@ -15,11 +15,15 @@ import {
   comparisonWithStandardL02,
   twoAiRoleCards,
   setupTwoMinuteSteps,
-  step1ChatGptPrompt,
-  step2CodexBackupPrompt,
+  chatGptPrompt1Role,
+  chatGptPrompt2Topic,
+  chatGptStep3Questions,
+  chatGptPrompt4Answers,
+  chatGptPrompt5SpecRequest,
+  codexPrompt1Role,
+  codexBackupSpecPrompt,
   step3ChatGptAuditSteps,
-  step3ChatGptAuditPrompt,
-  step4CodexOptionalPrompt,
+  chatGptPrompt6AuditMessage,
   finalThreeMinuteChecks,
 } from '../../content/daejeon-lesson02-2-easy';
 
@@ -59,7 +63,7 @@ const easyStarterZip = commencementFiles.easyStarterZip;
     items={[{
       topic: 2,
       status: '완결',
-      note: '가장 쉬운 단일 HTML 파일(착수신고서+책임기술자 선임계 2종)을 검수자 ChatGPT(파일 직접 첨부)와 설계자 Codex(6.1 Sol) 2인 분업으로 완성하는 입문 실습입니다.',
+      note: '플랜 수립자·검수자 ChatGPT(파일 직접 첨부)와 개발·구현자 Codex(6.1 Sol) 역할 분담으로 착수신고서·책임기술자 선임계 단일 파일 도구를 완성합니다.',
     }]}
   />
 
@@ -72,7 +76,7 @@ const easyStarterZip = commencementFiles.easyStarterZip;
     ))}
   </div>
 
-  <h2>이번 입문 차시의 학습 목표</h2>
+  <h2>학습 목표</h2>
   <ol class="lesson02-goals">
     {easyGoals.map((goal) => <li>{goal}</li>)}
   </ol>
@@ -82,23 +86,23 @@ const easyStarterZip = commencementFiles.easyStarterZip;
       <header class="period-heading">
         <p>Part {periodIndex + 1}</p>
         <h2>{period.title}</h2>
-        <p>이번 파트의 결과: {period.output}</p>
+        <p>파트 산출물: {period.output}</p>
       </header>
 
       {periodIndex === 0 && <>
-        <ReviewSection {...sectionProps('l022-why-simple')} summary="복잡한 서버·다중 파일을 걷어내고, 꼭 필요한 문서 2장과 단일 .html 파일 1개에만 집중합니다.">
+        <ReviewSection {...sectionProps('l022-why-simple')} summary="별도 설치 없이 파일 1개로 작동하며, 착수신고서와 책임기술자 선임계 2장을 한 번 입력으로 생성합니다.">
           <p class="l02-definition">
-            처음 바이브코딩을 배울 때는 파일을 여러 개로 나누거나 서버를 띄우는 과정 자체가 장벽이 됩니다. 이번 <strong>제2-2차시</strong>에서는 모든 화면과 계산식·인쇄 서식을 <strong><code>착수계_선임계_생성기.html</code> 딱 1개 파일</strong> 안에 담아 더블클릭만으로 바로 실행합니다.
+            이번 <strong>제2-2차시</strong>에서는 서버 구동이나 다중 폴더 없이 <strong>단일 <code>.html</code> 파일 1개</strong>로 작동하는 <strong>착수신고서 · 책임기술자 선임계 자동 작성 도구</strong>(신규 양식 · 다수 책임기술자 입력 · 편집 가능한 Word 저장 · 2쪽 분리 인쇄)를 제작합니다.
           </p>
 
           <div class="lesson02-table" data-easy-vs-standard-table>
             <table>
-              <caption>제2-2차시(초간단 입문편) vs 제2차시(4종 표준·심화편) 한눈 비교</caption>
+              <caption>제2-2차시(초간단 입문편) vs 제2차시(4종 표준편) 비교</caption>
               <thead>
                 <tr>
                   <th scope="col">비교 항목</th>
-                  <th scope="col">제2-2차시 · 초간단 입문편 (오늘 실습)</th>
-                  <th scope="col">제2차시 · 4종 표준편 (심화 확장)</th>
+                  <th scope="col">제2-2차시 · 초간단 입문편</th>
+                  <th scope="col">제2차시 · 4종 표준편</th>
                 </tr>
               </thead>
               <tbody>
@@ -115,11 +119,11 @@ const easyStarterZip = commencementFiles.easyStarterZip;
 
           {enabled && easyStarterZip && (
             <aside class="lesson02-decision l022-download-box" data-easy-starter-download>
-              <h3>완성 작동 예시 &amp; 단계별 질문 모음 ZIP 먼저 내려받기</h3>
-              <p>수업을 시작하기 전 아래 ZIP을 내려받아 압축을 풀고 <code>착수계_선임계_초간단생성기.html</code>을 더블클릭해 보세요. 오늘 우리가 4단계로 직접 만들 최종 목표 화면을 5초 만에 미리 체험할 수 있습니다.</p>
+              <h3>완성 샘플 &amp; 단계별 입력 지시문 ZIP 다운로드</h3>
+              <p>압축 해제 후 <code>착수계_선임계_초간단생성기.html</code>을 실행하면 다수 책임기술자 추가, 한글 금액 자동 표기, Word(<code>.doc</code>) 저장, 2페이지 분리 인쇄가 적용된 완성 샘플과 지시문 모음을 바로 확인할 수 있습니다.</p>
               <p class="l022-web-only">
                 <a class="review-download" href={`${base}/${easyStarterZip.outputPath}`} download={easyStarterZip.file}>
-                  📦 초간단 착수계·선임계 완성본 &amp; 지시문 ZIP 다운로드 ({Math.round(easyStarterZip.bytes / 1024)} KB)
+                  📦 초간단 착수계·선임계 완성 샘플 &amp; 지시문 ZIP 다운로드 ({Math.round(easyStarterZip.bytes / 1024)} KB)
                 </a>
               </p>
             </aside>
@@ -131,47 +135,42 @@ const easyStarterZip = commencementFiles.easyStarterZip;
                 <a href={`${base}/${easyUiPreview.outputPath}`} target="_blank" rel="noreferrer" aria-label="초간단 생성기 실행 화면 크게 보기">
                   <img
                     src={`${base}/${easyUiPreview.outputPath}`}
-                    alt="왼쪽 공통 정보 7칸 입력창과 오른쪽 착수신고서·책임기술자 선임계 실시간 미리보기가 나란히 배치된 단일 HTML 실행 화면"
+                    alt="공통 계약 정보 및 다수 책임기술자 입력 패널과 우측 착수신고서·책임기술자 선임계 실시간 미리보기 화면"
                     width="1440"
                     height="920"
                     loading="lazy"
                   />
                 </a>
-                <figcaption>완성 목표 화면 · 왼쪽 7칸만 고치면 오른쪽 착수신고서와 선임계 두 문서가 동시에 바뀝니다.</figcaption>
+                <figcaption>실행 화면 · 기본 계약 항목과 다수 책임기술자를 입력하면 두 문서가 동시에 갱신됩니다.</figcaption>
               </figure>
               <figure class="l02-ab-preview">
-                <a href={`${base}/${easyPrintPreview.outputPath}`} target="_blank" rel="noreferrer" aria-label="A4 2페이지 분리 인쇄 결과 크게 보기">
+                <a href={`${base}/${easyPrintPreview.outputPath}`} target="_blank" rel="noreferrer" aria-label="2페이지 분리 출력 결과 크게 보기">
                   <img
                     src={`${base}/${easyPrintPreview.outputPath}`}
-                    alt="A4 인쇄 시 1페이지 용역 착수신고서와 2페이지 책임기술자 선임계가 이어 붙지 않고 각각 별도 페이지로 깔끔히 나뉘어 출력된 모습"
+                    alt="Word 및 A4 인쇄 시 1페이지 용역 착수신고서와 2페이지 책임기술자 선임계가 별도 페이지로 분리 출력된 화면"
                     width="1992"
                     height="1459"
                     loading="lazy"
                   />
                 </a>
-                <figcaption>A4 인쇄 / PDF 저장 결과 · 입력창은 사라지고 1쪽(착수신고서)과 2쪽(책임기술자 선임계)이 정확히 2페이지로 분리됩니다.</figcaption>
+                <figcaption>출력 결과 · 편집 가능한 Word 파일 및 A4 인쇄 시 1쪽(착수신고서)과 2쪽(선임계)이 페이지 분리됩니다.</figcaption>
               </figure>
             </div>
           )}
         </ReviewSection>
 
-        <ReviewSection {...sectionProps('l022-two-roles')} summary="ChatGPT는 내 PC 폴더를 직접 못 읽으므로 결과 .html 파일을 마우스로 끌어다 첨부해 감리를 맡깁니다.">
-          <p>
-            오늘 수업에서 수강생이 직접 복잡한 코딩 명령어를 고민할 필요는 없습니다. 건축 실무에서 <strong>감리자(검수자)</strong>와 <strong>시공자(설계·제작자)</strong>를 나누듯 두 AI에게 역할을 나누어 맡깁니다.
-          </p>
-
+        <ReviewSection {...sectionProps('l022-two-roles')} summary="ChatGPT는 플랜 수립·검수를 맡고, Codex(6.1 Sol)는 파일 생성과 완료 보고를 맡습니다.">
           {enabled && handoffSvg && (
             <figure class="l02-infographic" data-handoff-diagram>
               <img
                 src={`${base}/${handoffSvg.outputPath}`}
-                alt="검수자 ChatGPT와 사람 파일 전달, 설계자 Codex 6.1 Sol 사이의 지시문 복사 및 단일 HTML 파일 직접 첨부 검수 흐름도"
+                alt="플랜·검수자 ChatGPT와 사람 전달, 개발·구현자 Codex 6.1 Sol 사이의 역할 지정·문답·완료보고 및 산출 파일 직접 첨부 검수 흐름도"
                 width="1200"
                 height="540"
                 loading="lazy"
               />
               <figcaption>
-                <strong>핵심 원리: ChatGPT는 내 컴퓨터 폴더 안을 볼 수 없으므로, 코덱스가 만든 <code>.html</code> 파일 1개를 마우스로 끌어다 직접 첨부합니다.</strong>
-                <p>결과물이 파일 1개뿐이기 때문에 압축할 필요도 없이 탐색기에서 바로 끌어다 놓으면 ChatGPT가 전체 코드를 읽고 감리해 줍니다.</p>
+                <strong>진행 핵심: ChatGPT는 PC 내부 파일을 읽지 못하므로, 코덱스가 생성한 결과 파일(<code>.html</code>, <code>.md</code> 등)을 직접 첨부해 검수받습니다.</strong>
               </figcaption>
             </figure>
           )}
@@ -181,24 +180,19 @@ const easyStarterZip = commencementFiles.easyStarterZip;
               <article class="l02-ab-card">
                 <h3>{item.role}</h3>
                 <dl>
-                  <dt><strong>잘하는 일</strong></dt>
+                  <dt><strong>담당 역할</strong></dt>
                   <dd>{item.canDo}</dd>
-                  <dt><strong>주의할 한계</strong></dt>
+                  <dt><strong>주의 사항</strong></dt>
                   <dd>{item.cannotDo}</dd>
-                  <dt><strong>사람이 연결하는 방법</strong></dt>
+                  <dt><strong>연결 방법</strong></dt>
                   <dd><strong>{item.howToBridge}</strong></dd>
                 </dl>
               </article>
             ))}
           </div>
-
-          <aside class="review-callout">
-            <strong>왜 파일 1개(<code>.html</code>) 방식이 ChatGPT 첨부 검수에 압도적으로 유리한가요?</strong>
-            <p>파일이 7~8개로 나뉘어 여러 폴더에 흩어져 있으면 초보자가 ChatGPT에 어떤 파일을 올려야 할지 헷갈리고 누락이 생깁니다. 반면 <strong>단일 <code>.html</code> 파일 1개</strong>에는 화면·계산식·인쇄 규칙이 모두 들어 있어, <strong>그 파일 하나만 ChatGPT에 올리면 100% 완벽한 코드 감리</strong>가 가능합니다.</p>
-          </aside>
         </ReviewSection>
 
-        <ReviewSection {...sectionProps('l022-folder-setup')} summary="Node.js 설치 없이 새 빈 폴더 1개만 만들고 왼쪽에 ChatGPT, 오른쪽에 Codex(6.1 Sol)를 띄웁니다.">
+        <ReviewSection {...sectionProps('l022-folder-setup')} summary="빈 폴더 1개를 만들고 왼쪽에 ChatGPT, 오른쪽에 Codex(6.1 Sol)를 배치합니다.">
           <ol class="lesson02-checklist" data-easy-setup-steps>
             {setupTwoMinuteSteps.map(([stepTitle, desc]) => (
               <li>
@@ -207,71 +201,95 @@ const easyStarterZip = commencementFiles.easyStarterZip;
               </li>
             ))}
           </ol>
-          <div class="lesson02-decision">
-            <strong>모델 선택 확인 · 왜 Codex에서 <code>6.1 Sol</code> 모델을 선택하나요?</strong>
-            <p><code>6.1 Sol</code> 모델은 단일 HTML 화면 구성, 한글 금액 산식, 인쇄용 페이지 분리(<code>@media print</code>)를 빠르고 군더더기 없이 한 파일로 작성하는 데 적합합니다. Codex 입력창 아래(또는 상단) 모델 표시가 <strong><code>6.1 Sol</code></strong>로 되어 있는지 확인하세요.</p>
-          </div>
         </ReviewSection>
       </>}
 
       {periodIndex === 1 && <>
-        <ReviewSection {...sectionProps('l022-step1-gpt-plan')} summary="먼저 왼쪽 일반 ChatGPT 창에 원하는 기능을 쉽게 말하고, Codex에게 넘길 제작 지시문을 받아 냅니다.">
-          <p>
-            첫 단계는 코덱스가 아니라 <strong>왼쪽의 일반 ChatGPT 채팅창(검수자)</strong>에서 시작합니다. 아래 상자의 글을 복사해 ChatGPT에 그대로 붙여 넣으세요. 마지막 줄에 <em>“너는 HTML 코드를 직접 짜지 말고 코덱스에게 줄 지시문만 써 줘”</em>라고 적어 두었기 때문에, ChatGPT가 코덱스용 깔끔한 명령문을 대신 만들어 줍니다.
-          </p>
+        <ReviewSection {...sectionProps('l022-step1-gpt-plan')} summary="왼쪽 ChatGPT 창에 역할과 주제를 전달하고, 사전 확인 질문(Q1~Q3) 답변 후 [1차 구현 지시문]을 받습니다.">
+          <p>왼쪽 <strong>ChatGPT 채팅창</strong>에서 아래 <strong>1번 ~ 5번 순서대로</strong> 진행합니다.</p>
 
           <div class="l022-prompt-card" data-easy-prompt-block>
             <div class="l022-prompt-head">
-              <span>STEP 1 · 왼쪽 <strong>일반 ChatGPT 창</strong>에 붙여 넣을 요청문</span>
-              <button type="button" class="l022-copy-btn" data-l022-copy="l022-p1">요청문 복사하기</button>
+              <span><strong>ChatGPT 1번</strong> · 플랜 수립자 및 검수자 역할 지정</span>
+              <button type="button" class="l022-copy-btn" data-l022-copy="l022-gpt-1">복사하기</button>
             </div>
-            <pre class="lesson02-program-tree" id="l022-p1">{step1ChatGptPrompt}</pre>
+            <pre class="lesson02-program-tree" id="l022-gpt-1">{chatGptPrompt1Role}</pre>
           </div>
 
-          <aside class="lesson02-decision">
-            <h4>ChatGPT 답변이 나오면 딱 2가지만 눈으로 확인하세요</h4>
-            <ul>
-              <li><strong>① 코덱스에게 붙여 넣을 <code>[코덱스 제작 지시문]</code> 상자</strong>가 깔끔하게 하나로 정리되어 나왔나요?</li>
-              <li><strong>② 결과물을 여러 파일이 아닌 <code>착수계_선임계_생성기.html</code> 단일 파일 1개</strong>로 만들라는 조건과 <strong>1쪽·2쪽 페이지 분리 인쇄</strong> 조건이 들어 있나요? 확인됐다면 그 지시문 블록을 복사해 Step 2로 넘어갑니다.</li>
+          <div class="l022-prompt-card" data-easy-prompt-block>
+            <div class="l022-prompt-head">
+              <span><strong>ChatGPT 2번</strong> · 제작 주제 전달 및 사전 확인 질문 요청</span>
+              <button type="button" class="l022-copy-btn" data-l022-copy="l022-gpt-2">복사하기</button>
+            </div>
+            <pre class="lesson02-program-tree" id="l022-gpt-2">{chatGptPrompt2Topic}</pre>
+          </div>
+
+          <aside class="lesson02-decision" data-easy-prompt-block>
+            <h4><strong>ChatGPT 3번</strong> · 2번 질문에 대한 ChatGPT의 사전 확인 질문</h4>
+            <ul class="l022-qa-list">
+              {chatGptStep3Questions.map((q) => <li><strong>{q}</strong></li>)}
             </ul>
           </aside>
+
+          <div class="l022-prompt-card" data-easy-prompt-block>
+            <div class="l022-prompt-head">
+              <span><strong>ChatGPT 4번</strong> · 사전 확인 질문에 대한 답변 입력</span>
+              <button type="button" class="l022-copy-btn" data-l022-copy="l022-gpt-4">복사하기</button>
+            </div>
+            <pre class="lesson02-program-tree" id="l022-gpt-4">{chatGptPrompt4Answers}</pre>
+          </div>
+
+          <div class="l022-prompt-card" data-easy-prompt-block>
+            <div class="l022-prompt-head">
+              <span><strong>ChatGPT 5번</strong> · 핵심 규칙 확정 및 <code>[1차 구현 지시문]</code> 작성 요청</span>
+              <button type="button" class="l022-copy-btn" data-l022-copy="l022-gpt-5">복사하기</button>
+            </div>
+            <pre class="lesson02-program-tree" id="l022-gpt-5">{chatGptPrompt5SpecRequest}</pre>
+          </div>
+
+          <p>ChatGPT가 코드 없이 코덱스 전달용 <strong><code>[1차 구현 지시문]</code></strong>을 출력하면 그대로 복사해 오른쪽 Codex(<code>6.1 Sol</code>) 창으로 이동합니다.</p>
         </ReviewSection>
 
-        <ReviewSection {...sectionProps('l022-step2-codex-build')} summary="방금 ChatGPT가 써 준 지시문을 오른쪽 Codex(6.1 Sol) 창에 붙여 넣어 내 폴더에 실제 .html 파일을 생성합니다.">
-          <ol class="lesson02-checklist">
+        <ReviewSection {...sectionProps('l022-step2-codex-build')} summary="오른쪽 Codex(6.1 Sol)에 개발·구현자 역할을 먼저 지정한 뒤, ChatGPT의 구현 지시문을 붙여 넣어 파일과 완료 보고를 생성합니다.">
+          <p>빈 실습 폴더가 연결된 오른쪽 <strong>Codex(<code>6.1 Sol</code>) 창</strong>에서 아래 <strong>1번 ~ 3번 순서대로</strong> 진행합니다.</p>
+
+          <div class="l022-prompt-card" data-easy-prompt-block>
+            <div class="l022-prompt-head">
+              <span><strong>Codex 1번</strong> · 개발·구현자 역할 및 완료 보고 규칙 지정</span>
+              <button type="button" class="l022-copy-btn" data-l022-copy="l022-codex-1">복사하기</button>
+            </div>
+            <pre class="lesson02-program-tree" id="l022-codex-1">{codexPrompt1Role}</pre>
+          </div>
+
+          <ol class="lesson02-checklist" data-easy-setup-steps>
             <li>
-              <strong>1. 오른쪽 Codex(<code>6.1 Sol</code>) 창에 지시문 붙여 넣기</strong>
-              <p>Step 1에서 ChatGPT가 만들어 준 <code>[코덱스 제작 지시문]</code>을 복사해 빈 실습 폴더(<code>착수계_초간단실습</code>)가 연결된 Codex 창에 붙여 넣고 실행합니다.</p>
+              <strong>Codex 2번 · ChatGPT <code>[1차 구현 지시문]</code> 복사해 붙여넣기</strong>
+              <p>앞 단계(ChatGPT 5번)에서 생성된 <code>[1차 구현 지시문]</code>을 복사해 Codex 창에 그대로 붙여 넣고 실행합니다.</p>
             </li>
             <li>
-              <strong>2. 탐색기에서 생성된 <code>착수계_선임계_생성기.html</code> 더블클릭하기</strong>
-              <p>코덱스가 파일 생성을 마치면 내 컴퓨터 <code>착수계_초간단실습</code> 폴더 안에 <code>착수계_선임계_생성기.html</code> 파일 1개가 나타납니다. 더블클릭하면 크롬이나 엣지 브라우저에서 바로 화면이 열립니다.</p>
-            </li>
-            <li>
-              <strong>3. 샘플 버튼과 인쇄 미리보기 한 번 눌러 보기</strong>
-              <p>화면의 <code>[연습 샘플 넣기]</code> 버튼과 <code>[A4 인쇄 / PDF 저장]</code>을 한 번 눌러 어떻게 보이는지 가볍게 확인한 뒤, 곧바로 Step 3(ChatGPT 파일 첨부 감리)으로 이동합니다.</p>
+              <strong>Codex 3번 · 작업 완료 보고 및 생성 산출물 확인</strong>
+              <p>구현이 끝나면 채팅창에 <code>[작업 완료 보고]</code>(생성 파일명·구현 기능·확인 사항)가 정리되어 나오고, 실습 폴더 안에 <code>.html</code> 파일과 완료 보고 문서(<code>.md</code> 등) 산출물이 생성됩니다. <code>.html</code> 파일을 더블클릭해 동작을 확인합니다.</p>
             </li>
           </ol>
 
           <details class="l022-backup-details" open>
-            <summary>참고 · 바로 Codex(6.1 Sol)에 넣어 비교해 볼 수 있는 표준 제작 지시문 (백업본)</summary>
-            <p>만약 ChatGPT 답변이 너무 짧거나 HTML 코드를 직접 짜 버렸다면, 아래 검증된 표준 지시문을 복사해 Codex(<code>6.1 Sol</code>) 창에 바로 붙여 넣어도 됩니다.</p>
+            <summary>참고 · ChatGPT 지시문 대신 바로 비교·실행할 수 있는 표준 구현 지시문 (백업용)</summary>
             <div class="l022-prompt-card" data-easy-prompt-block>
               <div class="l022-prompt-head">
-                <span>STEP 2 백업 · 오른쪽 <strong>Codex (6.1 Sol)</strong> 직접 입력용 표준 지시문</span>
-                <button type="button" class="l022-copy-btn" data-l022-copy="l022-p2">표준 지시문 복사하기</button>
+                <span>Codex 2번 백업 · 표준 <code>[1차 구현 지시문]</code></span>
+                <button type="button" class="l022-copy-btn" data-l022-copy="l022-codex-backup">복사하기</button>
               </div>
-              <pre class="lesson02-program-tree" id="l022-p2">{step2CodexBackupPrompt}</pre>
+              <pre class="lesson02-program-tree" id="l022-codex-backup">{codexBackupSpecPrompt}</pre>
             </div>
           </details>
         </ReviewSection>
       </>}
 
       {periodIndex === 2 && <>
-        <ReviewSection {...sectionProps('l022-step3-gpt-audit')} summary="내 폴더를 못 보는 ChatGPT에게 방금 만들어진 .html 파일을 마우스로 끌어다 첨부하고 깐깐한 감리를 맡깁니다.">
+        <ReviewSection {...sectionProps('l022-step3-gpt-audit')} summary="코덱스의 완료 보고와 생성된 .html·.md 파일을 ChatGPT에 직접 첨부(+)해 검수받고 샘플 제작을 완료합니다.">
           <aside class="review-callout" style="border-left: 4px solid #ea580c; background: #fff7ed;">
-            <strong>가장 중요한 실전 포인트 · 파일을 반드시 직접 첨부(+)하세요!</strong>
-            <p>일반 ChatGPT 창에 글로만 <em>“내 폴더에 있는 파일 검사해 줘”</em>라고 치면 ChatGPT는 내 PC를 읽지 못해 추측으로 대답합니다. 반드시 <strong>탐색기에서 <code>착수계_선임계_생성기.html</code> 파일을 마우스로 끌어 ChatGPT 메시지 창에 첨부</strong>한 뒤 아래 글을 보내세요.</p>
+            <strong>필수 확인 · 결과 파일 직접 첨부(+)</strong>
+            <p>ChatGPT는 PC 내부 폴더를 읽을 수 없으므로, 반드시 실습 폴더에 생성된 <strong><code>.html</code> 파일 및 완료 보고 문서(<code>.md</code> 등)를 입력창에 직접 첨부</strong>하고 코덱스의 완료 보고를 함께 전달해야 합니다.</p>
           </aside>
 
           <ol class="lesson02-checklist" data-easy-audit-steps>
@@ -285,38 +303,23 @@ const easyStarterZip = commencementFiles.easyStarterZip;
 
           <div class="l022-prompt-card" data-easy-prompt-block>
             <div class="l022-prompt-head">
-              <span>STEP 3 · <code>.html</code> 파일을 첨부한 뒤 왼쪽 <strong>ChatGPT 창</strong>에 붙여 넣을 감리 요청문</span>
-              <button type="button" class="l022-copy-btn" data-l022-copy="l022-p3">감리 요청문 복사하기</button>
+              <span><strong>ChatGPT 6번</strong> · 산출 파일(<code>.html</code>, <code>.md</code> 등) 첨부 후 검수 요청 입력문</span>
+              <button type="button" class="l022-copy-btn" data-l022-copy="l022-gpt-6">복사하기</button>
             </div>
-            <pre class="lesson02-program-tree" id="l022-p3">{step3ChatGptAuditPrompt}</pre>
+            <pre class="lesson02-program-tree" id="l022-gpt-6">{chatGptPrompt6AuditMessage}</pre>
           </div>
 
-          <div class="lesson02-decision">
-            <h4>ChatGPT 감리에서 자주 잡아내는 대표 구멍 3가지</h4>
+          <div class="lesson02-decision" data-easy-prompt-block>
+            <h4><strong>Codex 4번 (마무리)</strong> · 검수 통과 확인 및 보완 시 처리</h4>
             <ul>
-              <li><strong>1억 원 한글 표기 실수</strong>: <code>100,000,000</code>원을 넣었을 때 <code>“일금 일억원정”</code> 대신 <code>“일금 일억만원정”</code>처럼 잘못 찍히는 코드 구멍</li>
-              <li><strong>인쇄 페이지 붙음 현상</strong>: 화면에서는 두 장처럼 보이지만 실제 인쇄(<code>Ctrl + P</code>)를 누르면 1쪽 아래에 2쪽 제목이 딸려 올라오는 CSS 누락</li>
-              <li><strong>입력창 같이 인쇄됨</strong>: 인쇄할 때 왼쪽 입력칸이나 상단 버튼이 숨겨지지 않고 A4 용지에 그대로 찍히는 문제</li>
+              <li><strong>이상 없음 답변 시</strong>: 추가 수정 없이 단일 파일 샘플 제작 완료입니다.</li>
+              <li><strong>보완 항목 발생 시</strong>: ChatGPT가 작성한 <code>[수정 지시문]</code>만 오른쪽 Codex 창에 복사해 붙여 넣고, 수정된 파일을 다시 첨부해 통과 판정을 받습니다.</li>
             </ul>
           </div>
         </ReviewSection>
 
-        <ReviewSection {...sectionProps('l022-step4-codex-finish')} summary="ChatGPT가 정리해 준 [코덱스 2차 수정 지시문]을 그대로 복사해 Codex(6.1 Sol) 창에 붙여 넣어 마무리합니다.">
-          <p>
-            Step 3에서 ChatGPT가 파일을 읽고 작성해 준 <strong><code>[코덱스 2차 수정 지시문]</code> 코드블록을 복사</strong>해, 오른쪽의 <strong>같은 Codex(<code>6.1 Sol</code>) 대화창에 이어 붙여 넣고 실행</strong>합니다. 코덱스가 수정 작업을 마치면 열려 있던 브라우저 창에서 새로고침(<code>F5</code>)만 누르면 즉시 반영됩니다!
-          </p>
-
-          <div class="l022-prompt-card" data-easy-prompt-block>
-            <div class="l022-prompt-head">
-              <span>STEP 4 보너스 · 만약 1차 파일이 이미 완벽 통과했다면 해 보는 실무 편의 추가 지시문 (Codex 6.1 Sol용)</span>
-              <button type="button" class="l022-copy-btn" data-l022-copy="l022-p4">보너스 지시문 복사하기</button>
-            </div>
-            <pre class="lesson02-program-tree" id="l022-p4">{step4CodexOptionalPrompt}</pre>
-          </div>
-        </ReviewSection>
-
-        <ReviewSection {...sectionProps('l022-final-check')} summary="완성된 단일 HTML 파일을 내 눈으로 3분 점검하고, 익숙해진 뒤 표준 4종·응용 예제로 확장합니다.">
-          <h3>초보자 3분 최종 통과 체크리스트</h3>
+        <ReviewSection {...sectionProps('l022-final-check')} summary="완성된 도구의 핵심 동작 4가지를 확인하고 필요 시 제2차시 4종 표준·응용 실습으로 확장합니다.">
+          <h3>최종 동작 점검 4가지</h3>
           <ol class="lesson02-checklist" data-easy-final-checks>
             {finalThreeMinuteChecks.map(([title, desc]) => (
               <li>
@@ -327,9 +330,9 @@ const easyStarterZip = commencementFiles.easyStarterZip;
           </ol>
 
           <aside class="lesson02-decision">
-            <h3>오늘 익힌 『ChatGPT 감리 + Codex(6.1 Sol) 시공』 공식은 모든 서류에 그대로 통합니다</h3>
+            <h3>다음 단계 확장 안내</h3>
             <p>
-              단일 파일 2종 생성기에 성공했다면 바이브코딩의 가장 큰 산을 이미 넘으신 것입니다. 이후 참여기술자 명단·보안각서까지 포함된 4종 세트나 우리 회사 원본 Word(<code>.docx</code>)·한글(<code>.hwpx</code>) 양식 자동 치환, 면적표·사진대지 자동화로 넓혀 가고 싶을 때는 <a href={`${base}/lessons/02/`}>제2차시 표준·심화편</a>을 참고해 한 단계씩 확장해 보세요.
+              이번에 익힌 <strong>플랜·검수(ChatGPT) ↔ 구현·완료보고(Codex 6.1 Sol)</strong> 절차로 단일 파일 제작에 익숙해졌다면, 참여기술자 명단·보안각서를 포함한 4종 행정서류 세트와 사내 양식(<code>.docx</code>·<code>.hwpx</code>) 연동, 면적표·사진대지 자동화는 <a href={`${base}/lessons/02/`}>제2차시 표준·심화편</a>에서 이어서 진행할 수 있습니다.
             </p>
           </aside>
         </ReviewSection>
@@ -359,6 +362,24 @@ const easyStarterZip = commencementFiles.easyStarterZip;
 </script>
 
 <style>
+  .l022-easy figure {
+    margin: 0;
+    min-width: 0;
+  }
+  .l022-easy figure img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.65rem;
+    border: 1px solid var(--line-dark, #cbd5e1);
+  }
+  .l022-easy figcaption {
+    margin-top: 0.45rem;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+  }
   .l022-preview-pair {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -374,13 +395,21 @@ const easyStarterZip = commencementFiles.easyStarterZip;
   .l022-role-grid dl { margin: 0.6rem 0 0; }
   .l022-role-grid dt { margin-top: 0.55rem; }
   .l022-role-grid dd { margin: 0.2rem 0 0; line-height: 1.65; overflow-wrap: anywhere; }
+  .l022-qa-list { margin: 0.5rem 0 0 1.2rem; padding: 0; line-height: 1.75; }
   .l022-prompt-card {
-    margin: 1.1rem 0;
+    margin: 1rem 0;
     border: 1px solid #94a3b8;
     border-radius: 0.75rem;
     background: #f8fafc;
     padding: 0.85rem 1rem;
     min-width: 0;
+    max-width: 100%;
+  }
+  .l022-prompt-card pre {
+    margin: 0;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    max-width: 100%;
   }
   .l022-prompt-head {
     display: flex;
@@ -396,7 +425,7 @@ const easyStarterZip = commencementFiles.easyStarterZip;
     border-radius: 0.45rem;
     background: #0f766e;
     color: #ffffff;
-    padding: 0.4rem 0.8rem;
+    padding: 0.38rem 0.78rem;
     font: inherit;
     font-size: 0.82rem;
     font-weight: 700;

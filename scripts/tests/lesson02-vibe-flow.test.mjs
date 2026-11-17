@@ -140,15 +140,24 @@ test('제2차시 초보자 설치 안내·7규칙 Step 0 로드맵·문서별 �
   verifyBundle('review/daejeon/COMMENCEMENT_DOC_STUDENT/DJ-L02_SPACE_PROGRAM_SAMPLE.zip');
   verifyBundle('review/daejeon/COMMENCEMENT_DOC_STUDENT/DJ-L02_PHOTO_SHEET_SAMPLE.zip');
 
-  // 제2-2차시 독립 초간단 입문편(착수계·선임계 2종 단일 HTML · ChatGPT 검수 + Codex 6.1 Sol) 검증
+  // 제2-2차시 독립 초간단 입문편(착수계·선임계 2종 단일 HTML · ChatGPT 플랜·검수 + Codex 6.1 Sol 구현) 검증
   assert(fs.existsSync('src/draft/pages/lessons/02-2.astro'));
   const easySource = fs.readFileSync('src/draft/content/daejeon-lesson02-2-easy.ts', 'utf8');
   assert.match(easySource, /6\.1 Sol/);
   assert.match(easySource, /파일을 직접 첨부/);
+  assert.match(easySource, /플랜 수립자이자 검수자야/);
+  assert.match(easySource, /Q1\. 기존 문서 양식이 있나요\?/);
+  assert.match(easySource, /편집 가능한 Word 파일/);
+  assert.match(easySource, /공사마다 여러 명 가능/);
+  assert.match(easySource, /지시문 전달 전에는 파일을 만들지 마/);
+  assert.match(easySource, /\[작업 완료 보고\]/);
   const easyStarter = verifyBundle('review/daejeon/COMMENCEMENT_DOC_STUDENT/DJ-L02_2_EASY_STARTER_PACK.zip');
+  assert(easyStarter.members[easyStarter.root + 'COMPLETION_REPORT_완료보고예시.md']);
   const easySingleHtml = easyStarter.members[easyStarter.root + '착수계_선임계_초간단생성기.html'].content.toString('utf8');
   assert.match(easySingleHtml, /용 역 착 수 신 고 서/);
   assert.match(easySingleHtml, /책 임 기 술 자 선 임 계/);
+  assert.match(easySingleHtml, /btn-add-eng/);
+  assert.match(easySingleHtml, /application\/msword/);
   assert.match(easySingleHtml, /page-break-before:\s*always/);
   assert(fs.existsSync('review/daejeon/COMMENCEMENT_DOC_STUDENT/DJ-L02-2_EASY_WORKBOOK_TEXTBOOK.pdf'));
 });
