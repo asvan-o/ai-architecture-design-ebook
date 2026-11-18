@@ -6,6 +6,7 @@ import Lesson03AssetCard from '../../components/Lesson03AssetCard.astro';
 import Lesson03Comparison from '../../components/Lesson04Comparison.astro';
 import Lesson04Workbench from '../../components/Lesson04Workbench.astro';
 import Lesson04Techniques from '../../components/Lesson04Techniques.astro';
+import Lesson04CafeGifRecap from '../../components/Lesson04CafeGifRecap.astro';
 import {lesson04ApplicationPrompts,lesson04ApplicationZip,lesson04ApplicationOther} from '../../../../scripts/daejeon-lesson04-applications.mjs';
 import ReviewPrompt from '../../components/ReviewPrompt.astro';
 import {lesson04Title,lesson04Sections,lesson04Periods,lesson04Next} from '../../content/daejeon-lesson04';
@@ -32,7 +33,8 @@ const zip=lesson04ApplicationZip;
     {period.sections.map(section=><ReviewSection id={section.id} title={section.title} minutes={section.minutes} index={lesson04Sections.findIndex(s=>s.id===section.id)+1}>
       <dl class="l03-step-context"><div><dt>지금 할 일</dt><dd>{section.action}</dd></div><div><dt>왜 하는가</dt><dd>{section.reason}</dd></div><div><dt>다음에 사용할 것</dt><dd>{section.next}</dd></div></dl>
       {section.id==='l04-recap'&&<>
-        <p>지난 차시에는 실내 한 면을 수정하고, 디자인 방향 보드를 같은 공간의 새 콘셉트로 연결했습니다. 오늘은 건물 외관에서 유지·변경 경계를 더 세밀하게 나눕니다.</p>
+        <p>지난 차시에는 실내 한 면을 수정하고, 디자인 방향 보드를 같은 공간의 새 콘셉트로 연결했습니다. 오늘은 먼저 그 고정 시점·부분 변경 원칙을 응용해 <strong>한 공간을 공정별 레이어로 쌓아 변화 GIF를 만드는 방법</strong>을 복습한 뒤, 건물 외관에서 유지·변경 경계를 더 세밀하게 나눕니다.</p>
+        <Lesson04CafeGifRecap />
         <ol class="l03-workflow">{['클린업 제거','부위별 마감 교체 A/B','국소 보완 A2','조경·보행 광장·사람 추가','석양·경관조명 확장','스케치 래피드·다각도 뷰','종합 비교·선별'].map(t=><li>{t}</li>)}</ol>
         <p>외장재·색상·창틀·출입구·사인 면·전면부의 <strong>기존 표면</strong>을 다룹니다. 개구부 이동·새 층·구조 변경은 이번 이미지 실습 범위가 아닙니다.</p>
       </>}

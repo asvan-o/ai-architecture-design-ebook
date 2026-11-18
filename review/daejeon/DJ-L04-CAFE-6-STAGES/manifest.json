@@ -1,0 +1,56 @@
+{
+  "package": "DJ-L04-CAFE-6-STAGES",
+  "contentStatus": "design-pending",
+  "files": [
+    {
+      "file": "01_before.jpeg",
+      "bytes": 136483,
+      "sha256": "a7eeaf62441041de43778068c1db2f3c02ed45c09a8964e666b4b0b4350133fc"
+    },
+    {
+      "file": "02_rough-in.png",
+      "bytes": 1990474,
+      "sha256": "26120fd6e9627a850c86f35fcbb944e4e3aa96a0074b50b2084b0a057311ed61"
+    },
+    {
+      "file": "03_finishes.png",
+      "bytes": 1839957,
+      "sha256": "154dd9fb5c468bdcc4b80a7dc64d8cf3410adf09d6819af48a0de3d743b2470b"
+    },
+    {
+      "file": "04_millwork.png",
+      "bytes": 1861194,
+      "sha256": "9c23ebb18226e1607d892d658dbef9af335c25121fb5db9fe4fa4ce5eff0bb24"
+    },
+    {
+      "file": "05_fit-out.png",
+      "bytes": 1909664,
+      "sha256": "15bb063b85eca1d32c8fe89471908d7b1ac57e2835d6af311259b68305a23615"
+    },
+    {
+      "file": "06_after.png",
+      "bytes": 1939041,
+      "sha256": "4391d3abae8b1704146fe833415ec3a0ae4f78a98363c33156ca60da8851ee0c"
+    },
+    {
+      "file": "base02-cafe-before-after.gif",
+      "bytes": 3984319,
+      "sha256": "fab2574a5b9b084fb939537819d5f00718e6b723499f2a0cede83e46da517c13"
+    },
+    {
+      "file": "prompts/CAFE_6STAGES_LAYER_PROMPTS.txt",
+      "bytes": 4903,
+      "sha256": "bdf06278359cc46f304d1430597963a90a45aa26cfc20b951266c92f6e665cba"
+    },
+    {
+      "file": "README.txt",
+      "bytes": 840,
+      "sha256": "15ca706b3691cfe5cfb6bcef05e71e7d17bedff62fd52c9caeb4f4fcdde061d6"
+    },
+    {
+      "file": "DJ-L04_CAFE_6STAGES_GIF_SAMPLE.zip",
+      "bytes": 12965535,
+      "sha256": "3260ddf747cd723370d6ea100408d5d5f23fc3fa0dd5505ef7c0ddc431ce8057"
+    }
+  ]
+}

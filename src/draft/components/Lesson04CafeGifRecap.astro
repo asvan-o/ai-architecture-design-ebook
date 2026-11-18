@@ -1,0 +1,351 @@
+---
+import {
+  lesson04CafeGifStages,
+  lesson04CafeAnimatedGif,
+  lesson04CafePromptsFile,
+  lesson04CafeSampleZip,
+} from '../../../scripts/daejeon-lesson04-cafe-gif.mjs';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const enabled = import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS === 'true';
+
+const stageChainPrompt = `[Step 1 → 2 · 기초 설비 및 바탕면 정리 (01_before.jpeg 첨부)]
+첨부한 공실 원본의 카메라 시점·창호 프레임·유리 출입문·기둥 위치·천장 배관 라인·창밖 거리 풍경은 그대로 유지해 줘.
+기존 거친 벽면과 바닥의 얼룩만 매끄러운 회색 미장·셀프레벨링 몰탈 바탕면으로 정돈하고, 좌측 벽 하단에 카운터용 급배수 설비 배관 인입구만 깔끔하게 준비된 시공 기초(Rough-In) 단계 이미지를 만들어 줘. 가구나 조명은 아직 추가하지 마.
+
+[Step 2 → 3 · 도장 및 바닥 기본 마감 (02_rough-in.png 첨부)]
+첨부한 2단계 이미지의 카메라·창호·출입문·기둥·천장 배관 위치는 그대로 유지해 줘.
+천장과 상부 벽체·우측 벽체는 밝은 화이트 도장으로 마감하고, 좌측 벽 하부 허리선 아래만 파스텔 핑크 투톤 페인트로 수평 경계를 맞춰 칠해 줘. 바닥 전체는 밝은 크림 테라조 타일로 마감된 기본 마감(Finishes) 단계 이미지를 만들어 줘. 가구와 집기는 아직 넣지 마.
+
+[Step 3 → 4 · 고정 제작가구 시공 (03_finishes.png 첨부)]
+첨부한 3단계 이미지의 카메라·창호·화이트 및 핑크 투톤 벽면·테라조 바닥은 그대로 유지해 줘.
+좌측 전면에 곡선 모서리의 핑크 모자이크 타일 커피 바 카운터(무광 스테인리스 상판)를 설치하고, 좌측 벽면을 따라 핑크 쿠션 붙박이 벤치 좌석을 시공해 줘. 우측 창가 하단에는 화이트 상판과 핑크 하부 띠로 된 좁은 바 테이블 선반만 추가된 고정 가구(Millwork) 단계 이미지를 만들어 줘. 이동식 테이블·의자·머신은 아직 넣지 마.
+
+[Step 4 → 5 · 장비·이동 가구·조명 점등 (04_millwork.png 첨부)]
+첨부한 4단계 이미지의 카메라·창호·카운터·붙박이 벤치·창가 선반·벽과 바닥 마감은 그대로 유지해 줘.
+카운터 위에 에스프레소 머신·원두 그라인더·세라믹 컵을 올리고, 붙박이 벤치 앞과 정면 창가에 화이트 원형 테이블과 체어(포인트 핑크 체어 1개 포함)를 배치해 줘. 우측 창가 선반 아래에는 화이트 바 스툴 4개를 놓고, 천장 배관 라인에 화이트 트랙 스팟 조명을 달아 은은하게 점등된 세팅(Fit-Out) 단계 이미지를 만들어 줘. 꽃병이나 테이블 위 장식 소품은 아직 넣지 마.
+
+[Step 5 → 6 · 화병·소품 스타일링 완성 (05_fit-out.png 첨부)]
+첨부한 5단계 이미지의 카메라·창호·가구·커피 머신·조명 상태는 모두 그대로 유지해 줘.
+원형 테이블들과 우측 창가 바 선반 위에 작은 유리 화병과 핑크빛 계절 생화, 작은 캔들 소품만 과하지 않게 얹어 최종 스타일링(After) 완성 이미지를 만들어 줘.`;
+
+const gifAssemblePrompt = `첨부한 6장의 공간 변화 이미지를 파일명 순서(01_before → 02_rough-in → 03_finishes → 04_millwork → 05_fit-out → 06_after)대로 이어 붙여 애니메이션 GIF 파일로 만들어 다운로드 링크를 줘.
+1. 모든 프레임이 흔들리거나 잘리지 않도록 동일한 가로형 크기로 통일 정렬할 것
+2. 프레임별 표시 시간: 1번 공실 원본 1.0초, 2~5번 중간 시공 단계 각 0.7초, 6번 최종 완성본 2.0초 유지
+3. 무한 반복(loop=0) 및 색상 깨짐 최소화를 위한 최적 팔레트 적용`;
+---
+
+{enabled && (
+  <div class="l04-cafe-recap" data-l04-cafe-gif-recap>
+    <div class="l04-cafe-recap__intro">
+      <h3>제3차시 복습 &amp; 응용 워밍업 · 고정 시점 레이어 적층으로 공간 변화 GIF 만들기</h3>
+      <p>
+        빈 공실 사진에서 한 번에 완성 카페를 생성하면 창틀·기둥·시점이 미세하게 틀어지기 쉽습니다. 반면 지난 차시에 배운 <strong>‘유지·변경 분리’</strong> 원칙을 응용해 <strong>직전 단계 결과를 다음 단계의 기준 이미지로 연쇄 첨부하며 공정별로 한 레이어씩만 쌓으면</strong>, 건물의 뼈대는 흔들리지 않고 시공 순서대로 공간이 완성되는 <strong>변화 과정 GIF</strong>를 만들 수 있습니다. 이 단계별 적층 감각이 오늘 다룰 외관 실습(클린업 → 마감 교체 → 조경 → 보행 광장 → 사람 추가)으로 그대로 이어집니다.
+      </p>
+    </div>
+
+    <div class="l04-cafe-hero">
+      <figure class="l04-cafe-hero__media">
+        <a href={`${base}/${lesson04CafeAnimatedGif.outputPath}`} target="_blank" rel="noreferrer" aria-label="카페 6단계 변화 GIF 원본 크기로 보기">
+          <img
+            src={`${base}/${lesson04CafeAnimatedGif.outputPath}`}
+            alt="동일한 시점과 창호 구조를 유지한 채 철거 후 공실에서 기초 설비, 도장·테라조 마감, 고정 카운터·벤치, 커피 머신·이동 가구·조명, 생화 스타일링까지 6단계로 변화하는 카페 애니메이션 GIF"
+            width={lesson04CafeAnimatedGif.width}
+            height={lesson04CafeAnimatedGif.height}
+            loading="eager"
+          />
+        </a>
+        <figcaption>
+          완성 변화 GIF (<code>base02-cafe-before-after.gif</code> · 1번 1.0초 → 2~5번 각 0.7초 → 6번 2.0초 무한 반복). 웹 화면에서는 자동 재생되며 인쇄 교보재에서는 아래 6단계 프레임으로 대조합니다.
+        </figcaption>
+      </figure>
+
+      <aside class="l04-cafe-hero__rules">
+        <h4>흔들리지 않는 레이어 GIF 3원칙</h4>
+        <ol>
+          <li>
+            <strong>직전 결과 연쇄 첨부 (Chain Input)</strong>
+            <span>매 단계마다 처음 공실이 아니라 <em>방금 완성된 직전 단계 이미지 1장</em>을 새 기준 이미지로 첨부합니다.</span>
+          </li>
+          <li>
+            <strong>한 번에 한 공정 레이어만 추가</strong>
+            <span>설비 바탕 → 표면 마감 → 고정 가구 → 이동 가구·조명 → 소품 순으로 바꾸고, 아직 차례가 아닌 요소는 <em>“추가하지 마”</em>라고 명시합니다.</span>
+          </li>
+          <li>
+            <strong>동일 크기 정렬 &amp; 끝 프레임 정지 여유</strong>
+            <span>6장을 합칠 때 모든 프레임 크기를 통일하고 마지막 완성 컷(<code>06_after</code>)을 <code>2.0초</code>간 멈춰 두어야 변화 전후가 또렷이 읽힙니다.</span>
+          </li>
+        </ol>
+        <p class="l04-cafe-zip-row">
+          <a class="review-download" href={`${base}/${lesson04CafeSampleZip.outputPath}`} download={lesson04CafeSampleZip.file}>
+            📦 카페 6단계 원본 이미지 · 완성 GIF · 요청문 ZIP 다운로드 ({(lesson04CafeSampleZip.bytes / 1024 / 1024).toFixed(1)} MB)
+          </a>
+        </p>
+      </aside>
+    </div>
+
+    <h4>공실(Before)에서 스타일링(After)까지 · 6단계 레이어 적층 분해도</h4>
+    <div class="l04-cafe-stage-grid" data-l04-cafe-stages>
+      {lesson04CafeGifStages.map((st) => (
+        <article class="l04-cafe-stage-card">
+          <a href={`${base}/${st.outputPath}`} target="_blank" rel="noreferrer" aria-label={`${st.title} 크게 보기`}>
+            <img
+              src={`${base}/${st.outputPath}`}
+              alt={`${st.title} — ${st.addSummary}`}
+              width={st.width}
+              height={st.height}
+              loading="lazy"
+            />
+          </a>
+          <div class="l04-cafe-stage-card__body">
+            <span class="l04-cafe-stage-badge">{st.layerBadge}</span>
+            <h5>{st.title}</h5>
+            <p><strong>유지:</strong> {st.keepSummary}</p>
+            <p><strong>적용 레이어:</strong> {st.addSummary}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <details class="l04-cafe-prompts-details" open>
+      <summary>따라 하기 요청문 · ① 6단계 레이어 연속 생성 &amp; ② ChatGPT로 변화 GIF 조립하기</summary>
+
+      <div class="l04-gif-prompt-card">
+        <div class="l04-gif-prompt-head">
+          <span><strong>요청문 1</strong> · 이미지 생성 도구(Nano Banana / ChatGPT 이미지 등) 단계별 연쇄 입력 문안</span>
+          <div class="l04-gif-prompt-actions">
+            <a class="review-download" href={`${base}/${lesson04CafePromptsFile.outputPath}`} download="CAFE_6STAGES_LAYER_PROMPTS.txt">TXT 다운로드</a>
+            <button type="button" class="l04-gif-copy-btn" data-l04-gif-copy="l04-cafe-chain-pre">요청문 복사</button>
+          </div>
+        </div>
+        <pre id="l04-cafe-chain-pre">{stageChainPrompt}</pre>
+      </div>
+
+      <div class="l04-gif-prompt-card">
+        <div class="l04-gif-prompt-head">
+          <span><strong>요청문 2</strong> · 완성된 <code>01~06</code> 이미지 6장을 ChatGPT에 함께 첨부해 GIF로 합치는 문안</span>
+          <button type="button" class="l04-gif-copy-btn" data-l04-gif-copy="l04-cafe-gif-pre">요청문 복사</button>
+        </div>
+        <pre id="l04-cafe-gif-pre">{gifAssemblePrompt}</pre>
+      </div>
+    </details>
+  </div>
+)}
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-l04-gif-copy]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const id = btn.dataset.l04GifCopy || '';
+      const pre = document.getElementById(id);
+      if (!pre) return;
+      try {
+        await navigator.clipboard.writeText(pre.innerText);
+        const prev = btn.textContent;
+        btn.textContent = '복사됨 ✓';
+        setTimeout(() => { btn.textContent = prev; }, 1600);
+      } catch {
+        /* Ignore clipboard restrictions in non-HTTPS contexts */
+      }
+    });
+  });
+</script>
+
+<style>
+  .l04-cafe-recap {
+    margin: 1.25rem 0 1.6rem;
+    padding: 1.2rem 1.25rem;
+    border: 1px solid var(--line-dark, #cbd5e1);
+    border-radius: 0.75rem;
+    background: var(--surface, #ffffff);
+  }
+  .l04-cafe-recap__intro h3 {
+    margin: 0 0 0.45rem;
+    font-size: 1.12rem;
+  }
+  .l04-cafe-recap__intro p {
+    margin: 0 0 1rem;
+    line-height: 1.7;
+  }
+  .l04-cafe-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: 1.1rem;
+    align-items: start;
+    margin-bottom: 1.35rem;
+  }
+  .l04-cafe-hero__media {
+    margin: 0;
+    min-width: 0;
+  }
+  .l04-cafe-hero__media img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.55rem;
+    border: 1px solid var(--line-dark, #cbd5e1);
+  }
+  .l04-cafe-hero__rules {
+    padding: 0.95rem 1.05rem;
+    border-left: 3px solid var(--accent-dark, #1e3a8a);
+    background: var(--paper-deep, #f1f5f9);
+    border-radius: 0 0.55rem 0.55rem 0;
+    min-width: 0;
+  }
+  .l04-cafe-hero__rules h4 {
+    margin: 0 0 0.55rem;
+    font-size: 0.98rem;
+  }
+  .l04-cafe-hero__rules ol {
+    margin: 0;
+    padding-left: 1.15rem;
+    display: grid;
+    gap: 0.55rem;
+  }
+  .l04-cafe-hero__rules li strong {
+    display: block;
+    font-size: 0.9rem;
+  }
+  .l04-cafe-hero__rules li span {
+    display: block;
+    font-size: 0.86rem;
+    line-height: 1.55;
+    color: var(--ink, #0f172a);
+  }
+  .l04-cafe-zip-row {
+    margin: 0.85rem 0 0;
+  }
+  .l04-cafe-zip-row .review-download {
+    margin: 0;
+  }
+  .l04-cafe-stage-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.85rem;
+    margin: 0.65rem 0 1.2rem;
+  }
+  .l04-cafe-stage-card {
+    border: 1px solid var(--line, #e2e8f0);
+    border-radius: 0.6rem;
+    overflow: hidden;
+    background: var(--paper, #f8fafc);
+    min-width: 0;
+  }
+  .l04-cafe-stage-card img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border: 0;
+    border-bottom: 1px solid var(--line, #e2e8f0);
+  }
+  .l04-cafe-stage-card__body {
+    padding: 0.7rem 0.8rem;
+  }
+  .l04-cafe-stage-badge {
+    display: inline-block;
+    padding: 0.12rem 0.48rem;
+    border-radius: 4px;
+    background: #dbeafe;
+    color: #1e3a8a;
+    font-size: 0.72rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+  .l04-cafe-stage-card__body h5 {
+    margin: 0 0 0.35rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+  .l04-cafe-stage-card__body p {
+    margin: 0.2rem 0 0;
+    font-size: 0.81rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+  .l04-cafe-prompts-details {
+    margin: 0.9rem 0 0;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--line, #cbd5e1);
+    border-radius: 0.6rem;
+    background: var(--paper, #f8fafc);
+  }
+  .l04-gif-prompt-card {
+    margin-top: 0.85rem;
+    padding: 0.8rem 0.9rem;
+    border: 1px solid var(--line-dark, #94a3b8);
+    border-radius: 0.55rem;
+    background: var(--surface, #ffffff);
+    min-width: 0;
+  }
+  .l04-gif-prompt-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.88rem;
+  }
+  .l04-gif-prompt-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+  }
+  .l04-gif-prompt-actions .review-download {
+    margin: 0;
+    padding: 0.32rem 0.65rem;
+    font-size: 0.78rem;
+  }
+  .l04-gif-copy-btn {
+    border: 1px solid #1e3a8a;
+    border-radius: 0.4rem;
+    background: #1e3a8a;
+    color: #ffffff;
+    padding: 0.34rem 0.75rem;
+    font: inherit;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .l04-gif-prompt-card pre {
+    margin: 0;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    max-width: 100%;
+    font-size: 0.84rem;
+    line-height: 1.68;
+  }
+  @media (max-width: 980px) {
+    .l04-cafe-hero {
+      grid-template-columns: 1fr;
+    }
+    .l04-cafe-stage-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 620px) {
+    .l04-cafe-recap {
+      padding: 0.9rem;
+    }
+    .l04-cafe-stage-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media print {
+    .l04-gif-copy-btn {
+      display: none !important;
+    }
+    .l04-cafe-hero {
+      grid-template-columns: 1fr !important;
+    }
+    .l04-cafe-stage-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      gap: 0.6rem !important;
+    }
+    .l04-cafe-stage-card {
+      break-inside: avoid-page !important;
+    }
+  }
+</style>
