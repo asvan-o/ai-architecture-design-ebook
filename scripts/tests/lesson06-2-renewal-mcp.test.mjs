@@ -2,9 +2,36 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
+import { createHash } from 'node:crypto';
 import { repositoryRoot } from '../course-registry.mjs';
+import {
+  l062WorkflowSvg,
+  l062SkillCadPreview,
+  l062SkillConceptPlan3d,
+  l062SkillConceptSet,
+  l062SkillGridlinePlan,
+  lesson062RenewalAssets,
+} from '../daejeon-lesson06-2-assets.mjs';
 
-test('Lesson 06-2 renewal page exists, covers Veo + 3DGS + 3 free MCP options, and keeps learner-language compliance', () => {
+const sha = (buf) => createHash('sha256').update(buf).digest('hex');
+
+test('Lesson 06-2 renewal visual assets exist and match manifest SHA-256', () => {
+  assert.equal(lesson062RenewalAssets.length, 6);
+  for (const asset of lesson062RenewalAssets) {
+    assert(fs.existsSync(asset.source), `Missing asset: ${asset.source}`);
+    const bytes = fs.readFileSync(asset.source);
+    assert.equal(bytes.length, asset.bytes, `Byte size mismatch: ${asset.file}`);
+    assert.equal(sha(bytes), asset.sha256, `SHA mismatch: ${asset.file}`);
+    assert(asset.outputPath.startsWith('practice/DJ-L06/renewal-mcp/'));
+  }
+  assert(l062WorkflowSvg.bytes > 3000);
+  assert(l062SkillCadPreview.bytes > 10000);
+  assert(l062SkillConceptPlan3d.bytes > 100000);
+  assert(l062SkillConceptSet.bytes > 100000);
+  assert(l062SkillGridlinePlan.bytes > 50000);
+});
+
+test('Lesson 06-2 renewal page covers Veo + 3DGS + 3 free MCP options + headless + beginner skills + scenarios + custom SKILL.md', () => {
   const pageSrc = fs.readFileSync(path.join(repositoryRoot, 'src/draft/pages/lessons/06-2.astro'), 'utf8');
   const dataSrc = fs.readFileSync(path.join(repositoryRoot, 'src/draft/content/daejeon-lesson06-2-mcp.ts'), 'utf8');
   const navSrc = fs.readFileSync(path.join(repositoryRoot, 'src/draft/content/review-navigation.ts'), 'utf8');
@@ -21,8 +48,15 @@ test('Lesson 06-2 renewal page exists, covers Veo + 3DGS + 3 free MCP options, a
     'Start RPC Server',
     'Connect to MCP server',
     'v1-1\\Mod',
-    'DWG',
-    'DXF',
+    'execute_code_headless',
+    '--freecadcmd',
+    'cad-drawings',
+    'architectural-concept-design',
+    'architecture-programming',
+    'my-arch-dxf',
+    '실무 시나리오 S1',
+    '실무 시나리오 S2',
+    '실무 시나리오 S3',
     '3D Gaussian Splatting',
   ]) {
     assert(pageSrc.includes(needle) || dataSrc.includes(needle), `Missing required 06-2 content: ${needle}`);

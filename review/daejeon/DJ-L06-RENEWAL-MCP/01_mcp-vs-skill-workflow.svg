@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="580" viewBox="0 0 1200 580" role="img" aria-labelledby="t-ms d-ms">
+  <title id="t-ms">MCP(앱·파일 연결)와 Codex 건축 스킬(SKILL.md)의 역할 구분 및 3단계 사용 흐름</title>
+  <desc id="d-ms">MCP는 CAD·FreeCAD·Blender를 실제로 움직이는 손발이고, 스킬은 검수·설계 절차를 담은 매뉴얼이며, 설치-호출-검수 3단계로 결합해 사용하는 도식</desc>
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .card { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.6; rx: 12; }
+      .card-teal { fill: #f0fdfa; stroke: #14b8a6; stroke-width: 1.8; rx: 12; }
+      .card-blue { fill: #eff6ff; stroke: #3b82f6; stroke-width: 1.8; rx: 12; }
+      .h1 { font-family: 'Malgun Gothic', 'Noto Sans KR', sans-serif; font-size: 19px; font-weight: 800; fill: #0f172a; }
+      .h2 { font-family: 'Malgun Gothic', 'Noto Sans KR', sans-serif; font-size: 15px; font-weight: 800; fill: #1e3a8a; }
+      .h2t { font-family: 'Malgun Gothic', 'Noto Sans KR', sans-serif; font-size: 15px; font-weight: 800; fill: #0f766e; }
+      .b { font-family: 'Malgun Gothic', 'Noto Sans KR', sans-serif; font-size: 12.8px; font-weight: 700; fill: #0f172a; }
+      .sub { font-family: 'Malgun Gothic', 'Noto Sans KR', sans-serif; font-size: 12px; fill: #475569; }
+      .code { font-family: Consolas, monospace; font-size: 11.5px; font-weight: 700; fill: #0f766e; }
+      .badge { fill: #1e3a8a; rx: 999; }
+      .badge-t { fill: #0f766e; rx: 999; }
+      .bt { font-family: 'Malgun Gothic', 'Noto Sans KR', sans-serif; font-size: 11px; font-weight: 800; fill: #ffffff; }
+    </style>
+    <marker id="arr" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#0f766e" />
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1200" height="580" rx="14" />
+  <text class="h1" x="28" y="38">한눈에 이해하기 · MCP(손발) × Codex 건축 스킬(업무 매뉴얼) 협업 구조</text>
+  <text class="sub" x="28" y="60">MCP만 켜도 작업은 되지만, 스킬(SKILL.md)을 더하면 매번 길게 설명하지 않아도 같은 기준(입력 확인 → 생성 → 검수)으로 자동 실행됩니다.</text>
+
+  <!-- LEFT: MCP -->
+  <rect class="card-blue" x="28" y="80" width="490" height="278" />
+  <rect class="badge" x="48" y="98" width="136" height="24" />
+  <text class="bt" x="62" y="114">MCP = 실행 손발</text>
+  <text class="h2" x="196" y="116">실제 파일·앱을 움직이는 연결</text>
+
+  <rect class="card" x="48" y="136" width="450" height="60" />
+  <text class="b" x="64" y="160">옵션 A · aiblueprint-mcp (2D DXF)</text>
+  <text class="sub" x="64" y="180">AutoCAD 없이 .dxf 생성 · LibreCAD로 레이어·치수 확인</text>
+
+  <rect class="card" x="48" y="206" width="450" height="60" />
+  <text class="b" x="64" y="230">옵션 B · freecad-mcp (정밀 CAD · BIM)</text>
+  <text class="sub" x="64" y="250">FreeCADCmd 백그라운드 1회 일괄 생성 · FCStd · STEP · IFC</text>
+
+  <rect class="card" x="48" y="276" width="450" height="60" />
+  <text class="b" x="64" y="300">메인 3D · blender-mcp (3D 공간 · 렌더)</text>
+  <text class="sub" x="64" y="320">실내 가구 · 재질 · 조명 · 카메라 배치 · SketchUp 호환 내보내기</text>
+
+  <!-- PLUS SIGN -->
+  <circle cx="556" cy="219" r="22" fill="#0f766e" />
+  <text x="547" y="227" font-family="Arial, sans-serif" font-size="28" font-weight="800" fill="#ffffff">+</text>
+
+  <!-- RIGHT: SKILLS -->
+  <rect class="card-teal" x="594" y="80" width="578" height="278" />
+  <rect class="badge-t" x="614" y="98" width="174" height="24" />
+  <text class="bt" x="628" y="114">Codex 스킬 = 업무 매뉴얼</text>
+  <text class="h2t" x="800" y="116">반복 절차를 묶은 SKILL.md</text>
+
+  <rect class="card" x="614" y="136" width="538" height="46" />
+  <text class="b" x="630" y="156">1. $cad-drawings · 도면 자동 검수관</text>
+  <text class="sub" x="630" y="173">DXF 단위·외곽 폐합·면적·둘레 측정 · v1 vs v2 변경점 자동 비교</text>
+
+  <rect class="card" x="614" y="190" width="538" height="46" />
+  <text class="b" x="630" y="210">2. $architectural-concept-design · 개념 주택 자동 생성기</text>
+  <text class="sub" x="630" y="227">대지·실 요구사항 → design.json 규칙 검사 → 평면·입면·단면·3D 뷰어</text>
+
+  <rect class="card" x="614" y="244" width="538" height="46" />
+  <text class="b" x="630" y="264">3. Gridline 3종 · 프로젝트 조정 팀 매니저</text>
+  <text class="sub" x="630" y="281">공간 프로그램 → 평면·실/문/창 일람표 일치 검증 → Blender 시각화 계획</text>
+
+  <rect class="card" x="614" y="298" width="538" height="46" />
+  <text class="b" x="630" y="318">4. $my-arch-dxf (직접 제작) · 우리 사무실 표준 스킬</text>
+  <text class="sub" x="630" y="335">표준 레이어(A-WALL·A-AREA)와 면적표 CSV 규칙을 SKILL.md 1장에 저장</text>
+
+  <!-- BOTTOM: 3-STEP BEGINNER FLOW -->
+  <text class="h1" x="28" y="396">초보자 3단계 스킬 사용 흐름</text>
+
+  <rect class="card" x="28" y="414" width="356" height="140" />
+  <rect class="badge" x="46" y="430" width="66" height="22" />
+  <text class="bt" x="56" y="445">STEP 1</text>
+  <text class="b" x="122" y="446">프로젝트 폴더에 스킬 넣기</text>
+  <text class="sub" x="46" y="476">• PowerShell에서 npx skills add 1줄 실행</text>
+  <text class="sub" x="46" y="496">• Node.js가 없으면 폴더 수동 복사도 OK</text>
+  <text class="code" x="46" y="524">.agents/skills/&lt;스킬이름&gt;/SKILL.md</text>
+
+  <line x1="392" y1="484" x2="418" y2="484" stroke="#0f766e" stroke-width="2.6" marker-end="url(#arr)" />
+
+  <rect class="card" x="424" y="414" width="356" height="140" />
+  <rect class="badge-t" x="442" y="430" width="66" height="22" />
+  <text class="bt" x="452" y="445">STEP 2</text>
+  <text class="b" x="518" y="446">Codex에서 $스킬이름 호출</text>
+  <text class="sub" x="442" y="476">• Codex로 해당 프로젝트 폴더 열기</text>
+  <text class="sub" x="442" y="496">• 채팅창에 $ 입력 후 원하는 스킬 선택</text>
+  <text class="code" x="442" y="524">$cad-drawings 이 DXF 면적 검수해 줘</text>
+
+  <line x1="788" y1="484" x2="814" y2="484" stroke="#0f766e" stroke-width="2.6" marker-end="url(#arr)" />
+
+  <rect class="card" x="820" y="414" width="352" height="140" />
+  <rect class="badge" x="838" y="430" width="66" height="22" />
+  <text class="bt" x="848" y="445">STEP 3</text>
+  <text class="b" x="914" y="446">결과 파일 확인 &amp; MCP 연결</text>
+  <text class="sub" x="838" y="476">• 생성된 DXF·PDF·면적표 CSV 자동 검수</text>
+  <text class="sub" x="838" y="496">• LibreCAD로 열기 / FreeCAD·Blender로 3D화</text>
+  <text class="code" x="838" y="524">마지막 컷은 7차시 업스케일로 마감</text>
+</svg>

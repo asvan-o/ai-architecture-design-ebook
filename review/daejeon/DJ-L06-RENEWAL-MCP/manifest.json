@@ -1,0 +1,32 @@
+{
+  "packageId": "DJ-L06-RENEWAL-MCP",
+  "lesson": "06-2",
+  "generatedAt": "2026-11-20",
+  "files": [
+    {
+      "file": "01_mcp-vs-skill-workflow.svg",
+      "bytes": 6965,
+      "sha256": "a18e4c034b5ff3c4b29ba70519fcbc3fad3097653f599648370dcd9e17530987"
+    },
+    {
+      "file": "02_skill-cad-drawings-preview.png",
+      "bytes": 48598,
+      "sha256": "ff98e743cf74dcc39ac97780b68620dd4b20bbfcef4fb9a50baec6d7aa5da5cb"
+    },
+    {
+      "file": "03_skill-concept-plan-to-model.png",
+      "bytes": 432986,
+      "sha256": "2c7f0b51712df8d28c8b501ab0d8cb144da7b8ff3dac0db658afd3aecdd65a57"
+    },
+    {
+      "file": "04_skill-concept-drawing-set.png",
+      "bytes": 225921,
+      "sha256": "70fb080c41ace1439beac97167abec6d4ecaa04ac2276a13fa3a98bdd0f1ad26"
+    },
+    {
+      "file": "05_skill-gridline-house-plan.png",
+      "bytes": 155092,
+      "sha256": "9a6572bc8d56cc363a52a007e5cfa020e4711c2c554ab2a65880fdbd6c3a9ed8"
+    }
+  ]
+}
