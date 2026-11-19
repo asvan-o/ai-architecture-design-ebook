@@ -1,0 +1,78 @@
+# 제5차시 ChatGPT 실전 짧은 프롬프트 & 건축 키워드 조합 사전
+# 대상: 도면 클린업 · 부분 수정(인페인팅) · Pivot 이동 확장(아웃페인팅) · 카메라 구도/조경/날씨 응용
+
+====================================================================
+[1] 도면 클린업 (Floor Plan Cleanup · Before -> After)
+첨부 이미지: 01_plan-cleanup-before.png (또는 본인 평면도 이미지)
+====================================================================
+이 2D 건축 평면도에서 기존 가구, 치수선, 축선 번호, 공간명, 빨간 검토 메모를 모두 지워 주세요.
+외벽, 내부 경량벽체, 기둥, 창문, 출입문(문짝·개폐호)의 위치와 두께는 원본 그대로 유지하세요.
+흰색 배경에 깔끔한 흑백 2D 건축 선화(Orthographic Top-Down Plan)로만 정리해 주세요.
+
+====================================================================
+[2] 부분 수정 · 인페인팅 (Inpainting · 회의실 4석 -> 6석)
+첨부 이미지: PLAN-BASE-01.png (또는 브러시/영역 선택)
+====================================================================
+이 평면도에서 오른쪽 위 회의실의 4인용 테이블과 의자만 6인용 긴 테이블(양쪽 3석씩)로 바꿔 주세요.
+외벽, 기둥, 창문, 출입문(D1·D2·D3), 왼쪽 업무공간 4석, 아래 탕비실, 모든 치수와 글자는 그대로 유지하세요.
+원본과 같은 흑백 2D 도면 선 두께와 스타일로 자연스럽게 그려 주세요.
+
+====================================================================
+[3] 부분 수정 · 인페인팅 (Inpainting · 출입문 D2 위치 이동)
+첨부 이미지: PLAN-BASE-01-result.png (6석 반영 도면)
+====================================================================
+이 평면도에서 회의실로 들어가는 D2 출입문을 현재 위치에서 약 1m 아래쪽으로 옮겨 주세요.
+기존 문 자리는 경량벽체 복선으로 매끄럽게 닫고, 새 위치에 문짝·90도 개폐호·D2 표기를 하나만 그려 주세요.
+회의실 6석 테이블, 업무공간, 탕비실 D3, 외벽과 치수는 절대 바꾸지 마세요.
+
+====================================================================
+[4] 아웃페인팅 (Outpainting · 원본 Pivot 좌측 이동 후 우측 데크 확장)
+첨부 이미지: 04b_plan-outpaint-pivot-clean-input.png (원본을 좌측에 배치해 우측 빈 여백을 만든 이미지)
+====================================================================
+왼쪽에 배치된 기존 카페 평면도(벽, 창문, 문, 바 카운터, 실내 좌석, 치수)는 위치와 비율을 절대 바꾸지 말고 그대로 유지하세요.
+오른쪽 흰색 빈 여백에만 카페 우측 외벽(W3)과 자연스럽게 이어지는 외부 우드 데크 테라스를 2D 평면도(Orthographic Top-Down)로 확장해 그려 주세요.
+테라스에는 2인용 원형 야외 테이블 3개, 아래쪽 야외 벤치, 북·동쪽 경계 조경 플랜터(수목 심볼), 우측 진입 디딤석을 기존 도면과 같은 깔끔한 흑백·연녹색 선 스타일로 추가해 주세요.
+
+====================================================================
+[5] 응용 · 버드뷰 / 조감도 아웃페인팅 + 조경·날씨 확장
+첨부 이미지: 확장할 건물 외관/배치 컷 (또는 2D 평면도를 3D 버드뷰로 전환)
+====================================================================
+이 소형 카페와 우측 우드 데크 테라스를 45도 버드뷰(Bird's-Eye View) 건축 시각화 이미지로 표현해 주세요.
+건물 좌측의 단층 콘크리트·유리 파사드는 유지하고, 우측 데크 테라스 둘레에 석재 플랜터, 다간형 수목(Multi-stem Trees), 억새류 그라스, 진입 디딤석과 보행 포장을 추가해 주세요.
+늦은 오후 골든아워(Golden Hour)의 따뜻한 대각선 그림자와 맑은 주간 광원으로 사실적인 건축 사진 스타일로 완성해 주세요. 글자나 워터마크는 넣지 마세요.
+
+====================================================================
+[6] 5대 건축 프롬프트 키워드 조합 사전 (한글 · 영문 병기)
+====================================================================
+1) 카메라 구도 (Camera View & Framing)
+- 탑뷰 / 정사영 평면: Orthographic Top-Down Plan, 90-degree flat 2D architectural plan
+- 버드뷰 / 부감도: Bird's-Eye View, 45-degree high-angle architectural view
+- 조감도 / 드론 뷰: Aerial Perspective, Drone View, 30-degree elevated site overview
+- 아이소메트릭 / 액소노메트릭: Isometric 3D Cutaway, Axonometric Architectural Diagram
+- 눈높이 투시도: Eye-Level View, Two-Point Perspective, vertical lines straight
+
+2) 도면 클린업 (Cleanup & Simplification)
+- 가구·집기 제거: Remove all furniture, fixtures, and clutter
+- 문자·치수·메모 제거: Remove all text labels, dimension lines, grid bubbles, and red markups
+- 구조선만 유지: Keep only structural walls, columns, windows, and doors with swing arcs
+- 2D 선화 통일: Clean black-and-white 2D architectural CAD linework on pure white background
+
+3) 인페인팅 · 아웃페인팅 / Pivot (Editing & Outpainting Control)
+- 지정 영역만 수정: Edit only inside the specified zone; keep everything else unchanged
+- Pivot 좌측 고정 확장: Keep the left-aligned original drawing completely locked and unchanged; extend only into the right white margin
+- 선 두께·축척 유지: Match original line weight, drawing scale, and orthographic projection
+- 이음새 자연 연결: Seamless continuity along the exterior boundary wall
+
+4) 조경물 추가 (Landscape & Outdoor Elements)
+- 우드 데크 테라스: Natural timber wood deck terrace with outdoor cafe seating and linear bench
+- 다층 석재 플랜터: Low architectural concrete/stone planters along the terrace perimeter
+- 다간형 수목·그라스: Multi-stem ornamental trees, native ornamental grasses, low evergreen shrubs
+- 보행 포장·디딤석: Concrete pedestrian paving, rectangular stone stepping stones over gravel
+- 점경 인물(선택): Subtle architectural scale figures walking naturally (no foreground crowding)
+
+5) 환경 · 날씨 · 시간대 (Atmosphere, Weather & Context)
+- 맑은 주간: Crisp clear daylight, soft natural architectural shadows
+- 골든아워·석양: Warm late afternoon golden hour sunlight, long diagonal shadows, warm interior glow
+- 흐린 확산광: Soft overcast diffused light, neutral architectural photography tone
+- 비 온 뒤(젖은 포장): After-rain damp paving with subtle reflections, fresh foliage
+- 계절·도시 맥락: Early autumn foliage, quiet neighborhood street context, ArchDaily photography aesthetic

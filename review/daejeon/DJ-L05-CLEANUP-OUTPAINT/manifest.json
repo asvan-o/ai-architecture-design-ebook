@@ -1,0 +1,57 @@
+{
+  "packageId": "DJ-L05-CLEANUP-OUTPAINT",
+  "lesson": "05",
+  "generatedAt": "2026-11-19",
+  "files": [
+    {
+      "file": "01_plan-cleanup-before.png",
+      "bytes": 154307,
+      "sha256": "bf5a1c5669b3986e915ab385bedd7beb719ba267fac4240df7a4377746fdf880"
+    },
+    {
+      "file": "02_plan-cleanup-after.png",
+      "bytes": 23910,
+      "sha256": "efa2d55db498c383a24d0be5ec074369a61a32d90204a7b073a2d35c650c62e7"
+    },
+    {
+      "file": "03_outpainting-pivot-and-views.svg",
+      "bytes": 9648,
+      "sha256": "5d543d7a1b1ef063e71e1340cece2e5b3ccdac67ab8ff248464fffb50a1bc896"
+    },
+    {
+      "file": "04_plan-outpaint-pivot-before.png",
+      "bytes": 107964,
+      "sha256": "97908affd97b747f7a367b415e1a751afe855eb2463f240d59bc5b2c93f6dc2c"
+    },
+    {
+      "file": "04b_plan-outpaint-pivot-clean-input.png",
+      "bytes": 77064,
+      "sha256": "aef639d8aa099052d0c59fce7721bb1b641b71423a655cdcd5d23fdf3efff383"
+    },
+    {
+      "file": "05_plan-outpaint-result-after.png",
+      "bytes": 128781,
+      "sha256": "575780522ce536c339865bfba9c8411574b2923e384ff37bf199291cc974e1cd"
+    },
+    {
+      "file": "06_cafe-terrace-birdseye-after.jpg",
+      "bytes": 891784,
+      "sha256": "5611398af0b7af954909674363d485230c5177d30d334bbe2b8bbe4558fdbaca"
+    },
+    {
+      "file": "prompts/L05_CHATGPT_SHORT_PROMPTS_AND_KEYWORDS.txt",
+      "bytes": 6778,
+      "sha256": "930fed5e5d49dc77e719aa9641afcd9c7d1068beeadc0ffec1500cdd5645b2ae"
+    },
+    {
+      "file": "README.txt",
+      "bytes": 1664,
+      "sha256": "51a48134559c3cf82ef20ccbb72bf639fc723121fefb0d71c0ec392f3bc77a20"
+    },
+    {
+      "file": "DJ-L05_CLEANUP_OUTPAINT_PACK.zip",
+      "bytes": 1393450,
+      "sha256": "bbe79910fdc1f7389239924b1803077f1254e386a93120e66f0f7a0fd83efc64"
+    }
+  ]
+}

@@ -15,6 +15,7 @@ import {lesson04Assets} from './daejeon-lesson04-assets.mjs';
 import {lesson04ApplicationAssets} from './daejeon-lesson04-applications.mjs';
 import {lesson04CafeGifAssets} from './daejeon-lesson04-cafe-gif.mjs';
 import {lesson05Assets} from './daejeon-lesson05-assets.mjs';
+import {lesson05CleanupOutpaintAssets} from './daejeon-lesson05-cleanup-outpaint.mjs';
 import {lesson06Assets} from './daejeon-lesson06-assets.mjs';
 import {getLesson07Assets} from './build-daejeon-lesson07-assets.mjs';
 import {getLesson08Assets} from './daejeon-lesson08-assets.mjs';
@@ -53,7 +54,7 @@ export function getDaejeonLocalAssets(){
   const sourceFiles=packages.flatMap(p=>p.assets.map(a=>({outputPath:'practice/'+p.id+'/'+a.file,source:originalPath(p.id,a.file)})));
   const prompts=generatedPrompts().map(p=>({outputPath:p.file,text:p.text+'\n'}));
   const reused=reusedLesson02Files.map(f=>({outputPath:f.outputPath||'practice/GW-L02/'+f.file,source:path.join(repositoryRoot,f.source)}));
-  const items=[...sourceFiles,...prompts,...reused,...lesson02Images,...lesson02ProgramAssets,...automationAssets,...commencementAssets,...workbookRenewalAssets,...lesson03SampleImages,...lesson03SamplePrompts,lesson03WarmAnalysis,...lesson04Assets,...lesson04ApplicationAssets,...lesson04CafeGifAssets,...lesson05Assets,...lesson06Assets,...getLesson07Assets(),...getLesson08Assets(),...getLesson0910Assets(),...getLesson111213Assets(),...getDaejeonTextbookPdfs()];
+  const items=[...sourceFiles,...prompts,...reused,...lesson02Images,...lesson02ProgramAssets,...automationAssets,...commencementAssets,...workbookRenewalAssets,...lesson03SampleImages,...lesson03SamplePrompts,lesson03WarmAnalysis,...lesson04Assets,...lesson04ApplicationAssets,...lesson04CafeGifAssets,...lesson05Assets,...lesson05CleanupOutpaintAssets,...lesson06Assets,...getLesson07Assets(),...getLesson08Assets(),...getLesson0910Assets(),...getLesson111213Assets(),...getDaejeonTextbookPdfs()];
   const entries=new Map();
   for(const item of items){
     const bytes=item.source?readFileSync(item.source):Buffer.from(item.text);

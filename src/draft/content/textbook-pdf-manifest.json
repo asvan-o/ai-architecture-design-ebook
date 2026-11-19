@@ -51,12 +51,13 @@
     },
     {
       "filename": "ai-architecture-design-lesson-05.pdf",
-      "sizeBytes": 2217901,
-      "sha256": "78f7b0507b0851805a5c2115d883d2aabce52e5752722ae86c957af3cec9622d",
-      "pageCount": 26,
+      "sizeBytes": 3107079,
+      "sha256": "20b0fec840c4138c29c000c81f4bc9366a836d71d193a4163c19a61207772b9d",
+      "pageCount": 36,
       "encrypted": false,
-      "copyrightNoticePages": 26,
-      "sourceFilename": "ai-architecture-design-daejeon-lesson-05.pdf"
+      "copyrightNoticePages": 36,
+      "sourceFilename": "ai-architecture-design-daejeon-lesson-05.pdf",
+      "sourceHtmlSha256": "113d3160beaef0724e9556d161651c050a45d3c6869659b196b3eb289c1df619"
     },
     {
       "filename": "ai-architecture-design-lesson-06.pdf",

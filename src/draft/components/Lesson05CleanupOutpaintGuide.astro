@@ -1,0 +1,865 @@
+---
+import {
+  l05CleanupBefore,
+  l05CleanupAfter,
+  l05PivotDiagram,
+  l05OutpaintBefore,
+  l05OutpaintCleanInput,
+  l05OutpaintAfter,
+  l05BirdseyeAfter,
+  l05ShortPromptsTxt,
+  l05CleanupOutpaintZip,
+} from '../../../scripts/daejeon-lesson05-cleanup-outpaint.mjs';
+
+interface Props {
+  mode: 'cleanup' | 'outpaint-keywords';
+}
+
+const { mode } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const enabled = import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS === 'true';
+
+const cleanupPrompt = `이 2D 건축 평면도에서 기존 가구, 치수선, 축선 번호, 공간명, 빨간 검토 메모를 모두 지워 주세요.
+외벽, 내부 경량벽체, 기둥, 창문, 출입문(문짝·개폐호)의 위치와 두께는 원본 그대로 유지하세요.
+흰색 배경에 깔끔한 흑백 2D 건축 선화(Orthographic Top-Down Plan)로만 정리해 주세요.`;
+
+const outpaintPrompt = `왼쪽에 배치된 기존 카페 평면도(벽, 창문, 문, 바 카운터, 실내 좌석, 치수)는 위치와 비율을 절대 바꾸지 말고 그대로 유지하세요.
+오른쪽 흰색 빈 여백에만 카페 우측 외벽(W3)과 자연스럽게 이어지는 외부 우드 데크 테라스를 2D 평면도(Orthographic Top-Down)로 확장해 그려 주세요.
+테라스에는 2인용 원형 야외 테이블 3개, 아래쪽 야외 벤치, 북·동쪽 경계 조경 플랜터(수목 심볼), 우측 진입 디딤석을 기존 도면과 같은 깔끔한 흑백·연녹색 선 스타일로 추가해 주세요.`;
+
+const birdseyePrompt = `이 소형 카페와 우측 우드 데크 테라스를 45도 버드뷰(Bird's-Eye View) 건축 시각화 이미지로 표현해 주세요.
+건물 좌측의 단층 콘크리트·유리 파사드는 유지하고, 우측 데크 테라스 둘레에 석재 플랜터, 다간형 수목(Multi-stem Trees), 억새류 그라스, 진입 디딤석과 보행 포장을 추가해 주세요.
+늦은 오후 골든아워(Golden Hour)의 따뜻한 대각선 그림자와 맑은 주간 광원으로 사실적인 건축 사진 스타일로 완성해 주세요. 글자나 워터마크는 넣지 마세요.`;
+
+const keywordGroups = [
+  {
+    category: '카메라 구도 (Camera View)',
+    items: [
+      { ko: '탑뷰 · 정사영 평면', en: 'Orthographic Top-Down Plan, 90-degree flat 2D view', use: '도면 클린업, 가구 재배치, 데크·조경 평면 확장' },
+      { ko: '버드뷰 · 부감도', en: "Bird's-Eye View, 45-degree high-angle architectural view", use: '지붕 형태, 중정, 외부 데크와 주변 조경 연계 검토' },
+      { ko: '조감도 · 드론 뷰', en: 'Aerial Perspective, Drone View, 30-degree site overview', use: '건물 매스 + 전면 도로 + 인접 필지·도시 맥락 제안' },
+      { ko: '아이소메트릭', en: 'Isometric 3D Cutaway, Axonometric Diagram', use: '층별 공간 구성과 동선·조닝을 입체 다이어그램으로 설명' },
+      { ko: '눈높이 투시도', en: 'Eye-Level View, Two-Point Perspective, straight verticals', use: '입구 인지성, 마감 질감, 보행자 스케일·날씨 분위기 비교' },
+    ],
+  },
+  {
+    category: '도면 클린업 (Cleanup)',
+    items: [
+      { ko: '가구·집기 일괄 제거', en: 'Remove all furniture, fixtures, and clutter', use: '빈 구조 바탕면을 확보해 새 배치안 실험' },
+      { ko: '문자·치수·메모 제거', en: 'Remove text labels, dimension lines, grid bubbles, red markups', use: '현장 메모나 혼잡한 주석을 지워 AI 오인 방지' },
+      { ko: '구조선만 유지', en: 'Keep only structural walls, columns, windows, doors with swing arcs', use: '외벽·내벽·개구부 기하학 고정' },
+      { ko: '2D 흑백 선화 통일', en: 'Clean black-and-white 2D CAD linework on pure white background', use: '스케치·스캔 도면을 일관된 평면 톤으로 정돈' },
+    ],
+  },
+  {
+    category: '인페인팅 · 아웃페인팅 / Pivot',
+    items: [
+      { ko: '지정 영역만 수정', en: 'Edit only inside the target zone; keep everything else unchanged', use: '회의실 가구 교체, 출입문 D2 이동 등 국소 인페인팅' },
+      { ko: 'Pivot 좌측 고정 확장', en: 'Keep the left-aligned original drawing locked; extend only into the right white margin', use: '원본을 한쪽으로 밀어 여백에 증축·테라스 아웃페인팅' },
+      { ko: '선 두께·축척 유지', en: 'Match original line weight, drawing scale, and projection', use: '기존 도면과 새로 그린 영역의 이질감 최소화' },
+      { ko: '경계 외벽 자연 연결', en: 'Seamless architectural continuity along the exterior boundary wall', use: '기존 창호·외벽과 외부 데크·캐노피 이음새 정리' },
+    ],
+  },
+  {
+    category: '조경물 추가 (Landscape)',
+    items: [
+      { ko: '우드 데크 테라스', en: 'Natural timber wood deck terrace with outdoor seating & linear bench', use: '카페·상업·주택 외부 휴게 공간 확장' },
+      { ko: '다층 석재 플랜터', en: 'Low architectural concrete/stone planters along the perimeter', use: '경계부 시선 분리와 깔끔한 공간 구획' },
+      { ko: '다간형 수목 · 그라스', en: 'Multi-stem ornamental trees, ornamental grasses, evergreen shrubs', use: '과도한 숲 대신 현대 건축에 어울리는 절제된 식재' },
+      { ko: '보행 포장 · 디딤석', en: 'Concrete pedestrian paving, rectangular stone stepping stones over gravel', use: '도로·주차장에서 건물 입구까지 진입 동선 표현' },
+      { ko: '점경 인물 (선택)', en: 'Subtle architectural scale figures walking naturally', use: '공간 크기 체감(과밀 배치는 피하고 소수만 배치)' },
+    ],
+  },
+  {
+    category: '환경 · 날씨 · 시간대 (Atmosphere)',
+    items: [
+      { ko: '맑은 주간', en: 'Crisp clear daylight, soft natural architectural shadows', use: '형태·재료·조경 구성을 가장 객관적으로 확인' },
+      { ko: '골든아워 · 석양', en: 'Warm late afternoon golden hour sunlight, long diagonal shadows, warm interior glow', use: '카페·주거·문화시설의 따뜻한 체류감 강조' },
+      { ko: '흐린 확산광', en: 'Soft overcast diffused light, neutral architectural photography tone', use: '강한 그림자 없이 재료 색감과 입면 비례 집중 검토' },
+      { ko: '비 온 뒤 · 젖은 포장', en: 'After-rain damp paving with subtle reflections, fresh foliage', use: '바닥 반사감과 깊이 있는 대기 연출' },
+      { ko: '계절 · 도시 맥락', en: 'Early autumn foliage, quiet neighborhood street context', use: '건물이 놓일 주변 가로·계절 분위기 통합 제안' },
+    ],
+  },
+];
+
+const builderOptions = {
+  task: [
+    { id: 'cleanup', label: '도면 클린업', text: '이 2D 건축 평면도에서 기존 가구, 치수선, 문자, 검토 메모를 모두 지우고 외벽·내벽·기둥·창문·출입문만 남긴 깔끔한 흑백 2D 선화로 정리해 주세요.' },
+    { id: 'inpaint', label: '부분 수정 (인페인팅)', text: '이 도면에서 지정한 실내 영역의 가구·출입문만 교체해 주세요. 외벽, 기둥, 창문, 주변 공간과 기존 치수·글자는 원본 그대로 유지하세요.' },
+    { id: 'outpaint', label: 'Pivot 이동 확장 (아웃페인팅)', text: '왼쪽에 배치된 기존 도면(벽, 창문, 문, 실내 배치)은 위치와 비율을 절대 바꾸지 말고, 오른쪽 흰색 빈 여백에만 외부 공간을 자연스럽게 확장해 그려 주세요.' },
+  ],
+  view: [
+    { id: 'top', label: '탑뷰 (Orthographic Top-Down)', text: '수직 정사영 탑뷰(Orthographic Top-Down Plan, 투시 왜곡 없음)' },
+    { id: 'birdseye', label: "버드뷰 (Bird's-Eye 45°)", text: "상공 45도 버드뷰(Bird's-Eye View, High-Angle Architectural View)" },
+    { id: 'aerial', label: '조감도 (Aerial / Drone View)', text: '원거리 30도 드론 조감도(Aerial Perspective / Drone View, 전면 도로와 주변 맥락 포함)' },
+    { id: 'eye', label: '눈높이 (Eye-Level 2-Point)', text: '보행자 눈높이 2점 투시도(Eye-Level Two-Point Perspective, 수직선 수직 보정)' },
+  ],
+  landscape: [
+    { id: 'none', label: '조경 없음 (도면 전용)', text: '' },
+    { id: 'deck-planter', label: '우드 데크 + 석재 플랜터', text: '자연 목재 우드 데크 테라스(Natural Timber Deck), 야외 원형 테이블과 벤치, 경계부 석재 플랜터(Concrete Planters)' },
+    { id: 'trees-grass', label: '다간형 수목 + 억새류 그라스', text: '다간형 교목(Multi-stem Trees), 억새류 그라스(Ornamental Grasses), 낮은 상록 관목 식재' },
+    { id: 'stepping-street', label: '진입 디딤석 + 보행 포장', text: '자갈 위 직사각 디딤석(Stone Stepping Stones)과 밝은 콘크리트 보행 포장 진입 동선' },
+  ],
+  weather: [
+    { id: 'cad-white', label: '흰 배경 2D 선화 (날씨 없음)', text: '흰색 배경, 깔끔한 건축 도면 선 두께와 축척 통일, 글자·워터마크 금지' },
+    { id: 'clear', label: '맑은 주간 (Clear Daylight)', text: '맑은 주간 자연광(Crisp Clear Daylight), 부드러운 건축 그림자, 사실적인 건축 사진 스타일, 글자·워터마크 금지' },
+    { id: 'golden', label: '골든아워 · 석양 (Golden Hour)', text: '늦은 오후 골든아워(Warm Golden Hour Sunlight), 긴 대각선 그림자와 은은한 실내 전구색 조명, 글자·워터마크 금지' },
+    { id: 'overcast', label: '흐린 확산광 (Overcast)', text: '부드러운 흐린 날 확산광(Soft Overcast Diffused Light), 과장 없는 중립 건축 사진 톤, 글자·워터마크 금지' },
+    { id: 'after-rain', label: '비 온 뒤 반사 (After Rain)', text: '비 온 뒤 촉촉한 포장 반사(After-Rain Damp Paving Reflections), 선명한 식재 색감, 글자·워터마크 금지' },
+  ],
+};
+---
+
+{mode === 'cleanup' && (
+  <section class="l05-co-panel" data-l05-cleanup-guide>
+    <div class="l05-co-head">
+      <span class="l05-co-badge">4차시 클린업 로직 확장 · 2D 도면 버전</span>
+      <h3>도면 클린업(Before → After) · 먼저 잡음을 비우고 구조선만 남기기</h3>
+      <p>
+        4차시에서 외관 사진의 전선·차량·간판을 먼저 비운 것처럼, 2D 평면도에서도 기존 가구·치수선·검토 메모가
+        많을수록 AI가 벽과 가구를 혼동하기 쉽습니다. 아래처럼 <strong>구조선(외벽·내벽·기둥·창·문)만 남기는 클린업</strong>을
+        먼저 실행하면 이후 가구 재배치와 평면 확장 정확도가 크게 올라갑니다.
+      </p>
+    </div>
+
+    <div class="l05-co-ba-grid">
+      <figure class="l05-co-figure">
+        <span class="l05-co-pill l05-co-pill-before">Before · 클린업 전</span>
+        {enabled && (
+          <img
+            src={`${base}/${l05CleanupBefore.outputPath}`}
+            alt={l05CleanupBefore.title}
+            width={l05CleanupBefore.width}
+            height={l05CleanupBefore.height}
+            loading="lazy"
+          />
+        )}
+        <figcaption>
+          <strong>기존 가구 · 치수 · 축선 · 검토 메모 혼재</strong>
+          <span>빨간 원·안내 문구·기존 책상과 회의실 테이블이 함께 들어 있어 바로 수정하면 주변 선이 흔들리기 쉬운 상태입니다.</span>
+        </figcaption>
+      </figure>
+
+      <figure class="l05-co-figure">
+        <span class="l05-co-pill l05-co-pill-after">After · 구조선 클린업 완료</span>
+        {enabled && (
+          <img
+            src={`${base}/${l05CleanupAfter.outputPath}`}
+            alt={l05CleanupAfter.title}
+            width={l05CleanupAfter.width}
+            height={l05CleanupAfter.height}
+            loading="lazy"
+          />
+        )}
+        <figcaption>
+          <strong>외벽 · 경량벽체 · 기둥 · 창 · 문만 유지</strong>
+          <span>불필요한 가구·치수·메모가 깔끔히 제거되어 새 배치안(6석 확장, 동선 재구성, 용도 변경)의 깨끗한 기준 도면이 됩니다.</span>
+        </figcaption>
+      </figure>
+    </div>
+
+    <div class="l05-co-prompt-card">
+      <div class="l05-co-prompt-head">
+        <strong>ChatGPT 실전 짧은 프롬프트 · 도면 클린업 (3줄 기준)</strong>
+        <button type="button" class="l05-co-copy-btn" data-l05-co-copy={cleanupPrompt}>프롬프트 복사</button>
+      </div>
+      <pre class="l05-co-pre">{cleanupPrompt}</pre>
+      <p class="l05-co-tip">
+        <strong>ChatGPT 활용 팁:</strong> 처음부터 긴 규격서를 적기보다 <strong>① 무엇을 지울지 → ② 무엇을 남길지 → ③ 어떤 그림 스타일로 정리할지</strong>
+        3문장으로 지시하고, 누락된 요소가 있으면 한 줄씩 후속 대화로 다듬는 편이 훨씬 안정적입니다.
+      </p>
+    </div>
+  </section>
+)}
+
+{mode === 'outpaint-keywords' && (
+  <section class="l05-co-panel l05-co-panel-outpaint" data-l05-outpaint-guide>
+    <div class="l05-co-head">
+      <span class="l05-co-badge l05-co-badge-teal">아웃페인팅 · Pivot 이동 · 카메라/조경 키워드 응용</span>
+      <h3>원본 Pivot 위치 이동으로 도면 아웃페인팅(Outpainting) 하기</h3>
+      <p>
+        내부만 고치는 <strong>인페인팅(Inpainting)</strong>과 달리, 건물 바깥쪽 테라스·증축·조경·대지 맥락을 새로 그려 넣는 작업이
+        <strong>아웃페인팅(Outpainting)</strong>입니다. 원본 이미지가 화면 정중앙에 꽉 차 있으면 AI가 확장할 물리적 여백이 없어
+        기존 도면을 억지로 축소하거나 왜곡합니다. 핵심 해법은 <strong>원본의 배치 기준점(Pivot)을 확장 반대쪽으로 밀어 빈 흰 여백을 먼저 확보하는 것</strong>입니다.
+      </p>
+    </div>
+
+    <figure class="l05-co-diagram">
+      {enabled && (
+        <img
+          src={`${base}/${l05PivotDiagram.outputPath}`}
+          alt={l05PivotDiagram.title}
+          width={l05PivotDiagram.width}
+          height={l05PivotDiagram.height}
+          loading="lazy"
+        />
+      )}
+      <figcaption>
+        <strong>원리 요약:</strong> ① 원본 도면의 Pivot을 좌측(또는 상·하단)으로 옮겨 확장 방향에 35~45% 빈 흰 여백을 만들고 → ② ChatGPT에 올려
+        “원본 영역 고정 + 빈 여백만 확장”을 지시합니다. 아래 4대 카메라 구도는 평면(탑뷰)에서 버드뷰·조감도·눈높이 시각화까지 확장할 때 선택하는 기준입니다.
+      </figcaption>
+    </figure>
+
+    <div class="l05-co-pivot-steps">
+      <article>
+        <h4>방법 A · 파워포인트 / 그림판 (가장 빠름)</h4>
+        <p>가로형 흰 슬라이드(또는 넓은 흰 캔버스)를 열고 원본 도면을 <strong>왼쪽 끝으로 붙여 배치</strong>한 뒤 이미지(PNG)로 저장합니다. 우측에 자연스럽게 흰 확장 여백이 생깁니다.</p>
+      </article>
+      <article>
+        <h4>방법 B · ChatGPT에 여백 확장 먼저 요청</h4>
+        <p>별도 편집기 없이 ChatGPT에 원본을 올린 뒤 <em>“원본 크기는 줄이지 말고 오른쪽에 흰 여백을 50% 추가한 새 PNG 파일로 만들어 줘”</em>라고 먼저 준비 이미지를 생성합니다.</p>
+      </article>
+      <article>
+        <h4>방법 C · 제공된 Pivot 입력 파일 바로 사용</h4>
+        <p>
+          우측 여백이 미리 확보된 <code>04b_plan-outpaint-pivot-clean-input.png</code>를 바로 ChatGPT에 첨부해 아래 아웃페인팅 프롬프트를 테스트할 수 있습니다.
+          {enabled && (
+            <>
+              {' '}
+              <a href={`${base}/${l05OutpaintCleanInput.outputPath}`} download="04b_plan-outpaint-pivot-clean-input.png">입력 PNG 받기</a>
+            </>
+          )}
+        </p>
+      </article>
+    </div>
+
+    <div class="l05-co-ba-grid">
+      <figure class="l05-co-figure">
+        <span class="l05-co-pill l05-co-pill-before">Before · Pivot 좌측 이동 완료</span>
+        {enabled && (
+          <img
+            src={`${base}/${l05OutpaintBefore.outputPath}`}
+            alt={l05OutpaintBefore.title}
+            width={l05OutpaintBefore.width}
+            height={l05OutpaintBefore.height}
+            loading="lazy"
+          />
+        )}
+        <figcaption>
+          <strong>기존 카페 평면(PLAN-BASE-02)을 좌측에 고정</strong>
+          <span>원본 Pivot을 왼쪽으로 이동해 우측 외벽(W3) 바깥쪽에 외부 테라스와 조경을 그려 넣을 충분한 흰 여백을 확보한 입력 상태입니다.</span>
+        </figcaption>
+      </figure>
+
+      <figure class="l05-co-figure">
+        <span class="l05-co-pill l05-co-pill-after">After · 우측 데크 · 조경 아웃페인팅</span>
+        {enabled && (
+          <img
+            src={`${base}/${l05OutpaintAfter.outputPath}`}
+            alt={l05OutpaintAfter.title}
+            width={l05OutpaintAfter.width}
+            height={l05OutpaintAfter.height}
+            loading="lazy"
+          />
+        )}
+        <figcaption>
+          <strong>좌측 원본 유지 + 우측 우드 데크·야외 좌석·플랜터 확장</strong>
+          <span>기존 벽·바 카운터·치수는 손대지 않고 우측 빈 여백에만 같은 2D 선화 톤으로 데크 테라스, 원형 테이블, 벤치, 플랜터, 진입 디딤석을 연결했습니다.</span>
+        </figcaption>
+      </figure>
+    </div>
+
+    <div class="l05-co-prompt-card">
+      <div class="l05-co-prompt-head">
+        <strong>ChatGPT 실전 짧은 프롬프트 · Pivot 이동 2D 평면 아웃페인팅</strong>
+        <button type="button" class="l05-co-copy-btn" data-l05-co-copy={outpaintPrompt}>프롬프트 복사</button>
+      </div>
+      <pre class="l05-co-pre">{outpaintPrompt}</pre>
+    </div>
+
+    <div class="l05-co-birdseye-wrap">
+      <figure class="l05-co-birdseye-fig">
+        <span class="l05-co-pill l05-co-pill-teal">응용 시각화 · 45° 버드뷰 + 조경 + 골든아워</span>
+        {enabled && (
+          <img
+            src={`${base}/${l05BirdseyeAfter.outputPath}`}
+            alt={l05BirdseyeAfter.title}
+            width={l05BirdseyeAfter.width}
+            height={l05BirdseyeAfter.height}
+            loading="lazy"
+          />
+        )}
+        <figcaption>
+          <strong>평면 확장안을 버드뷰(Bird's-Eye View)와 조경·날씨 키워드로 입체화한 예시</strong>
+          <span>
+            <code>Bird's-Eye View</code> + <code>Timber Wood Deck</code> + <code>Concrete Planters &amp; Multi-stem Trees</code> +
+            <code>Stone Stepping Stones</code> + <code>Warm Golden Hour</code> 키워드를 조합하면 평면 확장 구상을 곧바로 설득력 있는 대지·조경 이미지로 발전시킬 수 있습니다.
+          </span>
+        </figcaption>
+      </figure>
+      <div class="l05-co-prompt-card">
+        <div class="l05-co-prompt-head">
+          <strong>ChatGPT 실전 짧은 프롬프트 · 버드뷰(Bird's-Eye) 조경 · 날씨 확장</strong>
+          <button type="button" class="l05-co-copy-btn" data-l05-co-copy={birdseyePrompt}>프롬프트 복사</button>
+        </div>
+        <pre class="l05-co-pre">{birdseyePrompt}</pre>
+      </div>
+    </div>
+
+    <div class="l05-co-dict-wrap">
+      <h4>5대 건축 프롬프트 키워드 조합 사전 (한글 · 영문 병기)</h4>
+      <p class="l05-co-dict-lead">
+        ChatGPT는 한글만 써도 잘 이해하지만, <strong>카메라 구도와 건축 조경 용어에 영문 키워드를 괄호로 병기</strong>하면
+        원하는 시점(탑뷰·버드뷰·조감도)과 재질·광원이 훨씬 안정적으로 고정됩니다. 아래 표에서 필요한 키워드를 골라 조합해 보세요.
+      </p>
+      <div class="l04-table l05-co-dict-table">
+        <table>
+          <thead>
+            <tr>
+              <th>분류</th>
+              <th>한글 키워드</th>
+              <th>병기 영문 키워드</th>
+              <th>실무 활용 포인트</th>
+            </tr>
+          </thead>
+          <tbody>
+            {keywordGroups.map((group) =>
+              group.items.map((item, idx) => (
+                <tr>
+                  {idx === 0 && (
+                    <th rowspan={group.items.length} class="l05-co-cat-cell">{group.category}</th>
+                  )}
+                  <td><strong>{item.ko}</strong></td>
+                  <td><code>{item.en}</code></td>
+                  <td>{item.use}</td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="l05-co-builder" data-l05-keyword-builder>
+      <div class="l05-co-builder-head">
+        <div>
+          <h4>ChatGPT 프롬프트 키워드 조합기 (클릭해서 바로 조립)</h4>
+          <p>아래 4개 항목에서 원하는 칩을 클릭하면 한글·영문 키워드가 결합된 실전 ChatGPT 프롬프트가 자동으로 완성됩니다.</p>
+        </div>
+        <button type="button" class="l05-co-copy-btn" data-l05-builder-copy>조합 프롬프트 복사</button>
+      </div>
+
+      <div class="l05-co-builder-controls">
+        <div class="l05-co-chip-row" data-builder-group="task">
+          <span class="l05-co-row-label">① 작업 방식</span>
+          <div class="l05-co-chips">
+            {builderOptions.task.map((opt, idx) => (
+              <button
+                type="button"
+                class:list={['l05-co-chip', idx === 2 && 'is-active']}
+                data-builder-key="task"
+                data-builder-text={opt.text}
+                aria-pressed={idx === 2 ? 'true' : 'false'}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div class="l05-co-chip-row" data-builder-group="view">
+          <span class="l05-co-row-label">② 카메라 구도</span>
+          <div class="l05-co-chips">
+            {builderOptions.view.map((opt, idx) => (
+              <button
+                type="button"
+                class:list={['l05-co-chip', idx === 1 && 'is-active']}
+                data-builder-key="view"
+                data-builder-text={opt.text}
+                aria-pressed={idx === 1 ? 'true' : 'false'}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div class="l05-co-chip-row" data-builder-group="landscape">
+          <span class="l05-co-row-label">③ 조경물 추가</span>
+          <div class="l05-co-chips">
+            {builderOptions.landscape.map((opt, idx) => (
+              <button
+                type="button"
+                class:list={['l05-co-chip', idx === 1 && 'is-active']}
+                data-builder-key="landscape"
+                data-builder-text={opt.text}
+                aria-pressed={idx === 1 ? 'true' : 'false'}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div class="l05-co-chip-row" data-builder-group="weather">
+          <span class="l05-co-row-label">④ 환경 · 날씨</span>
+          <div class="l05-co-chips">
+            {builderOptions.weather.map((opt, idx) => (
+              <button
+                type="button"
+                class:list={['l05-co-chip', idx === 2 && 'is-active']}
+                data-builder-key="weather"
+                data-builder-text={opt.text}
+                aria-pressed={idx === 2 ? 'true' : 'false'}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <pre class="l05-co-pre l05-co-builder-output" data-l05-builder-output>{`왼쪽에 배치된 기존 도면(벽, 창문, 문, 실내 배치)은 위치와 비율을 절대 바꾸지 말고, 오른쪽 흰색 빈 여백에만 외부 공간을 자연스럽게 확장해 그려 주세요.
+카메라 구도: 상공 45도 버드뷰(Bird's-Eye View, High-Angle Architectural View).
+조경 요소: 자연 목재 우드 데크 테라스(Natural Timber Deck), 야외 원형 테이블과 벤치, 경계부 석재 플랜터(Concrete Planters)를 조화롭게 배치해 주세요.
+환경 및 마감: 늦은 오후 골든아워(Warm Golden Hour Sunlight), 긴 대각선 그림자와 은은한 실내 전구색 조명, 글자·워터마크 금지.`}</pre>
+    </div>
+
+    {enabled && (
+      <div class="l05-co-download-bar" data-l05-cleanup-outpaint-downloads>
+        <div>
+          <strong>클린업 · Pivot 아웃페인팅 · 키워드 실습 패키지</strong>
+          <p>Before/After 도면 5종 + Pivot·구도 도식 SVG + 버드뷰 예시 + ChatGPT 짧은 프롬프트·키워드 사전 TXT 포함</p>
+        </div>
+        <div class="l05-co-dl-actions">
+          <a class="review-download" href={`${base}/${l05CleanupOutpaintZip.outputPath}`} download="DJ-L05_CLEANUP_OUTPAINT_PACK.zip">
+            실습 패키지 ZIP 다운로드
+          </a>
+          <a class="review-download" href={`${base}/${l05ShortPromptsTxt.outputPath}`} download="L05_CHATGPT_SHORT_PROMPTS_AND_KEYWORDS.txt">
+            프롬프트·키워드 사전 TXT
+          </a>
+        </div>
+      </div>
+    )}
+  </section>
+)}
+
+<script>
+  const initL05CleanupOutpaint = () => {
+    document.querySelectorAll<HTMLButtonElement>('[data-l05-co-copy]').forEach((btn) => {
+      if (btn.dataset.bound === '1') return;
+      btn.dataset.bound = '1';
+      btn.addEventListener('click', async () => {
+        const text = btn.dataset.l05CoCopy || '';
+        try {
+          await navigator.clipboard.writeText(text);
+          const orig = btn.textContent;
+          btn.textContent = '복사됨 ✓';
+          setTimeout(() => {
+            btn.textContent = orig;
+          }, 1400);
+        } catch {
+          // fallback ignored
+        }
+      });
+    });
+
+    document.querySelectorAll<HTMLElement>('[data-l05-keyword-builder]').forEach((root) => {
+      if (root.dataset.bound === '1') return;
+      root.dataset.bound = '1';
+      const output = root.querySelector<HTMLElement>('[data-l05-builder-output]');
+      const copyBtn = root.querySelector<HTMLButtonElement>('[data-l05-builder-copy]');
+      const state: Record<string, string> = {};
+
+      const readInitial = () => {
+        root.querySelectorAll<HTMLButtonElement>('.l05-co-chip.is-active').forEach((chip) => {
+          const k = chip.dataset.builderKey;
+          if (k) state[k] = chip.dataset.builderText || '';
+        });
+      };
+
+      const render = () => {
+        if (!output) return;
+        const lines = [
+          state.task || '',
+          state.view ? `카메라 구도: ${state.view}.` : '',
+          state.landscape ? `조경 요소: ${state.landscape}를 조화롭게 배치해 주세요.` : '',
+          state.weather ? `환경 및 마감: ${state.weather}.` : '',
+        ].filter(Boolean);
+        output.textContent = lines.join('\n');
+      };
+
+      readInitial();
+      render();
+
+      root.querySelectorAll<HTMLButtonElement>('.l05-co-chip').forEach((chip) => {
+        chip.addEventListener('click', () => {
+          const k = chip.dataset.builderKey;
+          if (!k) return;
+          root.querySelectorAll<HTMLButtonElement>(`.l05-co-chip[data-builder-key="${k}"]`).forEach((sib) => {
+            sib.classList.remove('is-active');
+            sib.setAttribute('aria-pressed', 'false');
+          });
+          chip.classList.add('is-active');
+          chip.setAttribute('aria-pressed', 'true');
+          state[k] = chip.dataset.builderText || '';
+          render();
+        });
+      });
+
+      copyBtn?.addEventListener('click', async () => {
+        const text = output?.textContent || '';
+        try {
+          await navigator.clipboard.writeText(text);
+          const orig = copyBtn.textContent;
+          copyBtn.textContent = '복사됨 ✓';
+          setTimeout(() => {
+            copyBtn.textContent = orig;
+          }, 1400);
+        } catch {
+          // fallback ignored
+        }
+      });
+    });
+  };
+
+  initL05CleanupOutpaint();
+  document.addEventListener('astro:page-load', initL05CleanupOutpaint);
+</script>
+
+<style>
+  .l05-co-panel {
+    margin: 1.4rem 0 1.8rem;
+    padding: 1.25rem;
+    border-radius: 14px;
+    border: 1px solid #cbd5e1;
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+  }
+  .l05-co-panel-outpaint {
+    border-color: #99f6e4;
+    background: linear-gradient(180deg, #f0fdfa 0%, #ffffff 18%);
+  }
+  .l05-co-head h3 {
+    margin: 0.45rem 0 0.4rem;
+    font-size: 1.12rem;
+    color: #0f172a;
+  }
+  .l05-co-head p {
+    margin: 0 0 1rem;
+    font-size: 0.94rem;
+    line-height: 1.65;
+    color: #334155;
+  }
+  .l05-co-badge {
+    display: inline-block;
+    padding: 0.22rem 0.65rem;
+    border-radius: 999px;
+    background: #dbeafe;
+    color: #1e3a8a;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+  .l05-co-badge-teal {
+    background: #ccfbf1;
+    color: #115e59;
+  }
+  .l05-co-ba-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+  .l05-co-figure,
+  .l05-co-diagram,
+  .l05-co-birdseye-fig {
+    margin: 0;
+    padding: 0.85rem;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .l05-co-figure img,
+  .l05-co-diagram img,
+  .l05-co-birdseye-fig img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+  }
+  .l05-co-figure figcaption,
+  .l05-co-diagram figcaption,
+  .l05-co-birdseye-fig figcaption {
+    font-size: 0.86rem;
+    line-height: 1.55;
+    color: #334155;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .l05-co-figure figcaption strong,
+  .l05-co-diagram figcaption strong,
+  .l05-co-birdseye-fig figcaption strong {
+    color: #0f172a;
+  }
+  .l05-co-pill {
+    align-self: flex-start;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.77rem;
+    font-weight: 700;
+  }
+  .l05-co-pill-before {
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+  }
+  .l05-co-pill-after {
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+  }
+  .l05-co-pill-teal {
+    background: #f0fdfa;
+    color: #0f766e;
+    border: 1px solid #99f6e4;
+  }
+  .l05-co-pivot-steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.85rem;
+    margin: 1rem 0;
+  }
+  .l05-co-pivot-steps article {
+    padding: 0.85rem 0.95rem;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+  }
+  .l05-co-pivot-steps h4 {
+    margin: 0 0 0.35rem;
+    font-size: 0.9rem;
+    color: #1e3a8a;
+  }
+  .l05-co-pivot-steps p {
+    margin: 0;
+    font-size: 0.84rem;
+    line-height: 1.55;
+    color: #334155;
+  }
+  .l05-co-prompt-card {
+    margin: 1rem 0;
+    padding: 0.95rem 1rem;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    background: #f8fafc;
+  }
+  .l05-co-prompt-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.55rem;
+  }
+  .l05-co-prompt-head strong {
+    font-size: 0.9rem;
+    color: #0f172a;
+  }
+  .l05-co-copy-btn {
+    padding: 0.38rem 0.8rem;
+    border-radius: 7px;
+    border: 1px solid #1e3a8a;
+    background: #1e3a8a;
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .l05-co-copy-btn:hover {
+    background: #1d4ed8;
+  }
+  .l05-co-pre {
+    margin: 0;
+    padding: 0.8rem 0.9rem;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    font-family: inherit;
+    font-size: 0.86rem;
+    line-height: 1.6;
+    color: #0f172a;
+    white-space: pre-wrap;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+  .l05-co-tip {
+    margin: 0.6rem 0 0;
+    font-size: 0.84rem;
+    line-height: 1.55;
+    color: #475569;
+  }
+  .l05-co-birdseye-wrap {
+    margin: 1.25rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .l05-co-dict-wrap {
+    margin: 1.35rem 0;
+  }
+  .l05-co-dict-wrap h4 {
+    margin: 0 0 0.35rem;
+    font-size: 1.02rem;
+    color: #0f172a;
+  }
+  .l05-co-dict-lead {
+    margin: 0 0 0.75rem;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #334155;
+  }
+  .l05-co-dict-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.84rem;
+  }
+  .l05-co-dict-table th,
+  .l05-co-dict-table td {
+    padding: 0.52rem 0.6rem;
+    border: 1px solid #cbd5e1;
+    vertical-align: top;
+    text-align: left;
+  }
+  .l05-co-cat-cell {
+    background: #f1f5f9;
+    color: #1e3a8a;
+    font-weight: 800;
+    min-width: 120px;
+  }
+  .l05-co-dict-table code {
+    font-size: 0.8rem;
+    background: #f1f5f9;
+    padding: 0.1rem 0.3rem;
+    border-radius: 4px;
+    color: #0f766e;
+    word-break: break-word;
+  }
+  .l05-co-builder {
+    margin: 1.3rem 0 1rem;
+    padding: 1rem 1.1rem;
+    border-radius: 12px;
+    border: 1.5px solid #0f766e;
+    background: #ffffff;
+  }
+  .l05-co-builder-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.8rem;
+  }
+  .l05-co-builder-head h4 {
+    margin: 0 0 0.2rem;
+    font-size: 0.98rem;
+    color: #0f766e;
+  }
+  .l05-co-builder-head p {
+    margin: 0;
+    font-size: 0.84rem;
+    color: #475569;
+  }
+  .l05-co-builder-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    margin-bottom: 0.85rem;
+  }
+  .l05-co-chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+  }
+  .l05-co-row-label {
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #334155;
+    min-width: 96px;
+  }
+  .l05-co-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    flex: 1;
+  }
+  .l05-co-chip {
+    padding: 0.32rem 0.65rem;
+    border-radius: 999px;
+    border: 1px solid #cbd5e1;
+    background: #f8fafc;
+    color: #334155;
+    font-size: 0.79rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+  }
+  .l05-co-chip:hover {
+    border-color: #0f766e;
+    color: #0f766e;
+  }
+  .l05-co-chip.is-active {
+    background: #0f766e;
+    border-color: #0f766e;
+    color: #ffffff;
+  }
+  .l05-co-builder-output {
+    border-color: #99f6e4;
+    background: #f0fdfa;
+  }
+  .l05-co-download-bar {
+    margin-top: 1.15rem;
+    padding: 0.95rem 1.05rem;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    background: #f8fafc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+  }
+  .l05-co-download-bar strong {
+    display: block;
+    font-size: 0.92rem;
+    color: #0f172a;
+  }
+  .l05-co-download-bar p {
+    margin: 0.2rem 0 0;
+    font-size: 0.82rem;
+    color: #475569;
+  }
+  .l05-co-dl-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+  @media (max-width: 780px) {
+    .l05-co-ba-grid,
+    .l05-co-pivot-steps {
+      grid-template-columns: 1fr;
+    }
+    .l05-co-row-label {
+      min-width: 100%;
+    }
+  }
+  @media print {
+    .l05-co-copy-btn,
+    .l05-co-builder-controls {
+      display: none !important;
+    }
+    .l05-co-figure,
+    .l05-co-diagram,
+    .l05-co-birdseye-fig,
+    .l05-co-prompt-card,
+    .l05-co-builder {
+      break-inside: avoid;
+    }
+  }
+</style>
