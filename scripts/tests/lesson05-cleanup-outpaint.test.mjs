@@ -69,6 +69,8 @@ test('Lesson 05 page integrates cleanup/outpaint guide and keeps learner-languag
   assert(pageSrc.includes('mode="cleanup"'), '05.astro must include cleanup mode');
   assert(pageSrc.includes('mode="outpaint-keywords"'), '05.astro must include outpaint-keywords mode');
   assert(compSrc.includes('data-l05-keyword-builder'), 'Component must include interactive keyword builder');
+  assert(compSrc.includes('applyDomainRules'), 'Combiner must enforce 2D vs 3D domain rules');
+  assert(compSrc.includes('data-l05-builder-hint'), 'Combiner must show mode rule hint');
   assert(compSrc.includes('Orthographic Top-Down Plan'));
   assert(compSrc.includes("Bird's-Eye View"));
   assert(compSrc.includes('Aerial Perspective'));

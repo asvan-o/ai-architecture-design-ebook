@@ -84,28 +84,74 @@ const keywordGroups = [
 
 const builderOptions = {
   task: [
-    { id: 'cleanup', label: '도면 클린업', text: '이 2D 건축 평면도에서 기존 가구, 치수선, 문자, 검토 메모를 모두 지우고 외벽·내벽·기둥·창문·출입문만 남긴 깔끔한 흑백 2D 선화로 정리해 주세요.' },
-    { id: 'inpaint', label: '부분 수정 (인페인팅)', text: '이 도면에서 지정한 실내 영역의 가구·출입문만 교체해 주세요. 외벽, 기둥, 창문, 주변 공간과 기존 치수·글자는 원본 그대로 유지하세요.' },
-    { id: 'outpaint', label: 'Pivot 이동 확장 (아웃페인팅)', text: '왼쪽에 배치된 기존 도면(벽, 창문, 문, 실내 배치)은 위치와 비율을 절대 바꾸지 말고, 오른쪽 흰색 빈 여백에만 외부 공간을 자연스럽게 확장해 그려 주세요.' },
+    {
+      id: 'cleanup',
+      domain: '2d-cleanup',
+      label: '2D 도면 클린업',
+      text: '이 2D 건축 평면도에서 기존 가구, 치수선, 축선 번호, 공간명, 빨간 검토 메모를 모두 지우고 외벽·내벽·기둥·창문·출입문만 남겨 주세요.',
+    },
+    {
+      id: 'inpaint',
+      domain: '2d-inpaint',
+      label: '2D 부분 수정 (인페인팅)',
+      text: '이 2D 평면도에서 지정한 실내 영역의 가구·출입문만 교체해 주세요. 외벽, 기둥, 창문, 주변 공간과 기존 치수·글자는 원본 그대로 유지하세요.',
+    },
+    {
+      id: 'outpaint-2d',
+      domain: '2d-outpaint',
+      label: '2D Pivot 확장 (아웃페인팅)',
+      text: '왼쪽에 배치된 기존 2D 평면도(벽, 창문, 문, 실내 배치, 치수)는 위치와 비율을 절대 바꾸지 말고, 오른쪽 흰색 빈 여백에만 외부 공간을 2D 평면도로 자연스럽게 확장해 그려 주세요.',
+    },
+    {
+      id: 'outpaint-photo',
+      domain: '3d-photo',
+      label: '외관·조감도 사진 Pivot 아웃페인팅',
+      text: '원본 건물 사진(또는 투시도)의 형태와 구도는 그대로 고정하고, Pivot을 옮겨 확보한 바깥쪽 빈 여백에만 주변 대지·조경·도로 맥락을 자연스럽게 확장해 그려 주세요.',
+    },
+    {
+      id: 'plan-to-3d',
+      domain: '3d-from-plan',
+      label: '평면도 → 3D 입체 전환 (응용)',
+      text: '첨부한 2D 평면도의 벽체·창호·출입문·공간 배치 비율을 참고해 사실적인 3D 건축 시각화 이미지로 입체화해 주세요.',
+    },
   ],
   view: [
-    { id: 'top', label: '탑뷰 (Orthographic Top-Down)', text: '수직 정사영 탑뷰(Orthographic Top-Down Plan, 투시 왜곡 없음)' },
-    { id: 'birdseye', label: "버드뷰 (Bird's-Eye 45°)", text: "상공 45도 버드뷰(Bird's-Eye View, High-Angle Architectural View)" },
-    { id: 'aerial', label: '조감도 (Aerial / Drone View)', text: '원거리 30도 드론 조감도(Aerial Perspective / Drone View, 전면 도로와 주변 맥락 포함)' },
-    { id: 'eye', label: '눈높이 (Eye-Level 2-Point)', text: '보행자 눈높이 2점 투시도(Eye-Level Two-Point Perspective, 수직선 수직 보정)' },
+    { id: 'top', kind: '2d', label: '2D 탑뷰 (Orthographic Top-Down)', text: '수직 정사영 2D 평면 탑뷰(Orthographic Top-Down Plan, 투시 왜곡 없음)' },
+    { id: 'birdseye', kind: '3d', label: "버드뷰 (Bird's-Eye 45°)", text: "상공 45도 버드뷰(Bird's-Eye View, High-Angle Architectural View)" },
+    { id: 'aerial', kind: '3d', label: '조감도 (Aerial / Drone View)', text: '원거리 30도 드론 조감도(Aerial Perspective / Drone View, 전면 도로와 주변 맥락 포함)' },
+    { id: 'iso', kind: '3d-plan', label: '아이소메트릭 (Isometric 3D)', text: '3D 아이소메트릭 단면 조감(Isometric 3D Architectural Cutaway, 공간 조닝 명확화)' },
+    { id: 'eye', kind: '3d', label: '눈높이 (Eye-Level 2-Point)', text: '보행자 눈높이 2점 투시도(Eye-Level Two-Point Perspective, 수직선 수직 보정)' },
   ],
   landscape: [
-    { id: 'none', label: '조경 없음 (도면 전용)', text: '' },
-    { id: 'deck-planter', label: '우드 데크 + 석재 플랜터', text: '자연 목재 우드 데크 테라스(Natural Timber Deck), 야외 원형 테이블과 벤치, 경계부 석재 플랜터(Concrete Planters)' },
-    { id: 'trees-grass', label: '다간형 수목 + 억새류 그라스', text: '다간형 교목(Multi-stem Trees), 억새류 그라스(Ornamental Grasses), 낮은 상록 관목 식재' },
-    { id: 'stepping-street', label: '진입 디딤석 + 보행 포장', text: '자갈 위 직사각 디딤석(Stone Stepping Stones)과 밝은 콘크리트 보행 포장 진입 동선' },
+    { id: 'none', kind: 'none', label: '조경 없음 (실내·도면 전용)', text: '', text2d: '' },
+    {
+      id: 'deck-planter',
+      kind: 'ext',
+      label: '우드 데크 + 석재 플랜터',
+      text: '자연 목재 우드 데크 테라스(Natural Timber Deck), 야외 원형 테이블과 벤치, 경계부 석재 플랜터(Concrete Planters)',
+      text2d: '외부 우드 데크 해치선, 2인용 원형 야외 테이블·벤치, 경계부 조경 플랜터의 2D 평면 심볼',
+    },
+    {
+      id: 'trees-grass',
+      kind: 'ext',
+      label: '다간형 수목 + 억새류 그라스',
+      text: '다간형 교목(Multi-stem Trees), 억새류 그라스(Ornamental Grasses), 낮은 상록 관목 식재',
+      text2d: '수목 수관 원형 심볼(교목·관목 군식)과 식재 경계선 2D 도면 표기',
+    },
+    {
+      id: 'stepping-street',
+      kind: 'ext',
+      label: '진입 디딤석 + 보행 포장',
+      text: '자갈 위 직사각 디딤석(Stone Stepping Stones)과 밝은 콘크리트 보행 포장 진입 동선',
+      text2d: '직사각 진입 디딤석 배열과 외부 보행 동선 2D 평면 표기',
+    },
   ],
   weather: [
-    { id: 'cad-white', label: '흰 배경 2D 선화 (날씨 없음)', text: '흰색 배경, 깔끔한 건축 도면 선 두께와 축척 통일, 글자·워터마크 금지' },
-    { id: 'clear', label: '맑은 주간 (Clear Daylight)', text: '맑은 주간 자연광(Crisp Clear Daylight), 부드러운 건축 그림자, 사실적인 건축 사진 스타일, 글자·워터마크 금지' },
-    { id: 'golden', label: '골든아워 · 석양 (Golden Hour)', text: '늦은 오후 골든아워(Warm Golden Hour Sunlight), 긴 대각선 그림자와 은은한 실내 전구색 조명, 글자·워터마크 금지' },
-    { id: 'overcast', label: '흐린 확산광 (Overcast)', text: '부드러운 흐린 날 확산광(Soft Overcast Diffused Light), 과장 없는 중립 건축 사진 톤, 글자·워터마크 금지' },
-    { id: 'after-rain', label: '비 온 뒤 반사 (After Rain)', text: '비 온 뒤 촉촉한 포장 반사(After-Rain Damp Paving Reflections), 선명한 식재 색감, 글자·워터마크 금지' },
+    { id: 'cad-white', kind: '2d', label: '흰 배경 2D 선화 (날씨 없음)', text: '순백색 배경, 기존 도면과 통일된 깔끔한 흑백 2D 건축 선 두께와 축척 유지, 불필요한 글자·워터마크 금지' },
+    { id: 'clear', kind: '3d', label: '맑은 주간 (Clear Daylight)', text: '맑은 주간 자연광(Crisp Clear Daylight), 부드러운 건축 그림자, 사실적인 건축 사진 스타일, 글자·워터마크 금지' },
+    { id: 'golden', kind: '3d', label: '골든아워 · 석양 (Golden Hour)', text: '늦은 오후 골든아워(Warm Golden Hour Sunlight), 긴 대각선 그림자와 은은한 실내 전구색 조명, 글자·워터마크 금지' },
+    { id: 'overcast', kind: '3d', label: '흐린 확산광 (Overcast)', text: '부드러운 흐린 날 확산광(Soft Overcast Diffused Light), 과장 없는 중립 건축 사진 톤, 글자·워터마크 금지' },
+    { id: 'after-rain', kind: '3d', label: '비 온 뒤 반사 (After Rain)', text: '비 온 뒤 촉촉한 포장 반사(After-Rain Damp Paving Reflections), 선명한 식재 색감, 글자·워터마크 금지' },
   ],
 };
 ---
@@ -333,11 +379,18 @@ const builderOptions = {
     <div class="l05-co-builder" data-l05-keyword-builder>
       <div class="l05-co-builder-head">
         <div>
-          <h4>ChatGPT 프롬프트 키워드 조합기 (클릭해서 바로 조립)</h4>
-          <p>아래 4개 항목에서 원하는 칩을 클릭하면 한글·영문 키워드가 결합된 실전 ChatGPT 프롬프트가 자동으로 완성됩니다.</p>
+          <h4>ChatGPT 프롬프트 키워드 조합기 (2D 도면 / 3D 시점 자동 구분)</h4>
+          <p>
+            <strong>2D 평면 작업</strong>은 정사영 탑뷰·2D 선화로 자동 고정되고,
+            <strong>외관 사진 아웃페인팅·3D 입체 전환</strong>을 고를 때만 버드뷰·조감도·눈높이 카메라 구도와 날씨가 열립니다.
+          </p>
         </div>
         <button type="button" class="l05-co-copy-btn" data-l05-builder-copy>조합 프롬프트 복사</button>
       </div>
+
+      <p class="l05-co-builder-hint" data-l05-builder-hint aria-live="polite">
+        평면도 → 3D 입체 전환 모드: 2D 평면도를 참고해 3D 건축 이미지로 입체화하는 응용 단계이므로 버드뷰·조감도·아이소메트릭·눈높이 구도와 조경·날씨를 자유롭게 조합할 수 있습니다.
+      </p>
 
       <div class="l05-co-builder-controls">
         <div class="l05-co-chip-row" data-builder-group="task">
@@ -346,10 +399,12 @@ const builderOptions = {
             {builderOptions.task.map((opt, idx) => (
               <button
                 type="button"
-                class:list={['l05-co-chip', idx === 2 && 'is-active']}
+                class:list={['l05-co-chip', idx === 4 && 'is-active']}
                 data-builder-key="task"
+                data-builder-id={opt.id}
+                data-builder-domain={opt.domain}
                 data-builder-text={opt.text}
-                aria-pressed={idx === 2 ? 'true' : 'false'}
+                aria-pressed={idx === 4 ? 'true' : 'false'}
               >
                 {opt.label}
               </button>
@@ -365,8 +420,11 @@ const builderOptions = {
                 type="button"
                 class:list={['l05-co-chip', idx === 1 && 'is-active']}
                 data-builder-key="view"
+                data-builder-id={opt.id}
+                data-builder-kind={opt.kind}
                 data-builder-text={opt.text}
                 aria-pressed={idx === 1 ? 'true' : 'false'}
+                disabled={opt.kind === '2d'}
               >
                 {opt.label}
               </button>
@@ -382,7 +440,10 @@ const builderOptions = {
                 type="button"
                 class:list={['l05-co-chip', idx === 1 && 'is-active']}
                 data-builder-key="landscape"
+                data-builder-id={opt.id}
+                data-builder-kind={opt.kind}
                 data-builder-text={opt.text}
+                data-builder-text2d={opt.text2d}
                 aria-pressed={idx === 1 ? 'true' : 'false'}
               >
                 {opt.label}
@@ -399,8 +460,11 @@ const builderOptions = {
                 type="button"
                 class:list={['l05-co-chip', idx === 2 && 'is-active']}
                 data-builder-key="weather"
+                data-builder-id={opt.id}
+                data-builder-kind={opt.kind}
                 data-builder-text={opt.text}
                 aria-pressed={idx === 2 ? 'true' : 'false'}
+                disabled={opt.kind === '2d'}
               >
                 {opt.label}
               </button>
@@ -409,7 +473,7 @@ const builderOptions = {
         </div>
       </div>
 
-      <pre class="l05-co-pre l05-co-builder-output" data-l05-builder-output>{`왼쪽에 배치된 기존 도면(벽, 창문, 문, 실내 배치)은 위치와 비율을 절대 바꾸지 말고, 오른쪽 흰색 빈 여백에만 외부 공간을 자연스럽게 확장해 그려 주세요.
+      <pre class="l05-co-pre l05-co-builder-output" data-l05-builder-output>{`첨부한 2D 평면도의 벽체·창호·출입문·공간 배치 비율을 참고해 사실적인 3D 건축 시각화 이미지로 입체화해 주세요.
 카메라 구도: 상공 45도 버드뷰(Bird's-Eye View, High-Angle Architectural View).
 조경 요소: 자연 목재 우드 데크 테라스(Natural Timber Deck), 야외 원형 테이블과 벤치, 경계부 석재 플랜터(Concrete Planters)를 조화롭게 배치해 주세요.
 환경 및 마감: 늦은 오후 골든아워(Warm Golden Hour Sunlight), 긴 대각선 그림자와 은은한 실내 전구색 조명, 글자·워터마크 금지.`}</pre>
@@ -458,41 +522,121 @@ const builderOptions = {
       if (root.dataset.bound === '1') return;
       root.dataset.bound = '1';
       const output = root.querySelector<HTMLElement>('[data-l05-builder-output]');
+      const hint = root.querySelector<HTMLElement>('[data-l05-builder-hint]');
       const copyBtn = root.querySelector<HTMLButtonElement>('[data-l05-builder-copy]');
-      const state: Record<string, string> = {};
 
-      const readInitial = () => {
-        root.querySelectorAll<HTMLButtonElement>('.l05-co-chip.is-active').forEach((chip) => {
-          const k = chip.dataset.builderKey;
-          if (k) state[k] = chip.dataset.builderText || '';
+      const domainHints: Record<string, string> = {
+        '2d-cleanup': '2D 평면 클린업 모드: 입력과 출력이 모두 2D 평면도이므로 카메라 구도는 정사영 2D 탑뷰로, 마감은 흰 배경 2D 선화로 자동 고정됩니다. (3D 구도·야외 조경·날씨 비활성화)',
+        '2d-inpaint': '2D 평면 인페인팅 모드: 기존 2D 평면의 실내 가구·문만 수정하므로 카메라 구도는 정사영 2D 탑뷰, 마감은 흰 배경 2D 선화로 자동 고정됩니다.',
+        '2d-outpaint': '2D Pivot 아웃페인팅 모드: 좌측 원본 평면과 같은 정사영 2D 탑뷰·선화를 유지하면서, 우측 여백에 추가할 외부 요소를 2D 평면 심볼로 선택할 수 있습니다.',
+        '3d-photo': '외관·조감도 사진 아웃페인팅 모드: 원본 건물 사진·투시도의 구도를 유지하면서 Pivot 여백에 주변 조경과 날씨·광원을 자연스럽게 확장합니다.',
+        '3d-from-plan': '평면도 → 3D 입체 전환 모드: 2D 평면도를 참고해 3D 건축 이미지로 입체화하는 응용 단계이므로 버드뷰·조감도·아이소메트릭·눈높이 구도와 조경·날씨를 자유롭게 조합할 수 있습니다.',
+      };
+
+      const chipsOf = (key: string) =>
+        [...root.querySelectorAll<HTMLButtonElement>(`.l05-co-chip[data-builder-key="${key}"]`)];
+
+      const activateChip = (key: string, chip: HTMLButtonElement | undefined) => {
+        if (!chip) return;
+        chipsOf(key).forEach((sib) => {
+          const on = sib === chip;
+          sib.classList.toggle('is-active', on);
+          sib.setAttribute('aria-pressed', on ? 'true' : 'false');
         });
+      };
+
+      const activeChip = (key: string) =>
+        root.querySelector<HTMLButtonElement>(`.l05-co-chip.is-active[data-builder-key="${key}"]`);
+
+      const applyDomainRules = (domain: string) => {
+        const is2d = domain.startsWith('2d-');
+        const allowLandscape = domain === '2d-outpaint' || !is2d;
+
+        // ② 카메라 구도 허용 규칙
+        chipsOf('view').forEach((c) => {
+          const kind = c.dataset.builderKind || '';
+          let allowed = false;
+          if (is2d) allowed = kind === '2d';
+          else if (domain === '3d-photo') allowed = kind === '3d';
+          else allowed = kind === '3d' || kind === '3d-plan';
+          c.disabled = !allowed;
+        });
+        if (!activeChip('view') || activeChip('view')?.disabled) {
+          const fallback = chipsOf('view').find((c) => !c.disabled && c.dataset.builderId === (is2d ? 'top' : 'birdseye'))
+            || chipsOf('view').find((c) => !c.disabled);
+          activateChip('view', fallback);
+        }
+
+        // ③ 조경물 추가 허용 규칙
+        chipsOf('landscape').forEach((c) => {
+          const kind = c.dataset.builderKind || '';
+          const allowed = allowLandscape ? (domain === '2d-outpaint' ? kind === 'ext' : true) : kind === 'none';
+          c.disabled = !allowed;
+        });
+        if (!activeChip('landscape') || activeChip('landscape')?.disabled) {
+          const fallback = chipsOf('landscape').find((c) => !c.disabled && c.dataset.builderId === (allowLandscape ? 'deck-planter' : 'none'))
+            || chipsOf('landscape').find((c) => !c.disabled);
+          activateChip('landscape', fallback);
+        }
+
+        // ④ 환경 · 날씨 허용 규칙
+        chipsOf('weather').forEach((c) => {
+          const kind = c.dataset.builderKind || '';
+          const allowed = is2d ? kind === '2d' : kind === '3d';
+          c.disabled = !allowed;
+        });
+        if (!activeChip('weather') || activeChip('weather')?.disabled) {
+          const fallback = chipsOf('weather').find((c) => !c.disabled && c.dataset.builderId === (is2d ? 'cad-white' : 'golden'))
+            || chipsOf('weather').find((c) => !c.disabled);
+          activateChip('weather', fallback);
+        }
+
+        if (hint && domainHints[domain]) {
+          hint.textContent = domainHints[domain];
+        }
       };
 
       const render = () => {
         if (!output) return;
+        const t = activeChip('task');
+        const v = activeChip('view');
+        const l = activeChip('landscape');
+        const w = activeChip('weather');
+        const domain = t?.dataset.builderDomain || '3d-from-plan';
+        const is2d = domain.startsWith('2d-');
+
+        const taskText = t?.dataset.builderText || '';
+        const viewText = v?.dataset.builderText || '';
+        const landText = domain === '2d-outpaint'
+          ? (l?.dataset.builderText2d || '')
+          : (l?.dataset.builderText || '');
+        const weatherText = w?.dataset.builderText || '';
+
         const lines = [
-          state.task || '',
-          state.view ? `카메라 구도: ${state.view}.` : '',
-          state.landscape ? `조경 요소: ${state.landscape}를 조화롭게 배치해 주세요.` : '',
-          state.weather ? `환경 및 마감: ${state.weather}.` : '',
+          taskText,
+          viewText ? `${is2d ? '도면 시점' : '카메라 구도'}: ${viewText}.` : '',
+          landText
+            ? (domain === '2d-outpaint'
+              ? `외부 확장 요소(2D 평면): ${landText}을 기존 도면 축척에 맞춰 그려 주세요.`
+              : `조경 요소: ${landText}를 조화롭게 배치해 주세요.`)
+            : '',
+          weatherText ? `${is2d ? '도면 마감' : '환경 및 마감'}: ${weatherText}.` : '',
         ].filter(Boolean);
         output.textContent = lines.join('\n');
       };
 
-      readInitial();
+      applyDomainRules(activeChip('task')?.dataset.builderDomain || '3d-from-plan');
       render();
 
       root.querySelectorAll<HTMLButtonElement>('.l05-co-chip').forEach((chip) => {
         chip.addEventListener('click', () => {
+          if (chip.disabled) return;
           const k = chip.dataset.builderKey;
           if (!k) return;
-          root.querySelectorAll<HTMLButtonElement>(`.l05-co-chip[data-builder-key="${k}"]`).forEach((sib) => {
-            sib.classList.remove('is-active');
-            sib.setAttribute('aria-pressed', 'false');
-          });
-          chip.classList.add('is-active');
-          chip.setAttribute('aria-pressed', 'true');
-          state[k] = chip.dataset.builderText || '';
+          activateChip(k, chip);
+          if (k === 'task') {
+            applyDomainRules(chip.dataset.builderDomain || '3d-from-plan');
+          }
           render();
         });
       });
@@ -804,10 +948,33 @@ const builderOptions = {
     border-color: #0f766e;
     color: #0f766e;
   }
+  .l05-co-builder-hint {
+    margin: 0 0 0.85rem;
+    padding: 0.55rem 0.78rem;
+    border-radius: 8px;
+    border: 1px solid #bfdbfe;
+    background: #eff6ff;
+    color: #1e40af;
+    font-size: 0.81rem;
+    line-height: 1.5;
+    font-weight: 600;
+  }
   .l05-co-chip.is-active {
     background: #0f766e;
     border-color: #0f766e;
     color: #ffffff;
+  }
+  .l05-co-chip:disabled {
+    opacity: 0.36;
+    cursor: not-allowed;
+    text-decoration: line-through;
+    background: #f1f5f9;
+    border-color: #e2e8f0;
+    color: #94a3b8;
+  }
+  .l05-co-chip:disabled:hover {
+    border-color: #e2e8f0;
+    color: #94a3b8;
   }
   .l05-co-builder-output {
     border-color: #99f6e4;
