@@ -159,6 +159,60 @@ git clone https://github.com/neka-nat/freecad-mcp.git`;
 
 export const freeCadModPathCmd = `import os; print(os.path.join(FreeCAD.getUserAppDataDir(), "Mod"))`;
 
+export const optAOneClickCmd = `# 1) 무료 2D 도면 뷰어 LibreCAD 설치 (이미 있으면 자동 건너뜀)
+winget install -e --id LibreCAD.LibreCAD --accept-package-agreements --accept-source-agreements
+
+# 2) 도면 MCP 내려받기 + 부품 자동 설치
+New-Item -ItemType Directory -Force 'C:\\mcp' | Out-Null
+if (-not (Test-Path 'C:\\mcp\\aiblueprint-mcp')) {
+  git clone https://github.com/thebossnow/aiblueprint-mcp.git 'C:\\mcp\\aiblueprint-mcp'
+}
+Set-Location 'C:\\mcp\\aiblueprint-mcp'
+uv sync
+
+# 3) 성공 확인 (True가 나오면 옵션 A 설치 끝!)
+Test-Path 'C:\\mcp\\aiblueprint-mcp\\.venv\\Scripts\\aiblueprint-mcp.exe'`;
+
+export const optBOneClickCmd = `# 1) 무료 3D CAD/BIM FreeCAD 설치 (이미 있으면 자동 건너뜀)
+winget install -e --id FreeCAD.FreeCAD --accept-package-agreements --accept-source-agreements
+
+# 2) FreeCAD MCP 내려받기
+New-Item -ItemType Directory -Force 'C:\\mcp' | Out-Null
+if (-not (Test-Path 'C:\\mcp\\freecad-mcp')) {
+  git clone https://github.com/neka-nat/freecad-mcp.git 'C:\\mcp\\freecad-mcp'
+}
+
+# 3) FreeCAD 플러그인 폴더(AppData\\Roaming\\FreeCAD\\v1-1\\Mod)에 자동 복사
+$modDir = "$env:APPDATA\\FreeCAD\\v1-1\\Mod"
+New-Item -ItemType Directory -Force $modDir | Out-Null
+Copy-Item -Recurse -Force 'C:\\mcp\\freecad-mcp\\addon\\FreeCADMCP' "$modDir\\"
+
+# 4) 성공 확인 (둘 다 True가 나오면 옵션 B 설치 끝!)
+Write-Host "플러그인 복사 확인:" (Test-Path "$modDir\\FreeCADMCP\\InitGui.py")
+Write-Host "백그라운드 엔진 확인:" (Test-Path 'C:\\Program Files\\FreeCAD 1.1\\bin\\FreeCADCmd.exe')`;
+
+export const codexAutoConfigCmd = `$u = $env:USERNAME
+$fc = (Get-ChildItem 'C:\\Program Files\\FreeCAD*' -Recurse -Filter FreeCADCmd.exe -ErrorAction SilentlyContinue | Select-Object -First 1).FullName
+if (-not $fc) { $fc = 'C:\\Program Files\\FreeCAD 1.1\\bin\\FreeCADCmd.exe' }
+@"
+[mcp_servers.aiblueprint]
+command = 'C:\\Users\\$u\\.local\\bin\\uv.exe'
+args = ["run", "--directory", 'C:\\mcp\\aiblueprint-mcp', "aiblueprint-mcp"]
+startup_timeout_sec = 60
+
+[mcp_servers.freecad]
+command = 'C:\\Users\\$u\\.local\\bin\\uvx.exe'
+args = ["freecad-mcp", "--host", "127.0.0.1", "--freecadcmd", '$fc']
+startup_timeout_sec = 60
+
+[mcp_servers.blender]
+command = 'C:\\Users\\$u\\.local\\bin\\uvx.exe'
+args = ["blender-mcp"]
+startup_timeout_sec = 60
+"@
+# 출력된 내용을 복사한 뒤 아래 한 줄로 config.toml을 바로 열어 붙여넣고 저장:
+# notepad "$env:USERPROFILE\\.codex\\config.toml"`;
+
 export const codexUnifiedConfig = `[mcp_servers.aiblueprint]
 command = 'C:\\Users\\<본인계정명>\\.local\\bin\\uv.exe'
 args = ["run", "--directory", 'C:\\mcp\\aiblueprint-mcp', "aiblueprint-mcp"]
