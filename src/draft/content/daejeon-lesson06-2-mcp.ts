@@ -226,6 +226,32 @@ export const fastPromptRules = [
 
 export const cadDoctorCmd = 'python .agents/skills/cad-drawings/scripts/doctor.py';
 
+export const skillVerifyCmd = `# 방금 설치 명령을 실행한 같은 PowerShell 창에서 확인
+Test-Path .\\.agents\\skills\\architectural-concept-design\\SKILL.md
+# 파일 탐색기로 .agents\\skills 폴더 바로 열기
+explorer .\\.agents\\skills`;
+
+export const l062QuickIndex = [
+  { code: '01', label: 'Veo 평면 입체화 원리', href: '#l062-video-principle' },
+  { code: '02', label: 'Veo 한글 프롬프트 5종', href: '#l062-video-prompts' },
+  { code: '03', label: '3DGS 핵심 & 업스케일', href: '#l062-3dgs-summary' },
+  { code: '04', label: '건축 4대장 & DWG vs DXF', href: '#l062-arch-software' },
+  { code: '05', label: 'PC 사전 점검 & uv 설치', href: '#l062-precheck' },
+  { code: '06', label: '옵션 A · aiblueprint', href: '#l062-opt-a' },
+  { code: '07', label: '옵션 B · FreeCAD MCP', href: '#l062-opt-b' },
+  { code: '08', label: '메인 3D · Blender MCP', href: '#l062-blender-mcp' },
+  { code: '09-1', label: 'Codex·Claude 통합 설정', href: '#l062-client-config' },
+  { code: '09-2', label: 'FreeCAD 백그라운드 빠른 설정', href: '#l062-freecad-headless' },
+  { code: '09-3', label: '느림 방지 프롬프트 3원칙', href: '#l062-fast-prompt-rules' },
+  { code: '09-4', label: '연결 확인 테스트 3종', href: '#l062-verify-tests' },
+  { code: '09-5', label: '자주 만나는 오류 해결', href: '#l062-troubleshooting' },
+  { code: '10-1', label: '스킬 3단계 설치·폴더 확인', href: '#l062-skills-guide' },
+  { code: '10-2', label: '$cad-drawings (DXF 검수)', href: '#l062-skill-cad-drawings' },
+  { code: '10-3', label: '$architectural-concept-design', href: '#l062-skill-concept-design' },
+  { code: '10-4', label: 'Gridline 3종 (도면·시각화)', href: '#l062-skill-gridline' },
+  { code: '10-5', label: '$my-arch-dxf (직접 제작)', href: '#l062-custom-skill' },
+] as const;
+
 export const customSkillTemplate = `---
 name: my-arch-dxf
 description: 우리 사무실 표준 건축 레이어로 2D DXF 평면도를 1회 일괄 생성하고, 실별 면적표(㎡·평) CSV까지 자동 출력하는 전용 스킬
@@ -261,6 +287,8 @@ export const cadSkillExamples = [
   {
     id: 'cad-drawings',
     badge: '도면 자동 검수관 · 입문 1순위',
+    prepBadge: '준비물: 기존 DXF 파일 1개 필요',
+    prepNeedsDxf: true,
     title: 'cad-drawings · 기존 DXF 검수에 우선 추천',
     plainSummary: '이미 그려진 DXF 도면이 치수·단위·레이어·폐합 경계대로 제대로 만들어졌는지, 그리고 수정 전(v1)과 수정 후(v2)가 어디가 바뀌었는지 CAD 창을 켜지 않고 자동으로 점검해 주는 검수 스킬입니다.',
     source: 'https://github.com/numikel/cad-drawings#quick-start',
@@ -283,6 +311,8 @@ export const cadSkillExamples = [
   {
     id: 'concept-design',
     badge: '개념 설계 자동 생성기 · 빈 대지 초안용',
+    prepBadge: '준비물: 도면 파일 불필요 · 빈 폴더 + 텍스트 조건',
+    prepNeedsDxf: false,
     title: 'Architectural Concept Design · 요구사항에서 개념 도면으로',
     plainSummary: '아직 도면이 전혀 없는 빈 대지 단계에서 "땅 크기, 도로 방향, 방 개수, 연면적 한도"만 말로 적으면, 규칙 검사(동선·가구 간섭·면적)를 거쳐 평면·입면·단면 도면(DXF/PDF)과 3D 웹 뷰어까지 한 번에 뽑아 주는 설계 스킬입니다.',
     source: 'https://github.com/Mhrnqaruni/ai-agent-skill-architectural-concept-design#install',
@@ -305,6 +335,8 @@ export const cadSkillExamples = [
   {
     id: 'gridline',
     badge: '프로젝트 조정 팀 매니저 · 다단계 실무용',
+    prepBadge: '준비물: 도면 파일 불필요 · 빈 폴더 + 텍스트 조건',
+    prepNeedsDxf: false,
     title: 'Gridline · 여러 작업을 조정할 때 필요한 스킬만 선택',
     plainSummary: '방 목록 기획 → 평면도·실/문/창 일람표 생성 → Blender 시각화 계획까지 여러 단계의 산출물 버전을 서로 어긋나지 않게 맞춰 주는 모듈형 건축 스킬 묶음입니다. 30여 개 중 지금 필요한 3개만 골라 설치합니다.',
     source: 'https://github.com/MakeItEzzz555/Gridline#coordinated-cad-drawings',
@@ -316,13 +348,16 @@ export const cadSkillExamples = [
     result: '정리된 공간 프로그램, 레이어를 가진 평면 DXF와 벡터 PDF, 실·문·창 일람표를 얻습니다. Blender MCP가 연결돼 있으면 시각화 스킬이 정한 카메라·조명 계획을 실제 장면에 적용할 수 있습니다.',
     limit: '현재 로컬 도면 생성기는 평면 중심이며, 제공된 검사는 지원 항목의 일치 여부를 확인합니다. Revit·AutoCAD·Rhino를 직접 편집하려면 해당 프로그램과 별도 연결이 필요합니다. 단순한 DXF 검수부터 시작한다면 cad-drawings 하나면 충분합니다.',
     setup: '세 스킬 중 필요한 것만 설치하려면 명령에 해당 --skill 옵션만 남깁니다. DXF/PDF 생성까지 할 때는 원 저장소에 안내된 Python 의존성(ezdxf·matplotlib·pypdf)을 별도 환경에 설치하고 예제 명세로 build·check를 먼저 실행합니다.',
-    scenarioTitle: '실무 시나리오 S3 · 공간 프로그램 → 평면 DXF·일람표 일치 검증 → Blender 시각화 연결',
+    scenarioTitle: '실무 시나리오 S3 · 빈 폴더에서 텍스트 조건 → 공간 프로그램 → 평면 DXF·일람표 → Blender 시각화 계획',
     scenarioSteps: [
-      '$architecture-programming으로 프로젝트의 실 ID·목표 면적·필수 인접 관계 표를 먼저 확정합니다.',
-      '확정한 치수만 넘겨 $architectural-drawing-generation으로 레이어 평면 DXF, 벡터 PDF, 실·문·창 일람표를 생성하고 check 결과를 확인합니다.',
-      '같은 도면 버전을 기준으로 $visualization-rendering의 카메라·조명·재료 계획을 받아 연결된 Blender MCP 장면에 적용하고, 최종 컷은 제7차시 업스케일로 마감합니다.',
+      '기존 도면 파일은 필요 없습니다. 빈 작업 폴더(예: gridline-test)에서 터미널을 열어 3개 스킬을 설치한 뒤, Codex에서 그 폴더를 엽니다.',
+      '아래 요청처럼 건물 조건(대지 12 × 15m, 연면적 80m² 이내 단층 주택)을 붙여 $architecture-programming으로 실 목록·목표 면적·필수 인접 관계 표를 먼저 확정합니다.',
+      '승인한 실·벽·문·창 치수로 $architectural-drawing-generation이 평면 DXF·벡터 PDF·일람표와 check 검사 결과를 생성하면, 같은 도면 버전으로 $visualization-rendering의 Blender 카메라·조명 계획을 받아 연결된 Blender MCP에 적용합니다.',
     ],
-    prompt: `$architecture-programming으로 실 목록과 필수 인접 관계를 정리해 주세요. 승인한 실·벽·문·창 치수만 사용해 $architectural-drawing-generation으로 평면 DXF와 실·문·창 일람표를 만들고 검사 결과를 첨부해 주세요. 이 도면 버전으로 $visualization-rendering의 Blender 카메라·조명 계획도 정리해 주세요.`,
+    prompt: `설계 조건: 대지 12m × 15m, 연면적 80m² 이내 단층 주택(현관 · 거실 · 주방/식당 · 침실 2 · 욕실 1).
+1) $architecture-programming으로 실 ID, 목표 면적, 필수 인접 관계 표를 정리하고 미정 치수는 표준 가정값으로 제안해 주세요.
+2) 승인한 실·벽·문·창 치수만 사용해 $architectural-drawing-generation으로 평면 DXF, 벡터 PDF, 실·문·창 일람표를 만들고 명세 일치 검사(check) 결과를 첨부해 주세요.
+3) 확정된 도면 버전 기준으로 $visualization-rendering의 Blender 제안 컷 3장(외관 정면 · 거실 투시 · 주방 시선) 카메라·조명·재료 계획도 정리해 주세요.`,
   },
 ] as const;
 

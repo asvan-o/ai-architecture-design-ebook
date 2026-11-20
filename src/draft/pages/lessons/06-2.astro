@@ -31,6 +31,8 @@ import {
   freeCadHeadlessTimings,
   fastPromptRules,
   cadDoctorCmd,
+  skillVerifyCmd,
+  l062QuickIndex,
   customSkillTemplate,
   customSkillCallPrompt,
   cadSkillExamples,
@@ -94,6 +96,21 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
         진행하며, <strong>이미지 고화질 업스케일은 후속 MCP 실무 시나리오의 최종 결과물 마감 단계</strong>에서 적용합니다.
       </p>
     </aside>
+
+    <nav class="l062-quick-index" aria-label="제6-2차시 세부 단락 빠른 이동">
+      <div class="l062-quick-index-head">
+        <strong>빠른 단락 인덱스 이동</strong>
+        <span>각 단락 앞의 번호 배지(<code>01</code>~<code>10-5</code>)를 기준으로 바로 이동할 수 있습니다.</span>
+      </div>
+      <div class="l062-quick-index-grid">
+        {l062QuickIndex.map((item) => (
+          <a href={item.href} class="l062-quick-chip">
+            <span class="l062-quick-code">{item.code}</span>
+            <span>{item.label}</span>
+          </a>
+        ))}
+      </div>
+    </nav>
 
     {lesson062Periods.map((period, periodIndex) => (
       <div class="day-period" id={period.id} data-period={periodIndex + 1} data-teaching-minutes="50">
@@ -546,6 +563,7 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
 
             {section.id === 'l062-client-connect' && (
               <>
+                <h3 id="l062-client-config">AI 클라이언트 3종 통합 설정 (Codex · Claude Desktop)</h3>
                 <p>
                   아래 설정 파일에 <code>&lt;본인계정명&gt;</code>을 05단계에서 확인한 실제 Windows 계정명으로 바꾼 뒤 저장하고,
                   <strong>앱을 작업표시줄 트레이까지 완전히 종료했다가 재실행</strong>합니다.
@@ -666,7 +684,7 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
                   이 수치는 화면 없는 실험의 기준값입니다. 설치 환경과 애드온 상태에 따라 달라질 수 있습니다.
                 </p>
 
-                <h3>MCP를 원격제어처럼 느리게 쓰지 않는 프롬프트 3원칙</h3>
+                <h3 id="l062-fast-prompt-rules">MCP를 원격제어처럼 느리게 쓰지 않는 프롬프트 3원칙</h3>
                 <p>
                   도구를 한 선·한 박스씩 20번 왕복 호출하거나 화면을 마우스로 클릭시키면 간단한 작업도 오래 걸립니다.
                   아래 3가지 지시를 요청문 끝에 붙여 주면 체감 속도가 크게 개선됩니다.
@@ -682,7 +700,7 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
                   ))}
                 </div>
 
-                <h3>연결 성공 확인 테스트 3종</h3>
+                <h3 id="l062-verify-tests">연결 성공 확인 테스트 3종</h3>
                 <div class="review-cards">
                   <article class="review-card">
                     <h4>테스트 1 · 옵션 A (aiblueprint)</h4>
@@ -698,7 +716,7 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
                   </article>
                 </div>
 
-                <h3>자주 만나는 오류와 해결 방법</h3>
+                <h3 id="l062-troubleshooting">자주 만나는 오류와 해결 방법</h3>
                 <div class="l04-table">
                   <table>
                     <thead>
@@ -726,10 +744,11 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
             {section.id === 'l062-codex-skills' && (
               <>
                 <p>
-                  <strong>“MCP”와 “스킬(Skill)”의 차이</strong>는 아주 간단합니다.
-                  <strong>MCP</strong>는 CAD·FreeCAD·Blender를 실제로 움직이는 <strong>‘손발’</strong>이고,
+                  <strong>“MCP”와 “스킬(Skill)”의 차이</strong>는 아주 간단합니다.{' '}
+                  <strong>MCP</strong>는 CAD·FreeCAD·Blender를 실제로 움직이는 <strong>‘손발’</strong>이고,{' '}
                   <strong>스킬(<code>SKILL.md</code>)</strong>은 <em>“어떤 순서로 검사하고, 어떤 규칙으로 도면과 면적표를 만들지”</em>를 적어 둔 <strong>‘업무 매뉴얼’</strong>입니다.
-                  아래 그림처럼 두 가지를 결합하면 매번 길게 설명하지 않아도 같은 기준으로 도면 검수·개념 설계·3D 시각화를 반복할 수 있습니다.
+                  아래 그림처럼 두 가지를 결합하면 매번 길게 설명하지 않아도 같은 기준으로 도면 검수·개념 설계·3D 시각화를 반복할 수 있으며,
+                  스킬 자체는 옵션 A·B MCP가 꺼져 있어도 Codex 내부 Python 스크립트로 독립 실행됩니다.
                 </p>
 
                 {enabled && (
@@ -747,18 +766,26 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
                   </figure>
                 )}
 
-                <h3>초보자 3단계 설치·호출 가이드 (대상 프로젝트 폴더에서 시작)</h3>
+                <h3 id="l062-skills-guide">초보자 3단계 설치·호출 가이드 (작업 폴더에서 시작)</h3>
                 <ol class="l062-steps">
-                  <li><strong>스킬 내용 먼저 확인:</strong> 아래 공개 GitHub 링크에서 <code>SKILL.md</code>와 포함된 Python 스크립트를 확인합니다.</li>
+                  <li><strong>준비물 확인:</strong> 아래 4개 스킬 중 <strong><code>$cad-drawings</code>만 기존 DXF 파일 1개가 필요</strong>합니다. 나머지 3개(<code>$architectural-concept-design</code> · <code>Gridline</code> · <code>$my-arch-dxf</code>)는 도면 파일 없이 <strong>빈 폴더 + 텍스트 건축 조건</strong>만으로 바로 시작합니다.</li>
                   <li>
-                    <strong>프로젝트 폴더에 설치:</strong> 작업할 프로젝트 최상위 폴더에서 PowerShell을 열고 필요한 스킬 명령 1줄만 실행합니다.
+                    <strong>새 작업 폴더에서 터미널 열기 &amp; 스킬 설치:</strong> 바탕화면이나 C드라이브에 연습용 빈 폴더(예: <code>gridline-test</code>)를 만들고, 그 폴더 안 빈 공간에서 <strong>마우스 우클릭 → <code>터미널에서 열기</code></strong>(안 보이면 탐색기 상단 주소창 클릭 → <code>powershell</code> 입력 후 Enter)를 눌러 필요한 스킬 명령 1줄을 실행합니다.
                     <ul>
-                      <li><code>npx</code> 명령에는 <strong>Node.js</strong>(<code>node --version</code> 확인)가 필요하며, <code>--copy</code>는 파일을 직접 복사합니다.</li>
+                      <li><code>npx</code> 명령에는 <strong>Node.js</strong>(<code>node --version</code> 확인)가 필요하며, <code>--copy</code>는 현재 폴더 안 <code>.agents\skills\</code>에 파일을 직접 복사합니다.</li>
                       <li><strong>Node.js가 없는 PC 대안:</strong> GitHub에서 저장소를 내려받은 뒤 해당 스킬 폴더 전체를 프로젝트 안 <code>.agents/skills/&lt;이름&gt;/</code>에 수동 복사하거나, Codex 채팅창에서 <code>$skill-installer</code>로 설치할 수 있습니다.</li>
+                      <li><strong>모든 프로젝트에서 공통 사용하려면:</strong> 폴더 이동 없이 기본 PowerShell(<code>C:\Users\&lt;본인계정명&gt;</code>)에서 설치하면 <code>%USERPROFILE%\.agents\skills</code>에 저장되어 어디서나 호출됩니다.</li>
                     </ul>
                   </li>
-                  <li><strong>Codex에서 <code>$이름</code> 호출:</strong> <code>.agents/skills/&lt;이름&gt;/SKILL.md</code>가 있는 폴더를 Codex로 열고, 입력창에 <code>$</code>를 쳐 스킬을 고른 뒤 아래 시나리오 요청문을 보냅니다. 여러 프로젝트에서 공통으로 쓰려면 <code>%USERPROFILE%\.agents\skills</code>에 둘 수 있으며, 목록에 안 보이면 Codex를 재시작합니다.</li>
+                  <li><strong>설치 위치 확인 &amp; Codex에서 <code>$이름</code> 호출:</strong> 방금 설치한 PowerShell 창에서 아래 확인 명령으로 <code>True</code>를 확인한 뒤, <strong>Codex 앱에서 그 작업 폴더를 열고</strong> 채팅창에 <code>$</code>를 쳐 스킬을 선택합니다. 목록에 안 보이면 Codex를 재시작합니다.</li>
                 </ol>
+                <div class="l062-code-card">
+                  <div class="l062-code-head">
+                    <strong>PowerShell · 방금 설치한 스킬 폴더 1초 확인 (숨긴 항목 포함 바로 열기)</strong>
+                    <button type="button" class="l062-copy-btn" data-l062-copy={skillVerifyCmd}>복사</button>
+                  </div>
+                  <pre class="l062-pre">{skillVerifyCmd}</pre>
+                </div>
                 <p class="l062-note">
                   <a href="https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills" target="_blank" rel="noreferrer">Codex 스킬 위치와 호출</a> ·
                   <a href="https://github.com/vercel-labs/skills/blob/main/docs/commands.md#options" target="_blank" rel="noreferrer">설치 명령 옵션</a>
@@ -766,7 +793,10 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
 
                 {cadSkillExamples.map((skill) => (
                   <section id={`l062-skill-${skill.id}`} class="l062-skill-box">
-                    <span class="l062-skill-badge">{skill.badge}</span>
+                    <div class="l062-badge-row">
+                      <span class="l062-skill-badge">{skill.badge}</span>
+                      <span class:list={['l062-prep-badge', { 'l062-prep-badge-dxf': skill.prepNeedsDxf }]}>{skill.prepBadge}</span>
+                    </div>
                     <h3>{skill.title}</h3>
                     <p class="l062-skill-plain">{skill.plainSummary}</p>
 
@@ -875,7 +905,10 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
                 ))}
 
                 <section id="l062-custom-skill" class="l062-skill-box l062-skill-box-custom">
-                  <span class="l062-skill-badge l062-skill-badge-navy">직접 제작 · 우리 사무실 전용 스킬</span>
+                  <div class="l062-badge-row">
+                    <span class="l062-skill-badge l062-skill-badge-navy">직접 제작 · 우리 사무실 전용 스킬</span>
+                    <span class="l062-prep-badge">준비물: 도면 파일 불필요 · 빈 폴더 + 텍스트 조건</span>
+                  </div>
                   <h3>응용 · 나만의 건축 DXF 스킬(<code>SKILL.md</code>) 직접 만들어 적용하기</h3>
                   <p class="l062-skill-plain">
                     외부 공개 스킬만 쓰는 것이 아니라, <strong>우리 사무실의 표준 레이어 이름(<code>A-WALL</code>·<code>A-DOOR</code>·<code>A-AREA</code>)과 엑셀 면적표 양식</strong>을
@@ -959,9 +992,73 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
     max-width: 100%;
     overflow-x: auto;
   }
+  .l062-quick-index {
+    margin: 1.75rem 0 2.5rem;
+    padding: 1.35rem 1.45rem;
+    border-radius: 14px;
+    border: 1.5px solid #cbd5e1;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgb(15 23 42 / 5%);
+  }
+  .l062-quick-index-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.45rem 1rem;
+    margin-bottom: 0.95rem;
+    padding-bottom: 0.7rem;
+    border-bottom: 1px dashed #cbd5e1;
+  }
+  .l062-quick-index-head strong {
+    font-size: 0.98rem;
+    color: #0f172a;
+  }
+  .l062-quick-index-head span {
+    font-size: 0.83rem;
+    color: #475569;
+  }
+  .l062-quick-index-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.55rem;
+  }
+  .l062-quick-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.48rem 0.65rem;
+    border-radius: 9px;
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    color: #0f172a;
+    text-decoration: none;
+    font-size: 0.82rem;
+    line-height: 1.38;
+    transition: border-color 140ms ease, background-color 140ms ease;
+  }
+  .l062-quick-chip:hover {
+    border-color: #1e3a8a;
+    background: #eff6ff;
+    color: #1e3a8a;
+  }
+  .l062-quick-code {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.35rem;
+    padding: 0.14rem 0.42rem;
+    border-radius: 6px;
+    background: #1e3a8a;
+    color: #ffffff;
+    font-size: 0.74rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+  }
   .l062-code-card {
-    margin: 0.95rem 0;
-    padding: 0.9rem 1rem;
+    margin: 1.45rem 0;
+    padding: 1.05rem 1.15rem;
     border-radius: 12px;
     border: 1.5px solid #cbd5e1;
     background: #f8fafc;
@@ -1040,8 +1137,8 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
     font-weight: 600;
   }
   .l062-details {
-    margin: 1rem 0;
-    padding: 0.7rem 0.9rem;
+    margin: 1.45rem 0;
+    padding: 0.85rem 1.05rem;
     border-radius: 10px;
     border: 1px solid #cbd5e1;
     background: #ffffff;
@@ -1054,17 +1151,17 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
   .l062-rule-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.85rem;
-    margin: 0.9rem 0 1.4rem;
+    gap: 1rem;
+    margin: 1.35rem 0 2rem;
   }
   .l062-rule-card {
-    padding: 0.9rem;
+    padding: 1.05rem;
     border-radius: 12px;
     border: 1px solid #cbd5e1;
     background: #ffffff;
     display: flex;
     flex-direction: column;
-    gap: 0.45rem;
+    gap: 0.55rem;
   }
   .l062-rule-card h4 {
     margin: 0;
@@ -1094,19 +1191,28 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
     padding: 0.3rem 0.65rem;
   }
   .l062-skill-box {
-    margin: 1.4rem 0;
-    padding: 1.15rem;
-    border-radius: 14px;
+    margin: 2.5rem 0;
+    padding: 1.5rem 1.55rem;
+    border-radius: 16px;
     border: 1.5px solid #cbd5e1;
     background: #ffffff;
+    box-shadow: 0 3px 12px rgb(15 23 42 / 4%);
+    scroll-margin-top: 6rem;
   }
   .l062-skill-box-custom {
     border-color: #93c5fd;
-    background: linear-gradient(180deg, #eff6ff 0%, #ffffff 28%);
+    background: linear-gradient(180deg, #eff6ff 0%, #ffffff 24%);
+  }
+  .l062-badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 0.55rem;
   }
   .l062-skill-badge {
     display: inline-block;
-    padding: 0.22rem 0.65rem;
+    padding: 0.24rem 0.68rem;
     border-radius: 999px;
     background: #ccfbf1;
     color: #115e59;
@@ -1117,21 +1223,36 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
     background: #dbeafe;
     color: #1e3a8a;
   }
+  .l062-prep-badge {
+    display: inline-block;
+    padding: 0.24rem 0.68rem;
+    border-radius: 999px;
+    background: #f1f5f9;
+    color: #334155;
+    border: 1px solid #cbd5e1;
+    font-size: 0.76rem;
+    font-weight: 700;
+  }
+  .l062-prep-badge-dxf {
+    background: #fef3c7;
+    color: #92400e;
+    border-color: #fcd34d;
+  }
   .l062-skill-plain {
-    margin: 0.45rem 0 0.9rem;
-    font-size: 0.94rem;
-    line-height: 1.65;
+    margin: 0.55rem 0 1.2rem;
+    font-size: 0.95rem;
+    line-height: 1.75;
     color: #1e293b;
   }
   .l062-visual-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.9rem;
-    margin: 0.9rem 0;
+    gap: 1.05rem;
+    margin: 1.4rem 0;
   }
   .l062-visual-fig {
-    margin: 0.9rem 0;
-    padding: 0.75rem;
+    margin: 1.4rem 0;
+    padding: 0.9rem;
     border-radius: 12px;
     border: 1px solid #e2e8f0;
     background: #f8fafc;
@@ -1148,38 +1269,49 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
     background: #ffffff;
   }
   .l062-visual-fig figcaption {
-    margin-top: 0.55rem;
-    font-size: 0.83rem;
-    line-height: 1.55;
+    margin-top: 0.65rem;
+    font-size: 0.84rem;
+    line-height: 1.6;
     color: #334155;
   }
   .l062-scenario-card {
-    margin-top: 1rem;
-    padding: 0.95rem 1rem;
+    margin-top: 1.5rem;
+    padding: 1.2rem 1.25rem;
     border-radius: 12px;
     border: 1px solid #99f6e4;
     background: #f0fdfa;
   }
   .l062-scenario-card h4 {
-    margin: 0 0 0.5rem;
-    font-size: 0.94rem;
+    margin: 0 0 0.65rem;
+    font-size: 0.96rem;
     color: #0f766e;
   }
   .l062-scenario-card ol {
-    margin: 0 0 0.75rem;
+    margin: 0 0 1rem;
     padding-left: 1.25rem;
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
-    font-size: 0.88rem;
-    line-height: 1.6;
+    gap: 0.48rem;
+    font-size: 0.89rem;
+    line-height: 1.68;
     color: #1e293b;
   }
   @media (max-width: 860px) {
+    .l062-quick-index-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
     .l062-dual-code,
     .l062-rule-grid,
     .l062-visual-grid {
       grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 560px) {
+    .l062-quick-index-grid {
+      grid-template-columns: 1fr;
+    }
+    .l062-skill-box {
+      padding: 1.15rem 1.05rem;
     }
   }
   @media print {

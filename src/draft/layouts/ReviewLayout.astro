@@ -275,6 +275,27 @@ const pdfLabel = page === 'overview'
         const sidebarElement = document.querySelector<HTMLElement>('.review-sidebar');
         const header = document.querySelector<HTMLElement>('.review-header');
         const main = document.querySelector('main');
+        // Visual sub-section index pills (e.g. 09-1, 09-2) via data-subindex + CSS ::before
+        // so screen readers and PDF text-preservation checks see zero textContent mutation.
+        if (main) {
+          main.querySelectorAll<HTMLElement>('.review-section[data-review-section]').forEach((section) => {
+            const secNum = section.querySelector(':scope > .review-section-heading > .review-number')?.textContent?.trim();
+            const body = section.querySelector<HTMLElement>(':scope > .review-section-body');
+            if (!secNum || !body) return;
+            const subHeadings = [...body.querySelectorAll<HTMLElement>(
+              ':scope > h3, :scope > section > h3, :scope > article.theory-detail > h3, :scope > div.l04-technique > h3, :scope > div.l07-floorplan-part > h3, :scope > div.l08-mcp-content > h3, :scope > div.l02-ab > h3, :scope > div.ai-work-tools-comparison > h3'
+            )];
+            subHeadings.forEach((h3, idx) => {
+              const code = `${secNum}-${idx + 1}`;
+              h3.dataset.subindex = code;
+              h3.classList.add('review-sub-heading');
+              if (h3.parentElement === body) h3.classList.add('review-sub-heading--divider');
+              if (!h3.id && !h3.parentElement?.id) {
+                h3.id = `${section.id}-s${idx + 1}`;
+              }
+            });
+          });
+        }
         const entries = links.flatMap((link) => {
           const target = document.getElementById(decodeURIComponent(link.hash.slice(1)));
           if (!target || !main?.contains(target)) return [];
