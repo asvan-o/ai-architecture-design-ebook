@@ -31,14 +31,14 @@ test('Lesson 06-2 renewal visual assets exist and match manifest SHA-256', () =>
   assert(l062SkillGridlinePlan.bytes > 50000);
 });
 
-test('Lesson 06-2 renewal page covers Veo + 3DGS + 3 free MCP options + headless + beginner skills + scenarios + custom SKILL.md', () => {
-  const pageSrc = fs.readFileSync(path.join(repositoryRoot, 'src/draft/pages/lessons/06-2.astro'), 'utf8');
+test('Lesson 07-2 renewal page covers Veo + 3DGS + 3 free MCP options + headless + beginner skills + scenarios + custom SKILL.md', () => {
+  const pageSrc = fs.readFileSync(path.join(repositoryRoot, 'src/draft/pages/lessons/07-2.astro'), 'utf8');
   const dataSrc = fs.readFileSync(path.join(repositoryRoot, 'src/draft/content/daejeon-lesson06-2-mcp.ts'), 'utf8');
   const navSrc = fs.readFileSync(path.join(repositoryRoot, 'src/draft/content/review-navigation.ts'), 'utf8');
 
-  assert(navSrc.includes("'06-2'"), 'review-navigation.ts must include 06-2');
-  assert(pageSrc.includes('lessonId="06-2"'), '06-2.astro must declare lessonId="06-2"');
-  assert(!pageSrc.includes('<ReviewPrompt'), '06-2.astro must not alter global ReviewPrompt count (104)');
+  assert(navSrc.includes("'07-2'"), 'review-navigation.ts must include 07-2');
+  assert(pageSrc.includes('lessonId="07-2"'), '07-2.astro must declare lessonId="07-2"');
+  assert(!pageSrc.includes('<ReviewPrompt'), '07-2.astro must not alter global ReviewPrompt count (104)');
 
   for (const needle of [
     'aiblueprint-mcp',
@@ -66,7 +66,7 @@ test('Lesson 06-2 renewal page covers Veo + 3DGS + 3 free MCP options + headless
   const schedule = /\b\d{1,2}:\d{2}\b|\d+\s*시간|\d+\s*분(?!류)|시간이 허용되면/;
   for (const [label, src] of [
     ['daejeon-lesson06-2-mcp.ts', dataSrc],
-    ['06-2.astro', pageSrc],
+    ['07-2.astro', pageSrc],
   ]) {
     assert(!forbidden.test(src), `${label} contains forbidden wording: ${src.match(forbidden)?.[0]}`);
     assert(!schedule.test(src), `${label} contains schedule wording: ${src.match(schedule)?.[0]}`);

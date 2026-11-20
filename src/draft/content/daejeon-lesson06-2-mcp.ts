@@ -1,7 +1,7 @@
-// 제6-2차시 (리뉴얼): 평면도 3D 입체화 영상(Veo) · 3DGS 핵심 · 무료 건축 MCP 3종 공식 설치 가이드
+// 제7-2차시 (리뉴얼): 평면도 3D 입체화 영상(Veo) · 3DGS 핵심 · 무료 건축 MCP 3종 공식 설치 가이드
 
 export const lesson062Title =
-  '제6-2차시 · [리뉴얼] 평면도 영상화(Veo) · 3DGS 핵심 · 무료 건축 MCP 셋팅';
+  '제7-2차시 · [리뉴얼] 평면도 영상화(Veo) · 3DGS 핵심 · 무료 건축 MCP 셋팅';
 
 export const lesson062Lead =
   '기존 제6·7·8차시 원본을 그대로 보존한 채, 실무 수요에 맞춰 평면도 입체화 영상(Veo First→Last) → 3DGS 핵심 개념 → 무료 건축 MCP 3종(aiblueprint · FreeCAD · Blender) 공식 설치까지 한 번에 연결하는 리뉴얼 실습 페이지입니다.';
