@@ -85,7 +85,15 @@ export const lesson062Sections = [
     minutes: undefined,
     action: 'DXF 검수, 개념 설계, 건축 문서 조정 중 지금 필요한 작업을 정하고, 대응하는 스킬 하나를 프로젝트에 적용합니다.',
     reason: '반복되는 입력 확인, 산출물 생성, 검수 절차를 같은 기준으로 수행할 수 있습니다.',
-    next: '검증한 DXF와 매스를 바탕으로 건축 MCP 실습 및 이미지 마감으로 연결',
+    next: '검증한 DXF와 매스를 바탕으로 옵션 A·B 실무 시나리오 실습으로 연결',
+  },
+  {
+    id: 'l062-mcp-scenarios',
+    title: '실전 실습 · 샘플 자료로 옵션 A(2D 도면) · 옵션 B(3D CAD) 바로 써 보기',
+    minutes: undefined,
+    action: '제공되는 샘플 3종(평면도 PNG · 표준 DXF · 대지 조건서 TXT)을 내려받아 실제 사무실 상황 그대로 2D 도면 작도·수정 비교·3D 건물 압출·기획 매스 검토를 체험합니다.',
+    reason: '빈 상자 테스트를 넘어, 첨부자료를 기반으로 실제 건축 실무에 바로 투입할 수 있는 자연어 요청 흐름을 익히기 위해서입니다.',
+    next: '생성한 .obj / .FCStd 3D 모델을 제8·9차시 Blender MCP와 제7차시 업스케일로 연결',
   },
 ] as const;
 
@@ -304,6 +312,122 @@ export const l062QuickIndex = [
   { code: '10-3', label: '$architectural-concept-design', href: '#l062-skill-concept-design' },
   { code: '10-4', label: 'Gridline 3종 (도면·시각화)', href: '#l062-skill-gridline' },
   { code: '10-5', label: '$my-arch-dxf (직접 제작)', href: '#l062-custom-skill' },
+  { code: '11-1', label: '실습 샘플 3종 다운로드 & 위치', href: '#l062-sample-pack' },
+  { code: '11-2', label: '[옵션 A] 사진·PDF → DXF 작도', href: '#l062-scenario-a1' },
+  { code: '11-3', label: '[옵션 A] 기존 DXF 수정·비교표', href: '#l062-scenario-a2' },
+  { code: '11-4', label: '[옵션 B] 2D DXF → 3D 건물 세우기', href: '#l062-scenario-b1' },
+  { code: '11-5', label: '[옵션 B] 대지 조건서 → 3층 매스', href: '#l062-scenario-b2' },
+] as const;
+
+export const mcpPracticeScenarios = [
+  {
+    id: 'l062-scenario-a1',
+    optionTag: '옵션 A · 2D 도면',
+    optionTone: 'teal',
+    sampleTag: '사용 샘플: ① 오피스 평면도 PNG (PLAN-BASE-01)',
+    title: '시나리오 A-1 · CAD 파일 없이 평면도 사진·PDF만 받았을 때 → 도면(DXF)과 면적표 만들기',
+    situation: '발주처나 부동산에서 캐드 원본(.dwg)은 없고 평면도 이미지나 PDF 한 장만 보내줬습니다. 이걸 보고 캐드에서 처음부터 다시 따라 그리면 반나절이 걸립니다.',
+    whereToUseSample: '다운로드한 ① 오피스 평면도 이미지(PLAN-BASE-01 PNG)를 Codex 채팅창의 파일 첨부(+) 버튼으로 올리고 아래 1단계부터 시작합니다.',
+    steps: [
+      '이미지를 첨부하고 먼저 치수와 방 크기만 표로 읽게 합니다. (바로 그리라고 하면 치수가 틀어지기 쉽습니다.)',
+      '표에서 잘못 읽은 숫자 1~2개만 확인해 채팅으로 바로잡습니다.',
+      '확정된 표로 DXF 도면 + 엑셀 면적표(CSV) + 미리보기 이미지를 한 번에 뽑아 LibreCAD로 열어 확인합니다.',
+    ],
+    prompts: [
+      {
+        label: '1단계 프롬프트 · 평면도 이미지 첨부 후 치수표 먼저 읽기',
+        text: `첨부한 평면도 이미지를 보고, 아직 도면은 그리지 말고 아래 내용만 표로 정리해 줘.
+- 건물 전체 가로·세로 길이(mm)
+- 방(실) 이름과 각각의 가로·세로 크기, 예상 면적(㎡·평)
+- 출입문과 창문의 위치와 대략적인 폭
+글씨가 흐려서 정확히 안 보이는 숫자는 '추정'이라고 표시해 줘.`,
+      },
+      {
+        label: '2단계 프롬프트 · 치수 확인 후 2D DXF 도면과 면적표 한 번에 생성',
+        text: `정리해 준 표대로 2D DXF 평면도(office_plan.dxf)를 만들어 줘.
+(고칠 숫자가 있으면 여기에 한 줄 추가: 예) 회의실 문 폭은 900mm로 맞춰 줘.)
+
+- 단위는 mm로 맞추고, 회사 AutoCAD나 LibreCAD에서 바로 수정할 수 있게 외벽·내벽·문·창문·가구·치수·실명 레이어를 나눠 줘.
+- 화면을 마우스로 클릭하지 말고 백그라운드에서 한 번에 파일로 만들어 줘.
+- 끝나면 도면 미리보기 이미지 1장이랑, 엑셀에서 한글 안 깨지는 실별 면적표(CSV)도 같이 저장해 줘.`,
+      },
+    ],
+  },
+  {
+    id: 'l062-scenario-a2',
+    optionTag: '옵션 A · 2D 도면 + $cad-drawings',
+    optionTone: 'teal',
+    sampleTag: '사용 샘플: ② 06_sample_office_plan_v1.dxf',
+    title: '시나리오 A-2 · 발주처 수정 요청 대응 → 기존 DXF 고치고 “바뀐 점 보고서” 뽑기',
+    situation: '어제 보낸 평면도를 본 발주처가 “업무공간을 조금 넓히고, 창문도 더 키워 주세요. 그리고 면적이 몇 평 바뀌었는지 알려 주세요”라고 요청했습니다.',
+    whereToUseSample: '다운로드한 ② 06_sample_office_plan_v1.dxf를 작업 폴더(예: C:\\work\\mcp-practice)에 넣어 두고, Codex에서 그 폴더를 연 뒤 실행합니다. (시나리오 A-1을 건너뛰고 바로 시작할 수 있습니다.)',
+    steps: [
+      '원본 DXF는 그대로 보존하고, 수정한 내용을 새 파일(office_plan_v2.dxf)로 저장하게 합니다.',
+      '$cad-drawings 스킬로 원본과 수정본을 자동 비교해 변경된 선·치수와 방별 면적 변화표를 받습니다.',
+      'LibreCAD에서 두 파일을 열어 수정된 가벽과 창문 폭을 최종 육안 확인합니다.',
+    ],
+    prompts: [
+      {
+        label: '실전 프롬프트 · 기존 DXF 수정 + 원본 vs 수정본 면적 변화표 보고',
+        text: `작업 폴더에 있는 06_sample_office_plan_v1.dxf를 수정해서 office_plan_v2.dxf로 새로 저장해 줘.
+수정할 부분은 두 가지야:
+1) 회의실 안쪽 가벽을 오른쪽으로 600mm 옮겨서 업무공간을 넓혀 줘.
+2) 위쪽 창문(W2) 폭을 600mm 더 넓혀 줘.
+
+저장이 끝나면 $cad-drawings로 원본(06_sample_office_plan_v1.dxf)과 수정본(office_plan_v2.dxf)을 비교해서,
+어디가 바뀌었고 방별 면적(㎡·평)이 얼마나 달라졌는지 발주처에게 보내기 좋게 표로 정리해 줘.`,
+      },
+    ],
+  },
+  {
+    id: 'l062-scenario-b1',
+    optionTag: '옵션 B · 3D CAD/BIM (FreeCAD)',
+    optionTone: 'navy',
+    sampleTag: '사용 샘플: ② 06_sample_office_plan_v1.dxf (또는 A-2의 v2)',
+    title: '시나리오 B-1 · 2D 도면(DXF) → 문·창문 뚫린 3D 건물로 바로 세우기',
+    situation: '2D 평면도는 확정됐는데, 발주처에게 입체감을 보여 주거나 나중에 Blender·SketchUp으로 넘겨 인테리어할 정확한 치수의 3D 벽체 모델이 필요합니다.',
+    whereToUseSample: '작업 폴더에 있는 ② 06_sample_office_plan_v1.dxf(또는 A-2에서 만든 office_plan_v2.dxf)를 그대로 사용합니다. FreeCAD 창을 켜지 않고 백그라운드(execute_code_headless)로 실행됩니다.',
+    steps: [
+      'DXF 파일의 외벽·내벽·기둥·문·창문 레이어를 읽어 FreeCAD가 백그라운드에서 3m 높이로 3D 벽체를 세웁니다.',
+      '문·창문 자리를 정확히 뚫고 유리까지 넣은 뒤, .FCStd · .step · .obj(Blender/SketchUp 임포트용) 3가지로 저장합니다.',
+      '저장된 파일을 다시 열어 가로·세로·높이 치수와 벽체 전체 부피(m³)를 자동 검수합니다.',
+    ],
+    prompts: [
+      {
+        label: '실전 프롬프트 · 2D DXF 평면도를 FreeCAD 3D 건물(FCStd · STEP · OBJ)로 1회 생성',
+        text: `작업 폴더에 있는 06_sample_office_plan_v1.dxf 평면도를 가지고 FreeCAD MCP(execute_code_headless)로 3D 건물을 한 번에 세워 줘.
+- 화면 조작 없이 백그라운드에서 코드 1회 실행으로 처리해 줘.
+- 바닥 두께 200mm, 천장(벽체) 높이 3,000mm로 올려 줘.
+- 문 자리는 높이 2,100mm로 뚫고, 창문 자리는 바닥에서 900mm 띄우고 높이 1,500mm로 뚫어서 유리까지 끼워 줘.
+- 결과물은 FreeCAD 파일(office_3d.FCStd), 정밀 CAD(office_3d.step), 그리고 Blender·SketchUp에서 불러올 office_3d.obj 파일까지 3가지로 저장해 줘.
+- 끝나면 파일을 다시 열어서 전체 가로·세로·높이가 맞는지, 벽체 전체 부피(m³)가 얼마인지 알려 줘.`,
+      },
+    ],
+  },
+  {
+    id: 'l062-scenario-b2',
+    optionTag: '옵션 B · 3D 기획 매스 (FreeCAD)',
+    optionTone: 'navy',
+    sampleTag: '사용 샘플: ③ 07_sample_site_brief_3f_commercial.txt',
+    title: '시나리오 B-2 · 대지·기획 조건서만 보고 → 3층 건물 기획 매스 & 건폐율·용적률 검토하기',
+    situation: '새 신축 프로젝트 의뢰가 들어와 땅 크기와 층별 조건(1층 필로티, 2~3층 사무실, 북쪽 일조권 후퇴)을 받았습니다. 본격 설계 전에 땅 위에 건물이 어느 정도 덩어리로 올라가는지 3D로 확인하고, 건폐율·용적률 숫자도 빠르게 검토하고 싶습니다.',
+    whereToUseSample: '다운로드한 ③ 07_sample_site_brief_3f_commercial.txt 파일을 작업 폴더에 넣거나 Codex 채팅창에 첨부(+)한 뒤 아래 프롬프트를 보냅니다.',
+    steps: [
+      '메모장으로 조건서(TXT)를 한 번 열어 대지 크기(12×18m)와 층별 조건을 눈으로 확인합니다.',
+      'Codex에 조건서를 첨부(또는 폴더 경로 지정)하고 FreeCAD 백그라운드로 3층 기획 3D 매스를 생성합니다.',
+      '생성된 mass_study.FCStd / .obj를 FreeCAD나 Blender에서 열어 덩어리감을 보고, 건폐율(50.0%)·용적률(99.77%) 계산표를 확인합니다.',
+    ],
+    prompts: [
+      {
+        label: '실전 프롬프트 · 대지 조건서(TXT) 첨부 → 3층 기획 3D 매스 & 법규 면적표 자동 계산',
+        text: `첨부한 07_sample_site_brief_3f_commercial.txt 조건서를 읽고, FreeCAD MCP(execute_code_headless)로 3층 근린생활시설 기획 3D 매스를 한 번에 만들어 줘.
+- 화면 조작 없이 백그라운드에서 코드 1회 실행으로 처리해 줘.
+- 조건서에 적힌 대지 판(12×18m), 1층 필로티 기둥 6개와 계단실 코어, 2층 매스, 북쪽 2m 후퇴를 반영한 3층 매스, 옥상 난간(파라펫 1.2m)까지 모두 반영해 줘.
+- 결과물은 mass_study.FCStd, mass_study.step, mass_study.obj로 저장해 줘.
+- 층별 바닥면적(㎡·평), 건축면적, 연면적, 건폐율(%), 용적률(%)도 계산해서 법규 상한(건폐율 60%, 용적률 200%) 이내인지 표로 정리해 줘.`,
+      },
+    ],
+  },
 ] as const;
 
 export const customSkillTemplate = `---

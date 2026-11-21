@@ -68,11 +68,23 @@ export const l062SkillGridlinePlan = loadAsset('05_skill-gridline-house-plan.png
   height: 990,
 });
 
+export const l062SampleOfficeDxf = loadAsset('06_sample_office_plan_v1.dxf', {
+  key: 'sample-office-plan-dxf',
+  title: '실습 샘플 2 · 9개 표준 레이어 소형 오피스 2D DXF 평면도 (14,400 × 8,400mm)',
+});
+
+export const l062SampleSiteBrief = loadAsset('07_sample_site_brief_3f_commercial.txt', {
+  key: 'sample-site-brief-txt',
+  title: '실습 샘플 3 · 3층 근린생활시설 신축 기획 대지·규모 조건서 (TXT)',
+});
+
 export const lesson062RenewalAssets = [
   l062WorkflowSvg,
   l062SkillCadPreview,
   l062SkillConceptPlan3d,
   l062SkillConceptSet,
   l062SkillGridlinePlan,
+  l062SampleOfficeDxf,
+  l062SampleSiteBrief,
   loadAsset('manifest.json', { key: 'l062-manifest' }),
 ];

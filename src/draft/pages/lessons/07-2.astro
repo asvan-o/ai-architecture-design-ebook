@@ -36,6 +36,7 @@ import {
   cadDoctorCmd,
   skillVerifyCmd,
   l062QuickIndex,
+  mcpPracticeScenarios,
   customSkillTemplate,
   customSkillCallPrompt,
   cadSkillExamples,
@@ -48,7 +49,12 @@ import {
   l062SkillConceptPlan3d,
   l062SkillConceptSet,
   l062SkillGridlinePlan,
+  l062SampleOfficeDxf,
+  l062SampleSiteBrief,
 } from '../../../../scripts/daejeon-lesson06-2-assets.mjs';
+import { lesson05Plans } from '../../../../scripts/daejeon-lesson05-assets.mjs';
+
+const sampleOfficePlanImg = lesson05Plans[0].base;
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const enabled = import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS === 'true';
@@ -983,11 +989,102 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
                   <strong>첫 실습 추천 순서</strong>
                   <p>① 이미 만든 10 × 6m 도면이 있다면 <strong><code>$cad-drawings</code></strong>로 단위·폐합·면적을 먼저 검수합니다. ② 빈 대지 초안이 필요하면 <strong><code>$architectural-concept-design</code></strong>으로 평면·입면·단면·3D 뷰어를 뽑고, ③ 여러 실·일람표·Blender 시각화를 함께 맞출 때 <strong><code>Gridline</code></strong>을, ④ 반복 업무를 내 기준대로 고정하고 싶을 때 <strong>나만의 <code>SKILL.md</code></strong>를 적용합니다.</p>
                 </aside>
+              </>
+            )}
+
+            {section.id === 'l062-mcp-scenarios' && (
+              <>
+                <p>
+                  설치 확인용 단순 사각형·상자 테스트를 마쳤다면, 이제 <strong>실제 건축 사무실에서 바로 만나는 4가지 상황</strong>을
+                  아래 샘플 자료 3종으로 그대로 체험해 봅니다.
+                  어려운 코드 용어 없이 <strong>① 실무 상황 이해 → ② 지정된 샘플 첨부·배치 → ③ 현실적인 자연어 프롬프트 복사 실행</strong> 순서로 진행하세요.
+                </p>
+
+                <h3 id="l062-sample-pack">실습 샘플 자료 3종 다운로드 &amp; 어디서 쓰는지 한눈에 보기</h3>
+                <p class="l062-note">
+                  <strong>샘플 준비 방법:</strong> 내 PC에 연습용 폴더(예: <code>C:\work\mcp-practice</code>)를 하나 만들고, 아래 샘플 3개를 모두 그 폴더에 저장한 뒤
+                  <strong>Codex 앱에서 해당 폴더를 열고</strong> 실습하면 모든 시나리오가 막힘 없이 바로 이어집니다.
+                </p>
+
+                <div class="l04-table">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>샘플 파일</th>
+                        <th>파일 내용</th>
+                        <th>어느 시나리오에서 어떻게 쓰나?</th>
+                        <th>다운로드</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>① 오피스 평면도 이미지</strong><br /><code>PLAN-BASE-01 (.png)</code></td>
+                        <td>14,400 × 8,400mm 소형 오피스·회의실 2D 평면도 (5차시 기준 도면)</td>
+                        <td><strong>시나리오 A-1 (11-2)</strong> — Codex 채팅창 <code>+</code> 버튼으로 <strong>직접 첨부</strong>해 치수 판독 → DXF 역작도</td>
+                        <td>
+                          {enabled && (
+                            <a class="l062-sample-dl" href={`${base}/${sampleOfficePlanImg.outputPath}`} download="01_sample_office_plan_reference.png">PNG 받기</a>
+                          )}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>② 표준 레이어 CAD 도면</strong><br /><code>06_sample_office_plan_v1.dxf</code></td>
+                        <td>9개 표준 레이어(<code>A-WALL</code>~<code>A-DIM</code>, <code>mm</code>)가 이미 정리된 실제 오피스 DXF</td>
+                        <td><strong>시나리오 A-2 (11-3)</strong> 수정·버전 비교 &amp; <strong>시나리오 B-1 (11-4)</strong> 3D 건물 압출용 — <strong>작업 폴더에 저장</strong>해 두고 파일명 지목</td>
+                        <td>
+                          {enabled && (
+                            <a class="l062-sample-dl" href={`${base}/${l062SampleOfficeDxf.outputPath}`} download="06_sample_office_plan_v1.dxf">DXF 받기</a>
+                          )}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><strong>③ 3층 근생 기획 조건서</strong><br /><code>07_sample_site_brief_3f_commercial.txt</code></td>
+                        <td>12×18m 대지, 1층 필로티, 2~3층 북측 일조 후퇴, 건폐율·용적률 기준 문서</td>
+                        <td><strong>시나리오 B-2 (11-5)</strong> — 작업 폴더에 넣거나 Codex에 <strong>첨부(+)</strong>해 3층 기획 3D 매스 &amp; 법규 면적표 생성</td>
+                        <td>
+                          {enabled && (
+                            <a class="l062-sample-dl" href={`${base}/${l062SampleSiteBrief.outputPath}`} download="07_sample_site_brief_3f_commercial.txt">TXT 받기</a>
+                          )}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                {mcpPracticeScenarios.map((sc) => (
+                  <section id={sc.id} class:list={['l062-skill-box', { 'l062-skill-box-custom': sc.optionTone === 'navy' }]}>
+                    <div class="l062-badge-row">
+                      <span class:list={['l062-skill-badge', { 'l062-skill-badge-navy': sc.optionTone === 'navy' }]}>{sc.optionTag}</span>
+                      <span class="l062-prep-badge l062-prep-badge-dxf">{sc.sampleTag}</span>
+                    </div>
+                    <h3>{sc.title}</h3>
+                    <p class="l062-skill-plain"><strong>실무 상황:</strong> {sc.situation}</p>
+                    <p class="l062-note"><strong>샘플 활용 위치:</strong> {sc.whereToUseSample}</p>
+
+                    <div class="l062-scenario-card">
+                      <h4>따라 하기 3단계 순서</h4>
+                      <ol>
+                        {sc.steps.map((st) => <li>{st}</li>)}
+                      </ol>
+                      {sc.prompts.map((pr) => (
+                        <div class="l062-code-card l062-code-card-teal">
+                          <div class="l062-code-head">
+                            <strong>{pr.label}</strong>
+                            <button type="button" class="l062-copy-btn" data-l062-copy={pr.text}>복사</button>
+                          </div>
+                          <pre class="l062-pre">{pr.text}</pre>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                ))}
+
                 <aside class="review-callout">
-                  <strong>다음 단계 예고 · 건축 실무 MCP 시나리오 & 최종 업스케일 마감</strong>
+                  <strong>다음 단계 연결 · 제8·9차시 Blender MCP &amp; 제7차시 업스케일 최종 마감</strong>
                   <p>
-                    무료 MCP 3종 연결과 스킬 준비가 끝나면, 다음 단계에서 <strong>① 2D 도면 생성·검수(DXF) → ② 정밀 CAD·BIM 모델링(FreeCAD) → ③ 3D 인테리어·조명·카메라(Blender)</strong>
-                    실무 시나리오를 차례대로 수행하고, 마지막에 <a href={`${base}/lessons/07/`}>제7차시</a>의 <strong>이미지 고화질 업스케일</strong>로 최종 제안서 컷을 완성합니다.
+                    시나리오 B-1·B-2에서 만든 <code>office_3d.obj</code> · <code>mass_study.obj</code>는 그대로 <a href={`${base}/lessons/08/`}>제8차시</a>·<a href={`${base}/lessons/09/`}>제9차시</a>의
+                    <strong>Blender MCP</strong>(또는 회사 SketchUp)로 불러와 재질·조명·카메라를 세팅할 수 있으며, 최종 제안서 컷은
+                    <a href={`${base}/lessons/07/`}>제7차시</a>의 <strong>이미지 고화질 업스케일</strong>로 마감합니다.
                   </p>
                 </aside>
               </>
@@ -1136,6 +1233,22 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
   }
   .l062-copy-btn:hover {
     background: #1d4ed8;
+  }
+  .l062-sample-dl {
+    display: inline-block;
+    padding: 0.36rem 0.78rem;
+    border-radius: 8px;
+    border: 1.5px solid #0f766e;
+    background: #f0fdfa;
+    color: #0f766e;
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .l062-sample-dl:hover {
+    background: #0f766e;
+    color: #ffffff;
   }
   .l062-pre {
     margin: 0;

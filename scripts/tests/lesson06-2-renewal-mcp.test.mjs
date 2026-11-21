@@ -10,13 +10,15 @@ import {
   l062SkillConceptPlan3d,
   l062SkillConceptSet,
   l062SkillGridlinePlan,
+  l062SampleOfficeDxf,
+  l062SampleSiteBrief,
   lesson062RenewalAssets,
 } from '../daejeon-lesson06-2-assets.mjs';
 
 const sha = (buf) => createHash('sha256').update(buf).digest('hex');
 
-test('Lesson 06-2 renewal visual assets exist and match manifest SHA-256', () => {
-  assert.equal(lesson062RenewalAssets.length, 6);
+test('Lesson 07-2 renewal visual and sample assets exist and match manifest SHA-256', () => {
+  assert.equal(lesson062RenewalAssets.length, 8);
   for (const asset of lesson062RenewalAssets) {
     assert(fs.existsSync(asset.source), `Missing asset: ${asset.source}`);
     const bytes = fs.readFileSync(asset.source);
@@ -29,6 +31,8 @@ test('Lesson 06-2 renewal visual assets exist and match manifest SHA-256', () =>
   assert(l062SkillConceptPlan3d.bytes > 100000);
   assert(l062SkillConceptSet.bytes > 100000);
   assert(l062SkillGridlinePlan.bytes > 50000);
+  assert(l062SampleOfficeDxf.bytes > 20000);
+  assert(l062SampleSiteBrief.bytes > 500);
 });
 
 test('Lesson 07-2 renewal page covers Veo + 3DGS + 3 free MCP options + headless + beginner skills + scenarios + custom SKILL.md', () => {
@@ -57,6 +61,12 @@ test('Lesson 07-2 renewal page covers Veo + 3DGS + 3 free MCP options + headless
     '실무 시나리오 S1',
     '실무 시나리오 S2',
     '실무 시나리오 S3',
+    '시나리오 A-1',
+    '시나리오 A-2',
+    '시나리오 B-1',
+    '시나리오 B-2',
+    '06_sample_office_plan_v1.dxf',
+    '07_sample_site_brief_3f_commercial.txt',
     '3D Gaussian Splatting',
   ]) {
     assert(pageSrc.includes(needle) || dataSrc.includes(needle), `Missing required 06-2 content: ${needle}`);
