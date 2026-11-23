@@ -4,6 +4,6 @@ import DaejeonLesson08Draft from '../../components/DaejeonLesson08Draft.astro';
 import {lesson08Title,lesson08Sections,lesson08Parts} from '../../content/daejeon-lesson08';
 const tocGroups=lesson08Parts.map((part,i)=>({id:part.id,title:'Part '+(i+1)+' · '+part.title,items:part.sections}));
 ---
-<ReviewLayout title={lesson08Title} lead="같은 원본 도면의 근거를 확인하고, 판독 기준표·클린 선화·검증한 공간 관계와 Graphviz 다이어그램을 기준으로 정리하고 Blender MCP 연결과 첫 3D 공간 생성을 실습합니다." page="lesson" lessonId="08" eyebrow="LESSON 08 · FLOORPLAN / NOTEBOOKLM / GRAPHVIZ / BLENDER MCP" toc={lesson08Sections} {tocGroups}>
+<ReviewLayout title={lesson08Title} lead="복잡한 평면도에서 방 이름·문·동선을 쉽게 정리하는 방법(정답 기준표 · 깔끔한 선화 · 방 연결 지도)을 익힌 뒤, AI(Codex)로 Blender 3D 프로그램을 직접 움직여 첫 3D 방을 만들어 봅니다." page="lesson" lessonId="08" eyebrow="LESSON 08 · FLOORPLAN / NOTEBOOKLM / GRAPHVIZ / BLENDER MCP" toc={lesson08Sections} {tocGroups}>
  <DaejeonLesson08Draft />
 </ReviewLayout>

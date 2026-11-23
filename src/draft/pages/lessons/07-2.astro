@@ -14,35 +14,34 @@ import {
   veoLastFrameExteriorPrompt,
   veoAnimOpenTopPrompt,
   veoAnimExteriorPrompt,
-  precheckCommands,
-  uvInstallCmd,
-  optAFullCmd,
-  optAInsideCmd,
-  optAOneClickCmd,
-  optBCloneCmd,
-  optBOneClickCmd,
-  freeCadModPathCmd,
-  codexUnifiedConfig,
-  codexAutoConfigCmd,
-  claudeUnifiedConfig,
-  optADirectExeCheck,
-  optADirectExeConfig,
-  freeCadCmdCheck,
-  freeCadHeadlessArgs,
-  freeCadHeadlessFullBlock,
-  freeCadHeadlessPrompt,
-  freeCadHeadlessTimings,
+  setupConceptCards,
   fastPromptRules,
+  freeCadHeadlessPrompt,
   cadDoctorCmd,
-  skillVerifyCmd,
   l062QuickIndex,
   mcpPracticeScenarios,
   customSkillTemplate,
   customSkillCallPrompt,
+  customSkillBriefElements,
+  customSkillFolderTree,
+  customSkillCreatorPrompt,
+  customSkillUsageExamples,
+  customSkillEditCmd,
   cadSkillExamples,
   archSoftwareRows,
   troubleshootingRows,
+  generalMcpSteps,
+  manualMcpToolGuides,
+  optionBPathMap,
+  optionBPathFindCmd,
+  manualConfigTomlSnippet,
+  generalSkillMethods,
 } from '../../content/daejeon-lesson06-2-mcp';
+import {
+  defaultInstallerSelection,
+  installerModuleMeta,
+  buildAllInOnePowerShell,
+} from '../../content/daejeon-all-in-one-installer';
 import {
   l062WorkflowSvg,
   l062SkillCadPreview,
@@ -55,6 +54,10 @@ import {
 import { lesson05Plans } from '../../../../scripts/daejeon-lesson05-assets.mjs';
 
 const sampleOfficePlanImg = lesson05Plans[0].base;
+const initialPowerShellScript = buildAllInOnePowerShell(
+  defaultInstallerSelection,
+  customSkillTemplate,
+);
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const enabled = import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS === 'true';
@@ -72,7 +75,7 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
   lead={lesson062Lead}
   page="lesson"
   lessonId="07-2"
-  eyebrow="LESSON 07-2 · RENEWAL · VEO VIDEO · 3DGS · FREE ARCH MCP SETUP"
+  eyebrow="LESSON 07-2 · RENEWAL · VEO VIDEO · ALL-IN-ONE MCP SETUP · SCENARIOS & SKILLS"
   sharedScreen
   {toc}
   {tocGroups}
@@ -84,7 +87,7 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
         {
           topic: 4,
           status: '리뉴얼 연결',
-          note: '평면도 입체화 영상(Veo)과 3DGS 핵심을 정리하고, 실무 수요(CAD·SketchUp)에 맞춘 무료 건축 MCP 3종 및 Codex 건축 스킬 환경을 구축합니다.',
+          note: '평면도 입체화 영상(Veo)과 3DGS·건축 프로그램 개념을 먼저 잡은 뒤, 체크박스형 PowerShell 올인원 설치 → 옵션 A·B 실무 시나리오 → Codex 건축 스킬 확장 순서로 진행합니다.',
         },
       ]}
     />
@@ -98,18 +101,17 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
     </div>
 
     <aside class="review-callout">
-      <h2>기존 차시와의 구분 및 전체 학습 흐름</h2>
+      <h2>한눈에 보는 학습 순서 (이론 최소화 → 통합 설치 → 실전 시나리오 → 스킬 확장)</h2>
       <p>
-        기존 <strong>제6차시 · 제7차시 · 제8차시</strong> 원본 교재는 그대로 보존됩니다. 이 <strong>제7-2차시(리뉴얼)</strong>는
-        실무 흐름에 맞춰 <strong>① 6차시 복습·Veo 영상 제작 → ② 7차시 3DGS 핵심 이해 → ③ 무료 건축 MCP 3종 설치 및 Codex 스킬</strong> 순서로
-        진행하며, <strong>이미지 고화질 업스케일은 후속 MCP 실무 시나리오의 최종 결과물 마감 단계</strong>에서 적용합니다.
+        기존 <strong>제6차시 · 제7차시 · 제8차시</strong> 원본 교재는 그대로 보존됩니다. 이 페이지는 복잡한 수동 폴더 이동과 반복 설치 설명을 없애고,
+        <strong>① Veo 입체화 영상 → ② 설치할 프로그램 역할 개념만 간단히 확인 → ③ 체크박스 PowerShell 올인원 한방 설치 → ④ 샘플 3종으로 옵션 A·B 실무 시나리오 바로 실습 → ⑤ 심화 건축 스킬 활용</strong> 순서로 막힘 없이 이어집니다.
       </p>
     </aside>
 
     <nav class="l062-quick-index" aria-label="제7-2차시 세부 단락 빠른 이동">
       <div class="l062-quick-index-head">
         <strong>빠른 단락 인덱스 이동</strong>
-        <span>각 단락 앞의 번호 배지(<code>01</code>~<code>10-5</code>)를 기준으로 바로 이동할 수 있습니다.</span>
+        <span>번호 배지(<code>01</code>~<code>07-5</code>)를 눌러 원하는 단계로 바로 이동하세요.</span>
       </div>
       <div class="l062-quick-index-grid">
         {l062QuickIndex.map((item) => (
@@ -169,7 +171,7 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
                         <td><strong>안 B · 심화</strong></td>
                         <td>45° 종이 위 평면도 → 정면 눈높이 실제 건물</td>
                         <td>보통 (재생성 필요)</td>
-                        <td>8초 안에 벽 압출 + 카메라 하강 + 배경 전환을 모두 처리해야 하므로 구간 분할 지시 필수</td>
+                        <td>짧은 길이 안에 벽 압출 + 카메라 하강 + 배경 전환을 모두 처리해야 하므로 구간 분할 지시 필수</td>
                       </tr>
                     </tbody>
                   </table>
@@ -282,7 +284,7 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
                 <aside class="review-callout">
                   <strong>리뉴얼 파이프라인 요약</strong>
                   <p>
-                    시각화 이미지 단계(1~6차시 + 3DGS 개념) → <strong>실제 도면·3D·BIM 데이터를 직접 다루는 MCP 단계(제7-2차시 설치 → 실무 시나리오)</strong>
+                    시각화 이미지 단계(1~6차시 + 3DGS 개념) → <strong>올인원 환경 구축 후 실제 도면·3D 데이터를 다루는 MCP 실무 시나리오</strong>
                     → <strong>최종 제안서 컷 고화질 업스케일(7차시 ComfyUI / OpenVINO 기법 적용)</strong> 순서로 연결하면 실무 완성도가 훨씬 높아집니다.
                   </p>
                 </aside>
@@ -292,10 +294,11 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
             {section.id === 'l062-arch-software' && (
               <>
                 <p>
-                  건축 설계 실무에서 사용하는 소프트웨어는 크게 <strong>4가지 역할</strong>로 나뉩니다.
-                  중소 건축사사무소·인테리어 현장에서는 여전히 <strong>AutoCAD(2D 도면) + SketchUp(3D)</strong> 조합이 압도적이며,
-                  대형·공공 프로젝트에서는 <strong>BIM(Revit)</strong> 비중이 커지고 있습니다.
+                  설치 명령어를 실행하기 전에, <strong>왜 이 프로그램들을 쓰는지 역할과 호환 원리만 가볍게 확인</strong>합니다.
+                  복잡한 파일 복사와 경로 지정은 바로 다음 단계의 <strong>올인원 통합 설치 빌더</strong>가 전부 자동으로 처리합니다.
                 </p>
+
+                <h3>1 · 건축 실무 소프트웨어 4대장과 무료 실습 조합</h3>
                 <div class="l04-table">
                   <table>
                     <thead>
@@ -323,687 +326,377 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
                   </table>
                 </div>
 
-                <div class="review-cards">
-                  <article class="review-card">
-                    <h3>CAD 핵심 용어 4가지</h3>
-                    <ul>
-                      <li><strong>레이어(Layer)</strong>: 벽(<code>A-WALL</code>)·문(<code>A-DOOR</code>)·가구(<code>A-FURN</code>)·치수(<code>A-DIM</code>)를 투명 필름처럼 분리</li>
-                      <li><strong>치수(Dimension)</strong>: 벽 길이·간격을 <code>mm</code> 단위로 표기</li>
-                      <li><strong>축척(Scale)</strong>: 실제 크기를 종이에 줄여 인쇄하는 비율 (예: <code>1:100</code>)</li>
-                      <li><strong>블록(Block)</strong>: 문·변기·책상 같은 반복 심볼 묶음</li>
-                    </ul>
-                  </article>
-                  <article class="review-card">
-                    <h3>BIM 핵심 개념 3가지</h3>
-                    <ul>
-                      <li><strong>지능형 객체</strong>: 단순 선이 아니라 치수·재료·수량 정보가 담긴 벽·창·문 객체</li>
-                      <li><strong>파라메트릭 연동</strong>: 3D에서 창 크기를 바꾸면 평면·입면·단면·창호표가 동시에 갱신</li>
-                      <li><strong><code>.ifc</code> 공용 포맷</strong>: Revit · ArchiCAD · FreeCAD 간 BIM 데이터 교환 표준</li>
-                    </ul>
-                  </article>
-                </div>
-
-                <h3>DWG vs DXF 차이 (한 줄 핵심)</h3>
+                <h3>2 · 왜 AutoCAD 없이도 도면 호환이 될까? (DWG vs DXF 핵심)</h3>
                 <div class="l04-table">
                   <table>
                     <thead>
                       <tr>
                         <th>항목</th>
-                        <th>DWG (Drawing)</th>
-                        <th>DXF (Drawing Exchange Format)</th>
+                        <th>DWG (AutoCAD 전용)</th>
+                        <th>DXF (표준 교환 도면 · 실습 기본 형식)</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
                         <th>성격</th>
-                        <td>AutoCAD 고유(독점) 바이너리 파일</td>
-                        <td>Autodesk가 공식 공개한 <strong>표준 교환용 텍스트 도면 파일</strong></td>
+                        <td>비공개 바이너리 도면 파일</td>
+                        <td>Autodesk가 공개한 <strong>표준 텍스트 도면 파일</strong></td>
                       </tr>
                       <tr>
                         <th>AI · MCP 제어</th>
-                        <td>비공개 구조라 AI·무료 도구가 직접 편집하기 어려움</td>
-                        <td><strong>AI · Python(<code>ezdxf</code>) · MCP · LibreCAD · FreeCAD · Blender가 직접 읽기·생성·수정 가능</strong></td>
+                        <td>외부 무료 도구가 직접 편집하기 어려움</td>
+                        <td><strong>AI · Python(<code>ezdxf</code>) · MCP · LibreCAD · FreeCAD · Blender가 직접 생성·수정 가능</strong></td>
                       </tr>
                       <tr>
                         <th>실무 호환</th>
-                        <td>AutoCAD 기본 형식</td>
-                        <td><strong>회사 정품 AutoCAD에서 그대로 열리며 레이어·선·치수·블록 100% 호환</strong></td>
+                        <td>AutoCAD 기본 저장 형식</td>
+                        <td><strong>회사 정품 AutoCAD에서 그대로 열리며 레이어(<code>A-WALL</code> 등)·치수·블록 100% 호환</strong></td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
                 <p class="l062-note">
-                  <strong>무료 변환 팁:</strong> 교육 환경에서는 비정품(크랙) 소프트웨어를 사용하지 않고 100% 합법 무료 MCP로 표준 파일(<code>.dxf</code> · <code>.fbx</code> · <code>.dae</code> · <code>.ifc</code>)을 제작합니다.
-                  회사에 AutoCAD가 있으면 <code>다른 이름으로 저장 → DXF</code>로 즉시 변환되며, AutoCAD가 없는 PC에서도 무료 <strong>ODA File Converter</strong>로 <code>DWG ↔ DXF</code> 일괄 변환이 가능합니다.
-                </p>
-              </>
-            )}
-
-            {section.id === 'l062-precheck' && (
-              <>
-                <p>
-                  설치를 시작하기 전에 먼저 <strong>Windows PowerShell</strong>을 열어 내 PC에 이미 깔린 항목과 <strong>사용자 계정명</strong>을 확인합니다.
-                </p>
-                <div class="l062-code-card">
-                  <div class="l062-code-head">
-                    <strong>사전 점검 명령어 4줄 (PowerShell 복사 실행)</strong>
-                    <button type="button" class="l062-copy-btn" data-l062-copy={precheckCommands}>복사</button>
-                  </div>
-                  <pre class="l062-pre">{precheckCommands}</pre>
-                </div>
-
-                <div class="review-cards">
-                  <article class="review-card">
-                    <h3>용어 1 · <code>&lt;본인계정명&gt;</code>이란?</h3>
-                    <p>
-                      Windows 사용자 폴더(<code>C:\Users\&lt;본인계정명&gt;</code>)의 이름입니다. 위 <code>$env:USERNAME</code>으로 바로 확인할 수 있으며,
-                      가장 실수 없는 방법은 <code>where.exe uvx</code> 실행 시 나오는 전체 경로(예: <code>C:\Users\deric\.local\bin\uvx.exe</code>)를 통째로 복사해 쓰는 것입니다.
-                    </p>
-                    <p class="l062-small-warn">※ Windows 계정명에 한글이나 띄어쓰기가 있으면 일부 MCP에서 경로 오류가 날 수 있으니 미리 확인합니다.</p>
-                  </article>
-                  <article class="review-card">
-                    <h3>용어 2 · <code>uv</code> / <code>uvx</code>란?</h3>
-                    <p>
-                      <strong>파이썬 전용 원클릭 배달·실행기</strong>입니다. 가상환경이나 패키지 버전 충돌 없이 <code>uvx blender-mcp</code>, <code>uvx freecad-mcp</code>처럼
-                      명령 한 줄로 파이썬 기반 MCP 서버를 자동 설치·실행해 주는 공통 필수 도구입니다.
-                    </p>
-                  </article>
-                </div>
-
-                <h3>중복 설치 충돌 여부 & 공통 기반(Python · uv) 공식 설치</h3>
-                <div class="l04-table">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>프로그램</th>
-                        <th>이미 깔려 있을 때</th>
-                        <th>공식 설치 방법 & 필수 체크</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td><strong>Python 3.10+</strong></td>
-                        <td><code>python --version</code>이 뜨면 <strong>재설치 생략</strong> (버전별 중복 설치 방지)</td>
-                        <td>
-                          <a href="https://www.python.org/downloads/" target="_blank" rel="noreferrer">python.org/downloads</a> 다운로드 →
-                          설치 첫 화면 맨 아래 <strong><code>☑ Add python.exe to PATH</code> 반드시 체크</strong> 후 Install Now
-                        </td>
-                      </tr>
-                      <tr>
-                        <td><strong><code>uv</code> / <code>uvx</code></strong></td>
-                        <td>다시 실행해도 최신 버전으로 깔끔히 덮어쓰기(충돌 없음)</td>
-                        <td>
-                          PowerShell에서 아래 한 줄 실행 후 <strong>기존 창을 닫고 새 PowerShell 창</strong>에서 <code>where.exe uv</code> · <code>where.exe uvx</code> 확인
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-
-                <div class="l062-code-card">
-                  <div class="l062-code-head">
-                    <strong>uv / uvx 공식 설치 명령어 (PowerShell)</strong>
-                    <button type="button" class="l062-copy-btn" data-l062-copy={uvInstallCmd}>복사</button>
-                  </div>
-                  <pre class="l062-pre">{uvInstallCmd}</pre>
-                </div>
-              </>
-            )}
-
-            {section.id === 'l062-opt-a' && (
-              <>
-                <p>
-                  <strong>옵션 A</strong>는 유료 AutoCAD 없이 <code>ezdxf</code>로 2D <code>.dxf</code> 평면도를 생성·편집하고,
-                  무료 2D CAD 뷰어 <strong>LibreCAD</strong>로 레이어·치수를 확인하는 조합입니다.
-                </p>
-                <ol class="l062-steps">
-                  <li>
-                    <strong>무료 2D 도면 뷰어 LibreCAD 설치</strong> (이미 설치되어 있으면 자동 안내 후 종료, 충돌 없음)
-                    <ul>
-                      <li>공식 사이트: <a href="https://librecad.org/" target="_blank" rel="noreferrer">https://librecad.org/</a> (Windows Installer 설치)</li>
-                      <li>또는 PowerShell 한 줄 설치: <code>winget install LibreCAD.LibreCAD</code></li>
-                    </ul>
-                  </li>
-                  <li>
-                    <strong><code>aiblueprint-mcp</code> 공개 저장소 내려받기 & 의존성 동기화</strong>
-                    <ul>
-                      <li>공식 GitHub: <a href="https://github.com/thebossnow/aiblueprint-mcp" target="_blank" rel="noreferrer">https://github.com/thebossnow/aiblueprint-mcp</a></li>
-                      <li><code>git</code>이 없는 PC는 GitHub 페이지의 초록색 <strong><code>&lt;&gt; Code → Download ZIP</code></strong>으로 받아 <code>C:\mcp\aiblueprint-mcp</code>에 압축을 푼 뒤, 해당 폴더에서 터미널을 열어 <code>uv sync</code>만 실행하면 동일하게 완료됩니다.</li>
-                    </ul>
-                  </li>
-                </ol>
-
-                <div class="l062-dual-code">
-                  <div class="l062-code-card">
-                    <div class="l062-code-head">
-                      <strong>시작 메뉴에서 새 CMD/PowerShell을 열었을 때 (5줄 전체)</strong>
-                      <button type="button" class="l062-copy-btn" data-l062-copy={optAFullCmd}>복사</button>
-                    </div>
-                    <pre class="l062-pre">{optAFullCmd}</pre>
-                  </div>
-                  <div class="l062-code-card">
-                    <div class="l062-code-head">
-                      <strong>이미 C:\mcp 폴더 안에서 CMD를 열었을 때 (3줄만)</strong>
-                      <button type="button" class="l062-copy-btn" data-l062-copy={optAInsideCmd}>복사</button>
-                    </div>
-                    <pre class="l062-pre">{optAInsideCmd}</pre>
-                  </div>
-                </div>
-
-                <h3 id="l062-opt-a-oneclick">원클릭 한 번에 셋팅하기 (PowerShell 복사 실행)</h3>
-                <p>
-                  위 수동 단계를 따로 따라 하기 번거롭다면, <strong>새 PowerShell 창</strong>에 아래 블록을 통째로 붙여넣고 Enter를 누르세요.
-                  ① LibreCAD 설치 → ② <code>C:\mcp\aiblueprint-mcp</code> 내려받기 → ③ 부품 자동 설치(<code>uv sync</code>) → ④ 성공 확인(<code>True</code>)까지 한 번에 끝납니다.
-                  <em>(<code>git</code>이 없는 PC는 <code>winget install -e --id Git.Git</code> 실행 후 새 PowerShell에서 진행하세요.)</em>
-                </p>
-                <div class="l062-code-card l062-code-card-teal">
-                  <div class="l062-code-head">
-                    <strong>PowerShell · 옵션 A 원클릭 설치 (마지막 줄 True면 완료)</strong>
-                    <button type="button" class="l062-copy-btn" data-l062-copy={optAOneClickCmd}>복사</button>
-                  </div>
-                  <pre class="l062-pre">{optAOneClickCmd}</pre>
-                </div>
-              </>
-            )}
-
-            {section.id === 'l062-opt-b' && (
-              <>
-                <p>
-                  <strong>옵션 B</strong>는 무료 오픈소스 3D CAD · BIM 프로그램인 <strong>FreeCAD 1.1</strong>에
-                  공개 <strong><code>freecad-mcp</code></strong> 서버를 연결하는 방식입니다.
-                  열린 모델을 직접 제어하려면 아래 애드온 절차를 따릅니다. 새 파일을 만들고 검증하는 실습은
-                  <a href="#l062-freecad-headless"><code>FreeCADCmd</code> 백그라운드 설정</a>으로 바로 진행할 수 있습니다.
-                </p>
-                <ol class="l062-steps">
-                  <li>
-                    <strong>FreeCAD 공식 설치 및 1회 실행</strong>
-                    <ul>
-                      <li>공식 사이트: <a href="https://www.freecad.org/downloads.php" target="_blank" rel="noreferrer">https://www.freecad.org/downloads.php</a> (Windows 64-bit 설치)</li>
-                      <li>설치 완료 후 <strong>FreeCAD를 딱 한 번 실행했다가 종료</strong>합니다. (<code>%APPDATA%\FreeCAD</code> 사용자 설정 폴더 생성용)</li>
-                    </ul>
-                  </li>
-                  <li>
-                    <strong><code>freecad-mcp</code> 저장소 내려받기 (애드온 폴더 확보)</strong>
-                    <ul>
-                      <li>공식 GitHub: <a href="https://github.com/neka-nat/freecad-mcp" target="_blank" rel="noreferrer">https://github.com/neka-nat/freecad-mcp</a></li>
-                    </ul>
-                  </li>
-                </ol>
-
-                <div class="l062-code-card">
-                  <div class="l062-code-head">
-                    <strong>C:\mcp 폴더에서 freecad-mcp 클론 (CMD / PowerShell)</strong>
-                    <button type="button" class="l062-copy-btn" data-l062-copy={optBCloneCmd}>복사</button>
-                  </div>
-                  <pre class="l062-pre">{optBCloneCmd}</pre>
-                </div>
-
-                <ol class="l062-steps" start="3">
-                  <li>
-                    <strong><code>FreeCADMCP</code> 애드온 폴더를 FreeCAD <code>Mod</code> 경로(플러그인 폴더)에 복사</strong>
-                    <ul>
-                      <li><strong><code>Mod</code> 경로란?</strong> FreeCAD가 추가 플러그인을 읽어 들이는 폴더로, 실제 Windows 전체 주소는 <strong><code>C:\Users\&lt;본인계정명&gt;\AppData\Roaming\FreeCAD\v1-1\Mod</code></strong>입니다. (<code>%APPDATA%</code>가 바로 <code>AppData\Roaming</code>의 단축 주소입니다.)</li>
-                      <li><code>Win + R</code> → <strong><code>%APPDATA%\FreeCAD</code></strong> 입력 후 엔터 → <strong>FreeCAD 1.1 이상</strong>은 안의 <code>v1-1\Mod</code> 폴더(없으면 새 폴더 생성), <strong>1.0 이하</strong>는 <code>Mod</code> 폴더를 엽니다.</li>
-                      <li><strong>원본</strong> <code>C:\mcp\freecad-mcp\addon\FreeCADMCP</code> 폴더만 복사해 <strong>목적지</strong> <code>Mod</code> 폴더 안에 붙여넣기 → 최종 경로가 <strong><code>...\Mod\FreeCADMCP\InitGui.py</code></strong> 형태여야 정상 인식됩니다. (<code>addon</code> 폴더 통째로 복사 금지!)</li>
-                    </ul>
-                  </li>
-                </ol>
-
-                <div class="l062-code-card">
-                  <div class="l062-code-head">
-                    <strong>※ 내 FreeCAD의 정확한 Mod 경로 1초 확인 (FreeCAD 하단 파이썬 명령창)</strong>
-                    <button type="button" class="l062-copy-btn" data-l062-copy={freeCadModPathCmd}>복사</button>
-                  </div>
-                  <pre class="l062-pre">{freeCadModPathCmd}</pre>
-                </div>
-
-                <ol class="l062-steps" start="4">
-                  <li>
-                    <strong>FreeCAD 재실행 & RPC 서버 켜기 (열린 모델을 제어할 때)</strong>
-                    <ul>
-                      <li>FreeCAD를 완전히 닫았다가 다시 엽니다.</li>
-                      <li>왼쪽 상단 툴바의 <strong>작업대(워크벤치) 드롭다운</strong> — FreeCAD 1.1 한글판 기본 표시 <strong><code>Part Design ▾</code></strong> 클릭 → 목록에서 <strong><code>MCP Addon</code></strong> 선택</li>
-                      <li>상단 툴바에 나타난 <strong><code>Start RPC Server</code></strong> 버튼 클릭 (켜진 상태 유지)</li>
-                    </ul>
-                  </li>
-                </ol>
-
-                <h3 id="l062-opt-b-oneclick">원클릭 한 번에 셋팅하기 (PowerShell 복사 실행 · Mod 폴더 자동 복사 포함)</h3>
-                <p>
-                  숨김 폴더(<code>AppData\Roaming\FreeCAD\v1-1\Mod</code>)를 직접 찾다 실수하지 않으려면, <strong>새 PowerShell 창</strong>에 아래 블록을 통째로 붙여넣고 Enter를 누르세요.
-                  ① FreeCAD 설치 → ② <code>freecad-mcp</code> 내려받기 → ③ <code>v1-1\Mod\FreeCADMCP</code> 자동 복사 → ④ 두 항목 <code>True</code> 확인까지 한 번에 완료됩니다.
-                </p>
-                <div class="l062-code-card l062-code-card-teal">
-                  <div class="l062-code-head">
-                    <strong>PowerShell · 옵션 B 원클릭 설치 (플러그인·엔진 둘 다 True면 완료)</strong>
-                    <button type="button" class="l062-copy-btn" data-l062-copy={optBOneClickCmd}>복사</button>
-                  </div>
-                  <pre class="l062-pre">{optBOneClickCmd}</pre>
-                </div>
-              </>
-            )}
-
-            {section.id === 'l062-blender-mcp' && (
-              <>
-                <p>
-                  이미 <a href={`${base}/lessons/08/`}>제8차시</a> 기준 Blender MCP 설치가 완료된 PC는 이 단계를 건너뛰고 바로 09단계로 이동합니다.
-                </p>
-                <ol class="l062-steps">
-                  <li><strong>Blender 공식 설치:</strong> <a href="https://www.blender.org/download/" target="_blank" rel="noreferrer">https://www.blender.org/download/</a> (Windows 4.x 설치)</li>
-                  <li><strong>애드온(<code>addon.py</code>) 다운로드:</strong> <a href="https://github.com/ahujasid/blender-mcp" target="_blank" rel="noreferrer">https://github.com/ahujasid/blender-mcp</a> → <code>addon.py</code> → <code>Download raw file</code> 저장</li>
-                  <li><strong>Blender 등록:</strong> <code>Edit → Preferences → Add-ons → ∨ → Install from Disk...</code> → <code>addon.py</code> 선택 → <code>Interface: Blender MCP</code> 체크박스 활성화</li>
-                  <li><strong>서버 연결 켜기 (매 실습 필수):</strong> 메인 화면에서 키보드 <strong><code>N</code></strong> → 우측 사이드바 <strong><code>BlenderMCP</code></strong> 탭 → <strong><code>Connect to MCP server</code></strong> 클릭</li>
-                </ol>
-              </>
-            )}
-
-            {section.id === 'l062-client-connect' && (
-              <>
-                <h3 id="l062-client-config">AI 클라이언트 3종 통합 설정 (Codex · Claude Desktop)</h3>
-                <p>
-                  아래 설정 파일에 <code>&lt;본인계정명&gt;</code>을 05단계에서 확인한 실제 Windows 계정명으로 바꾼 뒤 저장하고,
-                  <strong>앱을 작업표시줄 트레이까지 완전히 종료했다가 재실행</strong>합니다.
+                  <strong>실무 변환 팁:</strong> 회사 AutoCAD에서는 <code>다른 이름으로 저장 → DXF</code>로 즉시 변환되며, AutoCAD가 없는 PC에서도 무료 <strong>ODA File Converter</strong>로 <code>DWG ↔ DXF</code> 일괄 변환이 가능합니다.
                 </p>
 
-                <div class="l062-code-card l062-code-card-teal">
-                  <div class="l062-code-head">
-                    <strong>방법 A · Codex 통합 설정 (C:\Users\&lt;본인계정명&gt;\.codex\config.toml) — 문제 없는 기본 표준</strong>
-                    <button type="button" class="l062-copy-btn" data-l062-copy={codexUnifiedConfig}>복사</button>
-                  </div>
-                  <pre class="l062-pre">{codexUnifiedConfig}</pre>
-                </div>
-                <p class="l062-note">
-                  <strong>옵션 A(aiblueprint) 기본값 안내:</strong> 위 <code>uv.exe run --directory ...</code> 방식은 혹시 <code>uv sync</code>를 빠뜨린 PC에서도
-                  <code>uv</code>가 환경을 자동 복구해 오류가 나지 않으며, 기동 속도도 <code>.venv</code> 직접 실행과 거의 같습니다(실측 1.29초 vs 1.26초).
-                </p>
-
-                <details class="l062-details">
-                  <summary>원클릭 도우미 · 내 PC 계정명과 FreeCAD 경로가 자동 채워진 config.toml 바로 출력하기 (오타 방지)</summary>
-                  <p class="l062-note">
-                    <code>&lt;본인계정명&gt;</code>을 직접 고치기 번거롭다면 PowerShell에 아래 코드를 실행하세요. 내 PC 계정명과 실제 <code>FreeCADCmd.exe</code> 경로가 자동으로 채워진 3종 통합 설정이 바로 출력됩니다.
-                  </p>
-                  <div class="l062-code-card l062-code-card-teal">
-                    <div class="l062-code-head">
-                      <strong>PowerShell · 내 PC 맞춤 config.toml 자동 생성 출력기</strong>
-                      <button type="button" class="l062-copy-btn" data-l062-copy={codexAutoConfigCmd}>복사</button>
-                    </div>
-                    <pre class="l062-pre">{codexAutoConfigCmd}</pre>
-                  </div>
-                </details>
-
-                <details class="l062-details">
-                  <summary>선택 참고 · 이미 uv sync를 완료한 PC에서 aiblueprint-mcp.exe 직접 지정하기 (계정명 치환 불필요)</summary>
-                  <p class="l062-note">
-                    먼저 PowerShell에서 아래 명령이 <code>True</code>인지 확인한 뒤, 기존 <code>[mcp_servers.aiblueprint]</code> 4줄을 지우고 아래 3줄로 교체합니다. (같은 섹션 이름을 두 번 쓰면 TOML 오류가 납니다.)
-                  </p>
-                  <div class="l062-code-card">
-                    <div class="l062-code-head">
-                      <strong>PowerShell · aiblueprint-mcp.exe 존재 확인</strong>
-                      <button type="button" class="l062-copy-btn" data-l062-copy={optADirectExeCheck}>복사</button>
-                    </div>
-                    <pre class="l062-pre">{optADirectExeCheck}</pre>
-                  </div>
-                  <div class="l062-code-card">
-                    <div class="l062-code-head">
-                      <strong>config.toml · 기존 [mcp_servers.aiblueprint] 4줄을 아래 3줄로 교체</strong>
-                      <button type="button" class="l062-copy-btn" data-l062-copy={optADirectExeConfig}>복사</button>
-                    </div>
-                    <pre class="l062-pre">{optADirectExeConfig}</pre>
-                  </div>
-                </details>
-
-                <details class="l062-details">
-                  <summary>방법 B · Claude Desktop 무료 계정 통합 설정 (%APPDATA%\Claude\claude_desktop_config.json)</summary>
-                  <div class="l062-code-card">
-                    <div class="l062-code-head">
-                      <strong>Claude Desktop JSON (역슬래시 2개 \\ 필수 · 트레이 Quit 후 재실행)</strong>
-                      <button type="button" class="l062-copy-btn" data-l062-copy={claudeUnifiedConfig}>복사</button>
-                    </div>
-                    <pre class="l062-pre">{claudeUnifiedConfig}</pre>
-                  </div>
-                </details>
-
-                <h3 id="l062-freecad-headless">빠른 설정 · FreeCAD를 화면 없이 실행하고 연결 재사용하기</h3>
-                <p>
-                  FCStd·STEP 생성, 치수 검증처럼 파일에서 끝나는 작업은 <code>execute_code_headless</code>를 사용합니다.
-                  이 도구는 별도의 FreeCAD 명령줄 프로세스에서 실행되므로, 같은 PC에서 다른 앱을 사용하면서 작업할 수 있습니다.
-                  열린 FreeCAD 문서를 직접 수정할 때는 애드온의 RPC 연결이 필요합니다. Windows에서 <strong>Computer Use</strong>로 화면을
-                  클릭하고 입력하면 현재 마우스와 키보드를 함께 쓰게 됩니다.
-                  <a href="https://github.com/neka-nat/freecad-mcp/blob/main/docs/execution.md#headless-execution" target="_blank" rel="noreferrer">FreeCAD 실행 모드</a> ·
-                  <a href="https://learn.chatgpt.com/docs/computer-use#windows-foreground-use" target="_blank" rel="noreferrer">Windows 화면 조작 안내</a>
-                </p>
-                <ol class="l062-steps">
-                  <li><strong>내 PC 주소 지정.</strong> 위 Codex 기본 설정의 <code>--host 127.0.0.1</code>은 같은 PC의 IPv4 주소를 직접 지정합니다. 이미 등록했다면 기존 <code>[mcp_servers.freecad]</code>의 <code>args</code> 한 줄만 수정합니다.</li>
-                  <li><strong>FreeCADCmd 경로 확인.</strong> PowerShell에서 아래 명령을 실행합니다. <code>False</code>가 나오면 실제 FreeCAD 설치 폴더의 <code>bin</code>에서 <code>FreeCADCmd.exe</code> 경로를 확인해 바꿉니다.</li>
-                </ol>
-                <div class="l062-code-card">
-                  <div class="l062-code-head">
-                    <strong>PowerShell · FreeCADCmd 파일 확인</strong>
-                    <button type="button" class="l062-copy-btn" data-l062-copy={freeCadCmdCheck}>복사</button>
-                  </div>
-                  <pre class="l062-pre">{freeCadCmdCheck}</pre>
-                </div>
-                <ol class="l062-steps" start="3">
-                  <li><strong>백그라운드 실행 인자 적용.</strong> 기존 <code>args</code>를 아래 한 줄로 교체합니다. 경로는 정확히 한 항목으로 넣고, 저장한 다음 Codex를 다시 실행합니다. <code>startup_timeout_sec</code>는 시작 대기 상한입니다.</li>
-                </ol>
-                <div class="l062-code-card l062-code-card-teal">
-                  <div class="l062-code-head">
-                    <strong>config.toml · 기존 [mcp_servers.freecad] 안의 args 교체</strong>
-                    <button type="button" class="l062-copy-btn" data-l062-copy={freeCadHeadlessArgs}>복사</button>
-                  </div>
-                  <pre class="l062-pre">{freeCadHeadlessArgs}</pre>
-                </div>
-                <details class="l062-details">
-                  <summary>초보자 참고 · [mcp_servers.freecad] 4줄 전체 교체본 보기</summary>
-                  <div class="l062-code-card">
-                    <div class="l062-code-head">
-                      <strong>config.toml · [mcp_servers.freecad] 전체 블록 (본인계정명 변경)</strong>
-                      <button type="button" class="l062-copy-btn" data-l062-copy={freeCadHeadlessFullBlock}>복사</button>
-                    </div>
-                    <pre class="l062-pre">{freeCadHeadlessFullBlock}</pre>
-                  </div>
-                </details>
-                <ol class="l062-steps" start="4">
-                  <li><strong>반복 작업을 한 요청에 넣기.</strong> MCP 서버를 한 번 시작한 상태로 도구를 세 번 호출합니다. 각 회차에서 파일을 새로 저장하고 다시 열어야 저장 결과까지 검증할 수 있습니다.</li>
-                </ol>
-                <div class="l062-code-card">
-                  <div class="l062-code-head">
-                    <strong>Codex 요청 예시 · 6 × 4 × 3m 매스 3회 검증</strong>
-                    <button type="button" class="l062-copy-btn" data-l062-copy={freeCadHeadlessPrompt}>복사</button>
-                  </div>
-                  <pre class="l062-pre">{freeCadHeadlessPrompt}</pre>
-                </div>
-                <div class="l04-table">
-                  <table>
-                    <caption>Windows · FreeCAD 1.1.4 실측, 6 × 4 × 3m 매스</caption>
-                    <thead><tr><th scope="col">구간</th><th scope="col">소요 시간</th></tr></thead>
-                    <tbody>
-                      <tr><th scope="row">최초 MCP 연결</th><td>3.409초</td></tr>
-                      {freeCadHeadlessTimings.map((row) => (
-                        <tr><th scope="row">{row.run} · 생성, 저장, 재열기 검증</th><td>{row.duration}</td></tr>
-                      ))}
-                      <tr><th scope="row">세 회차 소계</th><td>1.716초</td></tr>
-                      <tr><th scope="row">연결부터 마지막 검증까지</th><td><strong>5.125초</strong></td></tr>
-                    </tbody>
-                  </table>
-                </div>
-                <p class="l062-note">
-                  매회 FCStd·STEP에서 6,000 × 4,000 × 3,000mm와 부피 72m³를 확인했습니다. (각 회차 수치는 소수점 넷째 자리 반올림으로 합계와 0.001초 차이가 날 수 있습니다.)
-                  별도 3회 비교의 작업 중앙값은 새 연결 포함 5.91초, 연결 재사용 0.48초였습니다. 주소만 비교한 별도 실험에서는 새 연결 중앙값이
-                  <code>localhost</code> 5.54초, <code>127.0.0.1</code> 3.40초였습니다. 두 주소 모두 화면 앱 RPC 확인에 실패한 상태였으므로
-                  이 수치는 화면 없는 실험의 기준값입니다. 설치 환경과 애드온 상태에 따라 달라질 수 있습니다.
-                </p>
-
-                <h3 id="l062-fast-prompt-rules">MCP를 원격제어처럼 느리게 쓰지 않는 프롬프트 3원칙</h3>
-                <p>
-                  도구를 한 선·한 박스씩 20번 왕복 호출하거나 화면을 마우스로 클릭시키면 간단한 작업도 오래 걸립니다.
-                  아래 3가지 지시를 요청문 끝에 붙여 주면 체감 속도가 크게 개선됩니다.
-                </p>
-                <div class="l062-rule-grid">
-                  {fastPromptRules.map((rule) => (
-                    <article class="l062-rule-card">
-                      <h4>{rule.title}</h4>
-                      <p class="l062-rule-bad">✕ 비효율: {rule.bad}</p>
-                      <p class="l062-rule-good">✓ 권장: {rule.good}</p>
-                      <button type="button" class="l062-copy-btn l062-copy-btn-sm" data-l062-copy={rule.good}>권장 문장 복사</button>
+                <h3>3 · 오늘 올인원 빌더가 설치·연결해 줄 4가지 구성 요소</h3>
+                <div class="l062-concept-grid">
+                  {setupConceptCards.map((card) => (
+                    <article class="l062-concept-card">
+                      <span class="l062-skill-badge l062-skill-badge-navy">{card.badge}</span>
+                      <h4>{card.title}</h4>
+                      <p class="l062-concept-role">{card.role}</p>
+                      <ul>
+                        {card.points.map((pt) => <li>{pt}</li>)}
+                      </ul>
                     </article>
                   ))}
                 </div>
-
-                <h3 id="l062-verify-tests">연결 성공 확인 테스트 3종</h3>
-                <div class="review-cards">
-                  <article class="review-card">
-                    <h4>테스트 1 · 옵션 A (aiblueprint)</h4>
-                    <p><em>“aiblueprint MCP로 가로 10m × 세로 6m 사각형 평면 DXF를 생성하고 치수와 경로를 알려 줘.”</em> 화면 없이 확인하려면 <code>view</code>의 <code>screenshot</code>으로 도면 미리보기를 만듭니다. LibreCAD 표시를 확인할 때는 저장한 DXF를 직접 엽니다.</p>
-                  </article>
-                  <article class="review-card">
-                    <h4>테스트 2 · 옵션 B (freecad)</h4>
-                    <p>파일 검증은 <a href="#l062-freecad-headless">위의 6 × 4 × 3m 백그라운드 실습</a>으로 진행합니다. 열린 문서에서 시험하려면 FreeCAD의 <code>Start RPC Server</code>를 켜고 새 문서에 같은 치수의 박스를 생성합니다.</p>
-                  </article>
-                  <article class="review-card">
-                    <h4>테스트 3 · 메인 3D (blender)</h4>
-                    <p>Blender <code>Connect to MCP server</code> 켜짐 확인 후: <em>“현재 Blender 장면에 있는 객체 목록을 조회해 줘.”</em> → <code>Cube, Light, Camera</code> 출력 확인</p>
-                  </article>
-                </div>
-
-                <h3 id="l062-troubleshooting">자주 만나는 오류와 해결 방법</h3>
-                <div class="l04-table">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>증상</th>
-                        <th>원인</th>
-                        <th>해결 방법</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {troubleshootingRows.map((row) => (
-                        <tr>
-                          <td><strong>{row.symptom}</strong></td>
-                          <td>{row.cause}</td>
-                          <td>{row.fix}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-
               </>
             )}
 
-            {section.id === 'l062-codex-skills' && (
+            {section.id === 'l062-all-in-one-setup' && (
               <>
                 <p>
-                  <strong>“MCP”와 “스킬(Skill)”의 차이</strong>는 아주 간단합니다.{' '}
-                  <strong>MCP</strong>는 CAD·FreeCAD·Blender를 실제로 움직이는 <strong>‘손발’</strong>이고,{' '}
-                  <strong>스킬(<code>SKILL.md</code>)</strong>은 <em>“어떤 순서로 검사하고, 어떤 규칙으로 도면과 면적표를 만들지”</em>를 적어 둔 <strong>‘업무 매뉴얼’</strong>입니다.
-                  아래 그림처럼 두 가지를 결합하면 매번 길게 설명하지 않아도 같은 기준으로 도면 검수·개념 설계·3D 시각화를 반복할 수 있으며,
-                  스킬 자체는 옵션 A·B MCP가 꺼져 있어도 Codex 내부 Python 스크립트로 독립 실행됩니다.
+                  차시마다 프로그램을 따로 찾아 깔거나 숨김 폴더(<code>AppData</code> · <code>.codex</code>)로 파일을 옮길 필요가 없습니다.
+                  아래에서 <strong>내 PC 사양과 필요한 항목만 체크</strong>하면, 이미 깔린 최신 파일은 건너뛰고 선택한 MCP만 <code>config.toml</code>에 안전하게 병합해 주는
+                  <strong>맞춤형 PowerShell 올인원 명령어</strong>가 실시간으로 완성됩니다.
                 </p>
 
-                {enabled && (
-                  <figure class="l062-visual-fig">
-                    <img
-                      src={`${base}/${l062WorkflowSvg.outputPath}`}
-                      alt={l062WorkflowSvg.title}
-                      width={l062WorkflowSvg.width}
-                      height={l062WorkflowSvg.height}
-                      loading="lazy"
-                    />
-                    <figcaption>
-                      <strong>MCP(손발) × Codex 건축 스킬(업무 매뉴얼) 협업 구조</strong> — 3단계(① 폴더 설치 → ② <code>$스킬이름</code> 호출 → ③ 결과 검수·MCP 연계)로 바로 적용합니다.
-                    </figcaption>
-                  </figure>
-                )}
-
-                <h3 id="l062-skills-guide">초보자 3단계 설치·호출 가이드 (작업 폴더에서 시작)</h3>
-                <ol class="l062-steps">
-                  <li><strong>준비물 확인:</strong> 아래 4개 스킬 중 <strong><code>$cad-drawings</code>만 기존 DXF 파일 1개가 필요</strong>합니다. 나머지 3개(<code>$architectural-concept-design</code> · <code>Gridline</code> · <code>$my-arch-dxf</code>)는 도면 파일 없이 <strong>빈 폴더 + 텍스트 건축 조건</strong>만으로 바로 시작합니다.</li>
-                  <li>
-                    <strong>새 작업 폴더에서 터미널 열기 &amp; 스킬 설치:</strong> 바탕화면이나 C드라이브에 연습용 빈 폴더(예: <code>gridline-test</code>)를 만들고, 그 폴더 안 빈 공간에서 <strong>마우스 우클릭 → <code>터미널에서 열기</code></strong>(안 보이면 탐색기 상단 주소창 클릭 → <code>powershell</code> 입력 후 Enter)를 눌러 필요한 스킬 명령 1줄을 실행합니다.
-                    <ul>
-                      <li><code>npx</code> 명령에는 <strong>Node.js</strong>(<code>node --version</code> 확인)가 필요하며, <code>--copy</code>는 현재 폴더 안 <code>.agents\skills\</code>에 파일을 직접 복사합니다.</li>
-                      <li><strong>Node.js가 없는 PC 대안:</strong> GitHub에서 저장소를 내려받은 뒤 해당 스킬 폴더 전체를 프로젝트 안 <code>.agents/skills/&lt;이름&gt;/</code>에 수동 복사하거나, Codex 채팅창에서 <code>$skill-installer</code>로 설치할 수 있습니다.</li>
-                      <li><strong>모든 프로젝트에서 공통 사용하려면:</strong> 폴더 이동 없이 기본 PowerShell(<code>C:\Users\&lt;본인계정명&gt;</code>)에서 설치하면 <code>%USERPROFILE%\.agents\skills</code>에 저장되어 어디서나 호출됩니다.</li>
-                    </ul>
-                  </li>
-                  <li><strong>설치 위치 확인 &amp; Codex에서 <code>$이름</code> 호출:</strong> 방금 설치한 PowerShell 창에서 아래 확인 명령으로 <code>True</code>를 확인한 뒤, <strong>Codex 앱에서 그 작업 폴더를 열고</strong> 채팅창에 <code>$</code>를 쳐 스킬을 선택합니다. 목록에 안 보이면 Codex를 재시작합니다.</li>
-                </ol>
-                <div class="l062-code-card">
-                  <div class="l062-code-head">
-                    <strong>PowerShell · 방금 설치한 스킬 폴더 1초 확인 (숨긴 항목 포함 바로 열기)</strong>
-                    <button type="button" class="l062-copy-btn" data-l062-copy={skillVerifyCmd}>복사</button>
-                  </div>
-                  <pre class="l062-pre">{skillVerifyCmd}</pre>
-                </div>
-                <p class="l062-note">
-                  <a href="https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills" target="_blank" rel="noreferrer">Codex 스킬 위치와 호출</a> ·
-                  <a href="https://github.com/vercel-labs/skills/blob/main/docs/commands.md#options" target="_blank" rel="noreferrer">설치 명령 옵션</a>
-                </p>
-
-                {cadSkillExamples.map((skill) => (
-                  <section id={`l062-skill-${skill.id}`} class="l062-skill-box">
-                    <div class="l062-badge-row">
-                      <span class="l062-skill-badge">{skill.badge}</span>
-                      <span class:list={['l062-prep-badge', { 'l062-prep-badge-dxf': skill.prepNeedsDxf }]}>{skill.prepBadge}</span>
+                <div class="l062-builder" data-l062-builder>
+                  <div class="l062-builder-top">
+                    <div>
+                      <strong>빠른 프리셋 선택</strong>
+                      <span>처음 세팅하는 PC는 기본 선택된 <strong>전체 올인원 세팅</strong>을 그대로 복사해 실행하면 됩니다.</span>
                     </div>
-                    <h3>{skill.title}</h3>
-                    <p class="l062-skill-plain">{skill.plainSummary}</p>
+                    <div class="l062-preset-row">
+                      <button type="button" class="l062-preset-btn is-active" data-l062-preset="all" aria-pressed="true">추천 · 전체 올인원 세팅</button>
+                      <button type="button" class="l062-preset-btn" data-l062-preset="l072" aria-pressed="false">7-2차시 중심 (옵션 A+B)</button>
+                      <button type="button" class="l062-preset-btn" data-l062-preset="blender" aria-pressed="false">8·9차시 중심 (Blender 3D)</button>
+                      <button type="button" class="l062-preset-btn" data-l062-preset="none" aria-pressed="false">전체 해제 (직접 고르기)</button>
+                    </div>
+                  </div>
 
-                    {enabled && skill.id === 'cad-drawings' && (
-                      <figure class="l062-visual-fig">
-                        <img
-                          src={`${base}/${l062SkillCadPreview.outputPath}`}
-                          alt={l062SkillCadPreview.title}
-                          width={l062SkillCadPreview.width}
-                          height={l062SkillCadPreview.height}
-                          loading="lazy"
-                        />
-                        <figcaption>
-                          <strong>공식 출력 예시</strong> (<a href={skill.source} target="_blank" rel="noreferrer">{skill.sourceLabel}</a>) — CAD 프로그램을 띄우지 않고 DXF 시트를 PNG로 자동 렌더링한 예시입니다. 실제 CAD 플롯과 여백·글꼴이 다를 수 있으므로 최종 확인은 LibreCAD·AutoCAD를 병행합니다.
-                        </figcaption>
-                      </figure>
-                    )}
+                  <div class="l062-builder-options">
+                    <fieldset class="l062-option-group">
+                      <legend>① PC 그래픽 사양 · Blender 버전 선택</legend>
+                      <label class="l062-radio-card">
+                        <input type="radio" name="l062-blender-profile" value="lts36" checked />
+                        <div>
+                          <strong>내장형 GPU · 교육장 저사양 PC — Blender 3.6 LTS Portable <span class="l062-rec-pill">추천</span></strong>
+                          <p>구형·내장 그래픽(OpenGL 3.3)에서도 멈춤 없이 작동하는 <code>3.6.23 LTS 포터블</code>을 <code>C:\tools\blender-3.6-lts</code>에 설치하고, FreeCAD 내장GPU 안전실행 바로가기도 함께 만듭니다.</p>
+                        </div>
+                      </label>
+                      <label class="l062-radio-card">
+                        <input type="radio" name="l062-blender-profile" value="latest" />
+                        <div>
+                          <strong>외장형 GPU(RTX 등) · 개인 고사양 PC — 설치 시점 최신 Blender</strong>
+                          <p>공식 저장소의 최신 안정 버전 Blender를 설치하고 최신 버전에 맞춰 MCP 애드온을 자동 등록합니다.</p>
+                        </div>
+                      </label>
+                    </fieldset>
 
-                    {enabled && skill.id === 'concept-design' && (
-                      <div class="l062-visual-grid">
-                        <figure class="l062-visual-fig">
-                          <img
-                            src={`${base}/${l062SkillConceptPlan3d.outputPath}`}
-                            alt={l062SkillConceptPlan3d.title}
-                            width={l062SkillConceptPlan3d.width}
-                            height={l062SkillConceptPlan3d.height}
-                            loading="lazy"
-                          />
-                          <figcaption>
-                            <strong>평면도(DXF/PDF) ↔ 3D 웹 뷰어 연동 예시</strong> (<a href={skill.source} target="_blank" rel="noreferrer">{skill.sourceLabel}</a>) — 하나의 <code>design.json</code> 모델에서 2D 평면과 3D 입체 뷰어를 동시에 출력합니다.
-                          </figcaption>
-                        </figure>
-                        <figure class="l062-visual-fig">
-                          <img
-                            src={`${base}/${l062SkillConceptSet.outputPath}`}
-                            alt={l062SkillConceptSet.title}
-                            width={l062SkillConceptSet.width}
-                            height={l062SkillConceptSet.height}
-                            loading="lazy"
-                          />
-                          <figcaption>
-                            <strong>6장 개념 도면 세트 자동 출력 예시</strong> — 배치도(A-100), 1·2층 평면도(A-101·102), 입면도(A-201), 단면도(A-301), 표지·면적표(A-000)가 한 번에 생성됩니다.
-                          </figcaption>
-                        </figure>
+                    <fieldset class="l062-option-group">
+                      <legend>② 이미 설치된 프로그램 처리 방식</legend>
+                      <label class="l062-radio-card">
+                        <input type="radio" name="l062-version-policy" value="ask" checked />
+                        <div>
+                          <strong>최신 버전인지 확인 후 구버전이면 업데이트할지 물어보기 <code>[Y/N]</code> <span class="l062-rec-pill">추천</span></strong>
+                          <p>이미 최신 버전이면 즉시 건너뛰고, 새 버전이 있을 때만 화면에서 <code>Y/N</code>으로 업데이트 여부를 물어봅니다.</p>
+                        </div>
+                      </label>
+                      <label class="l062-radio-card">
+                        <input type="radio" name="l062-version-policy" value="latest" />
+                        <div>
+                          <strong>구버전이 감지되면 묻지 않고 최신 버전으로 자동 업데이트</strong>
+                          <p>중간 질문 없이 모든 선택 도구를 설치 시점 최신 버전으로 자동 갱신합니다. (단, Blender 3.6 고정 선택 시 3.6 유지)</p>
+                        </div>
+                      </label>
+                      <label class="l062-radio-card">
+                        <input type="radio" name="l062-version-policy" value="skip" />
+                        <div>
+                          <strong>이미 설치되어 있으면 버전 확인 없이 즉시 건너뛰기 (가장 빠름)</strong>
+                          <p>프로그램이 깔려 있으면 온라인 버전 조회를 생략하고 미설치 항목과 설정 파일만 빠르게 채웁니다.</p>
+                        </div>
+                      </label>
+                    </fieldset>
+                  </div>
+
+                  <fieldset class="l062-check-fieldset">
+                    <legend>③ 설치·구성할 항목 선택 (체크한 항목만 스크립트와 <code>config.toml</code>에 반영됩니다)</legend>
+                    <div class="l062-check-grid">
+                      {installerModuleMeta.map((item) => (
+                        <label class="l062-check-card">
+                          <input type="checkbox" data-l062-mod={item.key} checked />
+                          <div class="l062-check-body">
+                            <div class="l062-check-badges">
+                              <span class="l062-mod-group">{item.group}</span>
+                              <span class="l062-mod-badge">{item.badge}</span>
+                            </div>
+                            <strong>{item.title}</strong>
+                            <p>{item.summary}</p>
+                          </div>
+                        </label>
+                      ))}
+                    </div>
+                  </fieldset>
+
+                  <div class="l062-warning-list" data-l062-warnings hidden aria-live="polite"></div>
+
+                  <div class="l062-output-panel">
+                    <div class="l062-output-bar">
+                      <div class="l062-output-title">
+                        <strong>완성된 맞춤 PowerShell 올인원 명령어</strong>
+                        <span class="l062-count-pill" data-l062-count>선택됨: 8 / 8개 구간</span>
                       </div>
-                    )}
+                      <div class="l062-output-actions">
+                        <button type="button" class="l062-toggle-height-btn" data-l062-expand-script>코드 창 크게 보기</button>
+                        <button type="button" class="l062-dl-script-btn" data-l062-download-ps1>ps1 파일로 저장</button>
+                        <button type="button" class="l062-copy-btn l062-copy-main-btn" data-l062-copy-generated>전체 명령어 복사</button>
+                      </div>
+                    </div>
+                    <p class="l062-output-howto">
+                      <strong>실행 방법:</strong> 위 <strong>전체 명령어 복사</strong>를 누른 뒤, 시작 메뉴에서 <code>(x86)</code>이 붙지 않은 기본 <strong>Windows PowerShell</strong>(일반 사용자 창 권장)을 열어 붙여넣고(우클릭 또는 <code>Ctrl + V</code>) <strong>Enter</strong>를 누르세요.
+                      각 항목이 <code># ===== [구간] =====</code> 구분선으로 나뉘어 있어, 복사 후 메모장에서 원하는 구간만 남기거나 지워서 실행해도 문제없이 작동합니다.
+                    </p>
+                    <pre class="l062-pre l062-pre-scroll" data-l062-script-output>{initialPowerShellScript}</pre>
+                  </div>
+                </div>
 
-                    {enabled && skill.id === 'gridline' && (
-                      <figure class="l062-visual-fig">
-                        <img
-                          src={`${base}/${l062SkillGridlinePlan.outputPath}`}
-                          alt={l062SkillGridlinePlan.title}
-                          width={l062SkillGridlinePlan.width}
-                          height={l062SkillGridlinePlan.height}
-                          loading="lazy"
-                        />
-                        <figcaption>
-                          <strong>공식 출력 예시 · A-101 평면도 (1:100 @ A3)</strong> (<a href={skill.source} target="_blank" rel="noreferrer">{skill.sourceLabel}</a>) — 축선(1~3, A~B), 구간 치수, 개구부 기호(D01~D04·W01~W06), 표제란과 <code>CONCEPT - NOT FOR CONSTRUCTION</code> 표기가 자동 정리됩니다.
-                        </figcaption>
-                      </figure>
-                    )}
+                <script
+                  is:inline
+                  type="application/json"
+                  id="l062-custom-skill-json"
+                  set:html={JSON.stringify(customSkillTemplate)}
+                />
 
-                    <dl class="l03-step-context">
-                      <div><dt>언제 쓰나</dt><dd>{skill.fit}</dd></div>
-                      <div><dt>어떻게 작동하나</dt><dd>{skill.logic}</dd></div>
-                      <div><dt>결과물과 기존 도구 연결</dt><dd>{skill.result}</dd></div>
-                    </dl>
-                    <p><strong>주의 및 한계:</strong> {skill.limit}</p>
-                    <p><strong>사전 준비:</strong> {skill.setup} <a href={skill.source} target="_blank" rel="noreferrer">공개 저장소 안내 보기</a></p>
+                <h3>설치가 끝난 뒤 기억할 실행 규칙 3가지</h3>
+                <div class="review-cards">
+                  <article class="review-card">
+                    <h3>1 · 설치 완료 후 Codex 새로 켜기</h3>
+                    <p>올인원 빌더 <code>[구간 7]</code>이 설정 병합 전에 실행 중인 <strong>Codex 잔여 프로세스를 먼저 안전하게 종료</strong>합니다. 완료 요약표가 뜨면 시작 메뉴에서 Codex 앱을 새로 켜기만 하면 됩니다.</p>
+                  </article>
+                  <article class="review-card">
+                    <h3>2 · 옵션 A · 옵션 B 파일 생성</h3>
+                    <p><strong>LibreCAD나 FreeCAD 창을 미리 켜 둘 필요가 없습니다.</strong> Codex 채팅창에 요청하면 백그라운드(<code>aiblueprint</code> · <code>FreeCADCmd</code>)에서 즉시 도면·3D 파일을 만듭니다. <em>(열린 FreeCAD 문서를 직접 조작할 때만 <code>v1-1\Mod</code>에 자동 등록된 <code>Part Design ▾ → MCP Addon → Start RPC Server</code> 클릭)</em></p>
+                  </article>
+                  <article class="review-card">
+                    <h3>3 · Blender 실시간 3D 모델링</h3>
+                    <p>애드온 설치·체크박스 활성화는 이미 자동으로 끝났습니다. Blender를 켠 뒤 3D 화면에서 키보드 <strong><code>N</code></strong> → 우측 <strong><code>MCP for Blender</code></strong> 탭 → <strong><code>Connect to MCP server</code>(<code>Start MCP Server</code>)</strong>만 누르면 바로 연결됩니다.</p>
+                  </article>
+                </div>
 
+                <section class="l062-manual-guide" id="l062-manual-guide">
+                  <div class="l062-manual-head">
+                    <span class="l062-skill-badge l062-skill-badge-navy">원리 이해 &amp; 일반(수동) 설치 안내</span>
+                    <h3>올인원 없이 새 MCP · 스킬을 직접 설치하는 일반 방법 &amp; 옵션 B 경로 완전 정리</h3>
+                    <p>
+                      실습 PC는 위 <strong>올인원 빌더 1회 실행</strong>으로 충분합니다. 다만 나중에 수업 외의 <strong>새로운 MCP 서버나 스킬을 직접 추가</strong>하거나,
+                      올인원 스크립트가 내 PC 어디에 무엇을 배치했는지 원리를 이해해 두면 어떤 PC에서도 스스로 세팅·수정할 수 있습니다.
+                    </p>
+                  </div>
+
+                  <h4>① MCP를 일반적으로 설치·연결하는 3단계 (모든 MCP 공통 원리)</h4>
+                  <div class="review-cards">
+                    {generalMcpSteps.map((st) => (
+                      <article class="review-card">
+                        <span class="l062-mod-badge">{st.step}</span>
+                        <h3>{st.title}</h3>
+                        <p>{st.body}</p>
+                      </article>
+                    ))}
+                  </div>
+
+                  <h4>①-2 · 올인원 없이 직접 해 보는 도구별 수동 설치 절차 (프로그램 · 애드온 붙여넣기 · 연결)</h4>
+                  <p class="l062-note">
+                    올인원 스크립트를 쓰지 않고 <strong>직접 프로그램을 깔고, 애드온 파일을 붙여넣고, Codex에 연결하는 정석 순서</strong>입니다. 나중에 다른 MCP를 수동으로 추가할 때도 이 3가지 패턴(폴더 받기형 · 폴더 복사형 · 앱 내 애드온 설치형) 중 하나를 그대로 따릅니다.
+                  </p>
+                  <div class="l062-manual-tool-grid">
+                    {manualMcpToolGuides.map((tool) => (
+                      <article class="l062-concept-card">
+                        <span class="l062-skill-badge l062-skill-badge-navy">{tool.badge}</span>
+                        <h4>{tool.title}</h4>
+                        <p class="l062-concept-role">{tool.addonNote}</p>
+                        <ol class="l062-manual-steps">
+                          {tool.steps.map((s) => <li>{s}</li>)}
+                        </ol>
+                      </article>
+                    ))}
+                  </div>
+
+                  <details class="l062-details">
+                    <summary>수동 연결 시 Codex 설정 파일(config.toml) 표준 작성 예시 보기</summary>
+                    <p class="l062-note">
+                      탐색기 주소창에 <code>%USERPROFILE%\.codex</code>를 입력해 <code>config.toml</code>을 메모장으로 열고, 연결할 도구 블록만 추가합니다.
+                      기존 설정은 지우지 말고 파일 맨 아래에 이어 붙이며, <strong>윈도우 경로(<code>C:\...</code>)는 반드시 작은따옴표(<code>'...'</code>)</strong>로 감싸 저장합니다.
+                    </p>
                     <div class="l062-code-card">
                       <div class="l062-code-head">
-                        <strong>PowerShell · 프로젝트에 스킬 설치</strong>
-                        <button type="button" class="l062-copy-btn" data-l062-copy={skill.install}>복사</button>
+                        <strong>%USERPROFILE%\.codex\config.toml 수동 등록 표준 예시</strong>
+                        <button type="button" class="l062-copy-btn" data-l062-copy={manualConfigTomlSnippet}>복사</button>
                       </div>
-                      <pre class="l062-pre">{skill.install}</pre>
+                      <pre class="l062-pre">{manualConfigTomlSnippet}</pre>
                     </div>
-                    <p class="l062-note">설치 확인: {skill.skillFolders.map((folder, i) => (
-                      <Fragment>{i > 0 && ', '}<code>.agents/skills/{folder}/SKILL.md</code></Fragment>
-                    ))}</p>
+                  </details>
 
-                    {skill.id === 'cad-drawings' && (
-                      <div class="l062-code-card">
-                        <div class="l062-code-head">
-                          <strong>PowerShell · 설치 직후 환경 진단 (doctor.py)</strong>
-                          <button type="button" class="l062-copy-btn" data-l062-copy={cadDoctorCmd}>복사</button>
-                        </div>
-                        <pre class="l062-pre">{cadDoctorCmd}</pre>
-                      </div>
-                    )}
-
-                    <div class="l062-scenario-card">
-                      <h4>{skill.scenarioTitle}</h4>
-                      <ol>
-                        {skill.scenarioSteps.map((st) => <li>{st}</li>)}
-                      </ol>
-                      <div class="l062-code-card l062-code-card-teal">
-                        <div class="l062-code-head">
-                          <strong>시나리오 Codex 실행 요청 예시</strong>
-                          <button type="button" class="l062-copy-btn" data-l062-copy={skill.prompt}>복사</button>
-                        </div>
-                        <pre class="l062-pre">{skill.prompt}</pre>
-                      </div>
-                    </div>
-                  </section>
-                ))}
-
-                <section id="l062-custom-skill" class="l062-skill-box l062-skill-box-custom">
-                  <div class="l062-badge-row">
-                    <span class="l062-skill-badge l062-skill-badge-navy">직접 제작 · 우리 사무실 전용 스킬</span>
-                    <span class="l062-prep-badge">준비물: 도면 파일 불필요 · 빈 폴더 + 텍스트 조건</span>
-                  </div>
-                  <h3>응용 · 나만의 건축 DXF 스킬(<code>SKILL.md</code>) 직접 만들어 적용하기</h3>
-                  <p class="l062-skill-plain">
-                    외부 공개 스킬만 쓰는 것이 아니라, <strong>우리 사무실의 표준 레이어 이름(<code>A-WALL</code>·<code>A-DOOR</code>·<code>A-AREA</code>)과 엑셀 면적표 양식</strong>을
-                    마크다운 문서 1장(<code>SKILL.md</code>)으로 저장해 두면 Codex가 <code>ezdxf</code> 코드 1회 실행으로 단 몇 초 만에 일관된 도면과 면적표를 생성합니다.
+                  <h4 id="l062-optb-paths">② 가장 헷갈리기 쉬운 옵션 B(FreeCAD) 경로 구조 — 딱 4곳만 구분하면 끝!</h4>
+                  <p class="l062-note">
+                    FreeCAD MCP 수동 설정이 어렵게 느껴지는 이유는 <strong>실행 엔진(경로 1) · 다운로드 창고(경로 2) · FreeCAD 플러그인 폴더(경로 3) · Codex 주소록(경로 4)</strong>이 서로 다른 위치에 있기 때문입니다.
+                    아래 <strong>흐름 공식 2줄</strong>과 4곳 대조표만 보면 헷갈릴 일이 없습니다.
                   </p>
-                  <ol class="l062-steps">
-                    <li>프로젝트 폴더 안에 <code>.agents\skills\my-arch-dxf\</code> 폴더를 새로 만듭니다.</li>
-                    <li>그 안에 메모장이나 편집기로 <code>SKILL.md</code> 파일을 만들고 아래 내용을 그대로 붙여넣어 저장합니다.</li>
-                    <li>Codex를 다시 열고 채팅창에서 <code>$my-arch-dxf</code>를 호출해 테스트합니다.</li>
-                  </ol>
+                  <div class="l062-flow-banner">
+                    <div><strong>백그라운드 3D 파일 생성만 쓸 때 (기본 추천):</strong> <code>경로 1 (freecadcmd.exe)</code> 주소를 찾아 → <code>경로 4 (config.toml)</code>의 <code>--freecadcmd</code> 뒤에 등록하면 완료!</div>
+                    <div><strong>열려 있는 FreeCAD 화면을 실시간 조작할 때 (추가):</strong> <code>경로 2 (addon\FreeCADMCP)</code> 폴더를 → <code>경로 3 (%APPDATA%\FreeCAD\v1-1\Mod\)</code>로 복사하면 메뉴 활성화!</div>
+                  </div>
+                  <div class="l04-table">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>구분</th>
+                          <th>대상 이름</th>
+                          <th>실제 폴더 · 파일 경로</th>
+                          <th>무슨 역할을 하나?</th>
+                          <th>어디에 연결·사용하나?</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {optionBPathMap.map((row) => (
+                          <tr>
+                            <td><span class="l062-mod-badge">{row.badge}</span></td>
+                            <td><strong>{row.name}</strong></td>
+                            <td><pre class="l062-path-cell">{row.location}</pre></td>
+                            <td>{row.role}</td>
+                            <td>{row.whereUsed}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                   <div class="l062-code-card">
                     <div class="l062-code-head">
-                      <strong>.agents\skills\my-arch-dxf\SKILL.md 복사 템플릿</strong>
-                      <button type="button" class="l062-copy-btn" data-l062-copy={customSkillTemplate}>복사</button>
+                      <strong>내 PC의 실제 FreeCADCmd.exe 경로(경로 1) 1초 만에 확인하는 PowerShell 명령어</strong>
+                      <button type="button" class="l062-copy-btn" data-l062-copy={optionBPathFindCmd}>복사</button>
                     </div>
-                    <pre class="l062-pre">{customSkillTemplate}</pre>
+                    <pre class="l062-pre">{optionBPathFindCmd}</pre>
                   </div>
-                  <div class="l062-code-card l062-code-card-teal">
-                    <div class="l062-code-head">
-                      <strong>Codex 호출 시나리오 · 표준 레이어 DXF + 면적표 CSV 1회 생성</strong>
-                      <button type="button" class="l062-copy-btn" data-l062-copy={customSkillCallPrompt}>복사</button>
-                    </div>
-                    <pre class="l062-pre">{customSkillCallPrompt}</pre>
+                  <p class="l062-note">
+                    <strong>왜 PC마다 경로 1이 다를까요?</strong> FreeCAD 설치 시 <strong>관리자 권한(전체 사용자)</strong>으로 깔면 <code>C:\Program Files\FreeCAD 1.1\bin\</code>에 들어가고,
+                    <strong>일반 사용자 권한</strong>으로 깔면 <code>C:\Users\&lt;내계정&gt;\AppData\Local\Programs\FreeCAD 1.1\bin\</code>에 들어갑니다.
+                    따라서 다른 PC의 경로를 그대로 복사하면 못 찾고, 위 1줄 명령어로 나온 <strong>내 PC 실제 경로</strong>를 <code>config.toml</code>에 넣어야 합니다. (올인원 빌더는 두 경로를 모두 자동 탐색합니다.)
+                  </p>
+
+                  <h4 id="l062-skill-manual">③ Codex 스킬(Skill)을 일반적으로 설치하는 2가지 방법</h4>
+                  <div class="l062-concept-grid">
+                    {generalSkillMethods.map((m) => (
+                      <article class="l062-concept-card">
+                        <span class="l062-skill-badge">{m.badge}</span>
+                        <h4>{m.title}</h4>
+                        <p class="l062-concept-role">{m.summary}</p>
+                        <div class="l062-code-card l062-code-card-compact">
+                          <div class="l062-code-head">
+                            <strong>표준 명령 · 배치 경로</strong>
+                            <button type="button" class="l062-copy-btn l062-copy-btn-sm" data-l062-copy={m.code}>복사</button>
+                          </div>
+                          <pre class="l062-pre">{m.code}</pre>
+                        </div>
+                        <ul>
+                          {m.notes.map((n) => <li>{n}</li>)}
+                        </ul>
+                      </article>
+                    ))}
                   </div>
                 </section>
 
-                <aside class="review-callout">
-                  <strong>첫 실습 추천 순서</strong>
-                  <p>① 이미 만든 10 × 6m 도면이 있다면 <strong><code>$cad-drawings</code></strong>로 단위·폐합·면적을 먼저 검수합니다. ② 빈 대지 초안이 필요하면 <strong><code>$architectural-concept-design</code></strong>으로 평면·입면·단면·3D 뷰어를 뽑고, ③ 여러 실·일람표·Blender 시각화를 함께 맞출 때 <strong><code>Gridline</code></strong>을, ④ 반복 업무를 내 기준대로 고정하고 싶을 때 <strong>나만의 <code>SKILL.md</code></strong>를 적용합니다.</p>
-                </aside>
+                <details class="l062-details" id="l062-troubleshooting">
+                  <summary>혹시 연결이 안 되거나 오류가 나나요? · 자주 만나는 증상 7가지 해결표 열기</summary>
+                  <div class="l04-table">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>증상</th>
+                          <th>원인</th>
+                          <th>즉시 해결 방법</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {troubleshootingRows.map((row) => (
+                          <tr>
+                            <td><strong>{row.symptom}</strong></td>
+                            <td>{row.cause}</td>
+                            <td>{row.fix}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </details>
               </>
             )}
 
             {section.id === 'l062-mcp-scenarios' && (
               <>
-                <p>
-                  설치 확인용 단순 사각형·상자 테스트를 마쳤다면, 이제 <strong>실제 건축 사무실에서 바로 만나는 4가지 상황</strong>을
-                  아래 샘플 자료 3종으로 그대로 체험해 봅니다.
-                  어려운 코드 용어 없이 <strong>① 실무 상황 이해 → ② 지정된 샘플 첨부·배치 → ③ 현실적인 자연어 프롬프트 복사 실행</strong> 순서로 진행하세요.
-                </p>
+                <h3 id="l062-verify-tests">1 · 본 시나리오 전 10초 연결 확인 &amp; 무오류 프롬프트 3원칙</h3>
+                <div class="review-cards">
+                  <article class="review-card">
+                    <h4>확인 1 · 옵션 A (2D DXF)</h4>
+                    <p>Codex 채팅창에 입력: <em>“aiblueprint MCP로 가로 10m × 세로 6m 사각형 평면 DXF를 저장하고 미리보기 이미지를 만들어 줘.”</em> → 생성된 DXF를 LibreCAD로 열어 확인</p>
+                  </article>
+                  <article class="review-card">
+                    <h4>확인 2 · 옵션 B (FreeCAD 백그라운드)</h4>
+                    <p>아래 6 × 4 × 3m 매스 검증 프롬프트를 보내 FreeCAD 창을 띄우지 않고 <code>.FCStd</code>와 <code>.step</code>이 생성·검수되는지 확인합니다.</p>
+                  </article>
+                  <article class="review-card">
+                    <h4>확인 3 · 메인 3D (Blender)</h4>
+                    <p>Blender에서 <code>N키 → Connect to MCP server</code> 클릭 후: <em>“현재 Blender 장면에 있는 객체 목록을 조회해 줘.”</em> → <code>Cube, Light, Camera</code> 응답 확인</p>
+                  </article>
+                </div>
 
-                <h3 id="l062-sample-pack">실습 샘플 자료 3종 다운로드 &amp; 어디서 쓰는지 한눈에 보기</h3>
+                <details class="l062-details">
+                  <summary>옵션 B 빠른 연결 검증용 프롬프트 보기 (FreeCAD 백그라운드 6 × 4 × 3m 매스)</summary>
+                  <div class="l062-code-card">
+                    <div class="l062-code-head">
+                      <strong>Codex 요청 예시 · 화면 없는 FreeCADCmd 6 × 4 × 3m 매스 검증</strong>
+                      <button type="button" class="l062-copy-btn" data-l062-copy={freeCadHeadlessPrompt}>복사</button>
+                    </div>
+                    <pre class="l062-pre">{freeCadHeadlessPrompt}</pre>
+                  </div>
+                </details>
+
+                <div class="l062-rule-grid" id="l062-fast-prompt-rules">
+                  {fastPromptRules.map((rule) => (
+                    <article class="l062-rule-card">
+                      <h4>{rule.title}</h4>
+                      <p class="l062-rule-bad">✕ 피할 요청: {rule.bad}</p>
+                      <p class="l062-rule-good">✓ 권장 지시: {rule.good}</p>
+                      <button type="button" class="l062-copy-btn l062-copy-btn-sm" data-l062-copy={rule.good}>권장 문장 복사</button>
+                    </article>
+                  ))}
+                </div>
+
+                <h3 id="l062-sample-pack">2 · 실습 샘플 자료 3종 다운로드 &amp; 작업 폴더 준비</h3>
                 <p class="l062-note">
-                  <strong>샘플 준비 방법:</strong> 내 PC에 연습용 폴더(예: <code>C:\work\mcp-practice</code>)를 하나 만들고, 아래 샘플 3개를 모두 그 폴더에 저장한 뒤
-                  <strong>Codex 앱에서 해당 폴더를 열고</strong> 실습하면 모든 시나리오가 막힘 없이 바로 이어집니다.
+                  <strong>폴더 준비:</strong> 내 PC에 빈 연습 폴더(예: <code>C:\work\mcp-practice</code>)를 하나 만들고, 아래 샘플 3개를 모두 그 폴더에 저장한 뒤
+                  <strong>Codex 앱에서 해당 폴더를 열고</strong> 아래 시나리오 프롬프트를 순서대로 실행해 보세요.
                 </p>
 
                 <div class="l04-table">
@@ -1020,7 +713,7 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
                       <tr>
                         <td><strong>① 오피스 평면도 이미지</strong><br /><code>PLAN-BASE-01 (.png)</code></td>
                         <td>14,400 × 8,400mm 소형 오피스·회의실 2D 평면도 (5차시 기준 도면)</td>
-                        <td><strong>시나리오 A-1 (11-2)</strong> — Codex 채팅창 <code>+</code> 버튼으로 <strong>직접 첨부</strong>해 치수 판독 → DXF 역작도</td>
+                        <td><strong>시나리오 A-1 (06-3)</strong> — Codex 채팅창 <code>+</code> 버튼으로 <strong>직접 첨부</strong>해 치수 판독 → DXF 역작도</td>
                         <td>
                           {enabled && (
                             <a class="l062-sample-dl" href={`${base}/${sampleOfficePlanImg.outputPath}`} download="01_sample_office_plan_reference.png">PNG 받기</a>
@@ -1030,7 +723,7 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
                       <tr>
                         <td><strong>② 표준 레이어 CAD 도면</strong><br /><code>06_sample_office_plan_v1.dxf</code></td>
                         <td>9개 표준 레이어(<code>A-WALL</code>~<code>A-DIM</code>, <code>mm</code>)가 이미 정리된 실제 오피스 DXF</td>
-                        <td><strong>시나리오 A-2 (11-3)</strong> 수정·버전 비교 &amp; <strong>시나리오 B-1 (11-4)</strong> 3D 건물 압출용 — <strong>작업 폴더에 저장</strong>해 두고 파일명 지목</td>
+                        <td><strong>시나리오 A-2 (06-4)</strong> 수정·버전 비교 &amp; <strong>시나리오 B-1 (06-5)</strong> 3D 건물 압출용 — <strong>작업 폴더에 저장</strong></td>
                         <td>
                           {enabled && (
                             <a class="l062-sample-dl" href={`${base}/${l062SampleOfficeDxf.outputPath}`} download="06_sample_office_plan_v1.dxf">DXF 받기</a>
@@ -1040,7 +733,7 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
                       <tr>
                         <td><strong>③ 3층 근생 기획 조건서</strong><br /><code>07_sample_site_brief_3f_commercial.txt</code></td>
                         <td>12×18m 대지, 1층 필로티, 2~3층 북측 일조 후퇴, 건폐율·용적률 기준 문서</td>
-                        <td><strong>시나리오 B-2 (11-5)</strong> — 작업 폴더에 넣거나 Codex에 <strong>첨부(+)</strong>해 3층 기획 3D 매스 &amp; 법규 면적표 생성</td>
+                        <td><strong>시나리오 B-2 (06-6)</strong> — 작업 폴더에 넣거나 Codex에 <strong>첨부(+)</strong>해 3층 기획 3D 매스 &amp; 법규 면적표 생성</td>
                         <td>
                           {enabled && (
                             <a class="l062-sample-dl" href={`${base}/${l062SampleSiteBrief.outputPath}`} download="07_sample_site_brief_3f_commercial.txt">TXT 받기</a>
@@ -1080,13 +773,262 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
                 ))}
 
                 <aside class="review-callout">
-                  <strong>다음 단계 연결 · 제8·9차시 Blender MCP &amp; 제7차시 업스케일 최종 마감</strong>
+                  <strong>다음 차시 연결 · 제8·9차시 Blender MCP &amp; 제7차시 업스케일 마감</strong>
                   <p>
                     시나리오 B-1·B-2에서 만든 <code>office_3d.obj</code> · <code>mass_study.obj</code>는 그대로 <a href={`${base}/lessons/08/`}>제8차시</a>·<a href={`${base}/lessons/09/`}>제9차시</a>의
-                    <strong>Blender MCP</strong>(또는 회사 SketchUp)로 불러와 재질·조명·카메라를 세팅할 수 있으며, 최종 제안서 컷은
+                    <strong>Blender MCP</strong>(또는 SketchUp)로 불러와 재질·조명·카메라를 세팅할 수 있으며, 최종 제안서 컷은
                     <a href={`${base}/lessons/07/`}>제7차시</a>의 <strong>이미지 고화질 업스케일</strong>로 마감합니다.
                   </p>
                 </aside>
+              </>
+            )}
+
+            {section.id === 'l062-codex-skills' && (
+              <>
+                <p>
+                  앞에서 다룬 <strong>MCP</strong>가 CAD·FreeCAD·Blender를 움직이는 <strong>‘손발’</strong>이라면,
+                  <strong>스킬(<code>SKILL.md</code>)</strong>은 <em>“어떤 순서로 검사하고, 어떤 레이어 규칙으로 도면과 면적표를 만들지”</em>를 적어 둔 <strong>‘업무 매뉴얼’</strong>입니다.
+                  위 <strong>05번 올인원 통합 설치 빌더</strong>에서 <code>[건축 스킬 4종]</code>을 함께 설치했다면 이미 전역 등록이 끝났으므로,
+                  추가 설치 없이 어느 작업 폴더에서든 채팅창에 <strong><code>$스킬이름</code></strong>만 입력해 바로 부를 수 있습니다.
+                </p>
+
+                {enabled && (
+                  <figure class="l062-visual-fig">
+                    <img
+                      src={`${base}/${l062WorkflowSvg.outputPath}`}
+                      alt={l062WorkflowSvg.title}
+                      width={l062WorkflowSvg.width}
+                      height={l062WorkflowSvg.height}
+                      loading="lazy"
+                    />
+                    <figcaption>
+                      <strong>MCP(손발) × Codex 건축 스킬(업무 매뉴얼) 협업 구조</strong> — 올인원 설치 후 작업 폴더에서 <code>$스킬이름</code>만 호출하면 동일한 품질 기준으로 도면 검수·개념 설계·시각화 계획을 수행합니다.
+                    </figcaption>
+                  </figure>
+                )}
+
+                {cadSkillExamples.map((skill) => (
+                  <section id={`l062-skill-${skill.id}`} class="l062-skill-box">
+                    <div class="l062-badge-row">
+                      <span class="l062-skill-badge">{skill.badge}</span>
+                      <span class:list={['l062-prep-badge', { 'l062-prep-badge-dxf': skill.prepNeedsDxf }]}>{skill.prepBadge}</span>
+                    </div>
+                    <h3>{skill.title}</h3>
+                    <p class="l062-skill-plain">{skill.plainSummary}</p>
+
+                    {enabled && skill.id === 'cad-drawings' && (
+                      <figure class="l062-visual-fig">
+                        <img
+                          src={`${base}/${l062SkillCadPreview.outputPath}`}
+                          alt={l062SkillCadPreview.title}
+                          width={l062SkillCadPreview.width}
+                          height={l062SkillCadPreview.height}
+                          loading="lazy"
+                        />
+                        <figcaption>
+                          <strong>공식 출력 예시</strong> (<a href={skill.source} target="_blank" rel="noreferrer">{skill.sourceLabel}</a>) — CAD 프로그램을 띄우지 않고 DXF 시트를 PNG로 자동 렌더링한 예시입니다.
+                        </figcaption>
+                      </figure>
+                    )}
+
+                    {enabled && skill.id === 'concept-design' && (
+                      <div class="l062-visual-grid">
+                        <figure class="l062-visual-fig">
+                          <img
+                            src={`${base}/${l062SkillConceptPlan3d.outputPath}`}
+                            alt={l062SkillConceptPlan3d.title}
+                            width={l062SkillConceptPlan3d.width}
+                            height={l062SkillConceptPlan3d.height}
+                            loading="lazy"
+                          />
+                          <figcaption>
+                            <strong>평면도(DXF/PDF) ↔ 3D 웹 뷰어 연동 예시</strong> (<a href={skill.source} target="_blank" rel="noreferrer">{skill.sourceLabel}</a>)
+                          </figcaption>
+                        </figure>
+                        <figure class="l062-visual-fig">
+                          <img
+                            src={`${base}/${l062SkillConceptSet.outputPath}`}
+                            alt={l062SkillConceptSet.title}
+                            width={l062SkillConceptSet.width}
+                            height={l062SkillConceptSet.height}
+                            loading="lazy"
+                          />
+                          <figcaption>
+                            <strong>6장 개념 도면 세트 자동 출력 예시</strong> — 배치도·평면도·입면도·단면도·면적표 일괄 생성
+                          </figcaption>
+                        </figure>
+                      </div>
+                    )}
+
+                    {enabled && skill.id === 'gridline' && (
+                      <figure class="l062-visual-fig">
+                        <img
+                          src={`${base}/${l062SkillGridlinePlan.outputPath}`}
+                          alt={l062SkillGridlinePlan.title}
+                          width={l062SkillGridlinePlan.width}
+                          height={l062SkillGridlinePlan.height}
+                          loading="lazy"
+                        />
+                        <figcaption>
+                          <strong>공식 출력 예시 · A-101 평면도 (1:100 @ A3)</strong> (<a href={skill.source} target="_blank" rel="noreferrer">{skill.sourceLabel}</a>)
+                        </figcaption>
+                      </figure>
+                    )}
+
+                    <dl class="l03-step-context">
+                      <div><dt>언제 쓰나</dt><dd>{skill.fit}</dd></div>
+                      <div><dt>어떻게 작동하나</dt><dd>{skill.logic}</dd></div>
+                      <div><dt>산출물</dt><dd>{skill.result}</dd></div>
+                    </dl>
+                    <p><strong>주의 및 한계:</strong> {skill.limit}</p>
+
+                    <div class="l062-scenario-card">
+                      <h4>{skill.scenarioTitle}</h4>
+                      <ol>
+                        {skill.scenarioSteps.map((st) => <li>{st}</li>)}
+                      </ol>
+                      <div class="l062-code-card l062-code-card-teal">
+                        <div class="l062-code-head">
+                          <strong>시나리오 Codex 실행 요청 예시</strong>
+                          <button type="button" class="l062-copy-btn" data-l062-copy={skill.prompt}>복사</button>
+                        </div>
+                        <pre class="l062-pre">{skill.prompt}</pre>
+                      </div>
+                    </div>
+
+                    <details class="l062-details">
+                      <summary>이 스킬만 개별 설치·진단할 때 명령어 보기 (올인원 설치 완료 시 생략)</summary>
+                      <div class="l062-code-card">
+                        <div class="l062-code-head">
+                          <strong>PowerShell · 전역 스킬 단독 설치</strong>
+                          <button type="button" class="l062-copy-btn" data-l062-copy={skill.install}>복사</button>
+                        </div>
+                        <pre class="l062-pre">{skill.install}</pre>
+                      </div>
+                      {skill.id === 'cad-drawings' && (
+                        <div class="l062-code-card">
+                          <div class="l062-code-head">
+                            <strong>PowerShell · 환경 진단 (doctor.py)</strong>
+                            <button type="button" class="l062-copy-btn" data-l062-copy={cadDoctorCmd}>복사</button>
+                          </div>
+                          <pre class="l062-pre">{cadDoctorCmd}</pre>
+                        </div>
+                      )}
+                    </details>
+                  </section>
+                ))}
+
+                <section id="l062-custom-skill" class="l062-skill-box l062-skill-box-custom">
+                  <div class="l062-badge-row">
+                    <span class="l062-skill-badge l062-skill-badge-navy">직접 제작 · 나만의 전역 스킬 만들기</span>
+                    <span class="l062-prep-badge">Codex에게 말로 시켜 10초 만에 제작 · 전역 등록</span>
+                  </div>
+                  <h3>응용 · 나만의 건축 스킬 만들기 — Codex에게 기획·문서 폼을 알려 주고 전역 호출하기</h3>
+                  <p class="l062-skill-plain">
+                    공개 스킬이나 올인원에 들어 있는 샘플(<code>$my-arch-dxf</code>)을 넘어, 진짜 실무 효율은 <strong>우리 사무실만의 업무 순서 · 문서 폼 · 참조 디자인</strong>을 담은
+                    <strong>‘나만의 새 스킬’을 직접 만들어 전역 등록</strong>할 때 나옵니다.
+                    마크다운 문법이나 숨김 폴더 구조를 손으로 직접 만들 필요가 없습니다. <strong>아래 5가지 재료만 정해서 Codex에게 지시</strong>하면,
+                    Codex가 폴더 생성부터 <code>SKILL.md</code> 작성, 참고 문서·디자인 복사, 전역 등록까지 한 번에 끝내 줍니다.
+                  </p>
+
+                  <h4>STEP 1 · Codex에게 스킬 제작을 시키기 전에 정할 5가지 재료</h4>
+                  <p class="l062-note">
+                    “좋은 스킬 만들어 줘”처럼 막연하게 요청하면 평범한 결과만 나옵니다. 아래 5가지 기준을 짚어 주면 실무에 바로 투입할 수 있는 전용 스킬이 완성됩니다.
+                  </p>
+                  <div class="l062-brief-grid">
+                    {customSkillBriefElements.map((item) => (
+                      <article class="l062-brief-card">
+                        <div class="l062-brief-head">
+                          <span class="l062-quick-code">{item.num}</span>
+                          <strong>{item.title}</strong>
+                        </div>
+                        <p>{item.detail}</p>
+                        <p class="l062-brief-ex">{item.example}</p>
+                      </article>
+                    ))}
+                  </div>
+
+                  <h4>STEP 2 · 빈칸만 채워 바로 쓰는 「Codex 나만의 스킬 자동 제작 요청서」</h4>
+                  <p class="l062-note">
+                    참고할 회사 제안서(PDF·Word·HTML), 표준 레이어표(CSV), 브랜드 컬러·투시도 레퍼런스 이미지가 있다면
+                    <strong>Codex 채팅창의 <code>+</code> 버튼으로 함께 첨부</strong>한 뒤 아래 요청문의 대괄호 내용만 내 업무에 맞게 바꿔 보내세요.
+                  </p>
+                  <div class="l062-code-card l062-code-card-teal">
+                    <div class="l062-code-head">
+                      <strong>Codex 지시문 · 나만의 새 스킬 제작 + 참고 폼(references) 보관 + 전역 등록 한 번에 시키기</strong>
+                      <button type="button" class="l062-copy-btn" data-l062-copy={customSkillCreatorPrompt}>복사</button>
+                    </div>
+                    <pre class="l062-pre">{customSkillCreatorPrompt}</pre>
+                  </div>
+
+                  <div class="l062-code-card">
+                    <div class="l062-code-head">
+                      <strong>참고 · Codex가 내 PC에 자동으로 만들어 주는 전역 스킬 폴더 구조</strong>
+                      <button type="button" class="l062-copy-btn l062-copy-btn-sm" data-l062-copy={customSkillFolderTree}>복사</button>
+                    </div>
+                    <pre class="l062-pre">{customSkillFolderTree}</pre>
+                  </div>
+
+                  <h4>STEP 3 · 셋팅 반영 확인 &amp; 만든 스킬 실제로 호출해 사용하기</h4>
+                  <div class="review-cards">
+                    <article class="review-card">
+                      <h3>1 · 전역 셋팅 확인</h3>
+                      <p>Codex가 저장을 마치면 <strong>새 대화를 열거나 Codex 앱을 재실행</strong>한 뒤, 채팅창에 <strong><code>$</code></strong>를 입력해 방금 만든 <code>$내스킬이름</code>이 자동완성 목록에 뜨는지 확인합니다.</p>
+                    </article>
+                    <article class="review-card">
+                      <h3>2 · 호출 방법 2가지</h3>
+                      <p><strong>직접 호출(추천):</strong> 채팅창 맨 앞에 <code>$내스킬이름</code>을 적어 확실히 적용합니다.<br /><strong>자동 호출:</strong> <code>$</code> 없이도 <code>description</code>에 적은 상황과 맞으면 Codex가 알아서 꺼내 씁니다.</p>
+                    </article>
+                    <article class="review-card">
+                      <h3>3 · 고치고 싶을 때</h3>
+                      <p>메모장을 열지 않아도 채팅창에서 <em>“<code>$내스킬이름</code> 스킬의 기준과 참고 폼을 이렇게 바꿔 줘”</em>라고 말하면 Codex가 <code>SKILL.md</code>와 <code>references\</code>를 바로 갱신합니다.</p>
+                    </article>
+                  </div>
+
+                  <div class="l062-scenario-card">
+                    <h4>만든 스킬을 실무에서 쓰는 3가지 예시 (복사 후 바로 테스트)</h4>
+                    {customSkillUsageExamples.map((ex) => (
+                      <div class="l062-code-card">
+                        <div class="l062-code-head">
+                          <div>
+                            <span class="l062-mod-badge">{ex.badge}</span>
+                            <strong> {ex.title}</strong>
+                          </div>
+                          <button type="button" class="l062-copy-btn" data-l062-copy={ex.prompt}>복사</button>
+                        </div>
+                        <pre class="l062-pre">{ex.prompt}</pre>
+                      </div>
+                    ))}
+                  </div>
+
+                  <details class="l062-details">
+                    <summary>체험용 샘플 스킬($my-arch-dxf) 원문 &amp; 수동 메모장 편집 명령 보기</summary>
+                    <p class="l062-note">
+                      올인원 빌더로 미리 등록된 <code>$my-arch-dxf</code>의 실제 <code>SKILL.md</code> 구조입니다. 직접 손으로 고쳐 보고 싶다면 아래 메모장 명령으로 바로 열어 수정할 수 있습니다.
+                    </p>
+                    <div class="l062-code-card">
+                      <div class="l062-code-head">
+                        <strong>PowerShell · 전역 스킬 SKILL.md 메모장으로 바로 열기</strong>
+                        <button type="button" class="l062-copy-btn l062-copy-btn-sm" data-l062-copy={customSkillEditCmd}>복사</button>
+                      </div>
+                      <pre class="l062-pre">{customSkillEditCmd}</pre>
+                    </div>
+                    <div class="l062-code-card">
+                      <div class="l062-code-head">
+                        <strong>샘플 호출 문장 · $my-arch-dxf 단독 실행</strong>
+                        <button type="button" class="l062-copy-btn l062-copy-btn-sm" data-l062-copy={customSkillCallPrompt}>복사</button>
+                      </div>
+                      <pre class="l062-pre">{customSkillCallPrompt}</pre>
+                    </div>
+                    <div class="l062-code-card">
+                      <div class="l062-code-head">
+                        <strong>.agents\skills\my-arch-dxf\SKILL.md 원문 예시</strong>
+                        <button type="button" class="l062-copy-btn l062-copy-btn-sm" data-l062-copy={customSkillTemplate}>복사</button>
+                      </div>
+                      <pre class="l062-pre">{customSkillTemplate}</pre>
+                    </div>
+                  </details>
+                </section>
               </>
             )}
           </ReviewSection>
@@ -1097,7 +1039,17 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
 </ReviewLayout>
 
 <script>
-  const bindL062Copy = () => {
+  import {
+    defaultInstallerSelection,
+    evaluateSetupWarnings,
+    buildAllInOnePowerShell,
+    type InstallerSelection,
+    type BlenderProfile,
+    type VersionPolicy,
+  } from '../../content/daejeon-all-in-one-installer';
+
+  const initL062Page = () => {
+    // 1. Static copy buttons
     document.querySelectorAll<HTMLButtonElement>('[data-l062-copy]').forEach((btn) => {
       if (btn.dataset.bound === '1') return;
       btn.dataset.bound = '1';
@@ -1115,9 +1067,151 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
         }
       });
     });
+
+    // 2. Interactive All-in-One PowerShell Builder
+    const builder = document.querySelector<HTMLElement>('[data-l062-builder]');
+    if (!builder || builder.dataset.bound === '1') return;
+    builder.dataset.bound = '1';
+
+    const customSkillEl = document.getElementById('l062-custom-skill-json');
+    const customSkillMd: string = customSkillEl ? JSON.parse(customSkillEl.textContent || '""') : '';
+
+    const modBoxes = Array.from(builder.querySelectorAll<HTMLInputElement>('[data-l062-mod]'));
+    const profileRadios = Array.from(builder.querySelectorAll<HTMLInputElement>('input[name="l062-blender-profile"]'));
+    const policyRadios = Array.from(builder.querySelectorAll<HTMLInputElement>('input[name="l062-version-policy"]'));
+    const presetBtns = Array.from(builder.querySelectorAll<HTMLButtonElement>('[data-l062-preset]'));
+    const warningBox = builder.querySelector<HTMLElement>('[data-l062-warnings]');
+    const countPill = builder.querySelector<HTMLElement>('[data-l062-count]');
+    const scriptPre = builder.querySelector<HTMLElement>('[data-l062-script-output]');
+    const copyGenBtn = builder.querySelector<HTMLButtonElement>('[data-l062-copy-generated]');
+    const dlPs1Btn = builder.querySelector<HTMLButtonElement>('[data-l062-download-ps1]');
+    const expandBtn = builder.querySelector<HTMLButtonElement>('[data-l062-expand-script]');
+
+    const readSelection = (): InstallerSelection => {
+      const sel: InstallerSelection = { ...defaultInstallerSelection };
+      for (const box of modBoxes) {
+        const key = box.dataset.l062Mod as keyof InstallerSelection;
+        if (key && typeof sel[key] === 'boolean') {
+          (sel[key] as boolean) = box.checked;
+        }
+      }
+      const chosenProfile = profileRadios.find((r) => r.checked)?.value as BlenderProfile | undefined;
+      if (chosenProfile) sel.blenderProfile = chosenProfile;
+      const chosenPolicy = policyRadios.find((r) => r.checked)?.value as VersionPolicy | undefined;
+      if (chosenPolicy) sel.versionPolicy = chosenPolicy;
+      return sel;
+    };
+
+    const escapeHtml = (s: string) =>
+      s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+    const renderBuilder = () => {
+      const sel = readSelection();
+      const checkedCount = modBoxes.filter((b) => b.checked).length;
+      if (countPill) {
+        countPill.textContent = `선택됨: ${checkedCount} / ${modBoxes.length}개 구간`;
+      }
+
+      const warnings = evaluateSetupWarnings(sel);
+      if (warningBox) {
+        if (warnings.length === 0) {
+          warningBox.hidden = true;
+          warningBox.innerHTML = '';
+        } else {
+          warningBox.hidden = false;
+          warningBox.innerHTML = warnings
+            .map(
+              (w) => `<div class="l062-warn-item" data-warn-id="${escapeHtml(w.id)}">
+                <strong>⚠️ ${escapeHtml(w.title)}</strong>
+                <p>${escapeHtml(w.detail)}</p>
+              </div>`,
+            )
+            .join('');
+        }
+      }
+
+      const scriptText = buildAllInOnePowerShell(sel, customSkillMd);
+      if (scriptPre) {
+        scriptPre.textContent = scriptText;
+      }
+    };
+
+    const applyPreset = (preset: string) => {
+      const targetKeys: Record<string, boolean> = {
+        git: preset !== 'none',
+        node: preset === 'all',
+        pythonUv: preset !== 'none',
+        optA: preset === 'all' || preset === 'l072',
+        optB: preset === 'all' || preset === 'l072',
+        blender: preset === 'all' || preset === 'blender',
+        codexConfig: preset !== 'none',
+        skills: preset === 'all',
+      };
+      for (const box of modBoxes) {
+        const k = box.dataset.l062Mod || '';
+        if (k in targetKeys) box.checked = targetKeys[k];
+      }
+      presetBtns.forEach((b) => {
+        const active = b.dataset.l062Preset === preset;
+        b.classList.toggle('is-active', active);
+        b.setAttribute('aria-pressed', String(active));
+      });
+      renderBuilder();
+    };
+
+    presetBtns.forEach((btn) => {
+      btn.addEventListener('click', () => applyPreset(btn.dataset.l062Preset || 'all'));
+    });
+
+    [...modBoxes, ...profileRadios, ...policyRadios].forEach((input) => {
+      input.addEventListener('change', () => {
+        presetBtns.forEach((b) => {
+          b.classList.remove('is-active');
+          b.setAttribute('aria-pressed', 'false');
+        });
+        renderBuilder();
+      });
+    });
+
+    copyGenBtn?.addEventListener('click', async () => {
+      const text = scriptPre?.textContent || '';
+      try {
+        await navigator.clipboard.writeText(text);
+        const orig = copyGenBtn.textContent;
+        copyGenBtn.textContent = '맞춤 명령어 복사됨 ✓';
+        setTimeout(() => {
+          copyGenBtn.textContent = orig;
+        }, 1500);
+      } catch {
+        // ignore
+      }
+    });
+
+    dlPs1Btn?.addEventListener('click', () => {
+      const text = scriptPre?.textContent || '';
+      // UTF-8 with BOM ensures Windows PowerShell 5.1 reads Korean text cleanly when executed as a .ps1 file
+      const blob = new Blob(['\uFEFF' + text], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'setup-arch-all-in-one.ps1';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    });
+
+    expandBtn?.addEventListener('click', () => {
+      if (!scriptPre) return;
+      const expanded = scriptPre.classList.toggle('is-expanded');
+      expandBtn.textContent = expanded ? '코드 창 접어 두기' : '코드 창 크게 보기';
+    });
+
+    renderBuilder();
   };
-  bindL062Copy();
-  document.addEventListener('astro:page-load', bindL062Copy);
+
+  initL062Page();
+  document.addEventListener('astro:page-load', initL062Page);
 </script>
 
 <style>
@@ -1161,7 +1255,7 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
   }
   .l062-quick-index-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 0.55rem;
   }
   .l062-quick-chip {
@@ -1174,7 +1268,7 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
     background: #f8fafc;
     color: #0f172a;
     text-decoration: none;
-    font-size: 0.82rem;
+    font-size: 0.81rem;
     line-height: 1.38;
     transition: border-color 140ms ease, background-color 140ms ease;
   }
@@ -1192,13 +1286,346 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
     border-radius: 6px;
     background: #1e3a8a;
     color: #ffffff;
-    font-size: 0.74rem;
+    font-size: 0.73rem;
     font-weight: 800;
     font-variant-numeric: tabular-nums;
     flex-shrink: 0;
   }
+
+  /* Concept cards in section 04 */
+  .l062-concept-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 1.25rem 0;
+  }
+  .l062-concept-card {
+    padding: 1.2rem 1.25rem;
+    border-radius: 14px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+  }
+  .l062-concept-card h4 {
+    margin: 0.55rem 0 0.35rem;
+    font-size: 1rem;
+    color: #0f172a;
+  }
+  .l062-concept-role {
+    margin: 0 0 0.65rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #1e3a8a;
+  }
+  .l062-concept-card ul {
+    margin: 0;
+    padding-left: 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.86rem;
+    line-height: 1.58;
+    color: #334155;
+  }
+
+  /* Interactive All-in-One Builder */
+  .l062-builder {
+    margin: 1.5rem 0 2.25rem;
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 2px solid #93c5fd;
+    background: linear-gradient(180deg, #eff6ff 0%, #ffffff 18%);
+    box-shadow: 0 6px 20px rgb(15 23 42 / 6%);
+  }
+  .l062-builder-top {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-bottom: 1.15rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid #cbd5e1;
+  }
+  .l062-builder-top > div:first-child {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.4rem 1rem;
+  }
+  .l062-builder-top strong {
+    font-size: 1rem;
+    color: #0f172a;
+  }
+  .l062-builder-top span {
+    font-size: 0.84rem;
+    color: #475569;
+  }
+  .l062-preset-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .l062-preset-btn {
+    padding: 0.48rem 0.85rem;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #1e3a8a;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .l062-preset-btn:hover {
+    background: #f1f5f9;
+  }
+  .l062-preset-btn.is-active {
+    background: #1e3a8a;
+    border-color: #1e3a8a;
+    color: #ffffff;
+  }
+  .l062-preset-btn.is-active:hover {
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+    color: #ffffff;
+  }
+
+  .l062-builder-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .l062-option-group,
+  .l062-check-fieldset {
+    min-width: 0;
+    margin: 0;
+    padding: 1rem 1.1rem;
+    border-radius: 12px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+  }
+  .l062-option-group legend,
+  .l062-check-fieldset legend {
+    padding: 0 0.4rem;
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #0f172a;
+  }
+  .l062-radio-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    padding: 0.65rem 0.7rem;
+    margin-top: 0.5rem;
+    border-radius: 9px;
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    cursor: pointer;
+  }
+  .l062-radio-card:has(input:checked) {
+    border-color: #1d4ed8;
+    background: #eff6ff;
+  }
+  .l062-radio-card input {
+    width: 1.05rem !important;
+    height: 1.05rem !important;
+    flex: 0 0 1.05rem;
+    margin: 0.22rem 0 0;
+    accent-color: #1d4ed8;
+  }
+  .l062-radio-card > div,
+  .l062-check-body {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .l062-radio-card strong {
+    display: block;
+    font-size: 0.86rem;
+    color: #0f172a;
+    line-height: 1.42;
+  }
+  .l062-radio-card p {
+    margin: 0.25rem 0 0;
+    font-size: 0.79rem;
+    line-height: 1.5;
+    color: #475569;
+  }
+  .l062-rec-pill {
+    display: inline-block;
+    margin-left: 0.25rem;
+    padding: 0.08rem 0.42rem;
+    border-radius: 999px;
+    background: #1e3a8a;
+    color: #ffffff;
+    font-size: 0.7rem;
+    font-weight: 800;
+    vertical-align: middle;
+  }
+
+  .l062-check-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+    margin-top: 0.55rem;
+  }
+  .l062-check-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    padding: 0.75rem 0.85rem;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    cursor: pointer;
+  }
+  .l062-check-card:has(input:checked) {
+    border-color: #93c5fd;
+    background: #ffffff;
+    box-shadow: 0 1px 4px rgb(15 23 42 / 5%);
+  }
+  .l062-check-card input {
+    margin-top: 0.28rem;
+    width: 1.05rem;
+    height: 1.05rem;
+    accent-color: #1d4ed8;
+    flex-shrink: 0;
+  }
+  .l062-check-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 0.28rem;
+  }
+  .l062-mod-group {
+    padding: 0.1rem 0.45rem;
+    border-radius: 5px;
+    background: #e2e8f0;
+    color: #334155;
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+  .l062-mod-badge {
+    padding: 0.1rem 0.45rem;
+    border-radius: 5px;
+    background: #dbeafe;
+    color: #1e3a8a;
+    font-size: 0.7rem;
+    font-weight: 800;
+  }
+  .l062-check-body strong {
+    display: block;
+    font-size: 0.88rem;
+    color: #0f172a;
+    line-height: 1.4;
+  }
+  .l062-check-body p {
+    margin: 0.25rem 0 0;
+    font-size: 0.79rem;
+    line-height: 1.5;
+    color: #475569;
+  }
+
+  .l062-warning-list {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .l062-warning-list[hidden] {
+    display: none !important;
+  }
+  :global(.l062-warn-item) {
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    border: 1.5px solid #f59e0b;
+    background: #fffbeb;
+    color: #78350f;
+  }
+  :global(.l062-warn-item strong) {
+    display: block;
+    font-size: 0.88rem;
+    color: #92400e;
+    margin-bottom: 0.25rem;
+  }
+  :global(.l062-warn-item p) {
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: #78350f;
+  }
+
+  .l062-output-panel {
+    margin-top: 1.15rem;
+    padding: 1.1rem 1.15rem;
+    border-radius: 12px;
+    border: 1.5px solid #cbd5e1;
+    background: #f8fafc;
+  }
+  .l062-output-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-bottom: 0.65rem;
+  }
+  .l062-output-title {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .l062-output-title strong {
+    font-size: 0.95rem;
+    color: #0f172a;
+  }
+  .l062-count-pill {
+    padding: 0.18rem 0.55rem;
+    border-radius: 999px;
+    background: #dbeafe;
+    color: #1e3a8a;
+    font-size: 0.75rem;
+    font-weight: 800;
+  }
+  .l062-output-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+  .l062-toggle-height-btn,
+  .l062-dl-script-btn {
+    padding: 0.42rem 0.78rem;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #1e3a8a;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .l062-toggle-height-btn:hover,
+  .l062-dl-script-btn:hover {
+    background: #f1f5f9;
+  }
+  .l062-copy-main-btn {
+    padding: 0.45rem 1rem !important;
+    font-size: 0.84rem !important;
+  }
+  .l062-output-howto {
+    margin: 0 0 0.7rem;
+    font-size: 0.83rem;
+    line-height: 1.58;
+    color: #334155;
+  }
+  .l062-pre-scroll {
+    max-height: 24rem;
+    overflow-y: auto;
+  }
+  .l062-pre-scroll.is-expanded {
+    max-height: none;
+  }
+
   .l062-code-card {
-    margin: 1.45rem 0;
+    margin: 1.25rem 0;
     padding: 1.05rem 1.15rem;
     border-radius: 12px;
     border: 1.5px solid #cbd5e1;
@@ -1233,6 +1660,8 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
   }
   .l062-copy-btn:hover {
     background: #1d4ed8;
+    border-color: #1d4ed8;
+    color: #ffffff;
   }
   .l062-sample-dl {
     display: inline-block;
@@ -1257,44 +1686,20 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
     border: 1px solid #e2e8f0;
     background: #ffffff;
     font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    font-size: 0.84rem;
-    line-height: 1.6;
+    font-size: 0.83rem;
+    line-height: 1.58;
     color: #0f172a;
     white-space: pre-wrap;
     word-break: break-word;
     overflow-wrap: anywhere;
-  }
-  .l062-dual-code {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.9rem;
-  }
-  .l062-steps {
-    display: flex;
-    flex-direction: column;
-    gap: 0.55rem;
-    padding-left: 1.3rem;
-    line-height: 1.65;
-  }
-  .l062-steps ul {
-    margin-top: 0.35rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
   }
   .l062-note {
     font-size: 0.88rem;
     line-height: 1.6;
     color: #334155;
   }
-  .l062-small-warn {
-    margin-top: 0.45rem;
-    font-size: 0.82rem;
-    color: #b45309;
-    font-weight: 600;
-  }
   .l062-details {
-    margin: 1.45rem 0;
+    margin: 1.25rem 0;
     padding: 0.85rem 1.05rem;
     border-radius: 10px;
     border: 1px solid #cbd5e1;
@@ -1348,7 +1753,7 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
     padding: 0.3rem 0.65rem;
   }
   .l062-skill-box {
-    margin: 2.5rem 0;
+    margin: 2.2rem 0;
     padding: 1.5rem 1.55rem;
     border-radius: 16px;
     border: 1.5px solid #cbd5e1;
@@ -1431,8 +1836,133 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
     line-height: 1.6;
     color: #334155;
   }
+  .l062-manual-guide {
+    margin: 2rem 0 1.5rem;
+    padding: 1.5rem 1.55rem;
+    border-radius: 16px;
+    border: 1.5px solid #cbd5e1;
+    background: #ffffff;
+    box-shadow: 0 3px 12px rgb(15 23 42 / 4%);
+    scroll-margin-top: 6rem;
+  }
+  .l062-manual-head {
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.95rem;
+    border-bottom: 1px dashed #cbd5e1;
+  }
+  .l062-manual-head h3 {
+    margin: 0.55rem 0 0.45rem;
+    font-size: 1.12rem;
+    color: #0f172a;
+  }
+  .l062-manual-head p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.68;
+    color: #334155;
+  }
+  .l062-manual-guide > h4 {
+    margin: 1.6rem 0 0.7rem;
+    font-size: 0.98rem;
+    color: #0f172a;
+    scroll-margin-top: 6rem;
+  }
+  .l062-flow-banner {
+    margin: 0.9rem 0 1.1rem;
+    padding: 0.95rem 1.1rem;
+    border-radius: 11px;
+    border: 1px solid #93c5fd;
+    background: #eff6ff;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    font-size: 0.87rem;
+    line-height: 1.62;
+    color: #1e293b;
+  }
+  .l062-path-cell {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.78rem;
+    line-height: 1.55;
+    color: #0f172a;
+    white-space: pre-wrap;
+    word-break: break-all;
+    overflow-wrap: anywhere;
+  }
+  .l062-code-card-compact {
+    margin: 0.75rem 0 0.85rem;
+    padding: 0.78rem 0.9rem;
+  }
+  .l062-manual-tool-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+    margin: 1rem 0 1.25rem;
+  }
+  .l062-manual-steps {
+    margin: 0;
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    font-size: 0.85rem;
+    line-height: 1.62;
+    color: #334155;
+  }
+  .l062-brief-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+    margin: 1rem 0 1.65rem;
+  }
+  .l062-brief-card {
+    padding: 1rem 1.05rem;
+    border-radius: 12px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .l062-brief-card:last-child {
+    grid-column: 1 / -1;
+    background: #f8fafc;
+    border-color: #93c5fd;
+  }
+  .l062-brief-head {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+  .l062-brief-head strong {
+    font-size: 0.93rem;
+    color: #0f172a;
+  }
+  .l062-brief-card p {
+    margin: 0;
+    font-size: 0.84rem;
+    line-height: 1.58;
+    color: #334155;
+  }
+  .l062-brief-ex {
+    padding: 0.45rem 0.65rem;
+    border-radius: 8px;
+    background: #f0fdfa;
+    border: 1px solid #99f6e4;
+    color: #115e59 !important;
+    font-size: 0.8rem !important;
+  }
+  .l062-skill-box > h4 {
+    margin: 1.7rem 0 0.65rem;
+    font-size: 1rem;
+    color: #0f172a;
+  }
   .l062-scenario-card {
-    margin-top: 1.5rem;
+    margin-top: 1.35rem;
     padding: 1.2rem 1.25rem;
     border-radius: 12px;
     border: 1px solid #99f6e4;
@@ -1453,11 +1983,14 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
     line-height: 1.68;
     color: #1e293b;
   }
-  @media (max-width: 860px) {
+  @media (max-width: 960px) {
     .l062-quick-index-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-    .l062-dual-code,
+    .l062-concept-grid,
+    .l062-brief-grid,
+    .l062-builder-options,
+    .l062-check-grid,
     .l062-rule-grid,
     .l062-visual-grid {
       grid-template-columns: 1fr;
@@ -1467,13 +2000,21 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
     .l062-quick-index-grid {
       grid-template-columns: 1fr;
     }
+    .l062-builder,
+    .l062-manual-guide,
     .l062-skill-box {
-      padding: 1.15rem 1.05rem;
+      padding: 1.15rem 1rem;
     }
   }
   @media print {
-    .l062-copy-btn {
+    .l062-copy-btn,
+    .l062-preset-row,
+    .l062-toggle-height-btn,
+    .l062-dl-script-btn {
       display: none !important;
+    }
+    .l062-pre-scroll {
+      max-height: none !important;
     }
     .l062-code-card {
       break-inside: avoid;

@@ -386,3 +386,7 @@
     html[data-course-id="daejeon-2026"] .review-page :is(summary::after, button, a) { transition: none; }
   }
 }
+
+@media print {
+  .workbook-screen-only-banner { display: none !important; }
+}

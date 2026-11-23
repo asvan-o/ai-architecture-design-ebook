@@ -183,6 +183,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       </ReviewSection>
 
       <ReviewSection {...sectionProps('l02-environment')} summary="Node.js LTS와 Codex 설치·진입 방법을 확인하고 빈 실습 전용 폴더를 안전하게 연결합니다.">
+        <aside class="review-callout workbook-screen-only-banner">
+          <strong>빠른 원클릭 세팅 · PowerShell 올인원 통합 설치 빌더</strong>
+          <p>Node.js를 비롯해 이후 차시에서 사용하는 Git · Python · uv · 건축 MCP · Blender(내장형 GPU용 3.6 LTS 추천 버전 포함)까지 원하는 항목만 체크해 PowerShell 명령어 한 번으로 끝내려면 <a href={`${base}/lessons/07-2/#l062-all-in-one-setup`}><strong>제7-2차시 · 올인원 통합 설치 빌더 바로가기 →</strong></a>를 이용하세요.</p>
+        </aside>
         <h3>준비 1 · Node.js LTS 설치 3분 따라하기 (로컬 서버·버전 저장 실행용)</h3>
         <p>Node.js는 완성된 생성기의 로컬 서버(<code>START.bat</code> → <code>127.0.0.1:4175</code>)와 <code>output/</code> 폴더 자동 버전 저장(<code>_v02</code>)을 내 PC에서 크레딧 0원으로 돌리기 위한 실행 엔진입니다.</p>
         <ol class="lesson02-checklist" data-node-install-steps>

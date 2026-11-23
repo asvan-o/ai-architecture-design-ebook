@@ -2,5 +2,6 @@ import fs from 'node:fs';import path from 'node:path';import assert from 'node:a
 export const lesson08Audit='review/daejeon/DJ-L06-L07-L08-RESTRUCTURE-AND-CAD-3D-ALIGNMENT/revision-11';
 export function getLesson08Manifest(){const m=JSON.parse(fs.readFileSync(path.join(repositoryRoot,'review/daejeon/manifest.json'),'utf8')).lessons['08'];assert(m,'Lesson08 assets must be assembled before review');return m;}
 export const getLesson08FloorplanManifest=getLesson08Manifest;
-export function getLesson08Assets(){return [...getLesson08Manifest().files,...(getLesson08Manifest().mcpFiles||[])].map(f=>({...f,source:path.join(repositoryRoot,'public',f.outputPath)}));}
+const lesson08LogicSvgPaths=['images/daejeon/lesson-08/l08-pipeline-5steps.svg','images/daejeon/lesson-08/l08-cleanline-vs-notebooklm.svg','images/daejeon/lesson-08/l08-verify-to-3d-logic.svg'];
+export function getLesson08Assets(){return [...getLesson08Manifest().files,...(getLesson08Manifest().mcpFiles||[]),...lesson08LogicSvgPaths.map(outputPath=>({outputPath}))].map(f=>({...f,source:path.join(repositoryRoot,'public',f.outputPath)}));}
 export function verifyLesson08Assets(){const m=getLesson08Manifest();for(const f of [...m.files,...(m.mcpFiles||[])]){assert(/^(?:images|downloads)\/daejeon\/lesson-08\//.test(f.outputPath));const b=fs.readFileSync(path.join(repositoryRoot,'public',f.outputPath));assert.equal(createHash('sha256').update(b).digest('hex'),f.sha256,f.outputPath);}assert.equal(m.sectionCount,9);assert.equal(m.partCount,3);assert.equal(m.durationMinutes,150);return m;}

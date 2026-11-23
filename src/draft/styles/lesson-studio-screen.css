@@ -105,12 +105,13 @@
     .lesson02-asset-actions button, .lesson02-asset-actions a,
     .lesson02-asset-dialog button, .lesson03-review button, .l03-actions a,
     .modeling-asset button, .glossary-search button, .glossary-categories a
-  ):hover:not(:disabled):not([aria-disabled="true"]):not([aria-pressed="true"]):not(.l02-ab-primary) {
+  ):hover:not(:disabled):not([aria-disabled="true"]):not([aria-pressed="true"]):not(.l02-ab-primary):not(.l062-copy-main-btn) {
     background: var(--paper-deep);
     border-color: var(--accent-dark);
   }
 
   html[data-course-id="daejeon-2026"] .review-page .l02-ab .l02-ab-primary,
+  html[data-course-id="daejeon-2026"] .review-page .lesson03-review .l062-copy-main-btn,
   html[data-course-id="daejeon-2026"] .review-page .lesson03-review button[aria-pressed="true"] {
     color: #fff;
     background: var(--accent-dark);
@@ -118,6 +119,7 @@
   }
 
   html[data-course-id="daejeon-2026"] .review-page .l02-ab .l02-ab-primary:hover:not(:disabled):not([aria-disabled="true"]),
+  html[data-course-id="daejeon-2026"] .review-page .lesson03-review .l062-copy-main-btn:hover:not(:disabled):not([aria-disabled="true"]),
   html[data-course-id="daejeon-2026"] .review-page .lesson03-review button[aria-pressed="true"]:hover:not(:disabled):not([aria-disabled="true"]) {
     color: #fff;
     background: var(--accent);

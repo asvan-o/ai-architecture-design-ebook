@@ -10,70 +10,78 @@ const block=(id:string)=>mcpBlocks.find(row=>row.id===id)!;
 ---
 <div class="l08-mcp-content">
  {sectionId==='l08-mcp-concept-ecosystem'&&<>
-  <h3>AI에게 ‘입’만 있던 시대에서 ‘손과 눈’을 연결하는 표준 규격(USB-C 허브)으로</h3>
-  <p>일반 웹 채팅창의 AI는 방법을 글로 설명해 줄 뿐 내 컴퓨터의 Blender나 문서함을 직접 열지 못합니다. <strong>MCP(Model Context Protocol)</strong>는 Codex·Claude·Cursor·Antigravity 같은 AI 앱이 외부 프로그램·파일과 정해진 규칙으로 대화하고 도구를 실행하게 해 주는 <strong>공통 연결 규격(USB-C 어댑터와 같은 역할)</strong>입니다.</p>
-  {enabled&&<figure data-mcp-architecture-figure><img src={base+'/images/daejeon/lesson-08/mcp-architecture-overview.svg'} alt="MCP 호스트와 내장 클라이언트, 로컬 stdio 및 원격 HTTP 서버, Blender와 파일시스템 등 실무 도구 연결 구조와 Tools·Resources·Prompts 3요소 안내도" loading="lazy" width="1280" height="780" /><figcaption>MCP 전체 작동 구조도 · Host(작업창) ↔ Client(통역기) ↔ Server(로컬 stdio / 원격 HTTP 어댑터) ↔ 실무 도구와 3대 구성요소(Tools · Resources · Prompts)</figcaption></figure>}
-  <h3>1 · 4단계 연결 구조 한눈에 읽기 (Host ↔ Client ↔ Server ↔ 실무 툴)</h3>
-  <div class="mcp-table mcp-mobile-cards" data-mcp-role-table><table aria-label="MCP 4단계 연결 역할"><thead><tr><th scope="col">구간</th><th scope="col">실제 예시</th><th scope="col">하는 일</th></tr></thead><tbody>{mcpArchitectureRoles.map(row=><tr><th scope="row">{row.layer}</th><td data-label="실제 예시">{row.examples}</td><td data-label="하는 일">{row.role}</td></tr>)}</tbody></table></div>
-  <ol class="mcp-flow"><li>Codex · 목표와 범위 입력</li><li>uvx · MCP 서버 실행</li><li>애드온 · localhost:9876</li><li>Blender · 객체 생성·조회</li></ol>
-  <h3>2 · MCP 서버가 AI에게 건네주는 3가지 능력 (Tools · Resources · Prompts)</h3>
+  <h3>AI에게 ‘입’만 있던 시대에서 ‘손과 눈’을 달아 주는 공통 연결선(USB-C 어댑터)</h3>
+  <p>웹 브라우저 채팅창의 AI는 “Blender에서 이렇게 눌러 보세요”라고 말로만 알려 줄 뿐, 내 컴퓨터에 깔린 Blender나 폴더를 직접 열지 못합니다. <strong>MCP(Model Context Protocol)</strong>는 Codex·Claude·Cursor 같은 AI 앱이 내 PC의 프로그램과 직접 대화하고 버튼을 누르게 해 주는 <strong>표준 연결 케이블(USB-C 어댑터 같은 역할)</strong>입니다.</p>
+  {enabled&&<figure data-mcp-architecture-figure><img src={base+'/images/daejeon/lesson-08/mcp-architecture-overview.svg'} alt="MCP 호스트와 내장 클라이언트, 로컬 stdio 및 원격 HTTP 서버, Blender와 파일시스템 등 실무 도구 연결 구조와 Tools·Resources·Prompts 3요소 안내도" loading="lazy" width="1280" height="780" /><figcaption>MCP 작동 원리 한눈에 보기 · 내 채팅창(Host) ↔ 자동 통역기(Client) ↔ 연결 어댑터(Server) ↔ 실제 3D·문서 프로그램</figcaption></figure>}
+  <h3>1 · 4단계 연결 흐름 쉽게 이해하기 (어디에 말하고 누가 움직이나?)</h3>
+  <div class="mcp-table mcp-mobile-cards" data-mcp-role-table><table aria-label="MCP 4단계 연결 역할"><thead><tr><th scope="col">구간</th><th scope="col">실제 프로그램 예시</th><th scope="col">쉽게 말하면 하는 일</th></tr></thead><tbody>{mcpArchitectureRoles.map(row=><tr><th scope="row">{row.layer}</th><td data-label="실제 프로그램 예시">{row.examples}</td><td data-label="쉽게 말하면 하는 일">{row.role}</td></tr>)}</tbody></table></div>
+  <ol class="mcp-flow"><li>Codex · 말로 지시하기</li><li>uvx · 연결 어댑터 켜기</li><li>Blender 애드온 · 전용 통로(9876)</li><li>Blender · 3D 방 직접 생성</li></ol>
+  <h3>2 · MCP를 연결하면 AI에게 생기는 3가지 능력 (손 · 눈 · 매뉴얼)</h3>
   <div class="mcp-three" data-mcp-primitives>{mcpThreePrimitives.map(item=><article><h4>{item.name}</h4><p><strong>{item.summary}</strong></p><p class="mcp-small">예시: {item.example}</p><p class="mcp-small">주의: {item.caution}</p></article>)}</div>
-  <h3>3 · 언제 Vibe Coding 프로그램을 쓰고, 언제 MCP를 연결할까?</h3>
-  <p>제2차시에서 만든 <strong>로컬 자동화 생성기(Vibe Coding)</strong>와 오늘 연결하는 <strong>MCP 실시간 제어</strong>는 경쟁 관계가 아니라 역할이 다릅니다. 정해진 서식·계산을 반복할 때는 실행 크레딧이 0원인 로컬 프로그램이 유리하고, 열려 있는 Blender 3D 씬을 보며 즉시 매스·창·카메라를 고칠 때는 MCP가 적합합니다.</p>
-  {enabled&&<figure data-mcp-bridge-figure><img src={base+'/images/daejeon/lesson-08/mcp-vs-vibecoding-bridge.svg'} alt="제2차시 바이브 코딩 로컬 자동화 생성기와 제8·9차시 MCP 실시간 외부 도구 제어의 크레딧 소모 및 활용 상황 비교 안내도" loading="lazy" width="1200" height="520" /><figcaption>업무 성격에 따른 선택 기준 · 정형 반복 서류는 로컬 자동화 도구(실행 크레딧 0원)로, 실시간 3D 모델링·검수는 MCP 연결로 분담합니다.</figcaption></figure>}
-  <h3>4 · 건축사사무소에서 바로 응용할 수 있는 MCP 생태계와 안전 수칙</h3>
-  <div class="mcp-table mcp-mobile-cards" data-mcp-office-catalog><table aria-label="건축 실무 MCP 활용 분야"><thead><tr><th scope="col">활용 분야</th><th scope="col">대표 MCP 서버 방식</th><th scope="col">실무 활용 예시</th><th scope="col">보안·안전 경계</th></tr></thead><tbody>{mcpOfficeCatalog.map(row=><tr><th scope="row">{row.category}</th><td data-label="대표 MCP 서버 방식">{row.server}</td><td data-label="실무 활용 예시">{row.use}</td><td data-label="보안·안전 경계">{row.safety}</td></tr>)}</tbody></table></div>
-  <p>빈 실습 파일에서 시작하고 실제 연결·객체·치수를 다시 조회합니다. 연결 설정만 끝냈다고 모델링이 성공한 것은 아닙니다.</p>
+  <h3>3 · 2차시 로컬 프로그램(Vibe Coding)과 오늘 MCP는 언제 나눠 쓸까?</h3>
+  <p>제2차시에서 만든 <strong>로컬 자동화 프로그램(Vibe Coding)</strong>과 오늘 배우는 <strong>MCP 연결</strong>은 서로 대체하는 관계가 아니라 쓰임새가 다릅니다. 똑같은 서식·계산을 매일 반복할 때는 AI 요금이 들지 않는 로컬 프로그램이 좋고, 켜져 있는 Blender 3D 화면을 보면서 말로 벽·창문·카메라를 바로바로 고칠 때는 MCP가 훨씬 편합니다.</p>
+  {enabled&&<figure data-mcp-bridge-figure><img src={base+'/images/daejeon/lesson-08/mcp-vs-vibecoding-bridge.svg'} alt="제2차시 바이브 코딩 로컬 자동화 생성기와 제8·9차시 MCP 실시간 외부 도구 제어의 크레딧 소모 및 활용 상황 비교 안내도" loading="lazy" width="1200" height="520" /><figcaption>언제 무엇을 쓸까? · 정해진 반복 서류는 로컬 프로그램(실행 비용 0원)으로, 3D 화면을 보며 실시간 수정할 때는 MCP로 나눠 씁니다.</figcaption></figure>}
+  <h3>4 · 건축사사무소에서 바로 써먹는 MCP 활용 분야와 안전 수칙</h3>
+  <div class="mcp-table mcp-mobile-cards" data-mcp-office-catalog><table aria-label="건축 실무 MCP 활용 분야"><thead><tr><th scope="col">활용 분야</th><th scope="col">연결하는 MCP</th><th scope="col">실무에서 이렇게 씁니다</th><th scope="col">안전 수칙</th></tr></thead><tbody>{mcpOfficeCatalog.map(row=><tr><th scope="row">{row.category}</th><td data-label="연결하는 MCP">{row.server}</td><td data-label="실무에서 이렇게 씁니다">{row.use}</td><td data-label="안전 수칙">{row.safety}</td></tr>)}</tbody></table></div>
+  <p>처음 연습할 때는 항상 <strong>새 빈 파일</strong>에서 시작하고, AI가 만든 3D 방의 크기와 창문이 실제로 맞는지 화면에서 직접 눈으로 확인합니다.</p>
  </>}
  {sectionId==='l08-blender-mcp-setup'&&<>
-  <div class="mcp-downloads">{enabled&&<><a href={url('DJ-L08-Blender-MCP-Starter-Pack.zip')} download>Blender MCP 시작 패키지 ZIP</a><a href={url('blender_mcp_addon.py')} download>애드온 PY</a><a href={url('BLENDER-MCP-README.md')} download>시작 가이드 README</a></>}</div>
-  <h3>Step 1 · uv(uvx) 설치와 경로 확인</h3>
-  <p>PowerShell에서 아래 한 줄을 실행합니다. 이미 uvx가 설치됐다면 경로 확인으로 진행합니다.</p>
-  <ReviewPrompt {...block('l08-mcp-uv-install')} href={enabled?url('uv-install.txt'):undefined} />
-  <p>설치가 끝났으면 새 PowerShell 창을 열고 <code>where.exe uvx</code>를 입력해 보세요. 내 컴퓨터의 윈도우 아이디(&lt;사용자명&gt;)가 포함된 정확한 설치 위치(예: <code>C:\Users\홍길동\.local\bin\uvx.exe</code>)가 화면에 한 줄로 출력됩니다. 이 주소를 그대로 복사해서 다음 Step 3의 <code>command = '...'</code> 자리에 붙여넣으면 됩니다.</p>
-  <h3>Step 2 · Blender 애드온 설치와 서버 켜기</h3>
-  <ol><li><strong>Edit → Preferences → Add-ons → Install from Disk</strong>에서 <code>blender_mcp_addon.py</code>를 선택합니다.</li><li><strong>Interface: MCP for Blender</strong>를 활성화합니다.</li><li>3D 뷰포트에 마우스를 놓고 <strong>N → MCP for Blender → Start MCP Server</strong>를 누릅니다.</li><li><strong>localhost:9876</strong> 상태를 확인합니다. 이미 실행 중인 다른 실습 서버는 임의 종료하거나 중복 실행하지 않습니다. 버튼 표기는 애드온 버전에 따라 다를 수 있습니다.</li></ol>
-  <h3>Step 3 · Codex config.toml 편집과 완전 재시작</h3>
-  <p>메모장으로 <code>C:\Users\&lt;사용자명&gt;\.codex\config.toml</code>을 열고 기존 설정을 보존한 채 아래 네 줄을 추가합니다. 같은 <code>[mcp_servers.blender]</code> 항목이 있으면 중복 추가하지 않습니다. 사용자명·uvx 경로는 Step 1의 실제 값으로 바꿉니다.</p>
-  <ReviewPrompt {...block('l08-mcp-codex-config')} href={enabled?url('codex-config.example.toml'):undefined} />
-  <p>TOML은 PowerShell 명령이 아닙니다. 저장한 뒤 <strong>Codex 앱을 완전히 종료하고 재실행</strong>합니다. Blender 도구가 나타나면 다음 섹션에서 실제 씬을 조회해 연결을 확인합니다.</p>
-  <h3>교실 현장 5대 연결 오류 빠른 점검표</h3>
-  <div class="mcp-table mcp-mobile-cards" data-mcp-troubleshooting><table aria-label="Blender MCP 자주 생기는 연결 오류 진단표"><thead><tr><th scope="col">증상</th><th scope="col">주요 원인</th><th scope="col">즉시 해결 방법</th></tr></thead><tbody>{mcpTroubleshootingRows.map(row=><tr><th scope="row">{row.symptom}</th><td data-label="주요 원인">{row.cause}</td><td data-label="즉시 해결 방법">{row.fix}</td></tr>)}</tbody></table></div>
+  <aside class="mcp-note workbook-screen-only-banner">
+   <strong>가장 빠른 방법 · 제7-2차시 올인원 설치를 이미 끝냈다면 바로 통과하세요!</strong>
+   <p>이미 <a href={`${base}/lessons/07-2/#l062-all-in-one-setup`}><strong>제7-2차시 올인원 빌더</strong></a>를 실행했다면 uv · Blender · 애드온 · Codex 연결이 모두 끝나 있습니다. <strong>Blender를 열고 3D 화면에서 키보드 <code>N</code> → <code>MCP for Blender</code> → <code>Start MCP Server</code>만 누른 뒤 바로 아래 [실습 6]으로 넘어가세요.</strong></p>
+  </aside>
+  <details class="mcp-details">
+   <summary>올인원 없이 Blender + MCP를 직접 수동 설치·연결할 때만 펼치기 (Step 1~3 &amp; 오류 해결표)</summary>
+   <div class="mcp-downloads">{enabled&&<><a href={url('DJ-L08-Blender-MCP-Starter-Pack.zip')} download>Blender MCP 시작 패키지 ZIP</a><a href={url('blender_mcp_addon.py')} download>애드온 파일 (blender_mcp_addon.py)</a><a href={url('BLENDER-MCP-README.md')} download>시작 가이드 README</a></>}</div>
+   <h3>Step 1 · 실행기(uv · uvx) 설치하고 내 PC 위치 찾기</h3>
+   <p>시작 메뉴에서 <strong>Windows PowerShell</strong>을 검색해 연 뒤, 아래 한 줄을 복사·붙여넣기하고 <strong>Enter</strong>를 누릅니다. <em>(이미 설치했다면 바로 아래 위치 확인으로 넘어가세요.)</em></p>
+   <ReviewPrompt {...block('l08-mcp-uv-install')} href={enabled?url('uv-install.txt'):undefined} />
+   <p>설치가 끝났으면 <strong>PowerShell 창을 닫았다가 새로 열고</strong> <code>where.exe uvx</code>를 입력해 보세요. 내 컴퓨터의 윈도우 아이디(&lt;사용자명&gt;)가 포함된 정확한 설치 위치(예: <code>C:\Users\홍길동\.local\bin\uvx.exe</code>)가 화면에 한 줄로 출력됩니다. 이 주소를 그대로 복사해서 다음 Step 3의 <code>command = '...'</code> 자리에 붙여넣으면 됩니다.</p>
+   <h3>Step 2 · Blender 안에 애드온 설치하고 연결 버튼 켜기</h3>
+   <ol><li>위 파란 버튼에서 <strong>애드온 파일(<code>blender_mcp_addon.py</code>)</strong>을 먼저 내려받아 둡니다.</li><li>Blender를 열고 상단 메뉴 <strong>Edit → Preferences → Add-ons → Install...(또는 Install from Disk)</strong>을 눌러 방금 받은 <code>blender_mcp_addon.py</code>를 선택합니다.</li><li>목록에 <strong>Interface: MCP for Blender</strong>가 나타나면 왼쪽 <strong>체크박스</strong>를 켜고 설정 창을 닫습니다.</li><li>Blender 3D 화면 위에 마우스를 올린 채 키보드 <strong><code>N</code></strong>을 눌러 오른쪽 패널을 연 뒤, <strong>MCP for Blender → Connect to MCP server(또는 Start MCP Server)</strong> 버튼을 누릅니다.</li><li>화면에 <strong><code>localhost:9876</code></strong>(내 PC 안의 연결 대기 상태)이 켜지면 준비 완료입니다. <em>(버튼 이름은 애드온 버전에 따라 조금 다를 수 있습니다.)</em></li></ol>
+   <h3>Step 3 · Codex 설정 파일(config.toml)에 붙여넣고 완전히 껐다 켜기</h3>
+   <p>파일 탐색기 주소창에 <code>%USERPROFILE%\.codex</code>를 입력해 열고, <code>config.toml</code> 파일을 <strong>메모장</strong>으로 엽니다. 기존 내용은 지우지 말고 파일 맨 아래에 아래 네 줄을 붙여넣으세요. 같은 <code>[mcp_servers.blender]</code>가 이미 있으면 중복으로 넣지 않습니다. <code>&lt;사용자명&gt;</code>과 <code>uvx.exe</code> 주소는 Step 1에서 나온 내 PC 실제 주소로 바꿉니다.</p>
+   <ReviewPrompt {...block('l08-mcp-codex-config')} href={enabled?url('codex-config.example.toml'):undefined} />
+   <p><strong>주의:</strong> 위 네 줄은 PowerShell에 치는 명령이 아니라 메모장(<code>config.toml</code>)에 적어 저장하는 설정입니다. 저장 후 <strong>Codex 앱을 작업표시줄 트레이까지 완전히 종료했다가 다시 실행</strong>하면 연결이 끝납니다.</p>
+   <h3>자주 막히는 연결 오류 5가지 · 10초 해결표</h3>
+   <div class="mcp-table mcp-mobile-cards" data-mcp-troubleshooting><table aria-label="Blender MCP 자주 생기는 연결 오류 진단표"><thead><tr><th scope="col">이런 증상이 뜨면</th><th scope="col">왜 생기나요?</th><th scope="col">이렇게 바로 해결하세요</th></tr></thead><tbody>{mcpTroubleshootingRows.map(row=><tr><th scope="row">{row.symptom}</th><td data-label="왜 생기나요?">{row.cause}</td><td data-label="이렇게 바로 해결하세요">{row.fix}</td></tr>)}</tbody></table></div>
+  </details>
  </>}
  {sectionId==='l08-blender-mcp-hello-world'&&<>
-  <p>Blender에서 새 빈 실습 파일을 열고 <strong>아래 통합 요청 하나를 Codex 채팅창에 입력</strong>합니다. 연결 확인과 새 실습 씬의 기본 객체 정리, 단위 설정이 첫 단계에 포함되어 있습니다. 기존 프로젝트가 열려 있으면 삭제하지 않고 멈추도록 요청합니다.</p>
+  <p>Blender에서 새 빈 파일(<strong>File → New → General</strong>)을 열고 <code>N</code>키 → <strong>Start MCP Server</strong>가 켜져 있는지 확인한 뒤, <strong>아래 요청문 하나를 Codex 채팅창에 그대로 붙여넣어 보내세요.</strong> 연결 확인부터 기본 상자 정리, 단위 설정, 3D 방과 창문·카메라 생성까지 한 번에 실행됩니다.</p>
   <ReviewPrompt {...block('l08-mcp-room')} href={enabled?url('MCP-01-hello-room.txt'):undefined} />
-  {enabled&&<figure><img src={base+'/images/daejeon/lesson-08/mcp-room-flow.svg'} alt="Codex 채팅에서 로컬 MCP 서버와 포트 9876의 Blender 애드온을 거쳐 슬래브, 세 벽, 북측 창과 카메라를 만드는 흐름" loading="lazy" width="1080" height="540" /><figcaption>직접 제작한 구성 안내도입니다. 실제 Blender 실행 캡처가 아닙니다. 남측은 열고 북측 중앙에는 관통 창을 만듭니다.</figcaption></figure>}
-  <h3>완료 확인 · 실제 씬을 다시 읽습니다</h3>
-  <ul><li><code>Floor_Slab</code>의 외곽 6×4m·두께 0.2m와 북·서·동 3면 벽의 높이 2.8m를 확인합니다.</li><li>벽을 실제로 뚫어 창문 구멍을 냈는지 확인합니다. 임시 구멍내기 박스만 지우고, 반투명 보기를 끈 사선·카메라 화면에서 빛과 시선이 통하는지 봅니다.</li><li><code>Cam_EyeLevel</code>의 높이 1.6m·24mm, 창 방향과 Sun Light를 확인합니다.</li><li>사용할 폴더를 직접 정한 뒤 <strong>File → Save As</strong>로 <code>L08_MCP_Hello_Room.blend</code>를 저장합니다. 같은 이름의 기존 파일은 덮어쓰지 않습니다.</li></ul>
-  <p>연결 실패·미생성·치수 불일치는 완료로 표시하지 않습니다. 객체 목록·치수와 뷰포트 캡처를 함께 남깁니다. 설치가 지연된 경우에는 실행 상태와 막힌 지점을 기록합니다.</p>
+  {enabled&&<figure><img src={base+'/images/daejeon/lesson-08/mcp-room-flow.svg'} alt="Codex 채팅에서 로컬 MCP 서버와 포트 9876의 Blender 애드온을 거쳐 슬래브, 세 벽, 북측 창과 카메라를 만드는 흐름" loading="lazy" width="1080" height="540" /><figcaption>이해용 안내 그림입니다(실제 화면 캡처 아님). 남쪽은 열려 있고 북쪽 벽 가운데에 창문이 뚫린 6×4m 방을 만듭니다.</figcaption></figure>}
+  <h3>완성 확인 · 내 눈으로 4가지만 체크하세요</h3>
+  <ul><li><strong>바닥과 벽 크기:</strong> 바닥판(<code>Floor_Slab</code>)이 가로 6m × 세로 4m(두께 0.2m)이고, 북·서·동 3면 벽이 높이 2.8m로 서 있는지 봅니다.</li><li><strong>창문이 진짜로 뚫렸는지:</strong> 벽에 그림만 붙은 게 아니라 실제로 구멍이 뚫려 반대쪽이 비치는지(반투명 보기를 끈 상태에서) 마우스로 돌려 확인합니다.</li><li><strong>사람 눈높이 카메라와 햇빛:</strong> <code>Cam_EyeLevel</code>(높이 1.6m · 24mm 광각)이 북쪽 창을 바라보고 있고 햇빛(Sun Light)이 들어오는지 봅니다.</li><li><strong>작업 파일 저장:</strong> 메뉴 <strong>File → Save As</strong>로 원하는 폴더에 <code>L08_MCP_Hello_Room.blend</code> 이름으로 저장합니다.</li></ul>
 
-  <section class="mcp-shortcuts" data-blender-shortcuts aria-labelledby="l08-blender-shortcuts-title">
-   <h3 id="l08-blender-shortcuts-title">건축 3D 모델 검수용 Blender 필수 마우스·단축키 치트시트</h3>
-   <p>마우스를 <strong>3D 뷰포트 위</strong>에 놓고 사용합니다. Windows의 Blender 기본 키맵·Object Mode 기준입니다. 다른 키맵이나 편집 모드에서는 일부 동작이 다를 수 있습니다.</p>
-   <p>숫자패드가 없는 노트북은 숫자 1 왼쪽의 <kbd>~ / `</kbd> 키로 View 파이 메뉴를 엽니다. <strong>Shift 없이 백틱 키를 누르며</strong>, 키보드 배열에 따라 위치가 다르면 View 메뉴 또는 우측 상단 기즈모를 사용합니다.</p>
+  <details class="mcp-details" data-blender-shortcuts>
+   <summary id="l08-blender-shortcuts-title">보조 가이드 1 · 왕초보 필수 Blender 화면 돌리기 &amp; 단축키 치트시트 펼치기</summary>
+   <p>모든 단축키는 마우스 커서를 <strong>가운데 3D 화면 위</strong>에 올려둔 상태에서 누릅니다. 오른쪽 숫자패드가 없는 노트북에서는 숫자 1 왼쪽의 <kbd>~ / `</kbd>(물결) 키나 오른쪽 위 색깔 축(X·Y·Z) 아이콘을 클릭하세요.</p>
    {blenderShortcutGroups.map((group,index)=><div class="mcp-shortcut-group" data-shortcut-group={index+1}>
     <h4>{group.title}</h4>
-    <div class="mcp-table mcp-mobile-cards"><table aria-label={group.title}><thead><tr><th scope="col">할 일</th><th scope="col">마우스·단축키</th><th scope="col">노트북 대안·확인할 점</th></tr></thead><tbody>{group.rows.map(row=><tr><th scope="row">{row.action}</th><td data-label="마우스·단축키"><kbd>{row.keys}</kbd></td><td data-label="노트북 대안·확인할 점">{row.note}</td></tr>)}</tbody></table></div>
+    <div class="mcp-table mcp-mobile-cards"><table aria-label={group.title}><thead><tr><th scope="col">할 일</th><th scope="col">마우스 · 키보드</th><th scope="col">노트북 대안 · 쉬운 설명</th></tr></thead><tbody>{group.rows.map(row=><tr><th scope="row">{row.action}</th><td data-label="마우스 · 키보드"><kbd>{row.keys}</kbd></td><td data-label="노트북 대안 · 쉬운 설명">{row.note}</td></tr>)}</tbody></table></div>
    </div>)}
-   <p class="mcp-small"><strong>노트북 보조 설정</strong> · Edit → Preferences → Input → Emulate Numpad를 켜면 상단 일반 숫자키 1~0을 숫자패드처럼 쓸 수 있습니다. 해당 숫자키의 원래 기능은 달라지며, Numpad .은 위 표의 View Selected 대안을 사용합니다.</p>
-  </section>
+   <p class="mcp-small"><strong>노트북 꿀팁:</strong> 메뉴 <strong>Edit → Preferences → Input → Emulate Numpad</strong>에 체크하면 키보드 위쪽 가로 숫자키(1~0)도 오른쪽 숫자패드처럼 쓸 수 있습니다.</p>
+  </details>
 
-  <h3>Blender에서 카메라 뷰 확인·조절·PNG 저장</h3>
-  <div class="mcp-table mcp-mobile-cards" data-camera-view-guide><table aria-label="카메라 뷰와 PNG 저장"><thead><tr><th scope="col">단계</th><th scope="col">메뉴·직접 조작</th><th scope="col">확인할 점</th></tr></thead><tbody>{cameraViewSteps.map(step=><tr><th scope="row">{step.title}</th><td data-label="메뉴·직접 조작">{step.action}</td><td data-label="확인할 점">{step.check}</td></tr>)}</tbody></table></div>
-  <p>처음에는 생성한 <code>Cam_EyeLevel</code>의 1.6m·24mm 상태를 확인하고 캡처합니다. 직접 구도를 바꿔 본 경우에는 원본 카메라 조건과 달라진 점을 기록합니다. <strong>Camera to View는 조정 후 반드시 해제</strong>해 실수로 카메라가 움직이지 않게 합니다.</p>
-  <h3>작업 원본 저장과 3D 모델 내보내기</h3>
-  <p><strong>File → Save As(Ctrl + Shift + S)</strong> → <code>L08_MCP_Hello_Room.blend</code>로 작업 원본을 저장합니다. Export는 다른 도구에 전달할 사본을 만드는 작업이며 <code>.blend</code> 원본 저장을 대신하지 않습니다.</p>
-  <div class="mcp-table mcp-mobile-cards" data-model-export-formats><table><thead><tr><th>형식</th><th>주요 용도</th><th>메뉴·설정 확인</th></tr></thead><tbody>{modelExportFormats.map(row=><tr><th>{row.format}</th><td data-label="주요 용도">{row.use}</td><td data-label="메뉴·설정 확인">{row.tip}</td></tr>)}</tbody></table></div>
-  <p>내보낸 파일을 대상 앱에서 다시 열고 크기·축·관통 창·재질을 확인합니다. 파일 확장자만 바꾸는 것은 형식 변환이 아니며, 3D 모양을 담은 파일에 건축 정보나 법규 검증 결과까지 자동으로 생기는 것은 아닙니다.</p>
-  <aside class="mcp-note"><strong>제9차시로 이어갑니다</strong><p>제9차시에서는 오피스 도면 대신 새로운 ‘모던 3층 단독주택’ 도면으로 프로젝트를 전환합니다. 오늘 구축한 Blender + MCP 환경과 기준표 작성·검증 방법을 적용하되 오피스의 실명·치수·관계를 복사하지 않습니다. 새 주택 기준표를 만든 뒤 Step 1~3 모델링·재질·조명과 Step 4 카메라 무빙을 진행합니다.</p></aside>
+  <details class="mcp-details">
+   <summary>보조 가이드 2 · Blender 카메라 화면 보기 · 사진(PNG) 저장 &amp; 다른 프로그램 내보내기(GLB · FBX · OBJ)</summary>
+   <h4>카메라 화면 보기 · 구도 조절 · 사진(PNG) 저장하기</h4>
+   <div class="mcp-table mcp-mobile-cards" data-camera-view-guide><table aria-label="카메라 뷰와 PNG 저장"><thead><tr><th scope="col">단계</th><th scope="col">클릭 순서</th><th scope="col">꼭 확인할 점</th></tr></thead><tbody>{cameraViewSteps.map(step=><tr><th scope="row">{step.title}</th><td data-label="클릭 순서">{step.action}</td><td data-label="꼭 확인할 점">{step.check}</td></tr>)}</tbody></table></div>
+   <h4>다른 프로그램(SketchUp · Twinmotion 등)으로 3D 파일 내보내기</h4>
+   <p><strong>File → Save As(Ctrl + Shift + S)</strong>로 저장하는 <code>.blend</code>가 작업 원본이며, Export는 다른 프로그램용 사본을 만드는 기능입니다.</p>
+   <div class="mcp-table mcp-mobile-cards" data-model-export-formats><table><thead><tr><th>파일 형식</th><th>어디에 쓰나요?</th><th>내보낼 때 확인할 메뉴</th></tr></thead><tbody>{modelExportFormats.map(row=><tr><th>{row.format}</th><td data-label="어디에 쓰나요?">{row.use}</td><td data-label="내보낼 때 확인할 메뉴">{row.tip}</td></tr>)}</tbody></table></div>
+  </details>
 
+  <aside class="mcp-note"><strong>다음 제9차시 연결</strong><p>제9차시에서는 지금까지 익힌 <strong>“원본 분석표 + 평면도 기초자료 → Blender MCP 3D 모델링”</strong> 방식을 새로운 <strong>‘모던 3층 단독주택’</strong> 도면에 그대로 적용해, 1~3층 건물 모델링 → 재질·햇빛 → 카메라 투어 영상까지 완성합니다.</p></aside>
  </>}
  <p class="mcp-small">참고: {mcpReferences.map(([title,href])=><a href={href} target="_blank" rel="noreferrer">{title} · </a>)} (배포 애드온과 호환되는 blender-mcp 명령 사용)</p>
 </div>
 <style>
  .mcp-origin{border:1px solid var(--line);border-left:3px solid var(--accent-dark);padding:1rem;margin:0 0 1.4rem;background:var(--surface)}.mcp-origin h3{margin-top:0}.mcp-choice-badge{display:inline-block;border:1px solid var(--accent-dark);padding:.45rem .65rem;font-weight:700}.mcp-small{font-size:.84rem;color:var(--muted)}.mcp-path{padding:.8rem;border:1px solid var(--line);background:var(--surface);overflow-wrap:anywhere}
  .l08-mcp-content{min-width:0;overflow-wrap:anywhere}
+ .mcp-details{margin:1.25rem 0;padding:.85rem 1rem;border:1px solid #cbd5e1;border-radius:10px;background:#ffffff}
+ .mcp-details summary{cursor:pointer;font-weight:700;color:#1e3a8a}
  .mcp-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1.2rem 0}.mcp-three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:1.2rem 0}.mcp-two article,.mcp-three article,.mcp-note{padding:1rem;border:1px solid var(--line);background:var(--surface);min-width:0}.mcp-note{border-left:3px solid var(--accent-dark);margin:1rem 0}
  .mcp-flow{display:flex;flex-wrap:wrap;list-style:none;padding:0;gap:.7rem;margin:1.2rem 0}.mcp-flow li{flex:1 1 10rem;min-width:0;border:1px solid var(--line);padding:.8rem;background:var(--surface)}.mcp-flow li:not(:last-child)::after{content:' →';color:var(--accent-dark)}.mcp-flow p{font-size:.85rem}
  .mcp-table{max-width:100%;margin:1.2rem 0}.mcp-table table{width:100%;table-layout:fixed}.mcp-table th,.mcp-table td{padding:.65rem;overflow-wrap:anywhere}

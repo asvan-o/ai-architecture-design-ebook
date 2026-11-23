@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="1200" height="420" role="img" aria-labelledby="t3 d3">
+  <title id="t3">AI 착각 검수 → 2D 다이어그램 → 3D MCP 모델링 연결 로직</title>
+  <desc id="d3">벽만 맞닿은 방과 실제 문이 있는 방을 구분해 2D 관계도(Graphviz)를 확정하고, 그 기초자료와 평면도를 Blender MCP 3D 모델링으로 연결하는 흐름도</desc>
+  <defs>
+    <marker id="arr3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e3a8a"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="420" rx="18" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="36" y="46" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="20" font-weight="800" fill="#0f172a">핵심 검수 로직 · “벽만 붙은 방 ≠ 문이 있는 방” 검증 후 2D 지도 → 3D 모델링으로!</text>
+  <text x="36" y="72" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="14" fill="#475569">이 검수를 거쳐야 2D 관계도(Graphviz)가 정확해지고, 5단계 Blender 3D에서도 엉뚱한 벽에 문이 뚫리지 않습니다.</text>
+
+  <!-- Panel 1: Wrong vs Right -->
+  <rect x="34" y="102" width="382" height="284" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="54" y="132" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="15" font-weight="800" fill="#0f172a">1) AI가 가장 자주 하는 착각 바로잡기</text>
+
+  <!-- Wrong box -->
+  <rect x="52" y="148" width="346" height="104" rx="10" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="68" y="172" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="13.5" font-weight="800" fill="#b91c1c">✕ 착각 예시 · 벽만 붙어 있는데 문 연결로 그림</text>
+  <rect x="74" y="186" width="96" height="46" rx="8" fill="#ffffff" stroke="#ef4444" stroke-width="2"/>
+  <text x="122" y="214" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="14" font-weight="700" fill="#0f172a">사무소</text>
+  <line x1="170" y1="209" x2="228" y2="209" stroke="#ef4444" stroke-width="3" stroke-dasharray="5,4"/>
+  <text x="199" y="201" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="12" font-weight="800" fill="#b91c1c">문 없음!</text>
+  <rect x="228" y="186" width="96" height="46" rx="8" fill="#ffffff" stroke="#ef4444" stroke-width="2"/>
+  <text x="276" y="214" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="14" font-weight="700" fill="#0f172a">탕비실</text>
+
+  <!-- Correct box -->
+  <rect x="52" y="266" width="346" height="104" rx="10" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.5"/>
+  <text x="68" y="290" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="13.5" font-weight="800" fill="#065f46">✓ 원본 확인 후 교정 · 실제 문이 있는 방만 실선 연결</text>
+  <rect x="74" y="304" width="96" height="46" rx="8" fill="#ffffff" stroke="#059669" stroke-width="2"/>
+  <text x="122" y="332" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="14" font-weight="700" fill="#0f172a">사무소</text>
+  <line x1="170" y1="327" x2="228" y2="327" stroke="#059669" stroke-width="3"/>
+  <text x="199" y="319" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="11.5" font-weight="800" fill="#065f46">직접문</text>
+  <rect x="228" y="304" width="112" height="46" rx="8" fill="#ffffff" stroke="#059669" stroke-width="2"/>
+  <text x="284" y="332" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="14" font-weight="700" fill="#0f172a">휴게데크-1</text>
+
+  <line x1="420" y1="244" x2="452" y2="244" stroke="#1e3a8a" stroke-width="2.5" marker-end="url(#arr3)"/>
+
+  <!-- Panel 2: Graphviz 2D Diagram -->
+  <rect x="460" y="102" width="318" height="284" rx="14" fill="#ffffff" stroke="#5eead4" stroke-width="2"/>
+  <rect x="460" y="102" width="318" height="42" rx="14" fill="#f0fdfa"/>
+  <rect x="460" y="130" width="318" height="14" fill="#f0fdfa"/>
+  <text x="619" y="129" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="15" font-weight="800" fill="#0f766e">2) 2D 다이어그램 (Graphviz · DOT)</text>
+
+  <rect x="480" y="160" width="278" height="84" rx="10" fill="#0f172a"/>
+  <text x="496" y="184" font-family="Consolas, monospace" font-size="13" fill="#93c5fd">Office -&gt; Deck1 [label="직접문"];</text>
+  <text x="496" y="206" font-family="Consolas, monospace" font-size="13" fill="#5eead4">Office -&gt; Director [label="직접문"];</text>
+  <text x="496" y="228" font-family="Consolas, monospace" font-size="13" fill="#fca5a5">Office -&gt; Pantry [style="dashed"];</text>
+
+  <text x="619" y="274" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="14" font-weight="800" fill="#0f172a">왜 그림 AI가 아니라 DOT 글로 그리나?</text>
+  <text x="484" y="302" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="13.5" fill="#334155">• 한글 방 이름이 절대 깨지지 않음</text>
+  <text x="484" y="326" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="13.5" fill="#334155">• 틀린 연결도 글자 1줄만 고치면 즉시 반영</text>
+  <text x="484" y="350" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="13.5" fill="#334155">• Viz.js 웹에 붙여넣기만으로 깔끔한 지도 완성</text>
+
+  <line x1="782" y1="244" x2="814" y2="244" stroke="#1e3a8a" stroke-width="2.5" marker-end="url(#arr3)"/>
+
+  <!-- Panel 3: Feed into 3D MCP -->
+  <rect x="822" y="102" width="344" height="284" rx="14" fill="#1e3a8a"/>
+  <rect x="822" y="102" width="344" height="42" rx="14" fill="#1d4ed8"/>
+  <rect x="822" y="130" width="344" height="14" fill="#1d4ed8"/>
+  <text x="994" y="129" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="15" font-weight="800" fill="#ffffff">3) 기초자료 + 평면도 → 3D MCP 투입</text>
+
+  <rect x="844" y="160" width="300" height="106" rx="10" fill="#ffffff"/>
+  <text x="862" y="186" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="13.5" font-weight="800" fill="#1e3a8a">Codex에게 넘겨 주는 3가지 재료</text>
+  <text x="862" y="210" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="13" fill="#0f172a">① 평면도 (원본 PDF · 클린 선화)</text>
+  <text x="862" y="232" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="13" fill="#0f172a">② NotebookLM 정답 분석표 (치수·실명)</text>
+  <text x="862" y="254" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="13" fill="#0f172a">③ 검증된 방·문 연결표 (2D 관계도)</text>
+
+  <rect x="844" y="280" width="300" height="88" rx="10" fill="#0f172a"/>
+  <text x="994" y="306" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="14" font-weight="800" fill="#93c5fd">Blender MCP 3D 모델링 결과</text>
+  <text x="994" y="330" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="13" fill="#ffffff">벽·문·창문 위치가 도면과 일치하는 3D 생성</text>
+  <text x="994" y="352" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="12.5" fill="#5eead4">8차시 첫 3D 방 연결 → 9차시 3층 주택 완성</text>
+</svg>

@@ -31,153 +31,153 @@ Blender MCP로 연결 상태 확인부터 창호 개구부가 있는 3D 간단�
 외곽 6×4m, 바닥판 상면 0m, 벽 높이 2.8m·두께 0.2m, 남측 개방, 북측 중앙 관통 창 2.4×1.5m·하단 0.9m, 활성 카메라 높이 1.6m·24mm, Metric 배율 1.0을 실제 작업 장면에서 확인합니다.`;
 export const blenderShortcutGroups = [
   {
-    "title": "1 · 기본 화면 이동",
+    "title": "1 · 화면 움직이기 (가장 많이 쓰는 마우스 조작 3가지)",
     "rows": [
       {
-        "action": "화면 회전 · Orbit",
+        "action": "화면 빙글 돌리기 (Orbit)",
         "keys": "마우스 휠(가운데 버튼) 누른 채 드래그",
-        "note": "모델 주변을 돌려 벽·창·바닥의 결합을 확인합니다."
+        "note": "모델 주변을 사방으로 돌려 벽·창문·바닥이 잘 맞는지 봅니다."
       },
       {
-        "action": "화면 평행 이동 · Pan",
+        "action": "화면 옆·위아래로 옮기기 (Pan)",
         "keys": "Shift + 마우스 휠 누른 채 드래그",
-        "note": "시점을 돌리지 않고 화면을 위·아래·좌·우로 옮깁니다."
+        "note": "각도는 그대로 두고 화면 위치만 상하좌우로 살짝 옮깁니다."
       },
       {
-        "action": "확대 / 축소 · Zoom",
-        "keys": "마우스 휠 스크롤",
-        "note": "개구부 모서리 등 필요한 부분을 가까이 봅니다."
+        "action": "확대 / 축소 (Zoom)",
+        "keys": "마우스 휠 위아래 굴리기",
+        "note": "창문 모서리나 벽 접합부를 가까이 당겨서 봅니다."
       }
     ]
   },
   {
-    "title": "2 · 건축 도면 시점 전환",
+    "title": "2 · 도면처럼 반듯하게 보기 (시점 전환)",
     "rows": [
       {
-        "action": "활성 카메라 뷰 전환 / 복귀",
-        "keys": "Numpad 0",
-        "note": "숫자 1 왼쪽의 ~ / ` 키 → View Camera 또는 우측 상단 카메라 아이콘. Cam_EyeLevel이 활성 상태이면 실습의 1.6m 사람 눈높이를 봅니다."
+        "action": "카메라 시선으로 보기 / 나가기",
+        "keys": "Numpad 0 (오른쪽 숫자키 0)",
+        "note": "노트북 대안: 숫자 1 왼쪽 ~ / ` 키 → View Camera 또는 화면 오른쪽 위 카메라 아이콘 클릭. 사람 눈높이(1.6m) 시선을 봅니다."
       },
       {
-        "action": "평면도 · Top View",
+        "action": "위에서 수직으로 보기 (평면도 · Top)",
         "keys": "Numpad 7",
-        "note": "~ / ` 키 → Top 또는 우측 상단 파란색 +Z 기즈모 클릭. 위에서 수직으로 벽 배치를 확인합니다."
+        "note": "노트북 대안: ~ / ` 키 → Top 또는 오른쪽 위 파란색 +Z 동그라미 클릭. 벽 배치를 평면도처럼 봅니다."
       },
       {
-        "action": "정면 / 우측면 입면",
+        "action": "앞면 / 옆면에서 보기 (입면)",
         "keys": "Numpad 1 / Numpad 3",
-        "note": "~ / ` 키 → Front / Right 또는 -Y / +X 기즈모 클릭. +Y가 북쪽인 이 실습에서 Front는 남측에서 바라보는 뷰입니다."
+        "note": "노트북 대안: ~ / ` 키 → Front / Right 또는 -Y / +X 동그라미 클릭."
       },
       {
-        "action": "투시도 ↔ 직교 뷰",
+        "action": "원근감 켜기 ↔ 끄기 (투시 ↔ 직교)",
         "keys": "Numpad 5",
-        "note": "우측 상단 카메라 아이콘 아래 격자 아이콘. 직교 뷰는 원근 왜곡 없이 형태·치수를 대조할 때 사용합니다."
+        "note": "노트북 대안: 오른쪽 위 카메라 아이콘 아래 격자 아이콘 클릭. 원근감을 끄면(직교) 도면처럼 반듯하게 치수를 비교하기 좋습니다."
       },
       {
-        "action": "모델을 잃었을 때 · 전체 맞추기",
+        "action": "건물이 화면 밖으로 사라졌을 때 (전체 보기)",
         "keys": "Home",
-        "note": "View → Frame All. 카메라 뷰라면 먼저 Numpad 0으로 나옵니다. 카메라·조명까지 멀리 잡히면 룸 객체만 선택해 선택 맞추기를 사용합니다."
+        "note": "메뉴 View → Frame All. 카메라 화면 안이라면 먼저 Numpad 0으로 나온 뒤 누르세요."
       },
       {
-        "action": "선택 객체 중심으로 맞추기",
-        "keys": "Numpad .",
-        "note": "숫자패드의 소수점 키입니다. 대안: ~ / ` 키 → View Selected 또는 View → Frame Selected."
+        "action": "클릭한 물체만 화면 가운데로 당기기",
+        "keys": "Numpad . (숫자패드 점)",
+        "note": "노트북 대안: ~ / ` 키 → View Selected 또는 메뉴 View → Frame Selected."
       }
     ]
   },
   {
-    "title": "3 · 표시·투시 모드",
+    "title": "3 · 화면 보기 모드 (선만 보기 / 회색 덩어리 / 재질 / 투시)",
     "rows": [
       {
-        "action": "셰이딩 파이 메뉴",
+        "action": "보기 모드 바꾸기 (셰이딩 메뉴)",
         "keys": "Z",
-        "note": "Wireframe: 선화 뼈대 / Solid: 기본 매스 / Material Preview: 재질 / Rendered: 설정한 작업 장면 조명·그림자 확인. 렌더 엔진과 PC 성능에 따라 갱신 속도가 다릅니다."
+        "note": "Wireframe(철사 선) / Solid(기본 회색 덩어리) / Material Preview(재질 색감) / Rendered(햇빛·그림자 포함) 4가지 중 골라 봅니다."
       },
       {
-        "action": "반투명 투시 · X-Ray",
+        "action": "벽 속이 비치는 반투명 투시 (X-Ray)",
         "keys": "Alt + Z",
-        "note": "Solid / Wireframe에서 벽 너머 공간·개구부를 살펴봅니다. 투명하게 보이는 것만으로 관통을 단정하지 말고, 끈 뒤 Solid 사선 뷰에서도 확인합니다."
+        "note": "벽 너머 방과 창문을 훑어볼 때 켭니다. 창문이 진짜 뚫렸는지 확인할 때는 반드시 Alt + Z를 꺼서 불투명 상태에서 보세요."
       }
     ]
   },
   {
-    "title": "4 · 패널·객체 숨기기·저장",
+    "title": "4 · 메뉴 열기 · 잠깐 숨기기 · 저장",
     "rows": [
       {
-        "action": "우측 사이드바 열기 / 닫기",
+        "action": "오른쪽 보조 패널 열기 / 닫기",
         "keys": "N",
-        "note": "MCP for Blender 탭 / Item의 치수 / View → View Lock → Camera to View를 찾습니다."
+        "note": "MCP 연결 버튼(MCP for Blender 탭), 선택한 물체 크기(Item), 카메라 잠금(View)이 모두 여기에 있습니다."
       },
       {
-        "action": "선택한 객체 잠시 숨기기",
+        "action": "선택한 벽·천장 잠깐 숨기기",
         "keys": "H",
-        "note": "선택한 벽·천장 등 시야를 가리는 객체를 뷰포트에서 숨깁니다. 객체를 삭제하는 명령이 아닙니다."
+        "note": "안쪽을 보려고 앞 벽만 잠시 안 보이게 가립니다. 삭제되는 게 아니므로 안심하세요."
       },
       {
-        "action": "숨긴 객체 다시 보이기",
+        "action": "숨긴 물체 모두 다시 꺼내기",
         "keys": "Alt + H",
-        "note": "H로 숨긴 객체를 복구합니다. Outliner의 컬렉션 비활성화나 렌더 표시 설정까지 되돌리는 명령은 아닙니다."
+        "note": "H 키로 숨겨 둔 벽이나 지붕을 한 번에 다시 보이게 되돌립니다."
       },
       {
-        "action": "선택 객체만 남겨 보기",
+        "action": "선택한 물체만 남기고 나머지 숨기기",
         "keys": "Shift + H",
-        "note": "선택하지 않은 객체를 숨깁니다. 검수 후 Alt + H로 복구합니다."
+        "note": "특정 벽이나 창문만 따로 살펴볼 때 쓰고, 다 본 뒤 Alt + H로 복구합니다."
       },
       {
-        "action": "실행 취소",
+        "action": "방금 한 작업 되돌리기",
         "keys": "Ctrl + Z",
-        "note": "직전 작업을 되돌립니다. 취소 후 객체 상태를 다시 확인합니다."
+        "note": "실수로 물체를 움직였거나 지웠을 때 바로 이전 상태로 되돌립니다."
       },
       {
-        "action": "저장 / 다른 이름으로 저장",
+        "action": "작업 원본 저장 / 다른 이름으로 저장",
         "keys": "Ctrl + S / Ctrl + Shift + S",
-        "note": ".blend 작업 원본을 저장합니다. 다른 이름으로 저장할 때 폴더·파일명을 확인합니다."
+        "note": ".blend 작업 원본 파일을 저장합니다."
       },
       {
-        "action": "렌더 이미지",
+        "action": "완성 사진 찍기 (렌더)",
         "keys": "F12",
-        "note": "활성 카메라로 렌더합니다. 렌더 뒤 Image → Save As에서 PNG를 별도로 저장합니다."
+        "note": "카메라 시선으로 고화질 이미지를 뽑습니다. 뜬 창에서 Image → Save As를 눌러 PNG로 저장합니다."
       }
     ]
   }
 ] as const;
 export const cameraViewSteps = [
- {title:'1 · 활성 카메라 뷰로 전환',action:'3D 뷰포트에 마우스를 놓고 Numpad 0. 다시 누르면 일반 뷰로 돌아갑니다. 숫자패드가 없으면 우측 기즈모 아래 카메라 아이콘(Toggle the camera view), 또는 View → Cameras → Active Camera를 사용합니다.',check:'카메라 프레임 안쪽이 최종 구도입니다. 키보드 위쪽의 숫자 0과 Numpad 0은 다릅니다.'},
- {title:'2 · Cam_EyeLevel 활성 지정',action:'Outliner에서 Cam_EyeLevel을 선택한 뒤 3D 뷰포트의 View → Cameras → Set Active Object as Camera(Ctrl + Numpad 0)를 선택합니다. 대안: Scene Properties → Camera에서 Cam_EyeLevel 선택.',check:'기본 Camera는 첫 단계에서 정리하고 Cam_EyeLevel만 활성 카메라로 남았는지 확인합니다. 이 명령은 카메라를 현재 뷰로 이동시키는 명령과 다릅니다.'},
- {title:'3 · 구도 미세 조정 후 잠금 해제',action:'카메라 뷰에서 N → View 탭 → View Lock → Camera to View를 켭니다. 휠로 줌, 휠 클릭 드래그로 회전, Shift + 휠 클릭 드래그로 이동합니다. 완료 후 Camera to View를 반드시 끕니다.',check:'이 조작은 카메라 위치·회전과 구도를 바꿀 수 있습니다. 기본 실습은 높이 1.6m·초점거리 24mm를 유지합니다. 초점거리는 Camera Data Properties → Lens에서 별도로 확인합니다.'},
- {title:'4 · 카메라 화면 PNG 저장',action:'카메라 뷰에서 View → Viewport Render Image로 뷰포트를 렌더하거나, Render → Render Image(F12)로 일반 렌더를 실행합니다. 이미지 창에서 Image → Save As로 PNG를 저장합니다.',check:'뷰포트 렌더는 화면 표현을, F12는 렌더 엔진 결과를 사용하므로 재질·빛이 다를 수 있습니다. 같은 Cam_EyeLevel을 사용하고 저장 파일을 다시 열어 확인합니다.'},
+ {title:'1 · 카메라 시선으로 들어가기',action:'가운데 3D 화면 위에 마우스를 두고 Numpad 0을 누릅니다. 숫자패드가 없는 노트북은 오른쪽 위 카메라 아이콘을 클릭하세요. 한 번 더 누르면 일반 화면으로 나옵니다.',check:'화면 가운데 네모 테두리 안쪽이 실제 사진으로 찍히는 범위입니다. 키보드 위쪽 가로 숫자 0과는 다릅니다.'},
+ {title:'2 · 사람 눈높이 카메라(Cam_EyeLevel) 지정',action:'화면 오른쪽 위 객체 목록(Outliner)에서 Cam_EyeLevel을 클릭한 뒤, 상단 메뉴 View → Cameras → Set Active Object as Camera(Ctrl + Numpad 0)를 누릅니다.',check:'기본 Camera가 지워지고 Cam_EyeLevel이 대표 카메라로 잡혔는지 확인합니다.'},
+ {title:'3 · 구도 살짝 조절하고 반드시 잠금 해제',action:'카메라 화면 안에서 키보드 N → View 탭 → View Lock → Camera to View에 체크하면 마우스 휠·드래그로 카메라 각도를 조절할 수 있습니다. 다 맞췄으면 Camera to View 체크를 꼭 끄세요.',check:'체크를 켜 둔 채 화면을 돌리면 맞춰 둔 카메라 구도가 망가집니다. 기본 실습은 눈높이 1.6m · 24mm 광각을 유지합니다.'},
+ {title:'4 · 카메라 화면을 사진(PNG)으로 저장',action:'빠르게 지금 화면 그대로 저장하려면 View → Viewport Render Image, 빛과 그림자까지 정식 촬영하려면 Render → Render Image(F12)를 누른 뒤 뜬 창에서 Image → Save As로 PNG를 저장합니다.',check:'저장한 PNG 파일을 탐색기에서 직접 열어 창문과 구도가 잘 찍혔는지 확인합니다.'},
 ] as const;
 export const modelExportFormats = [
- {format:'glTF 2.0 · .glb / .gltf',use:'웹 3D 뷰어·프레젠테이션·범용 3D 공유',tip:'File → Export → glTF 2.0. 단일 파일로 묶는 GLB를 기본으로 권장합니다. 필요한 3D 형상만 선택하고 Selected Objects 옵션을 확인합니다.'},
- {format:'FBX · .fbx',use:'렌더링·게임·영상 도구의 FBX 지원 경로',tip:'File → Export → FBX. 필요 시 Limit to → Selected Objects, Scale=1.00을 확인합니다. Twinmotion·D5 Render·Lumion·Unreal Engine 등 대상 앱의 버전·가져오기 지원을 확인합니다. Enscape는 지원하는 호스트 모델러의 연결 경로를 확인합니다.'},
- {format:'Wavefront · .obj',use:'SketchUp·Rhino 등 다른 모델러에 3D 형상 전달',tip:'File → Export → Wavefront (.obj). 대상 앱의 OBJ 가져오기 지원·확장 기능을 먼저 확인합니다. 재질용 .mtl과 텍스처가 생기면 함께 전달하고 축·단위를 확인합니다.'},
+ {format:'GLB / glTF (.glb)',use:'웹 3D 뷰어 · 발표 자료 · 가볍게 공유할 때 (가장 추천)',tip:'File → Export → glTF 2.0 선택. 파일 하나로 묶이는 GLB 형식을 추천하며, 필요한 물체만 보내려면 Selected Objects에 체크하세요.'},
+ {format:'FBX (.fbx)',use:'Twinmotion · D5 Render · Lumion · Unreal 등 실사 렌더 프로그램으로 보낼 때',tip:'File → Export → FBX 선택. 선택한 물체만 보내려면 Limit to → Selected Objects, Scale=1.00을 확인합니다.'},
+ {format:'OBJ (.obj)',use:'SketchUp · Rhino 등 다른 3D 모델링 프로그램으로 모양만 넘길 때',tip:'File → Export → Wavefront (.obj) 선택. 함께 생기는 .mtl(재질) 파일이 있으면 같은 폴더에 묶어 전달하세요.'},
 ] as const;
 export const mcpArchitectureRoles = [
- {layer:'1 · MCP Host (호스트 앱)',examples:'OpenAI Codex, Claude Desktop, Cursor, Antigravity',role:'사용자가 자연어로 목표·범위를 입력하고 결과를 확인하는 AI 작업창입니다.'},
- {layer:'2 · MCP Client (내장 통역기)',examples:'호스트 앱 내부에 기본 탑재된 연결 모듈',role:'AI의 의도를 표준 JSON-RPC 메시지로 바꾸어 지정된 MCP 서버와 1:1로 주고받습니다.'},
- {layer:'3 · MCP Server (중계 어댑터)',examples:'로컬 stdio(uvx blender-mcp, filesystem) / 원격 HTTP 서버',role:'각 실무 프로그램이나 문서함이 이해할 수 있는 전용 명령·조회 기능만 안전하게 노출합니다.'},
- {layer:'4 · 실무 도구·데이터',examples:'Blender(localhost:9876), 로컬 프로젝트 폴더, 브라우저, 협업 문서',role:'실제 3D 객체 생성·치수 조회·문서 열람이 일어나는 현장 도구입니다.'},
+ {layer:'1 · AI 채팅창 (Host)',examples:'OpenAI Codex, Claude Desktop, Cursor, Antigravity',role:'내가 한국어로 “방 만들어 줘”라고 지시하고 결과를 받아 보는 대화창입니다.'},
+ {layer:'2 · 내장 통역기 (Client)',examples:'Codex 같은 AI 앱 안에 이미 들어 있는 자동 기능',role:'내가 쓴 말을 프로그램이 알아듣는 표준 신호(JSON-RPC)로 자동 번역해 전달합니다. (사용자가 따로 설치할 필요 없음)'},
+ {layer:'3 · 연결 어댑터 (MCP Server)',examples:'내 PC용(uvx blender-mcp, 폴더 접근) · 인터넷용(Notion 등)',role:'AI가 Blender나 폴더에 안전한 명령만 보낼 수 있게 중간에서 다리 역할을 합니다.'},
+ {layer:'4 · 실제 프로그램 · 파일',examples:'Blender(전용 통로 localhost:9876), 내 작업 폴더, 협업 문서',role:'실제로 3D 벽을 세우고, 치수를 재고, 파일을 저장하는 현장 프로그램입니다.'},
 ] as const;
 
 export const mcpThreePrimitives = [
- {name:'Tools · 손(실행 도구)',summary:'실제 상태를 바꾸거나 계산·조작을 수행하는 실행 기능',example:'Blender 객체 생성·이동·재질 부여, 파일 저장, 카메라 배치',caution:'원본 변경·삭제가 일어날 수 있으므로 새 빈 파일이나 사본에서 실행하고 사람 승인 범위를 정합니다.'},
- {name:'Resources · 눈(열람 자료)',summary:'AI가 판단 근거로 읽어 오는 현재 상태·문서·목록',example:'현재 열린 3D 씬 객체 목록, 프로젝트 조건 JSON, 사내 체크리스트 원문',caution:'읽기 전용 맥락 제공이 목적이며, 허용한 폴더·파일 범위만 열람하도록 제한합니다.'},
- {name:'Prompts · 업무 매뉴얼(표준 지침)',summary:'자주 쓰는 점검 순서나 작업 양식을 미리 묶어 둔 템플릿',example:'단위·축 초기 점검 절차, 눈높이 카메라 검수 보고 양식',caution:'매뉴얼이 있어도 최종 치수·관통 여부 확인은 사람이 뷰포트에서 직접 대조합니다.'},
+ {name:'Tools · 손 (직접 실행)',summary:'AI가 실제로 무언가를 만들거나 수정하는 행동 기능',example:'Blender에서 벽·창문 만들기, 카메라 놓기, 파일 저장하기',caution:'원본 파일이 바뀔 수 있으므로 항상 새 빈 파일이나 복사본에서 테스트하세요.'},
+ {name:'Resources · 눈 (상태 읽기)',summary:'AI가 현재 작업 상황을 들여다보는 읽기 기능',example:'지금 Blender 화면에 놓인 물체 목록 읽기, 조건표·체크리스트 열람',caution:'읽기 전용으로 참고하는 용도이며, 허용한 작업 폴더만 열어 두는 것이 안전합니다.'},
+ {name:'Prompts · 업무 매뉴얼 (고정 절차)',summary:'자주 반복하는 검수 순서나 보고서 양식을 묶어 둔 지침',example:'단위·치수 초기 점검표, 눈높이 카메라 검수 보고 형식',caution:'매뉴얼대로 돌려도 마지막 치수와 창문 관통 여부는 사람이 눈으로 한 번 확인합니다.'},
 ] as const;
 
 export const mcpOfficeCatalog = [
- {category:'3D 모델링·시각화 제어',server:'Blender MCP (로컬 stdio + 포트 9876)',use:'매스·벽·개구부·재질·카메라 동선 생성 및 씬 객체 치수 역조회',safety:'기존 업무 .blend 대신 새 빈 파일 또는 복사본에서 시작'},
- {category:'로컬 문서함·기준서 열람',server:'Filesystem MCP (로컬 stdio)',use:'지정한 실습·과업 폴더 안의 회의록·조건표·체크리스트 읽기·초안 작성',safety:'바탕화면·전사 공유드라이브 전체가 아닌 단일 실습 폴더만 허용'},
- {category:'법령·공공 고시·웹 확인',server:'Fetch / Browser MCP (로컬·원격)',use:'공공 건축 공고문, 조례 페이지, 기술 자료 웹페이지 본문 조회·비교',safety:'로그인 계정·결제 페이지 접근 금지, 최종 법령 효력은 원문 대조'},
- {category:'팀 협업 문서·일정 연동',server:'Notion / Google Workspace MCP (원격 HTTP)',use:'프로젝트 주간 회의록 요약, 과업 체크리스트·일정표 초안 정리',safety:'읽기 권한 우선 연결, 외부 발송·공유 권한 변경은 사람이 직접 수행'},
+ {category:'3D 모델링 · 공간 검토',server:'Blender MCP (내 PC 연결)',use:'말로 벽·창문·가구·재질·카메라 동선을 만들고 3D 치수 확인',safety:'실제 회사 프로젝트 대신 새 빈 파일 또는 사본에서 시작'},
+ {category:'내 PC 문서함 · 기준서 읽기',server:'Filesystem MCP (내 PC 폴더 연결)',use:'지정한 프로젝트 폴더 안의 회의록·조건표·체크리스트 읽고 초안 정리',safety:'컴퓨터 전체가 아니라 작업 폴더 1곳만 허용'},
+ {category:'법령 · 공공 고시 · 웹 자료 확인',server:'Fetch / Browser MCP (웹 연결)',use:'공공 건축 공고문, 지자체 조례, 기술 자료 웹페이지 내용 비교',safety:'로그인·결제 페이지 접근 금지, 최종 법령은 원문 직접 대조'},
+ {category:'팀 회의록 · 일정 정리',server:'Notion / Google Workspace MCP (클라우드 연결)',use:'주간 회의록 요약, 프로젝트 체크리스트·일정표 초안 만들기',safety:'먼저 읽기 권한 위주로 연결하고 외부 공유·발송은 사람이 직접 실행'},
 ] as const;
 
 export const mcpTroubleshootingRows = [
- {symptom:'where.exe uvx 실행 시 아무 경로도 나오지 않음',cause:'uv 미설치 또는 설치 직후 이전 PowerShell 창을 그대로 사용함',fix:'Step 1 설치 명령 실행 후 PowerShell 창을 새로 열어 경로를 다시 조회합니다.'},
- {symptom:'Codex 실행 시 config.toml 구문 오류 표시',cause:'역슬래시(\\)를 큰따옴표 안에 넣어 이스케이프 오류가 나거나 [mcp_servers.blender]가 중복됨',fix:'경로는 작은따옴표(\'C:\\Users\\...\\uvx.exe\')로 감싸고 중복 테이블이 없는지 확인합니다.'},
- {symptom:'도구 호출 시 Connection refused (포트 9876) 발생',cause:'Blender를 켜지 않았거나 N 패널에서 Start MCP Server 버튼을 누르지 않음',fix:'Blender 3D 뷰포트에서 N → MCP for Blender 탭 → Start MCP Server 실행 상태를 확인합니다.'},
- {symptom:'config.toml을 저장했는데 Codex에 Blender 도구가 안 보임',cause:'설정 파일 변경 후 대화창만 새로 열고 앱 프로세스를 재시작하지 않음',fix:'Codex 앱을 완전히 종료한 뒤 다시 실행해 MCP 서버 목록을 새로 불러옵니다.'},
- {symptom:'기존에 작업하던 3D 모델이 사라질까 우려됨',cause:'열려 있는 현재 Blender 씬에 곧바로 객체 정리·생성 명령이 전달됨',fix:'실습 전 반드시 File → New → General로 새 빈 파일을 열고, 요청문에 기존 객체 발견 시 중단 조건을 넣습니다.'},
+ {symptom:'where.exe uvx를 쳤는데 아무것도 안 나와요',cause:'uv를 아직 안 깔았거나, 설치한 직후에 예전 PowerShell 창을 그대로 쓰고 있음',fix:'Step 1 설치 명령을 실행한 뒤 PowerShell 창을 닫고 새로 열어서 다시 입력해 보세요.'},
+ {symptom:'Codex를 켤 때 config.toml 문법 오류가 떠요',cause:'윈도우 경로(C:\\...)를 큰따옴표(")로 감쌌거나 [mcp_servers.blender]가 두 번 들어감',fix:'경로는 반드시 작은따옴표(\'C:\\Users\\...\\uvx.exe\')로 감싸고 중복된 줄을 지우세요.'},
+ {symptom:'명령을 보냈는데 연결 거부(Connection refused · 9876)가 떠요',cause:'Blender를 안 켰거나, Blender 안에서 MCP 연결 버튼을 안 눌렀음',fix:'Blender 3D 화면에서 키보드 N → MCP for Blender 탭 → Connect to MCP server(Start MCP Server) 버튼을 눌러 켜세요.'},
+ {symptom:'config.toml을 저장했는데 Codex에 Blender 도구가 안 보여요',cause:'설정을 고친 뒤 Codex 앱을 완전히 끄지 않고 창만 새로 염',fix:'작업표시줄 오른쪽 아래 트레이 아이콘까지 Codex를 완전히 종료(Quit)한 뒤 3초 뒤 다시 실행하세요.'},
+ {symptom:'기존에 작업하던 3D 모델이 지워질까 봐 걱정돼요',cause:'현재 열려 있는 Blender 화면에 바로 생성·삭제 명령이 전달되기 때문',fix:'실습 전 항상 File → New → General로 새 빈 파일을 열고 시작하세요.'},
 ] as const;
 
 const terminalGuide={kind:'terminal' as const,platform:'Windows PowerShell',howToUse:'명령은 PowerShell에서, TOML 설정은 텍스트 편집기에서 사용합니다.'};

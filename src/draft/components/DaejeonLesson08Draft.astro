@@ -3,15 +3,17 @@ import ReviewSection from './ReviewSection.astro';
 import Lesson08McpPart from './Lesson08McpPart.astro';
 import TopicProgress from './TopicProgress.astro';
 import Lesson07FloorplanPart from './Lesson07FloorplanPart.astro';
-import {lesson08Meta,lesson08Parts,lesson08Sections,lesson08Boundary} from '../content/daejeon-lesson08';
+import {lesson08Meta,lesson08Parts,lesson08Sections} from '../content/daejeon-lesson08';
 const base=import.meta.env.BASE_URL.replace(/\/$/,'');
 const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
 ---
 <div class="lesson08-review" data-lesson08-revision={lesson08Meta.revision}>
- <TopicProgress lesson="08" items={[{topic:5,status:'시작',note:'실무 도면을 판독 기준표와 클린 선화로 전처리하고 공간 관계를 검증하고 Blender MCP 연결·첫 3D 모델링까지 이어갑니다.'}]} />
- <ol class="l08-flow" aria-label="제8차시 작업 흐름">{['원본 도면·사용 권한 확인','NotebookLM 판독','사람이 확정 기준표 작성','클린 선화와 교차검증','Graphviz 관계도','Blender MCP 연결·첫 3D 룸'].map(text=><li>{text}</li>)}</ol>
- <aside class="review-callout"><strong>원도면의 사실과 표현 이미지를 구분합니다</strong><p>{lesson08Boundary}</p></aside>
- <aside class="l08-note"><h2>이번 차시 실습자료</h2><p>제7차시의 평면도 확대 비교를 이어받아, 같은 자체 제작 오피스의 원본 PDF·클린 선화·문자 오류 비교 입체 이미지와 관계도 예시를 사용합니다. 새로운 원본 도면으로 바뀌는 실습이 아닙니다.</p>{enabled&&<a class="review-download" href={base+'/downloads/daejeon/lesson-08/DJ-L08-Floorplan-Graphviz-Pack.zip'} download>제8차시 도면 판독·Graphviz 실습자료 ZIP 다운로드</a>}</aside>
+ <TopicProgress lesson="08" items={[{topic:5,status:'시작',note:'복잡한 평면도를 ① NotebookLM 1차 판독·분석표 ② 클린 선화 ③ 공간 기능·인접·동선 정리 ④ 2D 관계도(Graphviz) ⑤ Blender 3D 모델링(MCP) 5단계로 깔끔하게 연결합니다.'}]} />
+ <figure class="l08-logic-fig" data-l08-pipeline-svg>
+  <img src={base+'/images/daejeon/lesson-08/l08-pipeline-5steps.svg'} alt="제8차시 전체 5단계 흐름도: NotebookLM 원본 분석표, 클린 선화, 공간 기능·인접·동선 검증, 2D Graphviz 다이어그램, Blender MCP 3D 모델링" width="1200" height="440" loading="eager" />
+  <figcaption><strong>제8차시 전체 5단계 로직</strong> — 복잡한 도면을 곧바로 3D로 넘기지 않고, 사실 확인(1~2단계) → 관계 검증·시각화(3~4단계) → 3D MCP 연결(5단계) 순으로 진행하면 오류가 확 줄어듭니다.</figcaption>
+ </figure>
+ <aside class="l08-note"><h2>실습 준비물 (1번만 내려받기)</h2><p>제7차시에서 확대해 본 1층 오피스 평면도를 그대로 이어 씁니다. 원본 PDF, 깔끔한 선화, 방 연결 지도 예시, 프롬프트가 아래 ZIP 파일 1개에 모두 들어 있습니다. <em>(기억할 1줄: 모든 단계의 진짜 정답은 항상 원본 도면입니다.)</em></p>{enabled&&<a class="review-download" href={base+'/downloads/daejeon/lesson-08/DJ-L08-Floorplan-Graphviz-Pack.zip'} download>제8차시 도면 판독·Graphviz 실습자료 ZIP 다운로드</a>}</aside>
  <div class="l08-part-grid">{lesson08Parts.map((part,i)=><a href={'#'+part.id}><span>Part {i+1}</span><strong>{part.title}</strong><span>{part.time}</span></a>)}</div>
  {lesson08Parts.map((part,partIndex)=><div class="day-period" id={part.id} data-teaching-minutes={part.sections.reduce((sum,section)=>sum+section.minutes,0)}>
   <header class="period-heading"><p>Part {partIndex+1}</p><h2>{part.title}</h2><p>{part.time}</p></header>
@@ -23,10 +25,12 @@ const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
 </div>
 <style>
  .lesson08-review{min-width:0;overflow-wrap:anywhere}
- .l08-flow{display:flex;flex-wrap:wrap;gap:.6rem;list-style:none;padding:0;margin:1.5rem 0}.l08-flow li{min-width:0;padding:.6rem .8rem;border:1px solid var(--line);background:var(--surface);font-size:.9rem}.l08-flow li:not(:last-child)::after{content:' →';color:var(--accent-dark)}
+ .l08-logic-fig{margin:1.35rem 0 1.6rem;padding:.85rem;border:1px solid #cbd5e1;border-radius:14px;background:#ffffff}
+ .l08-logic-fig img{display:block;width:100%;height:auto;border-radius:10px}
+ .l08-logic-fig figcaption{margin-top:.65rem;font-size:.86rem;line-height:1.58;color:#334155}
  .l08-note{padding:1.2rem;margin:1.5rem 0;border:1px solid var(--line);border-left:4px solid var(--accent-dark);background:var(--surface)}.l08-note h2{font-size:1.15rem;margin:.1rem 0 .7rem}
  .l08-part-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:1.4rem 0}.l08-part-grid a{display:grid;gap:.4rem;padding:1rem;border:1px solid var(--line);background:var(--surface);text-decoration:none}.l08-part-grid span{font-size:.78rem;color:var(--muted)}
  .l08-context{font-size:.87rem;padding:1rem;border-left:2px solid var(--accent);background:var(--surface)}.l08-context div{display:grid;grid-template-columns:7.5rem minmax(0,1fr);gap:.5rem;margin:.3rem 0}.l08-context dt{font-weight:700}.l08-context dd{margin:0;min-width:0}
  @media(max-width:700px){.l08-part-grid{grid-template-columns:minmax(0,1fr)}.l08-context div{grid-template-columns:minmax(0,1fr);gap:.1rem;margin:.65rem 0}}
- @media print{.l08-note,.l08-part-grid a{break-inside:avoid}}
+ @media print{.l08-note,.l08-part-grid a,.l08-logic-fig{break-inside:avoid}}
 </style>

@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 440" width="1200" height="440" role="img" aria-labelledby="t1 d1">
+  <title id="t1">제8차시 전체 5단계 작업 흐름도</title>
+  <desc id="d1">복잡한 평면도에서 클린 선화, NotebookLM 분석표, 공간 기능·인접·동선 정리, 2D 다이어그램 시각화, Blender MCP 3D 모델링으로 이어지는 5단계 로직 흐름도</desc>
+  <defs>
+    <marker id="arr-navy" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e3a8a"/>
+    </marker>
+    <marker id="arr-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#0f766e"/>
+    </marker>
+    <filter id="card-shadow" x="-4%" y="-6%" width="108%" height="116%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.06"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="440" rx="18" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+
+  <!-- Header -->
+  <rect x="28" y="22" width="1144" height="58" rx="12" fill="#1e3a8a"/>
+  <text x="52" y="57" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="21" font-weight="800" fill="#ffffff">한눈에 보는 제8차시 5단계 흐름 · 왜 이 순서로 작업할까?</text>
+  <rect x="944" y="35" width="206" height="32" rx="16" fill="#3b82f6"/>
+  <text x="1047" y="56" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="14" font-weight="700" fill="#ffffff">평면도 → 기초자료 → 3D MCP</text>
+
+  <!-- Step 1 -->
+  <g filter="url(#card-shadow)">
+    <rect x="28" y="106" width="202" height="232" rx="14" fill="#ffffff" stroke="#93c5fd" stroke-width="2"/>
+    <rect x="28" y="106" width="202" height="40" rx="14" fill="#eff6ff"/>
+    <rect x="28" y="132" width="202" height="14" fill="#eff6ff"/>
+    <text x="129" y="132" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="15" font-weight="800" fill="#1e3a8a">STEP 1 · 1차 판독</text>
+    <text x="129" y="174" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="17" font-weight="800" fill="#0f172a">NotebookLM</text>
+    <text x="129" y="198" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="17" font-weight="800" fill="#0f172a">원본 PDF 분석표</text>
+    <line x1="48" y1="214" x2="210" y2="214" stroke="#e2e8f0" stroke-width="1.5"/>
+    <text x="129" y="238" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="13.5" fill="#334155">글자가 살아 있는 원본 PDF에서</text>
+    <text x="129" y="258" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="13.5" fill="#334155">방·문·계단 사실을 먼저 추출</text>
+    <rect x="42" y="278" width="174" height="46" rx="9" fill="#eff6ff"/>
+    <text x="129" y="298" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="12.5" font-weight="700" fill="#1d4ed8">왜 먼저?</text>
+    <text x="129" y="316" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="12" fill="#1e3a8a">AI 지어내기(환각) 원천 차단</text>
+  </g>
+
+  <line x1="234" y1="222" x2="256" y2="222" stroke="#1e3a8a" stroke-width="2.5" marker-end="url(#arr-navy)"/>
+
+  <!-- Step 2 -->
+  <g filter="url(#card-shadow)">
+    <rect x="262" y="106" width="202" height="232" rx="14" fill="#ffffff" stroke="#93c5fd" stroke-width="2"/>
+    <rect x="262" y="106" width="202" height="40" rx="14" fill="#eff6ff"/>
+    <rect x="262" y="132" width="202" height="14" fill="#eff6ff"/>
+    <text x="363" y="132" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="15" font-weight="800" fill="#1e3a8a">STEP 2 · 선 정리</text>
+    <text x="363" y="174" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="17" font-weight="800" fill="#0f172a">정답 기준표 확정</text>
+    <text x="363" y="198" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="17" font-weight="800" fill="#0f172a">&amp; 클린 선화 제작</text>
+    <line x1="282" y1="214" x2="444" y2="214" stroke="#e2e8f0" stroke-width="1.5"/>
+    <text x="363" y="238" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="13.5" fill="#334155">치수·주석 군더더기 선을 빼고</text>
+    <text x="363" y="258" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="13.5" fill="#334155">벽·문·창 구조만 깔끔하게 정리</text>
+    <rect x="276" y="278" width="174" height="46" rx="9" fill="#eff6ff"/>
+    <text x="363" y="298" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="12.5" font-weight="700" fill="#1d4ed8">왜 필요?</text>
+    <text x="363" y="316" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="12" fill="#1e3a8a">선화 + 기준표 2종 세트 완성</text>
+  </g>
+
+  <line x1="468" y1="222" x2="490" y2="222" stroke="#1e3a8a" stroke-width="2.5" marker-end="url(#arr-navy)"/>
+
+  <!-- Step 3 -->
+  <g filter="url(#card-shadow)">
+    <rect x="496" y="106" width="202" height="232" rx="14" fill="#ffffff" stroke="#5eead4" stroke-width="2"/>
+    <rect x="496" y="106" width="202" height="40" rx="14" fill="#f0fdfa"/>
+    <rect x="496" y="132" width="202" height="14" fill="#f0fdfa"/>
+    <text x="597" y="132" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="15" font-weight="800" fill="#0f766e">STEP 3 · 관계 분석</text>
+    <text x="597" y="174" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="17" font-weight="800" fill="#0f172a">공간 기능 · 인접</text>
+    <text x="597" y="198" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="17" font-weight="800" fill="#0f172a">주요 동선 검증</text>
+    <line x1="516" y1="214" x2="678" y2="214" stroke="#e2e8f0" stroke-width="1.5"/>
+    <text x="597" y="238" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="13.5" fill="#334155">방별 역할, 진짜 문 연결,</text>
+    <text x="597" y="258" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="13.5" fill="#334155">계단·승강기 동선을 표로 확정</text>
+    <rect x="510" y="278" width="174" height="46" rx="9" fill="#f0fdfa"/>
+    <text x="597" y="298" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="12.5" font-weight="700" fill="#0f766e">왜 필요?</text>
+    <text x="597" y="316" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="12" fill="#115e59">벽 인접 ≠ 문 연결 착각 교정</text>
+  </g>
+
+  <line x1="702" y1="222" x2="724" y2="222" stroke="#0f766e" stroke-width="2.5" marker-end="url(#arr-teal)"/>
+
+  <!-- Step 4 -->
+  <g filter="url(#card-shadow)">
+    <rect x="730" y="106" width="202" height="232" rx="14" fill="#ffffff" stroke="#5eead4" stroke-width="2"/>
+    <rect x="730" y="106" width="202" height="40" rx="14" fill="#f0fdfa"/>
+    <rect x="730" y="132" width="202" height="14" fill="#f0fdfa"/>
+    <text x="831" y="132" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="15" font-weight="800" fill="#0f766e">STEP 4 · 2D 시각화</text>
+    <text x="831" y="174" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="17" font-weight="800" fill="#0f172a">2D 공간 관계</text>
+    <text x="831" y="198" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="17" font-weight="800" fill="#0f172a">다이어그램 (Graphviz)</text>
+    <line x1="750" y1="214" x2="912" y2="214" stroke="#e2e8f0" stroke-width="1.5"/>
+    <text x="831" y="238" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="13.5" fill="#334155">검증된 방·문 데이터를 DOT 글로</text>
+    <text x="831" y="258" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="13.5" fill="#334155">바꿔 화살표 지도 자동 생성</text>
+    <rect x="744" y="278" width="174" height="46" rx="9" fill="#f0fdfa"/>
+    <text x="831" y="298" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="12.5" font-weight="700" fill="#0f766e">왜 필요?</text>
+    <text x="831" y="316" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="12" fill="#115e59">글자 깨짐 없이 1줄로 즉시 수정</text>
+  </g>
+
+  <line x1="936" y1="222" x2="958" y2="222" stroke="#1e3a8a" stroke-width="2.5" marker-end="url(#arr-navy)"/>
+
+  <!-- Step 5 -->
+  <g filter="url(#card-shadow)">
+    <rect x="964" y="106" width="208" height="232" rx="14" fill="#1e3a8a" stroke="#1e3a8a" stroke-width="2"/>
+    <rect x="964" y="106" width="208" height="40" rx="14" fill="#1d4ed8"/>
+    <rect x="964" y="132" width="208" height="14" fill="#1d4ed8"/>
+    <text x="1068" y="132" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="15" font-weight="800" fill="#ffffff">STEP 5 · 3D 모델링</text>
+    <text x="1068" y="174" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="17" font-weight="800" fill="#ffffff">Blender MCP</text>
+    <text x="1068" y="198" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="17" font-weight="800" fill="#ffffff">첫 연결 &amp; 3D 공간</text>
+    <line x1="984" y1="214" x2="1152" y2="214" stroke="#60a5fa" stroke-width="1.5"/>
+    <text x="1068" y="238" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="13.5" fill="#dbeafe">앞선 기초자료 + 평면도를 소스로</text>
+    <text x="1068" y="258" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="13.5" fill="#dbeafe">AI가 Blender에서 3D 직접 생성</text>
+    <rect x="978" y="278" width="180" height="46" rx="9" fill="#0f172a"/>
+    <text x="1068" y="298" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="12.5" font-weight="700" fill="#93c5fd">다음 차시 연결</text>
+    <text x="1068" y="316" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="12" fill="#ffffff">첫 3D 방 → 9차시 3층 주택</text>
+  </g>
+
+  <!-- Bottom takeaway bar -->
+  <rect x="28" y="358" width="1144" height="60" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="44" y="373" width="108" height="30" rx="15" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/>
+  <text x="98" y="393" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="13" font-weight="800" fill="#92400e">핵심 로직</text>
+  <text x="168" y="393" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="14.5" font-weight="600" fill="#0f172a">복잡한 도면을 곧바로 3D로 넘기면 벽과 문이 뒤엉킵니다.  [사실 확인(1~2단계) → 관계 검증·시각화(3~4단계) → 3D 생성(5단계)] 순서가 가장 빠릅니다.</text>
+</svg>
