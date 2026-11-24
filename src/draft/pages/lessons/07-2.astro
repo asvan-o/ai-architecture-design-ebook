@@ -36,6 +36,18 @@ import {
   optionBPathFindCmd,
   manualConfigTomlSnippet,
   generalSkillMethods,
+  skillPathComparisonRows,
+  skillPathTerminalCmds,
+  skillPathSetPrompt,
+  externalSkillInstallSteps,
+  externalSkillInstallPrompt,
+  skillStandardTree,
+  skillTreeItems,
+  skillCustomizeDirectSteps,
+  skillCustomizeQuickPrompt,
+  skillCustomizeArchPrompt,
+  skillGrowthFlow,
+  skillOfficialRefs,
 } from '../../content/daejeon-lesson06-2-mcp';
 import {
   defaultInstallerSelection,
@@ -111,7 +123,7 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
     <nav class="l062-quick-index" aria-label="제7-2차시 세부 단락 빠른 이동">
       <div class="l062-quick-index-head">
         <strong>빠른 단락 인덱스 이동</strong>
-        <span>번호 배지(<code>01</code>~<code>07-5</code>)를 눌러 원하는 단계로 바로 이동하세요.</span>
+        <span>번호 배지(<code>01</code>~<code>07-6</code>)를 눌러 원하는 단계로 바로 이동하세요.</span>
       </div>
       <div class="l062-quick-index-grid">
         {l062QuickIndex.map((item) => (
@@ -1028,6 +1040,275 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
                       <pre class="l062-pre">{customSkillTemplate}</pre>
                     </div>
                   </details>
+                </section>
+
+                <section id="l062-skill-path-custom" class="l062-skill-box l062-skill-box-custom">
+                  <div class="l062-badge-row">
+                    <span class="l062-skill-badge l062-skill-badge-navy">07-6 · 스킬 설치 경로 관리 &amp; 커스터마이징</span>
+                    <span class="l062-prep-badge l062-prep-badge-dxf">★ 핵심 · GitHub 남이 만든 스킬 내 업무용으로 개조하기</span>
+                  </div>
+                  <h3>스킬 설치 경로 관리 &amp; 외부(GitHub) 스킬 커스터마이징 실전 가이드</h3>
+                  <p class="l062-skill-plain">
+                    스킬을 처음부터 백지에서 직접 만들 수도 있지만, 실무에서 가장 빠른 방법은
+                    <strong>GitHub에 공개된 남이 만든 스킬을 먼저 설치한 뒤 내 건축·Blender 업무에 맞게 고쳐 쓰는 것</strong>입니다.
+                    아래 7단계 순서대로 <strong>어디 폴더에 저장해야 안전한지</strong>부터
+                    <strong>원본을 망가뜨리지 않고 나만의 커스텀 스킬로 복제·개조하는 방법</strong>까지 그대로 따라 해 보세요.
+                  </p>
+                  <div class="l062-legend-row" aria-label="명령어와 프롬프트 구분 안내">
+                    <span class="l062-kind-badge l062-kind-term">PowerShell 터미널 명령어</span>
+                    <span>어두운 테두리 박스 → Windows PowerShell 창에 붙여넣기</span>
+                    <span class="l062-kind-badge l062-kind-prompt">Codex 채팅 프롬프트</span>
+                    <span>민트색 박스 → Codex 채팅창에 붙여넣기</span>
+                  </div>
+
+                  <h4>1 · 스킬 설치 경로의 차이 — 왜 폴더가 두 군데일까?</h4>
+                  <p class="l062-note">
+                    Codex에서 스킬을 만들거나 GitHub에서 설치하다 보면 <code>.codex\skills</code>와 <code>.agents\skills</code> 두 경로를 자주 보게 됩니다.
+                    <strong>기능이나 성능 차이는 전혀 없으며, 저장 폴더 규격만 다릅니다.</strong>
+                  </p>
+                  <div class="l04-table">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>구분</th>
+                          <th>저장 경로 (Windows 기준)</th>
+                          <th>특징</th>
+                          <th>왕초보 관리 기준</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {skillPathComparisonRows.map((row) => (
+                          <tr>
+                            <td>
+                              <span class:list={['l062-mod-badge', { 'l062-badge-rec': row.badge.includes('권장') }]}>{row.badge}</span><br />
+                              <strong>{row.name}</strong>
+                            </td>
+                            <td><pre class="l062-path-cell">{row.path}</pre></td>
+                            <td>
+                              <ul class="l062-table-list">
+                                {row.traits.map((t) => <li>{t}</li>)}
+                              </ul>
+                            </td>
+                            <td><strong>{row.recommend}</strong></td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="l062-flow-banner">
+                    <div><strong>핵심 정리:</strong> 두 경로는 기능·성능 차이가 아니라 설치 도구와 표준 규격의 차이입니다.</div>
+                    <div><strong>권장 원칙:</strong> 직접 제작한 스킬, GitHub 외부 스킬, 커스터마이징 스킬 모두 <strong><code>.agents\skills</code> 한 곳에 모아 관리</strong>하면 나중에 찾기도 쉽고 다른 AI 도구와도 호환됩니다.</div>
+                  </div>
+
+                  <h4>2 · 내 PC 스킬 설치 경로 1초 확인 방법 (PowerShell 터미널)</h4>
+                  <p class="l062-note">
+                    Windows PowerShell(또는 Codex 터미널)에서 아래 명령을 실행하면 파일 탐색기가 바로 열립니다.
+                    <strong><code>$HOME</code>을 쓰면 PC마다 다른 윈도우 사용자 이름을 직접 타이핑하지 않아도</strong> 자동으로 내 계정 폴더로 이동합니다.
+                  </p>
+                  {skillPathTerminalCmds.map((item) => (
+                    <div class="l062-code-card l062-code-card-term">
+                      <div class="l062-code-head">
+                        <div class="l062-code-head-left">
+                          <span class="l062-kind-badge l062-kind-term">PowerShell 터미널</span>
+                          <strong>{item.title}</strong>
+                        </div>
+                        <button type="button" class="l062-copy-btn" data-l062-copy={item.cmd}>복사</button>
+                      </div>
+                      <p class="l062-code-desc">{item.desc}</p>
+                      <pre class="l062-pre l062-pre-term">{item.cmd}</pre>
+                    </div>
+                  ))}
+
+                  <h4>3 · 스킬 설치 경로 설정 — Codex에게 저장 위치 명확히 지정하기</h4>
+                  <p class="l062-note">
+                    스킬을 새로 만들거나 외부 스킬을 설치할 때 아래 문장을 Codex 채팅창에 먼저 보내면, 엉뚱한 폴더 대신 <strong><code>.agents/skills</code> 표준 경로</strong>에 깔끔하게 저장됩니다.
+                  </p>
+                  <div class="l062-code-card l062-code-card-teal">
+                    <div class="l062-code-head">
+                      <div class="l062-code-head-left">
+                        <span class="l062-kind-badge l062-kind-prompt">Codex 채팅 프롬프트</span>
+                        <strong>표준 경로(.agents/skills) 지정 및 인식 확인 요청</strong>
+                      </div>
+                      <button type="button" class="l062-copy-btn" data-l062-copy={skillPathSetPrompt}>복사</button>
+                    </div>
+                    <pre class="l062-pre">{skillPathSetPrompt}</pre>
+                  </div>
+                  <div class="review-cards">
+                    <article class="review-card">
+                      <h3>주의 1 · 시스템 스킬 보존</h3>
+                      <p><code>.codex\skills</code>에 원래 들어 있는 시스템 기본 스킬은 임의로 옮기거나 지우지 마세요.</p>
+                    </article>
+                    <article class="review-card">
+                      <h3>주의 2 · 중복 이름 방지</h3>
+                      <p><code>.codex\skills</code>와 <code>.agents\skills</code> 양쪽에 같은 이름의 스킬을 중복 설치하지 않도록 확인합니다.</p>
+                    </article>
+                    <article class="review-card">
+                      <h3>주의 3 · 지침에 경로 고정</h3>
+                      <p>앞으로 스킬 제작·설치를 요청할 때마다 <em>“저장 경로는 .agents/skills”</em>를 함께 적어 두면 항상 일정하게 관리됩니다.</p>
+                    </article>
+                  </div>
+
+                  <h4>4 · GitHub 외부 스킬 설치 방법 — 방법 A(직접 설치) vs 방법 B(Codex 명령 설치)</h4>
+                  <p class="l062-note">
+                    다른 사람이 GitHub에 공개해 둔 스킬을 가져오는 방법은 두 가지입니다. 초보자라면 <strong>URL만 던져 주면 안전 점검과 설치를 알아서 처리해 주는 방법 B</strong>를 추천합니다.
+                  </p>
+                  <div class="l062-compare-grid">
+                    <article class="l062-compare-card">
+                      <div class="l062-compare-head">
+                        <span class="l062-mod-badge">방법 A · 수동 원리 이해</span>
+                        <h5>직접 다운로드해 폴더 복사하기</h5>
+                      </div>
+                      <ol class="l062-manual-steps">
+                        {externalSkillInstallSteps.map((step) => <li>{step}</li>)}
+                      </ol>
+                    </article>
+                    <article class="l062-compare-card l062-compare-card-rec">
+                      <div class="l062-compare-head">
+                        <span class="l062-skill-badge">방법 B · 왕초보 추천</span>
+                        <h5>Codex에게 GitHub 주소만 주고 자동 설치하기</h5>
+                      </div>
+                      <p class="l062-compare-desc">
+                        파일 구조를 직접 뒤질 필요 없이, 아래 프롬프트의 <code>[설치할 GitHub 주소 입력]</code> 자리만 바꿔 Codex 채팅창에 붙여넣으세요.
+                        실행 코드와 라이선스 안전성까지 먼저 점검한 뒤 <code>.agents/skills</code>에 설치해 줍니다.
+                      </p>
+                      <div class="l062-code-card l062-code-card-teal l062-code-card-compact">
+                        <div class="l062-code-head">
+                          <div class="l062-code-head-left">
+                            <span class="l062-kind-badge l062-kind-prompt">Codex 채팅 프롬프트</span>
+                            <strong>GitHub 외부 스킬 안전 설치 요청</strong>
+                          </div>
+                          <button type="button" class="l062-copy-btn l062-copy-btn-sm" data-l062-copy={externalSkillInstallPrompt}>복사</button>
+                        </div>
+                        <pre class="l062-pre">{externalSkillInstallPrompt}</pre>
+                      </div>
+                    </article>
+                  </div>
+
+                  <h4>5 · 스킬의 기본 파일 구조 — 딱 4칸만 이해하면 남의 스킬도 읽힙니다</h4>
+                  <p class="l062-note">
+                    GitHub에서 받은 스킬 폴더를 열어 보면 대부분 아래 4가지 구조로 되어 있습니다.
+                    <strong><code>SKILL.md</code> 파일 하나만 필수</strong>이며, 나머지 3개 폴더는 스킬 기능에 따라 선택적으로 들어 있습니다.
+                  </p>
+                  <div class="l062-tree-layout">
+                    <div class="l062-code-card l062-tree-card">
+                      <div class="l062-code-head">
+                        <strong>표준 스킬 폴더 트리 구조</strong>
+                        <button type="button" class="l062-copy-btn l062-copy-btn-sm" data-l062-copy={skillStandardTree}>복사</button>
+                      </div>
+                      <pre class="l062-pre l062-tree-pre">{skillStandardTree}</pre>
+                    </div>
+                    <div class="l062-tree-roles">
+                      {skillTreeItems.map((item) => (
+                        <article class:list={['l062-tree-role-card', { 'is-required': item.required }]}>
+                          <div class="l062-tree-role-head">
+                            <code>{item.name}</code>
+                            <span class:list={['l062-mod-badge', { 'l062-badge-rec': item.required }]}>{item.badge}</span>
+                          </div>
+                          <p>{item.desc}</p>
+                        </article>
+                      ))}
+                    </div>
+                  </div>
+
+                  <h4 id="l062-skill-customize">6 · ★ 핵심 · 기존 GitHub 스킬 커스터마이징 (남이 만든 스킬 내 입맛대로 고쳐 쓰기)</h4>
+                  <div class="l062-flow-banner l062-banner-amber">
+                    <div><strong>왕초보 절대 철칙 — 원본 스킬은 절대 직접 수정·삭제하지 마세요!</strong></div>
+                    <div>항상 <strong>원본 폴더를 복제해 새 이름(예: <code>custom-blender-architecture</code>)으로 만든 뒤 수정</strong>합니다. 이렇게 하면 개조하다 꼬여도 원본은 안전하게 남아 있고, 나중에 원본 스킬이 업데이트돼도 내 작업이 덮어씌워지지 않습니다.</div>
+                  </div>
+
+                  <div class="l062-compare-grid">
+                    <article class="l062-compare-card">
+                      <div class="l062-compare-head">
+                        <span class="l062-mod-badge">방법 A · 직접 파일 열어 수정</span>
+                        <h5>메모장 · VS Code로 SKILL.md 직접 편집</h5>
+                      </div>
+                      <p class="l062-compare-desc">
+                        문구 한두 줄이나 규칙 몇 가지만 가볍게 바꾸고 싶을 때 편리합니다.
+                      </p>
+                      <ol class="l062-manual-steps">
+                        {skillCustomizeDirectSteps.map((step) => <li>{step}</li>)}
+                      </ol>
+                      <div class="l062-code-card l062-code-card-term l062-code-card-compact">
+                        <div class="l062-code-head">
+                          <div class="l062-code-head-left">
+                            <span class="l062-kind-badge l062-kind-term">PowerShell 터미널</span>
+                            <strong>스킬 폴더 바로 열어 수정 대상 찾기</strong>
+                          </div>
+                          <button type="button" class="l062-copy-btn l062-copy-btn-sm" data-l062-copy='explorer "$HOME\.agents\skills"'>복사</button>
+                        </div>
+                        <pre class="l062-pre l062-pre-term">explorer "$HOME\.agents\skills"</pre>
+                      </div>
+                    </article>
+
+                    <article class="l062-compare-card l062-compare-card-rec">
+                      <div class="l062-compare-head">
+                        <span class="l062-skill-badge">방법 B · 왕초보 강력 추천</span>
+                        <h5>Codex에게 말로 복제 · 기능 추가까지 맡기기</h5>
+                      </div>
+                      <p class="l062-compare-desc">
+                        영어로 된 긴 <code>SKILL.md</code>나 파이썬 코드(<code>scripts/</code>)를 직접 뜯어고칠 필요가 없습니다.
+                        <strong>“원본은 보존하고 새 이름으로 복제한 뒤, 이 기능을 추가해 줘”</strong>라고 말하면 Codex가 분석·복제·수정·테스트까지 한 번에 끝냅니다.
+                      </p>
+                      <div class="l062-code-card l062-code-card-teal l062-code-card-compact">
+                        <div class="l062-code-head">
+                          <div class="l062-code-head-left">
+                            <span class="l062-kind-badge l062-kind-prompt">Codex 채팅 프롬프트 · 초간단 버전</span>
+                            <strong>어떤 GitHub 스킬이든 바로 개조하는 3줄 템플릿</strong>
+                          </div>
+                          <button type="button" class="l062-copy-btn l062-copy-btn-sm" data-l062-copy={skillCustomizeQuickPrompt}>복사</button>
+                        </div>
+                        <pre class="l062-pre">{skillCustomizeQuickPrompt}</pre>
+                      </div>
+                    </article>
+                  </div>
+
+                  <div class="l062-scenario-card">
+                    <h4>실전 사례 · GitHub <code>blender-animation</code> 스킬을 건축 시각화 전용(<code>custom-blender-architecture</code>)으로 개조하기</h4>
+                    <p class="l062-note">
+                      일반 애니메이션 스킬을 그대로 쓰면 카메라가 건물 벽을 뚫거나 건축 치수 비율이 흐트러지기 쉽습니다.
+                      아래 실전 프롬프트를 그대로 복사해 Codex에 보내면, 원본 스킬을 보존한 채 <strong>건축 카메라 워크 · 실내 1인칭 워크스루 · 아이소메트릭 · 시공 단계별 애니메이션</strong>이 추가된 전용 스킬을 만들고 Blender MCP 테스트까지 마쳐 줍니다.
+                    </p>
+                    <div class="l062-code-card l062-code-card-teal">
+                      <div class="l062-code-head">
+                        <div class="l062-code-head-left">
+                          <span class="l062-kind-badge l062-kind-prompt">Codex 채팅 프롬프트 · 건축 실전 사례</span>
+                          <strong>blender-animation → custom-blender-architecture 커스터마이징 요청</strong>
+                        </div>
+                        <button type="button" class="l062-copy-btn" data-l062-copy={skillCustomizeArchPrompt}>복사</button>
+                      </div>
+                      <pre class="l062-pre">{skillCustomizeArchPrompt}</pre>
+                    </div>
+                  </div>
+
+                  <h4>7 · 스킬 활용 및 발전 과정 — 쓰면 쓸수록 강해지는 나만의 설계 자산</h4>
+                  <ol class="l062-skill-flow" aria-label="스킬 활용 및 발전 6단계">
+                    {skillGrowthFlow.map((node) => (
+                      <li>
+                        <span class="l062-flow-num">{node.step}</span>
+                        <strong>{node.title}</strong>
+                        <p>{node.detail}</p>
+                      </li>
+                    ))}
+                  </ol>
+                  <aside class="review-callout">
+                    <p>
+                      <strong>핵심 메시지:</strong> 스킬은 한 번 설치하면 끝나는 고정 프로그램이 아니라,
+                      <strong>내 건축·설계 업무 방식에 따라 계속 다듬고 발전시킬 수 있는 재사용 가능한 작업 지침이자 실행 코드</strong>입니다.
+                      남이 만든 좋은 스킬을 가져와 복제하고 조금씩 개조해 두면, 나만의 전문 건축 AI 도구가 빠르게 쌓입니다.
+                    </p>
+                  </aside>
+
+                  <h4>공식 참고자료 (표준 규격 · 공식 예제 바로가기)</h4>
+                  <div class="l062-ref-grid">
+                    {skillOfficialRefs.map((ref) => (
+                      <a class="l062-ref-card" href={ref.url} target="_blank" rel="noreferrer">
+                        <span class="l062-mod-badge">{ref.badge}</span>
+                        <strong>{ref.title} ↗</strong>
+                        <p>{ref.desc}</p>
+                        <span class="l062-ref-url">{ref.url}</span>
+                      </a>
+                    ))}
+                  </div>
                 </section>
               </>
             )}
@@ -1983,10 +2264,260 @@ const sectionIndex = (id: string) => lesson062Sections.findIndex((s) => s.id ===
     line-height: 1.68;
     color: #1e293b;
   }
+  /* 07-6 Skill Path Management & Customization */
+  .l062-legend-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem 0.75rem;
+    margin: 0.4rem 0 1.4rem;
+    padding: 0.72rem 0.95rem;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    font-size: 0.82rem;
+    color: #334155;
+  }
+  .l062-kind-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.16rem 0.55rem;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+  .l062-kind-term {
+    background: #0f172a;
+    color: #f8fafc;
+  }
+  .l062-kind-prompt {
+    background: #0f766e;
+    color: #ffffff;
+  }
+  .l062-code-head-left {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+  .l062-code-card-term {
+    border-color: #334155;
+    background: #f1f5f9;
+  }
+  .l062-code-desc {
+    margin: 0 0 0.55rem;
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: #475569;
+  }
+  .l062-pre-term {
+    background: #0f172a;
+    border-color: #1e293b;
+    color: #f8fafc;
+  }
+  .l062-badge-rec {
+    background: #1e3a8a;
+    color: #ffffff;
+  }
+  .l062-table-list {
+    margin: 0;
+    padding-left: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.84rem;
+    line-height: 1.55;
+  }
+  .l062-banner-amber {
+    border-color: #f59e0b;
+    background: #fffbeb;
+    color: #78350f;
+  }
+  .l062-compare-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 1rem 0 1.4rem;
+  }
+  .l062-compare-card {
+    padding: 1.15rem 1.2rem;
+    border-radius: 13px;
+    border: 1.5px solid #cbd5e1;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .l062-compare-card-rec {
+    border-color: #5eead4;
+    background: linear-gradient(180deg, #f0fdfa 0%, #ffffff 35%);
+  }
+  .l062-compare-head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+  .l062-compare-head h5 {
+    margin: 0;
+    font-size: 0.96rem;
+    color: #0f172a;
+  }
+  .l062-compare-desc {
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.62;
+    color: #334155;
+  }
+  .l062-tree-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.15fr);
+    gap: 1rem;
+    margin: 1rem 0 1.5rem;
+    align-items: start;
+  }
+  .l062-tree-card {
+    margin: 0;
+  }
+  .l062-tree-pre {
+    background: #0f172a;
+    border-color: #1e293b;
+    color: #e2e8f0;
+    font-size: 0.82rem;
+    line-height: 1.72;
+  }
+  .l062-tree-roles {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+  .l062-tree-role-card {
+    padding: 0.78rem 0.92rem;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+  }
+  .l062-tree-role-card.is-required {
+    border-color: #93c5fd;
+    background: #eff6ff;
+  }
+  .l062-tree-role-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.3rem;
+  }
+  .l062-tree-role-head code {
+    font-size: 0.86rem;
+    font-weight: 800;
+    color: #0f172a;
+  }
+  .l062-tree-role-card p {
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: #334155;
+  }
+  .l062-skill-flow {
+    list-style: none;
+    margin: 1rem 0 1.35rem;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+  .l062-skill-flow li {
+    position: relative;
+    padding: 0.85rem 0.78rem;
+    border-radius: 12px;
+    border: 1.5px solid #93c5fd;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .l062-skill-flow li:last-child {
+    border-color: #0f766e;
+    background: #f0fdfa;
+  }
+  .l062-flow-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 999px;
+    background: #1e3a8a;
+    color: #ffffff;
+    font-size: 0.74rem;
+    font-weight: 800;
+  }
+  .l062-skill-flow li:last-child .l062-flow-num {
+    background: #0f766e;
+  }
+  .l062-skill-flow strong {
+    font-size: 0.85rem;
+    color: #0f172a;
+    line-height: 1.35;
+  }
+  .l062-skill-flow p {
+    margin: 0;
+    font-size: 0.76rem;
+    line-height: 1.48;
+    color: #475569;
+  }
+  .l062-ref-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.85rem;
+    margin: 0.9rem 0 0.4rem;
+  }
+  .l062-ref-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.38rem;
+    padding: 1rem 1.05rem;
+    border-radius: 12px;
+    border: 1.5px solid #cbd5e1;
+    background: #ffffff;
+    text-decoration: none;
+    color: #0f172a;
+    transition: border-color 140ms ease, background-color 140ms ease;
+  }
+  .l062-ref-card:hover {
+    border-color: #1e3a8a;
+    background: #eff6ff;
+  }
+  .l062-ref-card strong {
+    font-size: 0.9rem;
+    color: #1e3a8a;
+  }
+  .l062-ref-card p {
+    margin: 0;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: #475569;
+  }
+  .l062-ref-url {
+    font-size: 0.74rem;
+    color: #0f766e;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+
   @media (max-width: 960px) {
     .l062-quick-index-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+    .l062-skill-flow {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .l062-compare-grid,
+    .l062-tree-layout,
+    .l062-ref-grid,
     .l062-concept-grid,
     .l062-brief-grid,
     .l062-builder-options,

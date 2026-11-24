@@ -202,6 +202,7 @@ export const l062QuickIndex = [
   { code: '07-3', label: '$architectural-concept-design', href: '#l062-skill-concept-design' },
   { code: '07-4', label: 'Gridline 3종 (도면·시각화)', href: '#l062-skill-gridline' },
   { code: '07-5', label: '나만의 스킬 직접 제작 · 전역 호출', href: '#l062-custom-skill' },
+  { code: '07-6', label: '스킬 경로 관리 & GitHub 스킬 개조', href: '#l062-skill-path-custom' },
 ] as const;
 
 export const generalMcpSteps = [
@@ -698,5 +699,189 @@ export const troubleshootingRows = [
     symptom: '수동으로 config.toml을 고친 뒤 구문 오류(TOML parse error)가 뜸',
     cause: '같은 [mcp_servers.xxx] 섹션이 두 번 들어갔거나 큰따옴표 안에 역슬래시(\\)를 그대로 넣음',
     fix: '올인원 빌더에서 [자동 병합 · Codex 설정]만 체크해 다시 실행하면 중복 섹션을 자동 정리하고 UTF-8(BOM 없음) 표준 형식으로 복구합니다.',
+  },
+] as const;
+
+// 07-6 · 스킬 설치 경로 관리 및 기존(GitHub) 스킬 커스터마이징
+export const skillPathComparisonRows = [
+  {
+    badge: '① 기존 경로',
+    name: 'Codex 전용 스킬 저장 경로',
+    path: 'C:\\Users\\사용자명\\.codex\\skills',
+    traits: [
+      '기존 Codex 전용 스킬이 저장되던 경로',
+      '일부 옛 스킬 제작·설치 도구에서 기본 사용',
+      'Codex 시스템 기본 스킬이 함께 들어 있을 수 있음',
+    ],
+    recommend: '시스템 기본 스킬이 있다면 건드리지 말고 그대로 유지',
+  },
+  {
+    badge: '② 표준 경로 · 권장',
+    name: 'Agent Skills 표준 저장 경로',
+    path: 'C:\\Users\\사용자명\\.agents\\skills',
+    traits: [
+      '현재 공식적으로 권장되는 사용자 스킬 표준 폴더',
+      'GitHub 외부 스킬과 직접 만든 스킬을 한 곳에 보관',
+      '공통 Agent Skills 규격을 지원하는 다른 AI 도구와도 호환',
+    ],
+    recommend: '내가 만든 스킬 · GitHub 외부 스킬 · 개조 스킬 모두 이곳에 저장',
+  },
+] as const;
+
+export const skillPathTerminalCmds = [
+  {
+    title: '기존 Codex 스킬 폴더 열기',
+    desc: '시스템 기본 스킬이나 이전에 설치된 스킬이 있는지 탐색기로 확인합니다.',
+    cmd: 'explorer "$HOME\\.codex\\skills"',
+  },
+  {
+    title: 'Agent Skills 표준 폴더 열기 (권장 경로)',
+    desc: '앞으로 내가 설치·개조한 모든 사용자 스킬이 모이는 표준 폴더를 엽니다.',
+    cmd: 'explorer "$HOME\\.agents\\skills"',
+  },
+  {
+    title: 'Agent Skills 폴더가 아직 없는 경우 한 번에 만들기',
+    desc: '위 명령에서 폴더가 열리지 않는다면 먼저 표준 폴더를 생성합니다.',
+    cmd: 'New-Item -ItemType Directory -Force -Path "$HOME\\.agents\\skills"',
+  },
+] as const;
+
+export const skillPathSetPrompt = `현재 사용자의 홈 디렉터리를 확인하고,
+스킬 저장 경로를 .agents/skills로 지정해줘.
+
+앞으로 이번 작업에서 제작하거나 설치하는 스킬은
+해당 경로에 저장해줘.
+
+설치 완료 후 실제 저장 경로와
+Codex에서 정상적으로 인식되는지 확인해줘.`;
+
+export const externalSkillInstallSteps = [
+  'GitHub에서 원하는 건축·Blender·문서 자동화 스킬 저장소를 검색합니다.',
+  '저장소 페이지에서 Download ZIP으로 내려받거나 git clone으로 PC에 복사합니다.',
+  '압축을 푼 폴더 안에서 핵심 안내 파일인 SKILL.md가 들어 있는 스킬 폴더를 찾습니다.',
+  '함께 들어 있는 scripts(실행 코드)와 references(참고 기준)에 이상한 명령이 없는지 확인합니다.',
+  '스킬 폴더 전체를 그대로 복사해 $HOME\\.agents\\skills 안에 붙여넣습니다.',
+  'Codex 새 대화를 열거나 재실행한 뒤 $스킬이름이 자동완성에 뜨고 정상 작동하는지 확인합니다.',
+] as const;
+
+export const externalSkillInstallPrompt = `아래 GitHub 저장소의 스킬을 설치해줘.
+
+GitHub URL: [설치할 GitHub 주소 입력]
+
+조건:
+- 스킬의 기능 및 파일 구조 확인
+- 외부 실행 코드와 라이선스 검토
+- 사용자 홈 디렉터리의 .agents/skills에 설치
+- 필요한 의존성 및 실행 환경 확인
+- 설치 완료 후 사용 방법 안내
+- 기존 스킬과 중복 여부 확인`;
+
+export const skillStandardTree = `custom-skill/
+ ├─ SKILL.md      ← [필수] 스킬의 역할 · 실행 조건 · 작업 절차 · 검수 기준
+ ├─ scripts/      ← [선택] 실제 기능을 실행하는 Python · PowerShell 코드
+ ├─ references/   ← [선택] 건축 기준표 · 체크리스트 · 참고 가이드라인
+ └─ assets/       ← [선택] 도면 템플릿 · 샘플 이미지 · 기타 리소스`;
+
+export const skillTreeItems = [
+  {
+    name: 'SKILL.md',
+    badge: '필수 핵심 파일',
+    required: true,
+    desc: 'AI에게 주는 업무 매뉴얼입니다. "언제 이 스킬을 쓰고, 어떤 순서로 작업하며, 무엇을 검수할지"를 한글이나 영어로 적어 둡니다.',
+  },
+  {
+    name: 'scripts/',
+    badge: '선택 폴더',
+    required: false,
+    desc: 'Blender 카메라 경로 생성, DXF 변환, 파일 정리처럼 실제로 컴퓨터에서 돌아가는 자동화 코드가 들어갑니다.',
+  },
+  {
+    name: 'references/',
+    badge: '선택 폴더',
+    required: false,
+    desc: '우리 사무실 레이어 표, 건축 시각화 체크리스트, 보고서 양식 같은 참고 문서를 넣어 두는 서랍입니다.',
+  },
+  {
+    name: 'assets/',
+    badge: '선택 폴더',
+    required: false,
+    desc: '브랜드 로고, 도면 틀, 재질 예시 이미지 등 결과물에 바로 가져다 쓸 리소스 파일을 보관합니다.',
+  },
+] as const;
+
+export const skillCustomizeDirectSteps = [
+  'PowerShell에서 explorer "$HOME\\.agents\\skills"로 스킬 폴더를 엽니다.',
+  '고치고 싶은 스킬 폴더를 복사·붙여넣기해 새 이름(예: custom-...)으로 먼저 복제합니다. (원본 보호)',
+  '복제한 폴더 안의 SKILL.md 파일을 메모장이나 VS Code로 엽니다.',
+  '작업 지시문, 실행 조건, 단계 순서에 내 건축·설계 기준을 추가하거나 다듬습니다.',
+  '필요하면 scripts/ 코드나 references/ 참고 기준 파일도 함께 수정합니다.',
+  '저장한 뒤 Codex에서 새 대화를 열어 $새스킬이름으로 정상 작동하는지 테스트합니다.',
+] as const;
+
+export const skillCustomizeQuickPrompt = `현재 .agents/skills에 설치된 [기존 스킬 이름]을 분석해줘.
+1) 원본 폴더는 절대 수정하거나 삭제하지 말고,
+   .agents/skills/[새 스킬 이름]으로 복제해줘.
+2) 복제한 스킬의 SKILL.md에 아래 내 업무 기준을 반영해줘:
+   - [추가하거나 바꾸고 싶은 조건 1]
+   - [추가하거나 바꾸고 싶은 조건 2]
+3) 변경한 내용과 호출 방법을 알기 쉽게 정리해줘.`;
+
+export const skillCustomizeArchPrompt = `현재 설치된 blender-animation 스킬을
+건축 시각화에 적합한 스킬로 커스터마이징해줘.
+
+작업 절차:
+1. 기존 스킬의 저장 경로 확인
+2. 전체 파일 구조 및 기존 기능 분석
+3. 원본 스킬을 보존하고 별도의 스킬로 복제
+4. 사용자 요구사항에 맞게 기능 수정 및 추가
+5. SKILL.md 및 관련 스크립트 수정
+6. Blender MCP 연동 및 실행 테스트
+7. 변경사항과 사용 방법 보고
+
+추가 기능:
+- 건축물 카메라 워크
+- 실내 공간 1인칭 워크스루
+- 아이소메트릭 애니메이션
+- 시공 단계별 애니메이션
+- 건축물 구조 및 크기 일관성 유지
+
+저장 경로:
+사용자 홈 디렉터리의 .agents/skills
+
+새로운 스킬 이름:
+custom-blender-architecture
+
+조건:
+- 기존 스킬 원본 수정 및 삭제 금지
+- 기존 기능 및 MCP 호환성 유지
+- 커스텀 스킬의 정상 작동 여부 검수`;
+
+export const skillGrowthFlow = [
+  { step: '01', title: '외부 스킬 검색', detail: 'GitHub에서 내 업무와 비슷한 공개 스킬 찾기' },
+  { step: '02', title: '표준 경로 설치', detail: '.agents\\skills 폴더에 안전하게 설치' },
+  { step: '03', title: '기존 기능 분석', detail: 'SKILL.md와 scripts 구조 파악' },
+  { step: '04', title: '복제 · 커스터마이징', detail: '원본 보존 후 내 건축 기준 추가' },
+  { step: '05', title: '실전 적용 · 검수', detail: 'Blender MCP 등 실제 프로젝트 테스트' },
+  { step: '06', title: '자체 전문 스킬 구축', detail: '반복 보완해 사무실 전용 자산 완성' },
+] as const;
+
+export const skillOfficialRefs = [
+  {
+    badge: '공식 문서',
+    title: 'OpenAI Codex Skills 공식 가이드',
+    url: 'https://developers.openai.com/codex/skills/',
+    desc: 'Codex에서 스킬이 인식되는 경로 규칙과 SKILL.md 작성 공식 문서',
+  },
+  {
+    badge: '표준 규격',
+    title: 'Agent Skills 표준 명세 (agentskills.io)',
+    url: 'https://agentskills.io/',
+    desc: '.agents/skills 표준 폴더 구조와 공통 Agent Skills 규격 안내',
+  },
+  {
+    badge: '공식 예제',
+    title: 'OpenAI GitHub Skills 저장소',
+    url: 'https://github.com/openai/skills',
+    desc: '바로 참고하거나 설치해 구조를 살펴볼 수 있는 공식 공개 스킬 모음',
   },
 ] as const;
