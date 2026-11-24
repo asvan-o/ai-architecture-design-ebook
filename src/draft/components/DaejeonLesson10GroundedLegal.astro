@@ -1,5 +1,6 @@
 ---
 import Lesson10CoreLogic from './Lesson10CoreLogic.astro';
+import Lesson10BeginnerGuide from './Lesson10BeginnerGuide.astro';
 import TopicProgress from './TopicProgress.astro';
 import GwangjuLesson10LegalContent from './GwangjuLesson10LegalContent.astro';
 import GwangjuLesson11LegalContent from './GwangjuLesson11LegalContent.astro';
@@ -16,11 +17,14 @@ const common={lessonId:'10',sectionMap,timePlan};
  <p class="grounded-status">수업 150분 · 50분 × 3 Part (쉬는 시간·운영 별도)</p>
  <blockquote class="grounded-key">자료를 정리하고, 근거를 찾고, 서로 다른 AI로 반복 검증하되 최종 판단은 사람이 한다.</blockquote>
  <nav class="grounded-parts" aria-label="제10차시 3-Part">{integration.lesson.parts.map(p=><a href={'#'+p.id}>{p.title}<strong>50분</strong></a>)}</nav>
+ <Lesson10BeginnerGuide mode="overview" />
  {enabled&&<aside class="grounded-downloads"><strong>실습자료 다운로드</strong><p>원문 Prompt 13개와 기존 예시 표를 제공합니다. 반다비 프로젝트 PDF·공식 법규·강사 DOCX는 아래 각 단계에서 구분해 내려받습니다.</p><div><a href={base+'/downloads/daejeon/lesson-10/DJ-L10_법규검토_프롬프트_실습팩.zip'} download>DJ-L10_법규검토_프롬프트_실습팩.zip 다운로드</a><a href={base+'/downloads/daejeon/lesson-10/DJ-L10_전체실습자료_사용안내.md'} download>DJ-L10_전체실습자료_사용안내.md 다운로드</a><a href={base+'/downloads/daejeon/lesson-10/manifest.json'} download>자료 목록·SHA-256</a></div></aside>}
  <div id="l10-part-1" data-legal-part="1"><header class="period-heading"><p>PART 1 · 50분</p><h2>{integration.lesson.parts[0].title}</h2></header>
+  <Lesson10BeginnerGuide mode="part1" />
   <GwangjuLesson10LegalContent {...common} selectedSections={['01','02','03','04','05','06','07','08']} />
  </div>
  <div id="l10-part-2" data-legal-part="2"><header class="period-heading"><p>PART 2 · 50분</p><h2>{integration.lesson.parts[1].title}</h2></header>
+  <Lesson10BeginnerGuide mode="part2" />
   <GwangjuLesson11LegalContent {...common} selectedSections={['03','04','05','06','07']} />
   <GwangjuLesson10LegalContent {...common} selectedSections={['11']} deferChecklistPrompt />
   <GwangjuLesson11LegalContent {...common} selectedSections={['08']} />
@@ -29,6 +33,7 @@ const common={lessonId:'10',sectionMap,timePlan};
   <GwangjuLesson10LegalContent {...common} selectedSections={['12']} />
  </div>
  <div id="l10-part-3" data-legal-part="3"><header class="period-heading"><p>PART 3 · 50분</p><h2>{integration.lesson.parts[2].title}</h2></header>
+  <Lesson10BeginnerGuide mode="part3" />
   <GwangjuLesson11LegalContent {...common} selectedSections={['01','10']} />
   <GwangjuLesson10LegalContent {...common} selectedSections={['10']} />
   <GwangjuLesson11LegalContent {...common} selectedSections={['11','12','13','14','15','16','17','18']} />

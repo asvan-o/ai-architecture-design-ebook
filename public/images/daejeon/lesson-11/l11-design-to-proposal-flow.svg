@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 390" width="960" height="390" role="img" aria-labelledby="l11-title l11-desc">
+  <title id="l11-title">11차시 포트폴리오 기획 흐름 — 앞 차시 자료에서 8장 PPT와 4장 보드 설계도까지</title>
+  <desc id="l11-desc">8~10차시에서 준비한 도면, 3D 모델, 법규 검토 범위를 6단계 설득 논리로 정리해 4장 포트폴리오 보드와 8장 PPT 스토리보드로 연결하는 흐름도</desc>
+  <defs>
+    <style>
+      .f { font-family: 'Pretendard', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
+      .t-h { font-size: 18px; font-weight: 800; fill: #0f172a; }
+      .t-sub { font-size: 12.5px; font-weight: 500; fill: #475569; }
+      .t-badge { font-size: 11px; font-weight: 800; }
+      .t-col-h { font-size: 15px; font-weight: 800; fill: #0f172a; }
+      .t-item-h { font-size: 12.5px; font-weight: 700; fill: #0f172a; }
+      .t-item { font-size: 11.5px; font-weight: 500; fill: #475569; }
+      .t-pill { font-size: 11.5px; font-weight: 700; fill: #1e293b; }
+    </style>
+    <marker id="a11" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 1 L9 5 L0 9 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="390" rx="18" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="28" y="38" class="f t-h">9·10차시 재료가 내 제안서(PPT 8장 · 보드 4장)가 되는 흐름</text>
+  <text x="28" y="60" class="f t-sub">11차시는 디자인을 새로 그리는 시간이 아니라, 이미 만든 도면·3D·법규 자료를 "건축주가 고개를 끄덕이는 순서"로 엮는 기획 단계입니다.</text>
+
+  <!-- Column 1: Inputs from Lessons 8-10 -->
+  <rect x="24" y="82" width="268" height="282" rx="14" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="40" y="96" width="128" height="22" rx="11" fill="#e2e8f0"/>
+  <text x="104" y="111" text-anchor="middle" class="f t-badge" fill="#334155">이미 모아 둔 재료</text>
+  <text x="40" y="140" class="f t-col-h">8~10차시 프로젝트 자산</text>
+
+  <rect x="40" y="156" width="236" height="56" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="54" y="177" class="f t-item-h">① 도면 · 공간 분석표 (8·9차시)</text>
+  <text x="54" y="197" class="f t-item">평면·입단면과 방별 동선·생활 조건</text>
+
+  <rect x="40" y="222" width="236" height="56" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="54" y="243" class="f t-item-h">② 3D 모델 · 디자인 컨셉 (9차시)</text>
+  <text x="54" y="263" class="f t-item">층별 3D 뷰와 선택한 내·외장 스타일</text>
+
+  <rect x="40" y="288" width="236" height="56" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="54" y="309" class="f t-item-h">③ 법규 확인 범위 (10차시)</text>
+  <text x="54" y="329" class="f t-item">확정 항목과 건축사 확인 필요 항목</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="294" y1="223" x2="322" y2="223" stroke="#2563eb" stroke-width="2.5" marker-end="url(#a11)"/>
+
+  <!-- Column 2: 6-step persuasion logic -->
+  <rect x="328" y="82" width="304" height="282" rx="14" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+  <rect x="344" y="96" width="136" height="22" rx="11" fill="#dbeafe"/>
+  <text x="412" y="111" text-anchor="middle" class="f t-badge" fill="#1d4ed8">11차시 핵심 작업</text>
+  <text x="344" y="140" class="f t-col-h">6단계 설계 설득 논리</text>
+
+  <rect x="344" y="156" width="130" height="56" rx="9" fill="#eff6ff" stroke="#93c5fd"/>
+  <text x="356" y="177" class="f t-pill">1. 대지·요구 읽기</text>
+  <text x="356" y="196" class="f t-item">건축주가 원하는 삶</text>
+
+  <rect x="486" y="156" width="130" height="56" rx="9" fill="#eff6ff" stroke="#93c5fd"/>
+  <text x="498" y="177" class="f t-pill">2. 콘셉트 한 문장</text>
+  <text x="498" y="196" class="f t-item">핵심 방향과 키워드</text>
+
+  <rect x="344" y="222" width="130" height="56" rx="9" fill="#eff6ff" stroke="#93c5fd"/>
+  <text x="356" y="243" class="f t-pill">3. 층별 공간 배치</text>
+  <text x="356" y="262" class="f t-item">공용 → 사적 → 휴식</text>
+
+  <rect x="486" y="222" width="130" height="56" rx="9" fill="#eff6ff" stroke="#93c5fd"/>
+  <text x="498" y="243" class="f t-pill">4. 5색 재료·조명</text>
+  <text x="498" y="262" class="f t-item">질감과 분위기 근거</text>
+
+  <rect x="344" y="288" width="130" height="56" rx="9" fill="#eff6ff" stroke="#93c5fd"/>
+  <text x="356" y="309" class="f t-pill">5. 법규·치수 확인</text>
+  <text x="356" y="328" class="f t-item">현실 검토 범위 명시</text>
+
+  <rect x="486" y="288" width="130" height="56" rx="9" fill="#eff6ff" stroke="#93c5fd"/>
+  <text x="498" y="309" class="f t-pill">6. 완성 기대효과</text>
+  <text x="498" y="328" class="f t-item">일상 시나리오 마무리</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="634" y1="223" x2="662" y2="223" stroke="#2563eb" stroke-width="2.5" marker-end="url(#a11)"/>
+
+  <!-- Column 3: Outputs for Lesson 12 -->
+  <rect x="668" y="82" width="268" height="282" rx="14" fill="#ffffff" stroke="#059669" stroke-width="2"/>
+  <rect x="684" y="96" width="144" height="22" rx="11" fill="#d1fae5"/>
+  <text x="756" y="111" text-anchor="middle" class="f t-badge" fill="#047857">12차시로 넘길 설계도</text>
+  <text x="684" y="140" class="f t-col-h">스토리보드 완성본</text>
+
+  <rect x="684" y="156" width="236" height="86" rx="10" fill="#ecfdf5" stroke="#6ee7b7"/>
+  <text x="698" y="179" class="f t-item-h">포트폴리오 보드 4장 구성</text>
+  <text x="698" y="199" class="f t-item">· 1장 표지 (대표 뷰 + 로고)</text>
+  <text x="698" y="216" class="f t-item">· 2장 Intro · 3장 공간 Overview</text>
+  <text x="698" y="233" class="f t-item">· 4장 입단면 · 법규 확인 요약</text>
+
+  <rect x="684" y="254" width="236" height="90" rx="10" fill="#fefce8" stroke="#fde047"/>
+  <text x="698" y="277" class="f t-item-h">발표용 PPT 8장 목차</text>
+  <text x="698" y="297" class="f t-item">· 1~2장: 표지 · 요구와 콘셉트</text>
+  <text x="698" y="314" class="f t-item">· 3~5장: 층별 공간 · 재료 · 입면</text>
+  <text x="698" y="331" class="f t-item">· 6~8장: 주간/석양 · 검수 · 마무리</text>
+</svg>

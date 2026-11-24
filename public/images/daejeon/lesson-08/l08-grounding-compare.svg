@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" width="1200" height="500" role="img" aria-labelledby="gt1 gd1">
+  <title id="gt1">AI 그라운딩(Grounding) 적용 전후 비교</title>
+  <desc id="gd1">그라운딩 미적용 시 AI 기존 학습 지식만으로 답변해 오류 가능성이 생기는 흐름과, 설계도면·법규 문서·외부 데이터를 근거로 제공해 출처와 근거 기반 결과를 만드는 그라운딩 적용 흐름 비교</desc>
+  <defs>
+    <marker id="arr-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#b91c1c"/>
+    </marker>
+    <marker id="arr-slate" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+    </marker>
+    <marker id="arr-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#0f766e"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="500" rx="18" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+
+  <!-- Top Header -->
+  <rect x="28" y="20" width="1144" height="52" rx="12" fill="#0f172a"/>
+  <text x="52" y="52" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="19" font-weight="800" fill="#ffffff">1. AI 그라운딩(Grounding) 적용 전후 비교 — 왜 도면·분석표·다이어그램을 먼저 준비해야 안전할까?</text>
+
+  <!-- Row 1: Without Grounding -->
+  <rect x="28" y="88" width="1144" height="140" rx="14" fill="#ffffff" stroke="#fecaca" stroke-width="1.8"/>
+  <rect x="46" y="102" width="144" height="28" rx="14" fill="#fef2f2" stroke="#fca5a5"/>
+  <text x="118" y="121" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="13.5" font-weight="800" fill="#b91c1c">✕ 그라운딩 미적용</text>
+  <text x="206" y="121" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="13.5" fill="#64748b">근거 자료 없이 AI에게 바로 “3층 주택 만들어 줘 / 도면 분석해 줘”라고 지시할 때</text>
+
+  <!-- Flow 1 boxes -->
+  <rect x="110" y="146" width="210" height="62" rx="12" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.8"/>
+  <text x="215" y="183" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="17" font-weight="700" fill="#1e293b">사용자 질문 · 요청</text>
+
+  <line x1="324" y1="177" x2="432" y2="177" stroke="#475569" stroke-width="2.5" marker-end="url(#arr-slate)"/>
+
+  <rect x="440" y="140" width="260" height="74" rx="12" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
+  <text x="570" y="170" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="21" font-weight="800" fill="#0f172a">AI</text>
+  <text x="570" y="196" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="14" fill="#475569">기존 학습 지식(일반 상식)만 의존</text>
+
+  <line x1="704" y1="177" x2="812" y2="177" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <rect x="820" y="140" width="270" height="74" rx="12" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+  <text x="955" y="170" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="17" font-weight="800" fill="#991b1b">답변 · 3D 결과 생성</text>
+  <text x="955" y="196" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="13.5" font-weight="700" fill="#dc2626">치수 왜곡 · 없는 문 생성 · 오류 가능성 ↑</text>
+
+  <!-- Row 2: With Grounding -->
+  <rect x="28" y="244" width="1144" height="236" rx="14" fill="#ffffff" stroke="#5eead4" stroke-width="2"/>
+  <rect x="46" y="258" width="136" height="28" rx="14" fill="#ecfdf5" stroke="#34d399"/>
+  <text x="114" y="277" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="13.5" font-weight="800" fill="#065f46">✓ 그라운딩 적용</text>
+  <text x="198" y="277" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="13.5" font-weight="600" fill="#0f766e">도면 · 분석표 · 2D 다이어그램 · 디자인 레퍼런스 등 ‘실제 근거’를 먼저 연결한 뒤 작업할 때</text>
+
+  <!-- Top 3 Grounding source cards -->
+  <rect x="330" y="298" width="174" height="50" rx="10" fill="#f0fdfa" stroke="#0f766e" stroke-width="1.8"/>
+  <text x="417" y="328" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="15.5" font-weight="800" fill="#0f766e">설계도면 · 클린 선화</text>
+
+  <rect x="526" y="298" width="174" height="50" rx="10" fill="#f0fdfa" stroke="#0f766e" stroke-width="1.8"/>
+  <text x="613" y="328" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="15.5" font-weight="800" fill="#0f766e">분석표 · 법규·문서</text>
+
+  <rect x="722" y="298" width="174" height="50" rx="10" fill="#f0fdfa" stroke="#0f766e" stroke-width="1.8"/>
+  <text x="809" y="328" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="15.5" font-weight="800" fill="#0f766e">2D 관계도 · 외부 데이터</text>
+
+  <!-- Bracket connecting 3 sources down into AI -->
+  <path d="M 417 348 L 417 368 L 809 368 L 809 348" fill="none" stroke="#0f766e" stroke-width="2.2"/>
+  <line x1="613" y1="348" x2="613" y2="394" stroke="#0f766e" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <rect x="626" y="370" width="96" height="22" rx="11" fill="#ccfbf1"/>
+  <text x="674" y="385" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="12.5" font-weight="800" fill="#0f766e">근거 제공</text>
+
+  <!-- Flow 2 boxes -->
+  <rect x="110" y="404" width="210" height="58" rx="12" fill="#f8fafc" stroke="#64748b" stroke-width="1.8"/>
+  <text x="215" y="439" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="17" font-weight="700" fill="#1e293b">사용자 질문 · 요청</text>
+
+  <line x1="324" y1="433" x2="432" y2="433" stroke="#0f766e" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <rect x="440" y="398" width="260" height="70" rx="12" fill="#0f766e" stroke="#0f766e" stroke-width="2"/>
+  <text x="570" y="426" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="20" font-weight="800" fill="#ffffff">AI (근거 기반 분석)</text>
+  <text x="570" y="451" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="13.5" fill="#ccfbf1">NotebookLM · 도면 · MCP 도구 연동</text>
+
+  <line x1="704" y1="433" x2="812" y2="433" stroke="#0f766e" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <rect x="820" y="398" width="270" height="70" rx="12" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="955" y="426" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="17" font-weight="800" fill="#065f46">안전한 답변 · 3D 모델</text>
+  <text x="955" y="451" text-anchor="middle" font-family="Pretendard, 'Malgun Gothic', sans-serif" font-size="13.5" font-weight="700" fill="#047857">도면 일치 · 근거·출처 제시 · 재검증 가능</text>
+</svg>

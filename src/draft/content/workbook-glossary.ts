@@ -921,8 +921,8 @@ export const workbookGlossary:readonly WorkbookGlossaryTerm[] = [
       },
       {
         "lessonId": "09",
-        "sectionId": "l09-collection-control",
-        "label": "제9차시 §03 · MCP 연결 점검과 층별 폴더(컬렉션) 켜기·끄기"
+        "sectionId": "l09-core-geometry",
+        "label": "제9차시 §03 · Step 1 · 1층 공간과 가구 만들기"
       }
     ],
     "sources": [
@@ -1191,8 +1191,8 @@ export const workbookGlossary:readonly WorkbookGlossaryTerm[] = [
       },
       {
         "lessonId": "09",
-        "sectionId": "l09-collection-control",
-        "label": "제9차시 §03 · MCP 연결 점검과 층별 폴더(컬렉션) 켜기·끄기"
+        "sectionId": "l09-core-geometry",
+        "label": "제9차시 §03 · Step 1 · 1층 공간과 가구 만들기"
       }
     ],
     "sources": [
@@ -1642,7 +1642,7 @@ export const sectionTermNotes:Readonly<Record<string,string[]>> = {
     "term-mcp",
     "term-agent"
   ],
-  "09:l09-collection-control": [
+  "09:l09-core-geometry": [
     "term-hierarchy"
   ],
   "09:l09-materials": [

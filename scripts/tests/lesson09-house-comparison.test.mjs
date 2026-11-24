@@ -12,7 +12,7 @@ const pairsBySection = {
 };
 
 test('Lesson09 compares eight matching Astra and Argon viewpoints in the three existing steps', () => {
-  assert.equal(source.lessons['09'].sections.length, 12);
+  assert.equal(source.lessons['09'].sections.length, 11);
   assert.equal(source.lessons['09'].sections.reduce((sum, section) => sum + section.minutes, 0), 150);
   for (const [id, stems] of Object.entries(pairsBySection)) {
     const section = source.lessons['09'].sections.find(item => item.id === id);

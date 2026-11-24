@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 390" width="960" height="390" role="img" aria-labelledby="l12-title l12-desc">
+  <title id="l12-title">12차시 제작 역할 분담 — AI가 만드는 이미지와 PowerPoint에서 직접 쓰는 글자·표</title>
+  <desc id="l12-desc">AI에게는 무드보드, 실사 아이소메트릭, 브랜드 로고, 표지 배경 이미지를 맡기고, PowerPoint에서 한글 제목, 방 이름, 면적 표, 최종 로고를 직접 얹는 역할 분담 도식</desc>
+  <defs>
+    <style>
+      .f { font-family: 'Pretendard', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
+      .t-h { font-size: 18px; font-weight: 800; fill: #0f172a; }
+      .t-sub { font-size: 12.5px; font-weight: 500; fill: #475569; }
+      .t-badge { font-size: 11px; font-weight: 800; }
+      .t-card-h { font-size: 15.5px; font-weight: 800; fill: #0f172a; }
+      .t-item-h { font-size: 13px; font-weight: 700; fill: #0f172a; }
+      .t-item { font-size: 12px; font-weight: 500; fill: #475569; }
+      .t-tip { font-size: 12.5px; font-weight: 700; fill: #92400e; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="390" rx="18" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="28" y="38" class="f t-h">실패하지 않는 12차시 제작 공식 — AI와 PowerPoint 역할 분담</text>
+  <text x="28" y="60" class="f t-sub">AI에게 한글 설명·치수표까지 한 번에 그려달라고 하면 글자가 깨지고 숫자가 틀어집니다. 각자 잘하는 일만 딱 나눠 맡기세요!</text>
+
+  <!-- Left: AI Role -->
+  <rect x="24" y="82" width="430" height="232" rx="14" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+  <rect x="42" y="96" width="166" height="24" rx="12" fill="#dbeafe"/>
+  <text x="125" y="112" text-anchor="middle" class="f t-badge" fill="#1d4ed8">AI에게 맡기는 영역 (이미지)</text>
+  <text x="42" y="142" class="f t-card-h">배경 · 질감 · 공간 시안 빠르게 뽑기</text>
+
+  <rect x="42" y="156" width="190" height="66" rx="10" fill="#eff6ff" stroke="#bfdbfe"/>
+  <text x="54" y="178" class="f t-item-h">① 재료·가구 무드보드</text>
+  <text x="54" y="198" class="f t-item">5색 팔레트·실제 질감 조합</text>
+  <text x="54" y="214" class="f t-item">(Part 1 · 프롬프트 02)</text>
+
+  <rect x="246" y="156" width="190" height="66" rx="10" fill="#eff6ff" stroke="#bfdbfe"/>
+  <text x="258" y="178" class="f t-item-h">② 층별 실사 아이소</text>
+  <text x="258" y="198" class="f t-item">원도면 유지 + 가구·빛 표현</text>
+  <text x="258" y="214" class="f t-item">(Part 1 · 프롬프트 03)</text>
+
+  <rect x="42" y="232" width="190" height="66" rx="10" fill="#eff6ff" stroke="#bfdbfe"/>
+  <text x="54" y="254" class="f t-item-h">③ 스튜디오 브랜드 로고</text>
+  <text x="54" y="274" class="f t-item">심볼·워드마크 시안 생성</text>
+  <text x="54" y="290" class="f t-item">(Part 2 · 섹션 5)</text>
+
+  <rect x="246" y="232" width="190" height="66" rx="10" fill="#eff6ff" stroke="#bfdbfe"/>
+  <text x="258" y="254" class="f t-item-h">④ 표지·내지 비주얼 시안</text>
+  <text x="258" y="274" class="f t-item">잡지 구도 참고용 이미지</text>
+  <text x="258" y="290" class="f t-item">(Part 2 · 프롬프트 04)</text>
+
+  <!-- Plus Badge -->
+  <circle cx="480" cy="198" r="19" fill="#0f172a"/>
+  <text x="480" y="205" text-anchor="middle" class="f" font-size="22" font-weight="800" fill="#ffffff">+</text>
+
+  <!-- Right: PowerPoint Role -->
+  <rect x="506" y="82" width="430" height="232" rx="14" fill="#ffffff" stroke="#059669" stroke-width="2"/>
+  <rect x="524" y="96" width="196" height="24" rx="12" fill="#d1fae5"/>
+  <text x="622" y="112" text-anchor="middle" class="f t-badge" fill="#047857">PowerPoint에서 직접 편집 (정확도)</text>
+  <text x="524" y="142" class="f t-card-h">글자 · 수치 · 표 · 로고 깔끔하게 얹기</text>
+
+  <rect x="524" y="156" width="190" height="66" rx="10" fill="#ecfdf5" stroke="#a7f3d0"/>
+  <text x="536" y="178" class="f t-item-h">① 한글 제목 · 헤드라인</text>
+  <text x="536" y="198" class="f t-item">안 깨지는 또렷한 한글 폰트</text>
+  <text x="536" y="214" class="f t-item">(Part 3 · 프롬프트 05 문안)</text>
+
+  <rect x="728" y="156" width="190" height="66" rx="10" fill="#ecfdf5" stroke="#a7f3d0"/>
+  <text x="740" y="178" class="f t-item-h">② 방 이름 · 컬러 조닝</text>
+  <text x="740" y="198" class="f t-item">정확한 실명과 면적·치수</text>
+  <text x="740" y="214" class="f t-item">(원도면 수치 그대로 표기)</text>
+
+  <rect x="524" y="232" width="190" height="66" rx="10" fill="#ecfdf5" stroke="#a7f3d0"/>
+  <text x="536" y="254" class="f t-item-h">③ 재료 스펙 · 법규 표</text>
+  <text x="536" y="274" class="f t-item">발표 직전에도 수정 가능한 표</text>
+  <text x="536" y="290" class="f t-item">(편집 원본 .pptx 유지)</text>
+
+  <rect x="728" y="232" width="190" height="66" rx="10" fill="#ecfdf5" stroke="#a7f3d0"/>
+  <text x="740" y="254" class="f t-item-h">④ 최종 배포본 저장</text>
+  <text x="740" y="274" class="f t-item">PPTX(수정용) + PDF(발표용)</text>
+  <text x="740" y="290" class="f t-item">(두 파일 항상 함께 보관)</text>
+
+  <!-- Bottom Golden Tip -->
+  <rect x="24" y="330" width="912" height="42" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="480" y="356" text-anchor="middle" class="f t-tip">왕초보 핵심 팁: AI 이미지 안의 글자가 깨져도 당황하지 마세요! "글자 없이 배경만" 받거나 PowerPoint 도형으로 덮고 한글을 직접 쓰면 10배 빠릅니다.</text>
+</svg>

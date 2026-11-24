@@ -6,6 +6,7 @@ import Lesson0910Asset from './Lesson0910Asset.astro';
 import Lesson09CameraColormap from './Lesson09CameraColormap.astro';
 import Lesson09WalkthroughClips from './Lesson09WalkthroughClips.astro';
 import Lesson09BlenderWalkthrough from './Lesson09BlenderWalkthrough.astro';
+import Lesson09GroundingStyleGuide from './Lesson09GroundingStyleGuide.astro';
 import blenderWalkthrough from '../content/lesson09-blender-walkthrough.json';
 import source from '../content/lesson0910-source.json';
 import type {PromptPlatformGuide} from '../content/prompt-platform-guides';
@@ -28,7 +29,7 @@ const href=(link:{href?:string;download?:string;internal?:boolean})=>link.downlo
  <TopicProgress {lesson} items={[{topic:lesson==='09'?5:6,status:lesson==='09'?'완결':'시작',note:lesson==='09'?'주택 도면 → 층별 공간·가구 → 재질·조명 → 카메라 이동·파일 저장':'공식 법령 원문 → 프로젝트 사실 → 적용 조건·측정 대조 → 건축사 검토'}]} />
  <p class="modeling-status">수업 150분 · 50분 × 3교시 (쉬는 시간·운영 별도)</p>
  <nav class="modeling-part-links" aria-label="이번 차시 작업 단계">{data.parts.map((part,index)=><a href={'#l'+lesson+'-part-'+(index+1)}><strong>{part.title}</strong><span>{data.sections.slice(part.start,part.end).reduce((sum,section)=>sum+section.minutes,0)}분</span></a>)}</nav>
- <aside class="modeling-downloads"><h2>실습·검토 자료</h2><p>{lesson==='09'?'주택 도면 PNG 6장·CAD용 DXF 6파일, 두 버전의 렌더 8쌍·Blender 원본·FBX·GLB와 공통 실습 프롬프트를 제공합니다. 모델 묶음에서 Codex (Astra)와 Argon (Antigravity) 폴더를 구분해 열어 보세요. Argon의 FBX·GLB는 다른 프로그램에서도 색을 유지하도록 배포용으로 다시 내보낸 파일입니다. 원본 Blender 파일은 그대로 제공합니다. 외부 실무 원도면과 상업시설 모델은 주택 패키지에 포함하지 않습니다.':'Prompt·법규 검토 보고서·프로젝트 기준표 빈 양식을 제공합니다. 최신 법령 원문은 공식 사이트에서 기준일·시행일을 직접 확인해 준비합니다.'}</p>{enabled&&<div><a href={downloadRoot+(lesson==='09'?'DJ-L09-House-3F-Drawings.zip':'DJ-L10-Legal-Review-Pack.zip')} download>{lesson==='09'?'주택 도면 PNG·DXF ZIP':'제10차시 자료 ZIP'}</a>{lesson==='09'&&<><a href={downloadRoot+'DJ-L09-House-3F-Models.zip'} download>두 버전 Blender·FBX·GLB 묶음</a><a href={downloadRoot+'DJ-L09-House-3F-Prompts.zip'} download>주택 프롬프트 묶음</a><a href={downloadRoot+blenderWalkthrough.filename} download={blenderWalkthrough.filename}>160초 카메라 동선 포함 Blender 파일</a><a href="#l09-blender-walkthrough-download">Blender 재생 방법</a></>}<a href={downloadRoot+'README.md'} download>사용방법 README</a><a href={downloadRoot+'manifest.json'} download>자료 목록·SHA-256</a></div>}</aside>
+ <aside class="modeling-downloads"><h2>실습·검토 자료</h2><p>{lesson==='09'?'선화 정리가 끝난 3층 주택 CAD 도면(PNG 6장 · DXF 6파일), 완성 참고용 Blender·FBX·GLB 묶음, 프롬프트와 160초 카메라 동선 파일을 제공합니다.':'Prompt·법규 검토 보고서·프로젝트 기준표 빈 양식을 제공합니다. 최신 법령 원문은 공식 사이트에서 기준일·시행일을 직접 확인해 준비합니다.'}</p>{enabled&&<div><a href={downloadRoot+(lesson==='09'?'DJ-L09-House-3F-Drawings.zip':'DJ-L10-Legal-Review-Pack.zip')} download>{lesson==='09'?'주택 도면 PNG·DXF ZIP':'제10차시 자료 ZIP'}</a>{lesson==='09'&&<><a href={downloadRoot+'DJ-L09-House-3F-Models.zip'} download>두 버전 Blender·FBX·GLB 묶음</a><a href={downloadRoot+'DJ-L09-House-3F-Prompts.zip'} download>주택 프롬프트 묶음</a><a href={downloadRoot+blenderWalkthrough.filename} download={blenderWalkthrough.filename}>160초 카메라 동선 포함 Blender 파일</a><a href="#l09-blender-walkthrough-download">Blender 재생 방법</a></>}<a href={downloadRoot+'README.md'} download>사용방법 README</a><a href={downloadRoot+'manifest.json'} download>자료 목록·SHA-256</a></div>}</aside>
  {data.parts.map((part,partIndex)=><div id={'l'+lesson+'-part-'+(partIndex+1)} class="modeling-part" data-modeling-part={partIndex+1}>
   <header class="period-heading"><p>LESSON {lesson} · PART {partIndex+1}</p><h2>{part.title}</h2></header>
   {data.sections.slice(part.start,part.end).map((section,index)=><ReviewSection id={section.id} title={section.title} minutes={section.minutes} index={part.start+index+1}>
@@ -40,7 +41,19 @@ const href=(link:{href?:string;download?:string;internal?:boolean})=>link.downlo
    {section.steps.length>0&&<ol class="modeling-steps">{section.steps.map(text=><li>{text}</li>)}</ol>}
    {section.callouts.map(text=><aside class="modeling-note">{text}</aside>)}
    {section.links.length>0&&<div class="modeling-links">{section.links.filter(link=>!('download' in link)||enabled).map(link=><a href={href(link)} download={'download' in link?true:undefined} target={'href' in link&&!('internal' in link)?'_blank':undefined} rel="noreferrer">{link.title}</a>)}{lesson==='09'&&enabled&&section.links.some(link=>'download' in link&&link.download==='House_B_Walkthrough.html')&&<a href={downloadRoot+'House_B_Walkthrough.html'} target="_blank" rel="noopener noreferrer" data-walkthrough-open>새 탭에서 3D 뷰어 바로 열기</a>}</div>}
-   {section.promptIds.map(id=>{const p=prompts[id];return <ReviewPrompt id={id} title={p.title} prompt={p.text} guide={p.guide as PromptPlatformGuide & {purpose:string;variables:string}} href={enabled?downloadRoot+p.filename:undefined} filename={p.filename} />;})}
+   {lesson==='09'&&section.id==='l09-core-geometry'&&<Lesson09GroundingStyleGuide mode="step1-easy" />}
+   {lesson==='09'&&section.id==='l09-step2-stack'&&<Lesson09GroundingStyleGuide mode="step2-easy" />}
+   {lesson==='09'&&section.id==='l09-facade-five'&&<Lesson09GroundingStyleGuide mode="step3-easy" />}
+   {lesson==='09'&&['l09-core-geometry','l09-step2-stack','l09-facade-five'].includes(section.id)?(
+    <details class="l09-advanced-prompt">
+     <summary>참고 · 정밀 좌표 검증용 상세 7단 프롬프트 펼치기 (자동 채점·고급 기준)</summary>
+     {section.promptIds.map(id=>{const p=prompts[id];return <ReviewPrompt id={id} title={p.title} prompt={p.text} guide={p.guide as PromptPlatformGuide & {purpose:string;variables:string}} href={enabled?downloadRoot+p.filename:undefined} filename={p.filename} />;})}
+    </details>
+   ):(
+    section.promptIds.map(id=>{const p=prompts[id];return <ReviewPrompt id={id} title={p.title} prompt={p.text} guide={p.guide as PromptPlatformGuide & {purpose:string;variables:string}} href={enabled?downloadRoot+p.filename:undefined} filename={p.filename} />;})
+   )}
+   {lesson==='09'&&section.id==='l09-drawing-package'&&<Lesson09GroundingStyleGuide mode="grounding-prep" />}
+   {lesson==='09'&&section.id==='l09-lighting'&&<Lesson09GroundingStyleGuide mode="exterior-gallery" />}
    {lesson==='09'&&section.id==='l09-moving-3'&&<Lesson09CameraColormap />}
   </ReviewSection>)}
  </div>)}

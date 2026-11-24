@@ -12,9 +12,22 @@ const bandabiAllowed=new Set(bandabi.items.map(item=>'downloads/daejeon/lesson-1
 // unrelated Blender/source drawing files excluded from the public inventory.
 export const houseWalkthroughBlendPath='downloads/daejeon/lesson-09/House_3F_B_Walkthrough_160s_Astra.blend';
 
+const lesson09ExteriorStyleImages=[
+ 'images/daejeon/lesson-09/l09-reference-grounding-flow.svg',
+ 'images/daejeon/lesson-09/ext-01-modern-minimal.jpg',
+ 'images/daejeon/lesson-09/ext-02-exposed-concrete.jpg',
+ 'images/daejeon/lesson-09/ext-03-modern-brick.jpg',
+ 'images/daejeon/lesson-09/ext-04-nordic-wood.jpg',
+ 'images/daejeon/lesson-09/ext-05-modern-hanok.jpg',
+ 'images/daejeon/lesson-09/ext-06-california-midcentury.jpg',
+ 'images/daejeon/lesson-09/ext-07-dark-zinc-corten.jpg',
+ 'images/daejeon/lesson-09/ext-08-mediterranean-villa.jpg',
+ 'images/daejeon/lesson-10/l10-dual-notebook-flow.svg',
+];
+
 // Explicit local-review inventory. Never traverse a simulation/source drawing folder.
 export function getLesson0910Assets(){
- return ['09','10'].flatMap(lesson=>{
+ const baseEntries=['09','10'].flatMap(lesson=>{
   const relative=`downloads/daejeon/lesson-${lesson}/manifest.json`;
   const source=path.join(repositoryRoot,'public',relative);
   const bytes=fs.readFileSync(source);
@@ -30,4 +43,5 @@ export function getLesson0910Assets(){
    return {outputPath:item.outputPath,source:path.join(repositoryRoot,'public',item.outputPath),sha256:item.sha256};
   });
  });
+ return [...baseEntries,...lesson09ExteriorStyleImages.map(outputPath=>({outputPath,source:path.join(repositoryRoot,'public',outputPath)}))];
 }

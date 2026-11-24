@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 445" width="960" height="445" role="img" aria-labelledby="l10-title l10-desc">
+  <title id="l10-title">10차시 법규 검토 4단계 한눈에 보기 — 노트북 A·B 분리와 ChatGPT 교차검증</title>
+  <desc id="l10-desc">노트북 A에서 프로젝트 원자료로 조건 기준서를 만들고, 노트북 B로 옮겨 공식 법규 원문과 대조해 1차 체크리스트를 만든 뒤 ChatGPT로 독립 교차검증하고 사람이 최종 확인하는 4단계 흐름도</desc>
+  <defs>
+    <style>
+      .f { font-family: 'Pretendard', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
+      .t-h { font-size: 18px; font-weight: 800; fill: #0f172a; }
+      .t-sub { font-size: 12.5px; font-weight: 500; fill: #475569; }
+      .t-badge { font-size: 11px; font-weight: 800; }
+      .t-card-h { font-size: 14.5px; font-weight: 800; fill: #0f172a; }
+      .t-body { font-size: 12px; font-weight: 500; fill: #334155; }
+      .t-chip { font-size: 11.5px; font-weight: 700; }
+      .t-foot-h { font-size: 13px; font-weight: 800; fill: #1e3a8a; }
+      .t-foot { font-size: 12px; font-weight: 500; fill: #1e293b; }
+    </style>
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 1 L9 5 L0 9 z" fill="#2563eb"/>
+    </marker>
+    <marker id="arr-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 1 L9 5 L0 9 z" fill="#059669"/>
+    </marker>
+    <marker id="arr-purple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 1 L9 5 L0 9 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas -->
+  <rect x="0" y="0" width="960" height="445" rx="18" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+
+  <!-- Header -->
+  <text x="28" y="38" class="f t-h">한눈에 보는 10차시 법규 검토 4단계 — 노트북 A · B 분리와 교차검증</text>
+  <text x="28" y="60" class="f t-sub">복잡한 코드(A99 · B00 · B99)를 외우지 않아도 됩니다. "우리 건물 정리 → 법규 찾기 → 체크리스트 → 다른 AI로 재확인" 4단계만 기억하세요.</text>
+
+  <!-- Step 1: Notebook A -->
+  <rect x="24" y="82" width="212" height="252" rx="14" fill="#ffffff" stroke="#3b82f6" stroke-width="2"/>
+  <rect x="38" y="96" width="114" height="22" rx="11" fill="#dbeafe"/>
+  <text x="95" y="111" text-anchor="middle" class="f t-badge" fill="#1d4ed8">STEP 1 · PART 1</text>
+  <text x="38" y="140" class="f t-card-h">노트북 A (우리 건물)</text>
+  <text x="38" y="160" class="f t-body">발주처 원자료 PDF 8종만 넣고</text>
+  <text x="38" y="177" class="f t-body">옆 건물 수치와 섞이지 않게</text>
+  <text x="38" y="194" class="f t-body">신축 조건만 깔끔히 정리</text>
+
+  <rect x="38" y="210" width="184" height="32" rx="8" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="130" y="230" text-anchor="middle" class="f t-chip" fill="#334155">입력: 원자료 PDF (A01~A07)</text>
+
+  <rect x="38" y="254" width="184" height="64" rx="10" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="130" y="274" text-anchor="middle" class="f t-badge" fill="#1d4ed8">결과물 ①</text>
+  <text x="130" y="293" text-anchor="middle" class="f t-chip" fill="#0f172a">프로젝트 조건 기준서</text>
+  <text x="130" y="310" text-anchor="middle" class="f t-sub">(파일명 코드: A99 → B00)</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="236" y1="208" x2="256" y2="208" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 2: ChatGPT Legal Search + Official Laws -->
+  <rect x="260" y="82" width="212" height="252" rx="14" fill="#ffffff" stroke="#0d9488" stroke-width="2"/>
+  <rect x="274" y="96" width="118" height="22" rx="11" fill="#ccfbf1"/>
+  <text x="333" y="111" text-anchor="middle" class="f t-badge" fill="#0f766e">STEP 2 · PART 2 앞</text>
+  <text x="274" y="140" class="f t-card-h">필요한 공식 법규 확보</text>
+  <text x="274" y="160" class="f t-body">조건 기준서를 ChatGPT에 주고</text>
+  <text x="274" y="177" class="f t-body">어떤 법·조례를 봐야 할지 찾은 뒤</text>
+  <text x="274" y="194" class="f t-body">국가법령정보센터에서 원문 저장</text>
+
+  <rect x="274" y="210" width="184" height="32" rx="8" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="366" y="230" text-anchor="middle" class="f t-chip" fill="#334155">ChatGPT 검색 + 공식 PDF</text>
+
+  <rect x="274" y="254" width="184" height="64" rx="10" fill="#f0fdfa" stroke="#5eead4" stroke-width="1.5"/>
+  <text x="366" y="274" text-anchor="middle" class="f t-badge" fill="#0f766e">확보할 근거 자료</text>
+  <text x="366" y="293" text-anchor="middle" class="f t-chip" fill="#0f172a">공식 법령 · 지자체 조례</text>
+  <text x="366" y="310" text-anchor="middle" class="f t-sub">(시행일·별표 직접 확인)</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="472" y1="208" x2="492" y2="208" stroke="#059669" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Step 3: Notebook B -->
+  <rect x="496" y="82" width="212" height="252" rx="14" fill="#ffffff" stroke="#059669" stroke-width="2"/>
+  <rect x="510" y="96" width="118" height="22" rx="11" fill="#d1fae5"/>
+  <text x="569" y="111" text-anchor="middle" class="f t-badge" fill="#047857">STEP 3 · PART 2 뒤</text>
+  <text x="510" y="140" class="f t-card-h">노트북 B (법규 대조)</text>
+  <text x="510" y="160" class="f t-body">새 노트북 B를 열어 조건 기준서와</text>
+  <text x="510" y="177" class="f t-body">공식 법규 원문을 함께 넣고</text>
+  <text x="510" y="194" class="f t-body">조항별 확인 목록을 자동 작성</text>
+
+  <rect x="510" y="210" width="184" height="32" rx="8" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="602" y="230" text-anchor="middle" class="f t-chip" fill="#334155">입력: 기준서(B00) + 공식 법규</text>
+
+  <rect x="510" y="254" width="184" height="64" rx="10" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.5"/>
+  <text x="602" y="274" text-anchor="middle" class="f t-badge" fill="#047857">결과물 ②</text>
+  <text x="602" y="293" text-anchor="middle" class="f t-chip" fill="#0f172a">1차 법규검토 체크리스트</text>
+  <text x="602" y="310" text-anchor="middle" class="f t-sub">(파일명 코드: B99)</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <line x1="708" y1="208" x2="728" y2="208" stroke="#7c3aed" stroke-width="2.5" marker-end="url(#arr-purple)"/>
+
+  <!-- Step 4: Cross-Check + Human Sign-off -->
+  <rect x="732" y="82" width="204" height="252" rx="14" fill="#ffffff" stroke="#7c3aed" stroke-width="2"/>
+  <rect x="746" y="96" width="114" height="22" rx="11" fill="#ede9fe"/>
+  <text x="803" y="111" text-anchor="middle" class="f t-badge" fill="#6d28d9">STEP 4 · PART 3</text>
+  <text x="746" y="140" class="f t-card-h">교차검증 · 사람 확인</text>
+  <text x="746" y="160" class="f t-body">다른 AI(ChatGPT)에게</text>
+  <text x="746" y="177" class="f t-body">"빠진 법·틀린 인용 있니?"</text>
+  <text x="746" y="194" class="f t-body">독립 재검증 후 보완</text>
+
+  <rect x="746" y="210" width="176" height="32" rx="8" fill="#f5f3ff" stroke="#c4b5fd"/>
+  <text x="834" y="230" text-anchor="middle" class="f t-chip" fill="#5b21b6">ChatGPT 검증 ↔ 노트북 B 보완</text>
+
+  <rect x="746" y="254" width="176" height="64" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="834" y="274" text-anchor="middle" class="f t-badge" fill="#b45309">최종 판단 원칙</text>
+  <text x="834" y="293" text-anchor="middle" class="f t-chip" fill="#0f172a">설계자 · 건축사 최종 확인</text>
+  <text x="834" y="310" text-anchor="middle" class="f t-sub">미확정 항목은 반드시 보류</text>
+
+  <!-- Bottom Explanation Banner -->
+  <rect x="24" y="352" width="912" height="72" rx="12" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+  <text x="44" y="378" class="f t-foot-h">왜 노트북을 A와 B 두 개로 나눌까요? (왕초보 핵심 포인트)</text>
+  <text x="44" y="401" class="f t-foot">프로젝트 원자료(A)와 수백 쪽짜리 법령(B)을 한 노트북에 섞으면, AI가 옆 부지 기존 건물 면적과 법규 조항을 뒤섞어 오답을 만듭니다.</text>
+  <text x="44" y="418" class="f t-foot">노트북 A에서 깨끗하게 추린 「조건 기준서」 딱 1장만 노트북 B로 넘기면 근거가 섞이지 않고 안전합니다.</text>
+</svg>

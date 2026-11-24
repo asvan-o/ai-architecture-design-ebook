@@ -46,7 +46,7 @@ test('Playback instructions describe the saved animation and preserve the existi
   assert(!/60초와 126초는|60초:.*컷 전환|60초:.*막힌/.test(guide));
   assert(!/C:\\Users|C:\/Users|아직 추가하지|로컬 산출물/.test(guide));
   const lesson = JSON.parse(read('src/draft/content/lesson0910-source.json')).lessons['09'];
-  assert.equal(lesson.sections.length, 12);
+  assert.equal(lesson.sections.length, 11);
   assert.equal(lesson.sections.reduce((sum, section) => sum + section.minutes, 0), 150);
   assert(lesson.sections.find(section => section.id === 'l09-moving-3').links.some(link => link.download === 'House_B_Walkthrough.html'));
   const movingSection = lesson.sections.find(section => section.id === 'l09-moving-3');

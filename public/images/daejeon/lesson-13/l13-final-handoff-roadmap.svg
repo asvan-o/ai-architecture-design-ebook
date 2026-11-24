@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" width="960" height="420" role="img" aria-labelledby="l13-title l13-desc">
+  <title id="l13-title">13차시 최종 마무리 로드맵과 제출 패키지 5개 폴더 구조</title>
+  <desc id="l13-desc">왜곡 검수, 결과보고서 작성, 5개 폴더 패키징, 8장 발표 리허설, 프로젝트 발표 및 수료까지 13차시 전체 흐름과 최종 제출 폴더 5개 구성도</desc>
+  <defs>
+    <style>
+      .f { font-family: 'Pretendard', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
+      .t-h { font-size: 18px; font-weight: 800; fill: #0f172a; }
+      .t-sub { font-size: 12.5px; font-weight: 500; fill: #475569; }
+      .t-badge { font-size: 10.5px; font-weight: 800; }
+      .t-step-h { font-size: 13.5px; font-weight: 800; fill: #0f172a; }
+      .t-body { font-size: 11.5px; font-weight: 500; fill: #475569; }
+      .t-folder-h { font-size: 12px; font-weight: 800; fill: #1e293b; }
+      .t-folder-b { font-size: 11px; font-weight: 500; fill: #475569; }
+      .t-chk { font-size: 12px; font-weight: 700; fill: #065f46; }
+    </style>
+    <marker id="a13" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 1 L9 5 L0 9 z" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="420" rx="18" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="28" y="38" class="f t-h">13차시 최종 마무리 한눈에 보기 (주말 300분 · 검수 → 패키징 → 발표 → 수료)</text>
+  <text x="28" y="60" class="f t-sub">오전에는 오류를 잡고 제출 폴더를 깔끔하게 묶고, 오후에는 8장 발표 리허설과 크리틱을 거쳐 내 프로젝트 인계본을 완성합니다.</text>
+
+  <!-- 5 Milestone Cards -->
+  <!-- 1 -->
+  <rect x="24" y="82" width="166" height="120" rx="12" fill="#ffffff" stroke="#3b82f6" stroke-width="1.8"/>
+  <rect x="36" y="94" width="84" height="20" rx="10" fill="#dbeafe"/>
+  <text x="78" y="108" text-anchor="middle" class="f t-badge" fill="#1d4ed8">Part 1 · 50분</text>
+  <text x="36" y="134" class="f t-step-h">1. 왜곡 교차검수</text>
+  <text x="36" y="155" class="f t-body">문·창·계단·글자 깨짐</text>
+  <text x="36" y="172" class="f t-body">원도면과 나란히 대조</text>
+  <text x="36" y="189" class="f t-body">오류 수정 목록 작성</text>
+  <line x1="190" y1="142" x2="206" y2="142" stroke="#475569" stroke-width="2" marker-end="url(#a13)"/>
+
+  <!-- 2 -->
+  <rect x="210" y="82" width="166" height="120" rx="12" fill="#ffffff" stroke="#0d9488" stroke-width="1.8"/>
+  <rect x="222" y="94" width="84" height="20" rx="10" fill="#ccfbf1"/>
+  <text x="264" y="108" text-anchor="middle" class="f t-badge" fill="#0f766e">Part 2 · 50분</text>
+  <text x="222" y="134" class="f t-step-h">2. 결과보고서</text>
+  <text x="222" y="155" class="f t-body">채택·수정·보류 이유</text>
+  <text x="222" y="172" class="f t-body">법규 확인 범위 기록</text>
+  <text x="222" y="189" class="f t-body">1~2장 보고서 완성</text>
+  <line x1="376" y1="142" x2="392" y2="142" stroke="#475569" stroke-width="2" marker-end="url(#a13)"/>
+
+  <!-- 3 -->
+  <rect x="396" y="82" width="166" height="120" rx="12" fill="#ffffff" stroke="#059669" stroke-width="1.8"/>
+  <rect x="408" y="94" width="84" height="20" rx="10" fill="#d1fae5"/>
+  <text x="450" y="108" text-anchor="middle" class="f t-badge" fill="#047857">Part 3 · 50분</text>
+  <text x="408" y="134" class="f t-step-h">3. 5개 폴더 묶기</text>
+  <text x="408" y="155" class="f t-body">보드·PPT·보고서·원본</text>
+  <text x="408" y="172" class="f t-body">ZIP으로 묶고 직접 열기</text>
+  <text x="408" y="189" class="f t-body">짝꿍과 상호 파일 점검</text>
+  <line x1="562" y1="142" x2="578" y2="142" stroke="#475569" stroke-width="2" marker-end="url(#a13)"/>
+
+  <!-- 4 -->
+  <rect x="582" y="82" width="166" height="120" rx="12" fill="#ffffff" stroke="#d97706" stroke-width="1.8"/>
+  <rect x="594" y="94" width="84" height="20" rx="10" fill="#fef3c7"/>
+  <text x="636" y="108" text-anchor="middle" class="f t-badge" fill="#b45309">Part 4 · 50분</text>
+  <text x="594" y="134" class="f t-step-h">4. 8장 리허설</text>
+  <text x="594" y="155" class="f t-body">건축주 예상 질문 준비</text>
+  <text x="594" y="172" class="f t-body">시간 맞춰 발표 연습</text>
+  <text x="594" y="189" class="f t-body">피드백 반영 최종 수정</text>
+  <line x1="748" y1="142" x2="764" y2="142" stroke="#475569" stroke-width="2" marker-end="url(#a13)"/>
+
+  <!-- 5 -->
+  <rect x="768" y="82" width="168" height="120" rx="12" fill="#ffffff" stroke="#7c3aed" stroke-width="1.8"/>
+  <rect x="780" y="94" width="98" height="20" rx="10" fill="#ede9fe"/>
+  <text x="829" y="108" text-anchor="middle" class="f t-badge" fill="#6d28d9">Part 5·6 · 100분</text>
+  <text x="780" y="134" class="f t-step-h">5. 발표 · 크리틱 · 수료</text>
+  <text x="780" y="155" class="f t-body">프로젝트 최종 발표</text>
+  <text x="780" y="172" class="f t-body">동료 의견·강평 정리</text>
+  <text x="780" y="189" class="f t-body">최종 인계본 확정·수료</text>
+
+  <!-- Bottom Visual Folder Map -->
+  <rect x="24" y="220" width="912" height="180" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="42" y="248" class="f t-step-h">최종 제출 ZIP 폴더 5개 구성 (이대로만 담으면 완벽합니다)</text>
+
+  <rect x="42" y="262" width="166" height="72" rx="10" fill="#eff6ff" stroke="#93c5fd"/>
+  <text x="54" y="284" class="f t-folder-h">01_포트폴리오_보드</text>
+  <text x="54" y="303" class="f t-folder-b">보드 4장 PNG · 무드보드</text>
+  <text x="54" y="319" class="f t-folder-b">아이소 · 로고 · 재료</text>
+
+  <rect x="219" y="262" width="166" height="72" rx="10" fill="#ecfdf5" stroke="#6ee7b7"/>
+  <text x="231" y="284" class="f t-folder-h">02_PPT_발표슬라이드</text>
+  <text x="231" y="303" class="f t-folder-b">편집 원본 .pptx</text>
+  <text x="231" y="319" class="f t-folder-b">발표 배포본 .pdf</text>
+
+  <rect x="396" y="262" width="166" height="72" rx="10" fill="#fefce8" stroke="#fde047"/>
+  <text x="408" y="284" class="f t-folder-h">03_프로젝트_결과보고서</text>
+  <text x="408" y="303" class="f t-folder-b">최종 결과보고서</text>
+  <text x="408" y="319" class="f t-folder-b">채택·수정·보류 기록</text>
+
+  <rect x="573" y="262" width="166" height="72" rx="10" fill="#f5f3ff" stroke="#c4b5fd"/>
+  <text x="585" y="284" class="f t-folder-h">04_도면_3D_원본자산</text>
+  <text x="585" y="303" class="f t-folder-b">기준 도면 PNG·DXF</text>
+  <text x="585" y="319" class="f t-folder-b">9차시 3D 모델·뷰어</text>
+
+  <rect x="750" y="262" width="166" height="72" rx="10" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="762" y="284" class="f t-folder-h">05_법규검토_프롬프트</text>
+  <text x="762" y="303" class="f t-folder-b">법규 체크리스트</text>
+  <text x="762" y="319" class="f t-folder-b">사용한 프롬프트 로그</text>
+
+  <rect x="42" y="348" width="874" height="38" rx="9" fill="#ecfdf5" stroke="#a7f3d0"/>
+  <text x="479" y="372" text-anchor="middle" class="f t-chk">왕초보 최종 확인 3가지만 꼭 하세요:  ① ZIP 압축 직접 풀기   ② PPT·PDF 열어 글자 깨짐 확인   ③ 결과보고서 파일 정상 열림 확인</text>
+</svg>

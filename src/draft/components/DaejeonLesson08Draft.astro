@@ -8,7 +8,46 @@ const base=import.meta.env.BASE_URL.replace(/\/$/,'');
 const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
 ---
 <div class="lesson08-review" data-lesson08-revision={lesson08Meta.revision}>
- <TopicProgress lesson="08" items={[{topic:5,status:'시작',note:'복잡한 평면도를 ① NotebookLM 1차 판독·분석표 ② 클린 선화 ③ 공간 기능·인접·동선 정리 ④ 2D 관계도(Graphviz) ⑤ Blender 3D 모델링(MCP) 5단계로 깔끔하게 연결합니다.'}]} />
+ <TopicProgress lesson="08" items={[{topic:5,status:'시작',note:'AI에게 실제 도면·분석표·2D 다이어그램으로 근거(그라운딩)를 먼저 걸어 안전하게 3D 모델링(Blender MCP)까지 연결하는 5단계 파이프라인을 익힙니다.'}]} />
+ <section class="l08-grounding-box" id="l08-grounding-principle" aria-label="AI 그라운딩 원리와 안전한 3D 모델링 근거">
+  <div class="l08-grounding-head">
+   <span class="l08-grounding-badge">핵심 원리 · AI 그라운딩 (Grounding)</span>
+   <h2>왜 도면 · 분석표 · 2D 다이어그램을 먼저 만들고 3D 모델링으로 가야 안전할까?</h2>
+   <p><strong>그라운딩(Grounding)</strong>이란 AI가 머릿속 일반 상식으로 대충 지어내지 못하도록 <strong>실제 설계도면 · 분석표 · 법규 문서 · 외부 프로그램 결과 같은 ‘검증된 근거’를 먼저 발판으로 연결해 주는 방법</strong>입니다. 복잡한 도면을 바로 3D로 넘기면 치수가 틀어지고 없는 문이 생기지만, 아래 근거 자료를 차곡차곡 걸어 주고 모델링(MCP)으로 넘어가면 도면과 일치하는 안전한 3D 결과를 얻을 수 있습니다.</p>
+  </div>
+  <figure class="l08-logic-fig" data-l08-grounding-svg>
+   <img src={base+'/images/daejeon/lesson-08/l08-grounding-compare.svg'} alt="그라운딩 미적용 시 AI 기존 학습 지식만으로 답변해 오류 가능성이 생기는 흐름과 설계도면·법규 문서·외부 데이터로 근거를 제공해 안전한 결과를 얻는 그라운딩 적용 흐름 비교" width="1200" height="500" loading="eager" />
+   <figcaption><strong>1. 그라운딩 적용 전후 비교</strong> — 근거 없이 바로 지시하면 오류가 커지지만, 도면·분석표·관계도로 근거를 제공하면 출처와 치수가 검증된 안전한 3D 모델링을 할 수 있습니다.</figcaption>
+  </figure>
+  <div class="l08-grounding-tables">
+   <div class="l08-gtable-wrap">
+    <h3>2. 건축 실무에서의 그라운딩 적용 전후 예시</h3>
+    <table>
+     <thead><tr><th scope="col">구분</th><th scope="col">그라운딩 미적용 (위험)</th><th scope="col">그라운딩 적용 (안전 · 실무 방식)</th></tr></thead>
+     <tbody>
+      <tr><th scope="row">도면 분석 · 3D 모델링</th><td>일반적인 건축 상식으로 추측해 분석 · 모델링</td><td><strong>첨부한 실제 도면 · 분석표 · 2D 관계도</strong> 기반 작업</td></tr>
+      <tr><th scope="row">건축법 검토</th><td>AI의 예전 학습 지식만으로 답변</td><td><strong>현행 건축법 및 관련 조례 원문</strong> 기반 검토</td></tr>
+      <tr><th scope="row">견적 산출</th><td>대략적인 예상 자재 단가로 계산</td><td><strong>실제 판매처 및 자재 단가표</strong> 기반 산출</td></tr>
+      <tr><th scope="row">계약서 검토</th><td>일반적인 계약 조건 설명</td><td><strong>첨부 계약서 조항</strong> 기반 검토</td></tr>
+      <tr><th scope="row">공사계획 수립</th><td>일반적인 시공 순서 제시</td><td><strong>과업지시서 및 시방서</strong> 기반 계획 수립</td></tr>
+     </tbody>
+    </table>
+   </div>
+   <div class="l08-gtable-wrap">
+    <h3>3. 그라운딩의 주요 유형 5가지 (8 · 9 · 10차시 연결)</h3>
+    <table>
+     <thead><tr><th scope="col">유형</th><th scope="col">쉬운 설명</th><th scope="col">우리 과정 활용 사례</th></tr></thead>
+     <tbody>
+      <tr><th scope="row">문서 기반 그라운딩</th><td>첨부한 문서·PDF 안에서만 근거를 찾아 답변</td><td><strong>NotebookLM</strong> (도면 분석표 · 10차시 법규)</td></tr>
+      <tr><th scope="row">검색 기반 그라운딩</th><td>최신 인터넷 검색 결과를 근거로 답변</td><td>Gemini · ChatGPT 웹 검색</td></tr>
+      <tr><th scope="row">데이터 기반 그라운딩</th><td>표·수치·좌표 같은 정형 데이터를 그대로 활용</td><td>실별 면적표 · 견적 · 가구 치수표</td></tr>
+      <tr><th scope="row">시각적 그라운딩</th><td>이미지 속 벽·문·디자인 스타일을 보고 판단</td><td><strong>클린 선화 · 2D 다이어그램 · 인테리어/외장 참고 이미지</strong></td></tr>
+      <tr><th scope="row">도구 기반 그라운딩</th><td>외부 프로그램을 직접 실행·조회한 결과 활용</td><td><strong>CAD · FreeCAD · Blender MCP 연동</strong></td></tr>
+     </tbody>
+    </table>
+   </div>
+  </div>
+ </section>
  <figure class="l08-logic-fig" data-l08-pipeline-svg>
   <img src={base+'/images/daejeon/lesson-08/l08-pipeline-5steps.svg'} alt="제8차시 전체 5단계 흐름도: NotebookLM 원본 분석표, 클린 선화, 공간 기능·인접·동선 검증, 2D Graphviz 다이어그램, Blender MCP 3D 모델링" width="1200" height="440" loading="eager" />
   <figcaption><strong>제8차시 전체 5단계 로직</strong> — 복잡한 도면을 곧바로 3D로 넘기지 않고, 사실 확인(1~2단계) → 관계 검증·시각화(3~4단계) → 3D MCP 연결(5단계) 순으로 진행하면 오류가 확 줄어듭니다.</figcaption>
@@ -25,12 +64,24 @@ const enabled=import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS==='true';
 </div>
 <style>
  .lesson08-review{min-width:0;overflow-wrap:anywhere}
+ .l08-grounding-box{margin:1.35rem 0 1.65rem;padding:1.35rem 1.4rem;border:1.5px solid #99f6e4;border-radius:16px;background:linear-gradient(180deg,#f0fdfa 0%,#ffffff 18%);box-shadow:0 4px 16px rgb(15 23 42 / 5%)}
+ .l08-grounding-head h2{margin:.5rem 0 .45rem;font-size:1.18rem;color:#0f172a}
+ .l08-grounding-head p{margin:0 0 1rem;font-size:.92rem;line-height:1.68;color:#334155}
+ .l08-grounding-badge{display:inline-block;padding:.22rem .68rem;border-radius:999px;background:#0f766e;color:#ffffff;font-size:.76rem;font-weight:800}
+ .l08-grounding-tables{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1.1rem}
+ .l08-gtable-wrap{min-width:0;padding:1rem;border:1px solid #cbd5e1;border-radius:12px;background:#ffffff;overflow-x:auto}
+ .l08-gtable-wrap h3{margin:0 0 .65rem;font-size:.96rem;color:#0f172a}
+ .l08-gtable-wrap table{width:100%;border-collapse:collapse;font-size:.82rem;line-height:1.52}
+ .l08-gtable-wrap th,.l08-gtable-wrap td{padding:.5rem .55rem;border-bottom:1px solid #e2e8f0;text-align:left;vertical-align:top}
+ .l08-gtable-wrap thead th{background:#f8fafc;color:#1e3a8a;font-weight:800}
+ .l08-gtable-wrap tbody th{color:#0f172a;font-weight:700;white-space:nowrap}
  .l08-logic-fig{margin:1.35rem 0 1.6rem;padding:.85rem;border:1px solid #cbd5e1;border-radius:14px;background:#ffffff}
  .l08-logic-fig img{display:block;width:100%;height:auto;border-radius:10px}
  .l08-logic-fig figcaption{margin-top:.65rem;font-size:.86rem;line-height:1.58;color:#334155}
  .l08-note{padding:1.2rem;margin:1.5rem 0;border:1px solid var(--line);border-left:4px solid var(--accent-dark);background:var(--surface)}.l08-note h2{font-size:1.15rem;margin:.1rem 0 .7rem}
  .l08-part-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:1.4rem 0}.l08-part-grid a{display:grid;gap:.4rem;padding:1rem;border:1px solid var(--line);background:var(--surface);text-decoration:none}.l08-part-grid span{font-size:.78rem;color:var(--muted)}
  .l08-context{font-size:.87rem;padding:1rem;border-left:2px solid var(--accent);background:var(--surface)}.l08-context div{display:grid;grid-template-columns:7.5rem minmax(0,1fr);gap:.5rem;margin:.3rem 0}.l08-context dt{font-weight:700}.l08-context dd{margin:0;min-width:0}
- @media(max-width:700px){.l08-part-grid{grid-template-columns:minmax(0,1fr)}.l08-context div{grid-template-columns:minmax(0,1fr);gap:.1rem;margin:.65rem 0}}
+ @media(max-width:960px){.l08-grounding-tables{grid-template-columns:1fr}}
+ @media(max-width:700px){.l08-part-grid{grid-template-columns:minmax(0,1fr)}.l08-context div{grid-template-columns:minmax(0,1fr);gap:.1rem;margin:.65rem 0}.l08-grounding-box{padding:1.05rem .95rem}}
  @media print{.l08-note,.l08-part-grid a,.l08-logic-fig{break-inside:avoid}}
 </style>

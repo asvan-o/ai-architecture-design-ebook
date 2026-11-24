@@ -1,0 +1,620 @@
+---
+import {
+  l09MakeFoldersCmd,
+  l09ReferenceFolders,
+  l09UnifiedAnalysisPrompt,
+  l09EasyDiagramPrompt,
+  l09GraphvizHousePrompt,
+  l09Step1EasyPrompt,
+  l09Step1DevelopExamples,
+  l09Step2EasyPrompt,
+  l09Step3EasyPrompt,
+  interiorConceptPresets,
+  exteriorDesignPresets,
+} from '../content/daejeon-lesson09-grounding';
+
+interface Props {
+  mode: 'grounding-prep' | 'step1-easy' | 'step2-easy' | 'step3-easy' | 'exterior-gallery';
+}
+const { mode } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const enabled = import.meta.env.PUBLIC_DAEJEON_REVIEW_ASSETS === 'true';
+---
+
+{mode === 'grounding-prep' && (
+  <section class="l09-gbox" id="l09-grounding-prep" aria-label="프로젝트 reference 4개 폴더 그라운딩 준비와 내부 인테리어 5대 컨셉">
+    <div class="l09-gbox-head">
+      <span class="l09-gbadge">모델링 전 준비 · 프로젝트 reference 폴더 4칸 만들기</span>
+      <h3>복잡한 좌표를 외워 쓸 필요 없이, 프로젝트 폴더에 참고 자료 4칸만 채우면 준비 끝!</h3>
+      <p>
+        왕초보가 가장 쉽게 3D 모델링에 성공하는 비결은 <strong>내 PC 프로젝트 폴더 안에 <code>reference\</code> 하위 폴더 4개(도면 · 문서 · 공간관계 · 디자인)</strong>를 만들어 두고
+        Codex에서 그 폴더를 여는 것입니다. 자료를 폴더에 넣어 두기만 하면, 아래 Part 2에서 짧은 한국어 3~4줄로 1층 → 2층 → 3층을 바로 올릴 수 있습니다.
+      </p>
+    </div>
+
+    {enabled && (
+      <figure class="l09-flow-fig">
+        <img
+          src={`${base}/images/daejeon/lesson-09/l09-reference-grounding-flow.svg`}
+          alt="프로젝트 reference 하위 4개 폴더(01_도면, 02_문서, 03_공간관계, 04_디자인)를 Codex에 연결해 1층 모델링과 디벨롭, 2층, 3층, 실내외 마감으로 이어지는 흐름도"
+          width="1200"
+          height="470"
+          loading="lazy"
+        />
+        <figcaption><strong>한눈에 보는 제9차시 실전 방식</strong> — 4개 폴더에 근거 자료를 모아 두고 Codex에게 “reference 폴더 읽고 만들어 줘”라고 지시하면 긴 좌표 프롬프트 없이도 정확하게 모델링됩니다.</figcaption>
+      </figure>
+    )}
+
+    <div class="l09-code-card">
+      <div class="l09-code-head">
+        <strong>① PowerShell 1줄 · 프로젝트 폴더와 reference 하위 4개 폴더 한 번에 만들기</strong>
+        <button type="button" class="l09-copy-btn" data-l09-copy={l09MakeFoldersCmd}>복사</button>
+      </div>
+      <pre class="l09-pre">{l09MakeFoldersCmd}</pre>
+    </div>
+
+    <div class="l09-folder-grid">
+      {l09ReferenceFolders.map((item) => (
+        <article class="l09-prep-card">
+          <div class="l09-concept-top">
+            <span class="l09-prep-step">{item.badge}</span>
+            <code class="l09-folder-code">{item.folder}</code>
+          </div>
+          <h4>{item.title}</h4>
+          <p>{item.detail}</p>
+        </article>
+      ))}
+    </div>
+
+    <div class="l09-prompt-stack">
+      <div class="l09-code-card">
+        <div class="l09-code-head">
+          <strong>② [02_문서] 채우기 · NotebookLM 통합 도면·공간 분석표 1개 만들기</strong>
+          <button type="button" class="l09-copy-btn" data-l09-copy={l09UnifiedAnalysisPrompt}>복사</button>
+        </div>
+        <pre class="l09-pre">{l09UnifiedAnalysisPrompt}</pre>
+      </div>
+
+      <div class="l09-code-card">
+        <div class="l09-code-head">
+          <strong>③ [03_공간관계] 채우기 · ChatGPT / NotebookLM에 바로 방·문 관계도 그려 달라고 하기 (추천)</strong>
+          <button type="button" class="l09-copy-btn" data-l09-copy={l09EasyDiagramPrompt}>복사</button>
+        </div>
+        <pre class="l09-pre">{l09EasyDiagramPrompt}</pre>
+      </div>
+
+      <details class="l09-mini-details">
+        <summary>선택 심화 · 글자 깨짐 없이 코드로 정확히 수정하고 싶을 때만 Graphviz DOT 프롬프트 보기</summary>
+        <div class="l09-code-card">
+          <div class="l09-code-head">
+            <strong>Graphviz DOT 코드 생성 프롬프트 (Viz.js 붙여넣기용)</strong>
+            <button type="button" class="l09-copy-btn l09-copy-sm" data-l09-copy={l09GraphvizHousePrompt}>복사</button>
+          </div>
+          <pre class="l09-pre">{l09GraphvizHousePrompt}</pre>
+        </div>
+      </details>
+    </div>
+
+    <div class="l09-subhead" id="l09-interior-concepts">
+      <h4>④ [04_디자인] 채우기 · 전체 내부 인테리어 컨셉 5가지 중 택 1 (또는 내 사진 넣기)</h4>
+      <p>
+        마음에 드는 컨셉의 <strong>컨셉 프롬프트 복사</strong>를 눌러 <code>reference\04_디자인\design_memo.txt</code> 메모장에 저장해 두세요.
+        <strong>원하는 인테리어 참고 사진(JPG/PNG)이 있다면 같은 <code>04_디자인\</code> 폴더에 넣어 두기만 해도</strong> Codex가 함께 읽고 색감·가구·조명을 맞춥니다.
+      </p>
+    </div>
+
+    <div class="l09-concept-grid">
+      {interiorConceptPresets.map((c) => (
+        <article class="l09-concept-card" id={c.id}>
+          <div class="l09-concept-top">
+            <span class="l09-num-pill">{c.num}</span>
+            <button type="button" class="l09-copy-btn l09-copy-sm" data-l09-copy={c.prompt}>컨셉 메모 복사</button>
+          </div>
+          <h5>{c.name}</h5>
+          <p class="l09-tagline">{c.tagline}</p>
+          <ul class="l09-spec-list">
+            <li><strong>마감:</strong> {c.materials}</li>
+            <li><strong>가구:</strong> {c.furniture}</li>
+            <li><strong>조명:</strong> {c.lighting}</li>
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+)}
+
+{mode === 'step1-easy' && (
+  <section class="l09-easy-box" id="l09-step1-easy">
+    <div class="l09-easy-head">
+      <span class="l09-gbadge">왕초보 실전 프롬프트 · Step 1 (1층 만들기 → 확인 → 바로 디벨롭)</span>
+      <h4>Codex에서 <code>C:\work\my-house-3f</code> 폴더를 열고 아래 4줄만 보내세요</h4>
+      <p>
+        도면에 이미 가구 위치까지 다 그려져 있으므로, 긴 좌표를 직접 적을 필요 없이 <strong><code>reference\</code> 폴더를 읽고 1층 벽·문/창 뚫기·계단·가구·컨셉을 한 번에 구현</strong>하게 시킵니다.
+      </p>
+    </div>
+    <div class="l09-code-card l09-code-teal">
+      <div class="l09-code-head">
+        <strong>Step 1 · 왕초보용 1층 모델링 시작 요청문 (복사 후 바로 실행)</strong>
+        <button type="button" class="l09-copy-btn" data-l09-copy={l09Step1EasyPrompt}>복사</button>
+      </div>
+      <pre class="l09-pre">{l09Step1EasyPrompt}</pre>
+    </div>
+    <div class="l09-dev-block">
+      <strong>1층을 눈으로 확인한 뒤 바로 디벨롭(재질·가구·조명 수정)하는 추가 요청 예시</strong>
+      <p class="l09-dev-note">처음부터 완벽한 한 방 프롬프트를 쓰려고 애쓰지 말고, 1층이 올라온 화면을 보면서 마음에 안 드는 부분만 아래처럼 1~2줄씩 고쳐 나가는 게 훨씬 쉽습니다.</p>
+      <div class="l09-dev-grid">
+        {l09Step1DevelopExamples.map((ex) => (
+          <article class="l09-dev-card">
+            <div class="l09-concept-top">
+              <span class="l09-num-pill">{ex.label}</span>
+              <button type="button" class="l09-copy-btn l09-copy-sm" data-l09-copy={ex.text}>복사</button>
+            </div>
+            <p>{ex.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+{mode === 'step2-easy' && (
+  <section class="l09-easy-box" id="l09-step2-easy">
+    <div class="l09-easy-head">
+      <span class="l09-gbadge">왕초보 실전 프롬프트 · Step 2 (2층 침실 · 욕실 · 발코니 올리기)</span>
+      <h4>2층도 도면에 방과 가구가 다 그려져 있으니 3줄만 보내면 됩니다</h4>
+      <p>1층이 마음에 들게 정리되었다면 저장(<code>Ctrl + S</code>)한 뒤, <code>reference\01_도면</code>의 2층 평면도와 같은 <code>04_디자인</code> 컨셉으로 2층을 이어서 올립니다.</p>
+    </div>
+    <div class="l09-code-card l09-code-teal">
+      <div class="l09-code-head">
+        <strong>Step 2 · 왕초보용 2층 올리기 요청문 (복사 후 바로 실행)</strong>
+        <button type="button" class="l09-copy-btn" data-l09-copy={l09Step2EasyPrompt}>복사</button>
+      </div>
+      <pre class="l09-pre">{l09Step2EasyPrompt}</pre>
+    </div>
+  </section>
+)}
+
+{mode === 'step3-easy' && (
+  <section class="l09-easy-box" id="l09-step3-easy">
+    <div class="l09-easy-head">
+      <span class="l09-gbadge">왕초보 실전 프롬프트 · Step 3 (3층 라운지 · 옥상 테라스 완성)</span>
+      <h4>마지막 3층과 옥상 데크·지붕까지 올려 전체 3층 주택을 완성합니다</h4>
+      <p>3층까지 구조가 완성되면 바로 다음 Part 3에서 실내 재질·조명을 최종 다듬고, 유명 익스테리어 디자인 8선 중 원하는 외장을 입힙니다.</p>
+    </div>
+    <div class="l09-code-card l09-code-teal">
+      <div class="l09-code-head">
+        <strong>Step 3 · 왕초보용 3층 · 옥상 완성 요청문 (복사 후 바로 실행)</strong>
+        <button type="button" class="l09-copy-btn" data-l09-copy={l09Step3EasyPrompt}>복사</button>
+      </div>
+      <pre class="l09-pre">{l09Step3EasyPrompt}</pre>
+    </div>
+  </section>
+)}
+
+{mode === 'exterior-gallery' && (
+  <section class="l09-gbox l09-gbox-ext" id="l09-exterior-styles" aria-label="유명 건축 익스테리어 디자인 8선 참고 갤러리">
+    <div class="l09-gbox-head">
+      <span class="l09-gbadge l09-gbadge-navy">1~3층 완공 후 외장 마감 · 유명 익스테리어 디자인 8선</span>
+      <h3>외부 익스테리어 디자인 8가지 참고 이미지 &amp; Blender MCP 외장 재질 적용</h3>
+      <p>
+        1~3층 구조와 실내 가구·조명을 다 올린 뒤, 아래 <strong>유명 건축 익스테리어 8종 참고 이미지</strong> 중 원하는 스타일을 골라 외벽·지붕·창호·데크 재질을 입혀 보세요.
+        원하는 참고 이미지를 <code>reference\04_디자인\</code> 폴더에 넣거나 채팅창에 첨부(시각적 그라운딩)하고 아래 외장 프롬프트를 보내면 다양한 외관 대안을 빠르게 비교할 수 있습니다.
+      </p>
+    </div>
+
+    <div class="l09-ext-grid">
+      {exteriorDesignPresets.map((ext) => (
+        <article class="l09-ext-card" id={ext.id}>
+          {enabled && (
+            <div class="l09-ext-img-wrap">
+              <img
+                src={`${base}/${ext.image}`}
+                alt={`${ext.name} (${ext.english}) 3층 단독주택 익스테리어 참고 이미지`}
+                width="960"
+                height="540"
+                loading="lazy"
+              />
+            </div>
+          )}
+          <div class="l09-ext-body">
+            <div class="l09-concept-top">
+              <span class="l09-num-pill l09-num-navy">{ext.num}</span>
+              <button type="button" class="l09-copy-btn l09-copy-sm" data-l09-copy={ext.prompt}>외장 프롬프트 복사</button>
+            </div>
+            <h4>{ext.name}</h4>
+            <p class="l09-ext-en">{ext.english} · {ext.inspiration}</p>
+            <p class="l09-ext-mat"><strong>핵심 외장:</strong> {ext.materials}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+)}
+
+<script>
+  const bindL09GroundingCopy = () => {
+    document.querySelectorAll<HTMLButtonElement>('[data-l09-copy]').forEach((btn) => {
+      if (btn.dataset.bound === '1') return;
+      btn.dataset.bound = '1';
+      btn.addEventListener('click', async () => {
+        const text = btn.dataset.l09Copy || '';
+        try {
+          await navigator.clipboard.writeText(text);
+          const orig = btn.textContent;
+          btn.textContent = '복사됨 ✓';
+          setTimeout(() => {
+            btn.textContent = orig;
+          }, 1400);
+        } catch {
+          // ignore
+        }
+      });
+    });
+  };
+  bindL09GroundingCopy();
+  document.addEventListener('astro:page-load', bindL09GroundingCopy);
+</script>
+
+<style>
+  .l09-gbox,
+  .l09-easy-box {
+    margin: 1.5rem 0 1.8rem;
+    padding: 1.35rem 1.45rem;
+    border-radius: 16px;
+    border: 1.5px solid #5eead4;
+    background: linear-gradient(180deg, #f0fdfa 0%, #ffffff 16%);
+    box-shadow: 0 4px 16px rgb(15 23 42 / 5%);
+    scroll-margin-top: 6rem;
+  }
+  .l09-gbox-ext {
+    border-color: #93c5fd;
+    background: linear-gradient(180deg, #eff6ff 0%, #ffffff 12%);
+  }
+  .l09-gbadge {
+    display: inline-block;
+    padding: 0.22rem 0.68rem;
+    border-radius: 999px;
+    background: #0f766e;
+    color: #ffffff;
+    font-size: 0.76rem;
+    font-weight: 800;
+  }
+  .l09-gbadge-navy {
+    background: #1e3a8a;
+  }
+  .l09-gbox-head h3,
+  .l09-easy-head h4 {
+    margin: 0.5rem 0 0.4rem;
+    font-size: 1.1rem;
+    color: #0f172a;
+  }
+  .l09-gbox-head p,
+  .l09-easy-head p {
+    margin: 0 0 1rem;
+    font-size: 0.89rem;
+    line-height: 1.65;
+    color: #334155;
+  }
+  .l09-flow-fig {
+    margin: 0 0 1.2rem;
+    padding: 0.8rem;
+    border-radius: 12px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+  }
+  .l09-flow-fig img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  .l09-flow-fig figcaption {
+    margin-top: 0.55rem;
+    font-size: 0.83rem;
+    line-height: 1.55;
+    color: #334155;
+  }
+  .l09-folder-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+    margin: 1rem 0 1.25rem;
+  }
+  .l09-prep-card {
+    padding: 0.95rem 1rem;
+    border-radius: 12px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+  }
+  .l09-prep-step {
+    display: inline-block;
+    padding: 0.14rem 0.5rem;
+    border-radius: 6px;
+    background: #ccfbf1;
+    color: #0f766e;
+    font-size: 0.73rem;
+    font-weight: 800;
+  }
+  .l09-folder-code {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #1e3a8a;
+    background: #eff6ff;
+    padding: 0.12rem 0.42rem;
+    border-radius: 5px;
+  }
+  .l09-prep-card h4 {
+    margin: 0.45rem 0 0.3rem;
+    font-size: 0.93rem;
+    color: #0f172a;
+  }
+  .l09-prep-card p {
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.56;
+    color: #475569;
+  }
+  .l09-prompt-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    margin-bottom: 1.35rem;
+  }
+  .l09-mini-details {
+    padding: 0.75rem 0.95rem;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+  }
+  .l09-mini-details summary {
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #1e3a8a;
+  }
+  .l09-mini-details .l09-code-card {
+    margin-top: 0.75rem;
+  }
+  .l09-code-card {
+    padding: 0.9rem 1rem;
+    border-radius: 12px;
+    border: 1px solid #cbd5e1;
+    background: #f8fafc;
+  }
+  .l09-code-teal {
+    border-color: #5eead4;
+    background: #f0fdfa;
+  }
+  .l09-code-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .l09-code-head strong {
+    font-size: 0.87rem;
+    color: #0f172a;
+  }
+  .l09-pre {
+    margin: 0;
+    padding: 0.7rem 0.85rem;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.81rem;
+    line-height: 1.56;
+    color: #0f172a;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+  .l09-copy-btn {
+    padding: 0.34rem 0.76rem;
+    border-radius: 7px;
+    border: 1px solid #1e3a8a;
+    background: #1e3a8a;
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .l09-copy-btn:hover {
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+    color: #ffffff;
+  }
+  .l09-copy-sm {
+    padding: 0.24rem 0.58rem;
+    font-size: 0.73rem;
+  }
+  .l09-dev-block {
+    margin-top: 1.1rem;
+    padding-top: 0.95rem;
+    border-top: 1px dashed #99f6e4;
+  }
+  .l09-dev-block > strong {
+    display: block;
+    font-size: 0.92rem;
+    color: #0f172a;
+    margin-bottom: 0.25rem;
+  }
+  .l09-dev-note {
+    margin: 0 0 0.75rem;
+    font-size: 0.83rem;
+    color: #334155;
+  }
+  .l09-dev-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.7rem;
+  }
+  .l09-dev-card {
+    padding: 0.8rem 0.85rem;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .l09-dev-card p {
+    margin: 0;
+    font-size: 0.8rem;
+    line-height: 1.52;
+    color: #1e293b;
+  }
+  .l09-subhead {
+    margin: 1.25rem 0 0.8rem;
+  }
+  .l09-subhead h4 {
+    margin: 0 0 0.35rem;
+    font-size: 1.02rem;
+    color: #0f172a;
+  }
+  .l09-subhead p {
+    margin: 0;
+    font-size: 0.86rem;
+    line-height: 1.6;
+    color: #334155;
+  }
+  .l09-concept-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+  .l09-concept-card {
+    padding: 0.95rem 1rem;
+    border-radius: 12px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .l09-concept-card:last-child {
+    grid-column: 1 / -1;
+  }
+  .l09-concept-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+  .l09-num-pill {
+    display: inline-block;
+    padding: 0.14rem 0.52rem;
+    border-radius: 999px;
+    background: #ccfbf1;
+    color: #0f766e;
+    font-size: 0.72rem;
+    font-weight: 800;
+  }
+  .l09-num-navy {
+    background: #dbeafe;
+    color: #1e3a8a;
+  }
+  .l09-concept-card h5 {
+    margin: 0.15rem 0 0;
+    font-size: 0.96rem;
+    color: #0f172a;
+  }
+  .l09-tagline {
+    margin: 0;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #0f766e;
+  }
+  .l09-spec-list {
+    margin: 0.25rem 0 0;
+    padding-left: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.26rem;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: #334155;
+  }
+  .l09-ext-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.05rem;
+  }
+  .l09-ext-card {
+    border-radius: 13px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 8px rgb(15 23 42 / 4%);
+  }
+  .l09-ext-img-wrap {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .l09-ext-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .l09-ext-body {
+    padding: 0.9rem 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .l09-ext-body h4 {
+    margin: 0.15rem 0 0;
+    font-size: 0.96rem;
+    color: #0f172a;
+  }
+  .l09-ext-en {
+    margin: 0;
+    font-size: 0.78rem;
+    color: #1e3a8a;
+    font-weight: 600;
+  }
+  .l09-ext-mat {
+    margin: 0.1rem 0 0;
+    font-size: 0.81rem;
+    line-height: 1.52;
+    color: #334155;
+  }
+  @media (max-width: 900px) {
+    .l09-folder-grid,
+    .l09-dev-grid,
+    .l09-concept-grid,
+    .l09-ext-grid {
+      grid-template-columns: 1fr;
+    }
+    .l09-concept-card:last-child {
+      grid-column: auto;
+    }
+  }
+  @media (max-width: 600px) {
+    .l09-gbox,
+    .l09-easy-box {
+      padding: 1.05rem 0.95rem;
+    }
+  }
+  @media print {
+    .l09-copy-btn {
+      display: none !important;
+    }
+    .l09-ext-card,
+    .l09-concept-card,
+    .l09-prep-card,
+    .l09-dev-card {
+      break-inside: avoid;
+    }
+  }
+</style>

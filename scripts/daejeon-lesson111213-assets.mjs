@@ -5,8 +5,13 @@ import {createHash} from 'node:crypto';
 import {repositoryRoot} from './course-registry.mjs';
 const named=JSON.parse(fs.readFileSync(path.join(repositoryRoot,'src/draft/content/lesson111213-assets.json'),'utf8'));
 const allowed=new Set(named.map(item=>item.outputPath));
+const lesson111213VisualDiagrams=[
+ 'images/daejeon/lesson-11/l11-design-to-proposal-flow.svg',
+ 'images/daejeon/lesson-12/l12-ai-vs-ppt-roles.svg',
+ 'images/daejeon/lesson-13/l13-final-handoff-roadmap.svg',
+];
 export function getLesson111213Assets(){
- return ['11','12','13'].flatMap(lesson=>{
+ const baseEntries=['11','12','13'].flatMap(lesson=>{
   const outputPath=`downloads/daejeon/lesson-${lesson}/manifest.json`;
   const file=path.join(repositoryRoot,'public',outputPath),bytes=fs.readFileSync(file),manifest=JSON.parse(bytes);
   assert(manifest.lesson===lesson&&manifest.localOnly&&manifest.status==='design-pending'&&manifest.reviewStatus==='instructor-review');
@@ -19,4 +24,5 @@ export function getLesson111213Assets(){
    return {...item,source:path.join(repositoryRoot,'public',item.outputPath)};
   });
  });
+ return [...baseEntries,...lesson111213VisualDiagrams.map(outputPath=>({outputPath,source:path.join(repositoryRoot,'public',outputPath)}))];
 }
