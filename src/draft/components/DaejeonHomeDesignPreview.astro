@@ -2,6 +2,7 @@
 import Icon from './HomeDesignIcon.astro';
 import DaejeonMaterialProtection from './DaejeonMaterialProtection.astro';
 import DaejeonCopyright from './DaejeonCopyright.astro';
+import WorkbookSearchModal from './WorkbookSearchModal.astro';
 import EbookAccessGate from '../../components/EbookAccessGate.astro';
 import {activeCourse} from '../../lib/courses';
 import {courseAccess as accessConfig} from '../../lib/course-access';
@@ -42,6 +43,7 @@ const interior=base+'/images/daejeon/lesson-12/'+encodeURIComponent('실사형_0
   <header class="design-header design-container" data-ebook-protected>
    <a class="design-brand" href={`${base}/`} aria-label="AI 건축디자인 홈"><span class="design-brand-mark"><Icon name="layers" /></span><span><strong>AI 건축디자인</strong><small>실무 워크북</small></span></a>
    <nav aria-label="홈 주요 메뉴" class="design-desktop-nav"><a href="#curriculum">과정의 흐름</a><a href="#lessons">전체 차시</a><a href="#guide">교재 이용 안내</a><a href={`${base}/glossary/`}>용어 사전</a></nav>
+   <button type="button" class="wb-search-trigger" data-wb-search-open aria-label="이북 전체 검색 (Ctrl+K)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7.5" /><line x1="20" y1="20" x2="16.4" y2="16.4" /></svg><span>검색</span><kbd>Ctrl K</kbd></button>
    <details class="design-mobile-menu"><summary><Icon name="menu" /><span>메뉴</span></summary><nav aria-label="모바일 홈 주요 메뉴"><a href="#curriculum">과정의 흐름</a><a href="#lessons">전체 차시</a><a href="#guide">교재 이용 안내</a><a href={`${base}/glossary/`}>용어 사전</a><a href={`${base}/course-overview/`}>과정 전체 안내</a></nav></details>
    <a href={`${base}/course-overview/`} class="design-header-link">과정 안내 <Icon name="arrow-up-right" /></a>
   </header>
@@ -111,6 +113,7 @@ const interior=base+'/images/daejeon/lesson-12/'+encodeURIComponent('실사형_0
   </main>
   <footer class="design-footer design-container" data-ebook-protected><div><strong>AI 건축디자인</strong><p>AI는 제안하고, 디자이너는 판단한다.</p><DaejeonCopyright /></div><a href={`${base}/course-overview/`}>과정 전체 안내 <Icon name="arrow-up-right" /></a><a href={`${base}/glossary/`}>용어 사전 <Icon name="book-open" /></a><a href="#main">맨 위로 <Icon name="arrow-up-right" /></a></footer>
   <dialog class="design-image-dialog" aria-labelledby="design-dialog-title" data-ebook-protected><div class="design-dialog-top"><p id="design-dialog-title"></p><button type="button" data-design-close aria-label="확대 이미지 닫기"><Icon name="x" /></button></div><img src={house} alt="" /><p class="design-dialog-note">전체 이미지 · 원본 비율 유지</p></dialog>
+  <WorkbookSearchModal />
   <script>
    const dialog=document.querySelector<HTMLDialogElement>('.design-image-dialog');
    const title=document.querySelector<HTMLElement>('#design-dialog-title');

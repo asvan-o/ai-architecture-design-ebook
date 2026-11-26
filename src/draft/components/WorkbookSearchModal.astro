@@ -1,0 +1,809 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const quickKeywords = [
+  'Blender MCP',
+  '그라운딩',
+  '.agents/skills',
+  '커스터마이징',
+  '익스테리어',
+  'FreeCAD',
+  '노트북 B',
+  '포트폴리오',
+  'Veo',
+  '평면도',
+];
+---
+
+<dialog
+  class="wb-search-dialog"
+  id="wb-search-dialog"
+  data-wb-search-dialog
+  data-base={base}
+  aria-labelledby="wb-search-heading"
+  data-ebook-protected
+>
+  <div class="wb-search-shell">
+    <div class="wb-search-top">
+      <div class="wb-search-input-wrap">
+        <svg class="wb-search-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7.5" />
+          <line x1="20" y1="20" x2="16.4" y2="16.4" />
+        </svg>
+        <label for="wb-search-input" id="wb-search-heading" class="wb-sr-only">이북 전체 내용 검색</label>
+        <input
+          id="wb-search-input"
+          type="search"
+          class="wb-search-input"
+          data-wb-search-input
+          placeholder="찾고 싶은 개념 · 프롬프트 · 명령어 · 차시 내용을 입력하세요 (예: 그라운딩, 커스터마이징, 익스테리어)"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <button type="button" class="wb-search-clear" data-wb-search-clear hidden aria-label="검색어 지우기">지우기</button>
+      </div>
+      <button type="button" class="wb-search-close" data-wb-search-close aria-label="검색 창 닫기">닫기 <span>ESC</span></button>
+    </div>
+
+    <div class="wb-search-filters" role="tablist" aria-label="검색 범위 필터">
+      <button type="button" class="wb-filter-btn is-active" data-wb-filter="all" role="tab" aria-selected="true">전체</button>
+      <button type="button" class="wb-filter-btn" data-wb-filter="lesson" role="tab" aria-selected="false">차시 본문</button>
+      <button type="button" class="wb-filter-btn" data-wb-filter="prompt" role="tab" aria-selected="false">프롬프트 · 명령어</button>
+      <button type="button" class="wb-filter-btn" data-wb-filter="glossary" role="tab" aria-selected="false">용어 사전</button>
+      <button type="button" class="wb-filter-btn" data-wb-filter="overview" role="tab" aria-selected="false">과정 안내</button>
+      <span class="wb-search-status" data-wb-search-status aria-live="polite"></span>
+    </div>
+
+    <div class="wb-search-body" data-wb-search-body>
+      <div class="wb-search-welcome" data-wb-search-welcome>
+        <p class="wb-welcome-title">추천 빠른 검색어 (클릭하면 바로 검색됩니다)</p>
+        <div class="wb-quick-tags">
+          {quickKeywords.map((kw) => (
+            <button type="button" class="wb-quick-tag" data-wb-quick={kw}>{kw}</button>
+          ))}
+        </div>
+        <p class="wb-welcome-tip">
+          <strong>팁:</strong> 두 단어를 띄어 쓰면 함께 포함된 정확한 위치를 찾아 줍니다. (예: <code>블렌더 2층</code>, <code>스킬 경로</code>, <code>법규 체크리스트</code>)
+          검색 결과를 클릭하면 해당 차시의 <strong>정확한 섹션 위치로 바로 이동</strong>합니다.
+        </p>
+      </div>
+      <ul class="wb-search-results" data-wb-search-results role="listbox" aria-label="검색 결과 목록" hidden></ul>
+      <div class="wb-search-empty" data-wb-search-empty hidden>
+        <p>일치하는 내용이 없습니다. 다른 키워드나 더 짧은 단어로 검색해 보세요.</p>
+      </div>
+    </div>
+
+    <div class="wb-search-foot">
+      <span><kbd>↑</kbd> <kbd>↓</kbd> 결과 이동</span>
+      <span><kbd>Enter</kbd> 바로 이동</span>
+      <span><kbd>Esc</kbd> 닫기</span>
+      <span class="wb-foot-right">단축키 <kbd>Ctrl</kbd>+<kbd>K</kbd> 또는 <kbd>/</kbd></span>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  interface SearchItem {
+    u: string;
+    p: string;
+    pt: string;
+    t: string;
+    k: string;
+    pr: number;
+    h: string;
+    b: string;
+  }
+
+  const STORAGE_KEY = 'workbook-search-jump';
+  let cachedItems: SearchItem[] | null = null;
+  let loadPromise: Promise<SearchItem[]> | null = null;
+
+  const escapeHtml = (s: string) =>
+    s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+  const escapeRegex = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+  const highlightText = (text: string, tokens: string[]) => {
+    const safe = escapeHtml(text);
+    if (tokens.length === 0) return safe;
+    const pattern = tokens.map(escapeRegex).sort((a, b) => b.length - a.length).join('|');
+    return safe.replace(new RegExp(`(${pattern})`, 'gi'), '<mark>$1</mark>');
+  };
+
+  const makeSnippet = (body: string, tokens: string[], maxLen = 148) => {
+    if (!body) return '';
+    const lower = body.toLowerCase();
+    let bestPos = -1;
+    for (const tok of tokens) {
+      const pos = lower.indexOf(tok);
+      if (pos !== -1 && (bestPos === -1 || pos < bestPos)) bestPos = pos;
+    }
+    if (bestPos === -1) return body.slice(0, maxLen) + (body.length > maxLen ? '…' : '');
+    const start = Math.max(0, bestPos - 44);
+    const end = Math.min(body.length, start + maxLen);
+    return (start > 0 ? '…' : '') + body.slice(start, end) + (end < body.length ? '…' : '');
+  };
+
+  const revealAndFocusHash = (rawHash: string) => {
+    const id = rawHash.replace(/^#/, '');
+    if (!id) return false;
+    const target = document.getElementById(decodeURIComponent(id));
+    if (!target) return false;
+    // Open any collapsed ancestor <details> so hidden prompts/notes become visible immediately
+    let cur: HTMLElement | null = target;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') (cur as HTMLDetailsElement).open = true;
+      cur = cur.parentElement;
+    }
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    target.classList.remove('wb-search-flash');
+    void target.offsetWidth;
+    target.classList.add('wb-search-flash');
+    setTimeout(() => target.classList.remove('wb-search-flash'), 2400);
+    return true;
+  };
+
+  const initWorkbookSearch = () => {
+    const dialog = document.querySelector<HTMLDialogElement>('[data-wb-search-dialog]');
+    if (!dialog || dialog.dataset.bound === '1') return;
+    dialog.dataset.bound = '1';
+
+    const base = (dialog.dataset.base || '').replace(/\/$/, '');
+    const input = dialog.querySelector<HTMLInputElement>('[data-wb-search-input]')!;
+    const clearBtn = dialog.querySelector<HTMLButtonElement>('[data-wb-search-clear]')!;
+    const closeBtn = dialog.querySelector<HTMLButtonElement>('[data-wb-search-close]')!;
+    const statusEl = dialog.querySelector<HTMLElement>('[data-wb-search-status]')!;
+    const welcomeEl = dialog.querySelector<HTMLElement>('[data-wb-search-welcome]')!;
+    const resultsEl = dialog.querySelector<HTMLUListElement>('[data-wb-search-results]')!;
+    const emptyEl = dialog.querySelector<HTMLElement>('[data-wb-search-empty]')!;
+    const filterBtns = Array.from(dialog.querySelectorAll<HTMLButtonElement>('[data-wb-filter]'));
+    const quickBtns = Array.from(dialog.querySelectorAll<HTMLButtonElement>('[data-wb-quick]'));
+
+    let currentFilter = 'all';
+    let activeIndex = -1;
+    let currentHits: SearchItem[] = [];
+
+    const loadIndex = async (): Promise<SearchItem[]> => {
+      if (cachedItems) return cachedItems;
+      if (!loadPromise) {
+        statusEl.textContent = '검색 색인을 불러오는 중…';
+        loadPromise = fetch(`${base}/search-index.json`)
+          .then((r) => {
+            if (!r.ok) throw new Error(`HTTP ${r.status}`);
+            return r.json();
+          })
+          .then((data) => {
+            cachedItems = Array.isArray(data?.items) ? data.items : [];
+            return cachedItems!;
+          })
+          .catch(() => {
+            statusEl.textContent = '검색 색인을 불러오지 못했습니다.';
+            loadPromise = null;
+            return [];
+          });
+      }
+      return loadPromise;
+    };
+
+    const scoreItem = (item: SearchItem, fullQ: string, tokens: string[]) => {
+      const pL = item.p.toLowerCase();
+      const tL = item.t.toLowerCase();
+      const hL = item.h.toLowerCase();
+      const bL = item.b.toLowerCase();
+      const allL = `${pL} ${item.pt.toLowerCase()} ${tL} ${hL} ${bL}`;
+
+      for (const tok of tokens) {
+        if (!allL.includes(tok)) return 0;
+      }
+
+      let score = 0;
+      if (tL === fullQ) score += 160;
+      else if (tL.includes(fullQ)) score += 105;
+      if (hL.includes(fullQ)) score += 55;
+      if (bL.includes(fullQ)) score += 28;
+      if (pL.includes(fullQ)) score += 45;
+
+      for (const tok of tokens) {
+        if (tL.includes(tok)) score += 38;
+        if (hL.includes(tok)) score += 18;
+        if (pL.includes(tok)) score += 15;
+        if (bL.includes(tok)) score += 6;
+      }
+
+      if (item.k === 'glossary' && fullQ.length <= 12 && tL.includes(fullQ)) score += 22;
+      if (item.u.includes('#')) score += 5;
+      return score;
+    };
+
+    const setActive = (idx: number) => {
+      const links = Array.from(resultsEl.querySelectorAll<HTMLAnchorElement>('.wb-result-link'));
+      if (links.length === 0) {
+        activeIndex = -1;
+        return;
+      }
+      activeIndex = ((idx % links.length) + links.length) % links.length;
+      links.forEach((a, i) => {
+        const on = i === activeIndex;
+        a.classList.toggle('is-active', on);
+        a.setAttribute('aria-selected', String(on));
+        if (on) a.scrollIntoView({ block: 'nearest' });
+      });
+    };
+
+    const navigateToResult = (item: SearchItem, event?: Event) => {
+      const targetUrl = new URL(`${base}/${item.u}`.replace(/\/{2,}/g, '/'), location.origin);
+      const curPath = location.pathname.replace(/\/+$/, '');
+      const nextPath = targetUrl.pathname.replace(/\/+$/, '');
+      if (curPath === nextPath && targetUrl.hash) {
+        event?.preventDefault();
+        dialog.close();
+        history.replaceState(null, '', targetUrl.pathname + targetUrl.hash);
+        revealAndFocusHash(targetUrl.hash);
+        return;
+      }
+      try {
+        sessionStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify({ hash: targetUrl.hash, ts: Date.now() }),
+        );
+      } catch {
+        // ignore
+      }
+      dialog.close();
+    };
+
+    const runSearch = async () => {
+      const raw = input.value.trim();
+      clearBtn.hidden = raw.length === 0;
+      if (!raw) {
+        welcomeEl.hidden = false;
+        resultsEl.hidden = true;
+        emptyEl.hidden = true;
+        resultsEl.innerHTML = '';
+        currentHits = [];
+        activeIndex = -1;
+        statusEl.textContent = cachedItems ? `전체 ${cachedItems.length}개 섹션 색인 준비됨` : '';
+        return;
+      }
+
+      const items = await loadIndex();
+      const fullQ = raw.toLowerCase();
+      const tokens = fullQ.split(/\s+/).filter(Boolean);
+
+      const scored: { item: SearchItem; score: number }[] = [];
+      for (const item of items) {
+        if (currentFilter === 'lesson' && item.k !== 'lesson') continue;
+        if (currentFilter === 'glossary' && item.k !== 'glossary') continue;
+        if (currentFilter === 'overview' && item.k !== 'overview') continue;
+        if (currentFilter === 'prompt' && item.pr !== 1) continue;
+
+        const score = scoreItem(item, fullQ, tokens);
+        if (score > 0) scored.push({ item, score });
+      }
+
+      scored.sort((a, b) => b.score - a.score);
+      const total = scored.length;
+      currentHits = scored.slice(0, 40).map((s) => s.item);
+
+      welcomeEl.hidden = true;
+      statusEl.textContent = total > 0 ? `${total}개 위치 검색됨` : '검색 결과 0건';
+
+      if (currentHits.length === 0) {
+        resultsEl.hidden = true;
+        resultsEl.innerHTML = '';
+        emptyEl.hidden = false;
+        activeIndex = -1;
+        return;
+      }
+
+      emptyEl.hidden = true;
+      resultsEl.hidden = false;
+      resultsEl.innerHTML = currentHits
+        .map((item, idx) => {
+          const href = `${base}/${item.u}`.replace(/\/{2,}/g, '/');
+          const snippet = makeSnippet(item.b, tokens);
+          const promptTag = item.pr === 1 ? '<span class="wb-res-tag wb-res-tag--prompt">프롬프트·명령어</span>' : '';
+          const kindClass = item.k === 'glossary' ? 'wb-res-badge--glossary' : item.k === 'overview' ? 'wb-res-badge--overview' : '';
+          return `<li>
+            <a class="wb-result-link" href="${escapeHtml(href)}" data-wb-idx="${idx}" role="option" aria-selected="false">
+              <div class="wb-res-meta">
+                <span class="wb-res-badge ${kindClass}">${escapeHtml(item.p)}</span>
+                ${promptTag}
+                <span class="wb-res-jump">바로 이동 →</span>
+              </div>
+              <strong class="wb-res-title">${highlightText(item.t, tokens)}</strong>
+              <p class="wb-res-snippet">${highlightText(snippet, tokens)}</p>
+            </a>
+          </li>`;
+        })
+        .join('');
+
+      resultsEl.querySelectorAll<HTMLAnchorElement>('.wb-result-link').forEach((link) => {
+        link.addEventListener('click', (ev) => {
+          const idx = Number(link.dataset.wbIdx);
+          const item = currentHits[idx];
+          if (item) navigateToResult(item, ev);
+        });
+      });
+
+      setActive(0);
+    };
+
+    const openSearch = async () => {
+      if (!dialog.open) dialog.showModal();
+      input.focus();
+      input.select();
+      await loadIndex();
+      if (input.value.trim()) {
+        await runSearch();
+      } else if (cachedItems) {
+        statusEl.textContent = `전체 ${cachedItems.length}개 섹션 색인 준비됨`;
+      }
+    };
+
+    document.querySelectorAll<HTMLElement>('[data-wb-search-open]').forEach((trigger) => {
+      if (trigger.dataset.searchBound === '1') return;
+      trigger.dataset.searchBound = '1';
+      trigger.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        // Close mobile <details> menu if open
+        const mobileMenu = trigger.closest('details');
+        if (mobileMenu) mobileMenu.open = false;
+        void openSearch();
+      });
+    });
+
+    closeBtn.addEventListener('click', () => dialog.close());
+    clearBtn.addEventListener('click', () => {
+      input.value = '';
+      input.focus();
+      void runSearch();
+    });
+
+    dialog.addEventListener('click', (ev) => {
+      if (ev.target === dialog) dialog.close();
+    });
+
+    input.addEventListener('input', () => void runSearch());
+
+    input.addEventListener('keydown', (ev) => {
+      if (ev.key === 'ArrowDown') {
+        ev.preventDefault();
+        setActive(activeIndex + 1);
+      } else if (ev.key === 'ArrowUp') {
+        ev.preventDefault();
+        setActive(activeIndex - 1);
+      } else if (ev.key === 'Enter' && activeIndex >= 0 && currentHits[activeIndex]) {
+        ev.preventDefault();
+        const item = currentHits[activeIndex];
+        const link = resultsEl.querySelector<HTMLAnchorElement>(`.wb-result-link[data-wb-idx="${activeIndex}"]`);
+        if (link) link.click();
+        else navigateToResult(item);
+      }
+    });
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        currentFilter = btn.dataset.wbFilter || 'all';
+        filterBtns.forEach((b) => {
+          const on = b === btn;
+          b.classList.toggle('is-active', on);
+          b.setAttribute('aria-selected', String(on));
+        });
+        void runSearch();
+      });
+    });
+
+    quickBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        input.value = btn.dataset.wbQuick || '';
+        input.focus();
+        void runSearch();
+      });
+    });
+
+    // Global keyboard shortcut: Ctrl/Cmd+K or '/'
+    document.addEventListener('keydown', (ev) => {
+      if (document.documentElement.dataset.ebookAccess === 'locked') return;
+      if ((ev.ctrlKey || ev.metaKey) && ev.key.toLowerCase() === 'k') {
+        ev.preventDefault();
+        if (dialog.open) dialog.close();
+        else void openSearch();
+        return;
+      }
+      if (ev.key === '/' && !dialog.open && !ev.ctrlKey && !ev.metaKey && !ev.altKey) {
+        const tag = (document.activeElement?.tagName || '').toLowerCase();
+        if (tag !== 'input' && tag !== 'textarea' && tag !== 'select' && !(document.activeElement as HTMLElement | null)?.isContentEditable) {
+          ev.preventDefault();
+          void openSearch();
+        }
+      }
+    });
+
+    // Handle cross-page jump arrival: auto-open ancestor <details> & flash target anchor
+    try {
+      const saved = sessionStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        sessionStorage.removeItem(STORAGE_KEY);
+        const parsed = JSON.parse(saved);
+        if (parsed?.hash && Date.now() - Number(parsed.ts || 0) < 12000) {
+          setTimeout(() => revealAndFocusHash(parsed.hash), 80);
+        }
+      }
+    } catch {
+      // ignore
+    }
+  };
+
+  initWorkbookSearch();
+  document.addEventListener('astro:page-load', initWorkbookSearch);
+</script>
+
+<style>
+  .wb-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+  .wb-search-dialog {
+    width: min(46rem, calc(100vw - 1.5rem));
+    max-width: 46rem;
+    max-height: min(82vh, 44rem);
+    margin: min(7vh, 4rem) auto auto;
+    padding: 0;
+    border: 1.5px solid #94a3b8;
+    border-radius: 16px;
+    background: #ffffff;
+    color: #0f172a;
+    box-shadow: 0 24px 60px rgb(15 23 42 / 28%);
+    overflow: hidden;
+  }
+  .wb-search-dialog::backdrop {
+    background: rgb(15 23 42 / 55%);
+    backdrop-filter: blur(3px);
+  }
+  .wb-search-shell {
+    display: flex;
+    flex-direction: column;
+    max-height: min(82vh, 44rem);
+  }
+  .wb-search-top {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid #e2e8f0;
+    background: #f8fafc;
+  }
+  .wb-search-input-wrap {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.5rem 0.75rem;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 10px;
+    background: #ffffff;
+  }
+  .wb-search-input-wrap:focus-within {
+    border-color: #1e3a8a;
+    box-shadow: 0 0 0 3px rgb(30 58 138 / 12%);
+  }
+  .wb-search-icon {
+    color: #475569;
+    flex-shrink: 0;
+  }
+  .wb-search-input {
+    width: 100%;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    font: inherit;
+    font-size: 0.95rem;
+    color: #0f172a;
+  }
+  .wb-search-clear {
+    border: 0;
+    background: #f1f5f9;
+    color: #475569;
+    border-radius: 6px;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .wb-search-clear:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+  }
+  .wb-search-close {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #334155;
+    border-radius: 9px;
+    padding: 0.48rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .wb-search-close span {
+    font-size: 0.68rem;
+    padding: 0.08rem 0.32rem;
+    border-radius: 4px;
+    background: #f1f5f9;
+    color: #64748b;
+  }
+  .wb-search-close:hover {
+    border-color: #94a3b8;
+    color: #0f172a;
+  }
+  .wb-search-filters {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid #e2e8f0;
+    background: #ffffff;
+  }
+  .wb-filter-btn {
+    border: 1px solid #cbd5e1;
+    background: #f8fafc;
+    color: #334155;
+    border-radius: 999px;
+    padding: 0.25rem 0.72rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .wb-filter-btn:hover {
+    border-color: #1e3a8a;
+    color: #1e3a8a;
+  }
+  .wb-filter-btn.is-active {
+    border-color: #1e3a8a;
+    background: #1e3a8a;
+    color: #ffffff;
+  }
+  .wb-search-status {
+    margin-left: auto;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #475569;
+  }
+  .wb-search-body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 0.85rem 1rem 1rem;
+    background: #ffffff;
+  }
+  .wb-search-welcome {
+    padding: 0.35rem 0.2rem;
+  }
+  .wb-welcome-title {
+    margin: 0 0 0.65rem;
+    font-size: 0.84rem;
+    font-weight: 800;
+    color: #334155;
+  }
+  .wb-quick-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-bottom: 1rem;
+  }
+  .wb-quick-tag {
+    border: 1px solid #cbd5e1;
+    background: #f8fafc;
+    color: #1e3a8a;
+    border-radius: 8px;
+    padding: 0.36rem 0.72rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .wb-quick-tag:hover {
+    border-color: #1e3a8a;
+    background: #eff6ff;
+  }
+  .wb-welcome-tip {
+    margin: 0;
+    padding: 0.75rem 0.9rem;
+    border-radius: 10px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: #475569;
+  }
+  .wb-search-results {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  :global(.wb-result-link) {
+    display: block;
+    padding: 0.8rem 0.95rem;
+    border-radius: 11px;
+    border: 1.5px solid #e2e8f0;
+    background: #ffffff;
+    text-decoration: none;
+    color: #0f172a;
+    transition: border-color 120ms ease, background-color 120ms ease;
+  }
+  :global(.wb-result-link:hover),
+  :global(.wb-result-link.is-active) {
+    border-color: #1e3a8a;
+    background: #eff6ff;
+  }
+  :global(.wb-res-meta) {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.35rem;
+  }
+  :global(.wb-res-badge) {
+    display: inline-block;
+    padding: 0.14rem 0.52rem;
+    border-radius: 6px;
+    background: #1e3a8a;
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 800;
+  }
+  :global(.wb-res-badge--glossary) {
+    background: #0f766e;
+  }
+  :global(.wb-res-badge--overview) {
+    background: #475569;
+  }
+  :global(.wb-res-tag--prompt) {
+    display: inline-block;
+    padding: 0.12rem 0.48rem;
+    border-radius: 6px;
+    background: #ccfbf1;
+    color: #115e59;
+    font-size: 0.7rem;
+    font-weight: 800;
+  }
+  :global(.wb-res-jump) {
+    margin-left: auto;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #1e3a8a;
+  }
+  :global(.wb-res-title) {
+    display: block;
+    font-size: 0.93rem;
+    line-height: 1.42;
+    color: #0f172a;
+    margin-bottom: 0.28rem;
+  }
+  :global(.wb-res-snippet) {
+    margin: 0;
+    font-size: 0.81rem;
+    line-height: 1.55;
+    color: #475569;
+  }
+  :global(.wb-result-link mark) {
+    background: #fef08a;
+    color: #0f172a;
+    padding: 0 0.15rem;
+    border-radius: 3px;
+    font-weight: 800;
+  }
+  .wb-search-empty {
+    padding: 2rem 1rem;
+    text-align: center;
+    color: #64748b;
+    font-size: 0.9rem;
+  }
+  .wb-search-foot {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 0.6rem 1rem;
+    border-top: 1px solid #e2e8f0;
+    background: #f8fafc;
+    font-size: 0.74rem;
+    color: #64748b;
+  }
+  .wb-search-foot kbd {
+    display: inline-block;
+    padding: 0.08rem 0.35rem;
+    border-radius: 4px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #334155;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.7rem;
+  }
+  .wb-foot-right {
+    margin-left: auto;
+  }
+
+  /* Trigger button shared across ReviewLayout & Home */
+  :global(.wb-search-trigger) {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
+    padding: 0.34rem 0.72rem;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #0f172a;
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: border-color 140ms ease, background-color 140ms ease;
+  }
+  :global(.wb-search-trigger:hover) {
+    border-color: #1e3a8a;
+    background: #eff6ff;
+    color: #1e3a8a;
+  }
+  :global(.wb-search-trigger kbd) {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.68rem;
+    padding: 0.06rem 0.34rem;
+    border-radius: 4px;
+    border: 1px solid #cbd5e1;
+    background: #f8fafc;
+    color: #64748b;
+  }
+
+  /* Target highlight pulse on jump */
+  :global(.wb-search-flash) {
+    outline: 3px solid #f59e0b !important;
+    outline-offset: 6px;
+    border-radius: 10px;
+    animation: wbSearchPulse 2.2s ease-out;
+  }
+  @keyframes wbSearchPulse {
+    0% { background-color: rgb(254 243 199 / 85%); }
+    100% { background-color: transparent; }
+  }
+
+  @media (max-width: 720px) {
+    .wb-search-dialog {
+      width: calc(100vw - 1rem);
+      margin-top: 0.75rem;
+      max-height: 88vh;
+    }
+    .wb-search-shell {
+      max-height: 88vh;
+    }
+    .wb-search-status {
+      width: 100%;
+      margin-left: 0;
+    }
+    .wb-foot-right,
+    :global(.wb-search-trigger kbd) {
+      display: none;
+    }
+  }
+  @media print {
+    .wb-search-dialog,
+    :global(.wb-search-trigger) {
+      display: none !important;
+    }
+  }
+</style>

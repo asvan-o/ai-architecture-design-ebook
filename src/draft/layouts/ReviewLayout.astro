@@ -7,6 +7,7 @@ import DaejeonMaterialProtection from '../components/DaejeonMaterialProtection.a
 import DaejeonCopyright from '../components/DaejeonCopyright.astro';
 import WorkbookDrawingScaleGuide from '../components/WorkbookDrawingScaleGuide.astro';
 import WorkbookPrintGlossaryAppendix from '../components/WorkbookPrintGlossaryAppendix.astro';
+import WorkbookSearchModal from '../components/WorkbookSearchModal.astro';
 import { activeCourse } from '../../lib/courses';
 import { courseAccess as accessConfig } from '../../lib/course-access';
 import { isStudentBuild } from '../../lib/student-release';
@@ -116,6 +117,11 @@ const pdfLabel = page === 'overview'
           </div>
         </details>
         <a href={`${base}/glossary/`} aria-current={page==='glossary'?'page':undefined}>용어 사전</a>
+        <button type="button" class="wb-search-trigger" data-wb-search-open aria-label="이북 전체 검색 (Ctrl+K)">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7.5" /><line x1="20" y1="20" x2="16.4" y2="16.4" /></svg>
+          <span>검색</span>
+          <kbd>Ctrl K</kbd>
+        </button>
         {pdfHref&&<a class="review-header-pdf" href={pdfHref} download aria-label={pdfLabel}>PDF 교보재</a>}
         <button type="button" class="review-toc-toggle review-toc-toggle--open" data-toc-open aria-controls="review-sidebar" aria-expanded="false" hidden><span aria-hidden="true">◧</span> 목차 열기</button>
       </nav>
@@ -202,6 +208,7 @@ const pdfLabel = page === 'overview'
       </main>
     </div>
     <footer class="review-footer" data-ebook-protected><div>AI는 제안하고, 디자이너는 판단한다. <a href={`${base}/`}>과정 안내</a><a href={`${base}/glossary/`}>용어 사전</a></div><DaejeonCopyright /></footer>
+    <WorkbookSearchModal />
     <script>
       const tocRoot = document.documentElement;
       const tocShell = document.querySelector('.review-shell--toc');
