@@ -92,17 +92,30 @@ const interior=base+'/images/daejeon/lesson-12/'+encodeURIComponent('실사형_0
         </article>
       )}
       {lesson.id === '07' && (
-        <article class="design-lesson-row" data-supplementary-lesson-card="lessons/07-2" style="background:#f0fdfa;border-left:4px solid #0f766e;">
-          <span class="design-lesson-number" style="font-size:1rem;">07-2</span>
-          <div class="design-lesson-body">
-            <p class="design-lesson-stage">리뉴얼 트랙 · 평면도 영상화(Veo) · 올인원 통합 설치 빌더 · 옵션 A·B 시나리오 &amp; 스킬</p>
-            <h3><a href={lessonHref('07-2')}>제7-2차시 · [리뉴얼] 평면도 영상화(Veo) · 3DGS 핵심 · 건축 MCP 올인원 셋팅 &amp; 실전 시나리오</a></h3>
-            <p class="design-lesson-description">Veo First→Last 입체화 영상과 건축 도구 개념을 가볍게 확인한 뒤, 사양·항목 선택형 PowerShell 올인원 빌더(내장GPU용 Blender 3.6 LTS 추천 포함)로 환경을 한 번에 구축하고 옵션 A·B 실무 시나리오와 건축 스킬을 이어서 실습합니다.</p>
-          </div>
-          <div class="design-lesson-actions">
-            <a href={lessonHref('07-2')} aria-label="제7-2차시 리뉴얼 읽기"><Icon name="book-open" />읽기</a>
-          </div>
-        </article>
+        <>
+          <article class="design-lesson-row" data-supplementary-lesson-card="lessons/07-2" style="background:#f0fdfa;border-left:4px solid #0f766e;">
+            <span class="design-lesson-number" style="font-size:1rem;">07-2</span>
+            <div class="design-lesson-body">
+              <p class="design-lesson-stage">리뉴얼 트랙 · 평면도 영상화(Veo) · 올인원 통합 설치 빌더 · 옵션 A·B 시나리오 &amp; 스킬</p>
+              <h3><a href={lessonHref('07-2')}>제7-2차시 · [리뉴얼] 평면도 영상화(Veo) · 3DGS 핵심 · 건축 MCP 올인원 셋팅 &amp; 실전 시나리오</a></h3>
+              <p class="design-lesson-description">Veo First→Last 입체화 영상과 건축 도구 개념을 가볍게 확인한 뒤, 사양·항목 선택형 PowerShell 올인원 빌더(내장GPU용 Blender 3.6 LTS 추천 포함)로 환경을 한 번에 구축하고 옵션 A·B 실무 시나리오와 건축 스킬을 이어서 실습합니다.</p>
+            </div>
+            <div class="design-lesson-actions">
+              <a href={lessonHref('07-2')} aria-label="제7-2차시 리뉴얼 읽기"><Icon name="book-open" />읽기</a>
+            </div>
+          </article>
+          <article class="design-lesson-row" data-supplementary-lesson-card="lessons/07-3" style="background:#eff6ff;border-left:4px solid #1e3a8a;">
+            <span class="design-lesson-number" style="font-size:1rem;">07-3</span>
+            <div class="design-lesson-body">
+              <p class="design-lesson-stage">상용 CAD·3D 확장 · AutoCAD MCP (COM/DXF) · SketchUp MCP (9876) · 체크박스 올인원 &amp; 일반 설치</p>
+              <h3><a href={lessonHref('07-3')}>제7-3차시 · AutoCAD &amp; SketchUp MCP 올인원 체크박스 셋팅 &amp; 일반 설치 가이드</a></h3>
+              <p class="design-lesson-description">맨 위쪽 체크박스 올인원 빌더로 AutoCAD·SketchUp MCP와 su_mcp 플러그인을 오류 없이 연결하고, 아래쪽 일반 설치 안내에서 체험판 설치·이중 중첩 방지·포트 9876 검증까지 왕초보 눈높이로 따라 합니다.</p>
+            </div>
+            <div class="design-lesson-actions">
+              <a href={lessonHref('07-3')} aria-label="제7-3차시 캐드·스케치업 MCP 읽기"><Icon name="book-open" />읽기</a>
+            </div>
+          </article>
+        </>
       )}
     </>)}</div>
    </section>

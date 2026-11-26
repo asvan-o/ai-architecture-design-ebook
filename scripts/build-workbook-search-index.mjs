@@ -104,8 +104,8 @@ function pageMeta(relHtml) {
   const m = relHtml.match(/^lessons\/([^/]+)\/index\.html$/);
   if (m) {
     const id = m[1];
-    const display = id === '02-2' ? '2-2' : id === '07-2' ? '7-2' : String(Number(id));
-    const numOrder = id === '02-2' ? 2.5 : id === '07-2' ? 7.5 : Number(id) || 99;
+    const display = id === '02-2' ? '2-2' : id === '07-2' ? '7-2' : id === '07-3' ? '7-3' : String(Number(id));
+    const numOrder = id === '02-2' ? 2.5 : id === '07-2' ? 7.5 : id === '07-3' ? 7.6 : Number(id) || 99;
     return { urlBase: `lessons/${id}/`, pageLabel: `제${display}차시`, defaultKind: 'lesson', order: 10 + numOrder };
   }
   return null;
@@ -115,7 +115,7 @@ function isUsefulAnchor(id, tag, relHtml) {
   if (!id) return false;
   if (id === 'main' || id === 'main-content' || id === 'glossary-results') return false;
   if (/(?:-title|-heading|-copy-status|-panel|-tab|-label)$/.test(id)) return false;
-  if (/^(?:modeling-image-|l\d+-part-|period-|l022-period-|l062-part-|l08-part-)/.test(id)) return false;
+  if (/^(?:modeling-image-|l\d+-part-|period-|l022-period-|l062-part-|l073-part-|l08-part-)/.test(id)) return false;
   if (relHtml === 'glossary/index.html') {
     return id.startsWith('term-') || id.startsWith('glossary-');
   }

@@ -1,0 +1,1669 @@
+---
+import ReviewLayout from '../../layouts/ReviewLayout.astro';
+import ReviewSection from '../../components/ReviewSection.astro';
+import TopicProgress from '../../components/TopicProgress.astro';
+import '../../styles/lesson03.css';
+import '../../styles/lesson04.css';
+import {
+  lesson073Title,
+  lesson073Lead,
+  lesson073Periods,
+  lesson073Sections,
+  l073QuickIndex,
+  commercialTrialRows,
+  autocadTrialSteps,
+  sketchupTrialSteps,
+  uvInstallWinCmd,
+  uvInstallWinFallbackCmd,
+  uvInstallMacCmd,
+  uvVerifyCmd,
+  manualAutoCadJson,
+  manualAutoCadToml,
+  manualSketchUpJson,
+  manualSketchUpToml,
+  manualBothJson,
+  port9876CheckCmd,
+  sketchUpRpcTestCmd,
+  autocadTestPrompt,
+  sketchupTestPrompt,
+  practiceChecklistItems,
+  troubleshootingFaq,
+} from '../../content/daejeon-lesson07-3-cad-skp-mcp';
+import {
+  defaultCadSkpSelection,
+  cadSkpModuleMeta,
+  buildCadSkpAllInOnePowerShell,
+  buildCadSkpJsonSnippet,
+  buildCadSkpCodexSnippet,
+} from '../../content/daejeon-lesson07-3-installer';
+
+const initialPs1 = buildCadSkpAllInOnePowerShell(defaultCadSkpSelection);
+const initialJson = buildCadSkpJsonSnippet(defaultCadSkpSelection);
+const initialCodex = buildCadSkpCodexSnippet(defaultCadSkpSelection);
+
+const tocGroups = lesson073Periods.map((period, index) => ({
+  id: period.id,
+  title: 'Part ' + (index + 1) + ' · ' + period.title,
+  items: period.sections,
+}));
+const toc = tocGroups.flatMap((g) => g.items);
+const sectionIndex = (id: string) => lesson073Sections.findIndex((s) => s.id === id) + 1;
+---
+
+<ReviewLayout
+  title={lesson073Title}
+  lead={lesson073Lead}
+  page="lesson"
+  lessonId="07-3"
+  eyebrow="LESSON 07-3 · AUTOCAD & SKETCHUP MCP · ALL-IN-ONE & BEGINNER GUIDE"
+  sharedScreen
+  {toc}
+  {tocGroups}
+>
+  <div class="lesson03-review lesson04-review l073-page" data-l073-page>
+    <TopicProgress
+      lesson="07"
+      items={[
+        {
+          topic: 4,
+          status: '상용 CAD·3D MCP 확장',
+          note: '맨 위쪽 체크박스 올인원 빌더로 AutoCAD·SketchUp MCP를 빠르게 연결하거나, 아래쪽 일반 설치 안내를 따라 체험판 설치부터 수동 연동·검증까지 차근차근 진행합니다.',
+        },
+      ]}
+    />
+
+    <div class="l03-period-summary">
+      {lesson073Periods.map((period, index) => (
+        <article>
+          <h2>Part {index + 1} · {period.title}</h2>
+        </article>
+      ))}
+    </div>
+
+    <aside class="review-callout">
+      <h2>한눈에 보는 진행 안내 (상용 본체는 직접 설치 → MCP·플러그인은 올인원 또는 수동 연동)</h2>
+      <p>
+        <strong>AutoCAD(15일 체험)</strong>와 <strong>SketchUp(7일 체험)</strong>은 계정 인증이 필요한 상용 프로그램이므로 본체는 공식 홈페이지에서 직접 내려받아 설치해야 합니다.
+        <strong>이미 설치되어 있다면 본체 단계는 그대로 건너뛰고</strong>, 바로 아래 <strong>[Part 1 · 올인원 체크박스 빌더]</strong>에서 원하는 MCP와 AI 도구만 체크해 한 번에 연결하세요.
+        원리를 보며 직접 설치하고 싶다면 아래 <strong>[Part 2~3 · 일반 설치 안내]</strong>를 순서대로 따라 하면 됩니다.
+      </p>
+    </aside>
+
+    <nav class="l073-quick-index" aria-label="제7-3차시 세부 단락 빠른 이동">
+      <div class="l073-quick-index-head">
+        <strong>빠른 단락 인덱스 이동</strong>
+        <span>번호 배지(<code>01</code>~<code>06</code>)를 눌러 원하는 단계로 바로 이동하세요.</span>
+      </div>
+      <div class="l073-quick-index-grid">
+        {l073QuickIndex.map((item) => (
+          <a href={item.href} class="l073-quick-chip">
+            <span class="l073-quick-code">{item.code}</span>
+            <span>{item.label}</span>
+          </a>
+        ))}
+      </div>
+    </nav>
+
+    {lesson073Periods.map((period, periodIndex) => (
+      <div class="day-period" id={period.id} data-period={periodIndex + 1}>
+        <header class="period-heading">
+          <p>Part {periodIndex + 1}</p>
+          <h2>{period.title}</h2>
+        </header>
+
+        {period.sections.map((section) => (
+          <ReviewSection
+            id={section.id}
+            title={section.title}
+            index={sectionIndex(section.id)}
+          >
+            <dl class="l03-step-context">
+              <div><dt>지금 할 일</dt><dd>{section.action}</dd></div>
+              <div><dt>왜 하는가</dt><dd>{section.reason}</dd></div>
+              <div><dt>다음에 사용할 것</dt><dd>{section.next}</dd></div>
+            </dl>
+
+            {/* ================= 01: ALL-IN-ONE CHECKBOX BUILDER (TOP) ================= */}
+            {section.id === 'l073-all-in-one-setup' && (
+              <>
+                <div class="l073-notice-amber">
+                  <strong>📌 시작 전 확인 · 상용 본체 프로그램 설치 여부</strong>
+                  <p>
+                    AutoCAD와 SketchUp 본체는 상용 체험판이라 스크립트가 대신 로그인·설치할 수 없습니다.
+                    <strong>이미 설치된 PC는 본체를 건드리지 않고 자동 패스</strong>하며, 아직 미설치 상태라면 아래 공식 체험판 링크에서 먼저 설치한 뒤 진행해 주세요.
+                  </p>
+                  <div class="l073-link-row">
+                    <a class="l073-ext-btn" href="https://www.autodesk.co.kr/products/autocad/free-trial" target="_blank" rel="noopener">AutoCAD 15일 체험판 받기 ↗</a>
+                    <a class="l073-ext-btn" href="https://www.sketchup.com/ko-kr/try-sketchup" target="_blank" rel="noopener">SketchUp 7일 체험판 받기 ↗</a>
+                    <a class="l073-ext-btn l073-ext-btn-sub" href="#l073-trial-howto">↓ 체험판 설치 순서 먼저 보기</a>
+                  </div>
+                </div>
+
+                <div class="l073-builder" data-l073-builder>
+                  <div class="l073-builder-top">
+                    <div>
+                      <strong>빠른 프리셋 선택</strong>
+                      <span>처음 세팅하는 PC는 기본 선택된 <strong>전체 올인원 (캐드 + 스케치업)</strong>을 그대로 복사하거나 <code>.bat</code>로 내려받아 실행하면 됩니다.</span>
+                    </div>
+                    <div class="l073-preset-row">
+                      <button type="button" class="l073-preset-btn is-active" data-l073-preset="all" aria-pressed="true">추천 · 전체 올인원 (캐드+스케치업)</button>
+                      <button type="button" class="l073-preset-btn" data-l073-preset="sketchup" aria-pressed="false">스케치업 MCP만</button>
+                      <button type="button" class="l073-preset-btn" data-l073-preset="autocad" aria-pressed="false">오토캐드 MCP만</button>
+                      <button type="button" class="l073-preset-btn" data-l073-preset="none" aria-pressed="false">전체 해제 (직접 고르기)</button>
+                    </div>
+                  </div>
+
+                  <div class="l073-builder-options">
+                    <fieldset class="l073-option-group">
+                      <legend>① AutoCAD MCP 연결 엔진 방식</legend>
+                      <label class="l073-radio-card">
+                        <input type="radio" name="l073-cad-backend" value="auto" checked />
+                        <div>
+                          <strong>auto — 자동 선택 <span class="l073-rec-pill">추천</span></strong>
+                          <p>Windows 일반 AutoCAD가 켜져 있으면 실시간 COM으로 작도하고, AutoCAD LT이거나 미설치 상태면 <code>ezdxf</code>로 표준 <code>.dxf</code> 도면을 자동 생성합니다.</p>
+                        </div>
+                      </label>
+                      <label class="l073-radio-card">
+                        <input type="radio" name="l073-cad-backend" value="com" />
+                        <div>
+                          <strong>com — Windows AutoCAD 실시간 제어 전용</strong>
+                          <p>실행 중인 일반 AutoCAD(체험판 포함) 모델 공간에 직접 선·레이어·치수를 그립니다. (LT 버전 불가)</p>
+                        </div>
+                      </label>
+                      <label class="l073-radio-card">
+                        <input type="radio" name="l073-cad-backend" value="ezdxf" />
+                        <div>
+                          <strong>ezdxf — AutoCAD 없이 DXF 파일 직접 생성</strong>
+                          <p>AutoCAD 미설치 PC나 LT 환경에서 도면 파일(<code>.dxf</code>)만 즉시 생성·검수할 때 적합합니다.</p>
+                        </div>
+                      </label>
+                    </fieldset>
+
+                    <fieldset class="l073-option-group">
+                      <legend>② 이미 설치된 도구·플러그인 처리 방식</legend>
+                      <label class="l073-radio-card">
+                        <input type="radio" name="l073-existing-policy" value="skip" checked />
+                        <div>
+                          <strong>이미 정상 설치되어 있으면 그대로 패스 <span class="l073-rec-pill">추천</span></strong>
+                          <p><code>uvx</code>나 정상 1계층 <code>su_mcp</code>가 이미 있으면 건너뛰고 빠진 항목과 AI 설정만 빠르게 연결합니다. (이중 중첩 오류는 자동 수정)</p>
+                        </div>
+                      </label>
+                      <label class="l073-radio-card">
+                        <input type="radio" name="l073-existing-policy" value="update" />
+                        <div>
+                          <strong>최신 파일로 덮어쓰기 갱신 (기존 설정은 .bak 백업)</strong>
+                          <p><code>uv</code>와 SketchUp <code>su_mcp</code> 파일을 최신 버전으로 다시 내려받아 깔끔하게 덮어씁니다.</p>
+                        </div>
+                      </label>
+                    </fieldset>
+                  </div>
+
+                  <fieldset class="l073-check-fieldset">
+                    <legend>③ 설치·연동할 항목 체크박스 (체크한 항목만 스크립트와 설정 코드에 반영됩니다)</legend>
+                    <div class="l073-check-grid">
+                      {cadSkpModuleMeta.map((item) => (
+                        <label class="l073-check-card">
+                          <input
+                            type="checkbox"
+                            data-l073-mod={item.key}
+                            checked={defaultCadSkpSelection[item.key]}
+                          />
+                          <div class="l073-check-body">
+                            <div class="l073-check-badges">
+                              <span class="l073-mod-group">{item.group}</span>
+                              <span class="l073-mod-badge">{item.badge}</span>
+                            </div>
+                            <strong>{item.title}</strong>
+                            <p>{item.summary}</p>
+                          </div>
+                        </label>
+                      ))}
+                    </div>
+                  </fieldset>
+
+                  <div class="l073-warning-list" data-l073-warnings hidden aria-live="polite"></div>
+
+                  <div class="l073-output-panel">
+                    <div class="l073-output-bar">
+                      <div class="l073-output-title">
+                        <strong>완성된 맞춤 PowerShell 올인원 명령어</strong>
+                        <span class="l073-count-pill" data-l073-count>선택됨: 9 / 10개 항목</span>
+                      </div>
+                      <div class="l073-output-actions">
+                        <button type="button" class="l073-sub-btn" data-l073-expand-script>코드 창 크게 보기</button>
+                        <button type="button" class="l073-sub-btn" data-l073-download-ps1>ps1 파일로 저장</button>
+                        <button type="button" class="l073-bat-btn" data-l073-download-bat>⚡ 더블클릭 .bat 다운로드</button>
+                        <button type="button" class="l073-copy-btn l073-copy-main-btn" data-l073-copy-generated>전체 명령어 복사</button>
+                      </div>
+                    </div>
+                    <p class="l073-output-howto">
+                      <strong>초간단 실행 방법 (2가지 중 택 1):</strong><br />
+                      • <strong>방법 1 (더블클릭):</strong> 위 <strong>⚡ 더블클릭 .bat 다운로드</strong> 클릭 → 내려받은 <code>setup-cad-sketchup-mcp.bat</code> 더블클릭 (Windows 파란 경고창이 뜨면 <em>추가 정보 → 실행</em>)<br />
+                      • <strong>방법 2 (붙여넣기):</strong> 위 <strong>전체 명령어 복사</strong> 클릭 → 시작 메뉴에서 <strong>Windows PowerShell</strong>(일반 사용자 창 권장) 실행 → 붙여넣기 후 <strong>Enter</strong>
+                    </p>
+                    <pre class="l073-pre l073-pre-scroll" data-l073-script-output>{initialPs1}</pre>
+                  </div>
+
+                  <details class="l073-details">
+                    <summary>체크박스 맞춤 AI 설정 코드 미리보기 (JSON · Codex TOML 직접 붙여넣기용)</summary>
+                    <div class="l073-preview-grid">
+                      <div class="l073-code-card">
+                        <div class="l073-code-head">
+                          <strong>Antigravity · Claude Desktop · Cursor (JSON)</strong>
+                          <button type="button" class="l073-copy-btn" data-l073-copy-json>JSON 복사</button>
+                        </div>
+                        <pre class="l073-pre" data-l073-json-output>{initialJson}</pre>
+                      </div>
+                      <div class="l073-code-card l073-code-card-teal">
+                        <div class="l073-code-head">
+                          <strong>OpenAI Codex (config.toml)</strong>
+                          <button type="button" class="l073-copy-btn" data-l073-copy-codex>TOML 복사</button>
+                        </div>
+                        <pre class="l073-pre" data-l073-codex-output>{initialCodex}</pre>
+                      </div>
+                    </div>
+                  </details>
+                </div>
+
+                <h3 id="l073-after-rules">올인원 실행 직후 꼭 지켜야 할 마무리 규칙 3가지</h3>
+                <div class="review-cards">
+                  <article class="review-card">
+                    <h3>1 · SketchUp 무전기 켜기 (매번 필수)</h3>
+                    <p>SketchUp을 <strong>완전히 껐다가 다시 켠 뒤</strong>, 상단 메뉴 <strong><code>확장(X) → MCP Server → Start Server</code></strong>를 클릭해야 포트 <code>9876</code>이 열립니다.</p>
+                  </article>
+                  <article class="review-card">
+                    <h3>2 · AutoCAD 도면 열기 &amp; 권한 일치</h3>
+                    <p>실시간 제어를 쓸 때는 일반 AutoCAD를 먼저 실행해 <strong>새 도면 창</strong>을 열어 두세요. AutoCAD와 AI 앱은 <strong>둘 다 일반 사용자 권한</strong>으로 맞춰야 COM 연결이 막히지 않습니다.</p>
+                  </article>
+                  <article class="review-card">
+                    <h3>3 · AI 프로그램 완전 재시작</h3>
+                    <p>Codex · Antigravity · Claude Desktop · Cursor 중 연결한 프로그램을 <strong>완전히 종료했다가 새로 실행</strong>하면 <code>autocad</code>와 <code>sketchup</code> 도구가 자동으로 인식됩니다.</p>
+                  </article>
+                </div>
+              </>
+            )}
+
+            {/* ================= 02: CONCEPT & COMMERCIAL TRIALS ================= */}
+            {section.id === 'l073-concept-and-trials' && (
+              <>
+                <p>
+                  여기서부터는 올인원 스크립트를 쓰지 않고 <strong>원리를 이해하며 하나씩 직접 설치하는 일반 가이드</strong>입니다.
+                  평소 AI는 문장으로 답만 해 줄 뿐 내 PC의 AutoCAD나 SketchUp을 직접 만질 수 없습니다.
+                  <strong>MCP(Model Context Protocol)</strong>는 <strong>AI(두뇌)</strong>와 <strong>건축 프로그램(손발)</strong> 사이에 놓아주는 <strong>전용 무전기</strong>입니다.
+                </p>
+
+                <div class="l073-svg-box" role="img" aria-label="AI 클라이언트와 AutoCAD, SketchUp 사이의 MCP 연동 구조도">
+                  <svg viewBox="0 0 920 264" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <marker id="l073-arr-navy" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                        <path d="M 0 1 L 10 5 L 0 9 z" fill="#1e3a8a" />
+                      </marker>
+                      <marker id="l073-arr-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                        <path d="M 0 1 L 10 5 L 0 9 z" fill="#0f766e" />
+                      </marker>
+                    </defs>
+                    <rect x="16" y="48" width="218" height="168" rx="12" fill="#0f172a" stroke="#0f172a" stroke-width="2" />
+                    <text x="125" y="82" fill="#93c5fd" font-size="11.5" font-weight="800" text-anchor="middle" letter-spacing="1.2">AI CLIENT (두뇌)</text>
+                    <text x="125" y="112" fill="#ffffff" font-size="15.5" font-weight="700" text-anchor="middle">Codex · Antigravity</text>
+                    <text x="125" y="136" fill="#ffffff" font-size="15.5" font-weight="700" text-anchor="middle">Claude · Cursor</text>
+                    <line x1="40" y1="156" x2="210" y2="156" stroke="#334155" stroke-width="1" />
+                    <text x="125" y="180" fill="#cbd5e1" font-size="12" text-anchor="middle">"6x4m 벽체와 3D 매스 만들어줘"</text>
+                    <text x="125" y="198" fill="#94a3b8" font-size="11" text-anchor="middle">자연어 작업 지시</text>
+
+                    <path d="M 234 98 L 326 72" fill="none" stroke="#1e3a8a" stroke-width="2.2" marker-end="url(#l073-arr-navy)" marker-start="url(#l073-arr-navy)" />
+                    <path d="M 234 166 L 326 192" fill="none" stroke="#0f766e" stroke-width="2.2" marker-end="url(#l073-arr-teal)" marker-start="url(#l073-arr-teal)" />
+                    <text x="278" y="69" fill="#1e3a8a" font-size="11" font-weight="700" text-anchor="middle">stdio</text>
+                    <text x="278" y="207" fill="#0f766e" font-size="11" font-weight="700" text-anchor="middle">stdio</text>
+
+                    <rect x="332" y="20" width="244" height="96" rx="12" fill="#eff6ff" stroke="#1e3a8a" stroke-width="2" />
+                    <text x="454" y="45" fill="#1e3a8a" font-size="11" font-weight="800" text-anchor="middle">MCP 무전기 ① (uvx 자동 실행)</text>
+                    <text x="454" y="71" fill="#0f172a" font-size="15" font-weight="800" text-anchor="middle">autocad-mcp-pro[com]</text>
+                    <text x="454" y="94" fill="#475569" font-size="12" text-anchor="middle">Windows COM + ezdxf 듀얼 엔진</text>
+
+                    <rect x="332" y="148" width="244" height="96" rx="12" fill="#f0fdfa" stroke="#0f766e" stroke-width="2" />
+                    <text x="454" y="173" fill="#0f766e" font-size="11" font-weight="800" text-anchor="middle">MCP 무전기 ② (uvx 자동 실행)</text>
+                    <text x="454" y="199" fill="#0f172a" font-size="15" font-weight="800" text-anchor="middle">sketchup-mcp</text>
+                    <text x="454" y="222" fill="#475569" font-size="12" text-anchor="middle">로컬 TCP 127.0.0.1:9876 통신</text>
+
+                    <line x1="576" y1="68" x2="660" y2="68" stroke="#1e3a8a" stroke-width="2.2" marker-end="url(#l073-arr-navy)" marker-start="url(#l073-arr-navy)" />
+                    <text x="618" y="58" fill="#1e3a8a" font-size="11" font-weight="700" text-anchor="middle">COM / DXF</text>
+
+                    <line x1="576" y1="196" x2="660" y2="196" stroke="#0f766e" stroke-width="2.2" marker-end="url(#l073-arr-teal)" marker-start="url(#l073-arr-teal)" />
+                    <text x="618" y="186" fill="#0f766e" font-size="11" font-weight="700" text-anchor="middle">Port 9876</text>
+
+                    <rect x="666" y="20" width="238" height="96" rx="12" fill="#ffffff" stroke="#0f172a" stroke-width="2" />
+                    <text x="785" y="45" fill="#475569" font-size="11" font-weight="700" text-anchor="middle">2D/3D 도면 프로그램</text>
+                    <text x="785" y="71" fill="#0f172a" font-size="16" font-weight="800" text-anchor="middle">Autodesk AutoCAD</text>
+                    <text x="785" y="94" fill="#475569" font-size="11.5" text-anchor="middle">실시간 제어(일반판) / .dxf 저장</text>
+
+                    <rect x="666" y="148" width="238" height="96" rx="12" fill="#ffffff" stroke="#0f172a" stroke-width="2" />
+                    <text x="785" y="173" fill="#475569" font-size="11" font-weight="700" text-anchor="middle">3D 건축 모델링 + su_mcp 플러그인</text>
+                    <text x="785" y="199" fill="#0f172a" font-size="16" font-weight="800" text-anchor="middle">SketchUp Pro / Studio</text>
+                    <text x="785" y="222" fill="#475569" font-size="11.5" text-anchor="middle">확장(X) &gt; MCP Server &gt; Start Server</text>
+                  </svg>
+                </div>
+
+                <h3 id="l073-trial-howto">상용 프로그램 체험판 직접 설치 안내 (이미 설치되어 있다면 패스)</h3>
+                <div class="l04-table">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>프로그램</th>
+                        <th>무료 체험 기간</th>
+                        <th>결제 · V-Ray 참고</th>
+                        <th>MCP 연동 조건</th>
+                        <th>공식 페이지</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {commercialTrialRows.map((row) => (
+                        <tr>
+                          <td><strong>{row.name}</strong></td>
+                          <td>{row.period}</td>
+                          <td>{row.billing}</td>
+                          <td>{row.mcpCondition}</td>
+                          <td><a href={row.url} target="_blank" rel="noopener">{row.urlLabel} ↗</a></td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="l073-compare-grid">
+                  <article class="l073-compare-card">
+                    <span class="l073-mod-badge">AutoCAD · 15일 무료 체험</span>
+                    <h4>AutoCAD 본체 직접 설치 순서</h4>
+                    <ol class="l073-steps-ol">
+                      {autocadTrialSteps.map((st) => <li>{st}</li>)}
+                    </ol>
+                  </article>
+                  <article class="l073-compare-card l073-compare-card-teal">
+                    <span class="l073-mod-badge l073-badge-teal">SketchUp · 7일 무료 체험 (카드 불필요)</span>
+                    <h4>SketchUp 본체(+V-Ray) 직접 설치 순서</h4>
+                    <ol class="l073-steps-ol">
+                      {sketchupTrialSteps.map((st) => <li>{st}</li>)}
+                    </ol>
+                  </article>
+                </div>
+              </>
+            )}
+
+            {/* ================= 03: COMMON PREREQUISITE (uv / uvx) ================= */}
+            {section.id === 'l073-common-uv' && (
+              <>
+                <p>
+                  수동으로 설치할 때도 <code>git clone</code>이나 가상환경을 직접 만들 필요가 없습니다.
+                  파이썬 도구 실행기인 <strong><code>uv</code>(<code>uvx</code>)</strong>만 딱 한 번 설치해 두면, AI 클라이언트가 AutoCAD MCP와 SketchUp MCP를 자동으로 내려받아 실행합니다.
+                </p>
+
+                <div class="l073-code-card l073-code-card-term">
+                  <div class="l073-code-head">
+                    <div class="l073-head-left">
+                      <span class="l073-kind-badge l073-kind-term">PowerShell</span>
+                      <strong>1) Windows 기본 설치 (winget 추천)</strong>
+                    </div>
+                    <button type="button" class="l073-copy-btn" data-l073-copy={uvInstallWinCmd}>복사</button>
+                  </div>
+                  <pre class="l073-pre l073-pre-term">{uvInstallWinCmd}</pre>
+                </div>
+
+                <div class="l073-code-card l073-code-card-term">
+                  <div class="l073-code-head">
+                    <div class="l073-head-left">
+                      <span class="l073-kind-badge l073-kind-term">PowerShell 대체</span>
+                      <strong>winget 명령이 인식되지 않을 때 (공식 스크립트)</strong>
+                    </div>
+                    <button type="button" class="l073-copy-btn" data-l073-copy={uvInstallWinFallbackCmd}>복사</button>
+                  </div>
+                  <pre class="l073-pre l073-pre-term">{uvInstallWinFallbackCmd}</pre>
+                </div>
+
+                <div class="l073-compare-grid">
+                  <div class="l073-code-card l073-code-card-term" style="margin:0;">
+                    <div class="l073-code-head">
+                      <div class="l073-head-left">
+                        <span class="l073-kind-badge l073-kind-term">macOS</span>
+                        <strong>Mac 터미널 설치</strong>
+                      </div>
+                      <button type="button" class="l073-copy-btn" data-l073-copy={uvInstallMacCmd}>복사</button>
+                    </div>
+                    <pre class="l073-pre l073-pre-term">{uvInstallMacCmd}</pre>
+                  </div>
+                  <div class="l073-code-card l073-code-card-term" style="margin:0;">
+                    <div class="l073-code-head">
+                      <div class="l073-head-left">
+                        <span class="l073-kind-badge l073-kind-term">설치 확인</span>
+                        <strong>창을 닫고 새로 연 뒤 버전 확인</strong>
+                      </div>
+                      <button type="button" class="l073-copy-btn" data-l073-copy={uvVerifyCmd}>복사</button>
+                    </div>
+                    <pre class="l073-pre l073-pre-term">{uvVerifyCmd}</pre>
+                  </div>
+                </div>
+              </>
+            )}
+
+            {/* ================= 04: AUTOCAD MCP MANUAL SETUP ================= */}
+            {section.id === 'l073-autocad-manual' && (
+              <>
+                <p>
+                  PyPI에 공식 배포된 <strong><code>autocad-mcp-pro[com]</code></strong>을 사용합니다.
+                  <code>AUTOCAD_MCP_BACKEND</code>를 <code>auto</code>로 두면 Windows에서 <strong>일반 AutoCAD가 켜져 있을 때는 실시간 화면에 직접 작도</strong>하고,
+                  AutoCAD가 없거나 <strong>AutoCAD LT · macOS</strong> 환경에서도 <code>ezdxf</code> 엔진으로 표준 <code>.dxf</code> 도면 파일을 생성합니다.
+                </p>
+
+                <h3>1단계 · AI 클라이언트 설정 파일에 AutoCAD MCP 등록</h3>
+                <p class="l073-note">
+                  • <strong>Codex:</strong> <code>Win + R</code> → <code>notepad %USERPROFILE%\.codex\config.toml</code> 맨 아래에 TOML 추가<br />
+                  • <strong>Antigravity:</strong> <code>Win + R</code> → <code>notepad %USERPROFILE%\.gemini\config\mcp_config.json</code><br />
+                  • <strong>Claude Desktop:</strong> <code>Win + R</code> → <code>%APPDATA%\Claude</code> 폴더의 <code>claude_desktop_config.json</code><br />
+                  • <strong>Cursor:</strong> <code>Win + R</code> → <code>notepad %USERPROFILE%\.cursor\mcp.json</code>
+                </p>
+
+                <div class="l073-compare-grid">
+                  <div class="l073-code-card" style="margin:0;">
+                    <div class="l073-code-head">
+                      <strong>Antigravity · Claude · Cursor (JSON)</strong>
+                      <button type="button" class="l073-copy-btn" data-l073-copy={manualAutoCadJson}>복사</button>
+                    </div>
+                    <pre class="l073-pre">{manualAutoCadJson}</pre>
+                  </div>
+                  <div class="l073-code-card l073-code-card-teal" style="margin:0;">
+                    <div class="l073-code-head">
+                      <strong>OpenAI Codex (config.toml)</strong>
+                      <button type="button" class="l073-copy-btn" data-l073-copy={manualAutoCadToml}>복사</button>
+                    </div>
+                    <pre class="l073-pre">{manualAutoCadToml}</pre>
+                  </div>
+                </div>
+
+                <h3>2단계 · 실행 순서 3원칙 &amp; 첫 도면 테스트</h3>
+                <ol class="l073-steps-ol l073-steps-boxed">
+                  <li><strong>AutoCAD를 먼저 실행</strong>하고 새 도면(<code>Drawing1.dwg</code>)을 열어 둡니다.</li>
+                  <li><strong>권한 일치 확인:</strong> AutoCAD와 AI 프로그램 <strong>둘 다 일반 사용자 권한</strong>으로 실행합니다. (한쪽만 관리자 권한이면 Windows가 COM 연결을 차단합니다.)</li>
+                  <li><strong>AI 프로그램 완전 종료 후 재시작</strong>한 뒤 아래 프롬프트로 바로 테스트합니다. <em>(최초 실행 시 패키지 내려받기 때문에 잠시 기다려 주세요.)</em></li>
+                </ol>
+
+                <div class="l073-code-card l073-code-card-teal">
+                  <div class="l073-code-head">
+                    <div class="l073-head-left">
+                      <span class="l073-kind-badge l073-kind-prompt">AI 프롬프트</span>
+                      <strong>AutoCAD MCP 첫 연동 테스트 요청문</strong>
+                    </div>
+                    <button type="button" class="l073-copy-btn" data-l073-copy={autocadTestPrompt}>복사</button>
+                  </div>
+                  <pre class="l073-pre">{autocadTestPrompt}</pre>
+                </div>
+              </>
+            )}
+
+            {/* ================= 05: SKETCHUP MCP MANUAL SETUP ================= */}
+            {section.id === 'l073-sketchup-manual' && (
+              <>
+                <p>
+                  SketchUp MCP는 <strong>① SketchUp 내부 루비 플러그인(<code>su_mcp</code>) 설치</strong>와
+                  <strong>② AI 클라이언트에 <code>uvx sketchup-mcp</code> 등록</strong> 두 단계로 완성됩니다.
+                </p>
+
+                <h3>1단계 · SketchUp 플러그인(<code>su_mcp</code>) 수동 설치 (이중 중첩 주의!)</h3>
+                <ol class="l073-steps-ol l073-steps-boxed">
+                  <li><a href="https://github.com/mhyrr/sketchup-mcp" target="_blank" rel="noopener">mhyrr/sketchup-mcp GitHub ↗</a> 접속 → 초록색 <code>&lt;&gt; Code</code> → <strong>Download ZIP</strong> 클릭 후 압축을 풉니다.</li>
+                  <li><code>Win + R</code> → <code>%APPDATA%\SketchUp</code> 입력 → 본인 버전 폴더(예: <code>SketchUp 2027</code>) → <code>SketchUp</code> → <strong><code>Plugins</code></strong> 폴더를 엽니다. <em>(Mac: <code>~/Library/Application Support/SketchUp/SketchUp 202X/SketchUp/Plugins/</code>)</em></li>
+                  <li>압축 푼 폴더 안쪽 <code>su_mcp</code>에 있는 <strong><code>su_mcp.rb</code> 파일</strong>과 <strong>그 안의 <code>su_mcp</code> 폴더(<code>main.rb</code> 포함)</strong> 2가지를 <code>Plugins</code> 안에 복사합니다.</li>
+                  <li><em>참고(.rbz로 설치할 때):</em> <code>su_mcp.rb</code>와 1계층 <code>su_mcp/main.rb</code>만 묶은 <code>.rbz</code> 파일이 있다면, SketchUp 상단 <strong><code>확장(X) → 확장 관리자 → 확장 설치</code></strong>로 2번 클릭해 설치할 수 있습니다. <em>(옛 자료의 <code>창(W)</code> 메뉴가 아니라 최신 버전은 <code>확장(X)</code> 메뉴입니다!)</em></li>
+                </ol>
+
+                <div class="l073-compare-grid">
+                  <article class="l073-tree-bad">
+                    <strong>❌ 가장 흔한 실수 (폴더 이중 중첩 — 메뉴 안 뜸!)</strong>
+                    <pre class="l073-pre l073-pre-term">{`Plugins\\
+ ├── su_mcp.rb
+ └── su_mcp\\
+      └── su_mcp\\        ← 폴더가 한 겹 더 들어감!
+           └── main.rb`}</pre>
+                    <p>확장 관리자에는 <code>Sketchup MCP · 사용</code>으로 표시되지만, <code>main.rb</code>를 못 찾아 상단 <strong>MCP Server 메뉴가 나타나지 않습니다.</strong></p>
+                  </article>
+                  <article class="l073-tree-good">
+                    <strong>✅ 정상 구조 (1계층 — 완벽 작동!)</strong>
+                    <pre class="l073-pre l073-pre-term">{`Plugins\\
+ ├── su_mcp.rb
+ └── su_mcp\\
+      └── main.rb        ← su_mcp 바로 안에 main.rb!`}</pre>
+                    <p>이 구조로 맞추고 SketchUp을 완전히 껐다 켜면 상단 <strong><code>확장(X) &gt; MCP Server &gt; Start Server</code></strong> 메뉴가 즉시 나타납니다.</p>
+                  </article>
+                </div>
+
+                <h3>2단계 · SketchUp 재시작 → <code>Start Server</code> 클릭</h3>
+                <ol class="l073-steps-ol l073-steps-boxed">
+                  <li><strong>SketchUp을 완전히 종료했다가 다시 실행</strong>합니다.</li>
+                  <li>상단 메뉴에서 <strong><code>확장(X) → MCP Server → Start Server</code></strong>를 클릭합니다.</li>
+                  <li><em>콘솔 창이 안 떠도 정상입니다!</em> SketchUp 2024~2027에서는 Ruby 콘솔이 자동으로 팝업되지 않을 수 있습니다. 로그를 보려면 <strong><code>확장(X) → 개발자 → Ruby 콘솔</code></strong>을 직접 열어 두세요.</li>
+                </ol>
+
+                <h3>3단계 · AI 클라이언트 설정 파일에 <code>sketchup</code> 등록</h3>
+                <div class="l073-compare-grid">
+                  <div class="l073-code-card" style="margin:0;">
+                    <div class="l073-code-head">
+                      <strong>SketchUp 단독 (Antigravity · Claude · Cursor)</strong>
+                      <button type="button" class="l073-copy-btn" data-l073-copy={manualSketchUpJson}>복사</button>
+                    </div>
+                    <pre class="l073-pre">{manualSketchUpJson}</pre>
+                  </div>
+                  <div class="l073-code-card l073-code-card-teal" style="margin:0;">
+                    <div class="l073-code-head">
+                      <strong>SketchUp 단독 (OpenAI Codex config.toml)</strong>
+                      <button type="button" class="l073-copy-btn" data-l073-copy={manualSketchUpToml}>복사</button>
+                    </div>
+                    <pre class="l073-pre">{manualSketchUpToml}</pre>
+                  </div>
+                </div>
+
+                <details class="l073-details">
+                  <summary>AutoCAD + SketchUp 두 MCP를 JSON 파일 하나에 함께 적는 표준 예시 보기</summary>
+                  <div class="l073-code-card" style="margin:0.7rem 0 0;">
+                    <div class="l073-code-head">
+                      <strong>AutoCAD + SketchUp 동시 등록 (mcp_config.json / claude_desktop_config.json)</strong>
+                      <button type="button" class="l073-copy-btn" data-l073-copy={manualBothJson}>복사</button>
+                    </div>
+                    <pre class="l073-pre">{manualBothJson}</pre>
+                  </div>
+                </details>
+
+                <h3 id="l073-skp-verify">4단계 · 연동 확인 3종 검증 (포트 9876 · 직접 응답 · AI 3D 생성)</h3>
+                <div class="l073-code-card l073-code-card-term">
+                  <div class="l073-code-head">
+                    <div class="l073-head-left">
+                      <span class="l073-kind-badge l073-kind-term">검증 1 · PowerShell</span>
+                      <strong>포트 9876 열림(LISTENING) 확인</strong>
+                    </div>
+                    <button type="button" class="l073-copy-btn" data-l073-copy={port9876CheckCmd}>복사</button>
+                  </div>
+                  <p class="l073-code-desc"><code>TCP  127.0.0.1:9876  ...  LISTENING</code> 이 한 줄이라도 보이면 SketchUp 서버는 정상 실행 중입니다.</p>
+                  <pre class="l073-pre l073-pre-term">{port9876CheckCmd}</pre>
+                </div>
+
+                <div class="l073-code-card l073-code-card-term">
+                  <div class="l073-code-head">
+                    <div class="l073-head-left">
+                      <span class="l073-kind-badge l073-kind-term">검증 2 · PowerShell</span>
+                      <strong>SketchUp JSON-RPC 직접 통신 테스트 (선택)</strong>
+                    </div>
+                    <button type="button" class="l073-copy-btn" data-l073-copy={sketchUpRpcTestCmd}>복사</button>
+                  </div>
+                  <p class="l073-code-desc"><code>{`{"jsonrpc":"2.0","result":{"resources":[...],"success":true},"id":1}`}</code> 응답이 돌아오면 SketchUp 통신 100% 성공입니다.</p>
+                  <pre class="l073-pre l073-pre-term">{sketchUpRpcTestCmd}</pre>
+                </div>
+
+                <div class="l073-code-card l073-code-card-teal">
+                  <div class="l073-code-head">
+                    <div class="l073-head-left">
+                      <span class="l073-kind-badge l073-kind-prompt">검증 3 · AI 프롬프트</span>
+                      <strong>AI 재시작 후 SketchUp 첫 3D 박스 생성 요청문</strong>
+                    </div>
+                    <button type="button" class="l073-copy-btn" data-l073-copy={sketchupTestPrompt}>복사</button>
+                  </div>
+                  <pre class="l073-pre">{sketchupTestPrompt}</pre>
+                </div>
+              </>
+            )}
+
+            {/* ================= 06: CHECKLIST & FAQ TOP 8 ================= */}
+            {section.id === 'l073-verify-and-faq' && (
+              <>
+                <h3>왕초보 실습 완료 체크리스트 (브라우저 자동 저장)</h3>
+                <div class="l073-cl-wrap" data-l073-checklist>
+                  <div class="l073-cl-head">
+                    <div>
+                      <strong>진행 현황</strong>
+                      <span class="l073-count-pill" data-l073-cl-pct>0 / 8 완료 (0%)</span>
+                    </div>
+                    <button type="button" class="l073-sub-btn" data-l073-cl-reset>체크 초기화</button>
+                  </div>
+                  <div class="l073-cl-bar"><div class="l073-cl-fill" data-l073-cl-fill></div></div>
+                  <div class="l073-cl-list">
+                    {practiceChecklistItems.map((item) => (
+                      <label class="l073-cl-item">
+                        <input type="checkbox" data-l073-cl-id={item.id} />
+                        <div>
+                          <strong>{item.title}</strong>
+                          <p>{item.desc}</p>
+                        </div>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                <h3>자주 막히는 오류 구급상자 (TOP 8)</h3>
+                <div class="l073-faq-list">
+                  {troubleshootingFaq.map((item, idx) => (
+                    <details class="l073-details" open={idx < 2}>
+                      <summary>{item.q}</summary>
+                      <p class="l073-faq-ans">{item.a}</p>
+                    </details>
+                  ))}
+                </div>
+              </>
+            )}
+          </ReviewSection>
+        ))}
+      </div>
+    ))}
+  </div>
+</ReviewLayout>
+
+<script>
+  import {
+    defaultCadSkpSelection,
+    evaluateCadSkpWarnings,
+    buildCadSkpAllInOnePowerShell,
+    buildCadSkpJsonSnippet,
+    buildCadSkpCodexSnippet,
+    type CadSkpInstallerSelection,
+    type AutoCadBackend,
+    type ExistingPolicy,
+  } from '../../content/daejeon-lesson07-3-installer';
+
+  const escapeHtml = (s: string) =>
+    s
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;');
+
+  const utf8ToBase64 = (str: string) => {
+    const bytes = new TextEncoder().encode(str);
+    let bin = '';
+    for (let i = 0; i < bytes.length; i += 1) bin += String.fromCharCode(bytes[i]);
+    return btoa(bin);
+  };
+
+  const buildBatFromPs1 = (ps1Content: string) => {
+    const b64 = utf8ToBase64(ps1Content);
+    const echoLines: string[] = [];
+    for (let i = 0; i < b64.length; i += 76) {
+      echoLines.push('echo ' + b64.slice(i, i + 76));
+    }
+    return [
+      '@echo off',
+      'chcp 65001 >nul',
+      'setlocal',
+      'title Lesson 07-3 AutoCAD & SketchUp MCP All-in-One Setup',
+      'set "B64=%TEMP%\\l073_cad_skp_mcp.b64"',
+      'set "PS1=%TEMP%\\l073_cad_skp_mcp.ps1"',
+      'del /f /q "%B64%" "%PS1%" >nul 2>&1',
+      '(',
+      ...echoLines,
+      ') > "%B64%"',
+      'powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "$b=[Convert]::FromBase64String(((Get-Content -Raw \'%B64%\') -replace \'\\s\',\'\')); [IO.File]::WriteAllBytes(\'%PS1%\', [byte[]](0xEF,0xBB,0xBF) + $b); & \'%PS1%\'"',
+      'del /f /q "%B64%" "%PS1%" >nul 2>&1',
+      'echo.',
+      'pause',
+      'endlocal',
+      '',
+    ].join('\r\n');
+  };
+
+  const copyWithFeedback = async (text: string, btn: HTMLButtonElement | null, okLabel = '복사됨 ✓') => {
+    try {
+      await navigator.clipboard.writeText(text);
+      if (btn) {
+        const orig = btn.textContent;
+        btn.textContent = okLabel;
+        setTimeout(() => {
+          btn.textContent = orig;
+        }, 1500);
+      }
+    } catch {
+      // ignore
+    }
+  };
+
+  const initL073Page = () => {
+    const root = document.querySelector<HTMLElement>('[data-l073-page]');
+    if (!root || root.dataset.l073Bound === 'true') return;
+    root.dataset.l073Bound = 'true';
+
+    // Static copy buttons
+    root.querySelectorAll<HTMLButtonElement>('[data-l073-copy]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        copyWithFeedback(btn.dataset.l073Copy || '', btn);
+      });
+    });
+
+    // Interactive All-in-One Builder
+    const builder = root.querySelector<HTMLElement>('[data-l073-builder]');
+    if (builder) {
+      const modBoxes = Array.from(builder.querySelectorAll<HTMLInputElement>('[data-l073-mod]'));
+      const backendRadios = Array.from(builder.querySelectorAll<HTMLInputElement>('input[name="l073-cad-backend"]'));
+      const policyRadios = Array.from(builder.querySelectorAll<HTMLInputElement>('input[name="l073-existing-policy"]'));
+      const presetBtns = Array.from(builder.querySelectorAll<HTMLButtonElement>('[data-l073-preset]'));
+      const countEl = builder.querySelector<HTMLElement>('[data-l073-count]');
+      const warnEl = builder.querySelector<HTMLElement>('[data-l073-warnings]');
+      const ps1Pre = builder.querySelector<HTMLElement>('[data-l073-script-output]');
+      const jsonPre = builder.querySelector<HTMLElement>('[data-l073-json-output]');
+      const codexPre = builder.querySelector<HTMLElement>('[data-l073-codex-output]');
+      const expandBtn = builder.querySelector<HTMLButtonElement>('[data-l073-expand-script]');
+      const dlPs1Btn = builder.querySelector<HTMLButtonElement>('[data-l073-download-ps1]');
+      const dlBatBtn = builder.querySelector<HTMLButtonElement>('[data-l073-download-bat]');
+      const copyGenBtn = builder.querySelector<HTMLButtonElement>('[data-l073-copy-generated]');
+      const copyJsonBtn = builder.querySelector<HTMLButtonElement>('[data-l073-copy-json]');
+      const copyCodexBtn = builder.querySelector<HTMLButtonElement>('[data-l073-copy-codex]');
+
+      const readSelection = (): CadSkpInstallerSelection => {
+        const sel: CadSkpInstallerSelection = { ...defaultCadSkpSelection };
+        for (const box of modBoxes) {
+          const k = box.dataset.l073Mod as keyof CadSkpInstallerSelection;
+          if (k && typeof sel[k] === 'boolean') {
+            (sel as unknown as Record<string, boolean>)[k] = box.checked;
+          }
+        }
+        const checkedBackend = backendRadios.find((r) => r.checked)?.value as AutoCadBackend | undefined;
+        if (checkedBackend) sel.autocadBackend = checkedBackend;
+        const checkedPolicy = policyRadios.find((r) => r.checked)?.value as ExistingPolicy | undefined;
+        if (checkedPolicy) sel.existingPolicy = checkedPolicy;
+        return sel;
+      };
+
+      const renderBuilder = () => {
+        const sel = readSelection();
+        const checkedCount = modBoxes.filter((b) => b.checked).length;
+        if (countEl) countEl.textContent = `선택됨: ${checkedCount} / ${modBoxes.length}개 항목`;
+
+        const warnings = evaluateCadSkpWarnings(sel);
+        if (warnEl) {
+          if (warnings.length === 0) {
+            warnEl.hidden = true;
+            warnEl.innerHTML = '';
+          } else {
+            warnEl.hidden = false;
+            warnEl.innerHTML = warnings
+              .map(
+                (w) => `<div class="l073-warn-item" data-warn-id="${escapeHtml(w.id)}">
+                  <strong>⚠️ ${escapeHtml(w.title)}</strong>
+                  <p>${escapeHtml(w.detail)}</p>
+                </div>`,
+              )
+              .join('');
+          }
+        }
+
+        if (ps1Pre) ps1Pre.textContent = buildCadSkpAllInOnePowerShell(sel);
+        if (jsonPre) jsonPre.textContent = buildCadSkpJsonSnippet(sel);
+        if (codexPre) codexPre.textContent = buildCadSkpCodexSnippet(sel);
+      };
+
+      const applyPreset = (preset: string) => {
+        const map: Record<string, boolean> = {
+          pythonUv: preset !== 'none',
+          autocadMcp: preset === 'all' || preset === 'autocad',
+          sketchupPlugin: preset === 'all' || preset === 'sketchup',
+          sketchupMcp: preset === 'all' || preset === 'sketchup',
+          codexConfig: preset !== 'none',
+          antigravityConfig: preset !== 'none',
+          claudeConfig: preset !== 'none',
+          cursorConfig: false,
+          backupExisting: preset !== 'none',
+          runDiagnostics: preset !== 'none',
+        };
+        for (const box of modBoxes) {
+          const k = box.dataset.l073Mod || '';
+          if (k in map) box.checked = map[k];
+        }
+        presetBtns.forEach((b) => {
+          const active = b.dataset.l073Preset === preset;
+          b.classList.toggle('is-active', active);
+          b.setAttribute('aria-pressed', String(active));
+        });
+        renderBuilder();
+      };
+
+      presetBtns.forEach((btn) => {
+        btn.addEventListener('click', () => applyPreset(btn.dataset.l073Preset || 'all'));
+      });
+
+      [...modBoxes, ...backendRadios, ...policyRadios].forEach((input) => {
+        input.addEventListener('change', () => {
+          presetBtns.forEach((b) => {
+            b.classList.remove('is-active');
+            b.setAttribute('aria-pressed', 'false');
+          });
+          renderBuilder();
+        });
+      });
+
+      copyGenBtn?.addEventListener('click', () => copyWithFeedback(ps1Pre?.textContent || '', copyGenBtn, '맞춤 명령어 복사됨 ✓'));
+      copyJsonBtn?.addEventListener('click', () => copyWithFeedback(jsonPre?.textContent || '', copyJsonBtn, 'JSON 복사됨 ✓'));
+      copyCodexBtn?.addEventListener('click', () => copyWithFeedback(codexPre?.textContent || '', copyCodexBtn, 'TOML 복사됨 ✓'));
+
+      dlPs1Btn?.addEventListener('click', () => {
+        const text = ps1Pre?.textContent || '';
+        const blob = new Blob(['\uFEFF' + text], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'setup-cad-sketchup-mcp.ps1';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      });
+
+      dlBatBtn?.addEventListener('click', () => {
+        const bat = buildBatFromPs1(ps1Pre?.textContent || '');
+        const blob = new Blob([bat], { type: 'application/x-msdos-program' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'setup-cad-sketchup-mcp.bat';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      });
+
+      expandBtn?.addEventListener('click', () => {
+        if (!ps1Pre) return;
+        const expanded = ps1Pre.classList.toggle('is-expanded');
+        expandBtn.textContent = expanded ? '코드 창 접어 두기' : '코드 창 크게 보기';
+      });
+
+      renderBuilder();
+    }
+
+    // Practice Checklist with localStorage
+    const clWrap = root.querySelector<HTMLElement>('[data-l073-checklist]');
+    if (clWrap) {
+      const STORAGE_KEY = 'daejeon-2026:l073-cad-skp-checklist-v1';
+      const boxes = Array.from(clWrap.querySelectorAll<HTMLInputElement>('[data-l073-cl-id]'));
+      const pctEl = clWrap.querySelector<HTMLElement>('[data-l073-cl-pct]');
+      const fillEl = clWrap.querySelector<HTMLElement>('[data-l073-cl-fill]');
+      const resetBtn = clWrap.querySelector<HTMLButtonElement>('[data-l073-cl-reset]');
+
+      const syncChecklist = () => {
+        const state: Record<string, boolean> = {};
+        let done = 0;
+        for (const box of boxes) {
+          const id = box.dataset.l073ClId || '';
+          state[id] = box.checked;
+          box.closest('.l073-cl-item')?.classList.toggle('is-done', box.checked);
+          if (box.checked) done += 1;
+        }
+        const pct = Math.round((done / boxes.length) * 100);
+        if (pctEl) pctEl.textContent = `${done} / ${boxes.length} 완료 (${pct}%)`;
+        if (fillEl) fillEl.style.width = `${pct}%`;
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch {
+          // ignore
+        }
+      };
+
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}') as Record<string, boolean>;
+        for (const box of boxes) {
+          const id = box.dataset.l073ClId || '';
+          if (saved[id]) box.checked = true;
+        }
+      } catch {
+        // ignore
+      }
+
+      boxes.forEach((b) => b.addEventListener('change', syncChecklist));
+      resetBtn?.addEventListener('click', () => {
+        boxes.forEach((b) => {
+          b.checked = false;
+        });
+        syncChecklist();
+      });
+      syncChecklist();
+    }
+  };
+
+  initL073Page();
+  document.addEventListener('astro:page-load', initL073Page);
+</script>
+
+<style>
+  .l073-page a,
+  .l073-page code,
+  .l073-page summary,
+  .l073-page li,
+  .l073-page p {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+  .l073-page .l04-table {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .l073-quick-index {
+    margin: 1.75rem 0 2.5rem;
+    padding: 1.35rem 1.45rem;
+    border-radius: 14px;
+    border: 1.5px solid #cbd5e1;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgb(15 23 42 / 5%);
+  }
+  .l073-quick-index-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.45rem 1rem;
+    margin-bottom: 0.95rem;
+    padding-bottom: 0.7rem;
+    border-bottom: 1px dashed #cbd5e1;
+  }
+  .l073-quick-index-head strong {
+    font-size: 0.98rem;
+    color: #0f172a;
+  }
+  .l073-quick-index-head span {
+    font-size: 0.83rem;
+    color: #475569;
+  }
+  .l073-quick-index-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.55rem;
+  }
+  .l073-quick-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.48rem 0.65rem;
+    border-radius: 9px;
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    color: #0f172a;
+    text-decoration: none;
+    font-size: 0.81rem;
+    line-height: 1.38;
+  }
+  .l073-quick-chip:hover {
+    border-color: #1e3a8a;
+    background: #eff6ff;
+    color: #1e3a8a;
+  }
+  .l073-quick-code {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.35rem;
+    padding: 0.14rem 0.42rem;
+    border-radius: 6px;
+    background: #1e3a8a;
+    color: #ffffff;
+    font-size: 0.73rem;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  .l073-notice-amber {
+    margin: 1rem 0 1.4rem;
+    padding: 1.1rem 1.25rem;
+    border-radius: 12px;
+    border: 1.5px solid #f59e0b;
+    background: #fffbeb;
+    color: #78350f;
+  }
+  .l073-notice-amber strong {
+    display: block;
+    font-size: 0.95rem;
+    color: #92400e;
+    margin-bottom: 0.35rem;
+  }
+  .l073-notice-amber p {
+    margin: 0;
+    font-size: 0.87rem;
+    line-height: 1.62;
+  }
+  .l073-link-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+  .l073-ext-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.42rem 0.82rem;
+    border-radius: 8px;
+    border: 1px solid #92400e;
+    background: #ffffff;
+    color: #92400e;
+    font-size: 0.81rem;
+    font-weight: 800;
+    text-decoration: none;
+  }
+  .l073-ext-btn:hover {
+    background: #92400e;
+    color: #ffffff;
+  }
+  .l073-ext-btn-sub {
+    border-color: #cbd5e1;
+    color: #1e3a8a;
+  }
+  .l073-ext-btn-sub:hover {
+    background: #1e3a8a;
+    border-color: #1e3a8a;
+    color: #ffffff;
+  }
+
+  /* Interactive All-in-One Builder */
+  .l073-builder {
+    margin: 1.25rem 0 2.1rem;
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 2px solid #93c5fd;
+    background: linear-gradient(180deg, #eff6ff 0%, #ffffff 18%);
+    box-shadow: 0 6px 20px rgb(15 23 42 / 6%);
+  }
+  .l073-builder-top {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-bottom: 1.1rem;
+    margin-bottom: 1.2rem;
+    border-bottom: 1px solid #cbd5e1;
+  }
+  .l073-builder-top > div:first-child {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.4rem 1rem;
+  }
+  .l073-builder-top strong {
+    font-size: 1rem;
+    color: #0f172a;
+  }
+  .l073-builder-top span {
+    font-size: 0.84rem;
+    color: #475569;
+  }
+  .l073-preset-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .l073-preset-btn {
+    padding: 0.48rem 0.85rem;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #1e3a8a;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .l073-preset-btn:hover {
+    background: #f1f5f9;
+  }
+  .l073-preset-btn.is-active {
+    background: #1e3a8a;
+    border-color: #1e3a8a;
+    color: #ffffff;
+  }
+
+  .l073-builder-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+  }
+  .l073-option-group,
+  .l073-check-fieldset {
+    min-width: 0;
+    margin: 0;
+    padding: 1rem 1.1rem;
+    border-radius: 12px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+  }
+  .l073-option-group legend,
+  .l073-check-fieldset legend {
+    padding: 0 0.4rem;
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #0f172a;
+  }
+  .l073-radio-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    padding: 0.62rem 0.7rem;
+    margin-top: 0.5rem;
+    border-radius: 9px;
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    cursor: pointer;
+  }
+  .l073-radio-card:has(input:checked) {
+    border-color: #1d4ed8;
+    background: #eff6ff;
+  }
+  .l073-radio-card input {
+    width: 1.05rem !important;
+    height: 1.05rem !important;
+    flex: 0 0 1.05rem;
+    margin: 0.22rem 0 0;
+    accent-color: #1d4ed8;
+  }
+  .l073-radio-card > div,
+  .l073-check-body {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .l073-radio-card strong {
+    display: block;
+    font-size: 0.85rem;
+    color: #0f172a;
+    line-height: 1.42;
+  }
+  .l073-radio-card p {
+    margin: 0.22rem 0 0;
+    font-size: 0.79rem;
+    line-height: 1.5;
+    color: #475569;
+  }
+  .l073-rec-pill {
+    display: inline-block;
+    margin-left: 0.25rem;
+    padding: 0.08rem 0.42rem;
+    border-radius: 999px;
+    background: #1e3a8a;
+    color: #ffffff;
+    font-size: 0.7rem;
+    font-weight: 800;
+    vertical-align: middle;
+  }
+
+  .l073-check-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+    margin-top: 0.55rem;
+  }
+  .l073-check-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    padding: 0.75rem 0.85rem;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    cursor: pointer;
+  }
+  .l073-check-card:has(input:checked) {
+    border-color: #93c5fd;
+    background: #ffffff;
+    box-shadow: 0 1px 4px rgb(15 23 42 / 5%);
+  }
+  .l073-check-card input {
+    margin-top: 0.28rem;
+    width: 1.05rem;
+    height: 1.05rem;
+    accent-color: #1d4ed8;
+    flex-shrink: 0;
+  }
+  .l073-check-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 0.28rem;
+  }
+  .l073-mod-group {
+    padding: 0.1rem 0.45rem;
+    border-radius: 5px;
+    background: #e2e8f0;
+    color: #334155;
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+  .l073-mod-badge {
+    display: inline-block;
+    padding: 0.12rem 0.48rem;
+    border-radius: 5px;
+    background: #dbeafe;
+    color: #1e3a8a;
+    font-size: 0.71rem;
+    font-weight: 800;
+  }
+  .l073-badge-teal {
+    background: #ccfbf1;
+    color: #0f766e;
+  }
+  .l073-check-body strong {
+    display: block;
+    font-size: 0.87rem;
+    color: #0f172a;
+    line-height: 1.4;
+  }
+  .l073-check-body p {
+    margin: 0.22rem 0 0;
+    font-size: 0.79rem;
+    line-height: 1.5;
+    color: #475569;
+  }
+
+  .l073-warning-list {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .l073-warning-list[hidden] {
+    display: none !important;
+  }
+  :global(.l073-warn-item) {
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    border: 1.5px solid #f59e0b;
+    background: #fffbeb;
+    color: #78350f;
+  }
+  :global(.l073-warn-item strong) {
+    display: block;
+    font-size: 0.88rem;
+    color: #92400e;
+    margin-bottom: 0.22rem;
+  }
+  :global(.l073-warn-item p) {
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.55;
+  }
+
+  .l073-output-panel {
+    margin-top: 1.15rem;
+    padding: 1.1rem 1.15rem;
+    border-radius: 12px;
+    border: 1.5px solid #cbd5e1;
+    background: #f8fafc;
+  }
+  .l073-output-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-bottom: 0.65rem;
+  }
+  .l073-output-title {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .l073-output-title strong {
+    font-size: 0.95rem;
+    color: #0f172a;
+  }
+  .l073-count-pill {
+    padding: 0.18rem 0.55rem;
+    border-radius: 999px;
+    background: #dbeafe;
+    color: #1e3a8a;
+    font-size: 0.75rem;
+    font-weight: 800;
+  }
+  .l073-output-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+  .l073-sub-btn {
+    padding: 0.42rem 0.78rem;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #1e3a8a;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .l073-sub-btn:hover {
+    background: #f1f5f9;
+  }
+  .l073-bat-btn {
+    padding: 0.44rem 0.88rem;
+    border-radius: 8px;
+    border: 1px solid #0f766e;
+    background: #0f766e;
+    color: #ffffff;
+    font-size: 0.81rem;
+    font-weight: 800;
+    cursor: pointer;
+  }
+  .l073-bat-btn:hover {
+    background: #115e59;
+    border-color: #115e59;
+  }
+  .l073-copy-btn {
+    padding: 0.34rem 0.78rem;
+    border-radius: 7px;
+    border: 1px solid #1e3a8a;
+    background: #1e3a8a;
+    color: #ffffff;
+    font-size: 0.79rem;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .l073-copy-btn:hover {
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+  }
+  .l073-copy-main-btn {
+    padding: 0.45rem 1rem !important;
+    font-size: 0.83rem !important;
+  }
+  .l073-output-howto {
+    margin: 0 0 0.75rem;
+    font-size: 0.83rem;
+    line-height: 1.62;
+    color: #334155;
+  }
+
+  .l073-pre {
+    margin: 0;
+    padding: 0.9rem 1rem;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #0f172a;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.82rem;
+    line-height: 1.62;
+    overflow-x: auto;
+    white-space: pre;
+  }
+  .l073-pre-term {
+    background: #0f172a;
+    border-color: #1e293b;
+    color: #f8fafc;
+  }
+  .l073-pre-scroll {
+    max-height: 22rem;
+    overflow-y: auto;
+  }
+  .l073-pre-scroll.is-expanded {
+    max-height: none;
+  }
+
+  .l073-details {
+    margin-top: 1rem;
+    padding: 0.85rem 1.05rem;
+    border-radius: 11px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+  }
+  .l073-details summary {
+    cursor: pointer;
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: #0f172a;
+  }
+  .l073-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+    margin-top: 0.85rem;
+  }
+
+  .l073-svg-box {
+    margin: 1.25rem 0 1.65rem;
+    padding: 1rem;
+    border-radius: 14px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    overflow-x: auto;
+  }
+  .l073-svg-box svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .l073-compare-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 1rem 0 1.35rem;
+  }
+  .l073-compare-card {
+    padding: 1.1rem 1.2rem;
+    border-radius: 13px;
+    border: 1.5px solid #cbd5e1;
+    background: #ffffff;
+  }
+  .l073-compare-card-teal {
+    border-color: #5eead4;
+    background: linear-gradient(180deg, #f0fdfa 0%, #ffffff 32%);
+  }
+  .l073-compare-card h4 {
+    margin: 0.5rem 0 0.65rem;
+    font-size: 0.96rem;
+    color: #0f172a;
+  }
+  .l073-steps-ol {
+    margin: 0;
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    font-size: 0.86rem;
+    line-height: 1.62;
+    color: #334155;
+  }
+  .l073-steps-boxed {
+    padding: 1rem 1.15rem 1rem 2.2rem;
+    border-radius: 12px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    margin: 0.85rem 0 1.25rem;
+  }
+
+  .l073-code-card {
+    margin: 1rem 0;
+    padding: 1rem 1.1rem;
+    border-radius: 12px;
+    border: 1.5px solid #cbd5e1;
+    background: #f8fafc;
+  }
+  .l073-code-card-teal {
+    border-color: #5eead4;
+    background: #f0fdfa;
+  }
+  .l073-code-card-term {
+    border-color: #334155;
+    background: #f1f5f9;
+  }
+  .l073-code-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+  }
+  .l073-code-head strong {
+    font-size: 0.88rem;
+    color: #0f172a;
+  }
+  .l073-head-left {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+  .l073-kind-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.16rem 0.52rem;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 800;
+  }
+  .l073-kind-term {
+    background: #0f172a;
+    color: #f8fafc;
+  }
+  .l073-kind-prompt {
+    background: #0f766e;
+    color: #ffffff;
+  }
+  .l073-code-desc {
+    margin: 0 0 0.5rem;
+    font-size: 0.82rem;
+    color: #475569;
+  }
+  .l073-note {
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: #334155;
+  }
+
+  .l073-tree-bad,
+  .l073-tree-good {
+    padding: 1rem 1.15rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .l073-tree-bad {
+    border: 2px solid #dc2626;
+    background: #fef2f2;
+  }
+  .l073-tree-bad strong {
+    color: #991b1b;
+    font-size: 0.9rem;
+  }
+  .l073-tree-good {
+    border: 2px solid #059669;
+    background: #ecfdf5;
+  }
+  .l073-tree-good strong {
+    color: #065f46;
+    font-size: 0.9rem;
+  }
+  .l073-tree-bad p,
+  .l073-tree-good p {
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.55;
+  }
+
+  /* Checklist */
+  .l073-cl-wrap {
+    margin: 0.85rem 0 1.75rem;
+    padding: 1.15rem 1.25rem;
+    border-radius: 14px;
+    border: 1.5px solid #cbd5e1;
+    background: #ffffff;
+  }
+  .l073-cl-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 0.65rem;
+  }
+  .l073-cl-head > div {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+  .l073-cl-bar {
+    height: 8px;
+    border-radius: 999px;
+    background: #e2e8f0;
+    overflow: hidden;
+    margin-bottom: 0.9rem;
+  }
+  .l073-cl-fill {
+    height: 100%;
+    width: 0%;
+    background: #0f766e;
+    transition: width 160ms ease;
+  }
+  .l073-cl-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .l073-cl-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    padding: 0.65rem 0.8rem;
+    border-radius: 9px;
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    cursor: pointer;
+  }
+  .l073-cl-item.is-done {
+    border-color: #99f6e4;
+    background: #f0fdfa;
+  }
+  .l073-cl-item.is-done strong {
+    text-decoration: line-through;
+    color: #64748b;
+  }
+  .l073-cl-item input {
+    width: 1.1rem;
+    height: 1.1rem;
+    margin-top: 0.2rem;
+    accent-color: #0f766e;
+    flex-shrink: 0;
+  }
+  .l073-cl-item strong {
+    display: block;
+    font-size: 0.88rem;
+    color: #0f172a;
+  }
+  .l073-cl-item p {
+    margin: 0.15rem 0 0;
+    font-size: 0.8rem;
+    color: #475569;
+  }
+
+  .l073-faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .l073-faq-ans {
+    margin: 0.65rem 0 0;
+    padding-top: 0.6rem;
+    border-top: 1px dashed #cbd5e1;
+    font-size: 0.87rem;
+    line-height: 1.65;
+    color: #334155;
+  }
+
+  @media (max-width: 960px) {
+    .l073-quick-index-grid,
+    .l073-builder-options,
+    .l073-check-grid,
+    .l073-compare-grid,
+    .l073-preview-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media print {
+    .l073-copy-btn,
+    .l073-preset-row,
+    .l073-sub-btn,
+    .l073-bat-btn {
+      display: none !important;
+    }
+    .l073-pre-scroll {
+      max-height: none !important;
+    }
+  }
+</style>
