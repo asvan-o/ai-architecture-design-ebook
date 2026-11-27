@@ -39,6 +39,65 @@ export const defaultCadSkpSelection: CadSkpInstallerSelection = {
   existingPolicy: 'skip',
 };
 
+/**
+ * sketchup-mcp 0.1.17 호환 브리지 Python 코드
+ * - PyPI 최신 mcp 2.x에서 mcp.server.fastmcp가 제거되어 크래시되는 문제 해결 (--with "mcp<2")
+ * - sketchup-mcp 0.1.17이 FastMCP(name, description=...)를 호출해 TypeError가 나는 문제 패치
+ * - su_mcp/main.rb의 1요청-1소켓(TCP 9876) 및 tools/call 프로토콜에 맞춰 안정적 통신 보장
+ */
+export const sketchupCompatShimPy = `"""Run sketchup-mcp 0.1.17 with the MCP 1.x SDK and the bundled extension."""
+
+import json
+import socket
+from importlib import import_module
+from unittest.mock import patch
+from uuid import uuid4
+
+from mcp.server.fastmcp import FastMCP
+
+
+class SketchUpConnection:
+    def send_command(self, method, params=None, request_id=None):
+        if method != "tools/call":
+            params = {"name": method, "arguments": params or {}}
+        request_id = request_id if request_id is not None else uuid4().hex
+        request = {
+            "jsonrpc": "2.0",
+            "method": "tools/call",
+            "params": params,
+            "id": request_id,
+        }
+        # The SketchUp extension handles one request on each connection.
+        with socket.create_connection(("127.0.0.1", 9876), timeout=60) as sock:
+            sock.sendall(json.dumps(request).encode("utf-8") + b"\\n")
+            with sock.makefile("r", encoding="utf-8") as stream:
+                reply = json.loads(stream.readline())
+        if reply.get("id") != request_id:
+            raise RuntimeError("SketchUp returned a response for a different request")
+        if "error" in reply:
+            raise RuntimeError(reply["error"].get("message", "SketchUp tool failed"))
+        result = reply["result"]
+        if result.get("isError") or result.get("success") is False:
+            raise RuntimeError(str(result.get("content", "SketchUp tool failed")))
+        return result
+
+
+def main():
+    # Version 0.1.17 passes description= to the MCP 1.x constructor.
+    def create_server(name, *, description, **kwargs):
+        return FastMCP(name, instructions=description, **kwargs)
+
+    with patch("mcp.server.fastmcp.FastMCP", new=create_server):
+        server = import_module("sketchup_mcp.server")
+    connection = SketchUpConnection()
+    server.get_sketchup_connection = lambda: connection
+    server.main()
+
+
+if __name__ == "__main__":
+    main()
+`;
+
 export const cadSkpModuleMeta = [
   {
     key: 'pythonUv' as const,
@@ -52,9 +111,9 @@ export const cadSkpModuleMeta = [
     key: 'autocadMcp' as const,
     group: 'AutoCAD MCP',
     badge: '2D·3D CAD',
-    title: 'AutoCAD MCP (autocad-mcp-pro[com] 듀얼 엔진)',
+    title: 'AutoCAD MCP (autocad-mcp-pro[com] + 버전별 CAD_PROGID 자동 감지)',
     summary:
-      'Windows AutoCAD(일반판·체험판) 실시간 COM 제어와 미설치·LT 환경용 ezdxf 도면 생성을 모두 지원합니다. (AutoCAD 본체는 공식 사이트에서 직접 설치)',
+      'AutoCAD 2025~2027의 실제 COM ProgID(예: AutoCAD.Application.26)를 레지스트리에서 자동 탐지해 설정하고, 미설치·LT PC는 자동으로 ezdxf 모드로 전환하며 uvx 패키지 사전 캐싱까지 끝냅니다.',
   },
   {
     key: 'sketchupPlugin' as const,
@@ -67,18 +126,18 @@ export const cadSkpModuleMeta = [
   {
     key: 'sketchupMcp' as const,
     group: 'SketchUp MCP',
-    badge: '로컬 9876 연결',
-    title: 'SketchUp MCP 브리지 (uvx sketchup-mcp)',
+    badge: 'MCP 1.x 호환 패치',
+    title: 'SketchUp MCP 호환 브리지 (sketchup-mcp==0.1.17 + mcp<2 + compat.py)',
     summary:
-      'AI 클라이언트와 SketchUp 내부 루비 서버(127.0.0.1:9876)를 실시간으로 이어 주는 표준 MCP 서버 항목을 구성합니다.',
+      'PyPI 최신 mcp 2.x 충돌(ModuleNotFoundError)과 FastMCP(description=) 오류를 막기 위해 %LOCALAPPDATA%\\Ebook73Mcp\\sketchup_mcp_compat.py를 자동 생성하고 안정적으로 연결합니다.',
   },
   {
     key: 'codexConfig' as const,
     group: 'AI 클라이언트',
     badge: 'Codex',
-    title: 'OpenAI Codex (config.toml) 스마트 병합 + 안전 종료',
+    title: 'OpenAI Codex (config.toml) 스마트 병합',
     summary:
-      '실행 중인 Codex 잔여 프로세스를 안전하게 내린 뒤, 기존 MCP(Blender·FreeCAD 등)는 그대로 보존하고 체크한 항목만 %USERPROFILE%\\.codex\\config.toml에 반영합니다.',
+      '기존 MCP(Blender·FreeCAD 등)는 그대로 보존하고 체크한 항목만 %USERPROFILE%\\.codex\\config.toml에 중복·깨짐 없이 안전하게 반영합니다.',
   },
   {
     key: 'antigravityConfig' as const,
@@ -118,7 +177,7 @@ export const cadSkpModuleMeta = [
     badge: '자동 진단',
     title: '설치 완료 후 PC 연동 상태 자동 진단표 출력',
     summary:
-      'uvx 경로, AutoCAD 감지 여부, SketchUp su_mcp 1계층 정상 여부, 포트 9876 열림 상태, AI 설정 등록 결과를 한눈에 표로 점검합니다.',
+      'uvx 경로, AutoCAD 감지 및 CAD_PROGID, 숨은 백그라운드 acad.exe 여부, SketchUp su_mcp 1계층 정상 여부, 포트 9876, 설정 등록 결과를 한눈에 점검합니다.',
   },
 ] as const;
 
@@ -179,7 +238,7 @@ export function evaluateCadSkpWarnings(sel: CadSkpInstallerSelection): CadSkpSet
       id: 'client-without-mcp',
       title: 'AI 클라이언트는 선택되었지만 등록할 MCP가 없습니다',
       detail:
-        'AutoCAD MCP 또는 SketchUp MCP(uvx sketchup-mcp) 중 하나 이상을 체크해야 AI 설정 파일에 새 항목이 추가됩니다.',
+        'AutoCAD MCP 또는 SketchUp MCP 중 하나 이상을 체크해야 AI 설정 파일에 새 항목이 추가됩니다.',
     });
   }
 
@@ -189,19 +248,30 @@ export function evaluateCadSkpWarnings(sel: CadSkpInstallerSelection): CadSkpSet
 export function buildCadSkpJsonSnippet(sel: CadSkpInstallerSelection): string {
   const mcpServers: Record<string, unknown> = {};
   if (sel.autocadMcp) {
+    const env: Record<string, string> = {
+      AUTOCAD_MCP_BACKEND: sel.autocadBackend === 'auto' ? 'com' : sel.autocadBackend,
+      DISCOVERY_MODE: 'search',
+    };
+    if (sel.autocadBackend !== 'ezdxf') {
+      env.CAD_PROGID = 'AutoCAD.Application.26';
+    }
     mcpServers.autocad = {
       command: 'uvx',
       args: ['--from', 'autocad-mcp-pro[com]', 'autocad-mcp'],
-      env: {
-        AUTOCAD_MCP_BACKEND: sel.autocadBackend,
-        DISCOVERY_MODE: 'search',
-      },
+      env,
     };
   }
   if (sel.sketchupMcp) {
     mcpServers.sketchup = {
       command: 'uvx',
-      args: ['sketchup-mcp'],
+      args: [
+        '--from',
+        'sketchup-mcp==0.1.17',
+        '--with',
+        'mcp<2',
+        'python',
+        'C:\\Users\\<내계정>\\AppData\\Local\\Ebook73Mcp\\sketchup_mcp_compat.py',
+      ],
     };
   }
   if (Object.keys(mcpServers).length === 0) {
@@ -213,6 +283,11 @@ export function buildCadSkpJsonSnippet(sel: CadSkpInstallerSelection): string {
 export function buildCadSkpCodexSnippet(sel: CadSkpInstallerSelection): string {
   const blocks: string[] = [];
   if (sel.autocadMcp) {
+    const envLines = [
+      sel.autocadBackend !== 'ezdxf' ? 'CAD_PROGID = "AutoCAD.Application.26"' : null,
+      `AUTOCAD_MCP_BACKEND = "${sel.autocadBackend === 'auto' ? 'com' : sel.autocadBackend}"`,
+      'DISCOVERY_MODE = "search"',
+    ].filter(Boolean);
     blocks.push(
       [
         '[mcp_servers.autocad]',
@@ -221,8 +296,7 @@ export function buildCadSkpCodexSnippet(sel: CadSkpInstallerSelection): string {
         'startup_timeout_sec = 90',
         '',
         '[mcp_servers.autocad.env]',
-        `AUTOCAD_MCP_BACKEND = "${sel.autocadBackend}"`,
-        'DISCOVERY_MODE = "search"',
+        ...envLines,
       ].join('\n'),
     );
   }
@@ -231,7 +305,7 @@ export function buildCadSkpCodexSnippet(sel: CadSkpInstallerSelection): string {
       [
         '[mcp_servers.sketchup]',
         'command = "uvx"',
-        'args = ["sketchup-mcp"]',
+        'args = ["--from", "sketchup-mcp==0.1.17", "--with", "mcp<2", "python", \'C:\\Users\\<내계정>\\AppData\\Local\\Ebook73Mcp\\sketchup_mcp_compat.py\']',
         'startup_timeout_sec = 60',
       ].join('\n'),
     );
@@ -258,19 +332,21 @@ export function buildCadSkpAllInOnePowerShell(sel: CadSkpInstallerSelection): st
   }
 
   const psBool = (v: boolean) => (v ? '$true' : '$false');
+  const encodeAsciiBase64 = (ascii: string): string => globalThis.btoa(ascii);
   const lines: string[] = [];
 
   lines.push('# ====================================================================');
   lines.push('# 제7-3차시 · AutoCAD & SketchUp MCP 올인원 자동 연동 스크립트 (Windows)');
   lines.push('# 안내: AutoCAD / SketchUp 상용 본체는 공식 체험판에서 직접 설치하세요.');
-  lines.push('#       이미 설치된 프로그램은 건드리지 않고 패스하며 MCP와 플러그인만 구성합니다.');
+  lines.push('#       이미 설치된 본체는 패스하며, 버전별 CAD_PROGID와 SketchUp 호환');
+  lines.push('#       브리지(mcp<2)까지 자동으로 안전하게 구성합니다.');
   lines.push('# ====================================================================');
   lines.push('$ErrorActionPreference = "Stop"');
   lines.push('[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12');
   lines.push('');
   lines.push(`$DoUv          = ${psBool(sel.pythonUv)}`);
   lines.push(`$DoAutoCAD     = ${psBool(sel.autocadMcp)}`);
-  lines.push(`$CadBackend    = "${sel.autocadBackend}"`);
+  lines.push(`$CadBackendReq = "${sel.autocadBackend}"`);
   lines.push(`$DoSkpPlugin   = ${psBool(sel.sketchupPlugin)}`);
   lines.push(`$DoSkpMcp      = ${psBool(sel.sketchupMcp)}`);
   lines.push(`$DoCodex       = ${psBool(sel.codexConfig)}`);
@@ -295,6 +371,17 @@ export function buildCadSkpAllInOnePowerShell(sel: CadSkpInstallerSelection): st
   lines.push('  }');
   lines.push('}');
   lines.push('');
+  lines.push('function Invoke-NativeQuiet([string]$Exe, [string[]]$ArgList) {');
+  lines.push('  $prevEap = $ErrorActionPreference');
+  lines.push('  $ErrorActionPreference = "Continue"');
+  lines.push('  try {');
+  lines.push('    & $Exe @ArgList 2>&1 | Out-Null');
+  lines.push('    return $LASTEXITCODE');
+  lines.push('  } finally {');
+  lines.push('    $ErrorActionPreference = $prevEap');
+  lines.push('  }');
+  lines.push('}');
+  lines.push('');
   lines.push('function Refresh-SessionPath {');
   lines.push('  $m = [System.Environment]::GetEnvironmentVariable("Path", "Machine")');
   lines.push('  $u = [System.Environment]::GetEnvironmentVariable("Path", "User")');
@@ -315,11 +402,45 @@ export function buildCadSkpAllInOnePowerShell(sel: CadSkpInstallerSelection): st
   lines.push('  return "uvx"');
   lines.push('}');
   lines.push('');
+  lines.push('function Resolve-AutoCadProgId {');
+  lines.push('  $versioned = @()');
+  lines.push('  foreach ($k in [Microsoft.Win32.Registry]::ClassesRoot.GetSubKeyNames()) {');
+  lines.push('    if ($k -match "^AutoCAD\\.Application\\.(\\d+)(?:\\.(\\d+))?$") {');
+  lines.push('      if (Test-Path -LiteralPath "Registry::HKEY_CLASSES_ROOT\\$k\\CLSID") {');
+  lines.push('        $versioned += [PSCustomObject]@{ Name = $k; Ver = [version]::new([int]$Matches[1], [int]$Matches[2]) }');
+  lines.push('      }');
+  lines.push('    }');
+  lines.push('  }');
+  lines.push('  if ($versioned.Count -gt 0) {');
+  lines.push('    return ($versioned | Sort-Object Ver -Descending | Select-Object -First 1).Name');
+  lines.push('  }');
+  lines.push('  if (Test-Path -LiteralPath "Registry::HKEY_CLASSES_ROOT\\AutoCAD.Application\\CLSID") { return "AutoCAD.Application" }');
+  lines.push('  return ""');
+  lines.push('}');
+  lines.push('');
   lines.push('function Find-AutoCAD {');
   lines.push('  $out = @()');
+  lines.push('  $seen = @{}');
   lines.push('  foreach ($g in @("C:\\Program Files\\Autodesk\\AutoCAD *\\acad.exe", "C:\\Program Files\\Autodesk\\AutoCAD LT *\\acadlt.exe")) {');
   lines.push('    foreach ($it in @(Get-Item $g -ErrorAction SilentlyContinue)) {');
-  lines.push('      if ($null -ne $it) { $out += [PSCustomObject]@{ Path = $it.FullName; IsLT = ($it.FullName -match "AutoCAD LT") } }');
+  lines.push('      if ($null -ne $it -and -not $seen.ContainsKey($it.FullName.ToLower())) {');
+  lines.push('        $seen[$it.FullName.ToLower()] = $true');
+  lines.push('        $out += [PSCustomObject]@{ Path = $it.FullName; IsLT = ($it.FullName -match "AutoCAD LT") }');
+  lines.push('      }');
+  lines.push('    }');
+  lines.push('  }');
+  lines.push('  $pidKey = Resolve-AutoCadProgId');
+  lines.push('  if ($pidKey) {');
+  lines.push('    $clsid = (Get-ItemProperty "Registry::HKEY_CLASSES_ROOT\\$pidKey\\CLSID" -ErrorAction SilentlyContinue)."(default)"');
+  lines.push('    if ($clsid) {');
+  lines.push('      $ls = (Get-ItemProperty "Registry::HKEY_CLASSES_ROOT\\CLSID\\$clsid\\LocalServer32" -ErrorAction SilentlyContinue)."(default)"');
+  lines.push('      if ($ls -and $ls -match "([A-Za-z]:\\\\[^\\x22]+?acad\\.exe)") {');
+  lines.push('        $exePath = $Matches[1]');
+  lines.push('        if ((Test-Path $exePath) -and -not $seen.ContainsKey($exePath.ToLower())) {');
+  lines.push('          $seen[$exePath.ToLower()] = $true');
+  lines.push('          $out += [PSCustomObject]@{ Path = $exePath; IsLT = $false }');
+  lines.push('        }');
+  lines.push('      }');
   lines.push('    }');
   lines.push('  }');
   lines.push('  return $out');
@@ -336,6 +457,16 @@ export function buildCadSkpAllInOnePowerShell(sel: CadSkpInstallerSelection): st
   lines.push('  return $out');
   lines.push('}');
   lines.push('');
+  lines.push('function Remove-TomlSection([string]$Content, [string]$SectionPattern) {');
+  lines.push("  $pattern = '(?ms)^\\r?\\n?\\[' + $SectionPattern + '\\][^\\r\\n]*(?:\\r?\\n(?!\\[)[^\\r\\n]*)*'");
+  lines.push("  return [regex]::Replace($Content, $pattern, '')");
+  lines.push('}');
+  lines.push('');
+  lines.push('function ConvertTo-TomlString([string]$Value) {');
+  lines.push('  if ($Value -notlike "*\'*") { return "\'" + $Value + "\'" }');
+  lines.push('  return \'"\' + ($Value.Replace(\'\\\', \'\\\\\').Replace(\'"\', \'\\"\')) + \'"\'');
+  lines.push('}');
+  lines.push('');
   lines.push('Write-Host ""');
   lines.push('Write-Host "============================================================" -ForegroundColor Cyan');
   lines.push('Write-Host " 제7-3차시 · AutoCAD & SketchUp MCP 올인원 연동 시작" -ForegroundColor Cyan');
@@ -349,13 +480,14 @@ export function buildCadSkpAllInOnePowerShell(sel: CadSkpInstallerSelection): st
     lines.push('if ($uvxExe -ne "uvx" -and (Test-Path $uvxExe)) {');
     lines.push('  if ($ExistingMode -eq "update") {');
     lines.push('    Write-Host "  [갱신] 기존 uv를 최신 버전으로 확인합니다..." -ForegroundColor DarkCyan');
-    lines.push('    try { & (Join-Path (Split-Path $uvxExe) "uv.exe") self update 2>$null } catch {}');
+    lines.push('    $uvBin = Join-Path (Split-Path $uvxExe) "uv.exe"');
+    lines.push('    if (Test-Path $uvBin) { [void](Invoke-NativeQuiet $uvBin @("self", "update")) }');
     lines.push('  }');
     lines.push('  Write-Host "  [OK] uvx 준비 완료 (기존 설치 패스): $uvxExe" -ForegroundColor Green');
     lines.push('} else {');
     lines.push('  $wg = Get-Command winget -ErrorAction SilentlyContinue');
     lines.push('  if ($wg) {');
-    lines.push('    winget install --id astral-sh.uv -e --accept-source-agreements --accept-package-agreements');
+    lines.push('    [void](Invoke-NativeQuiet "winget" @("install", "--id", "astral-sh.uv", "-e", "--accept-source-agreements", "--accept-package-agreements"))');
     lines.push('  } else {');
     lines.push('    Invoke-RestMethod https://astral.sh/uv/install.ps1 | Invoke-Expression');
     lines.push('  }');
@@ -370,21 +502,41 @@ export function buildCadSkpAllInOnePowerShell(sel: CadSkpInstallerSelection): st
   }
 
   if (sel.autocadMcp) {
-    lines.push('# ===== [구간 2] AutoCAD 본체 설치 상태 점검 (상용 본체는 직접 설치) =====');
-    lines.push('Write-Host "[구간 2] AutoCAD 본체 설치 여부 확인 중..." -ForegroundColor Yellow');
+    lines.push('# ===== [구간 2] AutoCAD 본체·COM ProgID 자동 판별 & 패키지 사전 캐싱 =====');
+    lines.push('Write-Host "[구간 2] AutoCAD 본체 및 COM ProgID 점검 중..." -ForegroundColor Yellow');
     lines.push('$acads = @(Find-AutoCAD)');
-    lines.push('if ($acads.Count -gt 0) {');
-    lines.push('  foreach ($a in $acads) {');
-    lines.push('    if ($a.IsLT) {');
-    lines.push('      Write-Host "  [주의] AutoCAD LT 감지됨: $($a.Path) (LT는 COM 미지원 -> auto/ezdxf 모드 권장)" -ForegroundColor Yellow');
-    lines.push('    } else {');
-    lines.push('      Write-Host "  [OK] 기존 AutoCAD 감지됨 (본체 패스): $($a.Path)" -ForegroundColor Green');
-    lines.push('    }');
+    lines.push('$hasFullAutoCAD = @($acads | Where-Object { -not $_.IsLT }).Count -gt 0');
+    lines.push('$detectedCadProgId = Resolve-AutoCadProgId');
+    lines.push('$effectiveCadBackend = $CadBackendReq');
+    lines.push('if ($CadBackendReq -eq "auto") {');
+    lines.push('  if ($hasFullAutoCAD -and $detectedCadProgId) {');
+    lines.push('    $effectiveCadBackend = "com"');
+    lines.push('    Write-Host "  [OK] 일반 AutoCAD 감지 -> 실시간 COM 모드 자동 선택 (CAD_PROGID=$detectedCadProgId)" -ForegroundColor Green');
+    lines.push('  } else {');
+    lines.push('    $effectiveCadBackend = "ezdxf"');
+    lines.push('    Write-Host "  [안내] 일반 AutoCAD 미설치(또는 LT) -> ezdxf 오프라인 DXF 모드로 자동 전환합니다." -ForegroundColor Yellow');
+    lines.push('  }');
+    lines.push('} elseif ($CadBackendReq -eq "com") {');
+    lines.push('  if ($detectedCadProgId) {');
+    lines.push('    Write-Host "  [OK] COM 모드 선택 (감지된 CAD_PROGID=$detectedCadProgId)" -ForegroundColor Green');
+    lines.push('  } else {');
+    lines.push('    Write-Host "  [주의] AutoCAD COM ProgID가 감지되지 않았습니다. 공식 AutoCAD 설치 후 다시 실행하세요." -ForegroundColor Yellow');
     lines.push('  }');
     lines.push('} else {');
-    lines.push('  Write-Host "  [안내] AutoCAD 본체 미설치 상태입니다. 공식 체험판(autodesk.co.kr)에서 직접 설치하세요." -ForegroundColor Yellow');
-    lines.push('  Write-Host "         (미설치 상태에서도 auto/ezdxf 모드로 .dxf 도면 생성 MCP는 바로 작동합니다.)" -ForegroundColor DarkGray');
+    lines.push('  Write-Host "  [OK] ezdxf 전용 모드 선택 (AutoCAD 없이 표준 .dxf 생성)" -ForegroundColor Green');
     lines.push('}');
+    lines.push('if ($acads.Count -gt 0) {');
+    lines.push('  foreach ($a in $acads) {');
+    lines.push('    if ($a.IsLT) { Write-Host "  [참고] AutoCAD LT 감지: $($a.Path) (COM 미지원)" -ForegroundColor Yellow }');
+    lines.push('    else { Write-Host "  [OK] 기존 AutoCAD 본체 감지 (패스): $($a.Path)" -ForegroundColor Green }');
+    lines.push('  }');
+    lines.push('} else {');
+    lines.push('  Write-Host "  [안내] AutoCAD 본체 미설치 상태입니다. 공식 체험판(autodesk.co.kr)에서 직접 설치하세요." -ForegroundColor DarkGray');
+    lines.push('}');
+    lines.push('Write-Host "  [캐싱] autocad-mcp-pro[com] 패키지 사전 준비 중 (첫 실행 시 잠시 대기)..." -ForegroundColor DarkCyan');
+    lines.push('$cadWarmCode = Invoke-NativeQuiet $uvxExe @("--from", "autocad-mcp-pro[com]", "python", "-c", "import server, config")');
+    lines.push('if ($cadWarmCode -eq 0) { Write-Host "  [OK] autocad-mcp-pro[com] 사전 캐싱 완료" -ForegroundColor Green }');
+    lines.push('else { Write-Host "  [주의] autocad-mcp-pro[com] 사전 캐싱 코드=$cadWarmCode (네트워크 상태 확인)" -ForegroundColor Yellow }');
     lines.push('');
   }
 
@@ -394,7 +546,7 @@ export function buildCadSkpAllInOnePowerShell(sel: CadSkpInstallerSelection): st
     lines.push('$skpProfiles = @(Find-SketchUpProfiles)');
     lines.push('if ($skpProfiles.Count -eq 0) {');
     lines.push('  Write-Host "  [안내] 설치된 SketchUp 프로필(%APPDATA%\\SketchUp\\SketchUp 20XX)이 없습니다." -ForegroundColor Yellow');
-    lines.push('  Write-Host "         공식 체험판(sketchup.com/ko-kr/try-sketchup) 설치 후 1회 실행 뒤 이 스크립트를 다시 실행하세요." -ForegroundColor DarkGray');
+    lines.push('  Write-Host "         공식 체험판(sketchup.com/ko-kr/try-sketchup) 설치 후 1회 실행 뒤 다시 실행하세요." -ForegroundColor DarkGray');
     lines.push('} else {');
     lines.push('  $tmpSkp = Join-Path $env:TEMP ("su_mcp_" + [guid]::NewGuid().ToString("N"))');
     lines.push('  New-Item -ItemType Directory -Force -Path $tmpSkp | Out-Null');
@@ -439,6 +591,30 @@ export function buildCadSkpAllInOnePowerShell(sel: CadSkpInstallerSelection): st
     lines.push('');
   }
 
+  if (sel.sketchupMcp) {
+    const skpCompatB64 = encodeAsciiBase64(sketchupCompatShimPy.trimEnd() + '\r\n');
+    const b64Chunks: string[] = [];
+    for (let i = 0; i < skpCompatB64.length; i += 76) {
+      b64Chunks.push(skpCompatB64.slice(i, i + 76));
+    }
+    lines.push('# ===== [구간 3-2] SketchUp MCP 호환 브리지(mcp<2) 생성 및 사전 캐싱 =====');
+    lines.push('Write-Host "[구간 3-2] SketchUp MCP 호환 브리지 생성 중..." -ForegroundColor Yellow');
+    lines.push('$skpCompatPath = Join-Path $env:LOCALAPPDATA "Ebook73Mcp\\sketchup_mcp_compat.py"');
+    lines.push('$skpCompatB64 = @(');
+    for (const chunk of b64Chunks) {
+      lines.push(`  '${chunk}'`);
+    }
+    lines.push(") -join ''");
+    lines.push('$skpCompatCode = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($skpCompatB64))');
+    lines.push('Write-Utf8NoBom $skpCompatPath $skpCompatCode');
+    lines.push('Write-Host "  [OK] 호환 브리지 생성 완료 -> $skpCompatPath" -ForegroundColor Green');
+    lines.push('Write-Host "  [캐싱] sketchup-mcp==0.1.17 + mcp<2 사전 준비 중..." -ForegroundColor DarkCyan');
+    lines.push('$skpWarmCode = Invoke-NativeQuiet $uvxExe @("--from", "sketchup-mcp==0.1.17", "--with", "mcp<2", "python", "-c", "import mcp.server.fastmcp")');
+    lines.push('if ($skpWarmCode -eq 0) { Write-Host "  [OK] sketchup-mcp 호환 환경 사전 캐싱 완료" -ForegroundColor Green }');
+    lines.push('else { Write-Host "  [주의] sketchup-mcp 사전 캐싱 코드=$skpWarmCode (네트워크 상태 확인)" -ForegroundColor Yellow }');
+    lines.push('');
+  }
+
   const anyClient = sel.codexConfig || sel.antigravityConfig || sel.claudeConfig || sel.cursorConfig;
   const anyMcp = sel.autocadMcp || sel.sketchupMcp;
 
@@ -447,16 +623,20 @@ export function buildCadSkpAllInOnePowerShell(sel: CadSkpInstallerSelection): st
     lines.push('Write-Host "[구간 4] AI 클라이언트 MCP 설정 반영 중..." -ForegroundColor Yellow');
     lines.push('$mcpEntries = [ordered]@{}');
     if (sel.autocadMcp) {
+      lines.push('$cadEnvMap = [ordered]@{}');
+      lines.push('if ($effectiveCadBackend -ne "ezdxf" -and $detectedCadProgId) { $cadEnvMap["CAD_PROGID"] = $detectedCadProgId }');
+      lines.push('$cadEnvMap["AUTOCAD_MCP_BACKEND"] = $effectiveCadBackend');
+      lines.push('$cadEnvMap["DISCOVERY_MODE"] = "search"');
       lines.push('$mcpEntries["autocad"] = [ordered]@{');
       lines.push('  command = $uvxExe');
       lines.push('  args    = @("--from", "autocad-mcp-pro[com]", "autocad-mcp")');
-      lines.push('  env     = [ordered]@{ AUTOCAD_MCP_BACKEND = $CadBackend; DISCOVERY_MODE = "search" }');
+      lines.push('  env     = $cadEnvMap');
       lines.push('}');
     }
     if (sel.sketchupMcp) {
       lines.push('$mcpEntries["sketchup"] = [ordered]@{');
       lines.push('  command = $uvxExe');
-      lines.push('  args    = @("sketchup-mcp")');
+      lines.push('  args    = @("--from", "sketchup-mcp==0.1.17", "--with", "mcp<2", "python", $skpCompatPath)');
       lines.push('}');
     }
     lines.push('');
@@ -495,21 +675,27 @@ export function buildCadSkpAllInOnePowerShell(sel: CadSkpInstallerSelection): st
     if (sel.codexConfig) {
       lines.push('$codexProcs = @(Get-Process -Name "Codex","codex" -ErrorAction SilentlyContinue)');
       lines.push('if ($codexProcs.Count -gt 0) {');
-      lines.push('  Write-Host "  [정리] 실행 중인 Codex 프로세스를 안전 종료한 뒤 config.toml을 병합합니다..." -ForegroundColor DarkCyan');
-      lines.push('  $codexProcs | Stop-Process -Force -ErrorAction SilentlyContinue');
+      lines.push('  Write-Host "  [안내] 현재 Codex가 실행 중입니다. config.toml 반영 후 Codex를 완전히 종료했다가 다시 실행해 주세요." -ForegroundColor Yellow');
       lines.push('}');
       lines.push('$codexPath = Join-Path $env:USERPROFILE ".codex\\config.toml"');
       lines.push('Backup-Config $codexPath');
       lines.push('$toml = if (Test-Path $codexPath) { [System.IO.File]::ReadAllText($codexPath, [System.Text.Encoding]::UTF8) } else { "" }');
       lines.push('$tomlBlocks = @()');
+      lines.push('$uvxToml = ConvertTo-TomlString $uvxExe');
       if (sel.autocadMcp) {
-        lines.push("$toml = [regex]::Replace($toml, '(?ms)^\\r?\\n?\\[mcp_servers\\.autocad\\.env\\][^\\[]*', '')");
-        lines.push("$toml = [regex]::Replace($toml, '(?ms)^\\r?\\n?\\[mcp_servers\\.autocad\\][^\\[]*', '')");
-        lines.push('$tomlBlocks += "[mcp_servers.autocad]`r`ncommand = \'$uvxExe\'`r`nargs = [`"--from`", `"autocad-mcp-pro[com]`", `"autocad-mcp`"]`r`nstartup_timeout_sec = 90`r`n`r`n[mcp_servers.autocad.env]`r`nAUTOCAD_MCP_BACKEND = `"$CadBackend`"`r`nDISCOVERY_MODE = `"search`""');
+        lines.push('$toml = Remove-TomlSection $toml "mcp_servers\\.autocad\\.env"');
+        lines.push('$toml = Remove-TomlSection $toml "mcp_servers\\.autocad"');
+        lines.push('$cadEnvLines = @()');
+        lines.push('if ($effectiveCadBackend -ne "ezdxf" -and $detectedCadProgId) { $cadEnvLines += "CAD_PROGID = `"$detectedCadProgId`"" }');
+        lines.push('$cadEnvLines += "AUTOCAD_MCP_BACKEND = `"$effectiveCadBackend`""');
+        lines.push('$cadEnvLines += "DISCOVERY_MODE = `"search`""');
+        lines.push('$tomlBlocks += ("[mcp_servers.autocad]`r`ncommand = $uvxToml`r`nargs = [`"--from`", `"autocad-mcp-pro[com]`", `"autocad-mcp`"]`r`nstartup_timeout_sec = 90`r`n`r`n[mcp_servers.autocad.env]`r`n" + ($cadEnvLines -join "`r`n"))');
       }
       if (sel.sketchupMcp) {
-        lines.push("$toml = [regex]::Replace($toml, '(?ms)^\\r?\\n?\\[mcp_servers\\.sketchup(?:\\.env)?\\][^\\[]*', '')");
-        lines.push('$tomlBlocks += "[mcp_servers.sketchup]`r`ncommand = \'$uvxExe\'`r`nargs = [`"sketchup-mcp`"]`r`nstartup_timeout_sec = 60"');
+        lines.push('$toml = Remove-TomlSection $toml "mcp_servers\\.sketchup\\.env"');
+        lines.push('$toml = Remove-TomlSection $toml "mcp_servers\\.sketchup"');
+        lines.push('$skpCompatToml = ConvertTo-TomlString $skpCompatPath');
+        lines.push('$tomlBlocks += "[mcp_servers.sketchup]`r`ncommand = $uvxToml`r`nargs = [`"--from`", `"sketchup-mcp==0.1.17`", `"--with`", `"mcp<2`", `"python`", $skpCompatToml]`r`nstartup_timeout_sec = 60"');
       }
       lines.push('$mergedToml = $toml.TrimEnd()');
       lines.push('if ($mergedToml.Length -gt 0) { $mergedToml += "`r`n`r`n" }');
@@ -524,9 +710,15 @@ export function buildCadSkpAllInOnePowerShell(sel: CadSkpInstallerSelection): st
     lines.push('# ===== [구간 5] 설치 후 자동 상태 진단 =====');
     lines.push('Write-Host ""');
     lines.push('Write-Host "--- [자동 상태 진단 결과] ---" -ForegroundColor Cyan');
-    lines.push('Write-Host " - uvx 경로   : $(Resolve-UvxExe)"');
+    lines.push('Write-Host " - uvx 경로      : $(Resolve-UvxExe)"');
     lines.push('$cadDiag = @(Find-AutoCAD)');
-    lines.push('Write-Host " - AutoCAD    : $(if ($cadDiag.Count -gt 0) { $cadDiag[0].Path } else { \'미설치 (auto/ezdxf로 .dxf 생성 가능)\' })"');
+    lines.push('$progDiag = Resolve-AutoCadProgId');
+    lines.push('Write-Host " - AutoCAD 본체  : $(if ($cadDiag.Count -gt 0) { $cadDiag[0].Path } else { \'미설치 (ezdxf로 .dxf 생성 가능)\' })"');
+    lines.push('Write-Host " - COM ProgID    : $(if ($progDiag) { $progDiag } else { \'미등록\' })"');
+    lines.push('$zombieAcad = @(Get-Process -Name "acad" -ErrorAction SilentlyContinue | Where-Object { [string]::IsNullOrWhiteSpace($_.MainWindowTitle) })');
+    lines.push('if ($zombieAcad.Count -gt 0) {');
+    lines.push('  Write-Host " - [주의] 창 없는 백그라운드 acad.exe($($zombieAcad.Count)개)가 남아 있습니다. AutoCAD 연결이 안 되면 작업관리자에서 종료 후 AutoCAD를 직접 실행하세요." -ForegroundColor Yellow');
+    lines.push('}');
     lines.push('$skpDiag = @(Find-SketchUpProfiles)');
     lines.push('if ($skpDiag.Count -gt 0) {');
     lines.push('  foreach ($sd in $skpDiag) {');
@@ -534,10 +726,10 @@ export function buildCadSkpAllInOnePowerShell(sel: CadSkpInstallerSelection): st
     lines.push('    Write-Host " - $($sd.Version) : su_mcp 1계층 정상=$ok1"');
     lines.push('  }');
     lines.push('} else {');
-    lines.push('  Write-Host " - SketchUp   : 미설치 (공식 체험판 설치 후 1회 실행 필요)"');
+    lines.push('  Write-Host " - SketchUp      : 미설치 (공식 체험판 설치 후 1회 실행 필요)"');
     lines.push('}');
     lines.push('$p9876 = Get-NetTCPConnection -LocalPort 9876 -State Listen -ErrorAction SilentlyContinue');
-    lines.push('Write-Host " - 포트 9876  : $(if ($p9876) { \'LISTENING (실행 중)\' } else { \'대기 (SketchUp > 확장(X) > MCP Server > Start Server 클릭 필요)\' })"');
+    lines.push('Write-Host " - 포트 9876     : $(if ($p9876) { \'LISTENING (실행 중)\' } else { \'대기 (SketchUp > 확장(X) > MCP Server > Start Server 클릭 필요)\' })"');
     lines.push('');
   }
 
@@ -548,7 +740,7 @@ export function buildCadSkpAllInOnePowerShell(sel: CadSkpInstallerSelection): st
     lines.push('Write-Host "  1) SketchUp 재시작 -> 상단 [확장(X) > MCP Server > Start Server] 클릭"');
   }
   if (sel.autocadMcp) {
-    lines.push('Write-Host "  2) AutoCAD(일반판/체험판) 실행 후 새 도면(.dwg) 열어두기"');
+    lines.push('Write-Host "  2) 일반 AutoCAD를 사용자가 직접 먼저 실행하고 새 도면(.dwg) 열어두기"');
   }
   lines.push('Write-Host "  3) 선택한 AI 프로그램(Codex / Antigravity / Claude / Cursor) 새로 실행"');
   lines.push('Write-Host "============================================================" -ForegroundColor Green');

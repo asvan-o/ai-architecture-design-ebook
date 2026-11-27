@@ -19,6 +19,7 @@ import {
   uvVerifyCmd,
   manualAutoCadJson,
   manualAutoCadToml,
+  cadProgIdCheckCmd,
   manualSketchUpJson,
   manualSketchUpToml,
   manualBothJson,
@@ -159,8 +160,8 @@ const sectionIndex = (id: string) => lesson073Sections.findIndex((s) => s.id ===
                       <label class="l073-radio-card">
                         <input type="radio" name="l073-cad-backend" value="auto" checked />
                         <div>
-                          <strong>auto — 자동 선택 <span class="l073-rec-pill">추천</span></strong>
-                          <p>Windows 일반 AutoCAD가 켜져 있으면 실시간 COM으로 작도하고, AutoCAD LT이거나 미설치 상태면 <code>ezdxf</code>로 표준 <code>.dxf</code> 도면을 자동 생성합니다.</p>
+                          <strong>auto — PC 상태 자동 판별 <span class="l073-rec-pill">추천</span></strong>
+                          <p>설치 시점에 일반 AutoCAD와 <code>CAD_PROGID</code>가 감지되면 실시간 <code>com</code> 모드로, 미설치 또는 LT 버전이면 <code>ezdxf</code> 오프라인 DXF 모드로 자동 맞춰 등록합니다.</p>
                         </div>
                       </label>
                       <label class="l073-radio-card">
@@ -448,9 +449,21 @@ const sectionIndex = (id: string) => lesson073Sections.findIndex((s) => s.id ===
               <>
                 <p>
                   PyPI에 공식 배포된 <strong><code>autocad-mcp-pro[com]</code></strong>을 사용합니다.
-                  <code>AUTOCAD_MCP_BACKEND</code>를 <code>auto</code>로 두면 Windows에서 <strong>일반 AutoCAD가 켜져 있을 때는 실시간 화면에 직접 작도</strong>하고,
-                  AutoCAD가 없거나 <strong>AutoCAD LT · macOS</strong> 환경에서도 <code>ezdxf</code> 엔진으로 표준 <code>.dxf</code> 도면 파일을 생성합니다.
+                  Windows 일반 AutoCAD(체험판 포함)는 <code>AUTOCAD_MCP_BACKEND = "com"</code>과 내 PC의 버전별 <code>CAD_PROGID</code>(AutoCAD 2027 기준 <code>AutoCAD.Application.26</code>)를 함께 지정해야 <code>-2147221005</code> 클래스 오류 없이 안정적으로 연결됩니다.
+                  AutoCAD가 없거나 <strong>AutoCAD LT · macOS</strong> 환경이라면 <code>AUTOCAD_MCP_BACKEND = "ezdxf"</code>로 표준 <code>.dxf</code> 도면 파일을 생성할 수 있습니다.
                 </p>
+
+                <div class="l073-code-card l073-code-card-term">
+                  <div class="l073-code-head">
+                    <div class="l073-head-left">
+                      <span class="l073-kind-badge l073-kind-term">사전 확인 · PowerShell</span>
+                      <strong>내 PC의 실제 AutoCAD <code>CAD_PROGID</code> 확인 명령어</strong>
+                    </div>
+                    <button type="button" class="l073-copy-btn" data-l073-copy={cadProgIdCheckCmd}>복사</button>
+                  </div>
+                  <p class="l073-code-desc">출력된 값(예: AutoCAD 2027은 <code>AutoCAD.Application.26</code>, 2025·2026은 <code>AutoCAD.Application.25</code>)을 아래 <code>CAD_PROGID</code>에 그대로 넣습니다. (올인원 빌더는 자동 감지)</p>
+                  <pre class="l073-pre l073-pre-term">{cadProgIdCheckCmd}</pre>
+                </div>
 
                 <h3>1단계 · AI 클라이언트 설정 파일에 AutoCAD MCP 등록</h3>
                 <p class="l073-note">
@@ -540,7 +553,11 @@ const sectionIndex = (id: string) => lesson073Sections.findIndex((s) => s.id ===
                   <li><em>콘솔 창이 안 떠도 정상입니다!</em> SketchUp 2024~2027에서는 Ruby 콘솔이 자동으로 팝업되지 않을 수 있습니다. 로그를 보려면 <strong><code>확장(X) → 개발자 → Ruby 콘솔</code></strong>을 직접 열어 두세요.</li>
                 </ol>
 
-                <h3>3단계 · AI 클라이언트 설정 파일에 <code>sketchup</code> 등록</h3>
+                <h3>3단계 · AI 클라이언트 설정 파일에 <code>sketchup</code> 등록 (MCP 1.x 호환 패치)</h3>
+                <p class="l073-note">
+                  PyPI의 <code>sketchup-mcp 0.1.17</code>은 최신 <code>mcp 2.x</code>와 충돌(<code>No module named 'mcp.server.fastmcp'</code>)하므로,
+                  상단 <strong>올인원 빌더(구간 3-2)</strong>로 <code>%LOCALAPPDATA%\Ebook73Mcp\sketchup_mcp_compat.py</code>를 생성한 뒤 아래처럼 <code>--with "mcp&lt;2"</code>로 연결하는 것이 가장 안정적입니다.
+                </p>
                 <div class="l073-compare-grid">
                   <div class="l073-code-card" style="margin:0;">
                     <div class="l073-code-head">
@@ -681,7 +698,7 @@ const sectionIndex = (id: string) => lesson073Sections.findIndex((s) => s.id ===
     const b64 = utf8ToBase64(ps1Content);
     const echoLines: string[] = [];
     for (let i = 0; i < b64.length; i += 76) {
-      echoLines.push('echo ' + b64.slice(i, i + 76));
+      echoLines.push('echo(' + b64.slice(i, i + 76));
     }
     return [
       '@echo off',

@@ -145,7 +145,8 @@ export const manualAutoCadJson = `{
         "autocad-mcp"
       ],
       "env": {
-        "AUTOCAD_MCP_BACKEND": "auto",
+        "CAD_PROGID": "AutoCAD.Application.26",
+        "AUTOCAD_MCP_BACKEND": "com",
         "DISCOVERY_MODE": "search"
       }
     }
@@ -158,21 +159,32 @@ args = ["--from", "autocad-mcp-pro[com]", "autocad-mcp"]
 startup_timeout_sec = 90
 
 [mcp_servers.autocad.env]
-AUTOCAD_MCP_BACKEND = "auto"
+CAD_PROGID = "AutoCAD.Application.26"
+AUTOCAD_MCP_BACKEND = "com"
 DISCOVERY_MODE = "search"`;
+
+export const cadProgIdCheckCmd =
+  '[Microsoft.Win32.Registry]::ClassesRoot.GetSubKeyNames() | Where-Object { $_ -match "^AutoCAD\\.Application" }';
 
 export const manualSketchUpJson = `{
   "mcpServers": {
     "sketchup": {
       "command": "uvx",
-      "args": ["sketchup-mcp"]
+      "args": [
+        "--from",
+        "sketchup-mcp==0.1.17",
+        "--with",
+        "mcp<2",
+        "python",
+        "C:\\\\Users\\\\<내계정>\\\\AppData\\\\Local\\\\Ebook73Mcp\\\\sketchup_mcp_compat.py"
+      ]
     }
   }
 }`;
 
 export const manualSketchUpToml = `[mcp_servers.sketchup]
 command = "uvx"
-args = ["sketchup-mcp"]
+args = ["--from", "sketchup-mcp==0.1.17", "--with", "mcp<2", "python", 'C:\\Users\\<내계정>\\AppData\\Local\\Ebook73Mcp\\sketchup_mcp_compat.py']
 startup_timeout_sec = 60`;
 
 export const manualBothJson = `{
@@ -181,13 +193,21 @@ export const manualBothJson = `{
       "command": "uvx",
       "args": ["--from", "autocad-mcp-pro[com]", "autocad-mcp"],
       "env": {
-        "AUTOCAD_MCP_BACKEND": "auto",
+        "CAD_PROGID": "AutoCAD.Application.26",
+        "AUTOCAD_MCP_BACKEND": "com",
         "DISCOVERY_MODE": "search"
       }
     },
     "sketchup": {
       "command": "uvx",
-      "args": ["sketchup-mcp"]
+      "args": [
+        "--from",
+        "sketchup-mcp==0.1.17",
+        "--with",
+        "mcp<2",
+        "python",
+        "C:\\\\Users\\\\<내계정>\\\\AppData\\\\Local\\\\Ebook73Mcp\\\\sketchup_mcp_compat.py"
+      ]
     }
   }
 }`;
@@ -269,19 +289,19 @@ export const troubleshootingFaq = [
     a: 'SketchUp MCP 서버는 SketchUp을 새로 켤 때마다 꺼져 있습니다. SketchUp을 실행할 때마다 상단 메뉴 [확장(X) → MCP Server → Start Server]를 한 번 눌러 무전기를 켜 주세요.',
   },
   {
-    q: 'Q5. AutoCAD 연결 시 Windows COM 오류(GetActiveObject / Dispatch)가 떠요!',
-    a: '① AutoCAD LT는 COM 미지원이므로 ezdxf 모드를 사용하세요. ② 일반 AutoCAD를 먼저 실행해 빈 도면 창까지 열어 두세요. ③ AutoCAD와 AI 프로그램 둘 다 동일한 일반 사용자 권한으로 실행해야 Windows 보안이 COM 연결을 차단하지 않습니다.',
+    q: 'Q5. AutoCAD 연결 시 COM 오류(-2147221005 잘못된 클래스 문자열 / -2147221021 작업을 사용할 수 없음)가 떠요!',
+    a: '① -2147221005 오류는 AutoCAD 2027 등 최신 버전에서 HKLM에 버전 없는 AutoCAD.Application이 없고 AutoCAD.Application.26처럼 버전별 ProgID만 등록되어 생깁니다. env에 CAD_PROGID = "AutoCAD.Application.26"(본인 PC 레지스트리 값)을 추가하세요. ② -2147221021 오류는 일반 AutoCAD를 먼저 열어 두지 않았거나, 작업관리자에 창 없는 백그라운드 acad.exe가 남아 있거나, AutoCAD와 AI 앱 권한(관리자/일반)이 다를 때 발생합니다. 숨은 acad.exe를 정리한 뒤 일반 권한으로 AutoCAD를 실행해 새 도면을 열어 두세요. ③ AutoCAD LT는 COM 미지원이므로 AUTOCAD_MCP_BACKEND = "ezdxf"를 사용하세요.',
   },
   {
-    q: 'Q6. AI가 uvx 명령을 찾을 수 없다(ENOENT / not found)고 해요!',
+    q: 'Q6. SketchUp MCP 실행 시 No module named mcp.server.fastmcp 또는 description 오류가 나요!',
+    a: 'PyPI의 sketchup-mcp 0.1.17이 최신 mcp 2.x와 충돌하고, mcp 1.x에서도 FastMCP(description=) 인자 불일치가 발생하기 때문입니다. 맨 위 올인원 빌더를 실행하면 %LOCALAPPDATA%\\Ebook73Mcp\\sketchup_mcp_compat.py 호환 브리지를 자동 생성하고 --from sketchup-mcp==0.1.17 --with "mcp<2"로 안전하게 연결해 줍니다.',
+  },
+  {
+    q: 'Q7. AI가 uvx 명령을 찾을 수 없다(ENOENT / not found)고 해요!',
     a: 'AI 앱이 시스템 PATH를 못 읽을 때 발생합니다. PowerShell에서 where.exe uvx로 나온 전체 경로(예: C:\\Users\\내계정\\.local\\bin\\uvx.exe)를 command 칸에 넣으세요. JSON에서는 역슬래시를 두 번(\\\\) 적고, TOML에서는 작은따옴표(\'...\')로 감싸면 됩니다.',
   },
   {
-    q: 'Q7. Sketchup MCP 아래에 [서명되지 않음] 경고가 뜨는데 괜찮나요?',
-    a: '정상입니다. 공식 유료 스토어가 아닌 GitHub 공개 오픈소스 플러그인을 설치하면 항상 서명되지 않음으로 표시되며, [사용] 상태를 그대로 유지하시면 됩니다.',
-  },
-  {
-    q: 'Q8. 설정 파일(JSON/TOML)을 고쳤는데 AI에 도구가 전혀 안 떠요!',
-    a: 'JSON 문법 실수(중괄호 누락, 마지막 줄 쉼표, 단일 역슬래시) 또는 AI 앱의 완전 재시작 누락이 가장 흔합니다. 맨 위쪽 [올인원 체크박스 빌더]의 PowerShell 스크립트를 실행하면 기존 설정을 .bak으로 백업한 뒤 문법 오류 없이 자동 병합합니다.',
+    q: 'Q8. Sketchup MCP 아래에 [서명되지 않음] 경고가 뜨거나, 설정 파일(JSON/TOML) 수정 후 도구가 안 떠요!',
+    a: 'GitHub 공개 플러그인은 [서명되지 않음] 표시가 정상이므로 [사용]을 유지하세요. 설정 후 도구가 안 뜰 때는 JSON 문법(쉼표·역슬래시)과 AI 앱 완전 재시작 여부를 확인하시고, 올인원 빌더 스크립트를 다시 실행하면 기존 설정을 .bak 백업한 뒤 중복·파손 없이 깨끗하게 재병합합니다.',
   },
 ] as const;

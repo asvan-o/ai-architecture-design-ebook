@@ -39,7 +39,11 @@ test('Lesson 07-3 puts All-in-One checkbox builder first, manual CAD/SketchUp gu
 
   for (const needle of [
     'autocad-mcp-pro[com]',
-    'sketchup-mcp',
+    'CAD_PROGID',
+    'AutoCAD.Application.26',
+    'sketchup-mcp==0.1.17',
+    'mcp<2',
+    'sketchup_mcp_compat.py',
     'su_mcp.rb',
     'su_mcp\\\\main.rb',
     '확장(X)',
@@ -64,16 +68,23 @@ test('Lesson 07-3 puts All-in-One checkbox builder first, manual CAD/SketchUp gu
   }
 });
 
-test('Lesson 07-3 All-in-One PowerShell Builder emits soft warnings and passes PowerShell AST check', async () => {
+test('Lesson 07-3 All-in-One PowerShell Builder handles CAD_PROGID, sketchup compat shim, idempotent TOML merge, and AST check', async () => {
   const installer = await loadTsModule('src/draft/content/daejeon-lesson07-3-installer.ts');
 
   const fullSel = installer.defaultCadSkpSelection;
   assert.deepEqual(installer.evaluateCadSkpWarnings(fullSel), []);
   const fullScript = installer.buildCadSkpAllInOnePowerShell(fullSel);
   assert(fullScript.includes('autocad-mcp-pro[com]'));
-  assert(fullScript.includes('sketchup-mcp'));
-  assert(fullScript.includes('Find-AutoCAD'));
-  assert(fullScript.includes('Find-SketchUpProfiles'));
+  assert(fullScript.includes('Resolve-AutoCadProgId'));
+  assert(fullScript.includes('CAD_PROGID'));
+  assert(fullScript.includes('sketchup_mcp_compat.py'));
+  assert(fullScript.includes('sketchup-mcp==0.1.17'));
+  assert(fullScript.includes('Remove-TomlSection'));
+  assert(fullScript.includes('ConvertTo-TomlString'));
+  assert(fullScript.includes('Invoke-NativeQuiet'));
+  assert(fullScript.includes('@($acads | Where-Object { -not $_.IsLT }).Count'));
+  assert(!fullScript.includes("@'\n"), 'Must encode compat shim as Base64 instead of multi-line here-string for paste safety');
+  assert(!fullScript.includes('[^\\[]*'), 'Must never use broken [^\\[]* TOML section regex');
 
   const skpOnlyNoPlugin = {
     ...fullSel,
@@ -98,10 +109,11 @@ test('Lesson 07-3 All-in-One PowerShell Builder emits soft warnings and passes P
     autocadBackend: 'ezdxf',
     existingPolicy: 'update',
   });
-  assert(cadEzdxfScript.includes('$CadBackend    = "ezdxf"'));
+  assert(cadEzdxfScript.includes('$CadBackendReq = "ezdxf"'));
 
   if (process.platform === 'win32') {
     const tmpFile = path.join(os.tmpdir(), `l073-all-in-one-test-${process.pid}.ps1`);
+    const tmpTomlTest = path.join(os.tmpdir(), `l073-toml-merge-test-${process.pid}.ps1`);
     try {
       for (const script of [fullScript, cadEzdxfScript]) {
         fs.writeFileSync(tmpFile, '\uFEFF' + script, 'utf8');
@@ -116,8 +128,49 @@ test('Lesson 07-3 All-in-One PowerShell Builder emits soft warnings and passes P
         ).trim();
         assert.equal(out, 'OK');
       }
+
+      // Verify idempotent TOML replacement with bracketed args = [...] across 2 consecutive runs
+      const tomlHarness = `
+function Remove-TomlSection([string]$Content, [string]$SectionPattern) {
+  $pattern = '(?ms)^\\r?\\n?\\[' + $SectionPattern + '\\][^\\r\\n]*(?:\\r?\\n(?!\\[)[^\\r\\n]*)*'
+  return [regex]::Replace($Content, $pattern, '')
+}
+$sample = @"
+[mcp_servers.blender]
+command = 'C:\\uvx.exe'
+args = ["blender-mcp"]
+
+[mcp_servers.autocad]
+command = 'C:\\uvx.exe'
+args = ["--from", "autocad-mcp-pro[com]", "autocad-mcp"]
+startup_timeout_sec = 90
+
+[mcp_servers.autocad.env]
+CAD_PROGID = "AutoCAD.Application.26"
+AUTOCAD_MCP_BACKEND = "com"
+DISCOVERY_MODE = "search"
+
+[mcp_servers.sketchup]
+command = 'C:\\uvx.exe'
+args = ["--from", "sketchup-mcp==0.1.17", "--with", "mcp<2", "python", 'C:\\compat.py']
+startup_timeout_sec = 60
+"@
+$clean = Remove-TomlSection $sample 'mcp_servers\\.autocad\\.env'
+$clean = Remove-TomlSection $clean 'mcp_servers\\.autocad'
+$clean = Remove-TomlSection $clean 'mcp_servers\\.sketchup\\.env'
+$clean = Remove-TomlSection $clean 'mcp_servers\\.sketchup'
+$clean.Trim()
+`;
+      fs.writeFileSync(tmpTomlTest, '\uFEFF' + tomlHarness, 'utf8');
+      const cleanedToml = execFileSync('powershell.exe', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', tmpTomlTest], {
+        encoding: 'utf8',
+      }).trim();
+      assert(cleanedToml.includes('[mcp_servers.blender]'), 'Must preserve unrelated MCP servers');
+      assert(!cleanedToml.includes('autocad-mcp-pro'), 'Must remove entire autocad block including bracketed args');
+      assert(!cleanedToml.includes('sketchup-mcp'), 'Must remove entire sketchup block including bracketed args');
     } finally {
       if (fs.existsSync(tmpFile)) fs.unlinkSync(tmpFile);
+      if (fs.existsSync(tmpTomlTest)) fs.unlinkSync(tmpTomlTest);
     }
   }
 });
