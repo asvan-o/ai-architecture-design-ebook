@@ -55,10 +55,32 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: node scripts/verify-release-upload.mjs
+      - name: Filter Pages artifact to Seoul workbook only (close Gwangju public routes)
+        run: |
+          rm -rf dist/pages-seoul-only
+          mkdir -p dist/pages-seoul-only
+          cp -R dist/pages/workbook dist/pages-seoul-only/workbook
+          [ -f dist/pages/robots.txt ] && cp dist/pages/robots.txt dist/pages-seoul-only/robots.txt || true
+          [ -f dist/pages/favicon.ico ] && cp dist/pages/favicon.ico dist/pages-seoul-only/favicon.ico || true
+          [ -f dist/pages/favicon.svg ] && cp dist/pages/favicon.svg dist/pages-seoul-only/favicon.svg || true
+          cat <<'EOF' > dist/pages-seoul-only/index.html
+          <!doctype html>
+          <html lang="ko">
+          <head>
+            <meta charset="utf-8" />
+            <meta http-equiv="refresh" content="0; url=/ai-architecture-design-ebook/workbook/" />
+            <title>실무 워크북으로 이동 중...</title>
+            <script>location.replace('/ai-architecture-design-ebook/workbook/');</script>
+          </head>
+          <body>
+            <p><a href="/ai-architecture-design-ebook/workbook/">실무 워크북 바로가기</a></p>
+          </body>
+          </html>
+          EOF
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: dist/pages
+          path: dist/pages-seoul-only
 
   deploy:
     needs: build
